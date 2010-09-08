@@ -1,0 +1,292 @@
+/* Copyright (c) 2010, Yahoo! Inc. All rights reserved. Code licensed under the BSD License: http://developer.yahoo.com/yui/license.html version: 2.8.1 */ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}input,button,textarea,select{*font-size:100%;}
+
+
+html{
+      background: url("../img/bg_border_right.png") top right repeat-y #f1f1f1;
+      margin: 0 auto;
+      }
+
+
+body{
+      width: 100%;
+      height: auto;
+      background: url("../img/bg_border_left.png") top left repeat-y;
+      color: #000;
+      font-size: 0.85em;
+      font-family: Helvetica, Arial, sans-serif;
+      }
+
+a{
+   color: #507184;
+   text-decoration: none;
+   }
+
+#header{
+         margin-left: 18px;
+         height: 136px;
+         }
+
+
+#menu{
+       margin-right: 18px;
+       margin-top: 10px;
+       width: 170px;
+       float: right;
+       }
+
+#menu .submenu{
+                margin-bottom: 20px;
+                }
+
+#menu .submenu h3{
+                   font-size: 1.2em;
+                   color: #2b2e47;
+                   }
+
+#menu .submenu li{
+                   margin-left: 7px;
+                   padding-left: 5px;
+                   border-left: 3px solid #dedede;
+                  }
+
+.shadow{
+         margin-top: 30px;
+         margin-left: 70px;
+         background-color: #000;
+         min-height: 500px;
+         min-width: 720px;
+         width: 70%;
+         -webkit-box-shadow: -1px -1px 15px #BBB;
+         -moz-box-shadow: -1px -1px 15px #BBB;
+         box-shadow: -1px -1px 15px #BBB;
+         }
+
+
+#page-content{
+               background-color: #fff;
+               min-height: 500px;
+               width: 100%;
+               -webkit-box-shadow: 8px 8px 15px #888;
+               -moz-box-shadow: 8px 8px 15px #888;
+               box-shadow: 8px 8px 15px #888;
+               padding: 2%;
+               }
+
+#page-content h1{
+                  text-align: center;
+                  font-size: 2em;
+                  color: #2b2e47;
+                  text-shadow: 1px 1px 1px #CCC;
+                  margin-bottom: 10px;
+                  }
+
+
+#page-content p{
+                 margin-bottom: 10px;
+                 }
+
+
+
+#flash-message-shadow{
+                       -webkit-box-shadow: -1px -1px 15px #BBB;
+                       -moz-box-shadow: -1px -1px 15px #BBB;
+                       box-shadow: -1px -1px 15px #BBB;
+                       background-color: #000;
+                       position: absolute;
+                       left: 50%;
+                       top: 50%;
+                       margin-top: -75px;
+                       margin-left: -200px;
+                       }
+
+#flash-message{
+                padding: 0 10px;
+                text-align: center;
+                display: table-cell;
+                vertical-align: middle;
+                background-color: white;
+                width: 400px;
+                height: 150px;
+                -webkit-box-shadow: 8px 8px 15px #888;
+                -moz-box-shadow: 8px 8px 15px #888;
+                box-shadow: 8px 8px 15px #888;
+                }
+
+#flash-message span{ font-size: 0.85em;}
+
+
+#page-content textarea{
+                        width: 300px;
+                        height: 150px;
+                        }
+
+#page-content input[type=text]{
+                                width: 150px;
+                                }
+
+#page-content input[type=submit]{
+                                  padding: 1px 5px;
+                                  }
+
+
+form p{
+        margin-bottom: 5px;
+        }
+
+
+div.codehilite{
+                margin: 10px 0;
+                }
+
+p + div.codehilite { margin-top: 5px;}
+
+#page-content p label{
+                       display: block;
+                       float: left;
+                       width: 15%;
+                       font-weight: bold;
+                       text-align: right;
+                       cursor: pointer;
+                       padding-right: 10px;
+                       }
+
+#contact-form p label{
+                       display: block;
+                       float: left;
+                       width: 10%;
+                       font-weight: bold;
+                       text-align: right;
+                       cursor: pointer;
+                       padding-right: 10px;
+                       }
+
+#contact-form textarea{
+                        width: 500px;
+                        height: 200px;
+                        }
+
+#contact-form input[type=text]{
+                                width: 300px;
+                                }
+
+#footer{
+         clear: both;
+         overflow: hidden;
+         margin: 0 18px;
+         margin-top: 150px;
+         padding: 10px 0;
+         background-color: #dedede;
+         -moz-box-shadow: 0 -8px 15px #888;
+         -webkit-box-shadow: 0 -5px 15px #888;
+         box-shadow: 0 -8px 15px #888;
+         }
+
+#footer ul{
+            display: block;
+            margin: auto;
+            width: 450px;
+            }
+
+
+#footer ul li.title{
+                     font-size: 1.4em;
+                     color: #2b2e47;
+                     text-shadow: 1px 1px 1px #fff;
+                     display: block;
+                     width: 150px;
+                     float: left;
+                     }
+
+
+#footer ul ul.last li{
+                       display: block;
+                       width: 200px;
+                       }
+
+#footer ul ul{
+               margin: 8px 0 0;
+               width: auto;
+               }
+
+
+#footer ul ul li{
+                  font-size: 0.7em;
+                  float: none;
+                  width: auto;
+                  margin-left: 5px;
+                  text-shadow: 0 0 0 #000;
+                  }
+
+
+.errorlist{ color: red; }
+
+#nav{
+      margin: 0 18px;
+      background-color: #dedede;
+      }
+
+
+#nav ul{
+         list-style: none;
+         position: relative;
+         margin: 0 auto;
+         background-image:url("../img/nav/no_flicker.jpg");
+         }
+
+#nav li{
+         display: block;
+         overflow: hidden;
+         cursor: pointer;
+         float: left;
+         width: 125px;
+         height: 40px;
+         background-image:url("../img/nav/sprite.jpg");
+         background-repeat:no-repeat;
+         }
+#nav a{
+        display:block;
+        height:40px;
+        text-indent:-9999px;
+        outline:none;
+        }
+
+#nav .home{ background-position:0px 0px; }
+#nav .contact{ background-position:-200px 0px; }
+#nav .downloads{ background-position:-400px 0px; }
+#nav .search{ background-position:-600px 0px; }
+
+#nav .home.active,
+#nav .home:hover{
+                  background-position: 0 bottom;
+                  }
+
+#nav .contact.active,
+#nav .contact:hover{
+                     background-position: -200px bottom;
+                     }
+
+#nav .downloads.active,
+#nav .downloads:hover{
+                       background-position: -400px bottom;
+                       }
+
+#nav .search.active,
+#nav .search:hover{
+                    background-position: -600px bottom;
+                    }
+
+#nav li.first a{
+                 background-image:url("../img/nav/end.jpg");
+                 background-repeat:no-repeat;
+                 background-position: left 0px;
+                 }
+
+#nav li.first a:hover{ background-position: left -80px; }
+
+#nav li.last a{
+                background-image:url("../img/nav/end.jpg");
+                background-repeat:no-repeat;
+                background-position: right -40px;
+                }
+
+#nav li.last a:hover{ background-position: right -120px; }

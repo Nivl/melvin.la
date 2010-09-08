@@ -1,0 +1,106 @@
+/* Copyright (c) 2010, Yahoo! Inc. All rights reserved. Code licensed under the BSD License: http://developer.yahoo.com/yui/license.html version: 2.8.1 */ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}input,button,textarea,select{*font-size:100%;}
+
+
+/*body{
+font-size:0.85em;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+
+}*/
+
+
+
+html{
+      background: url("../img/bg_border_right.png") top right repeat-y #f1f1f1;
+      margin: 0 auto;
+      }
+
+
+body{
+      width: 100%;
+      height: auto;
+      background: url("../img/bg_border_left.png") top left repeat-y;
+      color: #000;
+      }
+
+#header{
+         margin-left: 18px;
+         height: 136px;
+         }
+
+
+#nav{
+      margin-left: 300px;
+      }
+
+
+.kwicks {
+          list-style: none;
+          position: relative;
+          margin: 0;
+          padding: 0;
+          background-image:url("../img/kwicks/no_flicker.jpg");
+
+          }
+.kwicks li{
+            display: block;
+            overflow: hidden;
+            padding: 0;
+            cursor: pointer;
+            float: left;
+            width: 125px;
+            height: 40px;
+            margin-right: 0px;
+            background-image:url("../img/kwicks/sprite.jpg");
+            background-repeat:no-repeat;
+            }
+.kwicks a{
+           display:block;
+           height:40px;
+           text-indent:-9999px;
+           outline:none;
+           }
+
+#home {
+        background-position:0px 0px;
+        }
+#contact {
+           background-position:-200px 0px;
+           }
+#downloads {
+             background-position:-400px 0px;
+             }
+#search {
+          background-position:-600px 0px;
+          }
+
+#home.active, #home:hover {
+                            background-position: 0 bottom;
+                            }
+#contact.active, #contact:hover{
+                                 background-position: -200px bottom;
+                                 }
+#downloads.active, #downloads:hover {
+                                      background-position: -400px bottom;
+                                      }
+#search.active, #search:hover {
+                                background-position: -600px bottom;
+                                }
+
+#home a{
+         background-image:url("../img/kwicks/end.jpg");
+         background-repeat:no-repeat;
+         background-position: left 0px;
+         }
+
+#home a:hover{
+               background-position: left -80px;
+}
+
+#search a{
+	background-image:url("../img/kwicks/end.jpg");
+	background-repeat:no-repeat;
+	background-position: right -40px;
+}
+#search a:hover{
+	background-position: right -120px;
+}

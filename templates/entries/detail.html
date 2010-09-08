@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% load markup %}
+{% load comments %}
+
+{% block page_title %}{{ entry.title }}{% endblock page_title %}
+{% block title %}{{ entry.title }}{% endblock title %}
+
+{% block content %}
+  <p>{{ entry.content|markdown:'safe,codehilite' }}</p>
+  {% render_comment_list for entry %}
+  {% render_comment_form for entry %}
+{% endblock content %}
