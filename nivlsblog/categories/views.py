@@ -17,6 +17,6 @@ def show_entries(request, slug):
     try:
         entries = paginator.page(page)
     except (EmptyPage, InvalidPage):
-        entries = paginator.page(paginator.num_page)
+        entries = paginator.page(paginator.num_pages)
 
     return render_to_response("entries/list.html", {'entries': entries})
