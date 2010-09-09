@@ -7,7 +7,7 @@ def show_entries(request, slug):
     cat = get_object_or_404(Category, slug=slug)
     cat_list = Category.objects.filter(left__gte=cat.left,
                                        right__lte=cat.right)
-    entry_list = Entry.objects.select_related(depth=2).filter(category__in=cat_list)
+    entry_list = Entry.objects.select_related(depth=2).filter(category__in=cat_list).order_by('-date')
 
     paginator = Paginator(entry_list, 5)
     try:
