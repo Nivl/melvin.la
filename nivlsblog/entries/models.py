@@ -7,7 +7,7 @@ class Entry(models.Model):
     content  = models.TextField()
     date     = models.DateTimeField('date published')
     category = models.ForeignKey(Category)
-    tags     = models.ManyToManyField(Tag)
+    tags     = models.ManyToManyField(Tag, blank=True)
 
     def __unicode__(self):
         return self.title
