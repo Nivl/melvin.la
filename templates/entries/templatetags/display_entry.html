@@ -8,8 +8,13 @@
     at {{ entry.date|date:'h:i a' }}<br />
     Origin: <a href="/categories/{{ entry.category.slug }}">
       {{ entry.category.name }}
-    </a> /
-    Tags: <a href="#">tag-1</a>, <a href="#">tag-2</a>
+    </a>
+    {% if entry.tags.all %}
+      / Tags: {% for tag in entry.tags.all %}
+                <a href="/tags/{{ tag.slug }}">
+  	        {{ tag.slug }}</a>{% if not forloop.last %},{% endif %}
+              {% endfor %}
+    {% endif %}
   </div>
   <div class="entry-content">
     {{ entry.content|markdown:'safe,codehilite' }}
