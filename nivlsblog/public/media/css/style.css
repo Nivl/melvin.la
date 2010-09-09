@@ -21,6 +21,8 @@ a{
    text-decoration: none;
    }
 
+a:hover{color: #2D404A;}
+
 #header{
          margin-left: 18px;
          height: 136px;
@@ -34,32 +36,32 @@ a{
        float: right;
        }
 
-#menu .submenu{
-                margin-bottom: 20px;
-                }
+#menu .submenu{ margin-bottom: 20px; }
 
 #menu .submenu h3{
                    font-size: 1.2em;
+                   font-weight: bold;
                    color: #2b2e47;
+                   text-shadow: 1px 1px 1px #FFF;
                    }
 
 #menu .submenu li{
                    margin-left: 7px;
                    padding-left: 5px;
                    border-left: 3px solid #dedede;
-                  }
+                   }
 
-.shadow{
-         margin-top: 30px;
-         margin-left: 70px;
-         background-color: #000;
-         min-height: 500px;
-         min-width: 720px;
-         width: 70%;
-         -webkit-box-shadow: -1px -1px 15px #BBB;
-         -moz-box-shadow: -1px -1px 15px #BBB;
-         box-shadow: -1px -1px 15px #BBB;
-         }
+#page-content-shadow{
+                      margin-top: 30px;
+                      margin-left: 70px;
+                      background-color: #000;
+                      min-height: 500px;
+                      min-width: 720px;
+                      width: 70%;
+                      -webkit-box-shadow: -1px -1px 15px #BBB;
+                      -moz-box-shadow: -1px -1px 15px #BBB;
+                      box-shadow: -1px -1px 15px #BBB;
+                      }
 
 
 #page-content{
@@ -81,9 +83,7 @@ a{
                   }
 
 
-#page-content p{
-                 margin-bottom: 10px;
-                 }
+#page-content p{ margin-bottom: 10px; }
 
 
 
@@ -120,23 +120,37 @@ a{
                         height: 150px;
                         }
 
-#page-content input[type=text]{
-                                width: 150px;
-                                }
+#page-content input[type=text]{ width: 150px; }
 
-#page-content input[type=submit]{
-                                  padding: 1px 5px;
-                                  }
+#page-content input[type=submit]{ padding: 1px 5px; }
 
 
-form p{
-        margin-bottom: 5px;
-        }
+#page-content .entry {
+                       padding: 12px 0;
+                       border-bottom: 1px solid #888;
+                       }
+
+#page-content .entry h2{ font-size: 1.6em; }
+
+#page-content .entry-header{
+                             font-size: 0.8em;
+                             margin-bottom: 23px;
+                             margin-left: 7px;
+                           }
+
+#page-content .entry-content{
+
+                              margin: 0 7px;
+                              }
+
+#page-content #pagination{
+                           margin-top: 12px;
+                           }
+
+form p{ margin-bottom: 5px; }
 
 
-div.codehilite{
-                margin: 10px 0;
-                }
+div.codehilite{ margin: 10px 0; }
 
 p + div.codehilite { margin-top: 5px;}
 
@@ -165,9 +179,7 @@ p + div.codehilite { margin-top: 5px;}
                         height: 200px;
                         }
 
-#contact-form input[type=text]{
-                                width: 300px;
-                                }
+#contact-form input[type=text]{ width: 300px; }
 
 #footer{
          clear: both;
@@ -256,24 +268,16 @@ p + div.codehilite { margin-top: 5px;}
 #nav .search{ background-position:-600px 0px; }
 
 #nav .home.active,
-#nav .home:hover{
-                  background-position: 0 bottom;
-                  }
+#nav .home:hover{ background-position: 0 bottom; }
 
 #nav .contact.active,
-#nav .contact:hover{
-                     background-position: -200px bottom;
-                     }
+#nav .contact:hover{ background-position: -200px bottom; }
 
 #nav .downloads.active,
-#nav .downloads:hover{
-                       background-position: -400px bottom;
-                       }
+#nav .downloads:hover{ background-position: -400px bottom; }
 
 #nav .search.active,
-#nav .search:hover{
-                    background-position: -600px bottom;
-                    }
+#nav .search:hover{ background-position: -600px bottom; }
 
 #nav li.first a{
                  background-image:url("../img/nav/end.jpg");

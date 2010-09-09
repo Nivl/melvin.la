@@ -1,0 +1,15 @@
+{% load markup %}
+
+<div class="entry">
+  <h2><a href="#">{{ entry.title }}</a></h2>
+  <div class="entry-header">
+    Posted {{ entry.date|date:"F t, Y \a\t h:i a" }}<br />
+    Origin: <a href="/categories/{{ entry.category.slug }}">
+      {{ entry.category.name }}
+    </a> /
+    Tags: <a href="#">tag-1</a>, <a href="#">tag-2</a>
+  </div>
+  <div class="entry-content">
+    {{ entry.content|markdown:'safe,codehilite' }}
+  </div>
+</div>

@@ -1,0 +1,12 @@
+{% extends "base.html"%}
+
+{% load display_entries %}
+{% load display_pagination %}
+
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+  {% display_entries entries.object_list %}
+  {% display_pagination entries %}
+{% endblock content %}

@@ -1,0 +1,9 @@
+{% load display_entry %}
+
+{% for entry in entries %}
+  {% display_entry entry %}
+{% empty %}
+  <div class="no-entries-found">
+    There is no entries.
+  </div>
+{% endfor %}

@@ -1,3 +1,5 @@
+{% load category_list %}
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
@@ -25,12 +27,9 @@
 
     <div id="menu">
       <div class="submenu">
-	<h3>Title 1</h3>
+	<h3>Categories</h3>
 	<ul>
-	  <li><a href="#">Link 1</a></li>
-	  <li><a href="#">Link 2</a></li>
-	  <li><a href="#">Link 3</a></li>
-	  <li><a href="#">Link 4</a></li>
+	  {% category_list %}
 	</ul>
       </div>
 
@@ -82,7 +81,7 @@
       </div>
     </div>
 
-    <div class="shadow">
+    <div id="page-content-shadow">
       <div id="page-content">
 	<h1>{% block title %}TITLE’S MISSING{% endblock title %}</h1>
 	{% block content %}{% endblock content %}

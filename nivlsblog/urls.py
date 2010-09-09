@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     (r'^$', 'nivlsblog.main.views.index'),
     (r'^contact/$', 'nivlsblog.main.views.contact'),
     (r'^entries/', include('nivlsblog.entries.urls')),
-
+    (r'^categories/', include('nivlsblog.categories.urls')),
 )
 
 
