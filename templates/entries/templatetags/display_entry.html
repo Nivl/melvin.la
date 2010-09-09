@@ -1,9 +1,11 @@
 {% load markup %}
+{% load humanize %}
 
 <div class="entry">
   <h2><a href="#">{{ entry.title }}</a></h2>
   <div class="entry-header">
-    Posted {{ entry.date|date:"F t, Y \a\t h:i a" }}<br />
+    Posted {{ entry.date|naturalday:'F t, Y' }}
+    at {{ entry.date|date:'h:i a' }}<br />
     Origin: <a href="/categories/{{ entry.category.slug }}">
       {{ entry.category.name }}
     </a> /
