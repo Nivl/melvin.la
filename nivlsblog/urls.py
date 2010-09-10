@@ -7,6 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^$', 'nivlsblog.main.views.index'),
+    (r'^feeds/', include('nivlsblog.feeds.urls')),
     (r'^contact/$', 'nivlsblog.main.views.contact'),
     (r'^entries/', include('nivlsblog.entries.urls')),
     (r'^categories/', include('nivlsblog.categories.urls')),
