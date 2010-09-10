@@ -2,7 +2,9 @@
 {% load humanize %}
 
 <div class="entry">
-  <h2><a href="#">{{ entry.title }}</a></h2>
+  <h2><a href="/{{ entry.date|date:'Y/m/d' }}/{{ entry.slug }}">
+      {{ entry.title }}
+  </a></h2>
   <div class="entry-header">
     Posted {{ entry.date|naturalday:'F t, Y' }}
     at {{ entry.date|date:'h:i a' }}<br />
