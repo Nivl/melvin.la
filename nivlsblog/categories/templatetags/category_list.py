@@ -1,4 +1,4 @@
-from django import template
+from django                      import template
 from nivlsblog.categories.models import Category
 
 register = template.Library()
