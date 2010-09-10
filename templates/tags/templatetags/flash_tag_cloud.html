@@ -1,0 +1,24 @@
+
+<div id="tagFlash">
+  <div id="tagFlashContent">
+    <a href="http://get.adobe.com/flashplayer/">Flash Player</a>
+    9 or better is required to display the cloud.
+  </div>
+
+  <script type="text/javascript">
+    <!--
+	var so = new SWFObject("/media/flash/tagcloud.swf",
+	                       "tagcloud",
+			       "100%",
+			       "150px",
+			       "7",
+			       "#ff0000");
+	so.addParam("wmode",       "transparent");
+	so.addVariable("mode",     "tags");
+	so.addVariable("tcolor",   "0x000000");
+	so.addVariable("tspeed",   "150");
+	so.addVariable("tagcloud", "<tags>{% for tag in tags %}<a href='/tags/{{ tag.slug }}' style='26'>{{ tag.slug }}</a>{% endfor %}</tags>");
+	so.write("tagFlashContent");
+	// -->
+  </script>
+</div>
