@@ -2,12 +2,13 @@
 
 {% load markup %}
 {% load comments %}
+{% load display_entry %}
 
 {% block page_title %}{{ entry.title }}{% endblock page_title %}
-{% block title %}{{ entry.title }}{% endblock title %}
+{% block title %}{% endblock title %}
 
 {% block content %}
-  <p>{{ entry.content|markdown:'safe,codehilite' }}</p>
+  {% display_entry entry %}
   {% render_comment_list for entry %}
   {% render_comment_form for entry %}
 {% endblock content %}

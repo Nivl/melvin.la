@@ -2,7 +2,7 @@
 {% load humanize %}
 
 <div class="entry">
-  <h2><a href="/{{ entry.date|date:'Y/m/d' }}/{{ entry.slug }}">
+  <h2><a href="/entries/{{ entry.date|date:'Y/m/d' }}/{{ entry.slug }}">
       {{ entry.title }}
   </a></h2>
   <div class="entry-header">
