@@ -1,7 +1,7 @@
-from nivlsblog.categories.models import Category
-from nivlsblog.entries.models    import Entry
-from django.core.paginator       import Paginator, InvalidPage, EmptyPage
-from django.shortcuts            import render_to_response, get_object_or_404, get_list_or_404
+from nivlsblog.categories.models       import Category
+from nivlsblog.entries.models          import Entry
+from nivlsblog.libs.simple_paginator   import simple_paginator
+from django.shortcuts                  import render_to_response, get_object_or_404, get_list_or_404
 
 def show_entries(request, slug, page):
     cat = get_object_or_404(Category, slug=slug)
@@ -9,10 +9,5 @@ def show_entries(request, slug, page):
                                        right__lte=cat.right)
     entry_list = Entry.objects.select_related(depth=2).filter(category__in=cat_list).order_by('-date')
 
-    paginator = Paginator(entry_list, 5)
-    try:
-        entries = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-        entries = paginator.page(paginator.num_pages)
-
+    entries = simple_paginator(entry_list, 1, page)
     return render_to_response("entries/list.html", {'entries': entries})
