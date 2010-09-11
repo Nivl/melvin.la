@@ -2,7 +2,7 @@
 
 {% for cat in categories %}
   <li>
-    <a href="/categories/{{ cat.slug }}">{{ cat.name }}</a>
+    <a href="/categories/{{ cat.slug }}/">{{ cat.name }}</a>
 
   {% if cat.has_child %}
     <ul>

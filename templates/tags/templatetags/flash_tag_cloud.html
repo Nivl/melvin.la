@@ -17,7 +17,7 @@
 	so.addVariable("mode",     "tags");
 	so.addVariable("tcolor",   "0x000000");
 	so.addVariable("tspeed",   "150");
-	so.addVariable("tagcloud", "<tags>{% for tag in tags %}<a href='/tags/{{ tag.slug }}' style='26'>{{ tag.slug }}</a>{% endfor %}</tags>");
+	so.addVariable("tagcloud", "<tags>{% for tag in tags %}<a href='/tags/{{ tag.slug }}/' style='26'>{{ tag.slug }}</a>{% endfor %}</tags>");
 	so.write("tagFlashContent");
 	// -->
   </script>
