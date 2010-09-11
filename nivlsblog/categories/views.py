@@ -9,5 +9,5 @@ def show_entries(request, slug, page):
                                        right__lte=cat.right)
     entry_list = Entry.objects.select_related(depth=2).filter(category__in=cat_list).order_by('-date')
 
-    entries = simple_paginator(entry_list, 1, page)
+    entries = simple_paginator(entry_list, 5, page)
     return render_to_response("entries/list.html", {'entries': entries})
