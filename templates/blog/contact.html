@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block page_title %}Contact{% endblock page_title %}
+{% block title %}Contact{% endblock title %}
+
+{% block content %}
+  <p>Please, don’t send me any ads or partnership requests.</p>
+
+  <form id="contact-form" action="{% url blog-contact %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Send" />
+  </form>
+{% endblock content %}
+

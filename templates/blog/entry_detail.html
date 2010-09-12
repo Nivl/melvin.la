@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load markup %}
+{% load comments %}
+{% load blog %}
+
+{% block page_title %}{{ entry.title }}{% endblock page_title %}
+{% block title %}{% endblock title %}
+
+{% block content %}
+  {% display_entry entry %}
+  {% render_comment_list for entry %}
+  {% render_comment_form for entry %}
+{% endblock content %}

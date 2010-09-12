@@ -1,5 +1,4 @@
-{% load category_list %}
-{% load tag_cloud %}
+{% load blog %}
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -21,8 +20,8 @@
 
     <div id="nav">
       <ul class="kwicks">
-	<li class="home first"><a href="/">Home</a></li>
-	<li class="contact"><a href="/contact/">Contact</a></li>
+	<li class="home first"><a href="{% url blog %}">Home</a></li>
+	<li class="contact"><a href="{% url blog-contact %}">Contact</a></li>
 	<li class="downloads"><a href="#">Downloads</a></li>
 	<li class="search last"><a href="#">Search</a></li>
       </ul>

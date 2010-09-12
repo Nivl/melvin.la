@@ -1,0 +1,24 @@
+{% load markup %}
+{% load humanize %}
+
+<div class="entry">
+  <h2><a href="{{ entry.get_absolute_url }}">
+      {{ entry.title }}
+  </a></h2>
+  <div class="entry-header">
+    Posted {{ entry.date|naturalday:'F t, Y' }}
+    at {{ entry.date|date:'h:i a' }}<br />
+    Origin: <a href="{{ entry.category.get_absolute_url }}">
+      {{ entry.category.name }}
+    </a>
+    {% if entry.tags.all %}
+      / Tags: {% for tag in entry.tags.all %}
+                <a href="{{ tag.get_absolute_url }}">
+  	        {{ tag.slug }}</a>{% if not forloop.last %},{% endif %}
+              {% endfor %}
+    {% endif %}
+  </div>
+  <div class="entry-content">
+    {{ entry.content|markdown:'safe,codehilite' }}
+  </div>
+</div>
