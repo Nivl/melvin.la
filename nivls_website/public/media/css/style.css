@@ -242,7 +242,7 @@ p + div.codehilite { margin-top: 5px;}
          list-style: none;
          position: relative;
          margin: 0 auto;
-         background-image:url("../img/nav/no_flicker.jpg");
+         background-image:url("../img/nav/no_flicker.png");
          }
 
 #nav li{
@@ -252,7 +252,7 @@ p + div.codehilite { margin-top: 5px;}
          float: left;
          width: 125px;
          height: 40px;
-         background-image:url("../img/nav/sprite.jpg");
+         background-image:url("../img/nav/sprite.png");
          background-repeat:no-repeat;
          }
 #nav a{
@@ -264,7 +264,7 @@ p + div.codehilite { margin-top: 5px;}
 
 #nav .home{ background-position:0px 0px; }
 #nav .contact{ background-position:-200px 0px; }
-#nav .downloads{ background-position:-400px 0px; }
+#nav .tags{ background-position:-400px 0px; }
 #nav .search{ background-position:-600px 0px; }
 
 #nav .home.active,
@@ -273,14 +273,14 @@ p + div.codehilite { margin-top: 5px;}
 #nav .contact.active,
 #nav .contact:hover{ background-position: -200px bottom; }
 
-#nav .downloads.active,
-#nav .downloads:hover{ background-position: -400px bottom; }
+#nav .tags.active,
+#nav .tags:hover{ background-position: -400px bottom; }
 
 #nav .search.active,
 #nav .search:hover{ background-position: -600px bottom; }
 
 #nav li.first a{
-                 background-image:url("../img/nav/end.jpg");
+                 background-image:url("../img/nav/end.png");
                  background-repeat:no-repeat;
                  background-position: left 0px;
                  }
@@ -288,7 +288,7 @@ p + div.codehilite { margin-top: 5px;}
 #nav li.first a:hover{ background-position: left -80px; }
 
 #nav li.last a{
-                background-image:url("../img/nav/end.jpg");
+                background-image:url("../img/nav/end.png");
                 background-repeat:no-repeat;
                 background-position: right -40px;
                 }
