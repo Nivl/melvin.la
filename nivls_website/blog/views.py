@@ -6,6 +6,7 @@ from django.conf                           import settings
 from nivls_website.blog.forms              import ContactForm
 from nivls_website.blog.models             import Category, Entry, Tag
 from nivls_website.libs.simple_paginator   import simple_paginator
+from django.http                           import Http404
 from django.shortcuts                      import render_to_response, get_object_or_404, get_list_or_404
 
 
@@ -50,3 +51,14 @@ def contact(request):
         return render_to_response('generic/flash/message_added.html', c)
     else:
         return render_to_response('blog/contact.html', c)
+
+
+def archive(request, year, month=0, page=None):
+    if month == 0:
+        entry_list = Entry.objects.select_related(depth=2).order_by('-date').filter(date__year=year)
+    else:
+        entry_list = Entry.objects.select_related(depth=2).order_by('-date').filter(date__year=year, date__month=month)
+    if not entry_list:
+        raise Http404
+    entries = simple_paginator(entry_list, 5, page)
+    return render_to_response('blog/entry_list.html', {'entries': entries})

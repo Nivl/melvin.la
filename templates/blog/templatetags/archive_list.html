@@ -1,0 +1,26 @@
+
+{% for date in date_list %}
+  {% ifchanged date|date:'Y' %}
+    {% if not forloop.first %}
+      </ul></li>
+    {% endif %}
+    <li><a href="{% url blog-archive-year date|date:'Y' %}">
+	Year {{ date|date:'Y' }}
+      </a>
+      <ul>
+  {% endifchanged %}
+
+  {% ifchanged date|date:'F' or not date|date:'F' and date|date|date:'Y' %}
+    <li><a href="{% url blog-archive-month date|date:'Y' date|date:'m' %}">
+	{{  date|date:'F'  }}
+    </a></li>
+  {% endifchanged %}
+
+  {% if forloop.last %}
+      </ul>
+    </li>
+  {% endif %}
+{% empty %}
+  <li>There are no archives.</li>
+{% endfor %}
+
