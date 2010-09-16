@@ -138,10 +138,18 @@ a:hover{color: #2D404A;}
                              margin-left: 7px;
                            }
 
-#page-content .entry-content{
+#page-content .entry-content{ margin: 0 7px; }
 
-                              margin: 0 7px;
-                              }
+#page-content .entry-footer{
+                             margin-top: 20px;
+                             margin-bottom: 10px;
+                             height: 35px;
+                             }
+
+#page-content .entry-footer .nb-comment{
+                                         margin-top: 10px;
+                                         float: right;
+                                         }
 
 #page-content #pagination{
                            margin-top: 12px;
@@ -180,6 +188,8 @@ p + div.codehilite { margin-top: 5px;}
                         }
 
 #contact-form input[type=text]{ width: 300px; }
+
+.clear{ clear: both; }
 
 #footer{
          clear: both;

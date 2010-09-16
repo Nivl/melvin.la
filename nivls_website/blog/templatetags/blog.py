@@ -3,6 +3,7 @@
 from datetime                        import datetime
 from django                          import template
 from nivls_website.blog.models       import Category, Tag, Entry
+from django.contrib.sites.models     import Site
 
 register = template.Library()
 
@@ -19,8 +20,9 @@ def display_entries(entries):
 
 
 @register.inclusion_tag('blog/templatetags/display_entry.html')
-def display_entry(entry):
-    return {'entry': entry}
+def display_entry(entry, display_share_buttons = False):
+    return {'entry':                entry,
+            'display_share_buttons': display_share_buttons}
 
 
 @register.inclusion_tag('blog/templatetags/display_pagination.html')
@@ -38,4 +40,3 @@ def flash_tag_cloud():
 def archive_list():
     date_list = Entry.objects.dates('date', 'month').order_by('-date')
     return {'date_list': date_list}
-

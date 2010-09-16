@@ -1,5 +1,6 @@
 {% load markup %}
 {% load humanize %}
+{% load comments %}
 
 <div class="entry">
   <h2><a href="{{ entry.get_absolute_url }}">
@@ -17,8 +18,39 @@
   	        {{ tag.slug }}</a>{% if not forloop.last %},{% endif %}
               {% endfor %}
     {% endif %}
+
   </div>
+
   <div class="entry-content">
     {{ entry.content|markdown:'safe,codehilite' }}
+  </div>
+
+  <div class="entry-footer">
+    {% get_comment_count for entry as nb_comment %}
+    <span class="nb-comment">
+      <a href="{{ entry.get_absolute_url }}#comments">
+        {% if nb_comment = 1 %}
+          There is 1 comment.
+        {% else %}
+          There are {{ nb_comment }} comments.
+        {% endif %}
+      </a>
+    </span>
+
+    {% if display_share_buttons %}
+      <script type="text/javascript"
+	      src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+
+      <div class="addthis_toolbox addthis_32x32_style addthis_default_style">
+	<a class="addthis_button_facebook"></a>
+	<a class="addthis_button_twitter"></a>
+	<a class="addthis_button_googlebuzz"></a>
+	<a class="addthis_button_digg"></a>
+	<a class="addthis_button_email"></a>
+	<a class="addthis_button_wordpress"></a>
+	<a class="addthis_button_compact"></a>
+      </div>
+    {% endif %}
+    <div class="clear"></div>
   </div>
 </div>
