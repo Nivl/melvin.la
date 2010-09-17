@@ -29,11 +29,7 @@
     {% get_comment_count for entry as nb_comment %}
     <span class="nb-comment">
       <a href="{{ entry.get_absolute_url }}#comments">
-        {% if nb_comment = 1 %}
-          There is 1 comment.
-        {% else %}
-          There are {{ nb_comment }} comments.
-        {% endif %}
+        There are {{ nb_comment }} comment{{ nb_comment|pluralize }}.
       </a>
     </span>
 
