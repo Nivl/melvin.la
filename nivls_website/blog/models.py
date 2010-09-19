@@ -43,11 +43,30 @@ class Entry(models.Model):
     tags     = models.ManyToManyField(Tag,
                                       blank=True,
                                       verbose_name="list of tags")
+    _comment_count = None;
 
     def __unicode__(self):
         return self.title
     def get_absolute_url(self):
         return "/blog/" + self.date.strftime("%Y/%m/%d") + "/" + self.slug
+    def get_comment_count(self, force=False):
+        if force or self. _comment_count == None:
+            self._comment_count = Comment.objects.filter(entry=self.id).count()
+        return self._comment_count
 
     class Meta:
         verbose_name_plural = "entries"
+
+
+class Comment(models.Model):
+    entry        = models.ForeignKey(Entry)
+    date         = models.DateTimeField("date submitted")
+    content      = models.TextField()
+    user_name    = models.CharField("name", max_length=25)
+    user_email   = models.EmailField("e-mail adress",
+                                     help_text="Will mot be published")
+    user_website = models.URLField("website", blank=True)
+    user_ip      = models.IPAddressField("IP address")
+
+    def __unicode__(self):
+        return self.content

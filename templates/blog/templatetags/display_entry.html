@@ -1,6 +1,4 @@
-{% load markup %}
-{% load humanize %}
-{% load comments %}
+{% load markup humanize %}
 
 <div class="entry">
   <h2><a href="{{ entry.get_absolute_url }}">
@@ -26,10 +24,9 @@
   </div>
 
   <div class="entry-footer">
-    {% get_comment_count for entry as nb_comment %}
     <span class="nb-comment">
       <a href="{{ entry.get_absolute_url }}#comments">
-        There are {{ nb_comment }} comment{{ nb_comment|pluralize }}.
+        There are {{ entry.get_comment_count }} comment{{ entry.get_comment_count|pluralize }}.
       </a>
     </span>
 

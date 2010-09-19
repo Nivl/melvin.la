@@ -5,6 +5,8 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+INTERNAL_IPS = ('127.0.0.1',)
+
 # The first entry is the one used in the contact form.
 ADMINS = (('Nivl', 'nivl@free.fr'),)
 
@@ -78,6 +80,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     )
 
 ROOT_URLCONF = 'nivls_website.urls'
@@ -93,8 +96,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
-    'django.contrib.comments',
     'django.contrib.markup',
     'django.contrib.humanize',
+    'debug_toolbar',
     'nivls_website.blog',
     )

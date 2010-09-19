@@ -1,0 +1,24 @@
+{% load humanize markup blog %}
+
+<div class="comment">
+  <div class="comment-header">
+    {% if preview %}
+      <span class="comment-preview">Preview of you comment:</span>
+    {% else %}
+      <a id="cid-{{ comment.id }}"
+	 href="{{ entry.get_absolute_url }}#cid-{{ comment.id }}">#</a>
+      Posted {{ comment.date|naturalday:'F t, Y' }}
+      at {{ comment.date|date:'h:i a' }}
+      by {% if comment.user_website %}
+           <a href="{{ comment.user_website }}">{{ comment.user_name }}</a>
+	 {% else %}
+	   {{ comment.user_name }}
+	 {% endif %}
+    {% endif %}
+  </div>
+  {% display_gravatar comment.user_email %}
+  <div class="comment-content">
+    {{ comment.content|markdown:'safe,codehilite' }}
+  </div>
+  <div class="clear"></div>
+</div>

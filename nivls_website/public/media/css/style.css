@@ -126,7 +126,7 @@ a:hover{color: #2D404A;}
 
 
 #page-content .entry {
-                       padding: 12px 0;
+                       margin: 12px 0;
                        border-bottom: 1px solid #888;
                        }
 
@@ -151,6 +151,34 @@ a:hover{color: #2D404A;}
                                          float: right;
                                          }
 
+.comment-list{
+               margin-bottom: 20px;
+               }
+
+.comment .gravatar{
+                    float: left;
+                    padding-right: 20px;
+                    }
+
+.comment{
+          width: 70%;
+          margin-left: 10px;
+          padding: 10px;
+          border-bottom: 1px solid #dedede;
+          }
+
+.comment-header{
+                 font-weight: bold;
+                 margin-bottom: 5px;
+                 }
+
+.comment-content{
+                  padding-left: 10px;
+                  margin-left: 68px;
+                  }
+
+.comment-preview{ color: red; }
+
 #page-content #pagination{
                            margin-top: 12px;
                            }
@@ -162,17 +190,8 @@ div.codehilite{ margin: 10px 0; }
 
 p + div.codehilite { margin-top: 5px;}
 
-#page-content p label{
-                       display: block;
-                       float: left;
-                       width: 15%;
-                       font-weight: bold;
-                       text-align: right;
-                       cursor: pointer;
-                       padding-right: 10px;
-                       }
 
-#contact-form p label{
+#page-content p label{
                        display: block;
                        float: left;
                        width: 10%;
@@ -182,12 +201,12 @@ p + div.codehilite { margin-top: 5px;}
                        padding-right: 10px;
                        }
 
-#contact-form textarea{
+#page-content textarea{
                         width: 500px;
                         height: 200px;
                         }
 
-#contact-form input[type=text]{ width: 300px; }
+#page-content input[type=text]{ width: 300px; }
 
 .clear{ clear: both; }
 

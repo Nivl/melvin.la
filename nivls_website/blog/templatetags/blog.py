@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import urllib, hashlib
 from datetime                        import datetime
 from django                          import template
-from nivls_website.blog.models       import Category, Tag, Entry
+from nivls_website.blog.models       import Category, Tag, Entry, Comment
 from django.contrib.sites.models     import Site
 
 register = template.Library()
@@ -40,3 +41,29 @@ def flash_tag_cloud():
 def archive_list():
     date_list = Entry.objects.dates('date', 'month').order_by('-date')
     return {'date_list': date_list}
+
+
+@register.inclusion_tag('blog/templatetags/display_comment_list.html')
+def display_comment_list(Entry):
+    comment_list = Comment.objects.filter(entry=Entry.id).order_by('date')
+    return {'comment_list': comment_list,
+            'entry': Entry}
+
+
+@register.inclusion_tag('blog/templatetags/display_comment.html')
+def display_comment(Entry, Comment, preview=False):
+    return {'comment': Comment,
+            'entry'  : Entry,
+            'preview': preview}
+
+
+@register.inclusion_tag('blog/templatetags/display_gravatar.html')
+def display_gravatar(email, size=48):
+    default = "http://localhost:8000/media/img/avatar.png"
+    url = "http://www.gravatar.com/avatar.php?" + urllib.urlencode({
+        'gravatar_id': hashlib.md5(email).hexdigest(),
+        'default':     default,
+        'size':        str(size)
+        })
+    return {'gravatar': {'url':  url,
+                         'size': size}}
