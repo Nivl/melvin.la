@@ -3,7 +3,7 @@
 from django.db                          import models
 from django.template.defaultfilters     import slugify
 from time                               import strftime
-
+from datetime                           import datetime
 
 class Tag(models.Model):
     slug = models.SlugField()
@@ -70,3 +70,8 @@ class Comment(models.Model):
 
     def __unicode__(self):
         return self.content
+    def save(self, *args, **kwargs):
+        if self.date is None:
+            self.date = datetime.now()
+        super(Comment, self).save(*args, **kwargs)
+

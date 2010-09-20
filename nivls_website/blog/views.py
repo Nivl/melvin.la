@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from datetime                              import datetime
 from django.core.context_processors        import csrf
 from django.core.mail                      import send_mail
 from django.core.urlresolvers              import reverse
@@ -24,26 +23,25 @@ def entry_detail(request, year, month, day, slug):
     entry = get_object_or_404(Entry, date__year=year,
                                      date__month=month,
                                      date__day=day,
-                              slug=slug)
-
+                                     slug=slug)
     if request.method == 'POST':
-        form = CommentForm(request.POST)
+        form = CommentForm(request, request.POST)
         if form.is_valid():
-            try:
-                request.POST['preview']
+            if 'preview' in request.POST:
                 c['preview'] = form.get_cleaned_data()
-            except KeyError:
+            else:
                 comment = Comment(**form.get_cleaned_data())
-                comment.user_ip = request.META['REMOTE_ADDR']
                 comment.entry   = entry
-                comment.date    = datetime.now()
+                comment.user_ip = request.META['REMOTE_ADDR']
                 comment.save()
-                return render_to_response(
+                response = render_to_response(
                     'generic/flash_message.html',
                     {'verb': 'added',
                      'link': entry.get_absolute_url()})
+                form.remember(response)
+                return response
     else:
-        form = CommentForm()
+        form = CommentForm(request)
     c['entry'] = entry
     c['form'] = form
     return render_to_response('blog/entry_detail.html', c)

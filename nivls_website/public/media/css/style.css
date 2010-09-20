@@ -194,12 +194,13 @@ p + div.codehilite { margin-top: 5px;}
 #page-content p label{
                        display: block;
                        float: left;
-                       width: 10%;
+                       width: 15%;
                        font-weight: bold;
                        text-align: right;
                        cursor: pointer;
                        padding-right: 10px;
                        }
+
 
 #page-content textarea{
                         width: 500px;
