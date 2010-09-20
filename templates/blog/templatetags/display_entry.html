@@ -26,7 +26,11 @@
   <div class="entry-footer">
     <span class="nb-comment">
       <a href="{{ entry.get_absolute_url }}#comments">
-        There are {{ entry.get_comment_count }} comment{{ entry.get_comment_count|pluralize }}.
+	{% ifequal entry.get_comment_count 1 %}
+          There is 1 comment.
+	{% else %}
+          There are {{ entry.get_comment_count }} comments.
+	{% endifequal %}
       </a>
     </span>
 
