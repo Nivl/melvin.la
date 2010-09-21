@@ -122,7 +122,19 @@ a:hover{color: #2D404A;}
 
 #page-content input[type=text]{ width: 150px; }
 
+
+input + input{
+               margin-left: 10px;
+               }
+
+
+form p input[type=submit]:first-child{
+                                       margin-left: 16%;
+                                       }
+
 #page-content input[type=submit]{ padding: 1px 5px; }
+
+
 
 
 #page-content .entry {
