@@ -60,6 +60,7 @@ a:hover{color: #2D404A;}
                       width: 70%;
                       -webkit-box-shadow: -1px -1px 15px #BBB;
                       -moz-box-shadow: -1px -1px 15px #BBB;
+                      -o-box-shadow: -1px -1px 15px #BBB;
                       box-shadow: -1px -1px 15px #BBB;
                       }
 
@@ -70,6 +71,7 @@ a:hover{color: #2D404A;}
                width: 100%;
                -webkit-box-shadow: 8px 8px 15px #888;
                -moz-box-shadow: 8px 8px 15px #888;
+               -o-box-shadow: 8px 8px 15px #888;
                box-shadow: 8px 8px 15px #888;
                padding: 2%;
                }
@@ -90,6 +92,7 @@ a:hover{color: #2D404A;}
 #flash-message-shadow{
                        -webkit-box-shadow: -1px -1px 15px #BBB;
                        -moz-box-shadow: -1px -1px 15px #BBB;
+                       -o-box-shadow: -1px -1px 15px #BBB;
                        box-shadow: -1px -1px 15px #BBB;
                        background-color: #000;
                        position: absolute;
@@ -109,6 +112,7 @@ a:hover{color: #2D404A;}
                 height: 150px;
                 -webkit-box-shadow: 8px 8px 15px #888;
                 -moz-box-shadow: 8px 8px 15px #888;
+                -o-box-shadow: 8px 8px 15px #888;
                 box-shadow: 8px 8px 15px #888;
                 }
 
@@ -231,6 +235,7 @@ p + div.codehilite { margin-top: 5px;}
          padding: 10px 0;
          background-color: #dedede;
          -moz-box-shadow: 0 -8px 15px #888;
+         -o-box-shadow: 0 -8px 15px #888;
          -webkit-box-shadow: 0 -5px 15px #888;
          box-shadow: 0 -8px 15px #888;
          }
