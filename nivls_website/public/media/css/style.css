@@ -256,9 +256,12 @@ p + div.codehilite { margin-top: 5px;}
                   float: none;
                   width: auto;
                   margin-left: 5px;
-                  text-shadow: 0 0 0 #000;
+                  margin-top: 3px;
+                  text-shadow: 0 0 0 #FFF;
                   }
 
+
+#footer a img{ vertical-align: top; }
 
 .errorlist{ color: red; }
 
