@@ -8,6 +8,15 @@ class ContactForm(happyforms.Form):
     subject   = forms.CharField(max_length=100)
     email     = forms.EmailField()
     message   = forms.CharField(widget=forms.Textarea)
+    honeypot  = forms.CharField(required=False,
+                                help_text="This field must be empty.",
+                                label="captcha")
+
+    def clean_honeypot(self):
+        value = self.cleaned_data['honeypot']
+        if value:
+            raise forms.ValidationError("Spam attempt detected !")
+        return value
 
 
 class CommentForm(happyforms.Form):

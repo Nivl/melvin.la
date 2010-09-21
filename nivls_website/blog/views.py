@@ -74,21 +74,23 @@ def entry_list_by_tag(request, slug, page=1):
 
 
 def contact(request):
+    c = {}
+    c.update(csrf(request))
     if request.method == 'POST':
         form = ContactForm(request.POST)
     else:
         form = ContactForm()
-    c = {'form': form}
+    c['form'] =  form
     if form.is_valid():
         msg = form.cleaned_data['message'] + "\n\n\n" + ('-' * 80)
         msg += "\n\n Ip : " + request.META["REMOTE_ADDR"]
-        subject = "[Nivl’s blog] " + form.cleaned_data['subject']
+        subject = u"[Nivl’s blog] " + form.cleaned_data['subject']
         send_mail(subject,
                   msg,
                   form.cleaned_data['email'],
                   [settings.ADMINS[0][1]])
-        c = {'verb': 'sent', 'link': reverse('blog')}
-        c.update(csrf(request))
+        c = {'verb': 'sent',
+             'link': reverse('blog')}
         return render_to_response('generic/flash_message.html', c)
     else:
         return render_to_response('blog/contact.html', c)
