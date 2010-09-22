@@ -11,8 +11,19 @@ register = template.Library()
 
 @register.inclusion_tag('blog/templatetags/category_list.html')
 def category_list():
-    cat_list = Category.objects.order_by('left', 'level')
-    return {'categories': cat_list}
+    categories = Category.objects.order_by('left', 'level')
+    cat_list = []
+    if categories:
+        for i, cat in enumerate(categories):
+            if i != 0:
+                if cat.level < categories[i-1].level:
+                    for j in range(categories[i-1].level - cat.level):
+                        cat_list.append('level_down')
+                elif cat.level > categories[i-1].level:
+                    cat_list.append('level_up')
+            cat_list.append(cat)
+
+    return {'nested_tree': cat_list}
 
 
 @register.inclusion_tag('blog/templatetags/display_entries.html')
