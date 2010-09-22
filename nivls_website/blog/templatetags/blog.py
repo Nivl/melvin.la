@@ -9,8 +9,8 @@ from django.contrib.sites.models     import Site
 register = template.Library()
 
 
-@register.inclusion_tag('blog/templatetags/category_list.html')
-def category_list():
+@register.inclusion_tag('blog/templatetags/display_categories.html')
+def display_categories():
     categories = Category.objects.order_by('left', 'level')
     cat_list = []
     if categories:
