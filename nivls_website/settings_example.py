@@ -5,6 +5,9 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# locmem doesn’t cache forever, so we cache for one year.
+CACHE_BACKEND = 'locmem://?timeout=31536000'
+
 # The first entry is the one used in the contact form.
 ADMINS = (('USER', 'user@address.email'),)
 

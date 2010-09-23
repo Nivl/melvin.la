@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 
+from django.core.cache                     import cache
 from django.core.context_processors        import csrf
 from django.core.mail                      import send_mail
 from django.core.urlresolvers              import reverse
 from django.conf                           import settings
 from nivls_website.blog.forms              import *
-from nivls_website.blog.models             import Category, Entry, Tag, Comment
+from nivls_website.blog.models             import *
 from nivls_website.libs.simple_paginator   import simple_paginator
 from django.http                           import Http404
 from django.shortcuts                      import render_to_response, get_object_or_404, get_list_or_404
 
 
 def entry_list(request, page=1):
-    entry_list = Entry.objects.select_related(depth=2).order_by('-date')
+    entry_list = Entry.objects.select_related().order_by('-date')
     entries = simple_paginator(entry_list, 5, page)
     return render_to_response('blog/entry_list.html', {'entries': entries})
 
@@ -20,10 +21,11 @@ def entry_list(request, page=1):
 def entry_detail(request, year, month, day, slug):
     c = {}
     c.update(csrf(request))
-    entry = get_object_or_404(Entry, date__year=year,
-                                     date__month=month,
-                                     date__day=day,
-                                     slug=slug)
+    entry = get_object_or_404(Entry.objects.select_related(),
+                              date__year=year,
+                              date__month=month,
+                              date__day=day,
+                              slug=slug)
     if request.method == 'POST':
         form = CommentForm(request, request.POST)
         if form.is_valid():

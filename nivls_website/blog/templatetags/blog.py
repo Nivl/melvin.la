@@ -5,13 +5,18 @@ from datetime                        import datetime
 from django                          import template
 from nivls_website.blog.models       import Category, Tag, Entry, Comment
 from django.contrib.sites.models     import Site
+from django.core.cache               import cache
 
 register = template.Library()
 
 
 @register.inclusion_tag('blog/templatetags/display_categories.html')
 def display_categories():
-    categories = Category.objects.order_by('left', 'level')
+    if cache.has_key('cat-list-by-left'):
+        categories = cache.get('cat-list-by-left');
+    else:
+        categories = Category.objects.order_by('left', 'level')
+        cache.set('cat-list-by-left', categories)
     cat_list = []
     if categories:
         for i, cat in enumerate(categories):
@@ -44,13 +49,21 @@ def display_pagination(paginator):
 
 @register.inclusion_tag('blog/templatetags/flash_tag_cloud.html')
 def flash_tag_cloud():
-    tags = Tag.objects.all()
+    if cache.has_key('tag-list'):
+        tags = cache.get('tag-list')
+    else:
+        tags = Tag.objects.all()
+        cache.set('tag-list', tags)
     return {'tags': tags}
 
 
 @register.inclusion_tag('blog/templatetags/archive_list.html')
 def archive_list():
-    date_list = Entry.objects.dates('date', 'month').order_by('-date')
+    if cache.has_key('entry-archive-list'):
+        date_list = cache.get('entry-archive-list')
+    else:
+        date_list = Entry.objects.dates('date', 'month').order_by('-date')
+        cache.set('entry-archive-list', date_list)
     return {'date_list': date_list}
 
 
