@@ -21,18 +21,17 @@ a{
    text-decoration: none;
    }
 
-a:hover{color: #2D404A;}
+a:hover{ color: #2D404A; }
 
-#header{
-         margin-left: 18px;
-         height: 136px;
-         }
-
+#header {
+          margin-left: 18px;
+          height: 136px;
+          }
 
 #menu{
        margin-right: 18px;
        margin-top: 10px;
-       width: 170px;
+       width: 15%;
        float: right;
        }
 
