@@ -78,8 +78,5 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django.contrib.markup',
     'django.contrib.humanize',
-    'nivls_website.entries',
-    'nivls_website.categories',
-    'nivls_website.tags',
-    'nivls_website.main',
+    'nivls_website.blog'
     )
