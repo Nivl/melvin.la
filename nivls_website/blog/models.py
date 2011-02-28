@@ -17,14 +17,14 @@ class Tag(models.Model):
         return "/blog/tags/" + self.slug + "/"
 
     def save(self, *args, **kwargs):
-        super(Category, self).save(*args, **kwargs)
-        delete_cache()
+        super(Tag, self).save(*args, **kwargs)
+        self.delete_cache()
 
     def delete(self, *args, **kwargs):
-        super(Category, self).delete(*args, **kwargs)
-        delete_cache()
+        super(Tag, self).delete(*args, **kwargs)
+        self.delete_cache()
 
-    def delete_cache():
+    def delete_cache(self):
         cache.delete('tag-list')
 
 
