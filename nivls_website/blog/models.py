@@ -100,7 +100,8 @@ class Entry(models.Model):
         super(Entry, self).delete(*args, **kwargs)
 
     def delete_cache(self):
-        cache.delete('entry-%d-comment-count' % self.entry.id)
+        if self.id:
+            cache.delete('entry-%d-comment-count' % self.id)
         cache.delete('entry-archive-list')
 
 class Comment(models.Model):
