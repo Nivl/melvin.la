@@ -294,7 +294,7 @@ p + div.codehilite { margin-top: 5px;}
 
 #nav .home{ background-position:0px 0px; }
 #nav .contact{ background-position:-200px 0px; }
-#nav .tags{ background-position:-400px 0px; }
+#nav .cv{ background-position:-400px 0px; }
 #nav .search{ background-position:-600px 0px; }
 
 #nav .home.active,
@@ -303,8 +303,8 @@ p + div.codehilite { margin-top: 5px;}
 #nav .contact.active,
 #nav .contact:hover{ background-position: -200px bottom; }
 
-#nav .tags.active,
-#nav .tags:hover{ background-position: -400px bottom; }
+#nav .cv.active,
+#nav .cv:hover{ background-position: -400px bottom; }
 
 #nav .search.active,
 #nav .search:hover{ background-position: -600px bottom; }
