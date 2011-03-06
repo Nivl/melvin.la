@@ -107,3 +107,6 @@ def archive(request, year, month=0, page=None):
         raise Http404
     entries = simple_paginator(entry_list, 5, page)
     return render_to_response('blog/entry_list.html', {'entries': entries})
+
+def cv(request):
+    return render_to_response('blog/cv.html')

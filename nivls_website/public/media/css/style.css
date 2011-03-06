@@ -23,6 +23,8 @@ a{
 
 a:hover{ color: #2D404A; }
 
+.center{ text-align: center; }
+
 #header {
     text-align: center;
     height: 136px;

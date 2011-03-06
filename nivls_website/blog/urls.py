@@ -24,6 +24,10 @@ urlpatterns = patterns('',
     (url(r'^contact/$',
          'nivls_website.blog.views.contact',
          name='blog-contact')),
+# CV
+    (url(r'^cv/$',
+         'nivls_website.blog.views.cv',
+         name='blog-cv')),
 # Year
     (url(r'^archives/(?P<year>\d{4})/(page-(?P<page>\d+))?$',
          'nivls_website.blog.views.archive',
