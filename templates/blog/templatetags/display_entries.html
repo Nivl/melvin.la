@@ -1,9 +1,0 @@
-{% load blog %}
-
-{% for entry in entries %}
-  {% display_entry entry %}
-{% empty %}
-  <div class="no-entries-found">
-    There is no entries.
-  </div>
-{% endfor %}

@@ -1,9 +1,0 @@
-{% load humanize markup blog %}
-
-{% for comment in comment_list %}
-  {% display_comment entry comment %}
-{% empty %}
-  <div class="comment-list-empty">
-    There are no comments yet, be the first to say something !
-  </div>
-{% endfor %}
