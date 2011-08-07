@@ -1,0 +1,3 @@
+*.pyc
+nivls_website/settings.py
+nivls_website/blog/migrations/
