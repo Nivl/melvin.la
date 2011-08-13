@@ -1,6 +1,7 @@
 Requirements
 ============
 
+* [sorl-thumbnail](https://github.com/sorl/sorl-thumbnail)
 * [django-pagination](https://github.com/zyga/django-pagination)
 * [django-categories](https://github.com/callowayproject/django-categories)
 * [django-mptt](https://github.com/django-mptt/django-mptt)

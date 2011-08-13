@@ -90,7 +90,10 @@ INSTALLED_APPS = (
     'south',
     'mptt',
     'categories',
-    'tagging',
+    'editor',
+    'sorl.thumbnail',
+    'tag',
+    'blog'
 )
 
 # A sample logging configuration. The only tangible logging
