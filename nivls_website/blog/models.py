@@ -1,6 +1,6 @@
 from django.db import models
 from categories.models import Category
-from tagging.models import Tag
+from tags.models import Tag
 
 class Post(models.Model):
     title         = models.CharField(max_length=100)

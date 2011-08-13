@@ -1,7 +1,6 @@
 Requirements
 ============
 
-* [django-tagging](http://code.google.com/p/django-tagging/)
 * [django-pagination](https://github.com/zyga/django-pagination)
 * [django-categories](https://github.com/callowayproject/django-categories)
 * [django-mptt](https://github.com/django-mptt/django-mptt)
