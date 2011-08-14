@@ -13,6 +13,7 @@ class Image(models.Model):
     name           = models.CharField(max_length=100)
     image          = models.ImageField(upload_to=get_image_path)
     content_type   = models.ForeignKey(ContentType)
+    object_id      = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     def __unicode__(self):
