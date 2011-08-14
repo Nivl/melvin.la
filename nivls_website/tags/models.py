@@ -5,7 +5,7 @@ class Tag(models.Model):
     slug         = models.SlugField()
 
     def __unicode__(self):
-        return name
+        return self.name
 
     class Meta:
         ordering = ["name"]
