@@ -93,8 +93,9 @@ INSTALLED_APPS = (
     'categories',
     'editor',
     'sorl.thumbnail',
-    'tag',
-    'blog'
+    'tags',
+    'blog',
+    'images',
 )
 
 # A sample logging configuration. The only tangible logging

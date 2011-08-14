@@ -2,6 +2,7 @@ from django.db import models
 from categories.models import Category
 from tags.models import Tag
 from django.contrib.auth.models import User
+from images.models import Image
 
 class Post(models.Model):
     title         = models.CharField(max_length=100)
@@ -18,7 +19,7 @@ class Post(models.Model):
     author        = models.ForeignKey(User)
     category      = models.ForeignKey(Category)
     tags          = models.ManyToManyField(Tag)
-
+    images        = models.ManyToManyField(Image, null=True, blank=True)
 
     def __unicode__(self):
         return self.title;

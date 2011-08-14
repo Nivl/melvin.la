@@ -1,4 +1,4 @@
 *.pyc
 nivls_website/settings.py
-nivls_website/blog/migrations/
+nivls_website/*/migrations/
 nivls_website/media
