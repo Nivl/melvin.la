@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block "head_js" %}
+  <script src="{{ STATIC_URL }}js/slides.min.jquery.js"></script>
+  <script src="{{ STATIC_URL }}js/blog.js"></script>
+{% endblock "head_js" %}
+
+{% block "head_css" %}
+  <link rel="stylesheet/less" media="screen" href="{{ STATIC_URL }}css/blog.less">
+{% endblock "head_css" %}
+
+{% block "body" %}
+  <header>
+    <nav id="first-list">
+      <ul>
+	<li><a href="/">Home</a></li>
+	<li><a href="/page/about">about</a></li>
+      </ul>
+    </nav>
+    <div id="header-central">
+      <h1>Laplanche-Melv<span class="dot">.</span>in</h1>
+    </div>
+    <nav id="second-list">
+      <ul>
+	<li><a href="/categories/epitech">Epitech</a></li>
+	<li><a href="/categories/projet">Projet</a></li>
+
+
+	<li id="icons">
+	  <a id="fb-icon" href="https://facebook.com/melvin.py"></a>
+	</li>
+	<li id="icons">
+	  <a id="twitter-icon" href="https://twitter.com/Nivl_"></a>
+	</li>
+	<li id="icons">
+	  <a id="google-icon"
+	     href="https://plus.google.com/107029584179497153748/posts">
+	  </a>
+	</li>
+	<li id="icons">
+	  <a id="rss-icon" href="/"></a>
+	</li>
+      </ul>
+    </nav>
+  </header>
+
+  {% block "content" %}{% endblock "content" %}
+
+{% endblock "body" %}
