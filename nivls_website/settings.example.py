@@ -69,9 +69,17 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'subdomains.middleware.SubdomainURLRoutingMiddleware',
 )
 
 ROOT_URLCONF = 'nivls_website.urls'
+
+REMOVE_WWW_FROM_SUBDOMAIN = True
+
+SUBDOMAIN_URLCONFS = {
+    None: 'nivls_website.urls',
+    'blog': 'nivls_website.blog.urls',
+    }
 
 TEMPLATE_DIRS = (
     os.path.abspath(os.path.join(os.getcwd(), "..", "templates"))
