@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from categories.models import Category
 from tags.models import Tag
@@ -15,6 +16,7 @@ class Post(models.Model):
     content       = models.TextField()
     pub_date      = models.DateTimeField(auto_now_add=True)
     edit_date     = models.DateTimeField(auto_now=True)
+    is_public     = models.BooleanField()
     allow_comment = models.BooleanField()
     author        = models.ForeignKey(User)
     category      = models.ForeignKey(Category)
@@ -23,3 +25,6 @@ class Post(models.Model):
 
     def __unicode__(self):
         return "%d - %s" % (self.id, self.title)
+
+    def get_absolute_url(self):
+        return self.pub_date.strftime("%Y/%m/%d") + "/" + self.slug
