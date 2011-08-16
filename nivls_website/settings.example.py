@@ -79,6 +79,7 @@ REMOVE_WWW_FROM_SUBDOMAIN = True
 SUBDOMAIN_URLCONFS = {
     None: 'nivls_website.urls',
     'blog': 'nivls_website.blog.urls',
+    'admin': 'nivls_website.urls_admin',
     }
 
 TEMPLATE_DIRS = (
