@@ -3,6 +3,10 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+DOMAIN_NAME = 'localhost:8000'
+
+INTERNAL_IPS = ('127.0.0.1',)
+
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
     }
@@ -11,7 +15,6 @@ ADMINS = (
     ('admin', 'name@domain.tld'),
 )
 
-INTERNAL_IPS = ('127.0.0.1',)
 MANAGERS = ADMINS
 
 DATABASES = {
@@ -35,10 +38,10 @@ USE_L10N = False
 
 
 MEDIA_ROOT = os.path.join(os.getcwd(), "media")
-MEDIA_URL = '/media/'
+MEDIA_URL = 'http://media.' + DOMAIN_NAME + '/'
 
 STATIC_ROOT = os.path.join(os.getcwd(), "static")
-STATIC_URL = '/static/'
+STATIC_URL = 'http://static.' + DOMAIN_NAME + '/'
 
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
@@ -78,8 +81,10 @@ REMOVE_WWW_FROM_SUBDOMAIN = True
 
 SUBDOMAIN_URLCONFS = {
     None: 'nivls_website.urls',
-    'blog': 'nivls_website.blog.urls',
     'admin': 'nivls_website.urls_admin',
+    'media': 'nivls_website.urls_media',
+    'static': 'nivls_website.urls_static',
+    'blog': 'nivls_website.blog.urls',
     }
 
 TEMPLATE_DIRS = (
