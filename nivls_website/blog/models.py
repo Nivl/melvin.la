@@ -6,11 +6,11 @@ from django.contrib.auth.models import User
 from images.models import Image
 
 class Post(models.Model):
-    title         = models.CharField(max_length=100)
+    title         = models.CharField(max_length=50)
     slug          = models.SlugField(unique_for_date="pub_date")
-    description   = models.CharField(max_length=255)
+    description   = models.CharField(max_length=80)
     main_image    = models.ImageField(upload_to="article_images/originals/",
-                                      help_text="640x250")
+                                      help_text="570x270")
     thumbnail     = models.ImageField(upload_to="article_images/thubnails/",
                                       help_text="115x115")
     content       = models.TextField()
