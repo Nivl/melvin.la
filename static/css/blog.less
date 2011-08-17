@@ -134,20 +134,24 @@ body {
 		    padding: 0;
 		    @icon-size: 32px;
 
-		    a#fb-icon {
-			.display-icon(-@icon-size * 3, @icon-size)
-		    }
-
-		    a#rss-icon {
+		    a#github-icon {
 			.display-icon(0px, @icon-size)
 		    }
 
-		    a#google-icon {
+		    a#rss-icon {
 			.display-icon(-@icon-size, @icon-size)
 		    }
 
-		    a#twitter-icon {
+		    a#google-icon {
 			.display-icon(-@icon-size * 2, @icon-size)
+		    }
+
+		    a#twitter-icon {
+			.display-icon(-@icon-size * 3, @icon-size)
+		    }
+
+		    a#fb-icon {
+			.display-icon(-@icon-size * 4, @icon-size)
 		    }
 		}
 	    }
@@ -161,7 +165,7 @@ body {
 	position: relative;
 	z-index: 0;
 
-	a#frame {
+	#frame {
 	    position: absolute;
 	    z-index: 0;
 	    width: 739px;
