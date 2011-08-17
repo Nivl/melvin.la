@@ -3,7 +3,6 @@
 <div id="slideshow">
   <div id="slides">
     <div class="slides_container">
-
       {% for item in object %}
 	<div class="slide">
 	  <a href="{{ item.get_absolute_url }}" title="{{ item.title }}">
@@ -15,7 +14,7 @@
 	  </div>
 	</div>
       {% endfor %}
-
+    </div>
     <a href="#" class="prev">
       <img src="{% get_static_prefix %}img/slideshow/arrow-prev.png"
 	   width="24" height="43" alt="Arrow Prev" />
@@ -24,7 +23,6 @@
       <img src="{% get_static_prefix %}img/slideshow/arrow-next.png"
 	   width="24" height="43" alt="Arrow Next" />
     </a>
-
   </div>
   <img src="{% get_static_prefix %}img/slideshow/frame.png"
        width="739" height="341" alt="Example Frame" id="frame" />
