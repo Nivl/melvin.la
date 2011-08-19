@@ -2,4 +2,5 @@
 nivls_website/settings.py
 nivls_website/*/migrations/
 nivls_website/media
+research
 .directory
