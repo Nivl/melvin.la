@@ -43,7 +43,7 @@ MEDIA_URL = 'http://media.' + DOMAIN_NAME + '/'
 STATIC_ROOT = os.path.join(os.getcwd(), "static")
 STATIC_URL = 'http://static.' + DOMAIN_NAME + '/'
 
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+ADMIN_MEDIA_PREFIX = 'http://static.' + DOMAIN_NAME + '/admin/'
 
 STATICFILES_DIRS = (
     os.path.abspath(os.path.join(os.getcwd(), "..", "static")),
