@@ -1,6 +1,23 @@
+/******************************************************************************
+**									     **
+**                        Variables and functions                            **
+**									     **
+******************************************************************************/
+
+@green: #092e20;
+
+/******************************************************************************
+**									     **
+**                        End variables and functions                        **
+**									     **
+******************************************************************************/
+
+
 body{
     font-family: Arial;
-    background: #a7cede url("../img/about/bg.png") no-repeat top right;
+    background: @green url("../../img/about/background.png");
+    background-repeat: no-repeat;
+    background-position: top right;
 
     .title{
 	position: absolute;
@@ -8,7 +25,7 @@ body{
 	left: 0px;
 	width: 130px;
 	height: 570px;
-	background: #a7cede url("../img/about/laplanche-melv.in.png");
+	background: @green url("../../img/about/laplanche-melv.in.png");
 	background-repeat: no-repeat;
 	backgroung-position: top left;
     }
@@ -40,7 +57,7 @@ body{
 	left: 0px;
 	width: 418px;
 	height: 418px;
-	background:transparent url("../img/about/circlebg.png");
+	background:transparent url("../../img/about/circlebg.png");
 	background-repeat: no-repeat;
 	background-position: top left;
 
@@ -61,7 +78,7 @@ body{
 		width: 105px;
 		text-indent: -2000000px;
 		opacity: 0.8;
-		background: transparent url("../img/about/menu.png");
+		background: transparent url("../../img/about/menu.png");
 		background-repeat: no-repeat;
 		background-position: top left;
 	    }
@@ -90,7 +107,7 @@ body{
 	position: absolute;
 	left: 0;
 	top: 0;
-	background: transparent url("../img/about/circle.png");
+	background: transparent url("../../img/about/circle.png");
 	background-repeat: no-repeat;
 	background-position: top left;
 	z-index: 10;
