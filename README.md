@@ -2,6 +2,7 @@ Requirements
 ============
 
 * [python-markdown](http://pypi.python.org/pypi/Markdown)
+* [pygments](http://pygments.org/)
 * [sorl-thumbnail](https://github.com/sorl/sorl-thumbnail)
 * [django-pagination](https://github.com/zyga/django-pagination)
 * [django-categories](https://github.com/callowayproject/django-categories)
