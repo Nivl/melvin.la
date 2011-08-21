@@ -1,3 +1,4 @@
+#cboxLoadedContent{font-family:verdana, serif;background-color:#ff98e1;color:white;font-size:13px;padding:20px;}#cboxLoadedContent a{color:#0091ff;text-decoration:none;}
 body{font-family:Arial;background:#ff98e1 url("../../img/about/background-konami.png");background-repeat:no-repeat;background-position:top right;}body .title{position:absolute;top:0px;left:0px;width:130px;height:570px;background:#ff98e1 url("../../img/about/laplanche-melv.in-konami.png");background-repeat:no-repeat;backgroung-position:top left;}
 body .wrapper{font-family:Verdana;font-size:11px;width:600px;height:600px;position:relative;top:150px;left:200px;}body .wrapper .images img{display:none;position:absolute;left:6px;top:6px;}
 body .wrapper #image_about{display:block;}

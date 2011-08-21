@@ -6,6 +6,22 @@ $(document).ready(function(){
 	    href: "#whoAmI"}
     );
 
+    $("#slider").easySlider({
+	auto: false,
+	continuous: false,
+	prevId: 'home-link',
+	nextId: 'resume-link',
+    });
+
+    $(".tab > a").click(function() {
+	$(".active").removeClass("active");
+	$(this).addClass("active");
+	$(".content").slideUp();
+
+	var content_show = $(this).attr("id").replace("tab", "content");
+	$("#"+content_show).slideDown();
+    });
+
     var konamiCount = 1;
     $(window).konami(function() {
 	if (konamiCount == 1) {

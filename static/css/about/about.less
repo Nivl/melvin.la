@@ -13,13 +13,41 @@
 ******************************************************************************/
 
 
+/******************************************************************************
+**									     **
+**                                  Color                                    **
+**									     **
+******************************************************************************/
+
+#cboxLoadedContent {
+    font-family: verdana, serif;
+    background-color: @green;
+    color: white;
+    font-size: 13px;
+    padding: 20px;
+
+    a {
+	color: #0091ff;
+	text-decoration: none;
+    }
+}
+
+/******************************************************************************
+**									     **
+**                               End Colorbox                                **
+**									     **
+******************************************************************************/
+
 body{
-    font-family: Arial;
+    font-family: verdana, serif;
+    font-size: 11px;
+    color: white;
     background: @green url("../../img/about/background.png");
     background-repeat: no-repeat;
     background-position: top right;
 
     .title{
+	z-index: -1;
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -30,110 +58,165 @@ body{
 	backgroung-position: top left;
     }
 
-    .wrapper{
-	font-family: Verdana;
-	font-size: 11px;
-	width: 600px;
-	height: 600px;
-	position: relative;
-	top: 150px;
-	left: 200px;
-
-	.images img{
-	    display: none;
-	    position: absolute;
-	    left: 6px;
-	    top: 6px;
+    #slider {
+	.slide {
+	    float: left;
+	    width: 750px;
+	    overflow: hidden;
 	}
 
-	#image_about {
-	    display: block;
-	}
-    }
-
-    .circleBig{
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 418px;
-	height: 418px;
-	background:transparent url("../../img/about/circlebg.png");
-	background-repeat: no-repeat;
-	background-position: top left;
-
-	.menu{
-	    position: absolute;
-	    width: 101px;
-	    height: 74px;
-	    top: 240px;
-	    left: 260px;
+	#resume {
 	    z-index: 999;
+	    position:relative;
+	    left: 35%;
+	    background-color: #AAA;
+	    boder: 1px solid white;
+	    color: black;
 
+	    ul.tabs {
+		li {
+		    display: inline;
 
-	    a.about, a.portfolio, a.contact{
-		float: left;
-		clear: both;
-		height: 23px;
-		margin-bottom: 10px;
-		width: 105px;
-		text-indent: -2000000px;
-		opacity: 0.8;
-		background: transparent url("../../img/about/menu.png");
-		background-repeat: no-repeat;
-		background-position: top left;
+		    a {
+			background-color: #464c54;
+			color: #ffebb5;
+			padding: 8px 14px 8px 14px;
+			text-decoration: none;
+			font-size: 9px;
+			font-weight: bold;
+			text-transform: uppercase;
+			border: 1px solid #464c54;
+
+			&:hover {
+			    background-color: #2f343a;
+			    border-color: #2f343a;
+			}
+
+			&.active {
+			    background-color: #ffffff;
+			    color: #282e32;
+			    border: 1px solid #464c54;
+			    border-bottom: 1px solid #ffffff;
+			}
+		    }
+		}
 	    }
 
-	    a.portfolio{
-		width: 90px;
-		background-position: -105px 0px;
+	    .content {
+		margin-top: 9px;
+
+		background-color: #fff;
+		padding: 10px;
+		border: 1px solid #464c54;
 	    }
 
-	    a.contact{
-		width: 88px;
-		background-position: -199px 0px;
-	    }
-
-	    a.about:hover, a.portfolio:hover, a.contact:hover{
-		opacity: 1.0;
+	    #content-skills, #content-awards {
+		display: none;
 	    }
 	}
-    }
 
-    .circle{
-	margin-top: -88px;
-	margin-left: -88px;
-	width: 176px;
-	height: 176px;
-	position: absolute;
-	left: 0;
-	top: 0;
-	background: transparent url("../../img/about/circle.png");
-	background-repeat: no-repeat;
-	background-position: top left;
-	z-index: 10;
-	opacity: 0;
+	.wrapper{
+	    width: 600px;
+	    height: 600px;
+	    position: relative;
+	    top: 150px;
+	    left: 200px;
+
+	    .images img{
+		display: none;
+		position: absolute;
+		left: 6px;
+		top: 6px;
+	    }
+
+	    #image_about {
+		display: block;
+	    }
+	}
+
+	.circleBig{
+	    position: absolute;
+	    top: 0px;
+	    left: 0px;
+	    width: 418px;
+	    height: 418px;
+	    background:transparent url("../../img/about/circlebg.png");
+	    background-repeat: no-repeat;
+	    background-position: top left;
+
+	    .menu{
+		position: absolute;
+		width: 101px;
+		height: 74px;
+		top: 240px;
+		left: 260px;
+		z-index: 999;
 
 
-	.description{
-	    width: 120px;
-	    margin: 40px auto;
-	    text-align: center;
+		a.about, a.portfolio, a.contact{
+		    float: left;
+		    clear: both;
+		    height: 23px;
+		    margin-bottom: 10px;
+		    width: 105px;
+		    text-indent: -2000000px;
+		    opacity: 0.8;
+		    background: transparent url("../../img/about/menu.png");
+		    background-repeat: no-repeat;
+		    background-position: top left;
 
-	    ul{
-		list-style: none;
+		    &:hover{
+			opacity: 1.0;
+		    }
+		}
+
+		a.portfolio{
+		    width: 90px;
+		    background-position: -105px 0px;
+		}
+
+		a.contact{
+		    width: 88px;
+		    background-position: -199px 0px;
+		}
+	    }
+	}
+
+	.circle{
+	    margin-top: -88px;
+	    margin-left: -88px;
+	    width: 176px;
+	    height: 176px;
+	    position: absolute;
+	    left: 0;
+	    top: 0;
+	    background: transparent url("../../img/about/circle.png");
+	    background-repeat: no-repeat;
+	    background-position: top left;
+	    z-index: 10;
+	    opacity: 0;
+
+	    .description{
+		width: 120px;
+		margin: 40px auto;
 		text-align: center;
 
-		a{
-		    line-height: 30px;
-		    font-weight: bold;
-		    color: #fff;
-		    text-decoration: none;
-		    text-transform: uppercase;
-		    font-size: 11px;
-		    text-shadow: 1px 1px 1px #aaa;
+		ul{
+		    list-style: none;
+		    text-align: center;
 
-		    &:hover {
-			color: #f0f0f0;
+		    a{
+			line-height: 30px;
+			font-weight: bold;
+			color: #fff;
+			text-decoration: none;
+			text-transform: uppercase;
+			font-size: 11px;
+			text-shadow: 1px 1px 1px #aaa;
+
+			&:hover {
+			    color: #f0f0f0;
+			}
 		    }
 		}
 	    }

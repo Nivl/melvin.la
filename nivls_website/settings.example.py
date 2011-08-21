@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     'tags',
     'blog',
     'images',
+    'about',
 )
 
 # A sample logging configuration. The only tangible logging
