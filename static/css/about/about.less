@@ -60,21 +60,16 @@ body{
     }
 
     #slider {
-	max-height: 600px;
-	overflow: hidden;
+	height: 600px;
+	width: 100%;
 
 	#resume {
-	    z-index: 999;
-	    position: relative;
-	    top: -450px; // wrapper height
-	    left: 110%;
-	    width: 100%;
+	    width: 75%;
+	    margin-left: 110%;
 	    color: black;
 
 	    #resume-container {
-		position: relative;
-		left: 12%;
-		width: 75%;
+		//width: 75%;
 	    }
 
 	    ul.tabs {
@@ -156,6 +151,7 @@ body{
 	}
 
 	.wrapper{
+	    float: left;
 	    width: 100%;
 	    height: 450px;
 	    position: relative;

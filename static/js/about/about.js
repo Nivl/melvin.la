@@ -8,18 +8,27 @@ $(document).ready(function(){
 	}
     );
 
+    $('#slider').css({'overflow': 'hidden',});
+    $('.slide').wrapAll('<div id="slideContainer"></div>');
+    $('#slideContainer').css({'width': '100%',});
+
+    $('#home-link > a').live("click", gotoHome);
+    $('#resume-link > a').live("click", gotoResume);
+
+
     function gotoResume()
     {
-	$.scrollTo($("#resume"), 800);
+	$('#slideContainer').stop().animate({
+            'marginLeft' : "-100%"
+	}, 800);
     }
 
     function gotoHome()
     {
-	$.scrollTo($("body"), 800);
+	$('#slideContainer').stop().animate({
+            'marginLeft' : "0%"
+	}, 800);
     }
-
-    $('#home-link').live("click", gotoHome);
-    $('#resume-link').live("click", gotoResume);
 
     $(".tab > a").click(function() {
 	$(".active").removeClass("active");

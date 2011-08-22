@@ -14,7 +14,18 @@ $(function() {
         function(){
 	    $('#content .circle').each(function(i){
 		var $theCircle = $(this);
-                $theCircle.stop().animate({opacity: '0'},200);
+
+		$theCircle.stop()
+                    .animate({
+			path : new $.path.arc({
+                            center: [409,359],
+                            radius: 257,
+                            start : 65,
+                            end   : -110,
+                            dir   : -1
+			}),
+			opacity: '0'
+                    });
             });
         }
     );
