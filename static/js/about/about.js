@@ -1,17 +1,25 @@
+
 $(document).ready(function(){
     $(".modal_box").colorbox(
 	{
 	    width: "50%",
 	    inline: true,
-	    href: "#whoAmI"}
+	    href: "#whoAmI"
+	}
     );
 
-    $("#slider").easySlider({
-	auto: false,
-	continuous: false,
-	prevId: 'home-link',
-	nextId: 'resume-link',
-    });
+    function gotoResume()
+    {
+	$.scrollTo($("#resume"), 800);
+    }
+
+    function gotoHome()
+    {
+	$.scrollTo($("body"), 800);
+    }
+
+    $('#home-link').live("click", gotoHome);
+    $('#resume-link').live("click", gotoResume);
 
     $(".tab > a").click(function() {
 	$(".active").removeClass("active");

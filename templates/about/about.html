@@ -5,6 +5,7 @@
 {% block "head_js" %}
   <script src="{{ STATIC_URL }}js/about/jquery.path.js"></script>
   <script src="{{ STATIC_URL }}js/about/jquery.colorbox-min.js"></script>
+  <script src="{{ STATIC_URL }}js/about/jquery.scrollTo.js"></script>
   <script src="{{ STATIC_URL }}js/about/easySlider1.7.js"></script>
   <script src="{{ STATIC_URL }}js/about/bubbles.js"></script>
   <script src="{{ STATIC_URL }}js/about/about.js"></script>
@@ -26,81 +27,81 @@
   <div id="content">
     <div class="title"></div>
     <div id="slider">
-      <ul id="slides">
-	<li class="slide">
-	  <div id="home" class="wrapper">
-	    <div id="images" class="images">
-              <img id="image_about" src="{{ STATIC_URL }}img/about/about.png" alt="" width="402" height="402" />
-              <img id="image_portfolio" src="{{ STATIC_URL }}img/about/portfolio.png" alt="" width="402" height="402"/>
-              <img id="image_contact" src="{{ STATIC_URL }}img/about/contact.png" alt="" width="402" height="402" />
-	    </div>
+      <div id="home" class="wrapper slide">
+	<div id="images" class="images">
+          <img id="image_about" src="{{ STATIC_URL }}img/about/about.png" alt="" width="402" height="402" />
+          <img id="image_portfolio" src="{{ STATIC_URL }}img/about/portfolio.png" alt="" width="402" height="402"/>
+          <img id="image_contact" src="{{ STATIC_URL }}img/about/contact.png" alt="" width="402" height="402" />
+	</div>
 
-	    <div class="circleBig">
-              <div id="menu" class="menu">
-		<a id="about" class="about" href="#">About me</a>
-		<a id="portfolio" class="portfolio" href="#">Portfolio</a>
-		<a id="contact" class="contact" href="#">Contact</a>
-              </div>
-	    </div>
-	  </div>
+	<div class="circleBig">
+          <div id="menu" class="menu">
+	    <a id="about" class="about" href="#">About me</a>
+	    <a id="portfolio" class="portfolio" href="#">Portfolio</a>
+	    <a id="contact" class="contact" href="#">Contact</a>
+          </div>
+	</div>
+      </div>
 
-	  <div id="circle_about" class="circle">
-	    <div class="description">
-              <ul>
-		<li><a class="modal_box" href="#">Qui suis-je</a></li>
-		<li id="resume-link"><a href="#">Mon C.V.</a></li>
-              </ul>
-	    </div>
-	  </div>
+      <div id="circle_about" class="circle">
+	<div class="description">
+          <ul>
+	    <li><a class="modal_box" href="#">Qui suis-je</a></li>
+	    <li>
+	      <a href="#" id="resume-link">Mon C.V.</a></li>
+          </ul>
+	</div>
+      </div>
 
-	  <div id="circle_portfolio" class="circle">
-	    <div class="description">
-              <ul>
-		<li>
-		  <a href="http://blog.{{ DOMAIN_NAME }}/tag/pwork">Mon blog</a>
-		</li>
-		<li><a href="https://github.com/Nivl">Mes projets libres</a></li>
-              </ul>
-	    </div>
-	  </div>
+      <div id="circle_portfolio" class="circle">
+	<div class="description">
+          <ul>
+	    <li>
+	      <a href="http://blog.{{ DOMAIN_NAME }}/tag/pwork">Mon blog</a>
+	    </li>
+	    <li><a href="https://github.com/Nivl">Mes sources</a></li>
+          </ul>
+	</div>
+      </div>
 
-	  <div id="circle_contact" class="circle">
-	    <div class="description">
-              <ul>
-		<li><a href="https://plus.google.com/107029584179497153748">
-		    Google+</a></li>
-		<li><a href="https://facebook.com/melvin.py">Facebook</a></li>
-		<li><a href="https://twiter.com/Nivl_">Twitter</a></li>
-              </ul>
-	    </div>
+      <div id="circle_contact" class="circle">
+	<div class="description">
+          <ul>
+	    <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01TJeZkOso1wvPoWS1AWxNXw==&amp;c=8sTTFtuAmytRJEvjeQugS015pzCLL5sfQf_RvRJC4aU="
+		   onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501TJeZkOso1wvPoWS1AWxNXw\75\75\46c\758sTTFtuAmytRJEvjeQugS015pzCLL5sfQf_RvRJC4aU\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;"
+		   title="Reveal this e-mail address">Email</a></li>
+	    <li><a href="https://plus.google.com/107029584179497153748">
+		Google+</a></li>
+	    <li><a href="https://facebook.com/melvin.py">Facebook</a></li>
+          </ul>
+	</div>
+      </div>
+      <div id="resume">
+	<div id="resume-container">
+	  <ul class="tabs">
+	    <li><a href="#" id="home-link">«</a></li>
+	    <li class="tab">
+	      <a id="tab-profile" class="active" href="#">Profil</a>
+	    </li>
+	    <li class="tab">
+	      <a id="tab-skills" href="#">Compétences</a>
+	    </li>
+	    <li class="tab">
+	      <a id="tab-awards" href="#">Prix et récompences</a>
+	    </li>
+	  </ul>
+	  <div id="content-profile" class="content">
+	    {{ static_infos.profile|markdown }}
 	  </div>
-	</li>
-	<li class="slide">
-	  <div id="resume">
-	    <ul class="tabs">
-	      <li id="home-link"><a href="#">«</a></li>
-	      <li class="tab">
-		<a id="tab-profile" class="active" href="#">Profil</a>
-	      </li>
-	      <li class="tab">
-		<a id="tab-skills" href="#">Compétences</a>
-	      </li>
-	      <li class="tab">
-		<a id="tab-awards" href="#">Prix et récompences</a>
-	      </li>
-	    </ul>
-	    <div id="content-profile" class="content">
-	      Contenu du profil
-	    </div>
-	    <div id="content-skills" class="content">
-	      Liste des skills
-	    </div>
-	    <div id="content-awards" class="content">
-	      Liste des prix
-	    </div>
+	  <div id="content-skills" class="content">
+	    {{ static_infos.skills|markdown:"abbr,foonotes" }}
 	  </div>
-	</li>
-      </ul>
+	  <div id="content-awards" class="content">
+	    {{ static_infos.awards|markdown }}
+	  </div>
+	</div>
+      </div>
     </div>
   </div>
+</div>
 {% endblock "body" %}

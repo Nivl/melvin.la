@@ -5,6 +5,7 @@
 ******************************************************************************/
 
 @green: #092e20;
+@blue: #0091ff;
 
 /******************************************************************************
 **									     **
@@ -25,11 +26,6 @@
     color: white;
     font-size: 13px;
     padding: 20px;
-
-    a {
-	color: #0091ff;
-	text-decoration: none;
-    }
 }
 
 /******************************************************************************
@@ -46,6 +42,11 @@ body{
     background-repeat: no-repeat;
     background-position: top right;
 
+    a {
+	color: @blue;
+	text-decoration: none;
+    }
+
     .title{
 	z-index: -1;
 	position: absolute;
@@ -59,27 +60,33 @@ body{
     }
 
     #slider {
-	.slide {
-	    float: left;
-	    width: 750px;
-	    overflow: hidden;
-	}
+	max-height: 600px;
+	overflow: hidden;
 
 	#resume {
 	    z-index: 999;
-	    position:relative;
-	    left: 35%;
-	    background-color: #AAA;
-	    boder: 1px solid white;
+	    position: relative;
+	    top: -450px; // wrapper height
+	    left: 110%;
+	    width: 100%;
 	    color: black;
 
+	    #resume-container {
+		position: relative;
+		left: 12%;
+		width: 75%;
+	    }
+
 	    ul.tabs {
+		margin-top: 20px;
+		margin-bottom: 9px;
+
 		li {
 		    display: inline;
 
 		    a {
-			background-color: #464c54;
-			color: #ffebb5;
+			background-color: #092e20;
+			color: #ffe761;
 			padding: 8px 14px 8px 14px;
 			text-decoration: none;
 			font-size: 9px;
@@ -88,7 +95,8 @@ body{
 			border: 1px solid #464c54;
 
 			&:hover {
-			    background-color: #2f343a;
+			    color: white;
+			    background-color: #234f32;
 			    border-color: #2f343a;
 			}
 
@@ -103,11 +111,43 @@ body{
 	    }
 
 	    .content {
-		margin-top: 9px;
-
 		background-color: #fff;
 		padding: 10px;
 		border: 1px solid #464c54;
+
+		h3 {
+		    background-color: #ebebeb;
+		    border: 1px solid #ddd;
+		    border-top-color: #bcbcbc;
+		    border-left-color: #bcbcbc;
+		    color: #666;
+		    text-shadow: 1px 1px 0 #fff;
+
+		    padding: 3px;
+		    text-transform: uppercase;
+		    font-size: 1.4em;
+		    margin: 10px 0;
+		    font-weight: bolder;
+		}
+
+		li {
+		    padding: 2px 0 2px 10px;
+		}
+
+		table {
+		    th, td {
+			padding: 5px;
+			padding-right: 15px;
+
+			border: 2px solid white;
+		    }
+
+		    th {
+			background-color: #92cc47;
+			color: @green;
+			font-weight: bolder;
+		    }
+		}
 	    }
 
 	    #content-skills, #content-awards {
@@ -116,8 +156,8 @@ body{
 	}
 
 	.wrapper{
-	    width: 600px;
-	    height: 600px;
+	    width: 100%;
+	    height: 450px;
 	    position: relative;
 	    top: 150px;
 	    left: 200px;
