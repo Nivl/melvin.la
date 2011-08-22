@@ -76,30 +76,28 @@
 	  </div>
 	</div>
 
+      </div>
+      <div id="resume" class="slide">
+	<ul class="tabs">
+	  <li id="home-link"><a href="#">«</a></li>
+	  <li class="tab">
+	    <a id="tab-profile" class="active" href="#">Profil</a>
+	  </li>
+	  <li class="tab">
+	    <a id="tab-skills" href="#">Compétences</a>
+	  </li>
+	  <li class="tab">
+	    <a id="tab-awards" href="#">Prix et récompences</a>
+	  </li>
+	</ul>
+	<div id="content-profile" class="content">
+	  {{ static_infos.profile|markdown }}
 	</div>
-	<div id="resume" class="slide">
-	<div id="resume-container">
-	  <ul class="tabs">
-	    <li id="home-link"><a href="#">«</a></li>
-	    <li class="tab">
-	      <a id="tab-profile" class="active" href="#">Profil</a>
-	    </li>
-	    <li class="tab">
-	      <a id="tab-skills" href="#">Compétences</a>
-	    </li>
-	    <li class="tab">
-	      <a id="tab-awards" href="#">Prix et récompences</a>
-	    </li>
-	  </ul>
-	  <div id="content-profile" class="content">
-	    {{ static_infos.profile|markdown }}
-	  </div>
-	  <div id="content-skills" class="content">
-	    {{ static_infos.skills|markdown }}
-	  </div>
-	  <div id="content-awards" class="content">
-	    {{ static_infos.awards|markdown }}
-	  </div>
+	<div id="content-skills" class="content">
+	  {{ static_infos.skills|markdown }}
+	</div>
+	<div id="content-awards" class="content">
+	  {{ static_infos.awards|markdown }}
 	</div>
       </div>
     </div>
