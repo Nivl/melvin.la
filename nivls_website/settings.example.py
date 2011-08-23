@@ -102,7 +102,7 @@ SUBDOMAIN_URLCONFS = {
     }
 
 TEMPLATE_DIRS = (
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "templates")),
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates"),
 )
 
 INSTALLED_APPS = (
