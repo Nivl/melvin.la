@@ -37,10 +37,14 @@ USE_I18N = False
 USE_L10N = False
 
 
-MEDIA_ROOT = os.path.join(os.getcwd(), "media")
+MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                          "..",
+                                          "media"))
 MEDIA_URL = 'http://media.' + DOMAIN_NAME + '/'
 
-STATIC_ROOT = os.path.join(os.getcwd(), "static")
+STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                           "..",
+                                           "static"))
 STATIC_URL = 'http://static.' + DOMAIN_NAME + '/'
 
 ADMIN_MEDIA_PREFIX = 'http://static.' + DOMAIN_NAME + '/admin/'
@@ -98,7 +102,7 @@ SUBDOMAIN_URLCONFS = {
     }
 
 TEMPLATE_DIRS = (
-    os.path.abspath(os.path.join(os.getcwd(), "..", "templates"))
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "templates")),
 )
 
 INSTALLED_APPS = (
