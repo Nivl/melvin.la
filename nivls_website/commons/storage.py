@@ -5,8 +5,7 @@ import uuid
 class UniqueFileSystemStorage(FileSystemStorage):
     def get_unique_filename(self, filename):
         root, ext = os.path.splitext(filename)
-        filename = "%s.%s" % (uuid.uuid4(), ext)
-        return os.path.join("uploaded_files", filename)
+        return "%s%s" % (uuid.uuid4(), ext)
 
     def get_valid_name(self, name):
         return self.get_unique_filename(name)
