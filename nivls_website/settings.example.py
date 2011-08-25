@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'blog',
     'images',
     'about',
+    'fileUpload',
 )
 
 # A sample logging configuration. The only tangible logging

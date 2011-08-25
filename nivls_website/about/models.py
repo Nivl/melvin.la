@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.sites.models import Site
+from fileUpload.models import FileUpload
 
 class StaticInfos(models.Model):
     site     = models.OneToOneField(Site, primary_key=True)
@@ -7,6 +8,7 @@ class StaticInfos(models.Model):
     profile  = models.TextField()
     skills   = models.TextField()
     awards   = models.TextField()
+    uploads  = models.ManyToManyField(FileUpload)
 
     def __unicode__(self):
         return self.site.__unicode__()

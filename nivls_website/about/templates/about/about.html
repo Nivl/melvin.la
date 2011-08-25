@@ -90,6 +90,9 @@
 	  <li class="tab">
 	    <a id="tab-awards" href="#">Prix et récompences</a>
 	  </li>
+	  <li class="tab">
+	    <a id="tab-downloads" href="#">Téléchargements</a>
+	  </li>
 	</ul>
 	<div id="content-profile" class="content">
 	  {{ static_infos.profile|markdown }}
@@ -99,6 +102,19 @@
 	</div>
 	<div id="content-awards" class="content">
 	  {{ static_infos.awards|markdown }}
+	</div>
+	<div id="content-downloads" class="content">
+	  <h3>Téléchargements</h3>
+	  <ul>
+	    {% for file in static_infos.uploads.all %}
+	      <li>Téléchargement au format
+		<a href="{{ file.url }}">{{ file.description }}</a>
+	      </li>
+	    {% empty %}
+	      <li>Vous aurez bientôt la possibilité de télécharger ce C.V. dans
+		plusieurs formats.</li>
+	    {% endfor %}
+	  </ul>
 	</div>
       </div>
     </div>
