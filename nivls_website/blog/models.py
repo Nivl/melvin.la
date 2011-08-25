@@ -1,3 +1,4 @@
+import os
 import datetime
 from django.db import models
 from categories.models import Category
@@ -28,3 +29,14 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return self.pub_date.strftime("%Y/%m/%d") + "/" + self.slug
+
+    def save(self, *arg, **kwargs):
+        if self.pk is not None:
+            origin = Post.objects.get(pk=self.pk)
+            if origin.main_image != self.main_image:
+                if os.path.exists(origin.main_image.path):
+                    os.remove(origin.main_image.path)
+            if origin.thumbnail != self.thumbnail:
+                if os.path.exists(origin.thumbnail.path):
+                    os.remove(origin.thumbnail.path)
+        super(Post, self).save(*arg, **kwargs)
