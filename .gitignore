@@ -1,7 +1,7 @@
 *.pyc
 nivls_website/settings.py
 nivls_website/*/migrations/
-media
-static
-research
+/media/
+/static/
+/research/
 .directory
