@@ -8,7 +8,7 @@ class StaticInfos(models.Model):
     profile  = models.TextField()
     skills   = models.TextField()
     awards   = models.TextField()
-    uploads  = models.ManyToManyField(FileUpload)
+    uploads  = models.ManyToManyField(FileUpload, null=True, blank=True)
 
     def __unicode__(self):
         return self.site.__unicode__()
