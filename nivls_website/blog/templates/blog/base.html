@@ -3,6 +3,7 @@
 {% block "head_js" %}
   <script src="{{ STATIC_URL }}js/blog/slides.min.jquery.js"></script>
   <script src="{{ STATIC_URL }}js/blog/blog.js"></script>
+
 {% endblock "head_js" %}
 
 {% block "head_css" %}
@@ -10,42 +11,14 @@
 {% endblock "head_css" %}
 
 {% block "body" %}
-  <header>
-    <nav id="first-list">
-      <ul>
-	<li><a href="http://blog.{{ DOMAIN_NAME }}">Blog</a></li>
-	<li><a href="http://{{ DOMAIN_NAME }}">About</a></li>
-      </ul>
-    </nav>
-    <div id="header-central">
-      <h1>Laplanche-Melv<span class="dot">.</span>in</h1>
-    </div>
-    <nav id="second-list">
-      <ul>
-	<li><a href="/categories/epitech">Epitech</a></li>
-	<li><a href="/categories/projet">Projet</a></li>
+  {% include "blog/header.html" %}
 
-	<li id="icons">
-	  <a id="fb-icon" href="https://facebook.com/melvin.py"></a>
-	</li>
-	<li id="icons">
-	  <a id="twitter-icon" href="https://twitter.com/Nivl_"></a>
-	</li>
-	<li id="icons">
-	  <a id="google-icon"
-	     href="https://plus.google.com/107029584179497153748/posts">
-	  </a>
-	</li>
-	<li id="icons">
-	  <a id="rss-icon" href="/"></a>
-	</li>
-	<li id="icons">
-	  <a id="github-icon" href="https://github.com/Nivl"></a>
-	</li>
-      </ul>
-    </nav>
-  </header>
+  <section id="body">
+    {% include "blog/menu.html" %}
+    <section id="page-content">
+      {% block "content" %}{% endblock "content" %}
+    </section>
+  </section>
 
-  {% block "content" %}{% endblock "content" %}
-
+  {% include "blog/footer.html" %}
 {% endblock "body" %}
