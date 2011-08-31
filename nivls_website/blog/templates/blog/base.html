@@ -11,14 +11,15 @@
 {% endblock "head_css" %}
 
 {% block "body" %}
-  {% include "blog/header.html" %}
+  <div id="body">
+    <div id="body-container">
+      {% include "blog/header.html" %}
 
-  <section id="body">
-    {% include "blog/menu.html" %}
-    <section id="page-content">
-      {% block "content" %}{% endblock "content" %}
-    </section>
-  </section>
-
-  {% include "blog/footer.html" %}
+      {% include "blog/menu.html" %}
+      <section id="page-content">
+	{% block "content" %}{% endblock "content" %}
+      </section>
+      {% include "blog/footer.html" %}
+    </div>
+  </div>
 {% endblock "body" %}
