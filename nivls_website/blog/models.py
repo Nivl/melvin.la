@@ -12,7 +12,7 @@ class Post(models.Model):
     description   = models.CharField(max_length=80)
     main_image    = models.ImageField(upload_to="article_images/originals/",
                                       help_text="570x270")
-    thumbnail     = models.ImageField(upload_to="article_images/thubnails/",
+    thumbnail     = models.ImageField(upload_to="article_images/thumbnails/",
                                       help_text="115x115")
     content       = models.TextField()
     pub_date      = models.DateTimeField(auto_now_add=True)
@@ -40,3 +40,15 @@ class Post(models.Model):
                 if os.path.exists(origin.thumbnail.path):
                     os.remove(origin.thumbnail.path)
         super(Post, self).save(*arg, **kwargs)
+
+
+class SeeAlso(models.Model):
+    name         = models.CharField(max_length=50)
+    title        = models.CharField(max_length=50)
+    url          = models.URLField();
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "See also"
