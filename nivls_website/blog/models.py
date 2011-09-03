@@ -29,22 +29,25 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 class Post(models.Model):
-    title         = models.CharField(max_length=50)
-    slug          = models.SlugField(unique_for_date="pub_date")
-    description   = models.CharField(max_length=80)
-    main_image    = models.ImageField(upload_to="article_images/originals/"
-                                      ,help_text="570x270")
-    thumbnail     = models.ImageField(upload_to="article_images/thumbnails/"
-                                      ,help_text="115x115")
-    content       = models.TextField()
-    pub_date      = models.DateTimeField(auto_now_add=True)
-    edit_date     = models.DateTimeField(auto_now=True)
-    is_public     = models.BooleanField()
-    allow_comment = models.BooleanField()
-    author        = models.ForeignKey(User)
-    category      = models.ForeignKey(Category)
-    tags          = models.ManyToManyField(Tag)
-    images        = models.ManyToManyField(Image, null=True, blank=True)
+    title               = models.CharField(max_length=50)
+    slug                = models.SlugField(unique_for_date="pub_date")
+    short_description   = models.CharField(max_length=80
+                                           ,help_text="80 chars maximum")
+    long_description    = models.CharField(max_length=255
+                                           ,help_text="255 chars maximum")
+    main_image          = models.ImageField(upload_to="articles/originals/"
+                                            ,help_text="570x270")
+    thumbnail           = models.ImageField(upload_to="articles/thumbnails/"
+                                            ,help_text="115x115")
+    content             = models.TextField()
+    pub_date            = models.DateTimeField(auto_now_add=True)
+    edit_date           = models.DateTimeField(auto_now=True)
+    is_public           = models.BooleanField()
+    allow_comment       = models.BooleanField()
+    author              = models.ForeignKey(User)
+    category            = models.ForeignKey(Category)
+    tags                = models.ManyToManyField(Tag)
+    images              = models.ManyToManyField(Image, null=True, blank=True)
 
     def __unicode__(self):
         return "%d - %s" % (self.id, self.title)
