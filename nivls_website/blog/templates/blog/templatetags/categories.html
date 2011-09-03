@@ -6,7 +6,13 @@
       <ul class="nested_tree_child">
     {% else %}
       <li>
-        <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+        <a href="{{ object.get_absolute_url }}"
+	   {% if object.num_post == 1 %}
+	     title="1 post"
+	   {% else %}
+	     title="{{ object.num_post }} posts"
+	 {% endif %}
+	   >{{ object.name }}</a>
     {% endifequal %}
   {% endifequal %}
 {% empty %}

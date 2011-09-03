@@ -52,7 +52,7 @@ def blog_tagcloud():
 
 @register.inclusion_tag("blog/templatetags/categories.html")
 def blog_categories():
-    categories = Category.objects.order_by('left')
+    categories = Category.objects.order_by('left').annotate(num_post=Count('post__id'))
     cat_list = list();
     if categories:
         for i, cat in enumerate(categories):
