@@ -1,0 +1,14 @@
+{% for object in nested_tree %}
+  {% ifequal object "level_down" %}
+    </ul>
+  {% else %}
+    {% ifequal object "level_up" %}
+      <ul class="nested_tree_child">
+    {% else %}
+      <li>
+        <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+    {% endifequal %}
+  {% endifequal %}
+{% empty %}
+  <li>There are no categories.
+{% endfor %}

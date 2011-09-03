@@ -7,5 +7,9 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('tag', (), {'slug': self.slug})
+
     class Meta:
         ordering = ["name"]

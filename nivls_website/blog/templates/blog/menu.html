@@ -1,25 +1,31 @@
+{% load blog_tags %}
+
 <nav id="menu">
   <section>
     <h3>Categories</h3>
-    <ul>
-      <li><a href="/categories/epitech/">Epitech</a>
-      <li><a href="/categories/projet/">Projet</a>
+    <ul class="tree">
+      {% blog_categories %}
     </ul>
   </section>
 
   <section>
-    <h3>See also</h3>
-    <ul>
-      <li><a href="http://loick-michard.com">Loick Michard</a>
-      <li><a href="http://aurao.com">Gael Du Plessix</a>
+    <h3>Voir aussi</h3>
+    <ul class="tree">
+      {% blog_see_also %}
     </ul>
   </section>
 
   <section>
-    <h3>Archive</h3>
-    <ul>
-      <li><a href="/2011/07">Juillet</a>
-      <li><a href="/2011/06">Juin</a>
+    <h3>Tags</h3>
+    <div id="tagcloud">
+      {% blog_tagcloud %}
+    </div>
+  </section>
+
+  <section>
+    <h3>Archives</h3>
+    <ul class="tree">
+      {% blog_archives %}
     </ul>
   </section>
 </nav>

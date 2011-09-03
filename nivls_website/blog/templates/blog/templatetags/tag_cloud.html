@@ -1,0 +1,15 @@
+{% for tag in tags %}
+  <a href="{{ tag.obj.get_absolute_url }}"
+
+     {% if tag.obj.num_post == 1 %}
+       title="1 post"
+     {% else  %}
+       title="{{ tag.obj.num_post }} posts"
+     {% endif %}
+
+     style="font-size: {{tag.size}}px;" >
+    {{ tag.obj.name }}
+  </a>
+{% empty %}
+  There are no tags.
+{% endfor %}
