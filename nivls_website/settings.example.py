@@ -117,7 +117,6 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'debug_toolbar',
     'south',
-    'tags',
     'blog',
     'images',
     'about',

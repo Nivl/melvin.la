@@ -1,9 +1,22 @@
 import os
 import datetime
 from django.db import models
-from tags.models import Tag
 from django.contrib.auth.models import User
 from images.models import Image
+
+class Tag(models.Model):
+    name         = models.CharField(max_length=50)
+    slug         = models.SlugField()
+
+    def __unicode__(self):
+        return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('tag', (), {'slug': self.slug})
+
+    class Meta:
+        ordering = ["name"]
 
 class Category(models.Model):
     name          = models.CharField(max_length=50)
