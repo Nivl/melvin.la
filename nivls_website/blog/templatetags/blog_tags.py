@@ -1,6 +1,6 @@
 from django import template
 from django.db.models import Count
-from blog.models import Post, SeeAlso, Category
+from blog.models import Post, SeeAlso, Category, Tag
 from tags.models import Tag
 
 register = template.Library()
@@ -31,30 +31,31 @@ def blog_archives():
 @register.inclusion_tag("blog/templatetags/tag_cloud.html")
 def blog_tagcloud():
     tags = Tag.objects.order_by("name").annotate(num_post=Count('post__id'))
+    tag_list = list()
 
     largest = 24
     smallest = 10
 
-    for i, tag in enumerate(tags):
-        if i == 0:
-            count_min = tag.num_post
-            count_max = tag.num_post
-        else:
-            if count_min > tag.num_post:
+    if tags:
+        for i, tag in enumerate(tags):
+            if i == 0:
                 count_min = tag.num_post
-            elif count_max < tag.num_post:
                 count_max = tag.num_post
+            else:
+                if count_min > tag.num_post:
+                    count_min = tag.num_post
+                elif count_max < tag.num_post:
+                    count_max = tag.num_post
 
-    spread = count_max - count_min
-    if spread <= 0:
-        spread = 1
-    font_spread = largest - smallest
-    font_step = font_spread / spread
+        spread = count_max - count_min
+        if spread <= 0:
+            spread = 1
+        font_spread = largest - smallest
+        font_step = font_spread / spread
 
-    tag_list = list()
-    for i, tag in enumerate(tags):
-        tag_size = int(smallest + ((tag.num_post - count_min) * font_step))
-        tag_list.append({"obj":tag, "size":tag_size})
+        for i, tag in enumerate(tags):
+            tag_size = int(smallest + ((tag.num_post - count_min) * font_step))
+            tag_list.append({"obj":tag, "size":tag_size})
 
     return {'tags': tag_list}
 
