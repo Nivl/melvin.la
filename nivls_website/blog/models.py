@@ -55,8 +55,8 @@ class Post(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('post', (), {'year': self.pub_date.year
-                             ,'month': self.pub_date.month
-                             ,'day': self.pub_date.day
+                             ,'month': self.pub_date.strftime("%m")
+                             ,'day': self.pub_date.strftime("%d")
                              ,'slug': self.slug
                              })
 
