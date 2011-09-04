@@ -9,7 +9,7 @@ urlpatterns = patterns(
         'nivls_website.blog.views.post_list_by_archives',
         name='archives-year'),
 
-    url(r'^(?P<year>\d{4})/(?P<month>\d{2})$',
+    url(r'^(?P<year>\d{4})/(?P<month>\d{2})/$',
         'nivls_website.blog.views.post_list_by_archives',
         name='archives-month'),
 
