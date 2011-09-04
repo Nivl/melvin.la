@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+{% load blog_tags %}
+
+{% block "content" %}
+
+  <h2 class="center">{{ obj_name }}</h2>
+
+  <section id="post_list">
+    {% blog_post_list posts.object_list %}
+  </section>
+
+  <section id="pagination">
+    {% blog_pagination posts %}
+  </section>
+{% endblock %}
+

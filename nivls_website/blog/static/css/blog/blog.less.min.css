@@ -1,6 +1,9 @@
-body{color:black;background-color:#ededed;font-family:arial, serif;font-size:13px;}body h3{font-size:1.6em;color:#8dc63f;font-family:'Alice',arial,serif;text-shadow:1px 1px 0 white;}
+body{color:black;background-color:#ededed;font-family:arial, serif;font-size:13px;}body h2,body h3,body h4,body h5,body h6{color:#8dc63f;font-family:'Alice',arial,serif;text-shadow:1px 1px 0 white;}
+body h3{font-size:1.6em;}
+body h2{font-size:2.5em;}
 body a{text-decoration:none;color:#0091ff;}body a:visited{color:#0091ff;}
 body .clear{clear:both;}
+body .center{text-align:center;}
 body #body{background:url("../../img/blog/header-background.png");background-repeat:repeat-x;}body #body #body-container{width:990px;margin:0 auto;}body #body #body-container #page-header a{color:#aaa;text-decoration:none;}body #body #body-container #page-header a:hover{color:white;}
 body #body #body-container #page-header #header-central{font-family:'Alice',arial,serif;height:120px;background-color:#1e1b1a;color:white;border-bottom:5px solid #383332;}body #body #body-container #page-header #header-central h1{padding-top:25px;margin-left:279px;font-size:2em;}body #body #body-container #page-header #header-central h1 .dot{font-size:2em;color:#0091ff;}
 body #body #body-container #page-header nav#second-list{font-family:'Arial',sans-serif;font-size:12px;height:34px;background:-webkit-linear-gradient(top, #322c2c, #21201e);background:-moz-linear-gradient(top, #322c2c, #21201e);background:-o-linear-gradient(top, #322c2c, #21201e);background:linear-gradient(top, #322c2c, #21201e);}body #body #body-container #page-header nav#second-list ul{padding-left:10px;text-transform:uppercase;}body #body #body-container #page-header nav#second-list ul li{float:left;border-right:1px solid #333;padding:10px;}body #body #body-container #page-header nav#second-list ul li:hover{background:-webkit-linear-gradient(top, #3a3333, #292825);background:-moz-linear-gradient(top, #3a3333, #292825);background:-o-linear-gradient(top, #3a3333, #292825);background:linear-gradient(top, #3a3333, #292825);}
