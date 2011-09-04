@@ -5,6 +5,14 @@ from tags.models import Tag
 
 register = template.Library()
 
+@register.inclusion_tag("blog/templatetags/post_list.html")
+def blog_post_list(posts):
+    return {'posts': posts}
+
+@register.inclusion_tag("blog/templatetags/pagination.html")
+def blog_pagination(paginator):
+    return {'paginator': paginator}
+
 @register.inclusion_tag("blog/templatetags/slideshow.html")
 def blog_slideshow():
     posts = Post.objects.all()[:5]
