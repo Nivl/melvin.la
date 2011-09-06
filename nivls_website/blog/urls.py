@@ -21,11 +21,11 @@ urlpatterns = patterns(
         'nivls_website.blog.views.post',
         name='post'),
 
-    url(r'^categories/(?P<slug>[-\w]+)/$',
+    url(r'^category/(?P<slug>[-\w]+)/$',
         'nivls_website.blog.views.post_list_by_categories',
         name='category'),
 
-    url(r'^tags/(?P<slug>[-\w]+)/$',
+    url(r'^tag/(?P<slug>[-\w]+)/$',
         'nivls_website.blog.views.post_list_by_tags',
         name='tag'),
 )
