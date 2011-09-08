@@ -1,5 +1,5 @@
 import os
-import datetime
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from commons.renders import markdown_to_html
@@ -66,6 +66,7 @@ class PostImage(models.Model):
     name        = models.CharField(max_length=50)
     images      = models.ImageField(upload_to="articles/images/")
 
+
 class Post(models.Model):
     title               = models.CharField(max_length=50)
     slug                = models.SlugField(unique_for_date="pub_date")
@@ -78,7 +79,7 @@ class Post(models.Model):
     thumbnail           = models.ImageField(upload_to="articles/thumbnails/"
                                             ,help_text="115x115")
     content             = models.TextField()
-    pub_date            = models.DateTimeField(auto_now_add=True)
+    pub_date            = models.DateTimeField(default=datetime.now)
     edit_date           = models.DateTimeField(auto_now=True)
     is_public           = models.BooleanField()
     allow_comment       = models.BooleanField()
