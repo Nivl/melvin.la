@@ -66,6 +66,9 @@ class PostImage(models.Model):
     name        = models.CharField(max_length=50)
     images      = models.ImageField(upload_to="articles/images/")
 
+    def __unicode__(self):
+        return self.name
+
 
 class Post(models.Model):
     title               = models.CharField(max_length=50)
