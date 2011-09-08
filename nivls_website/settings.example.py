@@ -118,7 +118,6 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'south',
     'blog',
-    'images',
     'about',
     'fileUpload',
 )
