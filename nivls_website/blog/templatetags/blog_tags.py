@@ -14,7 +14,7 @@ def blog_pagination(paginator):
 
 @register.inclusion_tag("blog/templatetags/slideshow.html")
 def blog_slideshow():
-    posts = Post.objects.all()[:5]
+    posts = Post.objects.filter(is_public=1)[:5]
     return {'object': posts}
 
 @register.inclusion_tag("blog/templatetags/menus.html")
@@ -24,7 +24,7 @@ def blog_menus():
 
 @register.inclusion_tag("blog/templatetags/archives.html")
 def blog_archives():
-    dates = Post.objects.dates('pub_date', 'month', order='DESC')
+    dates = Post.objects.dates('pub_date', 'month', order='DESC').filter(is_public=1)
     return {'dates': dates}
 
 @register.inclusion_tag("blog/templatetags/tag_cloud.html")
