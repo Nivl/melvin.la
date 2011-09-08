@@ -2,7 +2,6 @@ import os
 import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from images.models import Image
 from commons.renders import markdown_to_html
 
 class Menu(models.Model):
@@ -63,6 +62,10 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 
+class PostImage(models.Model):
+    name        = models.CharField(max_length=50)
+    images      = models.ImageField(upload_to="articles/images/")
+
 class Post(models.Model):
     title               = models.CharField(max_length=50)
     slug                = models.SlugField(unique_for_date="pub_date")
@@ -82,7 +85,8 @@ class Post(models.Model):
     author              = models.ForeignKey(User)
     category            = models.ForeignKey(Category)
     tags                = models.ManyToManyField(Tag)
-    images              = models.ManyToManyField(Image, null=True, blank=True)
+    images              = models.ManyToManyField(PostImage,
+                                                 null=True, blank=True)
 
     def parsed_content(self):
         return markdown_to_html(self.content, self.images.all())

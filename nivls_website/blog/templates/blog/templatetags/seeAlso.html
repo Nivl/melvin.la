@@ -1,8 +1,0 @@
-{% for link in links %}
-  <li>
-    <a title="{{ link.title }}" href="{{ link.url }}">
-      {{ link.name }}
-    </a>
-{% empty %}
-  <li> There is no links.
-{% endfor %}
