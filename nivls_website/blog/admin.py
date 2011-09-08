@@ -13,10 +13,13 @@ class AdminCategory(admin.ModelAdmin):
 class AdminTag(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
+class AdminMenu(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
 
 admin.site.register(Tag, AdminTag)
 admin.site.register(Post, AdminPost)
 admin.site.register(PostImage)
-admin.site.register(Menu)
+admin.site.register(Menu, AdminMenu)
 admin.site.register(Link)
 admin.site.register(Category, AdminCategory)
