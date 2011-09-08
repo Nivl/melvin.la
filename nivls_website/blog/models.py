@@ -3,6 +3,19 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from images.models import Image
+from commons.renders import markdown_to_html
+
+class SeeAlso(models.Model):
+    name         = models.CharField(max_length=50)
+    title        = models.CharField(max_length=50)
+    url          = models.URLField();
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "See also"
+
 
 class Tag(models.Model):
     name         = models.CharField(max_length=50)
@@ -17,6 +30,7 @@ class Tag(models.Model):
 
     class Meta:
         ordering = ["name"]
+
 
 class Category(models.Model):
     name          = models.CharField(max_length=50)
@@ -41,6 +55,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "Categories"
 
+
 class Post(models.Model):
     title               = models.CharField(max_length=50)
     slug                = models.SlugField(unique_for_date="pub_date")
@@ -61,6 +76,9 @@ class Post(models.Model):
     category            = models.ForeignKey(Category)
     tags                = models.ManyToManyField(Tag)
     images              = models.ManyToManyField(Image, null=True, blank=True)
+
+    def parsed_content(self):
+        return markdown_to_html(self.content, self.images.all())
 
     def __unicode__(self):
         return "%d - %s" % (self.id, self.title)
@@ -83,15 +101,3 @@ class Post(models.Model):
                 if os.path.exists(origin.thumbnail.path):
                     os.remove(origin.thumbnail.path)
         super(Post, self).save(*arg, **kwargs)
-
-
-class SeeAlso(models.Model):
-    name         = models.CharField(max_length=50)
-    title        = models.CharField(max_length=50)
-    url          = models.URLField();
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "See also"

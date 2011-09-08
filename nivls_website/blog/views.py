@@ -10,7 +10,11 @@ def home(request):
     return render(request, "blog/home.html", {"posts": posts})
 
 def post(request, year, month, day, slug):
-    return render(request, "blog/home.html")
+    post = get_object_or_404(Post, pub_date__year=year,
+                             pub_date__month=month,
+                             pub_date__day=day,
+                             slug=slug)
+    return render(request, "blog/post.html", {"post": post})
 
 def post_list_by_categories(request, slug):
     cat = get_object_or_404(Category, slug=slug)
