@@ -1,6 +1,6 @@
 from django import template
 from django.db.models import Count
-from blog.models import Post, SeeAlso, Category, Tag
+from blog.models import Post, Menu, Link, Category, Tag
 
 register = template.Library()
 
@@ -17,10 +17,10 @@ def blog_slideshow():
     posts = Post.objects.all()[:5]
     return {'object': posts}
 
-@register.inclusion_tag("blog/templatetags/seeAlso.html")
-def blog_see_also():
-    links = SeeAlso.objects.order_by("name")
-    return {'links': links}
+@register.inclusion_tag("blog/templatetags/menus.html")
+def blog_menus():
+    menus = Menu.objects.order_by('order')
+    return {'menus': menus}
 
 @register.inclusion_tag("blog/templatetags/archives.html")
 def blog_archives():

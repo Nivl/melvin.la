@@ -5,16 +5,23 @@ from django.contrib.auth.models import User
 from images.models import Image
 from commons.renders import markdown_to_html
 
-class SeeAlso(models.Model):
-    name         = models.CharField(max_length=50)
-    title        = models.CharField(max_length=50)
-    url          = models.URLField();
+class Menu(models.Model):
+    name        = models.CharField(max_length=50)
+    slug        = models.SlugField(unique=True)
+    order       = models.PositiveSmallIntegerField()
 
     def __unicode__(self):
         return self.name
 
-    class Meta:
-        verbose_name_plural = "See also"
+
+class Link(models.Model):
+    name        = models.CharField(max_length=50)
+    title       = models.CharField(max_length=50)
+    url         = models.URLField()
+    menu        = models.ForeignKey(Menu)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Tag(models.Model):
