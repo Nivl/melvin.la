@@ -70,6 +70,10 @@ body {
 	text-shadow: 1px 1px 0 white;
     }
 
+    h4 {
+	font-size: 1.3em;
+    }
+
     h3 {
 	font-size: 1.6em;
     }
@@ -93,6 +97,18 @@ body {
 
     .center {
 	text-align: center;
+    }
+
+    .f_left {
+	float: left;
+	padding: 4px;
+	margin: 0 7px 2px 0;
+    }
+
+    .f_right {
+	float: right;
+	padding: 4px;
+	margin: 0 0 2px 7px;
     }
 
     #body {
@@ -217,11 +233,12 @@ body {
 	    }
 
 	    #page-content {
-		width: 740px;
+		width: 616px;
 		float: left;
 		margin-top: 20px;
-		margin-left: 10px;
+		margin-left: 50px;
 		margin-bottom: 30px;
+		line-height: 20px;
 
 		section#post_list {
 		    article {
@@ -253,13 +270,26 @@ body {
 			}
 
 			.info {
+			    line-height: 10px;
 			    font-size: 0.85em;
 			}
 		    }
 
 		    section.content {
+
 			p {
-			    margin: 10px 0;
+			    margin-bottom: 20px;
+			}
+
+			ul {
+			    text-indent: -10px;
+			    li {
+				margin: 7px 0 4px 10px;
+
+				&:before {
+				    content: "» "
+				}
+			    }
 			}
 		    }
 
@@ -369,7 +399,7 @@ body {
 			background: #000;
 			background: rgba(0,0,0,.5);
 			width: 540px;
-			font-size: 1.1em;
+			font-size: 1em;
 			line-height: 1.33;
 			color: white;
 			border-top: 1px solid #000;
