@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from commons.renders import markdown_to_html
+from commons.renders import image_name_to_link
 
 class Menu(models.Model):
     name        = models.CharField(max_length=50)
@@ -93,7 +93,7 @@ class Post(models.Model):
                                                  null=True, blank=True)
 
     def parsed_content(self):
-        return markdown_to_html(self.content, self.images.all())
+        return image_name_to_link(self.content, self.images.all())
 
     def __unicode__(self):
         return "%d - %s" % (self.id, self.title)
