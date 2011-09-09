@@ -14,7 +14,7 @@ def blog_pagination(paginator):
 
 @register.inclusion_tag("blog/templatetags/slideshow.html")
 def blog_slideshow():
-    posts = Post.objects.filter(is_public=1)[:5]
+    posts = Post.objects.filter(is_public=1).order_by('-pub_date')[:5]
     return {'object': posts}
 
 @register.inclusion_tag("blog/templatetags/menus.html")
