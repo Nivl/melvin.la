@@ -5,3 +5,4 @@ nivls_website/*/migrations/
 /static/
 /research/
 .directory
+/fixtures/
