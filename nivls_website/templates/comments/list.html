@@ -1,0 +1,24 @@
+{% load comments markup %}
+
+<section id="comments">
+  {% get_comment_list for post as comment_list %}
+
+  {% for comment in comment_list %}
+    <section class="comment">
+      <span class="info">
+	Par
+	{% if comment.url %}
+	  <a href="{{ comment.url }}">{{ comment.user_name }}</a>
+	{% else %}
+	  {{ comment.user_name }}
+	{% endif %}
+	le {{ comment.submit_date }}
+      </span>
+
+      <div>
+	{{ comment.comment|markdown:"codehilite,safe" }}
+      </div>
+
+    </section>
+  {% endfor %}
+</section>

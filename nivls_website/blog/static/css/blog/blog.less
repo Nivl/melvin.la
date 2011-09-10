@@ -258,6 +258,10 @@ body {
 		}
 
 		article {
+		    h2 {
+			margin-bottom: 7px;
+		    }
+
 		    header {
 			margin-bottom: 10px;
 
@@ -276,7 +280,6 @@ body {
 		    }
 
 		    section.content {
-
 			p {
 			    margin-bottom: 20px;
 			}
@@ -294,9 +297,9 @@ body {
 		    }
 
 		    footer {
-			margin-top: 20px;
+			margin-top: 50px;
 
-			a {
+			a.button {
 			    border: 1px solid #ccc;
 			    padding: 5px 10px;
 			    backgound-color: white;
@@ -307,6 +310,33 @@ body {
 			    &:hover{
 				background-color: @blue;
 				color: white;
+			    }
+			}
+
+			section#comments {
+			    margin: 10px 0;
+
+			    .comment {
+				padding-bottom: 10px;
+				margin-top: 10px;
+				border-bottom: 1px solid darken(@bg-color, 10%);
+
+				.info {
+				    font-size: 0.85em;
+				}
+
+				p {
+				    line-height: 1;
+				    margin: 10px 5px 10px 0;
+				}
+			    }
+			}
+
+			form {
+			    label {
+				display: block;
+				float: left;
+				width: 150px;
 			    }
 			}
 		    }

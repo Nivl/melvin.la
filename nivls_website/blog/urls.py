@@ -28,4 +28,6 @@ urlpatterns = patterns(
     url(r'^tag/(?P<slug>[-\w]+)/$',
         'nivls_website.blog.views.post_list_by_tags',
         name='tag'),
+
+    url(r'^comments/', include('django.contrib.comments.urls')),
 )

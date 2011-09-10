@@ -1,0 +1,10 @@
+New comment from: {{ comment.user_name }} on {{ content_object }}
+
+Author info:
+Email: {{ comment.user_email }}
+URL: {{ comment.user_url }}
+IP: {{ comment.ip_address }}
+
+Comment was:
+
+{{ comment.comment }}

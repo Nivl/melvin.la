@@ -1,10 +1,10 @@
 {% extends "blog/base.html" %}
-{% load blog_tags markup %}
+{% load blog_tags markup comments %}
 
 {% block "content" %}
   <article id="post">
     <header>
-      <h3>{{ post.title }}</h3>
+      <h2>{{ post.title }}</h2>
       <span class="info">
 	Par {{ post.author }}
 	le {{ post.pub_date|date:"d/m/Y" }}
@@ -27,8 +27,30 @@
     </section>
 
     <footer>
+      <h2>Commentaires</h2>
 
+      {% get_comment_count for post as comment_count %}
+      {% ifequal comment_count 0 %}
+	Auncun commentaire
+      {% else %}
+	{% ifequal comment_count 1 %}
+	  1 commentaire
+	{% else %}
+	  {{ comment_count }} commentaires
+	{% endifequal %}
+      {% endifequal %}
+
+      {% render_comment_list for post %}
+
+      {% if post.allow_comment %}
+	<form method="post" action="{% comment_form_target %}">
+	  {% csrf_token %}
+	  <input type="hidden" name="next" value="{{post.get_absolute_url }}">
+	  {% render_comment_form for post %}
+	</form>
+      {% else %}
+	Les commentaires ont été désactivé pour cet article.
+      {% endif %}
     </footer>
   </article>
 {% endblock %}
-

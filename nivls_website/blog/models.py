@@ -1,8 +1,10 @@
 import os
 from datetime import datetime
+from django.contrib.comments.moderation import AlreadyModerated, CommentModerator, moderator
 from django.db import models
 from django.contrib.auth.models import User
 from commons.renders import image_name_to_link
+import commons.signals
 
 class Menu(models.Model):
     name        = models.CharField(max_length=50)
@@ -116,3 +118,19 @@ class Post(models.Model):
                 if os.path.exists(origin.thumbnail.path):
                     os.remove(origin.thumbnail.path)
         super(Post, self).save(*arg, **kwargs)
+
+
+
+### Moderator
+
+class PostModerator(CommentModerator):
+    email_notification = True
+    enable_field = 'allow_comment'
+    moderate_after = 0
+    auto_moderate_field = 'pub_date'
+
+try:
+    moderator.register(Post, PostModerator)
+except AlreadyModerated:
+    pass
+

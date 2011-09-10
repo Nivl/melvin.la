@@ -17,6 +17,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+AKISMET_API_KEY = "PUT_YOU_KEY_HERE" # http://akismet.com/get/
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -35,7 +37,6 @@ SITE_ID = 1
 
 USE_I18N = False
 USE_L10N = False
-
 
 MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                           "..",
