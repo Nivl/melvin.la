@@ -1,5 +1,9 @@
 #!/usr/bin/env python2
+import os, sys
 from django.core.management import execute_manager
+
+sys.path.append("/home/www/modules/")
+
 import imp
 try:
     imp.find_module('settings') # Assumed to be in the same directory.
