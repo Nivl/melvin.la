@@ -111,6 +111,14 @@ body {
 	margin: 0 0 2px 7px;
     }
 
+    .errorlist, .error{
+	color: red;
+    }
+
+    .success{
+	color: darken(@green, 25%);
+    }
+
     #body {
 	background: url("../../img/blog/header-background.png");
 	background-repeat: repeat-x;
@@ -336,6 +344,10 @@ body {
 			}
 
 			form {
+			    .error {
+				color: inherit;
+			    }
+
 			    label {
 				display: block;
 				float: left;

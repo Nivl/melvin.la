@@ -43,11 +43,9 @@
       {% render_comment_list for post %}
 
       {% if post.allow_comment %}
-	<form method="post" action="{% comment_form_target %}">
-	  {% csrf_token %}
-	  <input type="hidden" name="next" value="{{post.get_absolute_url }}">
+	<div id="comment_form">
 	  {% render_comment_form for post %}
-	</form>
+	</div>
       {% else %}
 	Les commentaires ont été désactivé pour cet article.
       {% endif %}
