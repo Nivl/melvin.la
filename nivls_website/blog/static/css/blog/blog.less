@@ -288,6 +288,19 @@ body {
 		    }
 		}
 
+		article#post {
+		    header {
+			padding-left: 10px;
+			padding-bottom: 10px;
+			border-left: 5px solid @green;
+			border-bottom: 1px solid @green;
+
+			.info {
+			    line-height:15px;
+			}
+		    }
+		}
+
 		article {
 		    h2 {
 			margin-bottom: 7px;
@@ -362,8 +375,14 @@ body {
 				    font-size: 0.85em;
 				}
 
-				p {
-				    margin: 10px 5px 10px 0;
+				.content {
+				    margin-left: 20px;
+				    padding-left: 10px;
+				    border-left: 3px solid @green;
+
+				    p {
+					margin: 10px 5px 10px 0;
+				    }
 				}
 			    }
 			}
