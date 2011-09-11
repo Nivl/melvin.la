@@ -4,6 +4,10 @@ from blog.models import Post, Menu, Link, Category, Tag
 
 register = template.Library()
 
+@register.inclusion_tag("blog/templatetags/display_contact_form.html")
+def display_contact_form(form):
+    return {'form': form}
+
 @register.inclusion_tag("blog/templatetags/post_list.html")
 def blog_post_list(posts):
     return {'posts': posts}

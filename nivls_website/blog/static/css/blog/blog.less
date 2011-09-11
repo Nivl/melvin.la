@@ -79,6 +79,7 @@ body {
     }
 
     h2 {
+	margin-bottom: 30px;
 	font-size: 2.5em;
     }
 
@@ -88,6 +89,18 @@ body {
 
 	&:visited {
 	    color: @blue;
+	}
+    }
+
+    form {
+	.error {
+	    color: inherit;
+	}
+
+	label {
+	    display: block;
+	    float: left;
+	    width: 150px;
 	}
     }
 
@@ -247,13 +260,17 @@ body {
 		margin-left: 50px;
 		margin-bottom: 30px;
 
+		section#pagination {
+		    margin: 2pc 0;
+		}
+
 		section#post_list {
 		    footer {
 			margin-top: 10px;
 		    }
 		    article {
 			clear: both;
-			margin: 50px 0;
+			margin: 25px 0;
 
 			.thumbnail {
 			    float: left;
@@ -340,18 +357,6 @@ body {
 				p {
 				    margin: 10px 5px 10px 0;
 				}
-			    }
-			}
-
-			form {
-			    .error {
-				color: inherit;
-			    }
-
-			    label {
-				display: block;
-				float: left;
-				width: 150px;
 			    }
 			}
 		    }

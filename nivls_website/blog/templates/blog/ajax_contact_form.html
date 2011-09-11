@@ -1,0 +1,27 @@
+<script type="text/javascript" charset="utf-8">
+function bindPostContactHandler() {
+    $('#contact_form form').submit(function() {
+        $.ajax({
+            type: "POST",
+            data: $('#contact_form form').serialize(),
+            url: "{% url contact %}",
+            cache: false,
+            dataType: "html",
+            success: function(html, textStatus) {
+		var $form = $(html).find("#contact_form form")
+		$('#contact_form form').replaceWith($form)
+                bindPostContactHandler();
+	    },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $('#contact_form form').replaceWith('<div class="error">Your comment was unable to be posted at this time.  We apologise for the inconvenience.</div>');
+            }
+        });
+        return false;
+    });
+}
+
+
+$(document).ready(function() {
+    bindPostContactHandler();
+});
+</script>

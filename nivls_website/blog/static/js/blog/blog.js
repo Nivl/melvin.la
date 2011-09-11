@@ -23,7 +23,3 @@ $(function(){
 	}
     });
 });
-
-$(document).ready(function() {
-    bindPostCommentHandler();
-});

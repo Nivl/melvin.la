@@ -1,0 +1,14 @@
+{% extends "blog/base.html" %}
+{% load blog_tags %}
+
+{% block "sub_head_js" %}
+  {% include "blog/ajax_contact_form.html" %}
+{% endblock "sub_head_js" %}
+
+{% block "content" %}
+  <h2 class="center">Contact</h2>
+
+  <div id="contact_form">
+    {% display_contact_form form %}
+  </div>
+{% endblock "content" %}

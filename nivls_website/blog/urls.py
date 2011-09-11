@@ -5,6 +5,9 @@ urlpatterns = patterns(
     url(r'^$', 'nivls_website.blog.views.home',
         name='home'),
 
+    url(r'^contact/$', 'nivls_website.blog.views.contact',
+        name='contact'),
+
     url(r'^(?P<year>\d{4})/$',
         'nivls_website.blog.views.post_list_by_archives',
         name='archives-year'),

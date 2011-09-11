@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block "head_js" %}
-  {% include "comments/ajax_form.html" %}
+  {% block "sub_head_js" %}{% endblock "sub_head_js" %}
   <script src="{{ STATIC_URL }}js/blog/slides.min.jquery.js"></script>
   <script src="{{ STATIC_URL }}js/blog/blog.js"></script>
 {% endblock "head_js" %}

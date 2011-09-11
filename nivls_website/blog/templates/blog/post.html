@@ -1,6 +1,10 @@
 {% extends "blog/base.html" %}
 {% load blog_tags markup comments %}
 
+{% block "sub_head_js" %}
+  {% include "comments/ajax_form.html" %}
+{% endblock "sub_head_js" %}
+
 {% block "content" %}
   <article id="post">
     <header>

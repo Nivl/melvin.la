@@ -1,8 +1,10 @@
 body{color:black;background-color:#ededed;font-family:arial, serif;font-size:13px;}body h2,body h3,body h4,body h5,body h6{color:#8dc63f;font-family:'Alice',arial,serif;text-shadow:1px 1px 0 white;}
 body h4{font-size:1.3em;}
 body h3{font-size:1.6em;}
-body h2{font-size:2.5em;}
+body h2{margin-bottom:30px;font-size:2.5em;}
 body a{text-decoration:none;color:#0091ff;}body a:visited{color:#0091ff;}
+body form .error{color:inherit;}
+body form label{display:block;float:left;width:150px;}
 body .clear{clear:both;}
 body .center{text-align:center;}
 body .f_left{float:left;padding:4px;margin:0 7px 2px 0;}
@@ -20,8 +22,9 @@ body #body #body-container #page-header nav#second-list ul li.icons a#twitter-ic
 body #body #body-container #page-header nav#second-list ul li.icons a#fb-icon{display:block;width:32px;height:32px;background:url("../../img/blog/icons/social-medias.png");background-repeat:no-repeat;background-position:-128px -32px;}body #body #body-container #page-header nav#second-list ul li.icons a#fb-icon:hover{background-position:-128px top;}
 body #body #body-container nav#menu{float:right;width:220px;text-align:left;margin-top:20px;}body #body #body-container nav#menu section,body #body #body-container nav#menu aside{margin-bottom:20px;width:75%;}body #body #body-container nav#menu section h3,body #body #body-container nav#menu aside h3{padding:6px;border-bottom:1px dotted grey;}
 body #body #body-container nav#menu section ul li,body #body #body-container nav#menu aside ul li{padding:4px 3px 8px 20px;border-bottom:1px dotted grey;}
-body #body #body-container #page-content{width:616px;float:left;margin-top:20px;margin-left:50px;margin-bottom:30px;}body #body #body-container #page-content section#post_list footer{margin-top:10px;}
-body #body #body-container #page-content section#post_list article{clear:both;margin:50px 0;}body #body #body-container #page-content section#post_list article .thumbnail{float:left;border:1px solid #ccc;margin-right:20px;}body #body #body-container #page-content section#post_list article .thumbnail img{padding:5px;}
+body #body #body-container #page-content{width:616px;float:left;margin-top:20px;margin-left:50px;margin-bottom:30px;}body #body #body-container #page-content section#pagination{margin:2pc 0;}
+body #body #body-container #page-content section#post_list footer{margin-top:10px;}
+body #body #body-container #page-content section#post_list article{clear:both;margin:25px 0;}body #body #body-container #page-content section#post_list article .thumbnail{float:left;border:1px solid #ccc;margin-right:20px;}body #body #body-container #page-content section#post_list article .thumbnail img{padding:5px;}
 body #body #body-container #page-content article h2{margin-bottom:7px;}
 body #body #body-container #page-content article header{margin-bottom:10px;}body #body #body-container #page-content article header h3{margin-bottom:7px;}body #body #body-container #page-content article header h3 a{color:inherit;}
 body #body #body-container #page-content article header .info{line-height:10px;font-size:0.85em;}
@@ -30,8 +33,6 @@ body #body #body-container #page-content article section.content ul{text-indent:
 body #body #body-container #page-content article footer{margin-top:50px;}body #body #body-container #page-content article footer a.button{border:1px solid #ccc;padding:5px 10px;backgound-color:white;color:black;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;font-weight:bolder;}body #body #body-container #page-content article footer a.button:hover{background-color:#0091ff;color:white;}
 body #body #body-container #page-content article footer section#comments{margin:10px 0;}body #body #body-container #page-content article footer section#comments .comment{padding-bottom:10px;margin-top:10px;border-bottom:1px solid #d4d4d4;}body #body #body-container #page-content article footer section#comments .comment .info{font-size:0.85em;}
 body #body #body-container #page-content article footer section#comments .comment p{margin:10px 5px 10px 0;}
-body #body #body-container #page-content article footer form .error{color:inherit;}
-body #body #body-container #page-content article footer form label{display:block;float:left;width:150px;}
 body #body #body-container #page-content #slideshow{width:580px;padding:10px;margin-left:50px;margin-bottom:330px;position:relative;z-index:0;}body #body #body-container #page-content #slideshow #frame{position:absolute;z-index:0;width:739px;height:341px;top:-3px;left:-80px;}
 body #body #body-container #page-content #slideshow #slides{position:absolute;top:15px;left:4px;z-index:100;}body #body #body-container #page-content #slideshow #slides .slides_container{width:570px;overflow:hidden;position:relative;display:none;}body #body #body-container #page-content #slideshow #slides .slides_container .slide{width:570px;height:270px;display:block;}
 body #body #body-container #page-content #slideshow #slides a.next,body #body #body-container #page-content #slideshow #slides a.prev{position:absolute;top:107px;left:-39px;width:24px;height:43px;display:block;z-index:101;}
