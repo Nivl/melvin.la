@@ -22,9 +22,10 @@ body #body #body-container #page-header nav#second-list ul li.icons a#twitter-ic
 body #body #body-container #page-header nav#second-list ul li.icons a#fb-icon{display:block;width:32px;height:32px;background:url("../../img/blog/icons/social-medias.png");background-repeat:no-repeat;background-position:-128px -32px;}body #body #body-container #page-header nav#second-list ul li.icons a#fb-icon:hover{background-position:-128px top;}
 body #body #body-container nav#menu{float:right;width:220px;text-align:left;margin-top:20px;}body #body #body-container nav#menu section,body #body #body-container nav#menu aside{margin-bottom:20px;width:75%;}body #body #body-container nav#menu section h3,body #body #body-container nav#menu aside h3{padding:6px;border-bottom:1px dotted grey;}
 body #body #body-container nav#menu section ul li,body #body #body-container nav#menu aside ul li{padding:4px 3px 8px 20px;border-bottom:1px dotted grey;}
-body #body #body-container #page-content{width:616px;float:left;margin-top:20px;margin-left:50px;margin-bottom:30px;}body #body #body-container #page-content section#pagination{margin:2pc 0;}
+body #body #body-container nav#menu section #tagcloud,body #body #body-container nav#menu aside #tagcloud{text-align:center;}
+body #body #body-container #page-content{width:616px;float:left;margin-top:20px;margin-left:50px;margin-bottom:30px;}body #body #body-container #page-content section#pagination{margin:20px 0;}
 body #body #body-container #page-content section#post_list footer{margin-top:10px;}
-body #body #body-container #page-content section#post_list article{clear:both;margin:25px 0;}body #body #body-container #page-content section#post_list article .thumbnail{float:left;border:1px solid #ccc;margin-right:20px;}body #body #body-container #page-content section#post_list article .thumbnail img{padding:5px;}
+body #body #body-container #page-content section#post_list article{clear:both;margin:50px 0;}body #body #body-container #page-content section#post_list article .thumbnail{float:left;border:1px solid #ccc;margin-right:20px;}body #body #body-container #page-content section#post_list article .thumbnail img{padding:5px;}
 body #body #body-container #page-content article h2{margin-bottom:7px;}
 body #body #body-container #page-content article header{margin-bottom:10px;}body #body #body-container #page-content article header h3{margin-bottom:7px;}body #body #body-container #page-content article header h3 a{color:inherit;}
 body #body #body-container #page-content article header .info{line-height:10px;font-size:0.85em;}
