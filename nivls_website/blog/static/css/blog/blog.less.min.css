@@ -28,6 +28,7 @@ body #body #body-container #page-content section#post_list footer{margin-top:10p
 body #body #body-container #page-content section#post_list article{clear:both;margin:50px 0;}body #body #body-container #page-content section#post_list article .thumbnail{float:left;border:1px solid #ccc;margin-right:20px;}body #body #body-container #page-content section#post_list article .thumbnail img{padding:5px;}
 body #body #body-container #page-content article h2{margin-bottom:7px;}
 body #body #body-container #page-content article header{margin-bottom:10px;}body #body #body-container #page-content article header h3{margin-bottom:7px;}body #body #body-container #page-content article header h3 a{color:inherit;}
+body #body #body-container #page-content article header .add-this{float:right;}
 body #body #body-container #page-content article header .info{line-height:10px;font-size:0.85em;}
 body #body #body-container #page-content article section.content{line-height:20px;}body #body #body-container #page-content article section.content p{margin-bottom:20px;}
 body #body #body-container #page-content article section.content ul{text-indent:-10px;}body #body #body-container #page-content article section.content ul li{margin:7px 0 4px 10px;}body #body #body-container #page-content article section.content ul li:before{content:"» ";}
