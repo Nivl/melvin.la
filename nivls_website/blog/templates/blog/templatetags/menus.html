@@ -4,14 +4,16 @@
     <h3>{{ menu.name }}</h3>
 
     <ul class="tree">
-      {% for link in menu.link_set.all %}
-	<li>
-	  <a title="{{ link.title }}" href="{{ link.url }}">
-	    {{ link.name }}
-	  </a>
-      {% empty %}
-        <li> There are no links.
-      {% endfor %}
+      {% with menu.link_set.all as links %}
+	{% for link in links %}
+	  <li>
+	    <a title="{{ link.title }}" href="{{ link.url }}">
+	      {{ link.name }}
+	    </a>
+	{% empty %}
+          <li> There are no links.
+	{% endfor %}
+      {% endwith %}
     </ul>
   </section>
 {% empty %}
