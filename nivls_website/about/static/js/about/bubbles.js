@@ -18,7 +18,7 @@ $(function() {
 		$theCircle.stop()
                     .animate({
 			path : new $.path.arc({
-                            center: [409,359],
+                            center: [$('.wrapper').position().left + 220, 359],
                             radius: 257,
                             start : 65,
                             end   : -110,
@@ -55,7 +55,7 @@ $(function() {
                 $theCircle.stop()
                 .animate({
                     path : new $.path.arc({
-                        center: [409,359],
+                        center: [$('.wrapper').position().left + 220, 359],
                         radius: 257,
                         start: 65,
                         end     : -110,
@@ -73,7 +73,7 @@ $(function() {
         $circle.stop()
             .animate({
                 path : new $.path.arc({
-                    center: [409,359],
+                    center: [$('.wrapper').position().left + 220 ,359],
                     radius: 257,
                     start: 180,
                     end: end,
