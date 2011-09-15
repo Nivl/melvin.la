@@ -5,6 +5,7 @@ from django.http import Http404
 from django.views.decorators.csrf import csrf_protect
 from django.conf import settings
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
 from models import Post, Category, Tag
 from forms import ContactForm
 from commons.simple_paginator import simple_paginator
@@ -33,7 +34,7 @@ def home(request):
     return render(request, "blog/home.html", {"posts": posts})
 
 
-def post(request, year, month, day, slug):
+def display_post(request, year, month, day, slug):
     post = get_object_or_404(Post, pub_date__year=year,
                              pub_date__month=month,
                              pub_date__day=day,
@@ -41,6 +42,20 @@ def post(request, year, month, day, slug):
                              is_public=1)
     return render(request, "blog/post.html", {"post": post})
 
+@login_required
+def preview_post(request, year, month, day, slug):
+    if request.user.is_superuser:
+        post = get_object_or_404(Post, pub_date__year=year,
+                                 pub_date__month=month,
+                                 pub_date__day=day,
+                                 slug=slug)
+    else:
+        post = get_object_or_404(Post, pub_date__year=year,
+                                 pub_date__month=month,
+                                 pub_date__day=day,
+                                 slug=slug,
+                                 author=request.user)
+    return render(request, "blog/post.html", {"post": post})
 
 def post_list_by_categories(request, slug):
     cat = get_object_or_404(Category, slug=slug)

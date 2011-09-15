@@ -22,8 +22,13 @@ urlpatterns = patterns(
         name='archives-day'),
 
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
-        'nivls_website.blog.views.post',
+        'nivls_website.blog.views.display_post',
         name='post'),
+
+    url(r'^preview/'
+        '(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
+        'nivls_website.blog.views.preview_post',
+        name='preview-post'),
 
     url(r'^category/(?P<slug>[-\w]+)/$',
         'nivls_website.blog.views.post_list_by_categories',
@@ -32,6 +37,9 @@ urlpatterns = patterns(
     url(r'^tag/(?P<slug>[-\w]+)/$',
         'nivls_website.blog.views.post_list_by_tags',
         name='tag'),
+
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login',
+        {'template_name': 'blog/login.html'}, name='login'),
 
     url(r'^comments/', include('django.contrib.comments.urls')),
 
