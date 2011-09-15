@@ -50,7 +50,8 @@ def post_list_by_categories(request, slug):
                                                      is_public=1).order_by('-pub_date')
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request, "blog/post_list.html", {"posts": posts,
-                                                   "obj_name": cat.name})
+                                                   "obj_name": cat.name,
+                                                   "obj_feed": cat.get_feed_url()})
 
 
 def post_list_by_tags(request, slug):
@@ -58,7 +59,8 @@ def post_list_by_tags(request, slug):
     post_list = Post.objects.select_related().filter(tags=tag, is_public=1).order_by('-pub_date')
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request, "blog/post_list.html", {"posts": posts,
-                                                   "obj_name": tag.name})
+                                                   "obj_name": tag.name,
+                                                   "obj_feed": tag.get_feed_url()})
 
 
 def post_list_by_archives(request, year, month=None, day=None):

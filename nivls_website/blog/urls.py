@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
+from feeds import *
 
 urlpatterns = patterns(
     '',
@@ -33,4 +34,14 @@ urlpatterns = patterns(
         name='tag'),
 
     url(r'^comments/', include('django.contrib.comments.urls')),
+
+    ## feeds
+
+    url(r'^feed/latest/rss/$', LatestPostFeed()),
+    url(r'^tag/(?P<slug>[-\w]+)/rss/$', TagFeed()),
+    url(r'^category/(?P<slug>[-\w]+)/rss/$', CatFeed()),
+
+    url(r'^feed/latest/atom/$', LatestPostFeedAtom()),
+    url(r'^tag/(?P<slug>[-\w]+)/atom/$', TagFeedAtom()),
+    url(r'^category/(?P<slug>[-\w]+)/atom/$', CatFeedAtom()),
 )

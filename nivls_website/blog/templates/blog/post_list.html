@@ -1,6 +1,16 @@
 {% extends "blog/base.html" %}
 {% load blog_tags %}
 
+{% block "sub_head_link" %}
+  {% if obj_feed %}
+    <link rel="alternate" type="application/atom+xml"
+	  title="{{ obj_name }} ATOM Feed" href="{{ obj_feed.atom }}">
+
+    <link rel="alternate" type="application/rss+xml"
+	  title="{{ obj_name }} RSS Feed" href="{{ obj_feed.rss }}">
+  {% endif %}
+{% endblock "sub_head_link" %}
+
 {% block "content" %}
 
   <h2 class="center">{{ obj_name }}</h2>

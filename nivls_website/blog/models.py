@@ -36,6 +36,16 @@ class Tag(models.Model):
     def get_absolute_url(self):
         return ('tag', (), {'slug': self.slug})
 
+    def get_feed_url(self):
+        return {'rss': self.get_rss_feed_url(),
+                'atom': self.get_atom_feed_url()}
+
+    def get_rss_feed_url(self):
+        return self.get_absolute_url() + "rss/"
+
+    def get_atom_feed_url(self):
+        return self.get_absolute_url() + "atom/"
+
     class Meta:
         ordering = ["name"]
 
@@ -56,6 +66,16 @@ class Category(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('category', (), {'slug': self.slug})
+
+    def get_feed_url(self):
+        return {'rss': self.get_rss_feed_url(),
+                'atom': self.get_atom_feed_url()}
+
+    def get_rss_feed_url(self):
+        return self.get_absolute_url() + "rss/"
+
+    def get_atom_feed_url(self):
+        return self.get_absolute_url() + "atom/"
 
     def __unicode__(self):
         return self.name

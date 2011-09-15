@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 
+{% block "head_link" %}
+  <link rel="alternate" type="application/atom+xml"
+	title="ATOM Feed" href="/feed/latest/atom/" />
+
+  <link rel="alternate" type="application/rss+xml"
+	title="RSS Feed" href="/feed/latest/rss/" />
+  {% block "sub_head_link" %}{% endblock "sub_head_link" %}
+{% endblock "head_link" %}
+
 {% block "head_js" %}
   {% block "sub_head_js" %}{% endblock "sub_head_js" %}
-  <link href="http://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
   <script src="{{ STATIC_URL }}js/blog/slides.min.jquery.js"></script>
   <script src="{{ STATIC_URL }}js/blog/blog.js"></script>
 {% endblock "head_js" %}
 
 {% block "head_css" %}
+  <link href="http://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blog/blog.less.min.css">
 {% endblock "head_css" %}
 
