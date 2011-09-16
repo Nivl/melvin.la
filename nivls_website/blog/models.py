@@ -3,6 +3,7 @@ from datetime import datetime
 from django.contrib.comments.moderation import AlreadyModerated, CommentModerator, moderator
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.sitemaps import ping_google
 from commons.renders import image_name_to_link
 import commons.signals
 
@@ -138,6 +139,10 @@ class Post(models.Model):
                 if os.path.exists(origin.thumbnail.path):
                     os.remove(origin.thumbnail.path)
         super(Post, self).save(*arg, **kwargs)
+        try:
+            ping_google()
+        except Exception:
+            pass
 
 
 

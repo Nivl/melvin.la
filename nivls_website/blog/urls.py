@@ -1,13 +1,11 @@
 from django.conf.urls.defaults import patterns, include, url
 from feeds import *
+from sitemaps import *
 
 urlpatterns = patterns(
     '',
     url(r'^$', 'nivls_website.blog.views.home',
         name='home'),
-
-    url(r'^contact/$', 'nivls_website.blog.views.contact',
-        name='contact'),
 
     url(r'^(?P<year>\d{4})/$',
         'nivls_website.blog.views.post_list_by_archives',
@@ -42,9 +40,17 @@ urlpatterns = patterns(
         {'template_name': 'blog/login.html'}, name='login'),
 
     url(r'^comments/', include('django.contrib.comments.urls')),
+)
 
-    ## feeds
 
+static_urlpatterns = patterns(
+    '',
+    url(r'^contact/$', 'nivls_website.blog.views.contact', name='contact'),
+    )
+
+
+feeds_urlpatterns = patterns(
+    '',
     url(r'^feed/latest/rss/$', LatestPostFeed()),
     url(r'^tag/(?P<slug>[-\w]+)/rss/$', TagFeed()),
     url(r'^category/(?P<slug>[-\w]+)/rss/$', CatFeed()),
@@ -52,4 +58,18 @@ urlpatterns = patterns(
     url(r'^feed/latest/atom/$', LatestPostFeedAtom()),
     url(r'^tag/(?P<slug>[-\w]+)/atom/$', TagFeedAtom()),
     url(r'^category/(?P<slug>[-\w]+)/atom/$', CatFeedAtom()),
-)
+    )
+
+
+sitemaps = {
+    'post': PostSitemap,
+    'static': StaticSitemap(static_urlpatterns),
+    }
+
+sitemaps_urlpatterns = patterns(
+    'django.contrib.sitemaps.views',
+    url(r'^sitemap\.xml$', 'sitemap', {'sitemaps': sitemaps})
+    )
+
+
+urlpatterns += static_urlpatterns + feeds_urlpatterns + sitemaps_urlpatterns
