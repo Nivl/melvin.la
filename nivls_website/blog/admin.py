@@ -6,7 +6,10 @@ from django.conf import settings
 # Post
 class AdminPost(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
+    list_filter = ['pub_date', 'is_public', 'allow_comment']
     actions = ['make_public', 'make_private', 'allow_comment', 'lock_comment']
+    date_hierarchy = 'pub_date'
+    list_display = ('id', 'title', 'pub_date', 'is_public', 'allow_comment')
 
     def make_public(self, request, queryset):
         nb_row = queryset.update(is_public=1)
@@ -45,7 +48,7 @@ class AdminPost(admin.ModelAdmin):
 
 admin.site.register(Post, AdminPost)
 
-# Other
+# Others
 
 class AdminCategory(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}

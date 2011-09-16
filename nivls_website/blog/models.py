@@ -118,7 +118,7 @@ class Post(models.Model):
         return image_name_to_link(self.content, self.images.all())
 
     def __unicode__(self):
-        return "%d - %s" % (self.id, self.title)
+        return self.title
 
     @models.permalink
     def get_absolute_url(self):
