@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% load blog_tags markup comments %}
+{% load blog_tags markup comments humanize %}
 
 {% block "sub_head_js" %}
   {% include "comments/ajax_form.html" %}
@@ -22,8 +22,10 @@
       </div>
       <div class="info">
 	Par {{ post.author }}
-	le {{ post.pub_date|date:"d/m/Y" }}
-	à {{ post.pub_date|date:"H:i" }}
+	le <time datetime="{{ post.pub_date|date:"cO" }}" pubdate>
+	  {{ post.pub_date|naturalday:'d F Y' }}
+	  à {{ post.pub_date|date:"H:i" }}
+	</time>
 	Dans: <a href="{{ post.category.get_absolute_url }}">
 	  {{ post.category }}
 	</a>
