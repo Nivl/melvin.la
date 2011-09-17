@@ -1,7 +1,7 @@
 $(function(){
     $('#slides').slides({
 	preload: true,
-	preloadImage: STATIC_URL + 'img/blog/slideshow/loading.gif',
+	preloadImage: STATIC_URL + 'blog/img/slideshow/loading.gif',
 	play: 5000,
 	pause: 2500,
 	slideSpeed: 600,

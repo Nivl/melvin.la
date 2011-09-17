@@ -3,15 +3,15 @@
 {% load markup %}
 
 {% block "head_js" %}
-  <script src="{{ STATIC_URL }}js/about/jquery.path.js"></script>
-  <script src="{{ STATIC_URL }}js/about/jquery.colorbox-min.js"></script>
-  <script src="{{ STATIC_URL }}js/about/bubbles.js"></script>
-  <script src="{{ STATIC_URL }}js/about/about.js"></script>
+  <script src="{{ STATIC_URL }}about/js/jquery.path.js"></script>
+  <script src="{{ STATIC_URL }}about/js/jquery.colorbox-min.js"></script>
+  <script src="{{ STATIC_URL }}about/js/bubbles.js"></script>
+  <script src="{{ STATIC_URL }}about/js/about.js"></script>
 {% endblock "head_js" %}
 
 {% block "head_css" %}
-  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}css/about/colorbox_default.css">
-  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}css/about/about.less.min.css">
+  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}about/css/colorbox_default.css">
+  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}about/css/about.less.min.css">
 {% endblock "head_css" %}
 
 {% block "body" %}
@@ -29,9 +29,9 @@
       <div id="home" class="slide">
 	<div class="wrapper">
 	  <div id="images" class="images">
-            <img id="image_about" src="{{ STATIC_URL }}img/about/about.png" alt="" width="402" height="402" />
-            <img id="image_portfolio" src="{{ STATIC_URL }}img/about/portfolio.png" alt="" width="402" height="402"/>
-            <img id="image_contact" src="{{ STATIC_URL }}img/about/contact.png" alt="" width="402" height="402" />
+            <img id="image_about" src="{{ STATIC_URL }}about/img/about.png" alt="" width="402" height="402" />
+            <img id="image_portfolio" src="{{ STATIC_URL }}about/img/portfolio.png" alt="" width="402" height="402"/>
+            <img id="image_contact" src="{{ STATIC_URL }}about/img/contact.png" alt="" width="402" height="402" />
 	  </div>
 
 	  <div class="circleBig">
