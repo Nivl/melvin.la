@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'debug_toolbar',
     'south',
+    'robot',
     'sentry',
     'sentry.client',
     'blog',

@@ -66,10 +66,12 @@ sitemaps = {
     'static': StaticSitemap(static_urlpatterns),
     }
 
-sitemaps_urlpatterns = patterns(
+seo_urlpatterns = patterns(
     'django.contrib.sitemaps.views',
-    url(r'^sitemap\.xml$', 'sitemap', {'sitemaps': sitemaps})
+    url(r'^sitemap\.xml$', 'sitemap', {'sitemaps': sitemaps}),
+
+    url(r'^robot.txt$', include('robots.urls')),
     )
 
 
-urlpatterns += static_urlpatterns + feeds_urlpatterns + sitemaps_urlpatterns
+urlpatterns += static_urlpatterns + feeds_urlpatterns + seo_urlpatterns
