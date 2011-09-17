@@ -7,8 +7,8 @@
     <title>{% block "title" %}Home{% endblock %} - Laplanche Melv.in</title>
 
     <link href="http://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
-    <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}css/reset.css">
-    <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}css/main.less.min.css">
+    <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}commons/css/reset.css">
+    <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}commons/css/main.less.min.css">
     {% block "head_link" %}{% endblock %}
     {% block "head_css" %}{% endblock %}
     <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
       google.load("chrome-frame", "1");
       google.load("jquery", "1.6");
     </script>
-    <script src="{{ STATIC_URL }}js/koco.jquery.js"></script>
+    <script src="{{ STATIC_URL }}commons/js/koco.jquery.js"></script>
     {% block "head_js" %}{% endblock %}
   </head>
   <body>
