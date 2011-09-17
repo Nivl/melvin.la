@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.views.generic.simple import redirect_to
 from feeds import *
 from sitemaps import *
 
@@ -66,6 +67,7 @@ sitemaps = {
     'static': StaticSitemap(static_urlpatterns),
     }
 
+
 seo_urlpatterns = patterns(
     'django.contrib.sitemaps.views',
     url(r'^sitemap\.xml$', 'sitemap', {'sitemaps': sitemaps}),
@@ -74,4 +76,14 @@ seo_urlpatterns = patterns(
     )
 
 
-urlpatterns += static_urlpatterns + feeds_urlpatterns + seo_urlpatterns
+old_urlpatterns = patterns(
+    '',
+    url(r'^category/contests/?$', redirect_to, {'url': '/tag/contests/'}),
+    url(r'^tag/game/?$', redirect_to, {'url': '/tag/jeux/'}),
+    url(r'^tag/ecoles/?$', redirect_to, {'url': '/tag/ecole/'}),
+    url(r'^tag/epitech-2/?$', redirect_to, {'url': '/category/epitech/'}),
+    url(r'^tag/graphic/?$', redirect_to, {'url': '/category/graphique/'}),
+    )
+
+
+urlpatterns = old_urlpatterns + urlpatterns + static_urlpatterns + feeds_urlpatterns + seo_urlpatterns
