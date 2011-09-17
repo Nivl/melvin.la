@@ -17,7 +17,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-AKISMET_API_KEY = "PUT_YOU_KEY_HERE" # http://akismet.com/get/
+AKISMET_API_KEY = "PUT_YOUR_KEY_HERE" # http://akismet.com/get/
 
 DATABASES = {
     'default': {
@@ -35,8 +35,8 @@ LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
-USE_I18N = False
-USE_L10N = False
+USE_I18N = True
+USE_L10N = True
 
 MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                           "..",
@@ -48,10 +48,10 @@ STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                            "static"))
 STATIC_URL = 'http://static.' + DOMAIN_NAME + '/'
 
-ADMIN_MEDIA_PREFIX = 'http://static.' + DOMAIN_NAME + '/admin/'
+ADMIN_MEDIA_PREFIX = STATIC_URL + '/admin/'
 
 STATICFILES_DIRS = (
-    os.path.abspath(os.path.join(os.getcwd(), "..", "static")),
+    os.path.abspath(os.path.join(os.getcwd(), "static")),
 )
 
 # List of finder classes that know how to find static files in
