@@ -43,13 +43,13 @@ $(document).ready(function(){
     $(window).konami(function() {
 	if (konamiCount == 1) {
 	    $("head").append('<link rel="stylesheet" href="' +
-			     STATIC_URL + 'css/about/konami.less.min.css" />');
+			     STATIC_URL + 'about/css/konami.less.min.css" />');
 	    $("#image_about").attr("src",
-				   STATIC_URL + "/img/about/about-konami.png");
+				   STATIC_URL + "about/img/about-konami.png");
 	    $("#image_contact")
-		.attr("src", STATIC_URL + "/img/about/contact-konami.png");
+		.attr("src", STATIC_URL + "about/img/contact-konami.png");
 	    $("#image_portfolio")
-		.attr("src", STATIC_URL + "/img/about/portfolio-konami.png");
+		.attr("src", STATIC_URL + "about/img/portfolio-konami.png");
 	    ++konamiCount;
 	}
 	else {
