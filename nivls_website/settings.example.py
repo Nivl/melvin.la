@@ -86,8 +86,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'subdomains.middleware.SubdomainURLRoutingMiddleware',
+    'sentry.client.middleware.Sentry404CatchMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'nivls_website.urls'
@@ -99,6 +100,7 @@ SUBDOMAIN_URLCONFS = {
     'admin': 'nivls_website.urls_admin',
     'media': 'nivls_website.urls_media',
     'static': 'nivls_website.urls_static',
+    'sentry': 'nivls_website.urls_sentry',
     'blog': 'nivls_website.blog.urls',
     }
 
@@ -120,6 +122,8 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'debug_toolbar',
     'south',
+    'sentry',
+    'sentry.client',
     'blog',
     'about',
     'fileUpload',
