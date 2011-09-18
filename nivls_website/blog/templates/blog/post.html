@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}blog/css/pygments.css">
 {% endblock "sub_head_css" %}
 
+{% block "title" %}{{ post.title }}{% endblock "title" %}
+
 {% block "content" %}
   <article id="post">
     <header>
