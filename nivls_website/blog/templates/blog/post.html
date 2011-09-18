@@ -5,6 +5,10 @@
   {% include "comments/ajax_form.html" %}
 {% endblock "sub_head_js" %}
 
+{% block "sub_head_css" %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}blog/css/pygments.css">
+{% endblock "sub_head_css" %}
+
 {% block "content" %}
   <article id="post">
     <header>
@@ -42,7 +46,7 @@
     </header>
 
     <section class="content">
-      {{ post.parsed_content|markdown:"codehilite" }}
+      {{ post.parsed_content|markdown:'codehilite' }}
     </section>
 
     <footer>

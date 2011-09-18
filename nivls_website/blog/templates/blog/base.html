@@ -16,6 +16,7 @@
 {% endblock "head_js" %}
 
 {% block "head_css" %}
+  {% block "sub_head_css" %}{% endblock "sub_head_css" %}
   <link href="http://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}blog/css/blog.less.min.css">
 {% endblock "head_css" %}
