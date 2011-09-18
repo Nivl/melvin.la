@@ -28,7 +28,7 @@ class Link(models.Model):
 
 class Tag(models.Model):
     name         = models.CharField(max_length=50)
-    slug         = models.SlugField()
+    slug         = models.SlugField(unique=True)
 
     def __unicode__(self):
         return self.name
