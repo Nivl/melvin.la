@@ -8,8 +8,12 @@ function bindPostContactHandler() {
             cache: false,
             dataType: "html",
             success: function(html, textStatus) {
-		var $form = $(html).find("#contact_form form")
-		$('#contact_form form').replaceWith($form)
+		var form = $(html).find("#contact_form form")
+		if (form.text() == '')
+		    $('#contact_form form').replaceWith(html)
+		else
+		    $('#contact_form form').replaceWith(form)
+
                 bindPostContactHandler();
 	    },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
