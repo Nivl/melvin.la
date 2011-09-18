@@ -98,8 +98,8 @@ class Post(models.Model):
     slug                = models.SlugField(unique_for_date="pub_date")
     short_description   = models.CharField(max_length=80
                                            ,help_text="80 chars maximum")
-    long_description    = models.CharField(max_length=255
-                                           ,help_text="255 chars maximum")
+    long_description    = models.CharField(max_length=175
+                                           ,help_text="175 chars maximum")
     main_image          = models.ImageField(upload_to="articles/originals/"
                                             ,help_text="570x270")
     thumbnail           = models.ImageField(upload_to="articles/thumbnails/"

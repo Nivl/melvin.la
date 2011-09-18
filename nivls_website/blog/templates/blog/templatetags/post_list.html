@@ -19,8 +19,7 @@
 	</a>
 	{% with post.tags.all as tags %}
 	  {% if tags %}
-	    <br />
-	    Taggé sous: {% for tag in tags %}
+	    - Taggé sous: {% for tag in tags %}
 	      <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
 	      {% if not forloop.last %},{% endif %}
 	    {% endfor %}
