@@ -79,6 +79,7 @@ seo_urlpatterns = patterns(
 old_urlpatterns = patterns(
     '',
     url(r'^category/contests/?$', redirect_to, {'url': '/tag/contests/'}),
+    url(r'^tag/contest/?$', redirect_to, {'url': '/tag/contests/'}),
     url(r'^tag/game/?$', redirect_to, {'url': '/tag/jeux/'}),
     url(r'^tag/ecoles/?$', redirect_to, {'url': '/tag/ecole/'}),
     url(r'^tag/epitech-2/?$', redirect_to, {'url': '/category/epitech/'}),
