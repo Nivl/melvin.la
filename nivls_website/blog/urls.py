@@ -72,7 +72,7 @@ seo_urlpatterns = patterns(
     'django.contrib.sitemaps.views',
     url(r'^sitemap\.xml$', 'sitemap', {'sitemaps': sitemaps}),
 
-    url(r'^robot.txt$', include('robots.urls')),
+    url(r'^robots.txt$', include('robots.urls')),
     )
 
 
