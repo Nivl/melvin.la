@@ -83,7 +83,7 @@ old_urlpatterns = patterns(
     url(r'^tag/game/?$', redirect_to, {'url': '/tag/jeux/'}),
     url(r'^tag/ecoles/?$', redirect_to, {'url': '/tag/ecole/'}),
     url(r'^tag/epitech-2/?$', redirect_to, {'url': '/category/epitech/'}),
-    url(r'^tag/graphic/?$', redirect_to, {'url': '/category/graphique/'}),
+    url(r'^tag/graphic/?$', redirect_to, {'url': '/tag/graphique/'}),
     )
 
 
