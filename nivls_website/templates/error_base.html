@@ -25,12 +25,14 @@
   </head>
   <body>
 
-    <header>
-      <h1><a href="/">Laplanche-melv<span class="dot">.</span>in</a><h1>
-    </header>
+    <div id="wrapper">
+      <header>
+	<h1><a href="/">Laplanche-melv<span class="dot">.</span>in</a><h1>
+      </header>
 
-    <section id="content">
-      {% block "body" %}{% endblock %}
-    </section>
+      <section id="content">
+	{% block "body" %}{% endblock %}
+      </section>
+    </div>
   </body>
 </html>

@@ -1,10 +1,10 @@
 body{font-family:'Alice',arial,serif;background-color:#1e1b1a;color:white;}body a{text-decoration:none;}body a:visited{color:inherit;}
-body header h1{padding-top:25px;margin-left:279px;font-size:2em;}body header h1 .dot{font-size:2em;color:#0091ff;}
-body #content{position:absolute;left:3%;top:20%;}body #content .parallax{overflow:hidden;padding:0;position:relative;width:940px;}
-body #content #parallax{height:415px;}body #content #parallax .layer{height:415px;}
-body #content #parallax .layer-0{width:1000px;height:450px;}
-body #content #parallax .ackbar{width:800px;height:100px;}
-body #content #parallax .its-a-trap{width:500px;height:100px;}
-body #content #parallax .tie-hunter{width:0px;height:300px;}
-body #content #parallax .small-tie-hunter{width:300px;height:300px;}
-body #content #parallax .e404{width:0px;height:0px;}
+body #wrapper{width:940px;margin:0 auto;}body #wrapper header h1{padding-top:25px;margin-left:279px;font-size:2em;}body #wrapper header h1 .dot{font-size:2em;color:#0091ff;}
+body #wrapper #content .parallax{overflow:hidden;padding:0;position:relative;}
+body #wrapper #content #parallax{height:415px;}body #wrapper #content #parallax .layer{height:415px;}
+body #wrapper #content #parallax .layer-0{width:1000px;height:450px;}
+body #wrapper #content #parallax .ackbar{width:800px;height:100px;}
+body #wrapper #content #parallax .its-a-trap{width:500px;height:100px;}
+body #wrapper #content #parallax .tie-hunter{width:0px;height:300px;}
+body #wrapper #content #parallax .small-tie-hunter{width:300px;height:300px;}
+body #wrapper #content #parallax .e404{width:0px;height:0px;}
