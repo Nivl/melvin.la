@@ -1,5 +1,6 @@
 *.pyc
 nivls_website/settings.py
+nivls_website/settings_blog.py
 nivls_website/*/migrations/
 /media/
 /static/
