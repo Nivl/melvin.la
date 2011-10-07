@@ -1,15 +1,26 @@
 from django.contrib import admin
 from django.contrib.comments.models import Comment
+from django.contrib.contenttypes.generic import GenericTabularInline
 from blog.models import *
 from django.conf import settings
 
 # Post
+
+class InlineComment(GenericTabularInline):
+    model = Comment
+    extra = 0
+    ct_field = 'content_type'
+    ct_fk_field = 'object_pk'
+
+
 class AdminPost(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ['pub_date', 'is_public', 'allow_comment']
     actions = ['make_public', 'make_private', 'allow_comment', 'lock_comment']
     date_hierarchy = 'pub_date'
     list_display = ('title', 'pub_date', 'is_public', 'allow_comment')
+    inlines = [InlineComment]
+
 
     def make_public(self, request, queryset):
         nb_row = queryset.update(is_public=1)
@@ -46,7 +57,10 @@ class AdminPost(admin.ModelAdmin):
     class Media:
         js = (settings.STATIC_URL + 'admin/js/admin_post_preview.js',)
 
+
+
 admin.site.register(Post, AdminPost)
+
 
 # Others
 
