@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.comments.models import Comment
-from blog.models import Post, Link, Menu, Category, Tag, PostImage
+from blog.models import *
 from django.conf import settings
 
 # Post
@@ -59,12 +59,17 @@ class AdminCategory(admin.ModelAdmin):
 class AdminTag(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
+# Menu
+
+class InlineLink(admin.TabularInline):
+    model = Link
+    extra = 1
+
 class AdminMenu(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
-
+    inlines = [InlineLink]
 
 admin.site.register(Tag, AdminTag)
 admin.site.register(PostImage)
 admin.site.register(Menu, AdminMenu)
-admin.site.register(Link)
 admin.site.register(Category, AdminCategory)
