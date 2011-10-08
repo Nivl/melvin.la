@@ -13,7 +13,7 @@ class Licence(models.Model):
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
     url         = models.URLField()
-    image       = models.ImageField(upload_to="articles/images/")
+    image       = models.ImageField(upload_to="lab/licences/")
 
     def __unicode__(self):
         return self.name
@@ -46,7 +46,7 @@ class Progression(models.Model):
 class Image(models.Model):
     name        = models.CharField(max_length=255)
     desciption  = models.TextField()
-    image       = models.ImageField(upload_to="articles/images/")
+    image       = models.ImageField(upload_to="labs/projets/images/")
     project     = models.ForeignKey(Project)
 
     def __unicode__(self):
@@ -56,17 +56,7 @@ class Image(models.Model):
 class Download(models.Model):
     name          = models.CharField(max_length=50)
     desciption    = models.CharField(max_length=255)
-    uploaded_file = models.ImageField(upload_to="articles/images/")
-    project       = models.ForeignKey(Project)
-
-    def __unicode__(self):
-        return self.name
-
-
-class Download(models.Model):
-    name          = models.CharField(max_length=50)
-    desciption    = models.CharField(max_length=255)
-    uploaded_file = models.ImageField(upload_to="articles/images/")
+    uploaded_file = models.ImageField(upload_to="labs/projets/downloads/")
     project       = models.ForeignKey(Project)
 
     def __unicode__(self):
