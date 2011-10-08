@@ -10,9 +10,10 @@ class Language(models.Model):
 
 
 class Licence(models.Model):
-    name = models.CharField(max_length=30)
-    slug = models.SlugField(unique=True)
-    url = models.URLField()
+    name        = models.CharField(max_length=30)
+    slug        = models.SlugField(unique=True)
+    url         = models.URLField()
+    image       = models.ImageField(upload_to="articles/images/")
 
     def __unicode__(self):
         return self.name

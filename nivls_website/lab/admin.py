@@ -1,6 +1,7 @@
 from models import *
 from django.contrib import admin
 
+# Project
 class ProgressionInline(admin.TabularInline):
     model = Progression
     extra = 1
@@ -17,11 +18,18 @@ class DownloadInline(admin.TabularInline):
     model = Download
     extra = 1
 
-
 class ProjectAdmin(admin.ModelAdmin):
     inlines = [ProgressionInline, ImageInline, VideoInline, DownloadInline]
 
-admin.site.register(Language)
-admin.site.register(Licence)
+# Others
+
+class LanguageAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',),}
+
+class LicenceAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',),}
+
+admin.site.register(Language, LanguageAdmin)
+admin.site.register(Licence, LicenceAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(VideoHost)
