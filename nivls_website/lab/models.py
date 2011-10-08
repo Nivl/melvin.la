@@ -30,7 +30,6 @@ class Project(models.Model):
     demo_link    = models.URLField(null=True, blank=True)
     demo_codebox = models.TextField(null=True, blank=True)
 
-
     def __unicode__(self):
         return self.name
 
@@ -77,7 +76,7 @@ class Download(models.Model):
 class VideoHost(models.Model):
     name        = models.CharField(max_length=50)
     url         = models.URLField()
-    code        = models.TextField()
+    embed_url   = models.URLField()
 
     def __unicode__(self):
         return self.name
@@ -86,7 +85,7 @@ class VideoHost(models.Model):
 class Video(models.Model):
     name        = models.CharField(max_length=255)
     desciption  = models.TextField()
-    video       = models.URLField()
+    code        = models.CharField(max_length=30)
     host        = models.ForeignKey(VideoHost)
     project     = models.ForeignKey(Project)
 
