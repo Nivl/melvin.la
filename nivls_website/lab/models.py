@@ -1,9 +1,11 @@
 from datetime import datetime
 from django.db import models
+from commons.fields import ColorField
 
 class Language(models.Model):
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
+    name  = models.CharField(max_length=255)
+    slug  = models.SlugField(unique=True)
+    color = ColorField()
 
     def __unicode__(self):
         return self.name
