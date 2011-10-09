@@ -49,5 +49,5 @@ class ColorPickerWidget(forms.TextInput):
                       .bind('keyup', function(){
                         $(this).ColorPickerSetColor(this.value);
                       });
-            </script>''' % (name, name))
+            </script>''' % name)
 
