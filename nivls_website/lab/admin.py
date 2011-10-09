@@ -2,6 +2,10 @@ from models import *
 from django.contrib import admin
 
 # Project
+class ProjectLanguageRateInline(admin.TabularInline):
+    model = ProjectLanguageRate
+    extra = 1
+
 class ProgressionInline(admin.TabularInline):
     model = Progression
     extra = 1
@@ -19,7 +23,7 @@ class DownloadInline(admin.TabularInline):
     extra = 1
 
 class ProjectAdmin(admin.ModelAdmin):
-    inlines = [ProgressionInline, ImageInline, VideoInline, DownloadInline]
+    inlines = [ProjectLanguageRateInline, ProgressionInline, ImageInline, VideoInline, DownloadInline]
 
 # Others
 

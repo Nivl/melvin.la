@@ -13,7 +13,9 @@ class Licence(models.Model):
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
     url         = models.URLField()
-    image       = models.ImageField(upload_to="lab/licences/")
+    image       = models.ImageField(upload_to="lab/licences/"
+                                    ,null=True
+                                    ,blank=True)
 
     def __unicode__(self):
         return self.name
@@ -29,9 +31,16 @@ class Project(models.Model):
     licence      = models.ForeignKey(Licence)
     demo_link    = models.URLField(null=True, blank=True)
     demo_codebox = models.TextField(null=True, blank=True)
+    languages    = models.ManyToManyField(Language, through='ProjectLanguageRate')
 
     def __unicode__(self):
         return self.name
+
+
+class ProjectLanguageRate(models.Model):
+    language    = models.ForeignKey(Language)
+    project     = models.ForeignKey(Project)
+    rate        = models.PositiveIntegerField()
 
 
 class Progression(models.Model):
