@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 
 DEBUG = True
@@ -31,10 +32,7 @@ DATABASES = {
 }
 
 TIME_ZONE = 'Europe/Paris'
-LANGUAGE_CODE = 'en-us'
-
-SITE_ID = 1
-
+LANGUAGE_CODE = 'fr'
 USE_I18N = True
 USE_L10N = True
 
@@ -86,23 +84,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'subdomains.middleware.SubdomainURLRoutingMiddleware',
-    'sentry.client.middleware.Sentry404CatchMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
-
-ROOT_URLCONF = 'nivls_website.urls'
-
-REMOVE_WWW_FROM_SUBDOMAIN = True
-
-SUBDOMAIN_URLCONFS = {
-    None: 'nivls_website.urls',
-    'admin': 'nivls_website.urls_admin',
-    'media': 'nivls_website.urls_media',
-    'static': 'nivls_website.urls_static',
-    'sentry': 'nivls_website.urls_sentry',
-    'blog': 'nivls_website.blog.urls',
-    }
 
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates"),
@@ -117,17 +101,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
     'django.contrib.comments',
     'django.contrib.sitemaps',
     'debug_toolbar',
+    'robots',
     'south',
-    'robot',
-    'sentry',
-    'sentry.client',
-    'blog',
-    'about',
-    'fileUpload',
 )
 
 DEFAULT_FILE_STORAGE = "commons.storage.UniqueFileSystemStorage"
