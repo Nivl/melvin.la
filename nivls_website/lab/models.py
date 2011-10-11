@@ -38,6 +38,7 @@ class Project(models.Model):
     description  = models.TextField()
     slug         = models.SlugField(unique=True)
     start_date   = models.DateField(default=datetime.now)
+    edit_date    = models.DateField(auto_now=True)
     blog_entry   = models.CharField(max_length=255, null=True, blank=True)
     src_url      = models.URLField(null=True, blank=True)
     licence      = models.ForeignKey(Licence)
