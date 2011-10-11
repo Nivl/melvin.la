@@ -36,4 +36,5 @@ class LicenceAdmin(admin.ModelAdmin):
 admin.site.register(Language, LanguageAdmin)
 admin.site.register(Licence, LicenceAdmin)
 admin.site.register(Project, ProjectAdmin)
+admin.site.register(Coworker)
 admin.site.register(VideoHost)

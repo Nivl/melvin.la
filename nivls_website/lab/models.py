@@ -23,6 +23,16 @@ class Licence(models.Model):
         return self.name
 
 
+class Coworker(models.Model):
+    nom         = models.CharField(max_length=50)
+    slug        = models.SlugField(unique=True)
+    url         = models.URLField(null=True, blank=True)
+    image       = models.ImageField(upload_to="lab/coworker/"
+                                    ,help_text="126x126"
+                                    ,null=True
+                                    ,blank=True)
+
+
 class Project(models.Model):
     name         = models.CharField(max_length=255)
     description  = models.TextField()
@@ -33,7 +43,9 @@ class Project(models.Model):
     licence      = models.ForeignKey(Licence)
     demo_link    = models.URLField(null=True, blank=True)
     demo_codebox = models.TextField(null=True, blank=True)
-    languages    = models.ManyToManyField(Language, through='ProjectLanguageRate')
+    languages    = models.ManyToManyField(Language,
+                                          through='ProjectLanguageRate')
+    coworkers    = models.ManyToManyField(Coworker)
 
     def __unicode__(self):
         return self.name
