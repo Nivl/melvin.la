@@ -3,110 +3,42 @@
 {% load markup %}
 
 {% block "head_js" %}
-  <script src="{{ STATIC_URL }}about/js/jquery.path.js"></script>
-  <script src="{{ STATIC_URL }}about/js/jquery.colorbox-min.js"></script>
-  <script src="{{ STATIC_URL }}about/js/bubbles.js"></script>
+  <script src="{{ STATIC_URL }}about/js/jquery.lettering.js"></script>
   <script src="{{ STATIC_URL }}about/js/about.js"></script>
 {% endblock "head_js" %}
 
 {% block "head_css" %}
-  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}about/css/colorbox_default.css">
   <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}about/css/about.less.min.css">
 {% endblock "head_css" %}
 
 {% block "body" %}
-  <div style="display: none">
-    <div id="whoAmI">
-      <p>
-	{{ static_infos.about_me|markdown }}
-      </p>
-    </div>
-  </div>
 
-  <div id="content">
-    <div class="title"></div>
-    <div id="slider">
-      <div id="home" class="slide">
-	<div class="wrapper">
-	  <div id="images" class="images">
-            <img id="image_about" src="{{ STATIC_URL }}about/img/about.png" alt="" width="402" height="402" />
-            <img id="image_portfolio" src="{{ STATIC_URL }}about/img/portfolio.png" alt="" width="402" height="402"/>
-            <img id="image_contact" src="{{ STATIC_URL }}about/img/contact.png" alt="" width="402" height="402" />
-	  </div>
+  <!--
+      {{ static_infos.about_me|markdown }}
 
-	  <div class="circleBig">
-            <div id="menu" class="menu">
-	      <a id="about" class="about" href="#">About me</a>
-	      <a id="portfolio" class="portfolio" href="#">Portfolio</a>
-	      <a id="contact" class="contact" href="#">Contact</a>
-            </div>
-	  </div>
-	</div>
-
-	<div id="circle_about" class="circle">
-	  <div class="description">
-            <ul>
-	      <li><a class="modal_box" href="#">Qui suis-je</a>
-	      <li id="resume-link"><a href="#">Mon C.V.</a>
-            </ul>
-	  </div>
-	</div>
-
-	<div id="circle_portfolio" class="circle">
-	  <div class="description">
-            <ul>
-	      <li>
-		<a href="http://blog.{{ DOMAIN_NAME }}/tag/projets/">Mes projets</a>
-	      <li><a href="https://github.com/Nivl">Mes sources</a>
-            </ul>
-	  </div>
-	</div>
-
-	<div id="circle_contact" class="circle">
-	  <div class="description">
-            <ul>
-	      <li><a href="http://www.google.com/recaptcha/mailhide/d?k=01TJeZkOso1wvPoWS1AWxNXw==&amp;c=8sTTFtuAmytRJEvjeQugS015pzCLL5sfQf_RvRJC4aU="
+<a href="http://www.google.com/recaptcha/mailhide/d?k=01TJeZkOso1wvPoWS1AWxNXw==&amp;c=8sTTFtuAmytRJEvjeQugS015pzCLL5sfQf_RvRJC4aU="
 		     onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501TJeZkOso1wvPoWS1AWxNXw\75\75\46c\758sTTFtuAmytRJEvjeQugS015pzCLL5sfQf_RvRJC4aU\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;"
 		     title="Reveal this e-mail address">Email</a>
-	      <li><a href="http://blog.{{ DOMAIN_NAME }}/contact/">Formulaire</a>
-	      <li><a href="https://plus.google.com/107029584179497153748">
-		  Google+</a>
-            </ul>
-	  </div>
-	</div>
-
-      </div>
-      <div id="resume" class="slide">
-	<ul class="tabs">
-	  <li id="home-link"><a href="#">«</a>
-	  <li class="tab"><a id="tab-profile" class="active" href="#">Profil</a>
-	  <li class="tab"><a id="tab-skills" href="#">Compétences</a>
-	  <li class="tab"><a id="tab-awards" href="#">Prix et récompences</a>
-	  <li class="tab"><a id="tab-downloads" href="#">Téléchargements</a>
-	</ul>
-	<div id="content-profile" class="content">
 	  {{ static_infos.profile|markdown }}
-	</div>
-	<div id="content-skills" class="content">
 	  {{ static_infos.skills|markdown }}
-	</div>
-	<div id="content-awards" class="content">
 	  {{ static_infos.awards|markdown }}
-	</div>
-	<div id="content-downloads" class="content">
-	  <h3>Téléchargements</h3>
-	  <ul>
 	    {% for file in static_infos.uploads.all %}
-	      <li>Téléchargement au format
 		<a href="{{ file.url }}">{{ file.description }}</a>
 	    {% empty %}
-	      <li>Vous aurez bientôt la possibilité de télécharger ce C.V. dans
-		plusieurs formats.
 	    {% endfor %}
-	  </ul>
-	</div>
-      </div>
-    </div>
-  </div>
-</div>
+-->
+
+  <header>
+    <h1><a id="site-title" href="/">Laplanche Melv.in</a></h1>
+
+    <nav>
+      <ul>
+	<li><a>Home</a>
+	<li><a>C.V.</a>
+	<li><a>Blog</a>
+	<li><a>Lab</a>
+      </ul>
+    </nav>
+  </header>
+
 {% endblock "body" %}
