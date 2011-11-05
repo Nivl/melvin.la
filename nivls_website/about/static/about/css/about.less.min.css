@@ -3,45 +3,59 @@
 **                        Variables and functions                            **
 **									     **
 ******************************************************************************/
+/* image color: 253344*/
+/* image color: 242424 */
 /******************************************************************************
 **									     **
 **                        End variables and functions                        **
 **									     **
 ******************************************************************************/
 body {
-  font-family: verdana, serif;
+  font-family: 'Arial', serif;
   font-size: 11px;
   color: white;
-  background: #0d1218 url("../img/background.png");
+  background: #10161e url("../img/background.png");
+}
+body .center {
+  text-align: center;
+}
+body img {
+  vertical-align: middle;
 }
 body a {
-  color: #ffffff;
+  color: white;
   text-decoration: none;
 }
 body h6 {
+  font-family: 'Alice', serif;
   font-size: 1em;
 }
 body h5 {
+  font-family: 'Alice', serif;
   font-size: 1.1em;
 }
 body h4 {
+  font-family: 'Alice', serif;
   font-size: 1.3em;
 }
 body h3 {
+  font-family: 'Alice', serif;
   font-size: 1.6em;
 }
 body h2 {
+  font-family: 'Alice', serif;
   font-size: 2em;
 }
 body header {
   width: 1000px;
   margin: 0 auto;
+  margin-bottom: 80px;
 }
 body header h1 {
+  font-family: 'Alice', serif;
   height: 100px;
   padding-top: 50px;
   text-align: center;
-  font-family: 'Alice', arial, serif;
   font-size: 5em;
 }
 body header h1 a span {
@@ -78,4 +92,47 @@ body header nav ul li a {
   font-weight: bolder;
   display: block;
   height: 37px;
+}
+body #content-wrapper {
+  width: 960px;
+  background: #10161e url("../img/page_title_bg.png");
+  border-radius: 40px;
+  margin: 0 auto;
+  box-shadow: 1px 1px 20px #000;
+  padding: 20px;
+}
+body #content-wrapper h2#content-title {
+  font-size: 4em;
+  font-weight: bolder;
+  height: 70px;
+  color: #1c1c1c;
+  text-shadow: 0px 2px 3px #505050;
+}
+body #content-wrapper #content {
+  border-radius: 40px;
+  background-color: #10161e;
+  font-size: 1.3em;
+  line-height: 17px;
+}
+body #content-wrapper #content article {
+  padding: 20px;
+  padding-bottom: 10px;
+}
+body #content-wrapper #content article h2 {
+  font-size: 1.8em;
+  font-weight: bolder;
+  color: #ddd;
+  margin-bottom: 20px;
+}
+body #content-wrapper #content article .article-content {
+  margin-left: 15px;
+}
+body #content-wrapper #content hr {
+  border: none;
+  border-bottom: 1px solid #212121;
+  color: black;
+  background: black;
+  margin: 25px auto;
+  height: 1px;
+  width: 900px;
 }

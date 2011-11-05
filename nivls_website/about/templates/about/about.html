@@ -1,56 +1,35 @@
-{% extends "base.html"%}
+{% extends "about/base.html" %}
 
 {% load markup %}
 
-{% block "head_js" %}
-  <script src="{{ STATIC_URL }}about/js/jquery.lettering.js"></script>
-  <script src="{{ STATIC_URL }}about/js/about.js"></script>
+{% block "content-title" %}Home{% endblock "content-title" %}
 
-  <script>
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-22265570-5']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-{% endblock "head_js" %}
-
-{% block "head_css" %}
-  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}about/css/about.less.min.css">
-{% endblock "head_css" %}
-
-{% block "body" %}
-
-  <!--
+{% block "content" %}
+  <article>
+    <h2>Qui suis-je ?</h2>
+    <div class="article-content">
+      <a href="{% url cv %}" style="float:right;">
+	<img src="{{ STATIC_URL }}about/img/free_for_job.png">
+      </a>
       {{ static_infos.about_me|markdown }}
+    </div>
+  </article>
 
-<a href="http://www.google.com/recaptcha/mailhide/d?k=01TJeZkOso1wvPoWS1AWxNXw==&amp;c=8sTTFtuAmytRJEvjeQugS015pzCLL5sfQf_RvRJC4aU="
-		     onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501TJeZkOso1wvPoWS1AWxNXw\75\75\46c\758sTTFtuAmytRJEvjeQugS015pzCLL5sfQf_RvRJC4aU\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;"
-		     title="Reveal this e-mail address">Email</a>
-	  {{ static_infos.profile|markdown }}
-	  {{ static_infos.skills|markdown }}
-	  {{ static_infos.awards|markdown }}
-	    {% for file in static_infos.uploads.all %}
-		<a href="{{ file.url }}">{{ file.description }}</a>
-	    {% empty %}
-	    {% endfor %}
--->
+  <hr />
 
-  <header>
-    <h1><a id="site-title" href="/">Laplanche Melv.in</a></h1>
+  <article>
+    <h2>Me contacter</h2>
+    <div class="article-content center">
+      <a href="http://www.google.com/recaptcha/mailhide/d?k=017KWG_KpTYVYRvB7SsTqX-Q==&amp;c=DWX9PgVI1OyNrhD-UfV4F9Msj9QUYCFhvSAwKrdp8Eo="
+      onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\075017KWG_KpTYVYRvB7SsTqX-Q\75\75\46c\75DWX9PgVI1OyNrhD-UfV4F9Msj9QUYCFhvSAwKrdp8Eo\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="E-mail">
+	<img src="{{ STATIC_URL }}about/img/mail.png" alt="email"></a>
+      <a href="https://plus.google.com/107029584179497153748/about">
+	<img src="{{ STATIC_URL }}about/img/gplus.png" alt="google+"></a>
+      <a href="https://twitter.com/Nivl_">
+	<img src="{{ STATIC_URL }}about/img/twitter.png" alt="twitter"></a>
+      <a href="http://www.facebook.com/profile.php?id=100000306689443">
+	<img src="{{ STATIC_URL }}about/img/facebook.png" alt="facebook"></a>
+    </div>
+  </article>
 
-    <nav>
-      <ul>
-	<li><a>Home</a>
-	<li><a>C.V.</a>
-	<li><a>Blog</a>
-	<li><a>Lab</a>
-      </ul>
-    </nav>
-  </header>
-
-{% endblock "body" %}
+{% endblock "content" %}

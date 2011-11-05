@@ -1,0 +1,65 @@
+{% extends "base.html"%}
+
+{% load markup %}
+
+{% block "head_js" %}
+  <script src="{{ STATIC_URL }}about/js/jquery.lettering.js"></script>
+  <script src="{{ STATIC_URL }}about/js/about.js"></script>
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-22265570-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+{% endblock "head_js" %}
+
+{% block "head_css" %}
+  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}about/css/about.less.min.css">
+{% endblock "head_css" %}
+
+{% block "body" %}
+
+  <!--
+	  {{ static_infos.profile|markdown }}
+	  {{ static_infos.skills|markdown }}
+	  {{ static_infos.awards|markdown }}
+	    {% for file in static_infos.uploads.all %}
+		<a href="{{ file.url }}">{{ file.description }}</a>
+	    {% empty %}
+	    {% endfor %}
+-->
+
+  <header>
+    <h1><a id="site-title" href="/">Laplanche Melv.in</a></h1>
+
+    <nav>
+      <ul>
+	<li><a href="{% url home %}">Home</a>
+	<li><a href="{% url cv %}">C.V.</a>
+	<li><a href="http://blog.{{ DOMAIN_NAME }}">Blog</a>
+	<li><a href="http://lab.{{ DOMAIN_NAME }}">Lab</a>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="content-wrapper">
+    <h2 id="content-title">
+      {% block "content-title" %}{% endblock "content-title" %}
+    </h2>
+
+    <div id="content">
+      {% block "content" %}{% endblock "content" %}
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+
+{% endblock "body" %}

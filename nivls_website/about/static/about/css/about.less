@@ -4,11 +4,9 @@
 **									     **
 ******************************************************************************/
 
-@green: #092e20;
-@blue-bg: #0d1218;
+@blue-bg: #10161e; /* image color: 253344*/
+@content-title-bg: #363636; /* image color: 242424 */
 @page-size: 1000px;
-
-@blue: #fff;
 
 .transition(@property: background-color,
 	    @duration: 0.4s,
@@ -27,45 +25,51 @@
 ******************************************************************************/
 
 body{
-    font-family: verdana, serif;
+    font-family: 'Arial', serif;
     font-size: 11px;
     color: white;
     background: @blue-bg url("../img/background.png");
 
     a {
-	color: @blue;
+	color: white;
 	text-decoration: none;
     }
 
     h6 {
+	font-family: 'Alice', serif;
 	font-size:1em;
     }
 
     h5 {
+	font-family: 'Alice', serif;
 	font-size:1.1em;
     }
 
     h4 {
+	font-family: 'Alice', serif;
 	font-size:1.3em;
     }
 
     h3 {
+	font-family: 'Alice', serif;
 	font-size:1.6em;
     }
 
     h2 {
-	font-size:2em;
+	font-family: 'Alice', serif;
+	font-size: 2em;
     }
 
     header {
 	width: @page-size;
 	margin: 0 auto;
+	margin-bottom: 80px;
 
 	h1 {
+	    font-family: 'Alice', serif;
 	    height: 100px;
 	    padding-top: 50px;
 	    text-align: center;
-	    font-family: 'Alice', arial, serif;
 	    font-size: 5em;
 
 	    a {
@@ -93,7 +97,7 @@ body{
 		    border-radius: 12px;
 		    .transition();
 
-		    &:hover{
+		    &:hover {
 			background-color: rgba(255,255,255,0.17);
 		    }
 
@@ -106,6 +110,56 @@ body{
 			height: 37px;
 		    }
 		}
+	    }
+	}
+    }
+
+    #content-wrapper {
+	width: @page-size - 40;
+	background: @blue-bg url("../img/page_title_bg.png");
+	border-radius: 40px;
+	margin: 0 auto;
+	box-shadow: 1px 1px 20px #000;
+	padding: 20px;
+
+	h2#content-title {
+	    font-size: 4em;
+	    font-weight:bolder;
+	    height: 70px;
+	    color: darken(@content-title-bg, 10%);
+	    text-shadow: 0px 2px 3px lighten(@content-title-bg, 10%);
+	}
+
+	#content {
+	    border-radius: 40px;
+	    background-color: @blue-bg;
+	    font-size: 1.3em;
+	    line-height: 17px;
+
+	    article {
+		padding: 20px;
+		padding-bottom: 10px;
+
+		h2 {
+		    font-size: 1.8em;
+		    font-weight:bolder;
+		    color: #ddd;
+		    margin-bottom: 20px;
+		}
+
+		.article-content {
+		    margin-left: 15px;
+		}
+	    }
+
+	    hr {
+		border: none;
+		border-bottom: 1px solid #212121;
+		color: black;
+		background: black;
+		margin: 25px auto;
+		height: 1px;
+		width: 900px;
 	    }
 	}
     }
