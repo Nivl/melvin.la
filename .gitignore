@@ -1,6 +1,7 @@
 *.pyc
 nivls_website/settings_global.py
 nivls_website/*/migrations/
+nivls_website/*/fixtures/
 /media/
 /static/
 /research/
