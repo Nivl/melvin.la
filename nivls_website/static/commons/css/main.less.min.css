@@ -11,6 +11,9 @@ abbr {
 .center {
   text-align: center;
 }
+.clear {
+  clear: both;
+}
 .drawingpix {
   position: absolute;
   top: -50px;

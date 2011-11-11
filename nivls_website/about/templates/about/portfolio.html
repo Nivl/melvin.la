@@ -1,0 +1,42 @@
+{% extends "about/base.html" %}
+
+{% load markup %}
+
+{% block "content-title" %}C.V.{% endblock "content-title" %}
+
+{% block "content" %}
+
+  {% for project in projects %}
+    <article class="portfolio">
+      <figure>
+	<img src="{{ project.screenshot.url }}" />
+      </figure>
+
+      <h2>{{ project.name }}</h2>
+
+      <div class="article-content">
+	{% for label in project.types.all %}
+	  <div class="label">{{ label.name }}</div>
+	{% endfor %}
+	{{ project.description }}
+      </div>
+
+      <footer>
+	<a href="{{ project.url }}">Visiter {{ project.name }}</a>
+      </footer>
+
+      {% if forloop.last %}
+	<div class="clear-portfolio"></div>
+      {% endif %}
+    </article>
+
+    {%  if forloop.last %}
+      <div class="clear"></div>
+    {% else %}
+      <hr/>
+    {% endif %}
+
+  {% endfor %}
+
+{% endblock "content" %}
+

@@ -88,7 +88,7 @@ body{
 	}
 
 	nav {
-	    margin-left: 340px;
+	    margin-left: 300px;
 	    ul {
 		li {
 		    height: 32px;
@@ -140,6 +140,17 @@ body{
 	    background-color: @blue-bg;
 	    font-size: 1.3em;
 	    line-height: 17px;
+	    padding-bottom: 20px;
+
+	    hr {
+		border: none;
+		border-bottom: 1px solid #212121;
+		color: black;
+		background: black;
+		margin: 25px auto;
+		height: 1px;
+		width: 900px;
+	    }
 
 	    article {
 		padding: 20px;
@@ -157,75 +168,80 @@ body{
 		}
 	    }
 
-	    hr {
-		border: none;
-		border-bottom: 1px solid #212121;
-		color: black;
-		background: black;
-		margin: 25px auto;
-		height: 1px;
-		width: 900px;
-	    }
-	}
-
-	#resume {
-	    h2.acc_trigger {
-		text-align: center;
-		height: 46px;
-		line-height: 46px;
-		font-size: 2em;
-
-		a {
-		    display: block;
-
-		    &:hover {
-			color: #fff;
-		    }
+	    article.portfolio {
+		figure {
+		    float: left;
+		    margin-right: 20px;
 		}
 
-		&:active {
-		    background-position: left bottom;
+		h2 {
+		    margin-top: 10px;
+		}
+
+		footer {
+		    margin-top: 10px;
 		}
 	    }
 
-	    .acc_container {
-		margin: 0 0 5px;
-		overflow: hidden;
-		clear: both;
+	    article#resume {
+		h2.acc_trigger {
+		    text-align: center;
+		    height: 46px;
+		    line-height: 46px;
+		    font-size: 2em;
 
-		.block {
-		    padding: 20px;
+		    a {
+			display: block;
 
-		    h3 {
-			background-color: lighten(@blue-bg, 25%);
-			border: 1px solid lighten(@blue-bg, 20%);
-			border-top-color: lighten(@blue-bg, 40%);
-			border-left-color: lighten(@blue-bg, 40%);
-			text-shadow: 1px 1px 0 #000;
-
-			padding: 5px;
-			text-transform: uppercase;
-			font-size: 1.3em;
-			margin: 15px 0;
-			font-weight: bolder;
+			&:hover {
+			    color: #fff;
+			}
 		    }
 
-		    li {
-			padding: 2px 0 2px 10px;
+		    &:active {
+			background-position: left bottom;
 		    }
+		}
 
-		    table {
-			th, td {
+		.acc_container {
+		    margin: 0 0 5px;
+		    overflow: hidden;
+		    clear: both;
+
+		    .block {
+			padding: 20px;
+
+			h3 {
+			    background-color: lighten(@blue-bg, 25%);
+			    border: 1px solid lighten(@blue-bg, 20%);
+			    border-top-color: lighten(@blue-bg, 40%);
+			    border-left-color: lighten(@blue-bg, 40%);
+			    text-shadow: 1px 1px 0 #000;
+
 			    padding: 5px;
-			    padding-right: 15px;
-
-			    border: 1px solid lighten(@blue-bg, 40%);
+			    text-transform: uppercase;
+			    font-size: 1.3em;
+			    margin: 15px 0;
+			    font-weight: bolder;
 			}
 
-			th {
-			    background-color: lighten(@blue-bg, 10%);
-			    //color: @blue-bg;
-			    font-weight: bolder;
+			li {
+			    padding: 2px 0 2px 10px;
+			}
+
+			table {
+			    th, td {
+				padding: 5px;
+				padding-right: 15px;
+
+				border: 1px solid lighten(@blue-bg, 40%);
+			    }
+
+			    th {
+				background-color: lighten(@blue-bg, 10%);
+				//color: @blue-bg;
+				font-weight: bolder;
+			    }
 			}
 		    }
 		}

@@ -74,7 +74,7 @@ body header h1 a span:hover {
   top: 10px;
 }
 body header nav {
-  margin-left: 340px;
+  margin-left: 300px;
 }
 body header nav ul li {
   height: 32px;
@@ -167,6 +167,16 @@ body #content-wrapper #content {
   background-color: #10161e;
   font-size: 1.3em;
   line-height: 17px;
+  padding-bottom: 20px;
+}
+body #content-wrapper #content hr {
+  border: none;
+  border-bottom: 1px solid #212121;
+  color: black;
+  background: black;
+  margin: 25px auto;
+  height: 1px;
+  width: 900px;
 }
 body #content-wrapper #content article {
   padding: 20px;
@@ -181,39 +191,40 @@ body #content-wrapper #content article h2 {
 body #content-wrapper #content article .article-content {
   margin-left: 15px;
 }
-body #content-wrapper #content hr {
-  border: none;
-  border-bottom: 1px solid #212121;
-  color: black;
-  background: black;
-  margin: 25px auto;
-  height: 1px;
-  width: 900px;
+body #content-wrapper #content article.portfolio figure {
+  float: left;
+  margin-right: 20px;
 }
-body #content-wrapper #resume h2.acc_trigger {
+body #content-wrapper #content article.portfolio h2 {
+  margin-top: 10px;
+}
+body #content-wrapper #content article.portfolio footer {
+  margin-top: 10px;
+}
+body #content-wrapper #content article#resume h2.acc_trigger {
   text-align: center;
   height: 46px;
   line-height: 46px;
   font-size: 2em;
 }
-body #content-wrapper #resume h2.acc_trigger a {
+body #content-wrapper #content article#resume h2.acc_trigger a {
   display: block;
 }
-body #content-wrapper #resume h2.acc_trigger a:hover {
+body #content-wrapper #content article#resume h2.acc_trigger a:hover {
   color: #fff;
 }
-body #content-wrapper #resume h2.acc_trigger:active {
+body #content-wrapper #content article#resume h2.acc_trigger:active {
   background-position: left bottom;
 }
-body #content-wrapper #resume .acc_container {
+body #content-wrapper #content article#resume .acc_container {
   margin: 0 0 5px;
   overflow: hidden;
   clear: both;
 }
-body #content-wrapper #resume .acc_container .block {
+body #content-wrapper #content article#resume .acc_container .block {
   padding: 20px;
 }
-body #content-wrapper #resume .acc_container .block h3 {
+body #content-wrapper #content article#resume .acc_container .block h3 {
   background-color: #3c5371;
   border: 1px solid #334761;
   border-top-color: #5778a3;
@@ -225,15 +236,15 @@ body #content-wrapper #resume .acc_container .block h3 {
   margin: 15px 0;
   font-weight: bolder;
 }
-body #content-wrapper #resume .acc_container .block li {
+body #content-wrapper #content article#resume .acc_container .block li {
   padding: 2px 0 2px 10px;
 }
-body #content-wrapper #resume .acc_container .block table th, body #content-wrapper #resume .acc_container .block table td {
+body #content-wrapper #content article#resume .acc_container .block table th, body #content-wrapper #content article#resume .acc_container .block table td {
   padding: 5px;
   padding-right: 15px;
   border: 1px solid #5778a3;
 }
-body #content-wrapper #resume .acc_container .block table th {
+body #content-wrapper #content article#resume .acc_container .block table th {
   background-color: #222e3f;
   font-weight: bolder;
 }

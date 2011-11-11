@@ -25,22 +25,13 @@
 
 {% block "body" %}
 
-  <!--
-	  {{ static_infos.profile|markdown }}
-	  {{ static_infos.skills|markdown }}
-	  {{ static_infos.awards|markdown }}
-	    {% for file in static_infos.uploads.all %}
-		<a href="{{ file.url }}">{{ file.description }}</a>
-	    {% empty %}
-	    {% endfor %}
--->
-
   <header>
     <h1><a id="site-title" href="/">Laplanche Melv.in</a></h1>
 
     <nav>
       <ul>
 	<li><a href="{% url home %}">Home</a>
+	<li><a href="{% url portfolio %}">Portfolio</a>
 	<li><a href="{% url cv %}">C.V.</a>
 	<li><a href="http://blog.{{ DOMAIN_NAME }}">Blog</a>
 	<li><a href="http://lab.{{ DOMAIN_NAME }}">Lab</a>
