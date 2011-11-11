@@ -1,0 +1,51 @@
+{% extends "about/base.html" %}
+
+{% load markup %}
+
+{% block "content-title" %}C.V.{% endblock "content-title" %}
+
+{% block "content" %}
+  <article id="resume">
+
+    <h2 class="acc_trigger">
+      <a href="#">Profil</a>
+    </h2>
+    <div class="acc_container">
+      <div class="block">{{ static_infos.profile|markdown }}</div>
+    </div>
+
+    <h2 class="acc_trigger">
+      <a href="#">Compétences</a>
+    </h2>
+    <div class="acc_container">
+      <div class="block">{{ static_infos.skills|markdown }}</div>
+    </div>
+
+    <h2 class="acc_trigger">
+      <a href="#">Prix et récompences</a>
+    </h2>
+    <div class="acc_container">
+      <div class="block">{{ static_infos.awards|markdown }}</div>
+    </div>
+
+    <h2 class="acc_trigger">
+      <a href="#">Téléchargements</a>
+    </h2>
+    <div class="acc_container">
+      <div class="block">
+	<h3>Téléchargements</h3>
+	<ul>
+	  {% for file in static_infos.uploads.all %}
+	    <li>Téléchargement au format
+	      <a href="{{ file.url }}">{{ file.description }}</a>
+	      {% empty %}
+	      <li>Vous aurez bientôt la possibilité de télécharger ce C.V. dans
+		plusieurs formats.
+	      {% endfor %}
+	</ul>
+      </div>
+    </div>
+  </article>
+
+{% endblock "content" %}
+

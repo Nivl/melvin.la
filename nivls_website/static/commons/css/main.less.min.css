@@ -8,6 +8,9 @@ abbr {
   border-bottom: 1px dotted black;
   cursor: help;
 }
+.center {
+  text-align: center;
+}
 .drawingpix {
   position: absolute;
   top: -50px;
