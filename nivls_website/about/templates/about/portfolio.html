@@ -2,22 +2,33 @@
 
 {% load markup %}
 
-{% block "content-title" %}C.V.{% endblock "content-title" %}
+{% block "content-title" %}Portfolio{% endblock "content-title" %}
 
 {% block "content" %}
 
   {% for project in projects %}
     <article class="portfolio">
       <figure>
-	<img src="{{ project.screenshot.url }}" />
+	<a href="{{ project.url }}">
+	  <img src="{{ project.screenshot.url }}" />
+	</a>
       </figure>
 
       <h2>{{ project.name }}</h2>
 
       <div class="article-content">
-	{% for label in project.types.all %}
-	  <div class="label">{{ label.name }}</div>
-	{% endfor %}
+	{% with project.types.all as labels %}
+	  {% if labels %}
+	    <div class="label-list">
+	      {% for label in labels %}
+		<div class="label"
+		     style="background-color:#{{ label.color }};">
+		  {{ label.name }}
+		</div>
+	      {% endfor %}
+	    </div>
+	  {% endif %}
+	{% endwith %}
 	{{ project.description }}
       </div>
 

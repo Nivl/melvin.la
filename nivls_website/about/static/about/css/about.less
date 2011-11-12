@@ -88,7 +88,8 @@ body{
 	}
 
 	nav {
-	    margin-left: 300px;
+	    margin-left: 290px;
+
 	    ul {
 		li {
 		    height: 32px;
@@ -143,6 +144,7 @@ body{
 	    padding-bottom: 20px;
 
 	    hr {
+		clear: both;
 		border: none;
 		border-bottom: 1px solid #212121;
 		color: black;
@@ -169,13 +171,37 @@ body{
 	    }
 
 	    article.portfolio {
+		overflow: hidden;
+
 		figure {
 		    float: left;
 		    margin-right: 20px;
+
+		    img {
+			border: 1px solid lighten(@blue-bg, 10%);
+			padding: 3px;
+		    }
 		}
 
 		h2 {
 		    margin-top: 10px;
+		}
+
+		.article-content {
+		    overflow: hidden;
+
+		    .label-list {
+			float: right;
+
+			.label {
+			    padding: 5px;
+			    border-radius: 5px;
+			    width: 130px;
+			    text-align: center;
+			    heigth: 45px;
+			    margin-bottom: 10px;
+			}
+		    }
 		}
 
 		footer {

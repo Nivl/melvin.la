@@ -16,6 +16,13 @@ class StaticInfos(models.Model):
     def __unicode__(self):
         return self.site.__unicode__()
 
+    def save(self, *arg, **kwargs):
+        super(StaticInfos, self).save(*arg, **kwargs)
+        try:
+            ping_google()
+        except Exception:
+            pass
+
     class Meta():
         verbose_name = "static infos"
         verbose_name_plural = "static infos"
@@ -49,3 +56,7 @@ class Project(models.Model):
                 if os.path.exists(origin.screenshot.path):
                     os.remove(origin.screenshot.path)
         super(Project, self).save(*arg, **kwargs)
+        try:
+            ping_google()
+        except Exception:
+            pass

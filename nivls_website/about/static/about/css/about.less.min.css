@@ -74,7 +74,7 @@ body header h1 a span:hover {
   top: 10px;
 }
 body header nav {
-  margin-left: 300px;
+  margin-left: 290px;
 }
 body header nav ul li {
   height: 32px;
@@ -170,6 +170,7 @@ body #content-wrapper #content {
   padding-bottom: 20px;
 }
 body #content-wrapper #content hr {
+  clear: both;
   border: none;
   border-bottom: 1px solid #212121;
   color: black;
@@ -191,12 +192,33 @@ body #content-wrapper #content article h2 {
 body #content-wrapper #content article .article-content {
   margin-left: 15px;
 }
+body #content-wrapper #content article.portfolio {
+  overflow: hidden;
+}
 body #content-wrapper #content article.portfolio figure {
   float: left;
   margin-right: 20px;
 }
+body #content-wrapper #content article.portfolio figure img {
+  border: 1px solid #222e3f;
+  padding: 3px;
+}
 body #content-wrapper #content article.portfolio h2 {
   margin-top: 10px;
+}
+body #content-wrapper #content article.portfolio .article-content {
+  overflow: hidden;
+}
+body #content-wrapper #content article.portfolio .article-content .label-list {
+  float: right;
+}
+body #content-wrapper #content article.portfolio .article-content .label-list .label {
+  padding: 5px;
+  border-radius: 5px;
+  width: 130px;
+  text-align: center;
+  heigth: 45px;
+  margin-bottom: 10px;
 }
 body #content-wrapper #content article.portfolio footer {
   margin-top: 10px;
