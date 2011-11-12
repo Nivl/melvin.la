@@ -15,4 +15,5 @@ INSTALLED_APPS = INSTALLED_APPS + (
     'django.contrib.admin',
     'sentry',
     'sentry.client',
+    'seo'
     )
