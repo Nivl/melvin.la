@@ -6,7 +6,7 @@ class SEO(models.Model):
     title       = models.CharField(max_length=255)
     description = models.TextField()
     keywords    = models.TextField()
-    google      = models.TextField()
+    free_block  = models.TextField()
 
     def __unicode__(self):
         return self.site.__unicode__()

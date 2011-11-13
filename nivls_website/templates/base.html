@@ -1,10 +1,15 @@
+{% load seo_tags %}
+{% get_seo %}
+
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta name="description" content="{{ seo.description }}">
+    <meta name="keywords" content="{{ seo.keywords }}">
 
-    <title>{% block "title" %}Home{% endblock %} - Laplanche Melv.in</title>
+    <title>{% block "title" %}{{ seo.title }}{% endblock %}</title>
 
     <link href="http://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
     <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}commons/css/reset.css">
@@ -24,6 +29,7 @@
     <script src="{{ STATIC_URL }}commons/js/dream.js"></script>
     <script src="{{ STATIC_URL }}commons/js/main.js"></script>
     {% block "head_js" %}{% endblock %}
+    {{ seo.free_block|safe }}
   </head>
   <body>
     {% block "body" %}{% endblock %}
