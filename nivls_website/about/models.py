@@ -37,14 +37,25 @@ class Work(models.Model):
         return self.name
 
 
+class Field(models.Model):
+    name  = models.CharField(max_length=255)
+    slug  = models.SlugField(unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Project(models.Model):
     name        = models.CharField(max_length=255)
+    slug        = models.SlugField(unique=True)
     prod_date   = models.DateField(default=datetime.now)
     screenshot  = models.ImageField(upload_to='site/portfolio/screenshots/',
                                     help_text='258x158 px')
     url         = models.URLField()
     description = models.TextField()
-    types       = models.ManyToManyField(Work)
+    works       = models.ManyToManyField(Work)
+    field       = models.ForeignKey(Field)
+    is_personal = models.BooleanField()
 
     def __unicode__(self):
         return self.name

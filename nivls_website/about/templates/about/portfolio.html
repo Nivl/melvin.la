@@ -6,49 +6,44 @@
 {% block "content-title" %}Portfolio{% endblock "content-title" %}
 
 {% block "content" %}
+  <div id="projects">
+    {% for project in projects %}
+      <article class="portfolio">
+	<figure>
+	  <a href="{{ project.url }}">
+	    <img src="{{ project.screenshot.url }}" />
+	  </a>
+	</figure>
 
-  {% for project in projects %}
-    <article class="portfolio">
-      <figure>
-	<a href="{{ project.url }}">
-	  <img src="{{ project.screenshot.url }}" />
-	</a>
-      </figure>
+	<h2>{{ project.name }}</h2>
 
-      <h2>{{ project.name }}</h2>
+	<div class="article-content">
+	  {% with project.works.all as labels %}
+	    {% if labels %}
+	      <div class="label-list">
+		{% for label in labels %}
+		  <div class="label"
+		       style="background-color:#{{ label.color }};">
+		    {{ label.name }}
+		  </div>
+		{% endfor %}
+	      </div>
+	    {% endif %}
+	  {% endwith %}
+	  <div class="description">
+	    {{ project.description|linebreaksbr }}
+	  </div>
+	</div>
 
-      <div class="article-content">
-	{% with project.types.all as labels %}
-	  {% if labels %}
-	    <div class="label-list">
-	      {% for label in labels %}
-		<div class="label"
-		     style="background-color:#{{ label.color }};">
-		  {{ label.name }}
-		</div>
-	      {% endfor %}
-	    </div>
-	  {% endif %}
-	{% endwith %}
-	{{ project.description }}
-      </div>
+	<footer>
+	  <a href="{{ project.url }}">Visiter {{ project.name }}</a>
+	</footer>
+      </article>
 
-      <footer>
-	<a href="{{ project.url }}">Visiter {{ project.name }}</a>
-      </footer>
-
-      {% if forloop.last %}
-	<div class="clear-portfolio"></div>
+      {%  if not forloop.last %}
+	<hr />
       {% endif %}
-    </article>
-
-    {%  if forloop.last %}
-      <div class="clear"></div>
-    {% else %}
-      <hr/>
-    {% endif %}
-
-  {% endfor %}
-
+    {% endfor %}
+  </div>
 {% endblock "content" %}
 
