@@ -1,8 +1,8 @@
 from django.conf import settings
-from commons.sitemaps import FullUrlSitemap
+from django.contrib.sitemaps import Sitemap
 from models import Post
 
-class PostSitemap(FullUrlSitemap):
+class PostSitemap(Sitemap):
     changefreq = "monthly"
 
     def items(self):
@@ -12,9 +12,9 @@ class PostSitemap(FullUrlSitemap):
         return obj.edit_date
 
     def location(self, obj):
-        return "http://blog.%s%s" % (settings.DOMAIN_NAME, obj.get_absolute_url())
+        return obj.get_absolute_url()
 
-class StaticSitemap(FullUrlSitemap):
+class StaticSitemap(Sitemap):
     changefreq = "never"
     pattern = list()
 
@@ -25,5 +25,5 @@ class StaticSitemap(FullUrlSitemap):
         return  [p.name for p in self.patterns]
 
     def location(self, obj):
-        return "http://blog.%s/%s/" % (settings.DOMAIN_NAME, obj)
+        return "/%s/" % obj
 
