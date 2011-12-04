@@ -3,7 +3,7 @@ from django.contrib.sitemaps import Sitemap
 from models import Post
 
 class PostSitemap(Sitemap):
-    changefreq = "monthly"
+    changefreq = "daily"
 
     def items(self):
         return Post.objects.filter(is_public=1)
@@ -15,7 +15,7 @@ class PostSitemap(Sitemap):
         return obj.get_absolute_url()
 
 class StaticSitemap(Sitemap):
-    changefreq = "never"
+    changefreq = "monthly"
     pattern = list()
 
     def __init__(self, patterns):
