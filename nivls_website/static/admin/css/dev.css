@@ -1,0 +1,55 @@
+.dashboard #content{
+    width: 97%;
+}
+
+.dev_app_list {
+    width: 100%;
+    margin: 0 .auto;
+    display: block;
+    padding: 0;
+}
+
+.dev_app_list li {
+    padding: 0;
+    margin: 0;
+    width: 300px;
+    display: inline;
+    float: left;
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;;
+    line-height: normal;
+    margin-bottom: 5px;
+}
+
+.dev_app_list li .a {
+    display: block;
+    height: 110px;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+
+.dev_app_list li .a:hover {
+    background-color: #151515;
+    color: white;
+}
+
+.dev_app_list li .a h2 {
+    color: white;
+    display: block;
+    clear: both;
+    font-size: 22px;
+    margin: 0;
+    padding: 5px 20px 5px 10px;
+    position: relative;
+    border-bottom: #5294b5;
+    background-color: #417690;
+    transition: .all 0.2s ease-out;
+    font-weight: normal;
+    text-shadow: 0 1px black;
+}
+
+.dev_app_list li p {
+    padding: 5px;
+}
