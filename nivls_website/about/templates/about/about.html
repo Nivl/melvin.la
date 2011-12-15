@@ -9,7 +9,8 @@
     <h2>Qui suis-je ?</h2>
     <div class="article-content">
       <a href="{% url cv %}" style="float:right;">
-	<img src="{{ STATIC_URL }}about/img/free_for_job.png">
+	<img alt="Free for job"
+	     src="{{ STATIC_URL }}about/img/free_for_job.png">
       </a>
       {{ static_infos.about_me|markdown }}
     </div>
