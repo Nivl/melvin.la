@@ -8,8 +8,8 @@ MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
     )
 
 INSTALLED_APPS = INSTALLED_APPS + (
+    'commons',
     'about',
-    'fileUpload',
     'lab',
     'blog',
     'django.contrib.admin',

@@ -7,6 +7,5 @@ ROOT_URLCONF = 'nivls_website.urls'
 
 INSTALLED_APPS = INSTALLED_APPS + (
     'about',
-    'fileUpload',
     'seo',
     )

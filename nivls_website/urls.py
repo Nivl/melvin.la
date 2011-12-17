@@ -9,6 +9,7 @@ urlpatterns = patterns(
 static_urlpatterns = patterns(
     '',
     url(r'^cv/$', 'nivls_website.about.views.cv', name='cv'),
+    url(r'^cv_pdf/$', 'nivls_website.about.views.cv_pdf', name='cv-pdf'),
     url(r'^portfolio/$', 'nivls_website.about.views.portfolio', name='portfolio'),
 )
 

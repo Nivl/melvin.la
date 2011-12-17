@@ -36,13 +36,9 @@
       <div class="block">
 	<h3>Téléchargements</h3>
 	<ul>
-	  {% for file in static_infos.uploads.all %}
-	    <li>Téléchargement au format
-	      <a href="{{ file.url }}">{{ file.description }}</a>
-	      {% empty %}
-	      <li>Vous aurez bientôt la possibilité de télécharger ce C.V. dans
-		plusieurs formats.
-	      {% endfor %}
+	  <li><a href="{% url cv-pdf %}">
+	      Téléchargement du C.V. au format PDF
+	    </a>
 	</ul>
       </div>
     </div>

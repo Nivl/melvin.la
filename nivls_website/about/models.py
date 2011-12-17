@@ -2,7 +2,6 @@ import os
 from datetime import datetime
 from django.db import models
 from django.contrib.sites.models import Site
-from fileUpload.models import FileUpload
 from commons.fields import ColorField
 
 class StaticInfos(models.Model):
@@ -11,7 +10,6 @@ class StaticInfos(models.Model):
     profile  = models.TextField()
     skills   = models.TextField()
     awards   = models.TextField()
-    uploads  = models.ManyToManyField(FileUpload, null=True, blank=True)
 
     def __unicode__(self):
         return self.site.__unicode__()

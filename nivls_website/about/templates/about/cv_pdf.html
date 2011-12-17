@@ -1,0 +1,120 @@
+{% extends "base.html"%}
+
+{% load markup common_tags %}
+
+
+{% block "head_css" %}
+  <style>
+    html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+a {outline: none;}
+
+    html, body {
+      font-family: "arial", "serif";
+      color: black;
+      font-size: 14px;
+      line-height: 17px;
+    }
+
+    a {
+      color: black;
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: inherit;
+      text-decoration: inherit;
+    }
+
+    ul, li {
+      list-style-type: none;
+    }
+
+    li {
+      padding: 2px 0 2px 10px;
+    }
+
+    h1 {
+      font-size: 2em;
+    }
+
+    h2 {
+      font-size: 1.6em;
+    }
+
+    h3 {
+      color: white;
+      background-color: #3C5371;
+      border: 1px solid #334761;
+      border-top-color: #5778A3;
+      border-left-color: #5778A3;
+      text-shadow: 1px 1px 0 black;
+      padding: 5px;
+      text-transform: uppercase;
+      font-size: 1.3em;
+      margin: 15px 0;
+      font-weight: bolder;
+    }
+
+    table th {
+      background-color: #222E3F;
+      font-weight: bolder;
+      color: white;
+      width: 300px;
+    }
+
+    table th, table td {
+      vertical-align: middle;
+      padding: 2px;
+      padding-right: 5px;
+      padding-bottom: 0;
+      border: 1px solid #5778A3;
+    }
+
+    strong {
+      font-weight: bolder;
+    }
+
+    h2 {
+      margin-top: 40px;
+    }
+
+    #profile h2 {
+      margin-top: 20px;
+    }
+
+  </style>
+{% endblock "head_css" %}
+
+
+{% block "body" %}
+  <div id="content">
+    <div id="profil">
+      <h2>Profil</h2>
+      {{ static_infos.profile|replace_regexp:"#\[melv(.*)\]\((.*)externe\)#melvin\.laplanche@gmail.com"|markdown }}
+      <ul>
+	<li><strong>Site web</strong> :
+	  <a href="http://www.laplanche-melv.in">www.laplanche-melv.in</a>
+      </ul>
+    </div>
+
+    <div id="skills">
+      <h2>Compétences</h2>
+      <div class="profile-content">
+	{{ static_infos.skills|markdown }}
+      </div>
+    </div>
+
+    <div id="awards">
+      <h2>Prix et récompences</h2>
+      <div class="profile-content">
+	{{ static_infos.awards|markdown }}
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+
+  </footer>
+{% endblock "body" %}
+
