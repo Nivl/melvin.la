@@ -8,7 +8,7 @@ class ProjectLanguageRateInline(admin.TabularInline):
 
 class ProgressionInline(admin.TabularInline):
     model = Progression
-    extra = 1
+    extra = 0
 
 class ImageInline(admin.TabularInline):
     model = Image
@@ -24,6 +24,8 @@ class DownloadInline(admin.TabularInline):
 
 class ProjectAdmin(admin.ModelAdmin):
     inlines = [ProjectLanguageRateInline, ProgressionInline, ImageInline, VideoInline, DownloadInline]
+    prepopulated_fields = {'slug': ('name',),}
+
 
 # Others
 
@@ -33,8 +35,15 @@ class LanguageAdmin(admin.ModelAdmin):
 class LicenceAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
 
+class CoworkerAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',),}
+
+class ClientAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',),}
+
 admin.site.register(Language, LanguageAdmin)
 admin.site.register(Licence, LicenceAdmin)
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(Coworker)
+admin.site.register(Coworker, CoworkerAdmin)
+admin.site.register(Client, ClientAdmin)
 admin.site.register(VideoHost)

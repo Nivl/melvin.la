@@ -1,6 +1,6 @@
-# Create your views here.
+from django.shortcuts import render, get_object_or_404
+from models import *
 
-from django.shortcuts import render
-
-def home(request):
-    return render(request, "lab/home.html")
+def project(request, slug):
+    p = get_object_or_404(Project, slug=slug)
+    return render(request, "lab/project.html", {'project': p})

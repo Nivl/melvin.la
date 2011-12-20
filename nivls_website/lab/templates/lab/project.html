@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% load webdesign %}
+
+{% block "head_css" %}
+  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/lab.less.min.css">
+  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/anythingslider.css">
+  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/slicing.css">
+{% endblock %}
+
+{% block "head_js" %}
+  <script src="{{ STATIC_URL }}lab/js/raphael-2.0.0-min.js"></script>
+  <script src="{{ STATIC_URL }}lab/js/jquery.anythingslider.min.js"></script>
+  <script src="{{ STATIC_URL }}lab/js/jquery.easing.1.3.js"></script>
+  <script src="{{ STATIC_URL }}lab/js/slicing.js"></script>
+  <script src="{{ STATIC_URL }}lab/js/lab.js"></script>
+{% endblock %}
+
+
+{% block "body" %}
+  <header class="anythingControls">
+    <ul class="thumbNav">
+      <li><a class="active" href="#"><span>Infos</span></a>
+      <li><a href="#"><span>Progressions</span></a>
+      <li><a href="#"><span>Images</span></a>
+      <li><a href="#"><span>Vidéos</span></a>
+      <li><a href="#"><span>Download</span></a>
+      <li><a href="#"><span>Démos</span></a>
+    </ul>
+  </header>
+
+  <div id="content-wrapper">
+    <div id="content">
+      <div id="infos">
+	<h1>Informations sur {{ project.name }}</h1>
+
+	<div id="diagram-wrapper">
+	  <div id="diagram"></div>
+	  <div class="get">
+
+            {% with project.projectlanguagerate_set.all as languages %}
+	      {% for lang in languages %}
+		<div class="arc">
+		  <span class="text">{{ lang.language.name }}</span>
+
+		  <input type="hidden" class="percent"
+			 value="{{ lang.rate }}" />
+
+		  <input type="hidden" class="color"
+			 value="#{{ lang.language.color }}" />
+		</div>
+              {% endfor %}
+	    {% endwith %}
+	  </div>
+	</div>
+
+	<div>
+	  <div class="description">
+	    {{ project.description }}
+	  </div>
+
+	  <ul>
+	    <li><strong>Licence</strong>:
+		{% if project.licence.url %}
+		  <a href="{{ project.licence.url }}">
+		{% endif %}
+
+		{% if project.licence.image %}
+		  <img src="{{ project.licence.image.url }}"
+		       alt="{{ project.licence.name }}">
+		{% else %}
+		  {{ project.licence.name }}
+		{% endif %}
+
+		{% if project.licence.url %}
+		  </a>
+		{% endif %}
+	  </ul>
+
+	  <div id="coworkers">
+	    {% with project.coworkers.all as coworkers %}
+	      {% for coworker in coworkers %}
+		<div class="qitem">
+		  <a href="{{ coworker.url }}">
+		    <img src="{{ coworker.image.url }}"
+			 alt="{{ coworker.name }}"
+			 title="{{ coworker.name }}"
+			 width="126"height="126"/></a>
+		  <span class="caption">
+		    <h4>{{ coworker.name }}</h4>
+		    <p>
+		      Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+		    </p>
+		  </span>
+		</div>
+	      {% endfor %}
+	    {% endwith %}
+	  </div>
+	</div>
+      </div>
+      <div>
+	{% lorem 3 p %}
+      </div>
+
+      <div>
+	{% lorem 3 p %}
+      </div>
+
+      <div>
+	{% lorem 3 p %}
+      </div>
+
+      <div>
+	{% lorem 3 p %}
+      </div>
+
+      <div>
+	{% lorem 3 p %}
+      </div>
+    </div>
+  </div>
+{% endblock "body" %}

@@ -7,6 +7,7 @@
 
 {% block "sub_head_css" %}
   <link rel="stylesheet" href="{{ STATIC_URL }}blog/css/pygments.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}blog/css/fancybox.css">
 {% endblock "sub_head_css" %}
 
 {% block "title" %}{{ post.title }}{% endblock "title" %}
@@ -52,6 +53,14 @@
     </section>
 
     <footer>
+      {% if post.lab %}
+	<div class="lab-button">
+	  <a class="button lab-project fancybox.iframe"
+	     href="{{ post.lab.get_absolute_url }}">
+	    En savoir plus
+	  </a>
+	</div>
+	{% endif %}
       <h2>Commentaires</h2>
 
       {% get_comment_count for post as comment_count %}

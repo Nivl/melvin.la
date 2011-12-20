@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.sitemaps import ping_google
 from commons.renders import image_name_to_link
 import commons.signals
+from lab.models import Project
 
 class Menu(models.Model):
     name        = models.CharField(max_length=50)
@@ -114,6 +115,7 @@ class Post(models.Model):
     tags                = models.ManyToManyField(Tag)
     images              = models.ManyToManyField(PostImage,
                                                  null=True, blank=True)
+    lab                 = models.ForeignKey(Project, blank=True, null=True)
 
     def parsed_content(self):
         return image_name_to_link(self.content, self.images.all())

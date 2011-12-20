@@ -1,3 +1,18 @@
+$(document).ready(function() {
+    $(".lab-project").fancybox({
+	width: 960,
+	height: 600,
+	padding: 0,
+	margin: 0,
+	autoSize: false,
+	closeClick: true,
+	openEffect: 'elastic',
+	closeEffect: 'elastic',
+	scrolling: 'no'
+    });
+});
+
+
 $(function(){
     $('#slides').slides({
 	preload: true,
@@ -6,6 +21,7 @@ $(function(){
 	pause: 2500,
 	slideSpeed: 600,
 	hoverPause: true,
+
 	animationStart: function(current){
 	    $('.caption').animate({
 		bottom: -35
