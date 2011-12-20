@@ -10,8 +10,8 @@
 
 {% block "head_js" %}
   <script src="{{ STATIC_URL }}lab/js/raphael-2.0.0-min.js"></script>
-  <script src="{{ STATIC_URL }}lab/js/jquery.anythingslider.min.js"></script>
   <script src="{{ STATIC_URL }}lab/js/jquery.easing.1.3.js"></script>
+  <script src="{{ STATIC_URL }}lab/js/jquery.anythingslider.min.js"></script>
   <script src="{{ STATIC_URL }}lab/js/slicing.js"></script>
   <script src="{{ STATIC_URL }}lab/js/lab.js"></script>
 {% endblock %}
@@ -78,24 +78,53 @@
 	  </ul>
 
 	  <div id="coworkers">
-	    {% with project.coworkers.all as coworkers %}
-	      {% for coworker in coworkers %}
-		<div class="qitem">
-		  <a href="{{ coworker.url }}">
-		    <img src="{{ coworker.image.url }}"
-			 alt="{{ coworker.name }}"
-			 title="{{ coworker.name }}"
-			 width="126"height="126"/></a>
-		  <span class="caption">
-		    <h4>{{ coworker.name }}</h4>
-		    <p>
-		      Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-		    </p>
-		  </span>
-		</div>
-	      {% endfor %}
-	    {% endwith %}
+	    <h2>Coworkers</h2>
+	    <div class="coworker-list">
+	      {% with project.coworkers.all as coworkers %}
+		{% for coworker in coworkers %}
+		  <div class="qitem">
+		    <a href="{{ coworker.url }}" target="_blank">
+		      <img src="{{ coworker.image.url }}"
+			   alt="{{ coworker.name }}"
+			   title="{{ coworker.name }}"
+			   width="126" height="126"></a>
+		    <span class="caption">
+		      <h4>{{ coworker.name }}</h4>
+		      <p>
+			{{ coworker.description }}
+		      </p>
+		    </span>
+		  </div>
+		{% endfor %}
+	      {% endwith %}
+	    </div>
 	  </div>
+
+
+	  <div id="clients">
+	    <h2>Client</h2>
+	    <div class="client-list">
+	      {% with project.clients.all as clients %}
+		{% for client in clients %}
+		  <div class="qitem">
+		    <a target="_parent" href="{{ client.url }}">
+		      <img src="{{ client.image.url }}"
+			   alt="{{ client.name }}"
+			   title="{{ client.name }}"
+			   width="126" height="126"></a>
+		    <span class="caption">
+		      <h4>{{ client.name }}</h4>
+		      <p>
+			{{ client.description }}
+		      </p>
+		    </span>
+		  </div>
+		{% endfor %}
+	      {% endwith %}
+	    </div>
+	  </div>
+
+
 	</div>
       </div>
       <div>
