@@ -29,6 +29,7 @@ class Licence(models.Model):
 class Coworker(models.Model):
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
+    description = models.CharField(max_length=255)
     url         = models.URLField(null=True, blank=True)
     image       = models.ImageField(upload_to="lab/coworker/"
                                     ,help_text="126x126"
@@ -42,6 +43,7 @@ class Coworker(models.Model):
 class Client(models.Model):
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
+    description = models.CharField(max_length=255)
     url         = models.URLField(null=True, blank=True)
     image       = models.ImageField(upload_to="lab/client/"
                                     ,help_text="126x126"
