@@ -1,0 +1,101 @@
+<h1>Informations sur {{ project.name }}</h1>
+
+<div id="diagram-wrapper">
+  <div id="diagram"></div>
+  <div class="get">
+
+    {% with project.projectlanguagerate_set.all as languages %}
+      {% for lang in languages %}
+	<div class="arc">
+	  <span class="text">{{ lang.language.name }}</span>
+
+	  <input type="hidden" class="percent"
+		 value="{{ lang.rate }}" />
+
+	  <input type="hidden" class="color"
+		 value="#{{ lang.language.color }}" />
+	</div>
+      {% endfor %}
+    {% endwith %}
+  </div>
+</div>
+
+<ul id="general-info">
+  <li><strong>Licence du projet</strong>:
+    {% if project.license.url %}
+      <a href="{{ project.license.url }}">
+    {% endif %}
+
+    {% if project.license.image %}
+      <img src="{{ project.license.image.url }}"
+	   alt="{{ project.license.name }}">
+	 {% else %}
+	   {{ project.license.name }}
+	 {% endif %}
+
+	 {% if project.license.url %}
+	   </a>
+	 {% endif %}
+
+	 {% if project.sources_url %}
+	   - <a href="{{ project.sources_url }}">
+	Voir les sources du projet
+	   </a>
+	 {% endif %}
+</ul>
+
+<div class="description">
+  {{ project.description }}
+</div>
+
+
+{% with project.clients.all as clients %}
+  {% if clients %}
+    <div id="clients">
+      <h2>Clients</h2>
+      <div class="client-list">
+	{% for client in clients %}
+	  <div class="qitem">
+	    <a target="_parent" href="{{ client.url }}">
+	      <img src="{{ client.image.url }}"
+		   alt="{{ client.name }}"
+		   title="{{ client.name }}"
+		   width="126" height="126"></a>
+	    <span class="caption">
+	      <h4>{{ client.name }}</h4>
+	      <p>
+		{{ client.description }}
+	      </p>
+	    </span>
+	  </div>
+	{% endfor %}
+      </div>
+    </div>
+  {% endif %}
+{% endwith %}
+
+
+{% with project.coworkers.all as coworkers %}
+  {% if coworkers %}
+    <div id="coworkers">
+      <h2>Équipe</h2>
+      <div class="coworker-list">
+	{% for coworker in coworkers %}
+	  <div class="qitem">
+	    <a target="_parent" href="{{ coworker.url }}">
+	      <img src="{{ coworker.image.url }}"
+		   alt="{{ coworker.name }}"
+		   title="{{ coworker.name }}"
+		   width="126" height="126"></a>
+	    <span class="caption">
+	      <h4>{{ coworker.name }}</h4>
+	      <p>
+		{{ coworker.description }}
+	      </p>
+	    </span>
+	  </div>
+	{% endfor %}
+      </div>
+    </div>
+  {% endif %}
+{% endwith %}

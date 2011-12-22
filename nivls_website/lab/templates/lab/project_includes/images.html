@@ -1,0 +1,11 @@
+{% for image in images %}
+  <figure>
+    <a rel="prettyPhoto[list]" title="{{ image.description }}"
+       href="{{ image.image.url }}">
+      <img src="{{ image.image.url }}"
+	   alt="{{ image.image.name }}"
+	   title="{{ image.image.name }}"
+	   width="170" height="93">
+    </a>
+  </figure>
+{% endfor%}
