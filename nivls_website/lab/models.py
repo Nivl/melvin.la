@@ -113,7 +113,7 @@ class ProjectLanguageRate(models.Model):
         return "%s / %s" % (self.project, self.language)
 
 class Progression(models.Model):
-    desciption  = models.TextField()
+    description = models.TextField()
     pub_date    = models.DateField(default=datetime.now)
     project     = models.ForeignKey(Project)
 
@@ -123,7 +123,7 @@ class Progression(models.Model):
 
 class Image(models.Model):
     name        = models.CharField(max_length=255)
-    desciption  = models.TextField()
+    description  = models.TextField()
     image       = models.ImageField(upload_to="labs/projets/images/")
     project     = models.ForeignKey(Project)
 
@@ -132,30 +132,22 @@ class Image(models.Model):
 
 
 class Download(models.Model):
-    name          = models.CharField(max_length=50)
-    desciption    = models.CharField(max_length=255)
-    uploaded_file = models.ImageField(upload_to="labs/projets/downloads/")
-    project       = models.ForeignKey(Project)
-
-    def __unicode__(self):
-        return self.name
-
-
-class VideoHost(models.Model):
-    name        = models.CharField(max_length=50)
-    url         = models.URLField()
-    embed_url   = models.URLField()
+    name           = models.CharField(max_length=50)
+    description    = models.CharField(max_length=255)
+    uploaded_file  = models.ImageField(upload_to="labs/projets/downloads/")
+    project        = models.ForeignKey(Project)
 
     def __unicode__(self):
         return self.name
 
 
 class Video(models.Model):
-    name        = models.CharField(max_length=255)
-    desciption  = models.TextField()
-    code        = models.CharField(max_length=30)
-    host        = models.ForeignKey(VideoHost)
-    project     = models.ForeignKey(Project)
+    name         = models.CharField(max_length=255)
+    description  = models.TextField()
+    url          = models.URLField()
+    thumbnail    = models.ImageField(upload_to="labs/projets/videos/")
+    is_iframe    = models.BooleanField()
+    project      = models.ForeignKey(Project)
 
     def __unicode__(self):
         return self.name

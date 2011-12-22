@@ -9,4 +9,4 @@ body #content-wrapper #content #infos #clients{margin-top:20px;}
 body #content-wrapper #content #infos #coworkers{clear:both;}
 body #content-wrapper #content #infos .get{display:none;}
 body #content-wrapper #content #infos #diagram{float:right;width:300px;height:300px;}
-body #content-wrapper #content #images{margin-top:20px;}body #content-wrapper #content #images figure{display:inline;}
+body #content-wrapper #content #images,body #content-wrapper #content #videos{margin-top:20px;}body #content-wrapper #content #images figure,body #content-wrapper #content #videos figure{display:inline;}

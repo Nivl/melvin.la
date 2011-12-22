@@ -42,11 +42,11 @@
       </div>
 
       <div id="images">
-      {% include "lab/project_includes/images.html" with images=project.image_set.all %}
+	{% include "lab/project_includes/images.html" with images=project.image_set.all %}
       </div>
 
-      <div>
-	{% lorem 3 p %}
+      <div id="videos">
+	{% include "lab/project_includes/videos.html" with videos=project.video_set.all %}
       </div>
 
       <div>
