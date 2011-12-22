@@ -14,16 +14,24 @@ class Language(models.Model):
         return self.name
 
 
-class Licence(models.Model):
+class License(models.Model):
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
     url         = models.URLField(null=True, blank=True)
-    image       = models.ImageField(upload_to="lab/licences/"
+    image       = models.ImageField(upload_to="lab/licenses/"
                                     ,null=True
                                     ,blank=True)
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *arg, **kwargs):
+        if self.pk is not None:
+            origin = License.objects.get(pk=self.pk)
+            if origin.image != self.image:
+                if os.path.exists(origin.image.path):
+                    os.remove(origin.image.path)
+        super(License, self).save(*arg, **kwargs)
 
 
 class Coworker(models.Model):
@@ -39,6 +47,14 @@ class Coworker(models.Model):
     def __unicode__(self):
         return self.name
 
+    def save(self, *arg, **kwargs):
+        if self.pk is not None:
+            origin = Coworker.objects.get(pk=self.pk)
+            if origin.image != self.image:
+                if os.path.exists(origin.image.path):
+                    os.remove(origin.image.path)
+        super(Coworker, self).save(*arg, **kwargs)
+
 
 class Client(models.Model):
     name        = models.CharField(max_length=50)
@@ -53,6 +69,14 @@ class Client(models.Model):
     def __unicode__(self):
         return self.name
 
+    def save(self, *arg, **kwargs):
+        if self.pk is not None:
+            origin = Client.objects.get(pk=self.pk)
+            if origin.image != self.image:
+                if os.path.exists(origin.image.path):
+                    os.remove(origin.image.path)
+        super(Client, self).save(*arg, **kwargs)
+
 
 class Project(models.Model):
     name         = models.CharField(max_length=255)
@@ -60,7 +84,8 @@ class Project(models.Model):
     slug         = models.SlugField(unique=True)
     start_date   = models.DateField(default=datetime.now)
     edit_date    = models.DateField(auto_now=True)
-    licence      = models.ForeignKey(Licence)
+    license      = models.ForeignKey(License)
+    sources_url  = models.URLField(null=True, blank=True)
     demo_codebox = models.TextField(null=True, blank=True)
     languages    = models.ManyToManyField(Language
                                           ,through='ProjectLanguageRate')

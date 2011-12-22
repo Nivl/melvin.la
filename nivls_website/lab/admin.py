@@ -32,7 +32,7 @@ class ProjectAdmin(admin.ModelAdmin):
 class LanguageAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
 
-class LicenceAdmin(admin.ModelAdmin):
+class LicenseAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
 
 class CoworkerAdmin(admin.ModelAdmin):
@@ -42,7 +42,7 @@ class ClientAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
 
 admin.site.register(Language, LanguageAdmin)
-admin.site.register(Licence, LicenceAdmin)
+admin.site.register(License, LicenseAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Coworker, CoworkerAdmin)
 admin.site.register(Client, ClientAdmin)
