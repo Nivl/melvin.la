@@ -1,12 +1,150 @@
-body{font-family:arial, serif;background-color:#1e1b1a;font-size:16px;line-height:16px;}body h1,body h2,body h3,body h4,body h5,body h6{font-family:'Alice',arial,serif;}
-body h1{font-size:2em;}
-body h2{font-size:1.6em;}
-body header{color:white;height:44px;width:700px;margin:0 auto;padding:24px 0 0 140px;}body header ul{width:820px;}body header ul li{font-family:'Alice',arial,serif;text-transform:uppercase;display:block;margin-right:20px;float:left;}body header ul li a{color:inherit;text-decoration:inherit;}body header ul li a.active{color:#0091ff;}
-body #content-wrapper{font-size:12px;border-top:5px solid #383332;background-color:#dfdfdf;}body #content-wrapper a{color:#0091ff;text-decoration:none;}body #content-wrapper a.visited{color:inherit;text-decoration:inherit;}
-body #content-wrapper #content{width:800px;height:520px;margin:0 auto;}body #content-wrapper #content h1{margin:10px 0;text-align:center;}
-body #content-wrapper #content #infos ul#general-info{margin-bottom:20px;}
-body #content-wrapper #content #infos #clients{margin-top:20px;}
-body #content-wrapper #content #infos #coworkers{clear:both;}
-body #content-wrapper #content #infos .get{display:none;}
-body #content-wrapper #content #infos #diagram{float:right;width:300px;height:300px;}
-body #content-wrapper #content #images,body #content-wrapper #content #videos{margin-top:20px;}body #content-wrapper #content #images figure,body #content-wrapper #content #videos figure{display:inline;}
+/******************************************************************************
+**									     **
+**                        Variables and functions                            **
+**									     **
+******************************************************************************/
+/* image color: 253344*/
+/* image color: 242424 */
+/******************************************************************************
+**									     **
+**                        End variables and functions                        **
+**									     **
+******************************************************************************/
+body {
+  font-family: arial, serif;
+  background-color: #1e1b1a;
+  font-size: 16px;
+  line-height: 16px;
+}
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+  font-family: 'Alice', arial, serif;
+}
+body h1 {
+  font-size: 2em;
+}
+body h2 {
+  font-size: 1.6em;
+}
+body header {
+  color: white;
+  height: 44px;
+  width: 700px;
+  margin: 0 auto;
+  padding: 24px 0 0 140px;
+}
+body header ul {
+  width: 820px;
+}
+body header ul li {
+  font-family: 'Alice', arial, serif;
+  text-transform: uppercase;
+  display: block;
+  margin-right: 20px;
+  float: left;
+}
+body header ul li a {
+  color: inherit;
+  text-decoration: inherit;
+}
+body header ul li a.active {
+  color: #0091ff;
+}
+body #content-wrapper {
+  font-size: 12px;
+  border-top: 5px solid #383332;
+  background-color: #dfdfdf;
+}
+body #content-wrapper a {
+  color: #0091ff;
+  text-decoration: none;
+}
+body #content-wrapper a.visited {
+  color: inherit;
+  text-decoration: inherit;
+}
+body #content-wrapper #content {
+  width: 800px;
+  height: 520px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+body #content-wrapper #content h1 {
+  margin-bottom: 10px;
+  margin-top: 2px;
+  text-align: center;
+}
+body #content-wrapper #content #infos ul#general-info {
+  margin-bottom: 20px;
+}
+body #content-wrapper #content #infos h2 {
+  margin-bottom: 5px;
+}
+body #content-wrapper #content #infos #clients {
+  margin-top: 20px;
+}
+body #content-wrapper #content #infos #coworkers {
+  clear: both;
+}
+body #content-wrapper #content #infos .get {
+  display: none;
+}
+body #content-wrapper #content #infos #diagram {
+  float: right;
+  width: 300px;
+  height: 300px;
+}
+body #content-wrapper #content #images figure, body #content-wrapper #content #videos figure, body #content-wrapper #content #downloads figure {
+  display: inline;
+}
+body #content-wrapper #content #downloads a {
+  color: black;
+}
+body #content-wrapper #content #downloads a figure {
+  transition: all 0.2s ease-out 0;
+  -o-transition: all 0.2s ease-out 0;
+  -webkit-transition: all 0.2s ease-out 0;
+  -moz-transition-property: all;
+  -moz-transition-duration: 0.2s;
+  -moz-transition-timing-function: ease-out;
+  -moz-transition-delay: all;
+  border-radius: 5px;
+  padding: 5px 0;
+  margin-right: 10px;
+  width: 128px;
+  float: left;
+}
+body #content-wrapper #content #downloads a figure:hover {
+  background-color: #0091ff;
+}
+body #content-wrapper #content #downloads a figure figcaption {
+  text-align: center;
+}
+body #content-wrapper #content #downloads a figure img {
+  padding-left: 15px;
+}
+body #content-wrapper #content #progress .event time {
+  font-weight: bold;
+  width: 130px;
+  float: left;
+  border-right: 1px solid #0091ff;
+  text-transform: capitalize;
+  transition: all 0.2s ease-out 0;
+  -o-transition: all 0.2s ease-out 0;
+  -webkit-transition: all 0.2s ease-out 0;
+  -moz-transition-property: all;
+  -moz-transition-duration: 0.2s;
+  -moz-transition-timing-function: ease-out;
+  -moz-transition-delay: all;
+}
+body #content-wrapper #content #progress .event time:hover {
+  cursor: pointer;
+  color: #0091ff;
+}
+body #content-wrapper #content #progress .event span {
+  margin-left: 20px;
+}

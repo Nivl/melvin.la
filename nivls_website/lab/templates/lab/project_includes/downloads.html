@@ -1,0 +1,15 @@
+{% for dl in downloads %}
+  {% if dl.uploaded_file %}
+    <a href="{{ dl.uploaded_file.url }}">
+  {% else %}
+    <a href="{{ dl.url }}">
+  {% endif %}
+    <figure>
+      <img src="{{ dl.icon.image.url }}"
+	   title="{{ dl.name }}"
+	   alt="{{ dl.name }}"
+	   width="100" height="100">
+      <figcaption>{{ dl.name }}</figcaption>
+    </figure>
+  </a>
+{% endfor%}

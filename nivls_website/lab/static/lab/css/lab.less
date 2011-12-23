@@ -1,3 +1,35 @@
+/******************************************************************************
+**									     **
+**                        Variables and functions                            **
+**									     **
+******************************************************************************/
+
+@blue-bg: #10161e; /* image color: 253344*/
+@content-title-bg: #363636; /* image color: 242424 */
+@page-size: 990px;
+
+.transition(@property: background-color,
+	    @duration: 0.4s,
+	    @timing: linear,
+	    @delay: 0) {
+    transition: @property @duration @timing @delay;
+    -o-transition: @property @duration @timing @delay;
+    -webkit-transition: @property @duration @timing @delay;
+
+    -moz-transition-property: @property;
+    -moz-transition-duration: @duration;
+    -moz-transition-timing-function: @timing;
+    -moz-transition-delay: @property;
+}
+
+/******************************************************************************
+**									     **
+**                        End variables and functions                        **
+**									     **
+******************************************************************************/
+
+@blue: #0091ff;
+
 body {
     font-family: arial, serif;
     background-color: #1e1b1a;
@@ -38,7 +70,7 @@ body {
 		    text-decoration: inherit;
 
 		    &.active {
-			color: #0091ff;
+			color: @blue;
 		    }
 		}
 	    }
@@ -64,15 +96,21 @@ body {
 	    width: 800px;
 	    height: 520px;
 	    margin: 0 auto;
+	    padding-top: 20px;
 
 	    h1 {
-		margin: 10px 0;
+		margin-bottom: 10px;
+		margin-top: 2px;
 		text-align: center;
 	    }
 
 	    #infos {
 		ul#general-info {
 		    margin-bottom: 20px;
+		}
+
+		h2 {
+		    margin-bottom: 5px;
 		}
 
 		#clients {
@@ -94,11 +132,58 @@ body {
 		}
 	    }
 
-	    #images, #videos {
-		margin-top: 20px;
-
+	    #images, #videos, #downloads {
 		figure {
 		    display: inline;
+		}
+	    }
+
+	    #downloads {
+		a {
+		    color: black;
+
+		    figure {
+			.transition(all, 0.2s, ease-out);
+			border-radius: 5px;
+			padding: 5px 0;
+			margin-right: 10px;
+			width: 128px;
+			float: left;
+
+			&:hover {
+			    background-color: @blue;
+			}
+
+			figcaption {
+			    text-align: center;
+			}
+
+			img {
+			    padding-left: 15px;
+			}
+		    }
+		}
+	    }
+
+	    #progress {
+		.event {
+		    time {
+			font-weight:bold;
+			width: 130px;
+			float: left;
+			border-right: 1px solid @blue;
+			text-transform: capitalize;
+			.transition(all, 0.2s, ease-out);
+
+			&:hover {
+			    cursor: pointer;
+			    color: @blue;
+			}
+		    }
+
+		    span {
+			margin-left: 20px;
+		    }
 		}
 	    }
 	}

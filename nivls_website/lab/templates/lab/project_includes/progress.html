@@ -1,0 +1,12 @@
+{% load humanize %}
+
+{% for event in progress %}
+  <div class="event">
+    <time datetime="{{ event.pub_date|date:"cO" }}" pubdate>
+      {{ event.pub_date|naturalday:'d F Y' }}
+    </time>
+    <span>
+      {{ event.description }}
+    </span>
+  </div>
+{% endfor%}

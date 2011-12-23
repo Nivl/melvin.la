@@ -1,6 +1,6 @@
 {% for image in images %}
   <figure>
-    <a rel="prettyPhoto[list]" title="{{ image.description }}"
+    <a rel="prettyPhoto[image_list]" title="{{ image.description }}"
        href="{{ image.image.url }}">
       <img src="{{ image.image.url }}"
 	   alt="{{ image.name }}"

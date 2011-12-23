@@ -1,6 +1,6 @@
 {% for video in videos %}
   <figure>
-    <a rel="prettyPhoto[iframes]" title="{{ video.description }}"
+    <a rel="prettyPhoto[video_list]" title="{{ video.description }}"
        href="{{ video.url }}">
       <img src="{{ video.thumbnail.url }}"
 	   alt="{{ video.name }}"

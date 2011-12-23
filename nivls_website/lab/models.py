@@ -1,4 +1,5 @@
 #-*- coding: utf-8 -*-
+
 from datetime import datetime
 from django.db import models
 from django.core.urlresolvers import reverse
@@ -112,7 +113,7 @@ class ProjectLanguageRate(models.Model):
     def __unicode__(self):
         return "%s / %s" % (self.project, self.language)
 
-class Progression(models.Model):
+class Progress(models.Model):
     description = models.TextField()
     pub_date    = models.DateField(default=datetime.now)
     project     = models.ForeignKey(Project)
@@ -120,6 +121,8 @@ class Progression(models.Model):
     def __unicode__(self):
         return "%s" % self.pub_date
 
+    class Meta:
+        ordering = ['-pub_date']
 
 class Image(models.Model):
     name        = models.CharField(max_length=255)
@@ -131,10 +134,30 @@ class Image(models.Model):
         return self.name
 
 
+class DownloadIcon(models.Model):
+    name        = models.CharField(max_length=50)
+    image       = models.ImageField(upload_to="labs/projets/downloads/icons/"
+                                    ,help_text="128x128")
+
+    def __unicode__(self):
+        return self.name
+
+    def save(self, *arg, **kwargs):
+        if self.pk is not None:
+            origin = DownloadIcon.objects.get(pk=self.pk)
+            if origin.image != self.image:
+                if os.path.exists(origin.image.path):
+                    os.remove(origin.image.path)
+        super(DownloadIcon, self).save(*arg, **kwargs)
+
+
 class Download(models.Model):
     name           = models.CharField(max_length=50)
-    description    = models.CharField(max_length=255)
-    uploaded_file  = models.ImageField(upload_to="labs/projets/downloads/")
+    description    = models.CharField(max_length=255, null=True, blank=True)
+    uploaded_file  = models.FileField(upload_to="labs/projets/downloads/files/"
+                                      ,null=True, blank=True)
+    url            = models.URLField(null=True, blank=True)
+    icon           = models.ForeignKey(DownloadIcon)
     project        = models.ForeignKey(Project)
 
     def __unicode__(self):
@@ -151,3 +174,11 @@ class Video(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *arg, **kwargs):
+        if self.pk is not None:
+            origin = Video.objects.get(pk=self.pk)
+            if origin.thumbnail != self.thumbnail:
+                if os.path.exists(origin.thumbnail.path):
+                    os.remove(origin.thumbnail.path)
+        super(Video, self).save(*arg, **kwargs)
