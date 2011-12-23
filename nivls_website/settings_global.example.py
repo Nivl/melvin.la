@@ -105,7 +105,6 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'debug_toolbar',
     'robots',
-    'south',
 )
 
 DEFAULT_FILE_STORAGE = "commons.storage.UniqueFileSystemStorage"
