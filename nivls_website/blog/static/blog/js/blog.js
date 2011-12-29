@@ -1,14 +1,14 @@
-$(document).ready(function() {
+$(function() {
     $(".lab-project").fancybox({
-	width: 960,
-	height: 600,
-	padding: 0,
-	margin: 0,
-	autoSize: false,
-	closeClick: true,
-	openEffect: 'elastic',
-	closeEffect: 'elastic',
-	scrolling: 'no'
+	'width': 960,
+	'height': 600,
+	'padding': 0,
+	'margin': 0,
+	'autoScale': false,
+	'type': 'iframe',
+	'scrolling': 'no',
+	'overlayColor': '#000',
+	'overlayOpacity': 0.8
     });
 });
 
