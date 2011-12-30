@@ -36,6 +36,13 @@
 	</div>
 
 	<footer>
+	  {% if project.lab %}
+	    <a class="button lab-project"
+	       href="{{ project.lab.get_absolute_url }}">
+	      En savoir plus
+	    </a> -
+	{% endif %}
+
 	  <a href="{{ project.url }}">Visiter {{ project.name }}</a>
 	</footer>
       </article>

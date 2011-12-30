@@ -3,6 +3,7 @@ from datetime import datetime
 from django.db import models
 from django.contrib.sites.models import Site
 from commons.fields import ColorField
+from lab.models import Project as LabProject
 
 class StaticInfos(models.Model):
     site     = models.OneToOneField(Site, primary_key=True)
@@ -46,6 +47,7 @@ class Field(models.Model):
 class Project(models.Model):
     name        = models.CharField(max_length=255)
     slug        = models.SlugField(unique=True)
+    lab         = models.ForeignKey(LabProject, blank=True, null=True)
     prod_date   = models.DateField(default=datetime.now)
     screenshot  = models.ImageField(upload_to='site/portfolio/screenshots/',
                                     help_text='258x158 px')

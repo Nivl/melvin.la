@@ -13,6 +13,7 @@
 
     <link href="http://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
     <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}commons/css/reset.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}commons/css/fancybox.css">
     <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}commons/css/main.less.min.css">
     {% block "head_link" %}{% endblock %}
     {% block "head_css" %}{% endblock %}
@@ -25,6 +26,8 @@
       google.load("chrome-frame", "1");
       google.load("jquery", "1.7");
     </script>
+
+    <script src="{{ STATIC_URL }}commons/js/jquery.fancybox.pack.js"></script>
     <script src="{{ STATIC_URL }}commons/js/koco.jquery.js"></script>
     <script src="{{ STATIC_URL }}commons/js/dream.js"></script>
     <script src="{{ STATIC_URL }}commons/js/main.js"></script>
