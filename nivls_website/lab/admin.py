@@ -6,8 +6,8 @@ class ProjectLanguageRateInline(admin.TabularInline):
     model = ProjectLanguageRate
     extra = 1
 
-class ProgressionInline(admin.TabularInline):
-    model = Progression
+class ProgressInline(admin.TabularInline):
+    model = Progress
     extra = 0
 
 class ImageInline(admin.TabularInline):
@@ -23,7 +23,7 @@ class DownloadInline(admin.TabularInline):
     extra = 1
 
 class ProjectAdmin(admin.ModelAdmin):
-    inlines = [ProjectLanguageRateInline, ProgressionInline, ImageInline, VideoInline, DownloadInline]
+    inlines = [ProjectLanguageRateInline, ProgressInline, ImageInline, VideoInline, DownloadInline]
     prepopulated_fields = {'slug': ('name',),}
 
 
