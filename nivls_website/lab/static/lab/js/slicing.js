@@ -43,7 +43,9 @@ $(document).ready(function() {
 		$(this).find('div.bottomRight').stop(false, true).animate({bottom:0, left:pos}, {duration:speed_in, easing:style_in});
 
 	}).click (function () {
-	    window.open($(this).find('a').attr('href'), $(this).find('a').attr('href'));
+	    if ($(this).find('a').attr('href') != "") {
+		window.open($(this).find('a').attr('href'), $(this).find('a').attr('href'));
+	    }
 	});
 
 
