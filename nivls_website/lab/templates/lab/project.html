@@ -18,6 +18,9 @@
 {% endblock %}
 
 
+{% block "title" %}{{ project.name }}{% endblock %}
+{% block "meta-description" %}{{ project.description }}{% endblock %}
+
 {% block "body" %}
   {% with project.progress_set.all as progress %}
   {% with project.image_set.all as images %}

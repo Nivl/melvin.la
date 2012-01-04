@@ -6,7 +6,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="description" content="{{ seo.description }}">
+    <meta name="description" content="{% block "meta-description" %}{{ seo.description }}{% endblock %}">
     <meta name="keywords" content="{{ seo.keywords }}">
 
     <title>{% block "title" %}{{ seo.title }}{% endblock %}</title>
