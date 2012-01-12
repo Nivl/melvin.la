@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% load blog_tags markup comments humanize %}
+{% load blog_tags markup comments humanize common_tags %}
 
 {% block "sub_head_js" %}
   {% include "comments/ajax_form.html" %}
@@ -28,7 +28,7 @@
       </div>
       <div class="info">
 	Par {{ post.author }}
-	le <time datetime="{{ post.pub_date|date:"cO" }}" pubdate>
+	le <time datetime="{{ post.pub_date|date:"cO"|fix_html5_tz }}" pubdate>
 	  {{ post.pub_date|naturalday:'d F Y' }}
 	  à {{ post.pub_date|date:"H:i" }}
 	</time>

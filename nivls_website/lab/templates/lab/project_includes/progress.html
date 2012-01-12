@@ -1,8 +1,8 @@
-{% load humanize %}
+{% load humanize common_tags %}
 
 {% for event in progress %}
   <div class="event">
-    <time datetime="{{ event.pub_date|date:"cO" }}" pubdate>
+    <time datetime="{{ event.pub_date|date:"c"|fix_html5_tz }}" pubdate>
       {{ event.pub_date|naturalday:'d F Y' }}
     </time>
     <span>

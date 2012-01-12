@@ -1,4 +1,4 @@
-{% load markup humanize %}
+{% load markup humanize common_tags %}
 
 {% for post in posts %}
   <article>
@@ -10,7 +10,7 @@
       <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
       <span class="info">
 	Par {{ post.author }}
-	le <time datetime="{{ post.pub_date|date:"cO" }}" pubdate>
+	le <time datetime="{{ post.pub_date|date:"cO"|fix_html5_tz }}" pubdate>
 	  {{ post.pub_date|naturalday:'d F Y' }}
 	  à {{ post.pub_date|date:"H:i" }}
 	</time>

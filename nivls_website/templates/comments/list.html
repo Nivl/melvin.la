@@ -1,4 +1,4 @@
-{% load comments markup humanize %}
+{% load comments markup humanize common_tags %}
 
 <section id="comments">
   {% get_comment_list for post as comment_list %}
@@ -12,7 +12,7 @@
 	{% else %}
 	  {{ comment.user_name }}
 	{% endif %}
-	le <time datetime="{{ comment.submit_date|date:"cO" }}" pubdate>
+	le <time datetime="{{ comment.submit_date|date:"cO"|fix_html5_tz }}" pubdate>
 	  {{ comment.submit_date|naturalday:'d F Y' }}
 	  à {{ comment.submit_date|date:"H:i" }}
 	</time>
