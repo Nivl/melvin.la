@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.sites.models import Site
-from commons.views import write_pdf
+from commons.views import write_pdf2
 from models import *
 
 
@@ -18,7 +18,7 @@ def cv(request):
 def cv_pdf(request):
     static_infos = get_object_or_404(StaticInfos
                                      ,pk=Site.objects.get_current())
-    return write_pdf("about/cv_pdf.html", {'static_infos': static_infos})
+    return write_pdf("about/cv_pdf.html", {'static_infos': static_infos}, "laplanche_melvin.pdf")
 
 def portfolio(request):
     projects = Project.objects.select_related().order_by("-prod_date")

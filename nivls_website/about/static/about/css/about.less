@@ -250,7 +250,7 @@ body{
 		    .block {
 			padding: 20px;
 
-			h3 {
+			h3, h4 {
 			    background-color: lighten(@blue-bg, 25%);
 			    border: 1px solid lighten(@blue-bg, 20%);
 			    border-top-color: lighten(@blue-bg, 40%);
@@ -268,6 +268,24 @@ body{
 			    padding: 2px 0 2px 10px;
 			}
 
+			.two_column {
+			    h4 {
+				padding: 3px;
+				font-size: 1.1em;
+				margin: 5px 0;
+			    }
+
+			    .left {
+				float: left;
+				width: 45%;
+			    }
+
+			    .right {
+				float: right;
+				width: 45%;
+			    }
+			}
+
 			table {
 			    th, td {
 				padding: 5px;
@@ -278,7 +296,6 @@ body{
 
 			    th {
 				background-color: lighten(@blue-bg, 10%);
-				//color: @blue-bg;
 				font-weight: bolder;
 			    }
 			}
@@ -286,52 +303,5 @@ body{
 		}
 	    }
 	}
-
-    /*#resume {
-	    ul.tabs {
-		margin-top: 20px;
-		margin-bottom: 9px;
-
-		li {
-		    display: inline;
-
-		    a {
-			background-color: @blue-bg;
-			color: #ffe761;
-			padding: 8px 14px 8px 14px;
-			text-decoration: none;
-			font-size: 9px;
-			font-weight: bold;
-			text-transform: uppercase;
-			border: 1px solid #464c54;
-
-			&:hover {
-			    color: white;
-			    background-color: #234f32;
-			    border-color: #2f343a;
-			}
-
-			&.active {
-			    //background-color: #ffffff;
-			    color: #282e32;
-			    border: 1px solid #464c54;
-			    border-bottom: 1px solid #ffffff;
-			}
-		    }
-		}
-	    }
-
-.content {
-		//background-color: #fff;
-		padding: 10px;
-		border: 1px solid #464c54;
-
-
-	    }
-
-	    #content-skills, #content-awards, #content-downloads {
-		display: none;
-	    }
-	}*/
     }
 }
