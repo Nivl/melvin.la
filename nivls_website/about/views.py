@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.sites.models import Site
-from commons.views import write_pdf2
+from commons.views import write_pdf
 from models import *
 
 
