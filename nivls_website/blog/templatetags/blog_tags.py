@@ -23,7 +23,7 @@ def blog_slideshow():
 
 @register.inclusion_tag("blog/templatetags/menus.html")
 def blog_menus():
-    menus = Menu.objects.order_by('order')
+    menus = Menu.objects.order_by('order').filter(hide=False)
     return {'menus': menus}
 
 @register.inclusion_tag("blog/templatetags/archives.html")

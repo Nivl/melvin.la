@@ -12,6 +12,7 @@ class Menu(models.Model):
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
     order       = models.PositiveSmallIntegerField()
+    hide        = models.BooleanField()
 
     def __unicode__(self):
         return self.name
