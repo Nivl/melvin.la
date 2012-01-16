@@ -5,6 +5,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from commons.fields import ColorField
+import os
 
 class Language(models.Model):
     name  = models.CharField(max_length=255)
