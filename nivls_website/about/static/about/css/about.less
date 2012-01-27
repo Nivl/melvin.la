@@ -91,6 +91,8 @@ body{
 	    a {
 		span {
 		    position: relative;
+		    left:0;
+		    top:0;
 		    .transition(all, 0.2s, ease-out);
 
 		    &:hover{
@@ -101,10 +103,12 @@ body{
 		span.char15 {
 		    left: 13px;
 		    top: -33px;
+		    -moz-transition: none;
 		}
 
 		span.char16 {
 		    &:hover {
+			-moz-transition: none;
 			top: inherit;
 		    }
 		}

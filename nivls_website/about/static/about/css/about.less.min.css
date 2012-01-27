@@ -72,6 +72,8 @@ body header h1 {
 }
 body header h1 a span {
   position: relative;
+  left: 0;
+  top: 0;
   transition: all 0.2s ease-out 0;
   -o-transition: all 0.2s ease-out 0;
   -webkit-transition: all 0.2s ease-out 0;
@@ -86,8 +88,10 @@ body header h1 a span:hover {
 body header h1 a span.char15 {
   left: 13px;
   top: -33px;
+  -moz-transition: none;
 }
 body header h1 a span.char16:hover {
+  -moz-transition: none;
   top: inherit;
 }
 body header nav {
