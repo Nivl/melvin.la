@@ -83,6 +83,13 @@ body header h1 a span {
 body header h1 a span:hover {
   top: 10px;
 }
+body header h1 a span.char15 {
+  left: 13px;
+  top: -33px;
+}
+body header h1 a span.char16:hover {
+  top: inherit;
+}
 body header nav {
   margin-left: 340px;
 }
