@@ -23,8 +23,11 @@ class DownloadInline(admin.TabularInline):
     extra = 1
 
 class ProjectAdmin(admin.ModelAdmin):
-    inlines = [ProjectLanguageRateInline, ProgressInline, ImageInline, VideoInline, DownloadInline]
     prepopulated_fields = {'slug': ('name',),}
+    list_filter = ['site']
+    list_display = ('name', 'site')
+    inlines = [ProjectLanguageRateInline, ProgressInline,
+               ImageInline, VideoInline, DownloadInline]
 
 
 # Others
@@ -37,9 +40,13 @@ class LicenseAdmin(admin.ModelAdmin):
 
 class CoworkerAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
+    list_filter = ['site']
+    list_display = ('name', 'site')
 
 class ClientAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
+    list_filter = ['site']
+    list_display = ('name', 'site')
 
 admin.site.register(Language, LanguageAdmin)
 admin.site.register(License, LicenseAdmin)
