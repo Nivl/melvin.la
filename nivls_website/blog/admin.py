@@ -12,6 +12,9 @@ class InlineComment(GenericTabularInline):
     ct_field = 'content_type'
     ct_fk_field = 'object_pk'
 
+class InlineImage(admin.TabularInline):
+    model = Image
+    extra = 0
 
 class AdminPost(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
@@ -19,8 +22,7 @@ class AdminPost(admin.ModelAdmin):
     actions = ['make_public', 'make_private', 'allow_comment', 'lock_comment']
     date_hierarchy = 'pub_date'
     list_display = ('title', 'pub_date', 'is_public', 'allow_comment')
-    inlines = [InlineComment]
-
+    inlines = [InlineComment, InlineImage]
 
     def make_public(self, request, queryset):
         nb_row = queryset.update(is_public=1)
@@ -84,6 +86,5 @@ class AdminMenu(admin.ModelAdmin):
     inlines = [InlineLink]
 
 admin.site.register(Tag, AdminTag)
-admin.site.register(PostImage)
 admin.site.register(Menu, AdminMenu)
 admin.site.register(Category, AdminCategory)

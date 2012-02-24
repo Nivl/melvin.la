@@ -11,7 +11,7 @@ import commons.signals
 from lab.models import Project
 
 class Menu(models.Model):
-    sites       = models.ManyToManyField(Site, default=settings.SITE_ID)
+    sites       = models.ManyToManyField(Site)
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
     order       = models.PositiveSmallIntegerField()
@@ -32,7 +32,7 @@ class Link(models.Model):
 
 
 class Tag(models.Model):
-    sites        = models.ManyToManyField(Site, default=settings.SITE_ID)
+    sites        = models.ManyToManyField(Site)
     name         = models.CharField(max_length=50)
     slug         = models.SlugField(unique=True)
 
@@ -58,7 +58,7 @@ class Tag(models.Model):
 
 
 class Category(models.Model):
-    sites         = models.ManyToManyField(Site, default=settings.SITE_ID)
+    sites         = models.ManyToManyField(Site)
     name          = models.CharField(max_length=50)
     slug          = models.SlugField(unique=True)
     description   = models.CharField(max_length=80, blank=True, null=True)
@@ -92,14 +92,6 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 
-class PostImage(models.Model):
-    name        = models.CharField(max_length=50)
-    image      = models.ImageField(upload_to="articles/images/")
-
-    def __unicode__(self):
-        return self.name
-
-
 class Post(models.Model):
     site                = models.ForeignKey(Site, default=settings.SITE_ID)
     title               = models.CharField(max_length=50)
@@ -120,12 +112,10 @@ class Post(models.Model):
     author              = models.ForeignKey(User)
     category            = models.ForeignKey(Category)
     tags                = models.ManyToManyField(Tag)
-    images              = models.ManyToManyField(PostImage,
-                                                 null=True, blank=True)
     lab                 = models.ForeignKey(Project, blank=True, null=True)
 
     def parsed_content(self):
-        return image_name_to_link(self.content, self.images.all())
+        return image_name_to_link(self.content, self.image_set.all())
 
     def __unicode__(self):
         return self.title
@@ -153,6 +143,14 @@ class Post(models.Model):
         except Exception:
             pass
 
+
+class Image(models.Model):
+    name       = models.CharField(max_length=50)
+    image      = models.ImageField(upload_to="articles/images/")
+    post       = models.ForeignKey(Post)
+
+    def __unicode__(self):
+        return self.name
 
 
 ### Moderator
