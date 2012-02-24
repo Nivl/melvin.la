@@ -5,6 +5,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from commons.fields import ColorField
+from django.contrib.sites.models import Site
 import os
 
 class Language(models.Model):
@@ -37,14 +38,13 @@ class License(models.Model):
 
 
 class Coworker(models.Model):
+    site        = models.ForeignKey(Site, default=settings.SITE_ID)
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
     description = models.CharField(max_length=255)
     url         = models.URLField(null=True, blank=True)
     image       = models.ImageField(upload_to="lab/coworker/"
-                                    ,help_text="126x126"
-                                    ,null=True
-                                    ,blank=True)
+                                    ,help_text="126x126")
 
     def __unicode__(self):
         return self.name
@@ -59,14 +59,13 @@ class Coworker(models.Model):
 
 
 class Client(models.Model):
+    site        = models.ForeignKey(Site, default=settings.SITE_ID)
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
     description = models.CharField(max_length=255)
     url         = models.URLField(null=True, blank=True)
     image       = models.ImageField(upload_to="lab/client/"
-                                    ,help_text="126x126"
-                                    ,null=True
-                                    ,blank=True)
+                                    ,help_text="126x126")
 
     def __unicode__(self):
         return self.name
@@ -81,6 +80,7 @@ class Client(models.Model):
 
 
 class Project(models.Model):
+    site         = models.ForeignKey(Site, default=settings.SITE_ID)
     name         = models.CharField(max_length=255)
     description  = models.TextField()
     slug         = models.SlugField(unique=True)
@@ -97,14 +97,9 @@ class Project(models.Model):
     def __unicode__(self):
         return self.name
 
-    # Ok, that's ugly, but i didn't find a better way
+    @models.permalink
     def get_absolute_url(self):
-        url = reverse('project', urlconf='lab.urls', args=[self.slug])
-
-        if settings.SITE_ID != 3:
-            return 'http://lab.%s%s' % (settings.DOMAIN_NAME, url)
-        else:
-            return url
+        return ('project', (), {'slug': self.slug})
 
 class ProjectLanguageRate(models.Model):
     language    = models.ForeignKey(Language)

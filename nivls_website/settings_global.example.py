@@ -6,6 +6,8 @@ TEMPLATE_DEBUG = DEBUG
 
 DOMAIN_NAME = 'localhost:8000'
 
+ROOT_URLCONF = 'nivls_website.urls'
+
 INTERNAL_IPS = ('127.0.0.1',)
 
 DEBUG_TOOLBAR_CONFIG = {
@@ -31,8 +33,9 @@ DATABASES = {
     }
 }
 
-TIME_ZONE = 'Europe/Paris'
-LANGUAGE_CODE = 'fr'
+USE_TZ = True # django 1.4
+TIME_ZONE = 'America/Chicago'
+LANGUAGE_CODE = 'en'
 USE_I18N = True
 USE_L10N = True
 
@@ -105,6 +108,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'debug_toolbar',
     'robots',
+    'commons'.
 )
 
 DEFAULT_FILE_STORAGE = "commons.storage.UniqueFileSystemStorage"

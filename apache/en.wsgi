@@ -4,7 +4,7 @@ sys.path.append("/home/www/modules/")
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "nivls_website"))
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'nivls_website.settings_blog'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'nivls_website.settings'
 
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
