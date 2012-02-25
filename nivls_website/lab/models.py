@@ -91,8 +91,10 @@ class Project(models.Model):
     demo_codebox = models.TextField(null=True, blank=True)
     languages    = models.ManyToManyField(Language
                                           ,through='ProjectLanguageRate')
-    coworkers    = models.ManyToManyField(Coworker, null=True, blank=True)
-    clients      = models.ManyToManyField(Client, null=True, blank=True)
+    coworkers    = models.ManyToManyField(Coworker, null=True, blank=True,
+                                          limit_choices_to={'site': settings.SITE_ID})
+    clients      = models.ManyToManyField(Client, null=True, blank=True,
+                                          limit_choices_to={'site': settings.SITE_ID})
 
     def __unicode__(self):
         return self.name

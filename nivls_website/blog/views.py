@@ -7,6 +7,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
+from django.contrib.sites.models import Site
 from models import Post, Category, Tag
 from forms import ContactForm
 from commons.simple_paginator import simple_paginator
@@ -30,40 +31,48 @@ def contact(request):
 
 
 def home(request):
-    post_list = Post.objects.select_related().filter(is_public=1).order_by('-pub_date')
+    post_list = Post.objects.select_related().filter(is_public=1
+                                                     ,site=Site.objects.get_current()
+                                                     ).order_by('-pub_date')
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request, "blog/home.html", {"posts": posts})
 
 
 def display_post(request, year, month, day, slug):
-    post = get_object_or_404(Post, pub_date__year=year,
-                             pub_date__month=month,
-                             pub_date__day=day,
-                             slug=slug,
-                             is_public=1)
+    post = get_object_or_404(Post, pub_date__year=year
+                             ,pub_date__month=month
+                             ,pub_date__day=day
+                             ,slug=slug
+                             ,is_public=1
+                             ,site=Site.objects.get_current())
     return render(request, "blog/post.html", {"post": post})
 
 @login_required
 def preview_post(request, year, month, day, slug):
     if request.user.is_superuser:
-        post = get_object_or_404(Post, pub_date__year=year,
-                                 pub_date__month=month,
-                                 pub_date__day=day,
-                                 slug=slug)
+        post = get_object_or_404(Post, pub_date__year=year
+                                 ,pub_date__month=month
+                                 ,pub_date__day=day
+                                 ,slug=slug
+                                 ,site=Site.objects.get_current())
     else:
-        post = get_object_or_404(Post, pub_date__year=year,
-                                 pub_date__month=month,
-                                 pub_date__day=day,
-                                 slug=slug,
-                                 author=request.user)
+        post = get_object_or_404(Post, pub_date__year=year
+                                 ,pub_date__month=month
+                                 ,pub_date__day=day
+                                 ,slug=slug
+                                 ,author=request.user
+                                 ,site=Site.objects.get_current())
     return render(request, "blog/post.html", {"post": post})
 
 def post_list_by_categories(request, slug):
     cat = get_object_or_404(Category, slug=slug)
-    cat_list = Category.objects.filter(left__gte=cat.left,
-                                       left__lte=cat.right)
-    post_list = Post.objects.select_related().filter(category__in=cat_list,
-                                                     is_public=1).order_by('-pub_date')
+    cat_list = Category.objects.filter(left__gte=cat.left
+                                       ,left__lte=cat.right
+                                       ,site=Site.objects.get_current())
+    post_list = Post.objects.select_related().filter(category__in=cat_list
+                                                     ,is_public=1
+                                                     ,site=Site.objects.get_current()
+                                                     ).order_by('-pub_date')
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request, "blog/post_list.html", {"posts": posts,
                                                    "obj_name": cat.name,
@@ -72,7 +81,10 @@ def post_list_by_categories(request, slug):
 
 def post_list_by_tags(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
-    post_list = Post.objects.select_related().filter(tags=tag, is_public=1).order_by('-pub_date')
+    post_list = Post.objects.select_related().filter(tags=tag
+                                                     ,is_public=1
+                                                     ,site=Site.objects.get_current()
+                                                     ).order_by('-pub_date')
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request, "blog/post_list.html", {"posts": posts,
                                                    "obj_name": tag.name,
@@ -84,15 +96,16 @@ def post_list_by_archives(request, year, month=None, day=None):
         archive_date = datetime.date(int(year), int(month), int(day)).strftime("%B, %d %Y")
         post_list = Post.objects.select_related().order_by("-pub_date").filter(
             pub_date__year=year, pub_date__month=month, pub_date__day=day,
-            is_public=1)
+            is_public=1, site=Site.objects.get_current())
     elif year and month:
         archive_date = datetime.date(int(year), int(month), 1).strftime("%B %Y")
         post_list = Post.objects.select_related().order_by("-pub_date").filter(
-            pub_date__year=year, pub_date__month=month, is_public=1)
+            pub_date__year=year, pub_date__month=month, is_public=1,
+            site=Site.objects.get_current())
     else:
         archive_date = year
         post_list = Post.objects.select_related().order_by("-pub_date").filter(
-            pub_date__year=year, is_public=1)
+            pub_date__year=year, is_public=1, site=Site.objects.get_current())
 
     if not post_list:
         raise Http404

@@ -20,6 +20,7 @@ class Menu(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Link(models.Model):
     name        = models.CharField(max_length=50)
     title       = models.CharField(max_length=50)
@@ -61,8 +62,8 @@ class Category(models.Model):
     name          = models.CharField(max_length=50)
     slug          = models.SlugField(unique=True)
     description   = models.CharField(max_length=80, blank=True, null=True)
-    left          = models.PositiveIntegerField(unique=True)
-    right         = models.PositiveIntegerField(unique=True)
+    left          = models.PositiveIntegerField()
+    right         = models.PositiveIntegerField()
     is_root       = models.BooleanField()
     thumbnail     = models.ImageField(upload_to="categories/"
                                       ,help_text="115x115"
@@ -89,6 +90,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "Categories"
+        unique_together = (('site', 'right'), ('site', 'left'))
 
 
 class Post(models.Model):
@@ -109,9 +111,12 @@ class Post(models.Model):
     is_public           = models.BooleanField()
     allow_comment       = models.BooleanField()
     author              = models.ForeignKey(User)
-    category            = models.ForeignKey(Category)
-    tags                = models.ManyToManyField(Tag)
-    lab                 = models.ForeignKey(Project, blank=True, null=True)
+    category            = models.ForeignKey(Category,
+                                            limit_choices_to = {'site': settings.SITE_ID})
+    tags                = models.ManyToManyField(Tag,
+                                                 limit_choices_to = {'site': settings.SITE_ID})
+    lab                 = models.ForeignKey(Project, blank=True, null=True,
+                                            limit_choices_to = {'site': settings.SITE_ID})
 
     def parsed_content(self):
         return image_name_to_link(self.content, self.image_set.all())
@@ -150,7 +155,6 @@ class Image(models.Model):
 
     def __unicode__(self):
         return self.name
-
 
 ### Moderator
 

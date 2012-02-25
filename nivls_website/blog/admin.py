@@ -18,7 +18,7 @@ class InlineImage(admin.TabularInline):
 
 class AdminPost(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
-    list_filter = ['pub_date', 'is_public', 'allow_comment']
+    list_filter = ['site', 'pub_date', 'is_public', 'allow_comment']
     actions = ['make_public', 'make_private', 'allow_comment', 'lock_comment']
     date_hierarchy = 'pub_date'
     list_display = ('title', 'pub_date', 'is_public', 'allow_comment')
@@ -68,12 +68,16 @@ admin.site.register(Post, AdminPost)
 
 class AdminCategory(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
+    list_filter = ['site']
+    list_display = ('name', 'site')
 
     def get_ordering(self, request):
         return ["left"]
 
 class AdminTag(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
+    list_filter = ['site']
+    list_display = ('name', 'site')
 
 # Menu
 
@@ -84,6 +88,8 @@ class InlineLink(admin.TabularInline):
 class AdminMenu(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     inlines = [InlineLink]
+    list_filter = ['site']
+    list_display = ('name', 'site')
 
 admin.site.register(Tag, AdminTag)
 admin.site.register(Menu, AdminMenu)
