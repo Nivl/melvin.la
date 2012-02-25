@@ -22,7 +22,7 @@ class AdminPost(admin.ModelAdmin):
     actions = ['make_public', 'make_private', 'allow_comment', 'lock_comment']
     date_hierarchy = 'pub_date'
     list_display = ('title', 'pub_date', 'is_public', 'allow_comment')
-    inlines = [InlineComment, InlineImage]
+    inlines = [InlineImage, InlineComment]
 
     def make_public(self, request, queryset):
         nb_row = queryset.update(is_public=1)
