@@ -1,12 +1,14 @@
+{% load i18n  %}
+
 <header id="page-header">
   <div id="header-central">
     <h1>Laplanche-Melv<span class="dot">.</span>in</h1>
   </div>
   <nav id="second-list">
     <ul>
-      <li><a href="http://blog.{{ DOMAIN_NAME }}">Blog</a>
-      <li><a href="/contact/">Contact</a>
-      <li><a href="http://{{ DOMAIN_NAME }}">About</a>
+      <li><a href="{% url blog %}">{% trans "Blog" %}</a>
+      <li><a href="{% url contact %}">{% trans "Contact" %}</a>
+      <li><a href="{% url home %}">{% trans "about" %}</a>
 
       <li class="icons">
 	<a id="google-icon" href="https://plus.google.com/107029584179497153748/posts"></a>

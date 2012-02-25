@@ -1,9 +1,9 @@
 {% extends "about/base.html" %}
 
-{% load markup %}
+{% load markup i18n %}
 
-{% block "title" %}Porfolio{% endblock "title" %}
-{% block "content-title" %}Portfolio{% endblock "content-title" %}
+{% block "title" %}{% trans "Portfolio" %}{% endblock "title" %}
+{% block "content-title" %}{% trans "Portfolio" %}{% endblock "content-title" %}
 
 {% block "content" %}
   <div id="projects">
@@ -39,11 +39,11 @@
 	  {% if project.lab %}
 	    <a class="button lab-project"
 	       href="{{ project.lab.get_absolute_url }}">
-	      En savoir plus
+	      {% trans "Know more" %}
 	    </a> -
 	{% endif %}
 
-	  <a href="{{ project.url }}">Visiter {{ project.name }}</a>
+	  <a href="{{ project.url }}">{% trans "Visit " %}{{ project.name }}</a>
 	</footer>
       </article>
 

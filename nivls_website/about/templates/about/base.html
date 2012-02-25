@@ -1,6 +1,6 @@
 {% extends "base.html"%}
 
-{% load markup %}
+{% load markup i18n %}
 
 {% block "head_js" %}
   <script src="{{ STATIC_URL }}about/js/jquery.lettering.js"></script>
@@ -17,10 +17,10 @@
 
     <nav>
       <ul>
-	<li><a href="{% url home %}">Home</a>
-	<li><a href="{% url portfolio %}">Portfolio</a>
-	<li><a href="{% url cv %}">C.V.</a>
-	<li><a href="http://blog.{{ DOMAIN_NAME }}">Blog</a>
+	<li><a href="{% url home %}">{% trans "Home" %}</a>
+	<li><a href="{% url portfolio %}">{% trans "Portfolio" %}</a>
+	<li><a href="{% url cv %}">{% trans "C.V." %}</a>
+	<li><a href="{% url blog %}">{% trans "Blog" %}</a>
       </ul>
     </nav>
   </header>

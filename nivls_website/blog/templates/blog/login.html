@@ -1,12 +1,12 @@
 {% extends "blog/base.html" %}
-{% load url from future %}
+{% load url from future i18n %}
 
-{% block "title" %}Login{% endblock "title" %}
+{% block "title" %}{% trans "Login" %}{% endblock "title" %}
 
 {% block "content" %}
 
 {% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
+  <p>{% trans "Your username and password didn't match. Please try again." %}</p>
 {% endif %}
 
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">

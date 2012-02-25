@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import ugettext as _
 from models import Post, Category, Tag
 from forms import ContactForm
 from commons.simple_paginator import simple_paginator
@@ -96,6 +97,6 @@ def post_list_by_archives(request, year, month=None, day=None):
     if not post_list:
         raise Http404
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
-    obj_name = "Archives from " + archive_date
+    obj_name = _("Archives from %(date)") % {'date': archive_date}
     return render(request, "blog/post_list.html", {"posts": posts,
                                                    "obj_name": obj_name})

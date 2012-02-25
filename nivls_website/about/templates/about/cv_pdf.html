@@ -1,6 +1,6 @@
 {% extends "base.html"%}
 
-{% load markup common_tags %}
+{% load markup common_tags i18n %}
 
 
 {% block "head_css" %}
@@ -114,28 +114,25 @@ a {outline: none;}
 {% block "body" %}
   <div id="content">
     <div id="profil">
-      <h2>Profil</h2>
+      <h2>{% trans "Profile" %}</h2>
       {{ static_infos.profile|replace_regexp:"#\[melv(.*)\]\((.*)externe\)#melvin\.laplanche@gmail.com"|markdown }}
     </div>
 
     <div id="skills">
-      <h2>Compétences</h2>
+      <h2>{% trans "Skills" %}</h2>
       <div class="profile-content">
 	{{ static_infos.skills|markdown }}
       </div>
     </div>
 
     <div id="awards">
-      <h2>Prix et récompences</h2>
+      <h2>{% trans "Awards" %}</h2>
       <div class="profile-content">
 	{{ static_infos.awards|markdown }}
       </div>
     </div>
-
   </div>
 
-  <footer>
-
-  </footer>
+  <footer></footer>
 {% endblock "body" %}
 

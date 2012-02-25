@@ -6,7 +6,7 @@ from sitemaps import *
 urlpatterns = patterns(
     '',
     url(r'^$', 'nivls_website.blog.views.home',
-        name='home'),
+        name='blog'),
 
     url(r'^(?P<year>\d{4})/$',
         'nivls_website.blog.views.post_list_by_archives',

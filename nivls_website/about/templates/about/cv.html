@@ -1,43 +1,43 @@
 {% extends "about/base.html" %}
 
-{% load markup %}
+{% load markup i18n %}
 
-{% block "title" %}C.V.{% endblock "title" %}
-{% block "content-title" %}C.V.{% endblock "content-title" %}
+{% block "title" %}{% trans "C.V." %}{% endblock "title" %}
+{% block "content-title" %}{% trans "C.V." %}{% endblock "content-title" %}
 
 {% block "content" %}
   <article id="resume">
 
     <h2 class="acc_trigger">
-      <a href="#">Profil</a>
+      <a href="#">{% trans "Profile" %}</a>
     </h2>
     <div class="acc_container">
       <div class="block">{{ static_infos.profile|markdown }}</div>
     </div>
 
     <h2 class="acc_trigger">
-      <a href="#">Compétences</a>
+      <a href="#">{% trans "Skills" %}</a>
     </h2>
     <div class="acc_container">
       <div class="block">{{ static_infos.skills|markdown }}</div>
     </div>
 
     <h2 class="acc_trigger">
-      <a href="#">Prix et récompences</a>
+      <a href="#">{% trans "Awards" %}</a>
     </h2>
     <div class="acc_container">
       <div class="block">{{ static_infos.awards|markdown }}</div>
     </div>
 
     <h2 class="acc_trigger">
-      <a href="#">Téléchargements</a>
+      <a href="#">{% trans "Downloads" %}</a>
     </h2>
     <div class="acc_container">
       <div class="block">
-	<h3>Téléchargements</h3>
+	<h3>{% trans "Downloads" %}</h3>
 	<ul>
 	  <li><a href="{% url cv-pdf %}">
-	      Télécharger ce C.V. au format PDF
+	      {% trans "Download this C.V. as PDF" %}
 	    </a>
 	</ul>
       </div>

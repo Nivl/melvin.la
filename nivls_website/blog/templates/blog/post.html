@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% load blog_tags markup comments humanize common_tags %}
+{% load blog_tags markup comments humanize common_tags i18n %}
 
 {% block "sub_head_js" %}
   {% include "comments/ajax_form.html" %}
@@ -21,24 +21,25 @@
 	  <a class="addthis_button_google_plusone" g:plusone:count="false"></a>
 	  <a class="addthis_button_facebook"></a>
 	  <a class="addthis_button_twitter"></a>
-	  <a href="http://www.addthis.com/bookmark.php?v=250&amp;pubid=xa-4e6d17e05f6e608b" class="addthis_button_compact">Share</a>
+	  <a href="http://www.addthis.com/bookmark.php?v=250&amp;pubid=xa-4e6d17e05f6e608b" class="addthis_button_compact">{% trans "Share" %}</a>
 	</div>
 	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4e6d17e05f6e608b"></script>
 	<!-- AddThis Button END -->
       </div>
       <div class="info">
-	Par {{ post.author }}
-	le <time datetime="{{ post.pub_date|date:"cO"|fix_html5_tz }}" pubdate>
+	{% trans "By " %}{{ post.author }},
+	<time datetime="{{ post.pub_date|date:"cO"|fix_html5_tz }}" pubdate>
 	  {{ post.pub_date|naturalday:'d F Y' }}
-	  à {{ post.pub_date|date:"H:i" }}
+	  {% trans "at " %} {{ post.pub_date|date:"H:i" }}
 	</time>
-	Dans: <a href="{{ post.category.get_absolute_url }}">
+	{% trans "in: " %}<a href="{{ post.category.get_absolute_url }}">
 	  {{ post.category }}
 	</a>
 	{% with post.tags.all as tags %}
 	  {% if tags %}
 	    <br />
-	    Taggé sous: {% for tag in tags %}
+	    {% trans "Tagged under: " %}
+	    {% for tag in tags %}
 	      <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
 	      {% if not forloop.last %},{% endif %}
 	    {% endfor %}
@@ -56,21 +57,21 @@
 	<div class="lab-button">
 	  <a class="button lab-project"
 	     href="{{ post.lab.get_absolute_url }}">
-	    En savoir plus
+	    {% trans "Know more" %}
 	  </a>
 	</div>
 	{% endif %}
-      <h2>Commentaires</h2>
+      <h2>{% trans "Comments" %}</h2>
 
       {% get_comment_count for post as comment_count %}
       {% ifequal comment_count 0 %}
-	Auncun commentaire
+	{% trans "There are no comments" %}
       {% else %}
-	{% ifequal comment_count 1 %}
-	  1 commentaire
-	{% else %}
-	  {{ comment_count }} commentaires
-	{% endifequal %}
+	{% blocktrans count counter=comment_count%}
+	  1 comment
+	{% plural %}
+	  {{ counter }} comments
+	{% endblocktrans %}
       {% endifequal %}
 
       {% render_comment_list for post %}
@@ -80,7 +81,7 @@
 	  {% render_comment_form for post %}
 	</div>
       {% else %}
-	Les commentaires ont été désactivé pour cet article.
+	{% trans "Comments has been disabled for this post." %}
       {% endif %}
     </footer>
   </article>

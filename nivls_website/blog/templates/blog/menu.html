@@ -1,8 +1,8 @@
-{% load blog_tags %}
+{% load blog_tags i18n %}
 
 <nav id="menu">
   <section>
-    <h3>Categories</h3>
+    <h3>{% trans "Categories" %}</h3>
     <ul class="tree">
       {% blog_categories %}
     </ul>
@@ -13,14 +13,14 @@
   </div>
 
   <section>
-    <h3>Tags</h3>
+    <h3>{% trans "Tags" %}</h3>
     <div id="tagcloud">
       {% blog_tagcloud %}
     </div>
   </section>
 
   <section>
-    <h3>Archives</h3>
+    <h3>{% trans "Archives" %}</h3>
     <ul class="tree">
       {% blog_archives %}
     </ul>

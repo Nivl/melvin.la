@@ -1,14 +1,14 @@
 {% extends "blog/base.html" %}
-{% load blog_tags %}
+{% load blog_tags i18n %}
 
 {% block "sub_head_js" %}
   {% include "blog/ajax_contact_form.html" %}
 {% endblock "sub_head_js" %}
 
-{% block "title" %}Contact{% endblock "title" %}
+{% block "title" %}{% trans "Contact" %}{% endblock "title" %}
 
 {% block "content" %}
-  <h2 class="center">Contact</h2>
+  <h2 class="center">{% trans "Contact" %}</h2>
 
   <div id="contact_form">
     {% display_contact_form form %}
