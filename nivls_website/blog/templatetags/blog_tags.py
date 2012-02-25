@@ -1,5 +1,6 @@
 from django import template
 from django.db.models import Count
+from django.contrib.sites.models import Site
 from blog.models import Post, Menu, Link, Category, Tag
 
 register = template.Library()
@@ -18,22 +19,30 @@ def blog_pagination(paginator):
 
 @register.inclusion_tag("blog/templatetags/slideshow.html")
 def blog_slideshow():
-    posts = Post.objects.filter(is_public=1).order_by('-pub_date')[:5]
+    posts = Post.objects.filter(is_public=1,
+                                site=Site.objects.get_current()
+                                ).order_by('-pub_date')[:5]
     return {'object': posts}
 
 @register.inclusion_tag("blog/templatetags/menus.html")
 def blog_menus():
-    menus = Menu.objects.order_by('order').filter(hide=False)
+    menus = Menu.objects.filter(hide=False,
+                                site=Site.objects.get_current()
+                                ).order_by('order')
     return {'menus': menus}
 
 @register.inclusion_tag("blog/templatetags/archives.html")
 def blog_archives():
-    dates = Post.objects.dates('pub_date', 'month', order='DESC').filter(is_public=1)
+    dates = Post.objects.filter(is_public=1,
+                                site=Site.objects.get_current()
+                                ).dates('pub_date', 'month', order='DESC')
     return {'dates': dates}
 
 @register.inclusion_tag("blog/templatetags/tag_cloud.html")
 def blog_tagcloud():
-    tags = Tag.objects.order_by("name").annotate(num_post=Count('post__id'))
+    tags = Tag.objects.filter(site=Site.objects.get_current()
+                              ).order_by("name"
+                                         ).annotate(num_post=Count('post__id'))
     tag_list = list()
 
     largest = 24
@@ -64,7 +73,10 @@ def blog_tagcloud():
 
 @register.inclusion_tag("blog/templatetags/categories.html")
 def blog_categories():
-    categories = Category.objects.order_by('left').annotate(num_post=Count('post__id'))
+    categories = Category.objects.filter(site=Site.objects.get_current()
+                                         ).order_by('left'
+                                                    ).annotate(num_post=Count('post__id'))
+
     cat_list = list();
     if categories:
         for i, cat in enumerate(categories):

@@ -11,7 +11,7 @@ import commons.signals
 from lab.models import Project
 
 class Menu(models.Model):
-    sites       = models.ManyToManyField(Site)
+    site        = models.ForeignKey(Site, default=settings.SITE_ID)
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
     order       = models.PositiveSmallIntegerField()
@@ -19,7 +19,6 @@ class Menu(models.Model):
 
     def __unicode__(self):
         return self.name
-
 
 class Link(models.Model):
     name        = models.CharField(max_length=50)
@@ -32,7 +31,7 @@ class Link(models.Model):
 
 
 class Tag(models.Model):
-    sites        = models.ManyToManyField(Site)
+    site         = models.ForeignKey(Site, default=settings.SITE_ID)
     name         = models.CharField(max_length=50)
     slug         = models.SlugField(unique=True)
 
@@ -58,7 +57,7 @@ class Tag(models.Model):
 
 
 class Category(models.Model):
-    sites         = models.ManyToManyField(Site)
+    site          = models.ForeignKey(Site, default=settings.SITE_ID)
     name          = models.CharField(max_length=50)
     slug          = models.SlugField(unique=True)
     description   = models.CharField(max_length=80, blank=True, null=True)
