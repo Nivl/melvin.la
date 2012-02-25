@@ -113,10 +113,10 @@ class Post(models.Model):
     author              = models.ForeignKey(User)
     category            = models.ForeignKey(Category,
                                             limit_choices_to = {'site': settings.SITE_ID})
-    tags                = models.ManyToManyField(Tag,
-                                                 limit_choices_to = {'site': settings.SITE_ID})
-    lab                 = models.ForeignKey(Project, blank=True, null=True,
-                                            limit_choices_to = {'site': settings.SITE_ID})
+    tags                = models.ManyToManyField(Tag, blank=True, null=True
+                                                 ,limit_choices_to = {'site': settings.SITE_ID})
+    lab                 = models.ForeignKey(Project, blank=True, null=True
+                                            ,limit_choices_to = {'site': settings.SITE_ID})
 
     def parsed_content(self):
         return image_name_to_link(self.content, self.image_set.all())
