@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% for object in nested_tree %}
   {% ifequal object "level_down" %}
     </ul>
@@ -7,14 +9,11 @@
     {% else %}
       <li>
         <a href="{{ object.get_absolute_url }}"
-	   {% if object.num_post == 1 %}
-	     title="1 post"
-	   {% else %}
-	     title="{{ object.num_post }} posts"
-	 {% endif %}
-	   >{{ object.name }}</a>
+	   title="{% blocktrans count counter=object.num_post %}1 post{% plural %}{{ counter }} posts{% endblocktrans %}">
+	  {{ object.name }}
+	</a>
     {% endifequal %}
   {% endifequal %}
 {% empty %}
-  <li>There are no categories.
+  <li>{% trans "There are no categories." %}
 {% endfor %}

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from settings import *
 
+DATE_FORMAT = 'd F Y'
 TIME_ZONE = 'Europe/Paris'
 LANGUAGE_CODE = 'fr'
 

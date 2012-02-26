@@ -1,5 +1,6 @@
-{% for menu in menus %}
+{% load i18n %}
 
+{% for menu in menus %}
   <section id="menu_{{ menu.slug }}">
     <h3>{{ menu.name }}</h3>
 
@@ -11,7 +12,7 @@
 	      {{ link.name }}
 	    </a>
 	{% empty %}
-          <li> There are no links.
+          <li> {% trans "There are no links." %}
 	{% endfor %}
       {% endwith %}
     </ul>

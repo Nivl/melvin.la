@@ -29,10 +29,9 @@
       <div class="info">
 	{% trans "By " %}{{ post.author }},
 	<time datetime="{{ post.pub_date|date:"cO"|fix_html5_tz }}" pubdate>
-	  {{ post.pub_date|naturalday:'d F Y' }}
-	  {% trans "at " %} {{ post.pub_date|date:"H:i" }}
+	  {{ post.pub_date|naturalday }}
 	</time>
-	{% trans "in: " %}<a href="{{ post.category.get_absolute_url }}">
+	{% trans "In: " %}<a href="{{ post.category.get_absolute_url }}">
 	  {{ post.category }}
 	</a>
 	{% with post.tags.all as tags %}
@@ -67,11 +66,7 @@
       {% ifequal comment_count 0 %}
 	{% trans "There are no comments" %}
       {% else %}
-	{% blocktrans count counter=comment_count%}
-	  1 comment
-	{% plural %}
-	  {{ counter }} comments
-	{% endblocktrans %}
+	{% blocktrans count counter=comment_count %}1 comment{% plural %}{{ counter }} comments{% endblocktrans %}
       {% endifequal %}
 
       {% render_comment_list for post %}
