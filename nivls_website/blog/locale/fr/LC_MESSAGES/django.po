@@ -29,7 +29,7 @@ msgid ""
 "inconvenience."
 msgstr ""
 "Votre commentaire n'a pas pu être posté. Nous nous excusons pour cet "
-"inconvénients."
+"inconvénient."
 
 #: templates/blog/ajax_mail_sent.html:2
 msgid "The email has been sent, you should receive an answer in a few hours."

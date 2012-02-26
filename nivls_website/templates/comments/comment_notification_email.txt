@@ -1,12 +1,12 @@
 {% load i18n %}
 
-{% blocktrans %}New comment from: {{ comment.user_name }} on {{ content_object }}{% endblocktrans %}
+{% blocktrans %}New comment from: <strong>{{ comment.user_name }}</strong> on <strong>{{ content_object }}</strong>{% endblocktrans %}
 
-{% blocktrans %}Author info:{% endblocktrans %}
-{% blocktrans %}Email: {% endblocktrans %}{{ comment.user_email }}
-{% blocktrans %}URL: {% endblocktrans %}{{ comment.user_url }}
-{% blocktrans %}IP: {% endblocktrans %}{{ comment.ip_address }}
+<strong>{% blocktrans %}Author info:{% endblocktrans %}</strong>
+<strong>{% blocktrans %}Email: {% endblocktrans %}</strong>{{ comment.user_email }}
+<strong>{% blocktrans %}URL: {% endblocktrans %}</strong>{{ comment.user_url }}
+<strong>{% blocktrans %}IP: {% endblocktrans %}</strong>{{ comment.ip_address }}
 
-{% blocktrans %}Comment was: {% endblocktrans %}
+<strong>{% blocktrans %}Comment was: {% endblocktrans %}</strong>
 
 {{ comment.comment }}

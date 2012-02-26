@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-26 17:06+0100\n"
+"POT-Creation-Date: 2012-02-26 17:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: templates/base.html:6 templates/error_base.html:4
+#: templates/base.html:5 templates/error_base.html:4
 msgid "en"
 msgstr "fr"
 
@@ -32,7 +32,35 @@ msgid ""
 "inconvenience."
 msgstr ""
 "Votre commentaire n'a pas pu être posté. Nous nous excusons pour cet "
-"inconvénients."
+"inconvénient."
+
+#: templates/comments/comment_notification_email.txt:3
+#, python-format
+msgid ""
+"New comment from: <strong>%(comment.user_name)s</strong> on <strong>"
+"%(content_object)s</strong>"
+msgstr "Nouveau commentaire de : <strong>%(comment.user_name)s</strong> "
+"sur <strong>%(content_object)s</strong>"
+
+#: templates/comments/comment_notification_email.txt:5
+msgid "Author info:"
+msgstr "Information:"
+
+#: templates/comments/comment_notification_email.txt:6
+msgid "Email: "
+msgstr "Email : "
+
+#: templates/comments/comment_notification_email.txt:7
+msgid "URL: "
+msgstr "URL : "
+
+#: templates/comments/comment_notification_email.txt:8
+msgid "IP: "
+msgstr "IP : "
+
+#: templates/comments/comment_notification_email.txt:10
+msgid "Comment was: "
+msgstr "Le commentaire est : "
 
 #: templates/comments/list.html:9
 msgid "By "
@@ -46,5 +74,6 @@ msgstr "à "
 msgid ""
 "Your comment has been successfully saved, it will soon be validated by an "
 "administrator."
-msgstr "Votre commentaire a été correctement enregistré, il sera "
-"prochainement validé par un administrateur."
+msgstr ""
+"Votre commentaire a été correctement enregistré, il sera prochainement "
+"validé par un administrateur."
