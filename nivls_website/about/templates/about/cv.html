@@ -12,14 +12,14 @@
       <a href="#">{% trans "Profile" %}</a>
     </h2>
     <div class="acc_container">
-      <div class="block">{{ static_infos.profile|markdown }}</div>
+      <div class="block">{{ static_infos.profile|markdown:'extra' }}</div>
     </div>
 
     <h2 class="acc_trigger">
       <a href="#">{% trans "Skills" %}</a>
     </h2>
     <div class="acc_container">
-      <div class="block">{{ static_infos.skills|markdown }}</div>
+      <div class="block">{{ static_infos.skills|markdown:'extra' }}</div>
     </div>
 
     <h2 class="acc_trigger">
