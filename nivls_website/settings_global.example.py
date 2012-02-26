@@ -36,6 +36,8 @@ DATABASES = {
 USE_TZ = True # django 1.4
 TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en'
+DATE_FORMAT = 'F, d Y'
+TIME_FORMAT = 'P'
 USE_I18N = True
 USE_L10N = True
 

@@ -1,4 +1,4 @@
-{% load comments %}
+{% load comments i18n %}
 
 <script type="text/javascript">
 function bindPostCommentHandler() {
@@ -15,7 +15,7 @@ function bindPostCommentHandler() {
                 bindPostCommentHandler();
 	    },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $('#comment_form form').replaceWith('<div class="error">Your comment was unable to be posted at this time.  We apologise for the inconvenience.</div>');
+                $('#comment_form form').replaceWith('<div class="error">{% trans "Your comment was unable to be posted at this time. We apologise for the inconvenience." %}</div>');
             }
         });
         return false;
