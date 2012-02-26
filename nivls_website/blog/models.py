@@ -5,13 +5,13 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sitemaps import ping_google
-from django.contrib.sites.models import Site
+from commons.models import I18nSite
 from commons.renders import image_name_to_link
 import commons.signals
 from lab.models import Project
 
 class Menu(models.Model):
-    site        = models.ForeignKey(Site, default=settings.SITE_ID)
+    site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
     order       = models.PositiveSmallIntegerField()
@@ -32,7 +32,7 @@ class Link(models.Model):
 
 
 class Tag(models.Model):
-    site         = models.ForeignKey(Site, default=settings.SITE_ID)
+    site         = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name         = models.CharField(max_length=50)
     slug         = models.SlugField(unique=True)
 
@@ -58,7 +58,7 @@ class Tag(models.Model):
 
 
 class Category(models.Model):
-    site          = models.ForeignKey(Site, default=settings.SITE_ID)
+    site          = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name          = models.CharField(max_length=50)
     slug          = models.SlugField(unique=True)
     description   = models.CharField(max_length=80, blank=True, null=True)
@@ -94,7 +94,7 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    site                = models.ForeignKey(Site, default=settings.SITE_ID)
+    site                = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     title               = models.CharField(max_length=50)
     slug                = models.SlugField(unique_for_date="pub_date")
     short_description   = models.CharField(max_length=80

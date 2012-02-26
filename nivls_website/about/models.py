@@ -1,12 +1,12 @@
 import os
 from datetime import datetime
 from django.db import models
-from django.contrib.sites.models import Site
 from commons.fields import ColorField
 from lab.models import Project as LabProject
+from commons.models import I18nSite
 
 class StaticInfos(models.Model):
-    site     = models.OneToOneField(Site, primary_key=True)
+    site     = models.OneToOneField(I18nSite, primary_key=True)
     about_me = models.TextField()
     profile  = models.TextField()
     skills   = models.TextField()

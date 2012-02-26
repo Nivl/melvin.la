@@ -5,7 +5,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from commons.fields import ColorField
-from django.contrib.sites.models import Site
+from commons.models import I18nSite
 import os
 
 class Language(models.Model):
@@ -38,7 +38,7 @@ class License(models.Model):
 
 
 class Coworker(models.Model):
-    site        = models.ForeignKey(Site, default=settings.SITE_ID)
+    site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
     description = models.CharField(max_length=255)
@@ -59,7 +59,7 @@ class Coworker(models.Model):
 
 
 class Client(models.Model):
-    site        = models.ForeignKey(Site, default=settings.SITE_ID)
+    site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name        = models.CharField(max_length=50)
     slug        = models.SlugField(unique=True)
     description = models.CharField(max_length=255)
@@ -80,7 +80,7 @@ class Client(models.Model):
 
 
 class Project(models.Model):
-    site         = models.ForeignKey(Site, default=settings.SITE_ID)
+    site         = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name         = models.CharField(max_length=255)
     description  = models.TextField()
     slug         = models.SlugField(unique=True)
