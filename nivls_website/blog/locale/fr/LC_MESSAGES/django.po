@@ -98,7 +98,6 @@ msgid "There are no comments"
 msgstr "Il n'y a aucun commentaire"
 
 #: templates/blog/post.html:69
-#, fuzzy, python-format
 msgid "1 comment"
 msgid_plural "%(counter)s comments"
 msgstr[0] "1 commentaire"
@@ -133,7 +132,6 @@ msgid "Previous"
 msgstr "Précédant"
 
 #: templates/blog/templatetags/pagination.html:8
-#, fuzzy, python-format
 msgid "Page %(current)s on %(total)s."
 msgstr "Page %(current)s sur %(total)s."
 
@@ -152,27 +150,3 @@ msgstr "Il n'y a aucun article."
 #: templates/blog/templatetags/tag_cloud.html:9
 msgid "There are no tags."
 msgstr "Il n'y a aucun tag."
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "\t\t    1 post\n"
-#~ "\t\t  "
-#~ msgid_plural ""
-#~ "\n"
-#~ "\t\t    %(counter)s posts\n"
-#~ "\t\t  "
-#~ msgstr[0] "1 article"
-#~ msgstr[1] "%(counter)s articles"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "     1 post\n"
-#~ "   "
-#~ msgid_plural ""
-#~ "\n"
-#~ "     %(counter)s posts\n"
-#~ "   "
-#~ msgstr[0] "1 article"
-#~ msgstr[1] "%(counter)s articles"

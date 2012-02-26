@@ -23,7 +23,6 @@ msgid "Home"
 msgstr "Accueil"
 
 #: templates/about/about.html:9
-#, fuzzy
 msgid "Who am I?"
 msgstr "Qui suis-je ?"
 
