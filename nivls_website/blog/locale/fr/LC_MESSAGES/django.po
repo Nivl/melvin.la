@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-26 01:38+0100\n"
+"POT-Creation-Date: 2012-02-26 17:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,23 +18,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: views.py:113
+#: forms.py:7
+msgid "Subject"
+msgstr "Sujet"
+
+#: forms.py:8
+msgid "Email address"
+msgstr "Adresse email"
+
+#: forms.py:9
+msgid "Message"
+msgstr "Message"
+
+#: views.py:114
 #, python-format
 msgid "Archives from %(date)s"
 msgstr "Archive de %(date)s"
 
 #: templates/blog/ajax_contact_form.html:22
 msgid ""
-"Your comment was unable to be posted at this time. We apologise for the "
+"Your message was unable to be sent at this time. We apologise for the "
 "inconvenience."
 msgstr ""
-"Votre commentaire n'a pas pu être posté. Nous nous excusons pour cet "
+"Votre message n\\'a pas pu être envoyé. Nous nous excusons pour cet "
 "inconvénient."
 
 #: templates/blog/ajax_mail_sent.html:2
-msgid "The email has been sent, you should receive an answer in a few hours."
-msgstr ""
-"Le mail a bien été envoyé, vous recevrez une réponse d'ici quelques heures"
+msgid "The message has been sent, you should receive an answer in a few hours."
+msgstr "Le message a bien été envoyé, vous recevrez une réponse d'ici "
+"quelques heures."
 
 #: templates/blog/contact.html:8 templates/blog/contact.html.py:11
 #: templates/blog/header.html:10
@@ -98,6 +110,7 @@ msgid "There are no comments"
 msgstr "Il n'y a aucun commentaire"
 
 #: templates/blog/post.html:69
+#, python-format
 msgid "1 comment"
 msgid_plural "%(counter)s comments"
 msgstr[0] "1 commentaire"
@@ -123,6 +136,10 @@ msgstr[1] "%(counter)s articles"
 msgid "There are no categories."
 msgstr "Il n'y a aucune catégorie"
 
+#: templates/blog/templatetags/display_contact_form.html:15
+msgid "Send"
+msgstr "Envoyer"
+
 #: templates/blog/templatetags/menus.html:15
 msgid "There are no links."
 msgstr "Il n'y a aucun lien."
@@ -132,6 +149,7 @@ msgid "Previous"
 msgstr "Précédant"
 
 #: templates/blog/templatetags/pagination.html:8
+#, python-format
 msgid "Page %(current)s on %(total)s."
 msgstr "Page %(current)s sur %(total)s."
 

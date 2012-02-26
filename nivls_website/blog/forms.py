@@ -1,11 +1,12 @@
 from django import forms
 from commons import happyforms
 from commons.protection import akismet_is_valid
+from django.utils.translation import ugettext_lazy as _
 
 class ContactForm(forms.Form):
-    subject     = forms.CharField(max_length=100)
-    email       = forms.EmailField()
-    message     = forms.CharField(widget=forms.Textarea)
+    subject     = forms.CharField(max_length=100, label=_('Subject'))
+    email       = forms.EmailField(label=_('Email address'))
+    message     = forms.CharField(widget=forms.Textarea, label=_('Message'))
     honeypot    = forms.CharField(required=False)
 
     def __init__(self, data=None, files=None, request=None, *args, **kwargs):

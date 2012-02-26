@@ -1,3 +1,4 @@
+{% load i18n %}
 <form method="post">
   {% csrf_token %}
   {% for field in form %}
@@ -11,5 +12,5 @@
     {% endifequal %}
   {% endfor %}
 
-  <input type="submit" name="submit" value="Envoyer">
+  <input type="submit" name="submit" value="{% trans "Send" %}">
 </form>

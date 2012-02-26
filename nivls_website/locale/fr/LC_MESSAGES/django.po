@@ -31,7 +31,7 @@ msgid ""
 "Your comment was unable to be posted at this time. We apologise for the "
 "inconvenience."
 msgstr ""
-"Votre commentaire n'a pas pu être posté. Nous nous excusons pour cet "
+"Votre commentaire n\\'a pas pu être posté. Nous nous excusons pour cet "
 "inconvénient."
 
 #: templates/comments/comment_notification_email.txt:3

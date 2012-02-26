@@ -19,7 +19,7 @@ function bindPostContactHandler() {
                 bindPostContactHandler();
 	    },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $('#contact_form form').replaceWith('<div class="error">{% trans "Your comment was unable to be posted at this time. We apologise for the inconvenience." %}</div>');
+                $('#contact_form form').replaceWith('<div class="error">{% trans "Your message was unable to be sent at this time. We apologise for the inconvenience." %}</div>');
             }
         });
         return false;
