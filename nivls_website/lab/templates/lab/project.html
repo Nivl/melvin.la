@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block "head_css" %}
   <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/lab.less.min.css">
   <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/anythingslider.css">
@@ -28,21 +30,21 @@
   {% with project.download_set.all as downloads %}
     <header class="anythingControls">
       <ul class="thumbNav">
-	<li><a class="active" href="#"><span>Infos</span></a>
+	<li><a class="active" href="#"><span>{% trans "Infos" %}</span></a>
 	{% if progress %}
-	  <li><a href="#"><span>Progressions</span></a>
+	  <li><a href="#"><span>{% trans "Progress" %}</span></a>
         {% endif %}
 	{% if images %}
-	<li><a href="#"><span>Images</span></a>
+	<li><a href="#"><span>{% trans "Images" %}</span></a>
         {% endif %}
 	{% if videos %}
-	<li><a href="#"><span>Vidéos</span></a>
+	<li><a href="#"><span>{% trans "Videos" %}</span></a>
         {% endif %}
 	{% if downloads %}
-	<li><a href="#"><span>Download</span></a>
+	<li><a href="#"><span>{% trans "Downloads" %}</span></a>
         {% endif %}
 	{% if project.demo_codebox %}
-	<li><a href="#"><span>Démos</span></a>
+	<li><a href="#"><span>{% trans "Demos" %}</span></a>
       {% endif %}
       </ul>
     </header>

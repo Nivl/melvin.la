@@ -1,4 +1,6 @@
-<h1>Informations sur {{ project.name }}</h1>
+{% load i18n %}
+
+<h1>{% blocktrans %}Informations about {{ project.name }}{% endblocktrans %}</h1>
 
 <div id="diagram-wrapper">
   <div id="diagram"></div>

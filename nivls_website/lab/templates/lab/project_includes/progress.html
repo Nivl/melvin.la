@@ -3,7 +3,7 @@
 {% for event in progress %}
   <div class="event">
     <time datetime="{{ event.pub_date|date:"c"|fix_html5_tz }}" pubdate>
-      {{ event.pub_date|naturalday:'d F Y' }}
+      {{ event.pub_date|naturalday }}
     </time>
     <span>
       {{ event.description }}
