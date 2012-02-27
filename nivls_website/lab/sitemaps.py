@@ -6,7 +6,7 @@ class ProjectSitemap(Sitemap):
     changefreq = "daily"
 
     def items(self):
-        return Project.objects.all()
+        return Project.objects.filter(site=settings.SITE_ID)
 
     def location(self, obj):
         return obj.get_absolute_url()

@@ -44,6 +44,7 @@ urlpatterns = patterns(
 )
 
 
+# Static which wiil be added to the sitemap
 static_urlpatterns = patterns(
     '',
     url(r'^contact/$', 'nivls_website.blog.views.contact', name='contact'),
@@ -63,28 +64,8 @@ feeds_urlpatterns = patterns(
 
 
 sitemaps = {
-    'post': PostSitemap,
-    'static': StaticSitemap(static_urlpatterns),
+    'blog_post': PostSitemap,
+    'blog_static': StaticSitemap(static_urlpatterns),
     }
 
-
-seo_urlpatterns = patterns(
-    'django.contrib.sitemaps.views',
-    url(r'^sitemap\.xml$', 'sitemap', {'sitemaps': sitemaps}),
-
-    url(r'^robots.txt$', include('robots.urls')),
-    )
-
-
-old_urlpatterns = patterns(
-    '',
-    url(r'^category/contests/?$', redirect_to, {'url': '/tag/contests/'}),
-    url(r'^tag/contest/?$', redirect_to, {'url': '/tag/contests/'}),
-    url(r'^tag/game/?$', redirect_to, {'url': '/tag/jeux/'}),
-    url(r'^tag/ecoles/?$', redirect_to, {'url': '/tag/ecole/'}),
-    url(r'^tag/epitech-2/?$', redirect_to, {'url': '/category/epitech/'}),
-    url(r'^tag/graphic/?$', redirect_to, {'url': '/tag/graphique/'}),
-    )
-
-
-urlpatterns = old_urlpatterns + urlpatterns + static_urlpatterns + feeds_urlpatterns + seo_urlpatterns
+urlpatterns += static_urlpatterns + feeds_urlpatterns

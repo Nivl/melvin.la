@@ -6,6 +6,7 @@ urlpatterns = patterns(
     url(r'^$', 'nivls_website.about.views.home', name='home'),
 )
 
+# Static which wiil be added to the sitemap
 static_urlpatterns = patterns(
     '',
     url(r'^cv/$', 'nivls_website.about.views.cv', name='cv'),
@@ -15,15 +16,7 @@ static_urlpatterns = patterns(
 
 
 sitemaps = {
-    'static': StaticSitemap(static_urlpatterns),
+    'about_static': StaticSitemap(static_urlpatterns),
     }
 
-
-seo_urlpatterns = patterns(
-    'django.contrib.sitemaps.views',
-    url(r'^sitemap\.xml$', 'sitemap', {'sitemaps': sitemaps}),
-
-    url(r'^robots.txt$', include('robots.urls')),
-    )
-
-urlpatterns = urlpatterns + static_urlpatterns + seo_urlpatterns
+urlpatterns += static_urlpatterns
