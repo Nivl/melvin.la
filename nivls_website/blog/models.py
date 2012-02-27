@@ -13,7 +13,6 @@ from lab.models import Project
 class Menu(models.Model):
     site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name        = models.CharField(max_length=50)
-    slug        = models.SlugField(unique=True)
     order       = models.PositiveSmallIntegerField()
     hide        = models.BooleanField()
 
@@ -34,7 +33,7 @@ class Link(models.Model):
 class Tag(models.Model):
     site         = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name         = models.CharField(max_length=50)
-    slug         = models.SlugField(unique=True)
+    slug         = models.SlugField()
 
     def __unicode__(self):
         return self.name
@@ -55,12 +54,13 @@ class Tag(models.Model):
 
     class Meta:
         ordering = ["name"]
+        unique_together = ('site', 'slug')
 
 
 class Category(models.Model):
     site          = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name          = models.CharField(max_length=50)
-    slug          = models.SlugField(unique=True)
+    slug          = models.SlugField()
     description   = models.CharField(max_length=80, blank=True, null=True)
     is_root       = models.BooleanField()
     left          = models.PositiveIntegerField()
@@ -90,7 +90,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "Categories"
-        unique_together = (('site', 'right'), ('site', 'left'))
+        unique_together = (('site', 'right'), ('site', 'left'), ('site', 'slug'))
 
 
 class Post(models.Model):
