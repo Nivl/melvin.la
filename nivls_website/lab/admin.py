@@ -43,7 +43,7 @@ class CoworkerAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
 
     def queryset(self, request):
-        return super(ProjectAdmin, self).queryset(request).filter(site=settings.SITE_ID)
+        return super(CoworkerAdmin, self).queryset(request).filter(site=settings.SITE_ID)
 
 class ClientAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
