@@ -44,6 +44,19 @@
 	    {% endfor %}
 	  {% endif %}
 	{% endwith %}
+	{% with post.i18n.all as rels %}
+	  {% if rels %}
+	    <br />
+	    {% trans "Available in: " %}
+	    {% for rel in rels %}
+	      <a href="{{ rel.get_absolute_url }}">
+		<img class="flag" width="16" height="11"
+		     src="{{ rel.site.flag.url }}">
+	      </a>
+	      {% if not forloop.last %}&nbsp;{% endif %}
+	    {% endfor %}
+	  {% endif %}
+	{% endwith %}
       </div>
     </header>
 
