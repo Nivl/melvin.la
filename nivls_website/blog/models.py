@@ -62,9 +62,9 @@ class Category(models.Model):
     name          = models.CharField(max_length=50)
     slug          = models.SlugField(unique=True)
     description   = models.CharField(max_length=80, blank=True, null=True)
+    is_root       = models.BooleanField()
     left          = models.PositiveIntegerField()
     right         = models.PositiveIntegerField()
-    is_root       = models.BooleanField()
     thumbnail     = models.ImageField(upload_to="categories/"
                                       ,help_text="115x115"
                                       ,blank=True, null=True)
@@ -95,28 +95,31 @@ class Category(models.Model):
 
 class Post(models.Model):
     site                = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    title               = models.CharField(max_length=50)
-    slug                = models.SlugField(unique_for_date="pub_date")
-    short_description   = models.CharField(max_length=80
-                                           ,help_text="80 chars maximum")
-    long_description    = models.CharField(max_length=175
-                                           ,help_text="175 chars maximum")
-    main_image          = models.ImageField(upload_to="articles/originals/"
-                                            ,help_text="570x270")
-    thumbnail           = models.ImageField(upload_to="articles/thumbnails/"
-                                            ,help_text="115x115")
-    content             = models.TextField()
-    pub_date            = models.DateTimeField(default=datetime.now)
-    edit_date           = models.DateTimeField(auto_now=True)
     is_public           = models.BooleanField()
-    allow_comment       = models.BooleanField()
+    pub_date            = models.DateTimeField(default=datetime.now)
     author              = models.ForeignKey(User)
-    category            = models.ForeignKey(Category,
-                                            limit_choices_to = {'site': settings.SITE_ID})
-    tags                = models.ManyToManyField(Tag, blank=True, null=True
-                                                 ,limit_choices_to = {'site': settings.SITE_ID})
+    category            = models.ForeignKey(Category
+                                            ,limit_choices_to={'site': settings.SITE_ID})
     lab                 = models.ForeignKey(Project, blank=True, null=True
                                             ,limit_choices_to = {'site': settings.SITE_ID})
+    title               = models.CharField(max_length=50)
+    slug                = models.SlugField()
+    main_image          = models.ImageField(upload_to="articles/originals/"
+                                            ,help_text="570x270")
+    short_description   = models.CharField(max_length=80
+                                           ,help_text="80 chars maximum")
+
+    thumbnail           = models.ImageField(upload_to="articles/thumbnails/"
+                                            ,help_text="115x115")
+    long_description    = models.CharField(max_length=175
+                                           ,help_text="175 chars maximum")
+    content             = models.TextField()
+    tags                = models.ManyToManyField(Tag, blank=True, null=True
+                                                 ,limit_choices_to = {'site': settings.SITE_ID})
+    i18n                = models.ManyToManyField("self", blank=True, null=True
+                                                 ,limit_choices_to = ~models.Q(site = settings.SITE_ID))
+    allow_comment       = models.BooleanField(default=True)
+    edit_date           = models.DateTimeField(auto_now=True)
 
     def parsed_content(self):
         return image_name_to_link(self.content, self.image_set.all())
@@ -147,6 +150,9 @@ class Post(models.Model):
         except Exception:
             pass
 
+
+        class Meta:
+            unique_together = ('slug', 'pub_date', 'site')
 
 class Image(models.Model):
     name       = models.CharField(max_length=50)
