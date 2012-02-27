@@ -1,5 +1,6 @@
 from models import *
 from django.contrib import admin
+from django.conf import settings
 
 # Project
 class ProjectLanguageRateInline(admin.TabularInline):
@@ -24,11 +25,11 @@ class DownloadInline(admin.TabularInline):
 
 class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
-    list_filter = ['site']
-    list_display = ('name', 'site')
     inlines = [ProjectLanguageRateInline, ProgressInline,
                ImageInline, VideoInline, DownloadInline]
 
+    def queryset(self, request):
+        return super(ProjectAdmin, self).queryset(request).filter(site=settings.SITE_ID)
 
 # Others
 
@@ -40,13 +41,15 @@ class LicenseAdmin(admin.ModelAdmin):
 
 class CoworkerAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
-    list_filter = ['site']
-    list_display = ('name', 'site')
+
+    def queryset(self, request):
+        return super(ProjectAdmin, self).queryset(request).filter(site=settings.SITE_ID)
 
 class ClientAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
-    list_filter = ['site']
-    list_display = ('name', 'site')
+
+    def queryset(self, request):
+        return super(ClientAdmin, self).queryset(request).filter(site=settings.SITE_ID)
 
 admin.site.register(Language, LanguageAdmin)
 admin.site.register(License, LicenseAdmin)

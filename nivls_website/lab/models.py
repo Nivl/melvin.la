@@ -40,7 +40,7 @@ class License(models.Model):
 class Coworker(models.Model):
     site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name        = models.CharField(max_length=50)
-    slug        = models.SlugField(unique=True)
+    slug        = models.SlugField()
     description = models.CharField(max_length=255)
     url         = models.URLField(null=True, blank=True)
     image       = models.ImageField(upload_to="lab/coworker/"
@@ -57,11 +57,13 @@ class Coworker(models.Model):
                     os.remove(origin.image.path)
         super(Coworker, self).save(*arg, **kwargs)
 
+    class Meta:
+        unique_together = ('site', 'slug')
 
 class Client(models.Model):
     site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name        = models.CharField(max_length=50)
-    slug        = models.SlugField(unique=True)
+    slug        = models.SlugField()
     description = models.CharField(max_length=255)
     url         = models.URLField(null=True, blank=True)
     image       = models.ImageField(upload_to="lab/client/"
@@ -78,16 +80,18 @@ class Client(models.Model):
                     os.remove(origin.image.path)
         super(Client, self).save(*arg, **kwargs)
 
+    class Meta:
+        unique_together = ('site', 'slug')
 
 class Project(models.Model):
     site         = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name         = models.CharField(max_length=255)
-    description  = models.TextField()
-    slug         = models.SlugField(unique=True)
+    slug         = models.SlugField()
     start_date   = models.DateField(default=datetime.now)
-    edit_date    = models.DateField(auto_now=True)
     license      = models.ForeignKey(License)
     sources_url  = models.URLField(null=True, blank=True)
+    description  = models.TextField()
+    edit_date    = models.DateField(auto_now=True)
     demo_codebox = models.TextField(null=True, blank=True)
     languages    = models.ManyToManyField(Language
                                           ,through='ProjectLanguageRate')
@@ -102,6 +106,9 @@ class Project(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('project', (), {'slug': self.slug})
+
+    class Meta:
+        unique_together = ('site', 'slug')
 
 class ProjectLanguageRate(models.Model):
     language    = models.ForeignKey(Language)
