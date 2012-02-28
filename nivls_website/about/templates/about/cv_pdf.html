@@ -115,13 +115,13 @@ a {outline: none;}
   <div id="content">
     <div id="profil">
       <h2>{% trans "Profile" %}</h2>
-      {{ static_infos.profile|replace_regexp:"#\[melv(.*)\]\((.*)externe\)#melvin\.laplanche@gmail.com"|markdown }}
+      {{ static_infos.profile|replace_regexp:"#\[melv(.*)\]\((.*)externe\)#melvin\.laplanche@gmail.com"|markdown:"extra" }}
     </div>
 
     <div id="skills">
       <h2>{% trans "Skills" %}</h2>
       <div class="profile-content">
-	{{ static_infos.skills|markdown }}
+	{{ static_infos.skills|markdown:"extra" }}
       </div>
     </div>
 
