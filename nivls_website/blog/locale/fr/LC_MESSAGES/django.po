@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-26 17:59+0100\n"
+"POT-Creation-Date: 2012-02-28 01:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,8 +45,9 @@ msgstr ""
 
 #: templates/blog/ajax_mail_sent.html:2
 msgid "The message has been sent, you should receive an answer in a few hours."
-msgstr "Le message a bien été envoyé, vous recevrez une réponse d'ici "
-"quelques heures."
+msgstr ""
+"Le message a bien été envoyé, vous recevrez une réponse d'ici quelques "
+"heures."
 
 #: templates/blog/contact.html:8 templates/blog/contact.html.py:11
 #: templates/blog/header.html:10
@@ -97,26 +98,30 @@ msgstr "Dans: "
 msgid "Tagged under: "
 msgstr "Taggé sous: "
 
-#: templates/blog/post.html:59
+#: templates/blog/post.html:50
+msgid "Available in: "
+msgstr "Diponible en : "
+
+#: templates/blog/post.html:72
 msgid "Know more"
 msgstr "En savoir plus"
 
-#: templates/blog/post.html:63
+#: templates/blog/post.html:76
 msgid "Comments"
 msgstr "Commentaires"
 
-#: templates/blog/post.html:67
+#: templates/blog/post.html:80
 msgid "There are no comments"
 msgstr "Il n'y a aucun commentaire"
 
-#: templates/blog/post.html:69
+#: templates/blog/post.html:82
 #, python-format
 msgid "1 comment"
 msgid_plural "%(counter)s comments"
 msgstr[0] "1 commentaire"
 msgstr[1] "%(counter)s 1 commentaires"
 
-#: templates/blog/post.html:79
+#: templates/blog/post.html:92
 msgid "Comments has been disabled for this post."
 msgstr "Les commentaires ont été désactivé pour cet article."
 
