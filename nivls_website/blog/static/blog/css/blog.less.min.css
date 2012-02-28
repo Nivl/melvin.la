@@ -433,6 +433,9 @@ body #body #body-container #page-content article #comment_form form input[type="
   background-color: #0091ff;
   color: white;
 }
+body #body #body-container #page-content article #comment_form form input[type="text"] {
+  width: 200px;
+}
 body #body #body-container #page-content article #comment_form form input[type="text"], body #body #body-container #page-content article #comment_form form textarea {
   border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -442,7 +445,7 @@ body #body #body-container #page-content article #comment_form form input[type="
   background-color: #b7db86;
   color: #1e1b1a;
   padding: 3px;
-  padding-left: 10px;
+  padding-left: 5px;
   transition: all 0.2s linear 0;
   -o-transition: all 0.2s linear 0;
   -webkit-transition: all 0.2s linear 0;
