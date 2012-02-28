@@ -16,20 +16,6 @@
     -o-border-radius: @radius;
 }
 
-.display-icon(@padding, @size) {
-    display: block;
-    width: @size;
-    height: @size;
-
-    background: url("../img/icons/social-medias.png");
-    background-repeat: no-repeat;
-
-    background-position: @padding -@size;
-    &:hover {
-	background-position: @padding top;
-    }
-}
-
 .gradient(@direction, @from, @to) {
     background: -webkit-linear-gradient(
 	@direction,
@@ -53,7 +39,7 @@
     );
 }
 
-.transition(@property: background-color,
+.transition(@property: all,
 	    @duration: 0.2s,
 	    @timing: linear,
 	    @delay: 0) {
@@ -65,6 +51,28 @@
     -moz-transition-duration: @duration;
     -moz-transition-timing-function: @timing;
     -moz-transition-delay: @property;
+}
+
+.display-icon(@padding, @size) {
+    background-image: url("../img/icons/social-medias.png");
+    background-repeat: no-repeat;
+    background-position: @padding top;
+
+    a {
+	display: block;
+	width: @size;
+	height: @size;
+
+	background-image: url("../img/icons/social-medias.png");
+	background-repeat: no-repeat;
+	background-position: @padding -@size;
+
+	.transition(opacity, 0.4s);
+
+	&:hover {
+	    opacity: 0;
+	}
+    }
 }
 
 /******************************************************************************
@@ -220,6 +228,28 @@ body {
 					  lighten(#21201E, 3%));
 			    }
 
+			    @icon-size: 32px;
+
+			    &#github-icon {
+				.display-icon(0px, @icon-size)
+			    }
+
+			    &#rss-icon {
+				.display-icon(-@icon-size, @icon-size)
+			    }
+
+			    &#google-icon {
+				.display-icon(-@icon-size * 2, @icon-size)
+			    }
+
+			    &#twitter-icon {
+				.display-icon(-@icon-size * 3, @icon-size)
+			    }
+
+			    &#facebook-icon {
+				.display-icon(-@icon-size * 4, @icon-size)
+			    }
+
 			    &.icons {
 				float: right;
 				border-right: none;
@@ -228,22 +258,10 @@ body {
 				@icon-size: 32px;
 
 				&:hover {
-				    .gradient(top,
-					      #322C2C,
-					      #21201E);
+				    .gradient(top, #322C2C, #21201E);
 				}
 
-				a#github-icon {
-				    .display-icon(0px, @icon-size)
-				}
-
-				a#rss-icon {
-				    .display-icon(-@icon-size, @icon-size)
-				}
-
-				a#google-icon {
-				    .display-icon(-@icon-size * 2, @icon-size)
-				}
+				//here
 			    }
 			}
 		    }
