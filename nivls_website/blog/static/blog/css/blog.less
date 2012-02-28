@@ -52,6 +52,20 @@
     );
 }
 
+.transition(@property: background-color,
+	    @duration: 0.2s,
+	    @timing: linear,
+	    @delay: 0) {
+    transition: @property @duration @timing @delay;
+    -o-transition: @property @duration @timing @delay;
+    -webkit-transition: @property @duration @timing @delay;
+
+    -moz-transition-property: @property;
+    -moz-transition-duration: @duration;
+    -moz-transition-timing-function: @timing;
+    -moz-transition-delay: @property;
+}
+
 /******************************************************************************
  **									     **
  **                        End variables and functions                       **
@@ -68,6 +82,12 @@ body {
 	color: @green;
 	font-family: 'Alice', arial, serif;
 	text-shadow: 1px 1px 0 white;
+
+	&::selection {
+	    text-shadow: none;
+	    background-color: @green;
+	    color: black;
+	}
     }
 
     h6 {
@@ -386,7 +406,6 @@ body {
 			a.button {
 			    border: 1px solid #ccc;
 			    padding: 5px 10px;
-			    backgound-color: white;
 			    color: black;
 			    .border-radius(5px);
 			    font-weight: bolder;
@@ -417,6 +436,48 @@ body {
 				    p {
 					margin: 10px 5px 10px 0;
 				    }
+				}
+			    }
+			}
+		    }
+
+		    #comment_form {
+			form {
+			    input[type="submit"]{
+				background-color: @blue;
+				border: 1px solid #ccc;
+				padding: 5px 10px;
+				color: white;
+				.border-radius(5px);
+				font-weight: bolder;
+				cursor: pointer;
+
+				&:hover{
+				    background-color: @blue;
+				    color: white;
+				}
+			    }
+
+			    input[type="text"],
+			    textarea {
+				.border-radius(4px);
+				border: none;
+				background-color: lighten(@green, 18%);
+				color: black;
+				padding: 3px;
+				padding-left: 10px;
+				.transition(all);
+
+				&:hover{
+				    background-color: @green;
+				}
+
+				&:focus{
+				    background-color: white;
+				    background-color: black;
+				    box-shadow: 0 0 10px @green;
+				    color: @green;
+				    outline: 0 none;
 				}
 			    }
 			}
