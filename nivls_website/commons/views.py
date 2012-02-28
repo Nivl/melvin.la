@@ -3,6 +3,14 @@ import subprocess
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.template import Context
+from django.shortcuts import render_to_response
+from django.views.generic.base import TemplateView
+
+class TexplainView(TemplateView):
+    def render_to_response(self, context, **kwargs):
+        return super(TexplainView, self).render_to_response(context
+                                                            ,content_type='text/plain'
+                                                            ,**kwargs)
 
 def write_pdf(template_src, context_dict, output):
     template = get_template(template_src)
