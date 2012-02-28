@@ -57,7 +57,7 @@ feeds_urlpatterns = patterns(
     url(r'^tag/(?P<slug>[-\w]+)/rss/$', TagFeed()),
     url(r'^category/(?P<slug>[-\w]+)/rss/$', CatFeed()),
 
-    url(r'^feed/latest/atom/$', LatestPostFeedAtom()),
+    url(r'^feed/latest/atom/$', LatestPostFeedAtom(), name="atom-blog-latest"),
     url(r'^tag/(?P<slug>[-\w]+)/atom/$', TagFeedAtom()),
     url(r'^category/(?P<slug>[-\w]+)/atom/$', CatFeedAtom()),
     )

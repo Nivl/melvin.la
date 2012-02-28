@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-28 01:22+0100\n"
+"POT-Creation-Date: 2012-02-29 00:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: feeds.py:10
+#, python-format
+msgid "%(sitename)s - Latest posts"
+msgstr "%(sitename)s - Derniers articles"
+
+#: feeds.py:12
+msgid "List of the latest posts"
+msgstr "Liste des derniers articles"
+
+#: feeds.py:33
+#, python-format
+msgid "%(sitename)s - Tag: %(name)s"
+msgstr "%(sitename)s - Tag : %(name)s"
+
+#: feeds.py:37
+#, python-format
+msgid "Latest posts for the tag '%(name)s'"
+msgstr "Derniers articles du tag '%(name)s'"
+
+#: feeds.py:52
+#, python-format
+msgid "%(sitename)s - Category: %(name)s"
+msgstr "%(sitename)s - Categorie : %(name)s"
+
+#: feeds.py:56
+#, python-format
+msgid "Latest posts for the category '%(name)s'"
+msgstr "Derniers articles de la catégorie '%(name)s'"
 
 #: forms.py:7
 msgid "Subject"

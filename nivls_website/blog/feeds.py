@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404
 from django.contrib.syndication.views import Feed
 from models import Post, Tag, Category
@@ -6,18 +7,19 @@ from django.utils.feedgenerator import Atom1Feed
 import markdown
 
 class LatestPostFeed(Feed):
-    title = "Laplanche-melv.in last post"
+    title = _("%(sitename)s - Latest posts") % {'sitename': 'Laplanche-melv.in'}
     link = "/"
-    description  = "blabla"
+    description  = _("List of the latest posts")
 
     def items(self):
-        return Post.objects.order_by("-pub_date")[:10]
+        return Post.objects.filter(site=settings.SITE_ID
+                                    ).order_by("-pub_date")[:10]
 
     def item_title(self, item):
         return item.title
 
     def item_link(self, item):
-        return "http://blog." + settings.DOMAIN_NAME + item.get_absolute_url()
+        return item.get_absolute_url()
 
     def item_description(self, item):
         return markdown.markdown(item.parsed_content())
@@ -28,16 +30,18 @@ class TagFeed(LatestPostFeed):
         return get_object_or_404(Tag, slug=slug)
 
     def title(self, obj):
-        return "Laplanche-melv.in - Tag: %s" % obj.name
+        return _("%(sitename)s - Tag: %(name)s") % {'name' : obj.name
+                                                    ,'sitename' : 'Laplanche-melv.in'}
 
     def description(self, obj):
-        return "Latest post for the tag %s" % obj.name
+        return _("Latest posts for the tag '%(name)s'") % {'name' : obj.name}
 
     def link(self, obj):
         return obj.get_absolute_url()
 
     def items(self, obj):
-        return Post.objects.filter(tags=obj).order_by("-pub_date")[:10]
+        return Post.objects.filter(site=settings.SITE_ID
+                                   ,tags=obj).order_by("-pub_date")[:10]
 
 
 class CatFeed(LatestPostFeed):
@@ -45,16 +49,18 @@ class CatFeed(LatestPostFeed):
         return get_object_or_404(Category, slug=slug)
 
     def title(self, obj):
-        return "Laplanche-melv.in - Category: %s" % obj.name
+        return _("%(sitename)s - Category: %(name)s") % {'name' : obj.name
+                                                         ,'sitename' : 'Laplanche-melv.in'}
 
     def description(self, obj):
-        return "Latest post for the category %s" % obj.name
+        return _("Latest posts for the category '%(name)s'") % {'name' : obj.name}
 
     def link(self, obj):
         return obj.get_absolute_url()
 
     def items(self, obj):
-        return Post.objects.filter(category=obj).order_by("-pub_date")[:10]
+        return Post.objects.filter(site=settings.SITE_ID
+                                   ,category=obj).order_by("-pub_date")[:10]
 
 
 ### ATOM
