@@ -63,6 +63,52 @@ body form label {
   float: left;
   width: 150px;
 }
+body form input[type="submit"] {
+  background-color: #0091ff;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+body form input[type="submit"]:hover {
+  background-color: #0091ff;
+  color: white;
+}
+body form input[type="text"] {
+  width: 200px;
+}
+body form input[type="text"], body form textarea {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -o-border-radius: 4px;
+  border: none;
+  background-color: #b7db86;
+  color: #1e1b1a;
+  padding: 3px;
+  padding-left: 5px;
+  transition: all 0.2s linear 0;
+  -o-transition: all 0.2s linear 0;
+  -webkit-transition: all 0.2s linear 0;
+  -moz-transition-property: all;
+  -moz-transition-duration: 0.2s;
+  -moz-transition-timing-function: linear;
+  -moz-transition-delay: all;
+}
+body form input[type="text"]:hover, body form textarea:hover {
+  background-color: #8dc63f;
+}
+body form input[type="text"]:focus, body form textarea:focus {
+  background-color: #1e1b1a;
+  box-shadow: 0 0 10px #8dc63f;
+  color: #8dc63f;
+  outline: 0 none;
+}
 body .clear {
   clear: both;
 }
@@ -416,52 +462,6 @@ body #body #body-container #page-content article footer section#comments .commen
 }
 body #body #body-container #page-content article footer section#comments .comment .content p {
   margin: 10px 5px 10px 0;
-}
-body #body #body-container #page-content article #comment_form form input[type="submit"] {
-  background-color: #0091ff;
-  border: 1px solid #ccc;
-  padding: 5px 10px;
-  color: white;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -o-border-radius: 5px;
-  font-weight: bolder;
-  cursor: pointer;
-}
-body #body #body-container #page-content article #comment_form form input[type="submit"]:hover {
-  background-color: #0091ff;
-  color: white;
-}
-body #body #body-container #page-content article #comment_form form input[type="text"] {
-  width: 200px;
-}
-body #body #body-container #page-content article #comment_form form input[type="text"], body #body #body-container #page-content article #comment_form form textarea {
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -o-border-radius: 4px;
-  border: none;
-  background-color: #b7db86;
-  color: #1e1b1a;
-  padding: 3px;
-  padding-left: 5px;
-  transition: all 0.2s linear 0;
-  -o-transition: all 0.2s linear 0;
-  -webkit-transition: all 0.2s linear 0;
-  -moz-transition-property: all;
-  -moz-transition-duration: 0.2s;
-  -moz-transition-timing-function: linear;
-  -moz-transition-delay: all;
-}
-body #body #body-container #page-content article #comment_form form input[type="text"]:hover, body #body #body-container #page-content article #comment_form form textarea:hover {
-  background-color: #8dc63f;
-}
-body #body #body-container #page-content article #comment_form form input[type="text"]:focus, body #body #body-container #page-content article #comment_form form textarea:focus {
-  background-color: #1e1b1a;
-  box-shadow: 0 0 10px #8dc63f;
-  color: #8dc63f;
-  outline: 0 none;
 }
 body #body #body-container #page-content #slideshow {
   width: 580px;
