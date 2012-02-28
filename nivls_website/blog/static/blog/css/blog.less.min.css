@@ -358,7 +358,7 @@ body #body #body-container #page-content article #comment_form form input[type="
   -o-border-radius: 4px;
   border: none;
   background-color: #b7db86;
-  color: black;
+  color: #1e1b1a;
   padding: 3px;
   padding-left: 10px;
   transition: all 0.2s linear 0;
@@ -373,8 +373,7 @@ body #body #body-container #page-content article #comment_form form input[type="
   background-color: #8dc63f;
 }
 body #body #body-container #page-content article #comment_form form input[type="text"]:focus, body #body #body-container #page-content article #comment_form form textarea:focus {
-  background-color: white;
-  background-color: black;
+  background-color: #1e1b1a;
   box-shadow: 0 0 10px #8dc63f;
   color: #8dc63f;
   outline: 0 none;
