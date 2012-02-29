@@ -22,8 +22,8 @@ sitemaps = dict(smap_about.items() + smap_blog.items() + smap_lab.items())
 
 urlpatterns += patterns(
     'django.contrib.sitemaps.views',
-    url(r'^sitemap\.xml$', 'sitemap', {'sitemaps': sitemaps}),
+    url(r'^sitemap\.xml$', 'sitemap', {'sitemaps': sitemaps}, name="sitemap"),
 
-    url(r'^robots.txt$', include('robots.urls')),
+    url(r'^robots.txt$', TexplainView.as_view(template_name='robots.txt')),
     url(r'^humans.txt$', TexplainView.as_view(template_name='humans.txt')),
     )

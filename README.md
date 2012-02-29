@@ -6,4 +6,3 @@ Requirements
 * [akismet](http://kemayo.wordpress.com/2005/12/02/akismet-py/)
 * [django-sentry](https://github.com/dcramer/django-sentry)
 * [wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/) >= 0.11.0 rc1
-* [django-debug-toolbar](https://github.com/django-debug-toolbar/django-debug-toolbar) (or remove it from INSTALLED\_APPS and MIDDLEWARE_CLASSES in setting.py)
