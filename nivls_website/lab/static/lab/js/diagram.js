@@ -10,7 +10,7 @@ var o = {
 	var coef = diam / 600
 	var r = Raphael('diagram', diam, diam),
 	rad = 73,
-	defaultText = 'Langages',
+	defaultText = gettext('Languages'),
 	speed = 250;
 
 	r.circle(diam/2, diam/2, 85 - (coef * 10))

@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block "head_js" %}
+  <script src="{% url django.views.i18n.javascript_catalog %}"></script>
   <script src="{{ STATIC_URL }}lab/js/raphael-2.0.0-min.js"></script>
   <script src="{{ STATIC_URL }}lab/js/jquery.easing.1.3.js"></script>
   <script src="{{ STATIC_URL }}lab/js/jquery.prettyPhoto.js"></script>

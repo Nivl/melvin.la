@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-26 16:01+0100\n"
+"POT-Creation-Date: 2012-02-29 18:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,6 +43,22 @@ msgid "Demos"
 msgstr "Démos"
 
 #: templates/lab/project_includes/infos.html:3
-#, python-format
-msgid "Informations about %(project.name)s"
+#, fuzzy, python-format
+msgid "Informations about %(project_name)s"
 msgstr "Informations sur %(project.name)s"
+
+#: templates/lab/project_includes/infos.html:26
+msgid "Project License: "
+msgstr "Licence du projet : "
+
+#: templates/lab/project_includes/infos.html:44
+msgid "Browse the sources"
+msgstr "Voir les sources du projet"
+
+#: templates/lab/project_includes/infos.html:57
+msgid "Client(s)"
+msgstr "Client(s)"
+
+#: templates/lab/project_includes/infos.html:83
+msgid "Team"
+msgstr "Équipe"
