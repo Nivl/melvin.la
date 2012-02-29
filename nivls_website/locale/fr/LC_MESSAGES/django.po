@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-26 17:28+0100\n"
+"POT-Creation-Date: 2012-02-29 17:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,14 +39,16 @@ msgstr ""
 msgid ""
 "New comment from: <strong>%(comment.user_name)s</strong> on <strong>"
 "%(content_object)s</strong>"
-msgstr "Nouveau commentaire de : <strong>%(comment.user_name)s</strong> "
-"sur <strong>%(content_object)s</strong>"
+msgstr ""
+"Nouveau commentaire de : <strong>%(comment.user_name)s</strong> sur <strong>"
+"%(content_object)s</strong>"
 
 #: templates/comments/comment_notification_email.txt:5
 msgid "Author info:"
 msgstr "Information:"
 
 #: templates/comments/comment_notification_email.txt:6
+#, fuzzy
 msgid "Email: "
 msgstr "Email : "
 
@@ -59,6 +61,7 @@ msgid "IP: "
 msgstr "IP : "
 
 #: templates/comments/comment_notification_email.txt:10
+#, fuzzy
 msgid "Comment was: "
 msgstr "Le commentaire est : "
 
