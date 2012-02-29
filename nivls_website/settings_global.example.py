@@ -88,8 +88,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'sentry.client.middleware.Sentry404CatchMiddleware',
 )
 
 TEMPLATE_DIRS = (
@@ -109,7 +109,8 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'debug_toolbar',
     'robots',
-    'commons'.
+    'sentry',
+    'sentry.client',
 )
 
 DEFAULT_FILE_STORAGE = "commons.storage.UniqueFileSystemStorage"
