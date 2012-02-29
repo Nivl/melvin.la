@@ -5,8 +5,14 @@ from django.template.loader import get_template
 from django.template import Context
 from django.shortcuts import render_to_response
 from django.views.generic.base import TemplateView
+from django.contrib.sites.models import Site
 
 class TexplainView(TemplateView):
+    def get_context_data(self, **kwargs):
+        context = super(TexplainView, self).get_context_data(**kwargs)
+        context['site'] = Site.objects.get_current()
+        return context;
+
     def render_to_response(self, context, **kwargs):
         return super(TexplainView, self).render_to_response(context
                                                             ,content_type='text/plain'
