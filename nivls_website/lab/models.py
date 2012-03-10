@@ -18,8 +18,9 @@ class Language(models.Model):
 
 
 class License(models.Model):
+    site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name        = models.CharField(max_length=50)
-    slug        = models.SlugField(unique=True)
+    slug        = models.SlugField()
     url         = models.URLField(null=True, blank=True)
     image       = models.ImageField(upload_to="lab/licenses/"
                                     ,null=True
@@ -36,6 +37,9 @@ class License(models.Model):
                     os.remove(origin.image.path)
         super(License, self).save(*arg, **kwargs)
 
+
+    class Meta:
+        unique_together = ('site', 'slug')
 
 class Coworker(models.Model):
     site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
@@ -83,12 +87,14 @@ class Client(models.Model):
     class Meta:
         unique_together = ('site', 'slug')
 
+
 class Project(models.Model):
     site         = models.ForeignKey(I18nSite, default=settings.SITE_ID)
     name         = models.CharField(max_length=255)
     slug         = models.SlugField()
     start_date   = models.DateField(default=datetime.now)
-    license      = models.ForeignKey(License)
+    license      = models.ForeignKey(License
+                                     ,limit_choices_to={'site': settings.SITE_ID})
     sources_url  = models.URLField(null=True, blank=True)
     description  = models.TextField()
     edit_date    = models.DateField(auto_now=True)

@@ -36,24 +36,15 @@ class ProjectAdmin(admin.ModelAdmin):
 class LanguageAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
 
-class LicenseAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',),}
-
-class CoworkerAdmin(admin.ModelAdmin):
+class CommonAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
 
     def queryset(self, request):
-        return super(CoworkerAdmin, self).queryset(request).filter(site=settings.SITE_ID)
-
-class ClientAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',),}
-
-    def queryset(self, request):
-        return super(ClientAdmin, self).queryset(request).filter(site=settings.SITE_ID)
+        return super(CommonAdmin, self).queryset(request).filter(site=settings.SITE_ID)
 
 admin.site.register(Language, LanguageAdmin)
-admin.site.register(License, LicenseAdmin)
+admin.site.register(License, CommonAdmin)
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(Coworker, CoworkerAdmin)
-admin.site.register(Client, ClientAdmin)
+admin.site.register(Coworker, CommonAdmin)
+admin.site.register(Client, CommonAdmin)
 admin.site.register(DownloadIcon)
