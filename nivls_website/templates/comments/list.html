@@ -6,11 +6,11 @@
   {% for comment in comment_list %}
     <section class="comment">
       <span class="info">
-	{% trans "By " %},
+	{% trans "By " %}
 	{% if comment.url %}
-	  <a href="{{ comment.url }}">{{ comment.user_name }}</a>
+	  <a href="{{ comment.url }}">{{ comment.user_name }}</a>,
 	{% else %}
-	  {{ comment.user_name }}
+	  {{ comment.user_name }},
 	{% endif %}
 	 <time datetime="{{ comment.submit_date|date:"cO"|fix_html5_tz }}" pubdate>
 	  {{ comment.submit_date|naturalday }}
