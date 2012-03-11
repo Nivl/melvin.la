@@ -1,3 +1,6 @@
+$.blockUI.defaults.css = { cursor: 'wait'};
+$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
 $(document).ready(function(){
     var konamiCount = 1;
     $(window).konami(function() {
