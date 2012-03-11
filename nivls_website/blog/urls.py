@@ -53,15 +53,14 @@ static_urlpatterns = patterns(
 
 feeds_urlpatterns = patterns(
     '',
-    url(r'^feed/latest/rss/$', LatestPostFeed()),
-    url(r'^tag/(?P<slug>[-\w]+)/rss/$', TagFeed()),
-    url(r'^category/(?P<slug>[-\w]+)/rss/$', CatFeed()),
+    url(r'^feed/latest/rss/$', LatestPostFeed(), name="rss-blog-latest"),
+    url(r'^tag/(?P<slug>[-\w]+)/rss/$', TagFeed(), name="rss-blog-tag-latest"),
+    url(r'^category/(?P<slug>[-\w]+)/rss/$', CatFeed(), name="rss-blog-category-latest"),
 
     url(r'^feed/latest/atom/$', LatestPostFeedAtom(), name="atom-blog-latest"),
-    url(r'^tag/(?P<slug>[-\w]+)/atom/$', TagFeedAtom()),
-    url(r'^category/(?P<slug>[-\w]+)/atom/$', CatFeedAtom()),
+    url(r'^tag/(?P<slug>[-\w]+)/atom/$', TagFeedAtom(), name="atom-blog-tag-latest"),
+    url(r'^category/(?P<slug>[-\w]+)/atom/$', CatFeedAtom(), name="atom-blog-category-latest"),
     )
-
 
 sitemaps = {
     'blog_post': PostSitemap,
