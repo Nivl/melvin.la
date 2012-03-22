@@ -4,21 +4,35 @@
 <!DOCTYPE html>
 <html lang="{% trans "en" %}">
   <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="{% block "meta-description" %}{{ seo.description }}{% endblock %}">
-    <meta name="keywords" content="{{ seo.keywords }}">
-
+    <meta charset="utf-8">
     <title>{% block "title" %}{{ seo.title }}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="{{ seo.keywords }}">
+    <meta name="description"
+	  content="{% block "meta-description" %}{{ seo.description }}{% endblock %}">
 
-    <link href="http://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
-    <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}commons/css/reset.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}commons/css/fancybox.css">
-    <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}commons/css/main.less.min.css">
-    {% block "head_link" %}{% endblock %}
+    <link rel="stylesheet"
+	  href="{{ STATIC_URL }}commons/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+	  href="{{ STATIC_URL }}commons/css/main.min.css">
+
+    <link rel="stylesheet"
+	  href="{{ STATIC_URL }}commons/css/bootstrap-responsive.min.css">
+
     {% block "head_css" %}{% endblock %}
+    {% block "head_link" %}{% endblock %}
+
+
     <!--[if lt IE 9]>
-	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+	</script>
+    <![endif]-->
+  </head>
+
+  <body>
+    {% block "body" %}{% endblock %}
+
     <script src="https://www.google.com/jsapi"></script>
     <script>
       var STATIC_URL = "{{ STATIC_URL }}";
@@ -26,15 +40,30 @@
       google.load("jquery", "1.7");
     </script>
 
+    <script src="{{ STATIC_URL }}commons/js/bootstrap.min.js"></script>
+    <!--
     <script src="{{ STATIC_URL }}commons/js/jquery.fancybox.pack.js"></script>
     <script src="{{ STATIC_URL }}commons/js/jquery.blockUI.js"></script>
     <script src="{{ STATIC_URL }}commons/js/koco.jquery.js"></script>
     <script src="{{ STATIC_URL }}commons/js/dream.js"></script>
     <script src="{{ STATIC_URL }}commons/js/main.js"></script>
+    -->
     {% block "head_js" %}{% endblock %}
     {{ seo.free_block|safe }}
-  </head>
-  <body>
-    {% block "body" %}{% endblock %}
+<!--
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/bootstrap-transition.js"></script>
+    <script src="../assets/js/bootstrap-alert.js"></script>
+    <script src="../assets/js/bootstrap-modal.js"></script>
+    <script src="../assets/js/bootstrap-dropdown.js"></script>
+    <script src="../assets/js/bootstrap-scrollspy.js"></script>
+    <script src="../assets/js/bootstrap-tab.js"></script>
+    <script src="../assets/js/bootstrap-tooltip.js"></script>
+    <script src="../assets/js/bootstrap-popover.js"></script>
+    <script src="../assets/js/bootstrap-button.js"></script>
+    <script src="../assets/js/bootstrap-collapse.js"></script>
+    <script src="../assets/js/bootstrap-carousel.js"></script>
+    <script src="../assets/js/bootstrap-typeahead.js"></script>
+-->
   </body>
 </html>

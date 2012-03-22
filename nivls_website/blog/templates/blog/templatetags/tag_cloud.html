@@ -1,10 +1,16 @@
 {% load i18n %}
-{% for tag in tags %}
-  <a href="{{ tag.obj.get_absolute_url }}"
-     title="{% blocktrans count counter=tag.obj.num_post %}1 post{% plural %}{{ counter }} posts{% endblocktrans %}"
-     style="font-size: {{tag.size}}px;" >
-    {{ tag.obj.name }}
-  </a>
-{% empty %}
-  {% trans "There are no tags." %}
-{% endfor %}
+
+<li class="nav-header">{% trans "Tags" %}</li>
+<li>
+  <div id="tagcloud">
+    {% for tag in tags %}
+      <a href="{{ tag.obj.get_absolute_url }}"
+	 title="{% blocktrans count counter=tag.obj.num_post %}1 post{% plural %}{{ counter }} posts{% endblocktrans %}"
+	 style="font-size: {{tag.size}}px;" >
+	{{ tag.obj.name }}
+      </a>
+    {% empty %}
+      {% trans "There are no tags." %}
+    {% endfor %}
+  </div>
+</li>

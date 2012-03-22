@@ -1,28 +1,12 @@
 {% load blog_tags i18n %}
 
-<nav id="menu">
-  <section>
-    <h3>{% trans "Categories" %}</h3>
-    <ul class="tree">
+<div id="menu" class="span3">
+  <nav class="well sidebar-nav">
+    <ul class="nav nav-list">
       {% blog_categories %}
-    </ul>
-  </section>
-
-  <div id="menu-list">
-    {% blog_menus %}
-  </div>
-
-  <section>
-    <h3>{% trans "Tags" %}</h3>
-    <div id="tagcloud">
-      {% blog_tagcloud %}
-    </div>
-  </section>
-
-  <section>
-    <h3>{% trans "Archives" %}</h3>
-    <ul class="tree">
+      {% blog_menus %}
       {% blog_archives %}
+      {% blog_tagcloud %}
     </ul>
-  </section>
-</nav>
+  </nav>
+</div>

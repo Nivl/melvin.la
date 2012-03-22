@@ -2,16 +2,23 @@
 {% load blog_tags %}
 
 {% block "content" %}
+  {% blog_slideshow %}
+  {% blog_post_list posts.object_list %}
+
+
+<!--
+
+
   <div id="homepage">
-    {% blog_slideshow %}
 
     <section id="post_list">
-      {% blog_post_list posts.object_list %}
     </section>
 
     <section id="pagination">
       {% blog_pagination posts %}
     </section>
   </div>
+
+-->
 {% endblock %}
 

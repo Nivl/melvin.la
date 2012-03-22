@@ -9,27 +9,43 @@
   {% block "sub_head_link" %}{% endblock "sub_head_link" %}
 {% endblock "head_link" %}
 
+<!--
 {% block "head_js" %}
   {% block "sub_head_js" %}{% endblock "sub_head_js" %}
   <script src="{{ STATIC_URL }}blog/js/slides.min.jquery.js"></script>
   <script src="{{ STATIC_URL }}blog/js/blog.js"></script>
 {% endblock "head_js" %}
+-->
 
 {% block "head_css" %}
   {% block "sub_head_css" %}{% endblock "sub_head_css" %}
-  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}blog/css/blog.less.min.css">
+  <link rel="stylesheet" media="screen"
+	href="{{ STATIC_URL }}blog/css/blog.min.css">
 {% endblock "head_css" %}
 
 {% block "body" %}
-  <div id="body">
-    <div id="body-container">
-      {% include "blog/header.html" %}
+<!--
+    <section id="page-content">
 
-      {% include "blog/menu.html" %}
-      <section id="page-content">
-	{% block "content" %}{% endblock "content" %}
-      </section>
+    </section>
+</div>
+{% include "blog/footer.html" %}
+-->
+
+{% include "blog/header.html" %}
+
+<div class="container">
+  <div class="row">
+
+    <div id="body" class="span9">
+      {% block "content" %}{% endblock "content" %}
     </div>
-    {% include "blog/footer.html" %}
+
+    {% include "blog/menu.html" %}
+
   </div>
+</div>
+
+{% include "blog/footer.html" %}
+
 {% endblock "body" %}

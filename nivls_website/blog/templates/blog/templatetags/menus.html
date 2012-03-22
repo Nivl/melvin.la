@@ -1,20 +1,17 @@
 {% load i18n %}
 
 {% for menu in menus %}
-  <section id="menu_{{ menu.slug }}">
-    <h3>{{ menu.name }}</h3>
+  <li id="menu_{{ menu.slug }}"
+      class="nav-header">{{ menu.name }}</li>
 
-    <ul class="tree">
-      {% with menu.link_set.all as links %}
-	{% for link in links %}
-	  <li>
-	    <a title="{{ link.title }}" href="{{ link.url }}">
-	      {{ link.name }}
-	    </a>
-	{% empty %}
-          <li> {% trans "There are no links." %}
-	{% endfor %}
-      {% endwith %}
-    </ul>
-  </section>
+  {% with menu.link_set.all as links %}
+    {% for link in links %}
+      <li>
+	<a title="{{ link.title }}" href="{{ link.url }}">
+	  {{ link.name }}
+	</a>
+    {% empty %}
+      <li> {% trans "There are no links." %}
+    {% endfor %}
+  {% endwith %}
 {% endfor %}

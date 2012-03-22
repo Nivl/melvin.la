@@ -1,5 +1,7 @@
 {% load i18n %}
 
+<li class="nav-header">{% trans "Categories" %}</li>
+
 {% for object in nested_tree %}
   {% ifequal object "level_down" %}
     </ul>
