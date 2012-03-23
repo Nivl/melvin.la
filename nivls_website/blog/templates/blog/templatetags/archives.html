@@ -1,6 +1,9 @@
 {% load i18n l10n %}
 
-<li class="nav-header">{% trans "Archives" %}</li>
+<li class="nav-header">
+  <i class="icon-book"></i>
+  {% trans "Archives" %}
+</li>
 
 {% for date in dates %}
   <li>

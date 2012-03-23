@@ -1,12 +1,43 @@
 {% load blog_tags i18n %}
 
 <div id="menu" class="span3">
+
+<nav class="well sidebar-nav">
+    <ul class="nav nav-list">
+      {% blog_categories %}
+      <li class="divider"></li>
+      {% blog_menus %}
+      <li class="divider"></li>
+      {% blog_tagcloud %}
+      <li class="divider"></li>
+      {% blog_archives %}
+    </ul>
+  </nav>
+
+<!--
   <nav class="well sidebar-nav">
     <ul class="nav nav-list">
       {% blog_categories %}
+    </ul>
+  </nav>
+
+  <nav class="well sidebar-nav">
+    <ul class="nav nav-list">
       {% blog_menus %}
-      {% blog_archives %}
+    </ul>
+  </nav>
+
+  <nav class="well sidebar-nav">
+    <ul class="nav nav-list">
       {% blog_tagcloud %}
     </ul>
   </nav>
+
+
+  <nav class="well sidebar-nav">
+    <ul class="nav nav-list">
+      {% blog_archives %}
+    </ul>
+  </nav>
+-->
 </div>
