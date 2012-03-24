@@ -37,9 +37,6 @@ urlpatterns = patterns(
         'nivls_website.blog.views.post_list_by_tags',
         name='tag'),
 
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login',
-        {'template_name': 'blog/login.html'}, name='login'),
-
     url(r'^comments/', include('django.contrib.comments.urls')),
 )
 
