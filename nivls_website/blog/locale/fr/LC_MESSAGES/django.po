@@ -148,7 +148,7 @@ msgstr "Il n'y a aucun commentaire"
 msgid "1 comment"
 msgid_plural "%(counter)s comments"
 msgstr[0] "1 commentaire"
-msgstr[1] "%(counter)s 1 commentaires"
+msgstr[1] "%(counter)s commentaires"
 
 #: templates/blog/post.html:92
 msgid "Comments has been disabled for this post."

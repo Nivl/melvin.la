@@ -15,7 +15,7 @@
   <article id="post">
     <header>
       <h2>{{ post.title }}</h2>
-      <div class="add-this">
+      <div class="pull-right add-this">
 	<!-- AddThis Button BEGIN -->
 	<div class="addthis_toolbox addthis_default_style ">
 	  <a class="addthis_button_google_plusone" g:plusone:count="false"></a>
@@ -37,7 +37,7 @@
 	{% with post.tags.all as tags %}
 	  {% if tags %}
 	    <br />
-	    {% trans "Tagged under: " %}
+	    <i class="icon-tags"></i>
 	    {% for tag in tags %}
 	      <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
 	      {% if not forloop.last %},{% endif %}
@@ -67,8 +67,9 @@
     <footer>
       {% if post.lab %}
 	<div class="lab-button">
-	  <a class="button lab-project"
+	  <a class="btn btn-info lab-project"
 	     href="{{ post.lab.get_absolute_url }}">
+	    <i class="icon-info-sign icon-white"></i>
 	    {% trans "Know more" %}
 	  </a>
 	</div>

@@ -2,26 +2,32 @@
 
 <script type="text/javascript">
 function bindPostCommentHandler() {
-    $('#comment_form form input.submit-preview').remove();
-    $('#comment_form form').submit(function() {
+    $('#comment-form').submit(function() {
+	$('#comment-form')
+	    .find("button[type='submit']")
+	    .button('loading')
+
         $.ajax({
             type: "POST",
-            data: $('#comment_form form').serialize(),
-            url: "{% comment_form_target %}",
+            data: $('#comment-form').serialize(),
+            url: '{% comment_form_target %}',
             cache: false,
             dataType: "html",
             success: function(html, textStatus) {
-		$('#comment_form form').replaceWith(html)
+		$('#comment-form').replaceWith(html);
                 bindPostCommentHandler();
 	    },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $('#comment_form form').replaceWith('<div class="error">{% trans "Your comment was unable to be posted at this time. We apologise for the inconvenience." %}</div>');
+		$('#comment-form')
+		    .find("button[type='submit']")
+		    .button('reset')
+
+                $('#comment-form').before('<div class="alert alert-error alert-block fade in"><a class="close" data-dismiss="alert">×</a><h4 class="alert-heading">{% trans "Error!" %}</h4>{% trans "Your comment was unable to be posted at this time. We apologise for the inconvenience." %}</div>');
             }
         });
         return false;
     });
 }
-
 
 $(document).ready(function() {
     bindPostCommentHandler();

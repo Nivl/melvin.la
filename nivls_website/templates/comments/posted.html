@@ -1,2 +1,6 @@
 {% load i18n %}
-<div class="success">{% trans "Your comment has been successfully saved, it will soon be validated by an administrator." %}</div>
+
+<div class="alert alert-success alert-block">
+  <h4 class="alert-heading">{% trans "Sent!" %}</h4>
+  {% trans "Your comment has been successfully saved, it will soon be validated by an administrator." %}
+</div>
