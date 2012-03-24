@@ -1,4 +1,5 @@
 {% load i18n  %}
+{% load url from future  %}
 
 <header id="page-header">
   <div id="header-central">
@@ -6,9 +7,9 @@
   </div>
   <nav id="second-list">
     <ul>
-      <li><a href="{% url blog %}">{% trans "Blog" %}</a>
-      <li><a href="{% url contact %}">{% trans "Contact" %}</a>
-      <li><a href="{% url home %}">{% trans "about" %}</a>
+      <li><a href="{% url "blog" %}">{% trans "Blog" %}</a>
+      <li><a href="{% url "contact" %}">{% trans "Contact" %}</a>
+      <li><a href="{% url "home" %}">{% trans "about" %}</a>
 
       <li id="facebook-icon" class="icons">
 	<a href="https://facebook.com/melvin.laplanche"></a>
@@ -17,7 +18,7 @@
       <li id="google-icon" class="icons">
 	<a href="https://plus.google.com/107029584179497153748/posts"></a>
       <li id="rss-icon" class="icons">
-	<a href="{% url atom-blog-latest %}"></a>
+	<a href="{% url "atom-blog-latest" %}"></a>
       <li id="github-icon" class="icons">
 	<a href="https://github.com/Nivl"></a>
     </ul>

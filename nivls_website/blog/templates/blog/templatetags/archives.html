@@ -1,8 +1,9 @@
+{% load url from future %}
 {% load i18n l10n %}
 
 {% for date in dates %}
   <li>
-    <a href="{% url archives-month year=date|date:"Y" month=date|date:"m" %}">
+    <a href="{% url "archives-month" year=date|date:"Y" month=date|date:"m" %}">
       {{ date|date:'F Y' }}
     </a>
 {% empty %}

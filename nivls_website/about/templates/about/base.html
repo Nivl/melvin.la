@@ -1,5 +1,6 @@
 {% extends "base.html"%}
 
+{% load url from future %}
 {% load markup i18n %}
 
 {% block "head_js" %}
@@ -17,10 +18,10 @@
 
     <nav>
       <ul>
-	<li><a href="{% url home %}">{% trans "Home" %}</a>
-	<li><a href="{% url portfolio %}">{% trans "Portfolio" %}</a>
-	<li><a href="{% url cv %}">{% trans "C.V." %}</a>
-	<li><a href="{% url blog %}">{% trans "Blog" %}</a>
+	<li><a href="{% url "home" %}">{% trans "Home" %}</a>
+	<li><a href="{% url "portfolio" %}">{% trans "Portfolio" %}</a>
+	<li><a href="{% url "cv" %}">{% trans "C.V." %}</a>
+	<li><a href="{% url "blog" %}">{% trans "Blog" %}</a>
       </ul>
     </nav>
   </header>
