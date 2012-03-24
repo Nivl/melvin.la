@@ -110,6 +110,7 @@ INSTALLED_APPS = (
 #    'debug_toolbar',
     'sentry',
     'sentry.client',
+    'bootstrap',
 )
 
 DEFAULT_FILE_STORAGE = "commons.storage.UniqueFileSystemStorage"

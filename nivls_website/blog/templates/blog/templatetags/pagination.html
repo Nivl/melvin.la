@@ -1,13 +1,18 @@
-{% load i18n %}
 
-{% if paginator.has_previous %}
-  <a href="?page={{ paginator.previous_page_number }}">{% trans "Previous" %}</a>
-{% endif %}
+<section class="pagination pagination-centered">
+  <ul>
 
-<span class="pagination-current">
-  {% blocktrans with current=paginator.number total=paginator.paginator.num_pages %}Page {{ current }} on {{ total }}.{% endblocktrans %}
-</span>
+    <li{% if not paginator.has_previous %} class="disabled"{% endif %}>
+      <a href="?page={{ paginator.previous_page_number }}">«</a>
 
-{% if paginator.has_next %}
-  <a href="?page={{ paginator.next_page_number }}">{% trans "Next" %}</a>
-{% endif %}
+    {% for i in paginator.paginator.page_range %}
+      <li{% ifequal i paginator.number %} class="active"{% endifequal %}>
+      	<a href="?page={{ i }}">{{ i }}</a>
+    {% endfor %}
+
+
+    <li{% if not paginator.has_next %} class="disabled"{% endif %}>
+      <a href="?page={{ paginator.previous_page_number }}">»</a>
+
+  </ul>
+</section>

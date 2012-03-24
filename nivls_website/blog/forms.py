@@ -1,13 +1,16 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
+from bootstrap.forms import BootstrapForm, Fieldset
 from commons import happyforms
 from commons.protection import akismet_is_valid
-from django.utils.translation import ugettext_lazy as _
 
-class ContactForm(forms.Form):
+class ContactForm(BootstrapForm, happyforms.Form):
     subject     = forms.CharField(max_length=100, label=_('Subject'))
     email       = forms.EmailField(label=_('Email address'))
     message     = forms.CharField(widget=forms.Textarea, label=_('Message'))
-    honeypot    = forms.CharField(required=False)
+    honeypot    = forms.CharField(required=False
+                                  ,label="<!-- honeypot -->"
+                                  ,widget=forms.TextInput(attrs={'class': 'hidden'}))
 
     def __init__(self, data=None, files=None, request=None, *args, **kwargs):
         if request is None:

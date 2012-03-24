@@ -14,19 +14,25 @@
       </a>
       <div class="nav-collapse">
         <ul class="nav">
-	  <li{% block active_blog %} class="active"{% endblock %}>
-	    <a href="{% url blog %}">{% trans "Blog" %}</a>
-	  <li {% block active_contact %}{% endblock %}>
+
+	  <li{% ifequal act_menu "blog" %} class="active"{% endifequal %}>
+	    <a href="{% url blog %}">
+	      {% trans "Blog" %}
+	    </a>
+
+	  <li{% ifequal act_menu "contact" %} class="active"{% endifequal %}>
 	    <a href="{% url contact %}">
 	      <i class="icon-envelope icon-white"></i>
 	      {% trans "Contact" %}
 	    </a>
+
 	  <li>
 	    <a href="{% url home %}">
 	      <i class="icon-user icon-white"></i>
 	      {% trans "about" %}
 	    </a>
         </ul>
+
 	<ul class="nav pull-right n-socialm-icons">
 	  <li id="github-icon" class="icons">
 	    <a href="https://github.com/Nivl"></a>

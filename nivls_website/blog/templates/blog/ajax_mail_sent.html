@@ -1,2 +1,7 @@
 {% load i18n %}
-<p class="success">{% trans "The message has been sent, you should receive an answer in a few hours." %}<p>
+
+<div class="alert alert-success alert-block fade in">
+  <a class="close" data-dismiss="alert">×</a>
+  <h4 class="alert-heading">{% trans "Sent!" %}</h4>
+  {% trans "The message has been successfully sent, you should receive an answer in a few hours." %}
+</div>

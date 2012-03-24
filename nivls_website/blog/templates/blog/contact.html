@@ -7,10 +7,15 @@
 
 {% block "title" %}{% trans "Contact" %}{% endblock "title" %}
 
-{% block "content" %}
-  <h2 class="center">{% trans "Contact" %}</h2>
+{% block "header" %}
+  {% with act_menu="contact" %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock "header" %}
 
-  <div id="contact_form">
-    {% display_contact_form form %}
-  </div>
+
+{% block "content" %}
+  <h1 class="text-centered">{% trans "Contact" %}</h1>
+
+  {% display_contact_form form %}
 {% endblock "content" %}

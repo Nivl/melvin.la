@@ -53,7 +53,11 @@
  **									     **
  *****************************************************************************/
 
-html, body {
+html{
+    background-color: @grayDarker;
+}
+
+body {
     background-color: @bg-color;
 }
 
@@ -108,7 +112,17 @@ html, body {
 }
 
 
+#contact-form {
+    input, textarea, select, .uneditable-input{
+	width: 320px;
+    }
+}
+
 #body {
+    h1 {
+	margin-bottom: 10px;
+    }
+
     section#post-list {
 	article {
 	    margin-bottom: 30px;
@@ -149,10 +163,6 @@ body > footer {
     p {
 	margin-bottom: 10px;
     }
-}
-
-body {
-    padding-bottom: 0;
 }
 
 #slideshow {

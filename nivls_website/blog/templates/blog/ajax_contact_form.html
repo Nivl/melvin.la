@@ -2,30 +2,42 @@
 
 <script type="text/javascript">
 function bindPostContactHandler() {
-    $('#contact_form form').submit(function() {
+    $('#contact-form').submit(function() {
+	$('#contact-form')
+	    .find("button[type='submit']")
+	    .button('loading')
+
         $.ajax({
             type: "POST",
-            data: $('#contact_form form').serialize(),
+            data: $('#contact-form').serialize(),
             url: "{% url contact %}",
             cache: false,
             dataType: "html",
             success: function(html, textStatus) {
-		var form = $(html).find("#contact_form form")
+		var form = $(html).find("#contact-form")
 		if (form.text() == '')
-		    $('#contact_form form').replaceWith(html)
-		else
-		    $('#contact_form form').replaceWith(form)
+		{
+		    $('#contact-form')
+			.find("button[type='submit']")
+			.button('reset')
 
+		    $('#contact-form').before(html);
+		}
+		else
+		    $('#contact-form').replaceWith(form)
                 bindPostContactHandler();
 	    },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $('#contact_form form').replaceWith('<div class="error">{% trans "Your message was unable to be sent at this time. We apologise for the inconvenience." %}</div>');
+		$('#contact-form')
+		    .find("button[type='submit']")
+		    .button('reset')
+
+                $('#contact-form').before('<div class="alert alert-error alert-block fade in"><a class="close" data-dismiss="alert">×</a><h4 class="alert-heading">{% trans "Error!" %}</h4>{% trans "Your message was unable to be sent at this time. We apologise for the inconvenience." %}</div>');
             }
         });
         return false;
     });
 }
-
 
 $(document).ready(function() {
     bindPostContactHandler();

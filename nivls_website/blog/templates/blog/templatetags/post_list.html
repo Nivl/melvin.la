@@ -52,38 +52,3 @@
     <p>{% trans "There are no posts." %}</p>
   {% endfor %}
 </section>
-
-<!--
-  <article>
-
-    <header>
-      <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-      <span class="info">
-	{% trans "By " %}{{ post.author }},
-	<time datetime="{{ post.pub_date|date:"cO"|fix_html5_tz }}" pubdate>
-	  {{ post.pub_date|naturalday }}
-	</time>
-	{% trans "In: " %}<a href="{{ post.category.get_absolute_url }}">
-	  {{ post.category }}
-	</a>
-	{% with post.tags.all as tags %}
-	  {% if tags %}
-	    - {% trans "Tagged under: " %}{% for tag in tags %}
-	    <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
-	      {% if not forloop.last %},{% endif %}
-	    {% endfor %}
-	  {% endif %}
-	{% endwith %}
-      </span>
-    </header>
-
-    <section class="content">
-      {{ post.long_description|markdown }}
-    </section>
-
-    <footer>
-      <a class="button" href="{{ post.get_absolute_url }}"></a>
-    </footer>
-
-  </article>
--->

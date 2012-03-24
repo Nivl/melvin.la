@@ -4,21 +4,6 @@
 {% block "content" %}
   {% blog_slideshow %}
   {% blog_post_list posts.object_list %}
-
-
-<!--
-
-
-  <div id="homepage">
-
-    <section id="post_list">
-    </section>
-
-    <section id="pagination">
-      {% blog_pagination posts %}
-    </section>
-  </div>
-
--->
+  {% blog_pagination posts %}
 {% endblock %}
 

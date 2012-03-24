@@ -9,13 +9,11 @@
   {% block "sub_head_link" %}{% endblock "sub_head_link" %}
 {% endblock "head_link" %}
 
-<!--
 {% block "head_js" %}
   {% block "sub_head_js" %}{% endblock "sub_head_js" %}
   <script src="{{ STATIC_URL }}blog/js/slides.min.jquery.js"></script>
   <script src="{{ STATIC_URL }}blog/js/blog.js"></script>
 {% endblock "head_js" %}
--->
 
 {% block "head_css" %}
   {% block "sub_head_css" %}{% endblock "sub_head_css" %}
@@ -24,28 +22,24 @@
 {% endblock "head_css" %}
 
 {% block "body" %}
-<!--
-    <section id="page-content">
 
-    </section>
-</div>
-{% include "blog/footer.html" %}
--->
+  {% with act_menu="blog" %}
+    {% block "header" %}
+      {% include "blog/header.html" %}
+    {% endblock %}
+  {% endwith %}
 
-{% include "blog/header.html" %}
+  <div class="container">
+    <div class="row">
 
-<div class="container">
-  <div class="row">
+      <div id="body" class="span9">
+	{% block "content" %}{% endblock "content" %}
+      </div>
 
-    <div id="body" class="span9">
-      {% block "content" %}{% endblock "content" %}
+      {% include "blog/menu.html" %}
+
     </div>
-
-    {% include "blog/menu.html" %}
-
   </div>
-</div>
 
-{% include "blog/footer.html" %}
-
+  {% include "blog/footer.html" %}
 {% endblock "body" %}
