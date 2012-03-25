@@ -18,6 +18,7 @@
 
 	  <li{% ifequal act_menu "blog" %} class="active"{% endifequal %}>
 	    <a href="{% url "blog" %}">
+	      <i class="icon-book icon-white"></i>
 	      {% trans "Blog" %}
 	    </a>
 
@@ -27,11 +28,39 @@
 	      {% trans "Contact" %}
 	    </a>
 
-	  <li>
-	    <a href="{% url "home" %}">
+	  <li id="menu_about" class="dropdown">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu_about">
 	      <i class="icon-user icon-white"></i>
 	      {% trans "about" %}
+	      <i class="caret"></i>
 	    </a>
+	    <ul class="dropdown-menu">
+	      <li>
+		<a href="{% url "home" %}">
+		  <i class="icon-user"></i>
+		  Melvin
+		</a>
+
+	      <li>
+		<a href="{% url "portfolio" %}">
+		  <i class="icon-picture"></i>
+		  {% trans "His portfolio" %}
+		</a>
+
+	      <li>
+		<a href="{% url "cv" %}">
+		  <i class="icon-th-list"></i>
+		  {% trans "His C.V." %}
+		</a>
+
+	      <li class="divider">
+
+	      <li>
+		<a href="https://github.com/Nivl/nivls_website">
+		  <i class="icon-share-alt"></i>
+		  Nivl's Website
+		</a>
+	    </ul>
         </ul>
 
 	<ul class="nav pull-right n-socialm-icons">
