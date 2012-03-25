@@ -1,10 +1,5 @@
 *.pyc
-nivls_website/settings_global.py
-nivls_website/*/migrations/
-nivls_website/*/fixtures/
+nivls_website/nivls_website/conf/commons.py
 /media/
 /static/
-/research/
 .directory
-/fixtures/
-/drop/
