@@ -43,16 +43,20 @@ USE_L10N = True
 
 MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                           "..",
+                                          "..",
+                                          "..",
                                           "media"))
 MEDIA_URL = 'http://media.' + DOMAIN_NAME + '/'
 
 STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                            "..",
+                                           "..",
+                                           "..",
                                            "static"))
 STATIC_URL = 'http://static.' + DOMAIN_NAME + '/'
 
 STATICFILES_DIRS = (
-    os.path.abspath(os.path.join(os.getcwd(), "static")),
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "static")),
 )
 
 # List of finder classes that know how to find static files in
@@ -91,7 +95,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates"),
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "templates"))
 )
 
 INSTALLED_APPS = (
