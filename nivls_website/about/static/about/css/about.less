@@ -23,14 +23,18 @@
 **									     **
 ******************************************************************************/
 
-body{
-    font-size: 11px;
-    color: white;
+body {
+    color: @white;
     background: @blue-bg url("../img/background.png");
 
     a {
-	color: #009ee0;
+	color: @blue;
 	text-decoration: none;
+
+	&:hover {
+	    color: @blue;
+	    text-decoration: inherit;
+	}
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -40,26 +44,53 @@ body{
 	    color: inherit;
 	}
     }
+}
 
-    h6 {
-	font-size:1em;
-    }
 
-    h5 {
-	font-size:1.1em;
-    }
+header {
+    h1 {
+	height: 100px;
+	padding-top: 50px;
+	text-align: center;
+	font-size: 55px;
+	text-shadow: 1px 1px 10px black;
+	font-weight: normal;
 
-    h4 {
-	font-size:1.3em;
-    }
+	a {
+	    &:hover {
+		color: @white;
+		text-decoration: inherit;
+	    }
 
-    h3 {
-	font-size:1.6em;
-    }
+	    span {
+		position: relative;
+		left:0;
+		top:0;
+		.transition(all 0.2s linear);
 
-    h2 {
-	font-size: 2em;
+		&:hover{
+		    top: 10px;
+		}
+	    }
+
+	    span.char15 {
+		left: 13px;
+		top: -33px;
+		.noTransition();
+	    }
+
+	    span.char16 {
+		.noTransition();
+
+		&:hover {
+		    top: inherit;
+		}
+	    }
+	}
     }
+}
+
+
 
     sup {
 	vertical-align: 5px;
@@ -71,43 +102,6 @@ body{
     }
 
     header {
-	margin: 0 auto;
-	margin-bottom: 80px;
-
-	h1 {
-	    height: 100px;
-	    padding-top: 50px;
-	    text-align: center;
-	    font-size: 5em;
-	    text-shadow: 1px 1px 10px black;
-
-	    a {
-		span {
-		    position: relative;
-		    left:0;
-		    top:0;
-		    .transition(all 0.2s linear);
-
-		    &:hover{
-			top: 10px;
-		    }
-		}
-
-		span.char15 {
-		    left: 13px;
-		    top: -33px;
-		    .noTransition();
-		}
-
-		span.char16 {
-		    .noTransition();
-
-		    &:hover {
-			top: inherit;
-		    }
-		}
-	    }
-	}
 
 	nav {
 	    margin-left: 340px; // 290px;
@@ -320,4 +314,3 @@ body{
 	    }
 	}
     }
-}

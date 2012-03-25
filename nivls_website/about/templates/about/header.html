@@ -1,46 +1,56 @@
 {% load i18n  %}
 {% load url from future  %}
 
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <a class="btn btn-navbar" data-toggle="collapse"
-	 data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <a class="brand" href="/">
-	Laplanche-melv<span class="n-dot">.</span>in
-      </a>
-      <div class="nav-collapse">
-        <ul class="nav">
+<header>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+	<a class="btn btn-navbar" data-toggle="collapse"
+	   data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+	</a>
+	<a class="brand" href="/">
+	  Laplanche-melv<span class="n-dot">.</span>in
+	</a>
+	<div class="nav-collapse">
+          <ul class="nav">
 
-	  <li{% ifequal act_menu "home" %} class="active"{% endifequal %}>
-	    <a href="{% url "home" %}">
-	      <i class="icon-home icon-white"></i>
-	      {% trans "Home" %}
-	    </a>
+	    <li{% ifequal act_menu "home" %} class="active"{% endifequal %}>
+	      <a href="{% url "home" %}">
+		<i class="icon-home icon-white"></i>
+		{% trans "Home" %}
+	      </a>
 
-	  <li{% ifequal act_menu "portfolio" %} class="active"{% endifequal %}>
-	    <a href="{% url "portfolio" %}">
-	      <i class="icon-picture icon-white"></i>
-	      {% trans "Portfolio" %}
-	    </a>
+	    <li{% ifequal act_menu "portfolio" %} class="active"{% endifequal %}>
+	      <a href="{% url "portfolio" %}">
+		<i class="icon-picture icon-white"></i>
+		{% trans "Portfolio" %}
+	      </a>
 
-	  <li{% ifequal act_menu "cv" %} class="active"{% endifequal %}>
-	    <a href="{% url "cv" %}">
-	      <i class="icon-th-list icon-white"></i>
-	      {% trans "C.V." %}
-	    </a>
+	    <li{% ifequal act_menu "cv" %} class="active"{% endifequal %}>
+	      <a href="{% url "cv" %}">
+		<i class="icon-th-list icon-white"></i>
+		{% trans "C.V." %}
+	      </a>
 
-	  <li>
-	    <a href="{% url "blog" %}">
-	      <i class="icon-book icon-white"></i>
-	      {% trans "Blog" %}
-	    </a>
-        </ul>
-      </div><!--/.nav-collapse -->
+	    <li>
+	      <a href="{% url "blog" %}">
+		<i class="icon-book icon-white"></i>
+		{% trans "Blog" %}
+	      </a>
+          </ul>
+	</div><!--/.nav-collapse -->
+      </div>
     </div>
   </div>
-</div>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="body" class="span12">
+	<h1><a id="site-title" href="/">Laplanche Melv.in</a></h1>
+      </div>
+    </div>
+  </div>
+</header>

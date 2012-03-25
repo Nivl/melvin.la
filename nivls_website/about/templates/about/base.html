@@ -9,7 +9,8 @@
 {% endblock "head_js" %}
 
 {% block "head_css" %}
-  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}about/css/about.less.min.css">
+  <link href="http://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
+  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}about/css/about.min.css">
 {% endblock "head_css" %}
 
 {% block "body" %}
@@ -20,9 +21,9 @@
     {% endblock %}
   {% endwith %}
 
-  <header>
-    <h1><a id="site-title" href="/">Laplanche Melv.in</a></h1>
 
+<!--
+  <header>
     <nav>
       <ul>
 	<li><a href="{% url "home" %}">{% trans "Home" %}</a>
@@ -33,18 +34,22 @@
     </nav>
   </header>
 
-  <div id="content-wrapper">
-    <h2 id="content-title">
-      {% block "content-title" %}{% endblock "content-title" %}
-    </h2>
+-->
 
-    <div id="content">
-      {% block "content" %}{% endblock "content" %}
+  <div class="container">
+    <div class="row">
+      <div id="body" class="span12">
+	<div id="content-wrapper">
+	  <h2 id="content-title">
+	    {% block "content-title" %}{% endblock "content-title" %}
+	  </h2>
+
+	  <div id="content">
+	    {% block "content" %}{% endblock "content" %}
+	  </div>
+	</div>
+      </div>
     </div>
   </div>
-
-  <footer>
-
-  </footer>
 
 {% endblock "body" %}
