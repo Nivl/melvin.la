@@ -1,5 +1,6 @@
 {% extends "about/base.html" %}
 
+{% load from future %}
 {% load markup i18n %}
 
 {% block "content-title" %}{% trans "Home" %}{% endblock "content-title" %}
@@ -8,7 +9,7 @@
   <article>
     <h2>{% trans "Who am I?" %}</h2>
     <div class="article-content">
-      <a href="{% url cv %}" style="float:right;">
+      <a href="{% url "cv" %}" style="float:right;">
 	<img alt="{% trans "Free for job" %}"
 	     src="{{ STATIC_URL }}about/img/free_for_job.png">
       </a>

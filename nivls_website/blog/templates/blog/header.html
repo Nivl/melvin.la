@@ -1,4 +1,5 @@
 {% load i18n  %}
+{% load url from future  %}
 
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
@@ -16,18 +17,18 @@
         <ul class="nav">
 
 	  <li{% ifequal act_menu "blog" %} class="active"{% endifequal %}>
-	    <a href="{% url blog %}">
+	    <a href="{% url "blog" %}">
 	      {% trans "Blog" %}
 	    </a>
 
 	  <li{% ifequal act_menu "contact" %} class="active"{% endifequal %}>
-	    <a href="{% url contact %}">
+	    <a href="{% url "contact" %}">
 	      <i class="icon-envelope icon-white"></i>
 	      {% trans "Contact" %}
 	    </a>
 
 	  <li>
-	    <a href="{% url home %}">
+	    <a href="{% url "home" %}">
 	      <i class="icon-user icon-white"></i>
 	      {% trans "about" %}
 	    </a>
@@ -37,7 +38,7 @@
 	  <li id="github-icon" class="icons">
 	    <a href="https://github.com/Nivl"></a>
 	  <li id="rss-icon" class="icons">
-	    <a href="{% url atom-blog-latest %}"></a>
+	    <a href="{% url "atom-blog-latest" %}"></a>
 	  <li id="google-icon" class="icons">
 	    <a href="https://plus.google.com/107029584179497153748/posts"></a>
 	  <li id="twitter-icon" class="icons">

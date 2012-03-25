@@ -33,7 +33,7 @@ DATABASES = {
     }
 }
 
-USE_TZ = True # django 1.4
+USE_TZ = True
 TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en'
 DATE_FORMAT = 'F, d Y'
@@ -50,8 +50,6 @@ STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                            "..",
                                            "static"))
 STATIC_URL = 'http://static.' + DOMAIN_NAME + '/'
-
-ADMIN_MEDIA_PREFIX = STATIC_URL + '/admin/'
 
 STATICFILES_DIRS = (
     os.path.abspath(os.path.join(os.getcwd(), "static")),

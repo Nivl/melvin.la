@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load url from future  %}
 
 {% block "head_link" %}
   <link rel="alternate" type="application/atom+xml"
-	title="ATOM Feed" href="{% url atom-blog-latest %}" />
+	title="ATOM Feed" href="{% url "atom-blog-latest" %}" />
 
   <link rel="alternate" type="application/rss+xml"
-	title="RSS Feed" href="{% url rss-blog-latest %}" />
+	title="RSS Feed" href="{% url "rss-blog-latest" %}" />
   {% block "sub_head_link" %}{% endblock "sub_head_link" %}
 {% endblock "head_link" %}
 

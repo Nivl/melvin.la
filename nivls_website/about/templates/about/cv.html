@@ -1,5 +1,6 @@
 {% extends "about/base.html" %}
 
+{% load url from future %}
 {% load markup i18n %}
 
 {% block "title" %}{% trans "C.V." %}{% endblock "title" %}
@@ -36,7 +37,7 @@
       <div class="block">
 	<h3>{% trans "Downloads" %}</h3>
 	<ul>
-	  <li><a href="{% url cv-pdf %}">
+	  <li><a href="{% url "cv-pdf" %}">
 	      {% trans "Download this C.V. as PDF" %}
 	    </a>
 	</ul>

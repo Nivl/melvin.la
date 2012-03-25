@@ -1,4 +1,5 @@
-{% load i18n%}
+{% load url from future %}
+{% load i18n %}
 
 <script type="text/javascript">
 function bindPostContactHandler() {
@@ -10,7 +11,7 @@ function bindPostContactHandler() {
         $.ajax({
             type: "POST",
             data: $('#contact-form').serialize(),
-            url: "{% url contact %}",
+            url: '{% url "contact" %}',
             cache: false,
             dataType: "html",
             success: function(html, textStatus) {
