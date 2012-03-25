@@ -13,6 +13,13 @@
 {% endblock "head_css" %}
 
 {% block "body" %}
+
+  {% with act_menu="home" %}
+    {% block "header" %}
+      {% include "about/header.html" %}
+    {% endblock %}
+  {% endwith %}
+
   <header>
     <h1><a id="site-title" href="/">Laplanche Melv.in</a></h1>
 
