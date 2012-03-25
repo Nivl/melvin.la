@@ -7,8 +7,6 @@ sitemaps = {
 
 urlpatterns = patterns(
     '',
-    url(r'^project/(?P<slug>[-\w]+)/$',
-        'nivls_website.lab.views.project',
-        name='project'),
+    url(r'^project/(?P<slug>[-\w]+)/$', 'lab.views.project', name='project'),
 )
 

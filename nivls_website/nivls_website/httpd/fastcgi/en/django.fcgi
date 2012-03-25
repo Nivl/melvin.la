@@ -2,8 +2,8 @@
 import os, sys
 
 sys.path.insert(0, "/home/nivl/python/modules/")
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "nivls_website"))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".."))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..", ".."))
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'nivls_website.settings'
 

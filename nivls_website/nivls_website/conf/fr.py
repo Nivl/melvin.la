@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from settings import *
+from nivls_website.settings import *
 
 DATE_FORMAT = 'd F Y'
 TIME_FORMAT = 'H:i'

@@ -5,36 +5,36 @@ from sitemaps import *
 
 urlpatterns = patterns(
     '',
-    url(r'^$', 'nivls_website.blog.views.home',
+    url(r'^$', 'blog.views.home',
         name='blog'),
 
     url(r'^(?P<year>\d{4})/$',
-        'nivls_website.blog.views.post_list_by_archives',
+        'blog.views.post_list_by_archives',
         name='archives-year'),
 
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/$',
-        'nivls_website.blog.views.post_list_by_archives',
+        'blog.views.post_list_by_archives',
         name='archives-month'),
 
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/$',
-        'nivls_website.blog.views.post_list_by_archives',
+        'blog.views.post_list_by_archives',
         name='archives-day'),
 
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
-        'nivls_website.blog.views.display_post',
+        'blog.views.display_post',
         name='post'),
 
     url(r'^preview/'
         '(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
-        'nivls_website.blog.views.preview_post',
+        'blog.views.preview_post',
         name='preview-post'),
 
     url(r'^category/(?P<slug>[-\w]+)/$',
-        'nivls_website.blog.views.post_list_by_categories',
+        'blog.views.post_list_by_categories',
         name='category'),
 
     url(r'^tag/(?P<slug>[-\w]+)/$',
-        'nivls_website.blog.views.post_list_by_tags',
+        'blog.views.post_list_by_tags',
         name='tag'),
 
     url(r'^comments/', include('django.contrib.comments.urls')),
@@ -44,7 +44,7 @@ urlpatterns = patterns(
 # Static which wiil be added to the sitemap
 static_urlpatterns = patterns(
     '',
-    url(r'^contact/$', 'nivls_website.blog.views.contact', name='contact'),
+    url(r'^contact/$', 'blog.views.contact', name='contact'),
     )
 
 

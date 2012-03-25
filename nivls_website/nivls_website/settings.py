@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
-from settings_global import *
+from conf.commons import *
 
 SITE_ID = 1
-
-MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
-
-    )
 
 INSTALLED_APPS = INSTALLED_APPS + (
     'commons',
