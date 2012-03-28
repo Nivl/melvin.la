@@ -6,22 +6,22 @@
 {% block "content-title" %}{% trans "Home" %}{% endblock "content-title" %}
 
 {% block "content" %}
-  <article>
+  <section>
     <h2>{% trans "Who am I?" %}</h2>
-    <div class="article-content">
+    <div class="content">
       <a href="{% url "cv" %}" style="float:right;">
 	<img alt="{% trans "Free for job" %}"
 	     src="{{ STATIC_URL }}about/img/free_for_job.png">
       </a>
       {{ static_infos.about_me|markdown }}
     </div>
-  </article>
+  </section>
 
   <hr />
 
-  <article>
+  <section>
     <h2>{% trans "Contact me" %}</h2>
-    <div class="article-content center">
+    <div class="content centered-text">
       <a href="http://www.google.com/recaptcha/mailhide/d?k=017KWG_KpTYVYRvB7SsTqX-Q==&amp;c=DWX9PgVI1OyNrhD-UfV4F9Msj9QUYCFhvSAwKrdp8Eo="
       onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\075017KWG_KpTYVYRvB7SsTqX-Q\75\75\46c\75DWX9PgVI1OyNrhD-UfV4F9Msj9QUYCFhvSAwKrdp8Eo\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="E-mail">
 	<img src="{{ STATIC_URL }}about/img/mail.png" alt="email"></a>
@@ -34,6 +34,6 @@
       <a href="https://www.facebook.com/melvin.laplanche">
 	<img src="{{ STATIC_URL }}about/img/facebook.png" alt="facebook"></a>
     </div>
-  </article>
+  </section>
 
 {% endblock "content" %}

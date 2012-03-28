@@ -5,52 +5,67 @@
 {% block "title" %}{% trans "Portfolio" %}{% endblock "title" %}
 {% block "content-title" %}{% trans "Portfolio" %}{% endblock "content-title" %}
 
+{% block "header" %}
+  {% with act_menu="portfolio" %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock %}
+
 {% block "content" %}
-  <div id="projects">
-    {% for project in projects %}
-      <article class="portfolio">
-	<figure>
+
+  {% for project in projects %}
+    <section class="portfolio row-fluid">
+      <article class="span11">
+
+	<figure class="pull-left">
 	  <a href="{{ project.url }}">
 	    <img src="{{ project.screenshot.url }}" alt="{{ project.name }}" />
 	  </a>
 	</figure>
 
-	<h2>{{ project.name }}</h2>
+	<div class="content">
+	  <h2>{{ project.name }}</h2>
 
-	<div class="article-content">
-	  {% with project.works.all as labels %}
-	    {% if labels %}
-	      <div class="label-list">
-		{% for label in labels %}
-		  <div class="label"
-		       style="background-color:#{{ label.color }};">
-		    {{ label.name }}
+	  <div>
+	    <div class="pull-right">
+	      {% with project.works.all as labels %}
+		{% if labels %}
+		  <div class="label-list">
+		    {% for label in labels %}
+		      <div class="label"
+			   style="background-color:#{{ label.color }};">
+			{{ label.name }}
+		      </div>
+		    {% endfor %}
 		  </div>
-		{% endfor %}
-	      </div>
-	    {% endif %}
-	  {% endwith %}
-	  <div class="description">
+		{% endif %}
+	      {% endwith %}
+	    </div>
+
 	    {{ project.description|linebreaksbr }}
 	  </div>
+
+	  <footer>
+	    {% if project.lab %}
+	      <a class="button lab-project"
+		 href="{{ project.lab.get_absolute_url }}">
+		<i class="icon-info-sign icon-white"></i>
+		{% trans "Know more" %}
+	      </a> -
+	    {% endif %}
+
+	    <a href="{{ project.url }}">
+	      <i class="icon-share icon-white"></i>
+	      {% trans "Visit " %}{{ project.name }}
+	    </a>
+	  </footer>
 	</div>
-
-	<footer>
-	  {% if project.lab %}
-	    <a class="button lab-project"
-	       href="{{ project.lab.get_absolute_url }}">
-	      {% trans "Know more" %}
-	    </a> -
-	{% endif %}
-
-	  <a href="{{ project.url }}">{% trans "Visit " %}{{ project.name }}</a>
-	</footer>
       </article>
+    </section>
 
       {%  if not forloop.last %}
 	<hr />
       {% endif %}
     {% endfor %}
-  </div>
 {% endblock "content" %}
 

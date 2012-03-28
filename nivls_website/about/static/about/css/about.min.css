@@ -12,15 +12,14 @@ sup{vertical-align:5px;font-size:0.7em;}
 .hidden{display:none;}
 header nav{margin-left:340px;}header nav ul li{height:32px;width:75px;float:left;margin-right:10px;border-radius:12px;-webkit-transition:background-color 0.4s linear;-moz-transition:background-color 0.4s linear;-ms-transition:background-color 0.4s linear;-o-transition:background-color 0.4s linear;transition:background-color 0.4s linear;}header nav ul li:hover{background-color:rgba(255, 255, 255, 0.17);}
 header nav ul li a{color:white;text-align:center;padding-top:8px;font-size:1.4em;font-weight:bolder;display:block;height:37px;}
-#content-wrapper{background:#10161e url("../img/page_title_bg.png");border-radius:40px;margin:0 auto;margin-bottom:20px;box-shadow:1px 1px 20px #000;padding:20px;}#content-wrapper h2#content-title{font-size:4em;font-weight:bolder;height:70px;color:#1c1c1c;text-shadow:0px 2px 3px #505050;}
-#content-wrapper #content{border-radius:40px;background-color:#10161e;font-size:1.3em;line-height:17px;padding-bottom:20px;}#content-wrapper #content hr{clear:both;border:none;border-bottom:1px solid #212121;color:black;background:black;margin:25px auto;height:1px;width:900px;}
-#content-wrapper #content article{padding:20px;padding-bottom:10px;}#content-wrapper #content article h2{font-size:1.8em;font-weight:bolder;color:#ddd;margin-bottom:20px;}
-#content-wrapper #content article .article-content{margin-left:15px;}
-#content-wrapper #content article.portfolio{overflow:hidden;}#content-wrapper #content article.portfolio figure{float:left;margin-right:20px;}#content-wrapper #content article.portfolio figure img{border:1px solid #222e3f;padding:3px;}
-#content-wrapper #content article.portfolio h2{margin-top:10px;}
-#content-wrapper #content article.portfolio .article-content{overflow:hidden;}#content-wrapper #content article.portfolio .article-content .label-list{margin-left:10px;float:right;}#content-wrapper #content article.portfolio .article-content .label-list .label{padding:5px;border-radius:5px;width:130px;text-align:center;heigth:45px;margin-bottom:10px;}
-#content-wrapper #content article.portfolio .article-content .description{overflow:hidden;}
-#content-wrapper #content article.portfolio footer{margin-top:10px;}
+#content-wrapper{background:#10161e url("../img/page_title_bg.png");border-radius:40px;margin-bottom:20px;box-shadow:1px 1px 20px #000;padding:20px;}#content-wrapper h2#content-title{font-size:44px;height:70px;color:#1c1c1c;text-shadow:0px 2px 3px #505050;}
+#content-wrapper #content{border-radius:40px;background-color:#10161e;padding-bottom:20px;}#content-wrapper #content hr{clear:both;border:none;border-bottom:1px solid #212121;color:black;background:black;margin:25px auto;height:1px;width:80%;}
+#content-wrapper #content section{padding:20px;padding-bottom:10px;}#content-wrapper #content section h2{font-size:1.8em;font-weight:bolder;color:#ddd;margin-bottom:20px;}
+#content-wrapper #content section .content{margin-left:15px;}
+#content-wrapper #content section.portfolio figure{padding:0;margin:0;margin-right:20px;}#content-wrapper #content section.portfolio figure .content{overflow:hidden;}
+#content-wrapper #content section.portfolio figure img{border:1px solid #222e3f;padding:3px;}
+#content-wrapper #content section.portfolio footer{margin-top:10px;}
+#content-wrapper #content section.portfolio .label-list{margin-left:10px;}#content-wrapper #content section.portfolio .label-list .label{padding:7px 5px;border-radius:5px;width:130px;text-align:center;margin-bottom:10px;font-size:14px;font-weight:normal;}
 #content-wrapper #content article#resume h2.acc_trigger{text-align:center;height:46px;line-height:46px;font-size:2em;}#content-wrapper #content article#resume h2.acc_trigger a{display:block;}#content-wrapper #content article#resume h2.acc_trigger a:hover{color:#fff;}
 #content-wrapper #content article#resume h2.acc_trigger:active{background-position:left bottom;}
 #content-wrapper #content article#resume .acc_container{margin:0 0 5px;overflow:hidden;clear:both;}#content-wrapper #content article#resume .acc_container .block{padding:20px;}#content-wrapper #content article#resume .acc_container .block h3,#content-wrapper #content article#resume .acc_container .block h4{background-color:#3c5371;border:1px solid #334761;border-top-color:#5778a3;border-left-color:#5778a3;text-shadow:1px 1px 0 #000;padding:5px;text-transform:uppercase;font-size:1.3em;margin:15px 0;font-weight:bolder;}

@@ -92,225 +92,210 @@ header {
 
 
 
-    sup {
-	vertical-align: 5px;
-	font-size: 0.7em;
+sup {
+    vertical-align: 5px;
+    font-size: 0.7em;
+}
+
+.hidden {
+    display: none;
+}
+
+header {
+    nav {
+	margin-left: 340px; // 290px;
+
+	ul {
+	    li {
+		height: 32px;
+		width: 75px;
+
+		float: left;
+		margin-right: 10px;
+
+		border-radius: 12px;
+		.transition(background-color 0.4s linear);
+
+		&:hover {
+		    background-color: rgba(255,255,255,0.17);
+		}
+
+		a {
+		    color: white;
+		    text-align: center;
+		    padding-top: 8px;
+		    font-size: 1.4em;
+		    font-weight: bolder;
+		    display: block;
+		    height: 37px;
+		}
+	    }
+	}
+    }
+}
+
+#content-wrapper {
+    background: @blue-bg url("../img/page_title_bg.png");
+    border-radius: 40px;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px 20px #000;
+    padding: 20px;
+
+    h2#content-title {
+	font-size: 44px;
+	height: 70px;
+	color: darken(@content-title-bg, 10%);
+	text-shadow: 0px 2px 3px lighten(@content-title-bg, 10%);
     }
 
-    .hidden {
-	display: none;
-    }
+    #content {
+	border-radius: 40px;
+	background-color: @blue-bg;
+	padding-bottom: 20px;
 
-    header {
+	hr {
+	    clear: both;
+	    border: none;
+	    border-bottom: 1px solid #212121;
+	    color: black;
+	    background: black;
+	    margin: 25px auto;
+	    height: 1px;
+	    width: 80%;
+	}
 
-	nav {
-	    margin-left: 340px; // 290px;
+	section {
+	    padding: 20px;
+	    padding-bottom: 10px;
 
-	    ul {
-		li {
-		    height: 32px;
-		    width: 75px;
+	    h2 {
+		font-size: 1.8em;
+		font-weight:bolder;
+		color: #ddd;
+		margin-bottom: 20px;
+	    }
 
-		    float: left;
-		    margin-right: 10px;
+	    .content {
+		margin-left: 15px;
+	    }
+	}
 
-		    border-radius: 12px;
-		    .transition(background-color 0.4s linear);
+	section.portfolio {
+	    figure {
+		padding: 0;
+		margin: 0;
+		margin-right: 20px;
+
+		.content {
+		    overflow: hidden;
+		}
+
+		img {
+		    border: 1px solid lighten(@blue-bg, 10%);
+		    padding: 3px;
+		}
+	    }
+
+	    footer {
+		margin-top: 10px;
+	    }
+
+	    .label-list {
+		margin-left: 10px;
+
+		.label {
+		    padding: 7px 5px;
+		    border-radius: 5px;
+		    width: 130px;
+		    text-align: center;
+		    margin-bottom: 10px;
+		    font-size: 14px;
+		    font-weight: normal;
+		}
+	    }
+	}
+
+	article#resume {
+	    h2.acc_trigger {
+		text-align: center;
+		height: 46px;
+		line-height: 46px;
+		font-size: 2em;
+
+		a {
+		    display: block;
 
 		    &:hover {
-			background-color: rgba(255,255,255,0.17);
-		    }
-
-		    a {
-			color: white;
-			text-align: center;
-			padding-top: 8px;
-			font-size: 1.4em;
-			font-weight: bolder;
-			display: block;
-			height: 37px;
+			color: #fff;
 		    }
 		}
-	    }
-	}
-    }
 
-    #content-wrapper {
-	//width: @page-size - 60;
-	background: @blue-bg url("../img/page_title_bg.png");
-	border-radius: 40px;
-	margin: 0 auto;
-	margin-bottom: 20px;
-	box-shadow: 1px 1px 20px #000;
-	padding: 20px;
-
-	h2#content-title {
-	    font-size: 4em;
-	    font-weight:bolder;
-	    height: 70px;
-	    color: darken(@content-title-bg, 10%);
-	    text-shadow: 0px 2px 3px lighten(@content-title-bg, 10%);
-	}
-
-	#content {
-	    border-radius: 40px;
-	    background-color: @blue-bg;
-	    font-size: 1.3em;
-	    line-height: 17px;
-	    padding-bottom: 20px;
-
-	    hr {
-		clear: both;
-		border: none;
-		border-bottom: 1px solid #212121;
-		color: black;
-		background: black;
-		margin: 25px auto;
-		height: 1px;
-		width: 900px;
-	    }
-
-	    article {
-		padding: 20px;
-		padding-bottom: 10px;
-
-		h2 {
-		    font-size: 1.8em;
-		    font-weight:bolder;
-		    color: #ddd;
-		    margin-bottom: 20px;
-		}
-
-		.article-content {
-		    margin-left: 15px;
+		&:active {
+		    background-position: left bottom;
 		}
 	    }
 
-	    article.portfolio {
+	    .acc_container {
+		margin: 0 0 5px;
 		overflow: hidden;
+		clear: both;
 
-		figure {
-		    float: left;
-		    margin-right: 20px;
+		.block {
+		    padding: 20px;
 
-		    img {
-			border: 1px solid lighten(@blue-bg, 10%);
-			padding: 3px;
+		    h3, h4 {
+			background-color: lighten(@blue-bg, 25%);
+			border: 1px solid lighten(@blue-bg, 20%);
+			border-top-color: lighten(@blue-bg, 40%);
+			border-left-color: lighten(@blue-bg, 40%);
+			text-shadow: 1px 1px 0 #000;
+
+			padding: 5px;
+			text-transform: uppercase;
+			font-size: 1.3em;
+			margin: 15px 0;
+			font-weight: bolder;
 		    }
-		}
 
-		h2 {
-		    margin-top: 10px;
-		}
+		    li {
+			padding: 2px 0 2px 10px;
+		    }
 
-		.article-content {
-		    overflow: hidden;
+		    .two_column {
+			h4 {
+			    padding: 3px;
+			    font-size: 1.1em;
+			    margin: 5px 0;
+			}
 
-		    .label-list {
-			margin-left: 10px;
-			float: right;
+			.left {
+			    float: left;
+			    width: 45%;
+			    margin-left: 10px;
+			}
 
-			.label {
-			    padding: 5px;
-			    border-radius: 5px;
-			    width: 130px;
-			    text-align: center;
-			    heigth: 45px;
-			    margin-bottom: 10px;
+			.right {
+			    float: right;
+			    width: 45%;
+			    margin-right: 10px;
 			}
 		    }
 
-		    .description {
-			overflow: hidden;
-		    }
-		}
-
-		footer {
-		    margin-top: 10px;
-		}
-	    }
-
-	    article#resume {
-		h2.acc_trigger {
-		    text-align: center;
-		    height: 46px;
-		    line-height: 46px;
-		    font-size: 2em;
-
-		    a {
-			display: block;
-
-			&:hover {
-			    color: #fff;
-			}
-		    }
-
-		    &:active {
-			background-position: left bottom;
-		    }
-		}
-
-		.acc_container {
-		    margin: 0 0 5px;
-		    overflow: hidden;
-		    clear: both;
-
-		    .block {
-			padding: 20px;
-
-			h3, h4 {
-			    background-color: lighten(@blue-bg, 25%);
-			    border: 1px solid lighten(@blue-bg, 20%);
-			    border-top-color: lighten(@blue-bg, 40%);
-			    border-left-color: lighten(@blue-bg, 40%);
-			    text-shadow: 1px 1px 0 #000;
-
+		    table {
+			th, td {
 			    padding: 5px;
-			    text-transform: uppercase;
-			    font-size: 1.3em;
-			    margin: 15px 0;
+			    padding-right: 15px;
+
+			    border: 1px solid lighten(@blue-bg, 40%);
+			}
+
+			th {
+			    background-color: lighten(@blue-bg, 10%);
 			    font-weight: bolder;
 			}
-
-			li {
-			    padding: 2px 0 2px 10px;
-			}
-
-			.two_column {
-			    h4 {
-				padding: 3px;
-				font-size: 1.1em;
-				margin: 5px 0;
-			    }
-
-			    .left {
-				float: left;
-				width: 45%;
-				margin-left: 10px;
-			    }
-
-			    .right {
-				float: right;
-				width: 45%;
-				margin-right: 10px;
-			    }
-			}
-
-			table {
-			    th, td {
-				padding: 5px;
-				padding-right: 15px;
-
-				border: 1px solid lighten(@blue-bg, 40%);
-			    }
-
-			    th {
-				background-color: lighten(@blue-bg, 10%);
-				font-weight: bolder;
-			    }
-			}
 		    }
 		}
 	    }
 	}
     }
+}
