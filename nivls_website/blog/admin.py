@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.generic import GenericTabularInline
-from blog.models import *
 from django.conf import settings
+from blog.models import *
 
 # Post
 
