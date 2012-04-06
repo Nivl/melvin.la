@@ -5,10 +5,11 @@ from models import *
 
 
 def home(request):
-    static_infos = get_object_or_404(StaticInfos
-                                     ,pk=Site.objects.get_current())
-    return render(request, "about/about.html", {'static_infos': static_infos})
-
+    profile = get_object_or_404(Profile ,pk=Site.objects.get_current())
+    contact_links = ContactLink.objects.all()
+    return render(request, "about/about.html", {'profile': profile,
+                                                'contact_links': contact_links
+                                                })
 
 def cv(request):
     static_infos = get_object_or_404(StaticInfos
@@ -21,6 +22,6 @@ def cv_pdf(request):
     return write_pdf("about/cv_pdf.html", {'static_infos': static_infos}, "laplanche_melvin.pdf")
 
 def portfolio(request):
-    projects = Project.objects.select_related().order_by("-prod_date")
+    projects = WorkProject.objects.select_related().order_by("-prod_date")
     return render(request, "about/portfolio.html", {'projects': projects})
 

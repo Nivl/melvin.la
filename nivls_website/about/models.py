@@ -86,7 +86,7 @@ class WorkProject(models.Model):
     lab         = models.ForeignKey(LabProject, blank=True, null=True
                                     ,limit_choices_to={'site': settings.SITE_ID})
     prod_date   = models.DateField(default=datetime.now)
-    screenshot  = models.ImageField(upload_to='site/portfolio/screenshots/',
+    screenshot  = models.ImageField(upload_to='about/portfolio/screenshots/',
                                     help_text='258x158 px')
     url         = models.URLField()
     description = models.TextField()
@@ -186,7 +186,7 @@ class CVSubContent(models.Model):
     value          = models.CharField(max_length=255)
 
     def __unicode__(self):
-        return self.name
+        return self.value
 
     class Meta:
         ordering = ['order']
