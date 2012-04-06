@@ -80,32 +80,33 @@ class WorkField(models.Model):
 
 
 class WorkProject(models.Model):
-    site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    name        = models.CharField(max_length=255)
-    slug        = models.SlugField()
-    lab         = models.ForeignKey(LabProject, blank=True, null=True
+    site            = models.ForeignKey(I18nSite, default=settings.SITE_ID)
+    name            = models.CharField(max_length=255)
+    slug            = models.SlugField()
+    is_personal     = models.BooleanField()
+    school_project  = models.BooleanField()
+    lab             = models.ForeignKey(LabProject, blank=True, null=True
                                     ,limit_choices_to={'site': settings.SITE_ID})
-    prod_date   = models.DateField(default=datetime.now)
-    screenshot  = models.ImageField(upload_to='about/portfolio/screenshots/',
-                                    help_text='258x158 px')
-    url         = models.URLField()
-    description = models.TextField()
-    works       = models.ManyToManyField(WorkType
-                                         ,limit_choices_to={'site': settings.SITE_ID})
-    field       = models.ForeignKey(WorkField
-                                    ,limit_choices_to={'site': settings.SITE_ID})
-    is_personal = models.BooleanField()
+    prod_date       = models.DateField(default=datetime.now)
+    screenshot      = models.ImageField(upload_to='about/portfolio/',
+                                        help_text='258x158 px')
+    url             = models.URLField()
+    description     = models.TextField()
+    works           = models.ManyToManyField(WorkType
+                                             ,limit_choices_to={'site': settings.SITE_ID})
+    field           = models.ForeignKey(WorkField
+                                        ,limit_choices_to={'site': settings.SITE_ID})
 
     def __unicode__(self):
         return self.name
 
     def save(self, *arg, **kwargs):
         if self.pk is not None:
-            origin = Project.objects.get(pk=self.pk)
+            origin = WorkProject.objects.get(pk=self.pk)
             if origin.screenshot != self.screenshot:
                 if os.path.exists(origin.screenshot.path):
                     os.remove(origin.screenshot.path)
-        super(Project, self).save(*arg, **kwargs)
+        super(WorkProject, self).save(*arg, **kwargs)
 
     class Meta:
         unique_together = ('site', 'slug')
