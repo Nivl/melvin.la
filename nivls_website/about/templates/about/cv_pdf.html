@@ -1,138 +1,40 @@
 {% extends "base.html"%}
 
-{% load markup common_tags i18n %}
-
+{% load ssi from future %}
+{% load markup common_tags i18n about_tags %}
 
 {% block "head_css" %}
-  <style>
-    html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
-a {outline: none;}
-
-    html, body {
-      font-family: "arial", "serif";
-      color: black;
-      font-size: 14px;
-      line-height: 17px;
-    }
-
-    a {
-      color: black;
-      text-decoration: none;
-    }
-
-    a:visited {
-      color: inherit;
-      text-decoration: inherit;
-    }
-
-    ul, li {
-      list-style-type: none;
-    }
-
-    li {
-      padding: 2px 0 2px 10px;
-    }
-
-    h1 {
-      font-size: 2em;
-    }
-
-    sup {
-	vertical-align: 5px;
-	font-size: 0.7em;
-    }
-
-    h2 {
-      font-size: 1.6em;
-    }
-
-    .clear {
-      clear: both;
-    }
-
-    h3, h4 {
-      color: white;
-      background-color: #3C5371;
-      border: 1px solid #334761;
-      border-top-color: #5778A3;
-      border-left-color: #5778A3;
-      text-shadow: 1px 1px 0 black;
-      padding: 5px;
-      text-transform: uppercase;
-      font-size: 1.3em;
-      margin: 15px 0;
-      font-weight: bolder;
-    }
-
-    .two_column h4 {
-      padding: 3px;
-      font-size: 1.1em;
-      margin: 5px 0;
-    }
-
-    .two_column .left {
-      float: left;
-      width: 45%;
-    }
-
-    .two_column .right {
-      float: right;
-      width: 45%;
-    }
-
-    table th {
-      background-color: #222E3F;
-      font-weight: bolder;
-      color: white;
-      width: 300px;
-    }
-
-    table th, table td {
-      vertical-align: middle;
-      padding: 2px;
-      padding-right: 5px;
-      padding-bottom: 0;
-      border: 1px solid #5778A3;
-    }
-
-    strong {
-      font-weight: bolder;
-    }
-
-    h2 {
-      margin-top: 40px;
-    }
-
-    #profile h2 {
-      margin-top: 20px;
-    }
-
-  </style>
+  {% with bootstrap=STATIC_ROOT|add:"/commons/css/bootstrap.min.css" main=STATIC_ROOT|add:"/commons/css/main.min.css" cv=STATIC_ROOT|add:"/about/css/cv.min.css" %}
+    <style>
+      {% ssi bootstrap %}
+      {% ssi main %}
+      {% ssi cv %}
+    </style>
+  {% endwith %}
 {% endblock "head_css" %}
 
 
 {% block "body" %}
-  <div id="content">
-    <div id="profil">
-      <h2>{% trans "Profile" %}</h2>
-      {{ static_infos.profile|replace_regexp:"#\[melv(.*)\]\((.*)externe\)#melvin\.laplanche@gmail.com"|markdown:"extra" }}
-    </div>
+  <article id="resume">
 
-    <div id="skills">
-      <h2>{% trans "Skills" %}</h2>
-      <div class="profile-content">
-	{{ static_infos.skills|markdown:"extra" }}
-      </div>
-    </div>
+    {% for section in sections %}
+      <h2>
+        <a class="accordion-toggle" data-toggle="collapse"
+	   data-parent="#resume" href="#{{ section.slug }}">
+          {{ section.name }}
+        </a>
+      </h2>
 
-    <div id="awards">
-      <h2>{% trans "Awards" %}</h2>
-      <div class="profile-content">
-	{{ static_infos.awards|markdown }}
-      </div>
-    </div>
-  </div>
-
-  <footer></footer>
+      <section id="{{ section.slug }}" class="collapse in">
+	<div class="block">
+	  <div class="container-fluid">
+	    <div class="row-fluid">
+	      {% display_cat section.cvcategory_set.all.0 12 %}
+	    </div>
+	  </div>
+	</div>
+      </section>
+    {% endfor %}
+  </article>
 {% endblock "body" %}
 
