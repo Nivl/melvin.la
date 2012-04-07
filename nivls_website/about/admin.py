@@ -22,11 +22,6 @@ class InlineContent(admin.TabularInline):
     model = CVContent
     extra = 1
 
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        if db_field.name == "value":
-            return forms.CharField(widget=forms.TextInput())
-        return super(InlineContent, self).formfield_for_dbfield(db_field, **kwargs)
-
 class CVCategoryAdmin(CommonAdmin):
     inlines = [InlineContent]
     list_filter = ['section']
@@ -37,11 +32,6 @@ class InlineSubContent(admin.TabularInline):
 
 class CVContentAdmin(CommonAdmin):
     inlines = [InlineSubContent]
-
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        if db_field.name == "value":
-            return forms.CharField(widget=forms.TextInput())
-        return super(CVContentAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def queryset(self, request):
         return super(CVContentAdmin, self).queryset(request).filter(has_subcontent=True)

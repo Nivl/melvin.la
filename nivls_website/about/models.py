@@ -172,13 +172,15 @@ class CVCategory(models.Model):
 
 
 class CVContent(models.Model):
-    site              = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    category          = models.ForeignKey(CVCategory
-                                       ,limit_choices_to={'site': settings.SITE_ID})
-    order             = models.PositiveSmallIntegerField(default=0)
-    key               = models.CharField(max_length=255, blank=True, null=True)
-    value             = models.TextField()
-    has_subcontent    = models.BooleanField(default=False)
+    site               = models.ForeignKey(I18nSite, default=settings.SITE_ID)
+    category           = models.ForeignKey(CVCategory
+                                           ,limit_choices_to={'site': settings.SITE_ID})
+    order              = models.PositiveSmallIntegerField(default=0)
+    key                = models.CharField(max_length=255
+                                          ,blank=True, null=True)
+    value              = models.TextField()
+    value_for_download = models.CharField(max_length=255, blank=True, null=True)
+    has_subcontent     = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "%s - %s" % (self.key, self.value)
@@ -190,11 +192,11 @@ class CVContent(models.Model):
 
 
 class CVSubContent(models.Model):
-    site           = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    content        = models.ForeignKey(CVContent
-                                       ,limit_choices_to={'site': settings.SITE_ID})
-    order          = models.PositiveSmallIntegerField(default=0)
-    value          = models.CharField(max_length=255)
+    site               = models.ForeignKey(I18nSite, default=settings.SITE_ID)
+    content            = models.ForeignKey(CVContent
+                                           ,limit_choices_to={'site': settings.SITE_ID})
+    order              = models.PositiveSmallIntegerField(default=0)
+    value              = models.CharField(max_length=255)
 
     def __unicode__(self):
         return self.value
