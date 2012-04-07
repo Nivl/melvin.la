@@ -1,48 +1,56 @@
 {% extends "about/base.html" %}
 
 {% load url from future %}
-{% load markup i18n %}
+{% load markup i18n about_tags %}
 
 {% block "title" %}{% trans "C.V." %}{% endblock "title" %}
 {% block "content-title" %}{% trans "C.V." %}{% endblock "content-title" %}
 
 {% block "content" %}
+
   <article id="resume">
 
-    <h2 class="acc_trigger">
-      <a href="#">{% trans "Profile" %}</a>
-    </h2>
-    <div class="acc_container">
-      <div class="block">{{ static_infos.profile|markdown:'extra' }}</div>
-    </div>
+    {% for section in sections %}
+      <h2>
+        <a class="accordion-toggle" data-toggle="collapse"
+	   data-parent="#resume" href="#{{ section.slug }}">
+          {{ section.name }}
+        </a>
+      </h2>
 
-    <h2 class="acc_trigger">
-      <a href="#">{% trans "Skills" %}</a>
-    </h2>
-    <div class="acc_container">
-      <div class="block">{{ static_infos.skills|markdown:'extra' }}</div>
-    </div>
+      <section id="{{ section.slug }}" class="collapse in">
 
-    <h2 class="acc_trigger">
-      <a href="#">{% trans "Awards" %}</a>
-    </h2>
-    <div class="acc_container">
-      <div class="block">{{ static_infos.awards|markdown }}</div>
-    </div>
+	<div class="block">
+	  <div class="container-fluid">
+	    <div class="row-fluid">
+	      {% display_cat section.cvcategory_set.all.0 12 %}
+	    </div>
+	  </div>
+	</div>
+      </section>
+    {% endfor %}
 
-    <h2 class="acc_trigger">
-      <a href="#">{% trans "Downloads" %}</a>
+    <h2>
+      <a class="accordion-toggle" data-toggle="collapse"
+	 data-parent="#resume" href="#downloads">{% trans "Downloads" %}</a>
     </h2>
-    <div class="acc_container">
+    <section id="downloads" class="collapse in">
       <div class="block">
-	<h3>{% trans "Downloads" %}</h3>
-	<ul>
-	  <li><a href="{% url "cv-pdf" %}">
-	      {% trans "Download this C.V. as PDF" %}
-	    </a>
-	</ul>
+	<div class="container-fluid">
+	  <div class="row-fluid">
+	    <div class="span12">
+	      <h3>{% trans "Downloads" %}</h3>
+	      <ul>
+		<li><a href="{% url "cv-pdf" %}">
+		    {% trans "Download this C.V. as PDF" %}
+		  </a>
+	      </ul>
+	    </div>
+	  </div>
+	</div>
       </div>
-    </div>
+    </section>
+
   </article>
 
 {% endblock "content" %}

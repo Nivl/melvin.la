@@ -1,4 +1,4 @@
-
+$(".collapse").collapse();
 
 $(document).ready(function(){
     /* Header */
@@ -15,19 +15,5 @@ $(document).ready(function(){
 	    top: '-33',
 	    left: '13'
 	}, "normal", "linear");
-    });
-
-    /***********************************************************/
-    /* Portfolio */
-
-    $('.acc_container').hide();
-    $('.acc_trigger:first').addClass('active').next().show();
-
-    $('.acc_trigger').click(function(){
-	if( $(this).next().is(':hidden') ) {
-	    $('.acc_trigger').removeClass('active').next().slideUp();
-	    $(this).toggleClass('active').next().slideDown();
-	}
-	return false;
     });
 });

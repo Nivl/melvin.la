@@ -135,7 +135,6 @@ class CVSection(models.Model):
         verbose_name = _("C.V. Section")
         verbose_name_plural = _("C.V. Sections")
 
-
 class CVCategory(models.Model):
     DISPLAY_TYPES = (
         ('L', 'List'),
@@ -153,6 +152,17 @@ class CVCategory(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def has_child(self):
+        return self.right - self.left > 1
+
+    def get_first_child(self):
+        return CVCategory.objects.filter(left=(self.left + 1)
+                                         ,section=self.section)
+
+    def get_next_sibling(self):
+        return CVCategory.objects.filter(left=(self.right + 1),
+                                         section=self.section)
 
     class Meta:
         ordering = ['section', 'left']
