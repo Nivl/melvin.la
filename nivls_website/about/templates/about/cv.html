@@ -15,8 +15,7 @@
 
 
 {% block "content" %}
-
-  <article id="resume">
+  <article class="accordion" id="resume">
 
     {% for section in sections %}
       <h2>
@@ -26,7 +25,7 @@
         </a>
       </h2>
 
-      <section id="{{ section.slug }}" class="collapse in">
+      <section id="{{ section.slug }}" class="collapse{% if forloop.counter == 1 %} in{% endif %}">
 
 	<div class="block">
 	  <div class="container-fluid">
@@ -42,7 +41,7 @@
       <a class="accordion-toggle" data-toggle="collapse"
 	 data-parent="#resume" href="#downloads">{% trans "Downloads" %}</a>
     </h2>
-    <section id="downloads" class="collapse in">
+    <section id="downloads" class="collapse">
       <div class="block">
 	<div class="container-fluid">
 	  <div class="row-fluid">

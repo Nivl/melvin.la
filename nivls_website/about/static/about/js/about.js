@@ -1,4 +1,4 @@
-$(".collapse").collapse();
+$(".collapse").collapse(toggle: false);
 
 $(document).ready(function(){
     /* Header */
