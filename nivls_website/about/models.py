@@ -139,6 +139,7 @@ class CVCategory(models.Model):
     DISPLAY_TYPES = (
         ('L', 'List'),
         ('T', 'Table'),
+        ('D', 'Description List'),
         )
 
     site           = models.ForeignKey(I18nSite, default=settings.SITE_ID)
