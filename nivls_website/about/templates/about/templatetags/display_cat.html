@@ -1,0 +1,26 @@
+{% load about_tags %}
+
+<div class="span{{ collumn }}">
+  <h3{% if collumn != 12 %} class="child"{% endif %}>{{ cat.name }}</h3>
+  {% if cat.display_type == "L" %}
+    {% cat_as_list cat is_downloadable %}
+  {% else %}
+    {% cat_as_table cat is_downloadable %}
+  {% endif %}
+</div>
+
+{% if cat.has_child %}
+  <div class="container-fluid">
+    <div class="row-fluid">
+      {% display_cat cat.get_first_child.0 6 is_downloadable %}
+    </div>
+  </div>
+{% endif %}
+
+<div class="row-fluid">
+  {% with sibling=cat.get_next_sibling %}
+    {% if sibling %}
+      {% display_cat sibling.0 collumn is_downloadable %}
+    {% endif %}
+  {% endwith %}
+</div>
