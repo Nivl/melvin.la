@@ -6,6 +6,14 @@
 {% block "title" %}{% trans "C.V." %}{% endblock "title" %}
 {% block "content-title" %}{% trans "C.V." %}{% endblock "content-title" %}
 
+
+{% block "header" %}
+  {% with act_menu="cv" %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock %}
+
+
 {% block "content" %}
 
   <article id="resume">
