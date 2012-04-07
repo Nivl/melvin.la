@@ -23,43 +23,41 @@
 	  </a>
 	</figure>
 
+	<h2>{{ project.name }}</h2>
+
 	<div class="content">
-	  <h2>{{ project.name }}</h2>
-
-	  <div>
-	    <div class="pull-right">
-	      {% with project.works.all as labels %}
-		{% if labels %}
-		  <div class="label-list">
-		    {% for label in labels %}
-		      <div class="label"
-			   style="background-color:#{{ label.color }};">
-			{{ label.name }}
-		      </div>
-		    {% endfor %}
-		  </div>
-		{% endif %}
-	      {% endwith %}
-	    </div>
-
-	    {{ project.description|linebreaksbr }}
+	  <div class="pull-right">
+	    {% with project.works.all as labels %}
+	      {% if labels %}
+		<div class="label-list">
+		  {% for label in labels %}
+		    <div class="label"
+			 style="background-color:#{{ label.color }};">
+		      {{ label.name }}
+		    </div>
+		  {% endfor %}
+		</div>
+	      {% endif %}
+	    {% endwith %}
 	  </div>
 
-	  <footer>
-	    {% if project.lab %}
-	      <a class="button lab-project"
-		 href="{{ project.lab.get_absolute_url }}">
-		<i class="icon-info-sign icon-white"></i>
-		{% trans "Know more" %}
-	      </a> -
-	    {% endif %}
-
-	    <a href="{{ project.url }}">
-	      <i class="icon-share icon-white"></i>
-	      {% trans "Visit " %}{{ project.name }}
-	    </a>
-	  </footer>
+	  {{ project.description|linebreaksbr }}
 	</div>
+
+	<footer>
+	  {% if project.lab %}
+	    <a class="button lab-project"
+	       href="{{ project.lab.get_absolute_url }}">
+	      <i class="icon-info-sign icon-white"></i>
+	      {% trans "Know more" %}
+	    </a> -
+	  {% endif %}
+
+	  <a href="{{ project.url }}">
+	    <i class="icon-share icon-white"></i>
+	    {% trans "Visit " %}{{ project.name }}
+	  </a>
+	</footer>
       </article>
     </section>
 

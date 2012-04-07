@@ -9,20 +9,16 @@ header h1 a span{position:relative;left:0;top:0;-webkit-transition:all 0.2s line
 header h1 a span.char15{left:13px;top:-33px;transition:none;-o-transition:all, 0 none;-webkit-transition:none;-moz-transition:none;}
 header h1 a span.char16{transition:none;-o-transition:all, 0 none;-webkit-transition:none;-moz-transition:none;}header h1 a span.char16:hover{top:inherit;}
 sup{vertical-align:5px;font-size:0.7em;}
-.hidden{display:none;}
-header nav{margin-left:340px;}header nav ul li{height:32px;width:75px;float:left;margin-right:10px;border-radius:12px;-webkit-transition:background-color 0.4s linear;-moz-transition:background-color 0.4s linear;-ms-transition:background-color 0.4s linear;-o-transition:background-color 0.4s linear;transition:background-color 0.4s linear;}header nav ul li:hover{background-color:rgba(255, 255, 255, 0.17);}
-header nav ul li a{color:white;text-align:center;padding-top:8px;font-size:1.4em;font-weight:bolder;display:block;height:37px;}
 #content-wrapper{background:#10161e url("../img/page_title_bg.png");border-radius:40px;margin-bottom:20px;box-shadow:1px 1px 20px #000;padding:20px;}#content-wrapper h2#content-title{font-size:44px;height:70px;color:#1c1c1c;text-shadow:0px 2px 3px #505050;}
 #content-wrapper #content{border-radius:40px;background-color:#10161e;padding-bottom:20px;}#content-wrapper #content hr{clear:both;border:none;border-bottom:1px solid #212121;color:black;background:black;margin:25px auto;height:1px;width:80%;}
 #content-wrapper #content section{padding:20px;padding-bottom:10px;}#content-wrapper #content section h2{font-size:1.8em;font-weight:bolder;color:#ddd;margin-bottom:20px;}
 #content-wrapper #content section .content{margin-left:15px;}
-#content-wrapper #content section.portfolio figure{padding:0;margin:0;margin-right:20px;}#content-wrapper #content section.portfolio figure .content{overflow:hidden;}
-#content-wrapper #content section.portfolio figure img{border:1px solid #222e3f;padding:3px;}
+#content-wrapper #content section.portfolio figure{margin:0 20px 0 0;}#content-wrapper #content section.portfolio figure img{border:1px solid #222e3f;padding:3px;}
+#content-wrapper #content section.portfolio .content{overflow:hidden;}
 #content-wrapper #content section.portfolio footer{margin-top:10px;}
 #content-wrapper #content section.portfolio .label-list{margin-left:10px;}#content-wrapper #content section.portfolio .label-list .label{padding:7px 5px;border-radius:5px;width:130px;text-align:center;margin-bottom:10px;font-size:14px;font-weight:normal;}
 #content-wrapper #content article#resume h2{text-align:center;height:46px;line-height:46px;font-size:2em;}#content-wrapper #content article#resume h2 a{display:block;}#content-wrapper #content article#resume h2 a:hover{color:#fff;}
-#content-wrapper #content article#resume h2:active{background-position:left bottom;}
-#content-wrapper #content article#resume section{padding:0;margin:0 0 5px;overflow:hidden;clear:both;}#content-wrapper #content article#resume section .block{padding:20px;}#content-wrapper #content article#resume section .block h3{background-color:#3c5371;border:1px solid #334761;border-top-color:#5778a3;border-left-color:#5778a3;text-shadow:1px 1px 0 #000;padding:5px;text-transform:uppercase;font-size:1.3em;margin:15px 0;font-weight:bolder;}#content-wrapper #content article#resume section .block h3.child{width:90%;}
-#content-wrapper #content article#resume section .block ul li{padding:2px 0 2px 10px;}#content-wrapper #content article#resume section .block ul li p{display:inline;padding:0;margin:0;}
-#content-wrapper #content article#resume section .block table{width:100%;}#content-wrapper #content article#resume section .block table th,#content-wrapper #content article#resume section .block table td{padding:5px;padding-right:15px;border:1px solid #5778a3;}#content-wrapper #content article#resume section .block table th p,#content-wrapper #content article#resume section .block table td p{display:inline;padding:0;margin:0;}
-#content-wrapper #content article#resume section .block table th{background-color:#222e3f;font-weight:bolder;}
+#content-wrapper #content article#resume section{padding:0;margin:0 0 5px;}#content-wrapper #content article#resume section .block{padding:20px;}#content-wrapper #content article#resume section .block h3{background-color:#3c5371;border:1px solid #334761;border-top-color:#5778a3;border-left-color:#5778a3;text-shadow:1px 1px 0 #000;padding-left:5px;text-transform:uppercase;font-size:1.3em;margin:15px 0;}#content-wrapper #content article#resume section .block h3.child{width:90%;}
+#content-wrapper #content article#resume section .block ul li p{display:inline;}
+#content-wrapper #content article#resume section .block table{width:100%;}#content-wrapper #content article#resume section .block table th,#content-wrapper #content article#resume section .block table td{padding:0 5px;border:1px solid #5778a3;}#content-wrapper #content article#resume section .block table th p,#content-wrapper #content article#resume section .block table td p{margin:9px;}
+#content-wrapper #content article#resume section .block table th{margin:0 15px;background-color:#222e3f;font-weight:bolder;}

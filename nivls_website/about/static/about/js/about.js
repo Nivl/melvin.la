@@ -1,5 +1,3 @@
-$(".collapse").collapse(toggle: false);
-
 $(document).ready(function(){
     /* Header */
     $("#site-title").lettering();

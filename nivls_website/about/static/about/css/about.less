@@ -97,43 +97,6 @@ sup {
     font-size: 0.7em;
 }
 
-.hidden {
-    display: none;
-}
-
-header {
-    nav {
-	margin-left: 340px; // 290px;
-
-	ul {
-	    li {
-		height: 32px;
-		width: 75px;
-
-		float: left;
-		margin-right: 10px;
-
-		border-radius: 12px;
-		.transition(background-color 0.4s linear);
-
-		&:hover {
-		    background-color: rgba(255,255,255,0.17);
-		}
-
-		a {
-		    color: white;
-		    text-align: center;
-		    padding-top: 8px;
-		    font-size: 1.4em;
-		    font-weight: bolder;
-		    display: block;
-		    height: 37px;
-		}
-	    }
-	}
-    }
-}
-
 #content-wrapper {
     background: @blue-bg url("../img/page_title_bg.png");
     border-radius: 40px;
@@ -182,13 +145,7 @@ header {
 
 	section.portfolio {
 	    figure {
-		padding: 0;
-		margin: 0;
-		margin-right: 20px;
-
-		.content {
-		    overflow: hidden;
-		}
+		margin: 0 20px 0 0;
 
 		img {
 		    border: 1px solid lighten(@blue-bg, 10%);
@@ -196,13 +153,15 @@ header {
 		}
 	    }
 
+	    .content {
+		overflow: hidden;
+	    }
+
 	    footer {
 		margin-top: 10px;
 	    }
 
 	    .label-list {
-		margin-left: 10px;
-
 		.label {
 		    padding: 7px 5px;
 		    border-radius: 5px;
@@ -229,17 +188,11 @@ header {
 			color: #fff;
 		    }
 		}
-
-		&:active {
-		    background-position: left bottom;
-		}
 	    }
 
 	    section {
 		padding: 0;
 		margin: 0 0 5px;
-		overflow: hidden;
-		clear: both;
 
 		.block {
 		    padding: 20px;
@@ -251,11 +204,10 @@ header {
 			border-left-color: lighten(@blue-bg, 40%);
 			text-shadow: 1px 1px 0 #000;
 
-			padding: 5px;
+			padding-left: 5px;
 			text-transform: uppercase;
 			font-size: 1.3em;
 			margin: 15px 0;
-			font-weight: bolder;
 
 			&.child {
 			    width: 90%;
@@ -264,12 +216,8 @@ header {
 
 		    ul {
 			li {
-			    padding: 2px 0 2px 10px;
-
 			    p {
 				display: inline;
-				padding: 0;
-				margin: 0;
 			    }
 			}
 		    }
@@ -278,19 +226,16 @@ header {
 			width: 100%;
 
 			th, td {
-			    padding: 5px;
-			    padding-right: 15px;
-
+			    padding: 0 5px;
 			    border: 1px solid lighten(@blue-bg, 40%);
 
 			    p {
-				display: inline;
-				padding: 0;
-				margin: 0;
+				margin: 9px;
 			    }
 			}
 
 			th {
+			    margin: 0 15px;
 			    background-color: lighten(@blue-bg, 10%);
 			    font-weight: bolder;
 			}
