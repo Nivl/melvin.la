@@ -110,7 +110,7 @@ class Post(models.Model):
                                            ,help_text="80 chars maximum")
 
     thumbnail           = models.ImageField(upload_to="articles/thumbnails/"
-                                            ,help_text="115x115")
+                                            ,help_text="260x180")
     long_description    = models.CharField(max_length=175
                                            ,help_text="175 chars maximum")
     content             = models.TextField()

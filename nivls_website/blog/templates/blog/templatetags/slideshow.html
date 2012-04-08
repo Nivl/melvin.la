@@ -1,29 +1,23 @@
 {% load static %}
 
-<div id="slideshow">
-  <div id="slides">
-    <div class="slides_container">
-      {% for item in object %}
-	<div class="slide">
-	  <a href="{{ item.get_absolute_url }}" title="{{ item.title }}">
-	    <img src="{{ item.main_image.url }}" width="570" height="270"
-		 alt="{{ item.title }}">
-	  </a>
-	  <div class="caption">
-	    <p>{{ item.short_description }}</p>
-	  </div>
+<div id="homeCarousel" class="carousel slide">
+  <div class="carousel-inner">
+    {% for item in object %}
+      <div class="item{% if forloop.counter == 1 %} active{% endif %}">
+	<a href="{{ item.get_absolute_url }}" title="{{ item.title }}">
+	  <img src="{{ item.main_image.url }}" alt="{{ item.title }}">
+	</a>
+	<div class="carousel-caption">
+	  <p>{{ item.short_description }}</p>
 	</div>
-      {% endfor %}
-    </div>
-    <a href="#" class="prev">
-      <img src="{% get_static_prefix %}blog/img/slideshow/arrow-prev.png"
-	   width="24" height="43" alt="Arrow Prev" />
-    </a>
-    <a href="#" class="next">
-      <img src="{% get_static_prefix %}blog/img/slideshow/arrow-next.png"
-	   width="24" height="43" alt="Arrow Next" />
-    </a>
+      </div>
+    {% endfor %}
   </div>
-  <img src="{% get_static_prefix %}blog/img/slideshow/frame.png"
-       width="739" height="341" alt="Frame" id="frame" />
+
+  <a class="carousel-control left" href="#homeCarousel" data-slide="prev">
+    &lsaquo;
+  </a>
+  <a class="carousel-control right" href="#homeCarousel" data-slide="next">
+    &rsaquo;
+  </a>
 </div>

@@ -2,53 +2,37 @@
 
 <section id="post-list">
   {% for post in posts %}
-    <article class="row">
+    {% if forloop.counter0|divisibleby:3 %}
+      <div class="row-fluid">
+	<ul class="thumbnails">
+    {% endif %}
 
-      <div class="span2">
-	<img src="{{ post.thumbnail.url }}" alt="thumbnail"
-	     width="115" height="115" />
-      </div>
+    <li class="span3">
+      <div class="thumbnail">
+	<img src="{{ post.thumbnail.url }}" alt="thumbnail" />
 
-      <div class="span6">
-	<header>
-	  <h3>{{ post.title }}</h3>
+	<div class="caption">
+	  <h5>{{ post.title }}</h5>
 
-	  <span class="info">
-	    {% trans "By " %}{{ post.author }},
-	    <time datetime="{{ post.pub_date|date:"cO"|fix_html5_tz }}" pubdate>
-	      {{ post.pub_date|naturalday }}
-	    </time>
-	    {% trans "in: " %}<a href="{{ post.category.get_absolute_url }}">
-	      {{ post.category }}
-	    </a>
-	    {% with post.tags.all as tags %}
-	      {% if tags %}
-		<i class="icon-tags"></i>
-		{% for tag in tags %}
-		  <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
-		  {% if not forloop.last %},{% endif %}
-		{% endfor %}
-	      {% endif %}
-	    {% endwith %}
-	  </span>
-	</header>
-
-	<section>
-	  <p>
+	  <section class="description">
 	    {{ post.long_description|markdown }}
-	  </p>
-	</section>
+	  </section>
 
-	<footer>
 	  <p>
 	    <a class="btn btn-info" href="{{ post.get_absolute_url }}">
 	      <i class="icon-plus-sign icon-white"></i>
-	    {% trans "Read more" %}
+	      {% trans "Read more" %}
 	    </a>
 	  </p>
-	</footer>
-    </article>
-    {% empty %}
+	</div>
+      </div>
+
+    {% if forloop.counter|divisibleby:3 or forloop.last %}
+      </ul>
+      </div>
+    {% endif %}
+
+  {% empty %}
     <p>{% trans "There are no posts." %}</p>
   {% endfor %}
 </section>

@@ -2,9 +2,9 @@
 .clearfix:after{clear:both;}
 .hide-text{overflow:hidden;text-indent:100%;white-space:nowrap;}
 .input-block-level{display:block;width:100%;min-height:28px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;}
+img{max-width:100%;}
 html{background-color:#222222;}
 body{background-color:#ededed;}
-.n-dot{color:#049cdb;}
 .btn i{vertical-align:-2px;}
 .nav-collapse ul.n-socialm-icons{heigth:34px;}.nav-collapse ul.n-socialm-icons li#github-icon{margin:none;padding:none;background-image:url("../img/icons/social-medias.png");background-repeat:no-repeat;background-position:0px top;width:32px;height:32px;margin-top:5px;}.nav-collapse ul.n-socialm-icons li#github-icon a{margin:0;padding:0;width:100%;height:100%;background-image:url("../img/icons/social-medias.png");background-repeat:no-repeat;background-position:0px -32px;-webkit-transition:opacity 0.4s linear;-moz-transition:opacity 0.4s linear;-ms-transition:opacity 0.4s linear;-o-transition:opacity 0.4s linear;transition:opacity 0.4s linear;}.nav-collapse ul.n-socialm-icons li#github-icon a:hover{opacity:0;}
 .nav-collapse ul.n-socialm-icons li#rss-icon{margin:none;padding:none;background-image:url("../img/icons/social-medias.png");background-repeat:no-repeat;background-position:-32px top;width:32px;height:32px;margin-top:5px;}.nav-collapse ul.n-socialm-icons li#rss-icon a{margin:0;padding:0;width:100%;height:100%;background-image:url("../img/icons/social-medias.png");background-repeat:no-repeat;background-position:-32px -32px;-webkit-transition:opacity 0.4s linear;-moz-transition:opacity 0.4s linear;-ms-transition:opacity 0.4s linear;-o-transition:opacity 0.4s linear;transition:opacity 0.4s linear;}.nav-collapse ul.n-socialm-icons li#rss-icon a:hover{opacity:0;}
@@ -21,14 +21,6 @@ article#post section.content p img.pull-left{padding:4px;margin:0 7px 2px 0;}
 article#post footer{margin-top:50px;clear:both;}article#post footer h2{margin-top:20px;}
 article#post footer section#comments{margin:10px 0;}article#post footer section#comments .comment{padding-bottom:10px;margin-top:10px;border-bottom:1px solid #d4d4d4;}article#post footer section#comments .comment .info{font-size:0.85em;}
 article#post footer section#comments .comment .content{margin-left:20px;padding-left:10px;border-left:3px solid #049cdb;}article#post footer section#comments .comment .content p{margin:10px 5px 10px 0;}
-section#post-list article{margin-bottom:30px;}section#post-list article .span2 img{border:1px solid #ccc;padding:5px;}
-section#post-list article header .info{line-height:10px;font-size:0.85em;}section#post-list article header .info i{margin-right:2px;margin-left:2px;}
-section#post-list article section.content p{font-size:12px;}
+section#post-list h5{height:40px;}
+section#post-list section.description{height:115px;}
 body>footer{background-color:#222222;color:white;font-size:0.85em;padding:20px;text-align:center;}body>footer p{margin-bottom:10px;}
-#slideshow{width:580px;padding:10px;margin-left:50px;margin-bottom:330px;position:relative;z-index:0;}#slideshow #frame{position:absolute;z-index:0;width:739px;height:341px;top:-3px;left:-80px;}
-#slideshow #slides{position:absolute;top:15px;left:4px;z-index:100;}#slideshow #slides .slides_container{width:570px;overflow:hidden;position:relative;display:none;}#slideshow #slides .slides_container .slide{width:570px;height:270px;display:block;}
-#slideshow #slides a.next,#slideshow #slides a.prev{position:absolute;top:107px;left:-39px;width:24px;height:43px;display:block;z-index:101;}
-#slideshow #slides a.next{left:585px;}
-#slideshow ul.pagination{margin:26px auto 0;width:100px;}#slideshow ul.pagination li{float:left;margin:0 1px;list-style:none;width:12px;}#slideshow ul.pagination li a{padding:0;margin:0;border:none;display:block;width:12px;height:0;padding-top:12px;background-image:url("../img/slideshow/pagination.png");background-position:0 0;float:left;overflow:hidden;}#slideshow ul.pagination li a:hover{background-color:inherit;}
-#slideshow ul.pagination li.current a{width:12px;background-position:0 -12px;}
-#slideshow .caption{z-index:500;position:absolute;bottom:-35px;left:0;height:30px;padding:5px 20px 0 20px;background:#000;background:rgba(0, 0, 0, 0.5);width:540px;font-size:1em;line-height:1.33;color:white;border-top:1px solid #000;text-shadow:none;}
