@@ -1,0 +1,25 @@
+{% load staticfiles i18n %}
+{% load url from future %}
+
+<li>
+    <a class="nivl-icon-home" href="{% url 'lab-home' %}">
+      {% ifequal act_menu "home" %}
+	<img src="{% static "/lab/img/icons/home.png" %}">
+      {% else %}
+	<img src="{% static "/lab/img/icons/home-grey.png" %}">
+      {% endifequal %}
+      <small>{% trans "Home" %}</small>
+    </a>
+
+{% for tag in tags %}
+  <li>
+    <a class="nivl-icon-{{ tag.slug }}"
+       href="#">
+      {% ifequal act_menu tag.slug %}
+	<img src="{{ tag.icon_enabled.url }}">
+      {% else %}
+	<img src="{{ tag.icon_disabled.url }}">
+      {% endifequal %}
+      <small>{{ tag.name }}</small>
+    </a>
+{% endfor %}

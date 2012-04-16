@@ -2,7 +2,7 @@ $(document).ready(function() {
     /*
       anythingSlider
     */
-    $(function(){
+/*    $(function(){
 	$('#content').anythingSlider({
 	    resizeContents      : false
 	})
@@ -13,9 +13,9 @@ $(document).ready(function() {
 	$(this).addClass('active');
 	return false;
     });
-
+*/
     /*
       PrettyPhoto
     */
-    $("a[rel^='prettyPhoto']").prettyPhoto();
+    //$("a[rel^='prettyPhoto']").prettyPhoto();
 });

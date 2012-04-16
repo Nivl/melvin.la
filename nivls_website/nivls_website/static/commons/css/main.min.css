@@ -1,4 +1,25 @@
-body{padding-top:60px;}
-.sidebar-nav{padding:9px 0;}
-.centered-text{text-align:center;}
-.hidden{display:none;}
+body {
+  padding-top: 60px;
+}
+.sidebar-nav {
+  padding: 9px 0;
+}
+.centered-text {
+  text-align: center;
+}
+.hidden {
+  display: none;
+}
+.n-dot {
+  color: #049cdb;
+}
+[class^="icon-nivl"],
+[class*=" icon-nivl"] {
+  background-image: url("../img/icon-nivl.png");
+}
+.icon-nivl-white {
+  background-image: url("../img/icon-nivl-white.png");
+}
+.icon-nivl-lab {
+  background-position: 0 0;
+}

@@ -1,6 +1,7 @@
-from models import *
 from django.contrib import admin
 from django.conf import settings
+from lab.models import *
+from commons.admin import CommonAdminWithSlug, PrepoSlugAdmin
 
 # Project
 class ProjectLanguageRateInline(admin.TabularInline):
@@ -33,18 +34,17 @@ class ProjectAdmin(admin.ModelAdmin):
 
 # Others
 
-class LanguageAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',),}
+class DLIconAdmin(admin.ModelAdmin):
+    list_display = ['admin_thumbnail']
 
-class CommonAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',),}
+class TagAdmin(PrepoSlugAdmin):
+    list_display = ['admin_thumbnail', 'name']
 
-    def queryset(self, request):
-        return super(CommonAdmin, self).queryset(request).filter(site=settings.SITE_ID)
 
-admin.site.register(Language, LanguageAdmin)
-admin.site.register(License, CommonAdmin)
+admin.site.register(Language, PrepoSlugAdmin)
+admin.site.register(License, CommonAdminWithSlug)
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(Coworker, CommonAdmin)
-admin.site.register(Client, CommonAdmin)
-admin.site.register(DownloadIcon)
+admin.site.register(Coworker, CommonAdminWithSlug)
+admin.site.register(Client, CommonAdminWithSlug)
+admin.site.register(Tag, TagAdmin)
+admin.site.register(DownloadIcon, DLIconAdmin)

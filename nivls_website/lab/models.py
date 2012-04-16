@@ -8,6 +8,33 @@ from commons.fields import ColorField
 from commons.models import I18nSite
 import os
 
+class Tag(models.Model):
+    name           = models.CharField(max_length=255)
+    slug           = models.SlugField(unique=True)
+    icon_enabled   = models.ImageField(upload_to='lab/icons/'
+                                       ,help_text='32x32')
+    icon_disabled  = models.ImageField(upload_to='lab/icons/'
+                                       ,help_text='32x32')
+    def admin_thumbnail(self):
+        return u'<img src="%s" />' % (self.icon_enabled.url)
+    admin_thumbnail.short_description = 'Thumbnail'
+    admin_thumbnail.allow_tags = True
+
+    def save(self, *arg, **kwargs):
+        if self.pk is not None:
+            origin = Tag.objects.get(pk=self.pk)
+            if origin.icon_enabled != self.icon_enabled:
+                if os.path.exists(origin.icon_enabled.path):
+                    os.remove(origin.icon_enabled.path)
+            if origin.icon_disabled != self.icon_disabled:
+                if os.path.exists(origin.icon_disabled.path):
+                    os.remove(origin.icon_disabled.path)
+        super(Tag, self).save(*arg, **kwargs)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Language(models.Model):
     name  = models.CharField(max_length=255)
     slug  = models.SlugField(unique=True)
@@ -105,6 +132,7 @@ class Project(models.Model):
                                           limit_choices_to={'site': settings.SITE_ID})
     clients      = models.ManyToManyField(Client, null=True, blank=True,
                                           limit_choices_to={'site': settings.SITE_ID})
+    tags         = models.ManyToManyField(Tag, null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -116,6 +144,7 @@ class Project(models.Model):
     class Meta:
         unique_together = ('site', 'slug')
 
+
 class ProjectLanguageRate(models.Model):
     language    = models.ForeignKey(Language)
     project     = models.ForeignKey(Project)
@@ -123,6 +152,7 @@ class ProjectLanguageRate(models.Model):
 
     def __unicode__(self):
         return "%s / %s" % (self.project, self.language)
+
 
 class Progress(models.Model):
     description = models.TextField()
@@ -135,10 +165,11 @@ class Progress(models.Model):
     class Meta:
         ordering = ['-pub_date']
 
+
 class Image(models.Model):
     name        = models.CharField(max_length=255)
     description  = models.TextField()
-    image       = models.ImageField(upload_to="labs/projets/images/")
+    image       = models.ImageField(upload_to="lab/projets/images/")
     project     = models.ForeignKey(Project)
 
     def __unicode__(self):
@@ -147,8 +178,13 @@ class Image(models.Model):
 
 class DownloadIcon(models.Model):
     name        = models.CharField(max_length=50)
-    image       = models.ImageField(upload_to="labs/projets/downloads/icons/"
+    image       = models.ImageField(upload_to="lab/projets/downloads/icons/"
                                     ,help_text="128x128")
+
+    def admin_thumbnail(self):
+        return u'<img src="%s" />' % (self.image.url)
+    admin_thumbnail.short_description = 'Thumbnail'
+    admin_thumbnail.allow_tags = True
 
     def __unicode__(self):
         return self.name
@@ -165,7 +201,7 @@ class DownloadIcon(models.Model):
 class Download(models.Model):
     name           = models.CharField(max_length=50)
     description    = models.CharField(max_length=255, null=True, blank=True)
-    uploaded_file  = models.FileField(upload_to="labs/projets/downloads/files/"
+    uploaded_file  = models.FileField(upload_to="lab/projets/downloads/files/"
                                       ,null=True, blank=True)
     url            = models.URLField(null=True, blank=True)
     icon           = models.ForeignKey(DownloadIcon)
@@ -179,7 +215,7 @@ class Video(models.Model):
     name         = models.CharField(max_length=255)
     description  = models.TextField()
     url          = models.URLField()
-    thumbnail    = models.ImageField(upload_to="labs/projets/videos/")
+    thumbnail    = models.ImageField(upload_to="lab/projets/videos/")
     is_iframe    = models.BooleanField()
     project      = models.ForeignKey(Project)
 

@@ -4,23 +4,7 @@
 **									     **
 ******************************************************************************/
 
-@blue-bg: #10161e; /* image color: 253344*/
-@content-title-bg: #363636; /* image color: 242424 */
-@page-size: 990px;
-
-.transition(@property: background-color,
-	    @duration: 0.4s,
-	    @timing: linear,
-	    @delay: 0) {
-    transition: @property @duration @timing @delay;
-    -o-transition: @property @duration @timing @delay;
-    -webkit-transition: @property @duration @timing @delay;
-
-    -moz-transition-property: @property;
-    -moz-transition-duration: @duration;
-    -moz-transition-timing-function: @timing;
-    -moz-transition-delay: @property;
-}
+@import "mixins.less";
 
 /******************************************************************************
 **									     **
@@ -28,163 +12,48 @@
 **									     **
 ******************************************************************************/
 
-@blue: #0091ff;
-
 body {
-    font-family: arial, serif;
-    background-color: #1e1b1a;
-    font-size: 16px;
-    line-height: 16px;
+    padding-top: 40px;
+}
 
-    h1, h2, h3, h4, h5, h6 {
-	font-family: 'Alice', arial, serif;
+#menu {
+    height: 100%;
+    position: fixed;
+
+    &.well {
+	.border-radius(0px)
     }
 
-    h1 {
-	font-size: 2em;
+    ul {
+	li {
+	    text-align: center;
+	    margin-bottom: 10px;
+
+	    a {
+		color: inherit;
+
+		&:hover {
+		    background-color: inherit;
+		}
+
+		small {
+		    font-size: 11px;
+		}
+	    }
+	}
     }
+}
+
+
+#body {
+    margin-top: 20px;
 
     h2 {
-	font-size: 1.6em;
-    }
-
-    header {
-	color: white;
-	height: 44px;
-	width: 700px;
-	margin: 0 auto;
-	padding: 24px 0 0 140px;
-
-	ul {
-	    width: 820px;
-
-	    li {
-		font-family: 'Alice', arial, serif;
-		text-transform: uppercase;
-		display: block;
-		margin-right: 20px;
-		float: left;
-
-		a {
-		    color: inherit;
-		    text-decoration: inherit;
-
-		    &.active {
-			color: @blue;
-		    }
-		}
-	    }
-	}
-    }
-
-    #content-wrapper {
-	font-size: 12px;
-	border-top: 5px solid #383332;
-	background-color: #dfdfdf;
-
 	a {
-	    color: #0091ff;
-	    text-decoration: none;
+	    color: inherit;
 
-	    &.visited {
-		color: inherit;
+	    &:hover {
 		text-decoration: inherit;
-	    }
-	}
-
-	#content {
-	    width: 800px;
-	    height: 520px;
-	    margin: 0 auto;
-	    padding-top: 20px;
-
-	    h1 {
-		margin-bottom: 10px;
-		margin-top: 2px;
-		text-align: center;
-	    }
-
-	    #infos {
-		ul#general-info {
-		    margin-bottom: 20px;
-		}
-
-		h2 {
-		    margin-bottom: 5px;
-		}
-
-		#clients {
-		    margin-top: 20px;
-		}
-
-		#coworkers {
-		    clear: both;
-		}
-
-		.get {
-		    display: none;
-		}
-
-		#diagram {
-		    float: right;
-		    width: 300px;
-		    height: 300px;
-		}
-	    }
-
-	    #images, #videos, #downloads {
-		figure {
-		    display: inline;
-		}
-	    }
-
-	    #downloads {
-		a {
-		    color: black;
-
-		    figure {
-			.transition(all, 0.2s, ease-out);
-			border-radius: 5px;
-			padding: 5px 0;
-			margin-right: 10px;
-			width: 128px;
-			float: left;
-
-			&:hover {
-			    background-color: @blue;
-			}
-
-			figcaption {
-			    text-align: center;
-			}
-
-			img {
-			    padding-left: 15px;
-			}
-		    }
-		}
-	    }
-
-	    #progress {
-		.event {
-		    time {
-			font-weight:bold;
-			width: 130px;
-			float: left;
-			border-right: 1px solid @blue;
-			text-transform: capitalize;
-			.transition(all, 0.2s, ease-out);
-
-			&:hover {
-			    cursor: pointer;
-			    color: @blue;
-			}
-		    }
-
-		    span {
-			margin-left: 20px;
-		    }
-		}
 	    }
 	}
     }

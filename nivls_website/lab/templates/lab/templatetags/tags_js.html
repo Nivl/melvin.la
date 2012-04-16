@@ -1,0 +1,19 @@
+{% load staticfiles %}
+
+<script>
+  {% ifnotequal act_menu "home" %}
+    $(".nivl-icon-home").hover(
+    function() {$(this).children("img").attr("src","{% static "/lab/img/icons/home.png" %}");},
+    function() {$(this).children("img").attr("src","{% static "/lab/img/icons/home-grey.png" %}");}
+    );
+  {% endifnotequal %}
+
+  {% for tag in tags %}
+    {% ifnotequal act_menu tag.slug %}
+      $(".nivl-icon-{{ tag.slug }}").hover(
+      function() {$(this).children("img").attr("src","{{ tag.icon_enabled.url }}");},
+      function() {$(this).children("img").attr("src","{{ tag.icon_disabled.url }}");}
+    );
+    {% endifnotequal %}
+  {% endfor %}
+</script>
