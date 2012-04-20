@@ -1,59 +1,62 @@
-{% load i18n %}
+{% load i18n markup %}
 
 <h1>{% blocktrans with project_name=project.name %}Informations about {{ project_name }}{% endblocktrans %}</h1>
 
-<div id="diagram-wrapper">
-  <div id="diagram"></div>
-  <div class="get">
 
-    {% with project.projectlanguagerate_set.all as languages %}
-      {% for lang in languages %}
-	<div class="arc">
-	  <span class="text">{{ lang.language.name }}</span>
-
-	  <input type="hidden" class="percent"
-		 value="{{ lang.rate }}" />
-
-	  <input type="hidden" class="color"
-		 value="#{{ lang.language.color }}" />
-	</div>
-      {% endfor %}
-    {% endwith %}
-  </div>
-</div>
-
-<ul id="general-info">
+<ul class="unstyled">
   <li><strong>{% trans "Project License: " %}</strong>
     {% if project.license.url %}
-      <a target="_blank" href="{{ project.license.url }}">
+      <a href="{{ project.license.url }}">
     {% endif %}
 
     {% if project.license.image %}
       <img src="{{ project.license.image.url }}"
 	   alt="{{ project.license.name }}">
-	 {% else %}
-	   {{ project.license.name }}
-	 {% endif %}
+    {% else %}
+      {{ project.license.name }}
+    {% endif %}
 
-	 {% if project.license.url %}
-	   </a>
-	 {% endif %}
+    {% if project.license.url %}
+      </a>
+    {% endif %}
 
-	 {% if project.sources_url %}
-	   - <a target="_blank" href="{{ project.sources_url }}">
-	{% trans "Browse the sources" %}
-	   </a>
-	 {% endif %}
+    {% if project.sources_url %}
+      <li>
+	<a class="btn" href="{{ project.sources_url }}">
+	  <i class="icon-share"></i>
+	    {% trans "Browse the sources" %}
+	</a>
+    {% endif %}
 </ul>
 
-<div class="description">
-  {{ project.description }}
-</div>
 
+<div class="well clearfix">
+  <div id="diagram-wrapper" class="pull-right">
+    <div id="diagram"></div>
+
+    <div class="get">
+	{% with project.projectlanguagerate_set.all as languages %}
+	  {% for lang in languages %}
+	    <div class="arc">
+	      <span class="text">{{ lang.language.name }}</span>
+
+	      <input type="hidden" class="percent"
+		     value="{{ lang.rate }}" />
+
+	      <input type="hidden" class="color"
+		     value="#{{ lang.language.color }}" />
+	    </div>
+	  {% endfor %}
+	{% endwith %}
+    </div>
+  </div>
+
+  {{ project.description|markdown }}
+</div>
 
 {% with project.clients.all as clients %}
   {% if clients %}
-    <div id="clients">
+    <div id="clients" class="clearfix">
       <h2>{% trans "Client(s)" %}</h2>
       <div class="client-list">
 	{% for client in clients %}
@@ -79,7 +82,7 @@
 
 {% with project.coworkers.all as coworkers %}
   {% if coworkers %}
-    <div id="coworkers">
+    <div id="coworkers" class="clearfix">
       <h2>{% trans "Team" %}</h2>
       <div class="coworker-list">
 	{% for coworker in coworkers %}

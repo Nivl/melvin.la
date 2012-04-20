@@ -1,3 +1,7 @@
+{% load humanize common_tags i18n %}
+
+<h1>{% trans "Downloads" %}</h1>
+
 {% for dl in downloads %}
   {% if dl.uploaded_file %}
     <a href="{{ dl.uploaded_file.url }}">

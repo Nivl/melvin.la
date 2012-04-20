@@ -3,14 +3,12 @@
 {% load tag_lab  %}
 
 {% block "head_js" %}
-  {% block "sub_head_js" %}{% endblock "sub_head_js" %}
-  <script src="{{ STATIC_URL }}lab/js/lab.js"></script>
-
   {% with act_menu="home" %}
     {% block "menu_js" %}
         {% lab_tags_js act_menu %}
     {% endblock "menu_js" %}
   {% endwith %}
+  {% block "sub_head_js" %}{% endblock "sub_head_js" %}
 {% endblock "head_js" %}
 
 {% block "head_css" %}
@@ -19,30 +17,32 @@
 	href="{{ STATIC_URL }}lab/css/lab.min.css">
 {% endblock "head_css" %}
 
+{% block "head_last_css" %}
+  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/lab-responsive.min.css">
+{% endblock %}
+
 {% block "body" %}
 
-  {% with act_menu="lab" %}
-    {% block "header" %}
-      {% include "lab/header.html" %}
-    {% endblock %}
-  {% endwith %}
+{% with act_menu="lab" %}
+  {% block "header" %}
+    {% include "lab/header.html" %}
+  {% endblock %}
+{% endwith %}
 
-  <div class="row">
+<div class="row">
 
-    <div id="menu" class="span1 well">
-      {% with act_menu="home" %}
-	{% block "menu" %}
-	  {% include "lab/menu.html" %}
-	{% endblock "menu" %}
-      {% endwith %}
+  <div id="menu" class="span1 well">
+    {% with act_menu="home" %}
+      {% block "menu" %}
+	{% include "lab/menu.html" %}
+      {% endblock "menu" %}
+    {% endwith %}
     </div>
 
-    <div id="body" class="span10 offset2">
+    <div id="body" class="span10 offset2"
+	 data-spy="scroll" data-target=".subnav">
       {% block "content" %}{% endblock "content" %}
     </div>
   </div>
 
-{% comment %}
-  {% include "blog/footer.html" %}
-{% endcomment %}
 {% endblock "body" %}

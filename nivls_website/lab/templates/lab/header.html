@@ -10,12 +10,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
+
       <a class="brand" href="/">
 	Laplanche-melv<span class="n-dot">.</span>in
       </a>
+
       <div class="nav-collapse">
         <ul class="nav">
-
 	  <li{% ifequal act_menu "blog" %} class="active"{% endifequal %}>
 	    <a href="{% url "blog" %}">
 	      <i class="icon-book icon-white"></i>
@@ -23,7 +24,7 @@
 	    </a>
 
 	  <li{% ifequal act_menu "lab" %} class="active"{% endifequal %}>
-	    <a href="{% url "contact" %}">
+	    <a href="{% url "lab-home" %}">
 	      <i class="icon-nivl-lab icon-nivl-white"></i>
 	      {% trans "Lab" %}
 	    </a>
@@ -34,6 +35,7 @@
 	      {% trans "about" %}
 	      <i class="caret"></i>
 	    </a>
+
 	    <ul class="dropdown-menu">
 	      <li>
 		<a href="{% url "home" %}">

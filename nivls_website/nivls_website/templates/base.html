@@ -17,12 +17,13 @@
     <link rel="stylesheet"
 	  href="{{ STATIC_URL }}commons/css/main.min.css">
 
-    <link rel="stylesheet"
-	  href="{{ STATIC_URL }}commons/css/bootstrap-responsive.min.css">
-
     {% block "head_css" %}{% endblock %}
     {% block "head_link" %}{% endblock %}
 
+    <link rel="stylesheet"
+	  href="{{ STATIC_URL }}commons/css/bootstrap-responsive.min.css">
+
+    {% block "head_last_css" %}{% endblock %}
 
     <!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
@@ -30,7 +31,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target=".subnav" data-offset="-80">
     {% block "body" %}{% endblock %}
 
     <script src="https://www.google.com/jsapi"></script>

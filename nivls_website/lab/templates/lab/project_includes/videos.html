@@ -1,11 +1,19 @@
+{% load humanize common_tags i18n %}
+
+<h1>{% trans "Videos" %}</h1>
+
 {% for video in videos %}
-  <figure>
-    <a rel="prettyPhoto[video_list]" title="{{ video.description }}"
-       href="{{ video.url }}">
-      <img src="{{ video.thumbnail.url }}"
-	   alt="{{ video.name }}"
-	   title="{{ video.name }}"
-	   width="170" height="93">
+  {% if forloop.counter0|divisibleby:3 %}
+      <ul class="thumbnails">
+    {% endif %}
+
+    <a class="thumbnail" rel="prettyPhoto[video_list]"
+       title="{{ video.description }}" href="{{ video.url }}">
+      <img src="{{ video.thumbnail.url }}" alt="{{ video.name }}"
+	   title="{{ video.name }}">
     </a>
-  </figure>
+
+    {% if forloop.counter|divisibleby:3 or forloop.last %}
+      </ul>
+    {% endif %}
 {% endfor%}

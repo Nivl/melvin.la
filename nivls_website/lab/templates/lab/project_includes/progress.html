@@ -1,12 +1,18 @@
-{% load humanize common_tags %}
+{% load humanize common_tags i18n %}
 
-{% for event in progress %}
-  <div class="event">
-    <time datetime="{{ event.pub_date|date:"c"|fix_html5_tz }}" pubdate>
-      {{ event.pub_date|naturalday }}
-    </time>
-    <span>
-      {{ event.description }}
-    </span>
-  </div>
-{% endfor%}
+<h1>{% trans "Progress" %}</h1>
+
+<span class="span8 offset1">
+  {% for event in progress %}
+    <dl class="dl-horizontal">
+      <dt>
+	<time datetime="{{ event.pub_date|date:"c"|fix_html5_tz }}" pubdate>
+	  {{ event.pub_date|naturalday }}
+	</time>
+      <dd>
+	<span>
+	  {{ event.description }}
+	</span>
+    </dl>
+  {% endfor%}
+</span>

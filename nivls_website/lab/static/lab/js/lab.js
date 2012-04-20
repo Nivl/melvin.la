@@ -1,19 +1,26 @@
-$(document).ready(function() {
-    /*
-      anythingSlider
-    */
-/*    $(function(){
-	$('#content').anythingSlider({
-	    resizeContents      : false
-	})
-    });
+   // fix sub nav on scroll
+var $win = $(window)
+, $nav = $('.subnav')
+, navTop = $('.subnav').length && $('.subnav').offset().top - 40
+, isFixed = 0
 
-    $('header ul li a').click(function(){
-	$('header ul li a').removeClass('active');
-	$(this).addClass('active');
-	return false;
-    });
-*/
+processScroll()
+
+$win.on('scroll', processScroll)
+
+function processScroll() {
+    var i, scrollTop = $win.scrollTop()
+    if (scrollTop >= navTop && !isFixed) {
+        isFixed = 1
+        $nav.addClass('subnav-fixed')
+    } else if (scrollTop <= navTop && isFixed) {
+        isFixed = 0
+        $nav.removeClass('subnav-fixed')
+    }
+}
+
+$(document).ready(function() {
+
     /*
       PrettyPhoto
     */

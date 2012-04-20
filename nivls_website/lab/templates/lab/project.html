@@ -1,96 +1,89 @@
-{% extends "base.html" %}
+{% extends "lab/base.html" %}
 
 {% load url from future %}
 {% load i18n %}
 
-{% block "head_css" %}
-  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/lab.less.min.css">
-  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/anythingslider.css">
+{% block "sub_head_css" %}
   <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/prettyPhoto.css">
   <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/slicing.css">
 {% endblock %}
 
-{% block "head_js" %}
+{% block "sub_head_js" %}
   <script src="{% url "django.views.i18n.javascript_catalog" %}"></script>
   <script src="{{ STATIC_URL }}lab/js/raphael-2.0.0-min.js"></script>
   <script src="{{ STATIC_URL }}lab/js/jquery.easing.1.3.js"></script>
   <script src="{{ STATIC_URL }}lab/js/jquery.prettyPhoto.js"></script>
-  <script src="{{ STATIC_URL }}lab/js/jquery.anythingslider.min.js"></script>
   <script src="{{ STATIC_URL }}lab/js/slicing.js"></script>
   <script src="{{ STATIC_URL }}lab/js/diagram.js"></script>
   <script src="{{ STATIC_URL }}lab/js/lab.js"></script>
 {% endblock %}
 
+{% block "content" %}
 
-{% block "title" %}{{ project.name }}{% endblock %}
-{% block "meta-description" %}{{ project.description }}{% endblock %}
+  {% with progress=project.progress_set.all images=project.image_set.all videos=project.video_set.all downloads=project.download_set.all %}
 
-{% block "body" %}
-  {% with project.progress_set.all as progress %}
-  {% with project.image_set.all as images %}
-  {% with project.video_set.all as videos %}
-  {% with project.download_set.all as downloads %}
-    <header class="anythingControls">
-      <ul class="thumbNav">
-	<li><a class="active" href="#"><span>{% trans "Infos" %}</span></a>
+    <h1>{{ project.name }}</h1>
+
+    <p class="lead">{{ project.catchphrase }}
+
+    <div class="subnav">
+      <ul class="nav nav-pills">
+	<li><a href="#informations"><span>{% trans "Informations" %}</span></a>
 	{% if progress %}
-	  <li><a href="#"><span>{% trans "Progress" %}</span></a>
+	  <li><a href="#progress"><span>{% trans "Progress" %}</span></a>
         {% endif %}
 	{% if images %}
-	<li><a href="#"><span>{% trans "Images" %}</span></a>
+	  <li><a href="#images"><span>{% trans "Images" %}</span></a>
         {% endif %}
 	{% if videos %}
-	<li><a href="#"><span>{% trans "Videos" %}</span></a>
+	  <li><a href="#videos"><span>{% trans "Videos" %}</span></a>
         {% endif %}
 	{% if downloads %}
-	<li><a href="#"><span>{% trans "Downloads" %}</span></a>
+	  <li><a href="#downloads"><span>{% trans "Downloads" %}</span></a>
         {% endif %}
 	{% if project.demo_codebox %}
-	<li><a href="#"><span>{% trans "Demos" %}</span></a>
+	  <li><a href="#demos"><span>{% trans "Demos" %}</span></a>
       {% endif %}
       </ul>
-    </header>
+    </div>
 
-    <div id="content-wrapper">
-      <div id="content">
-	<div id="infos">
-          {% include "lab/project_includes/infos.html" %}
+    <div id="content">
+      <div id="informations" class="anchor">
+        {% include "lab/project_includes/infos.html" %}
+      </div>
+
+      {% if progress %}
+	<div id="progress" class="anchor">
+	  {% include "lab/project_includes/progress.html" %}
 	</div>
+      {% endif %}
 
-	{% if progress %}
-	  <div id="progress">
-	    {% include "lab/project_includes/progress.html" %}
-	  </div>
-        {% endif %}
+      {% if images %}
+	<div id="images" class="anchor">
+	  {% include "lab/project_includes/images.html" %}
+	</div>
+      {% endif %}
 
-	{% if images %}
-	  <div id="images">
-	    {% include "lab/project_includes/images.html" %}
-	  </div>
-	{% endif %}
-
-	{% if videos %}
-	<div id="videos">
+      {% if videos %}
+	<div id="videos" class="anchor">
 	  {% include "lab/project_includes/videos.html" %}
 	</div>
-	{% endif %}
+      {% endif %}
 
-	{% if downloads %}
-	<div id="downloads">
+      {% if downloads %}
+	<div id="downloads" class="anchor">
 	  {% include "lab/project_includes/downloads.html" %}
 	</div>
-	{% endif %}
+      {% endif %}
 
-	{% if project.demo_codebox %}
-	<div id="demo">
+      {% if project.demo_codebox %}
+	<div id="demo" class="anchor">
 	  <script>
 	    {{ project.demo_codebox|safe }}
 	  </script>
 	  <canvas id="demo_canvas"></canvas>
 	</div>
       {% endif %}
-
-      </div>
     </div>
-  {% endwith %} {% endwith %} {% endwith %} {% endwith %}
-{% endblock "body" %}
+  {% endwith %}
+{% endblock %}

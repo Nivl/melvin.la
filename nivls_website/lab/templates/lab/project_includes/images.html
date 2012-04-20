@@ -1,11 +1,20 @@
+{% load i18n %}
+
+<h1>{% trans "Images" %}</h1>
+
 {% for image in images %}
-  <figure>
-    <a rel="prettyPhoto[image_list]" title="{{ image.description }}"
-       href="{{ image.image.url }}">
-      <img src="{{ image.image.url }}"
-	   alt="{{ image.name }}"
-	   title="{{ image.name }}"
-	   width="170" height="93">
-    </a>
-  </figure>
+  {% if forloop.counter0|divisibleby:3 %}
+    <ul class="thumbnails">
+  {% endif %}
+
+    <li class="span3">
+      <a class="thumbnail" rel="prettyPhoto[image_list]"
+	 title="{{ image.description }}" href="{{ image.image.url }}">
+	<img src="{{ image.image.url }}" alt="{{ image.name }}"
+	     title="{{ image.name }}">
+      </a>
+
+    {% if forloop.counter|divisibleby:3 or forloop.last %}
+      </ul>
+    {% endif %}
 {% endfor%}

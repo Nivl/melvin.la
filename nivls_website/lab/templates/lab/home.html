@@ -4,11 +4,6 @@
 {% load url from future %}
 
 {% block "content" %}
-  {% for project in projects %}
-    <h2><a href="{% url "lab-project" project.slug %}">{{ project.name }}</a></h2>
-
-    <div class="well">{{ project.description }}</div>
-  {% endfor %}
-
-{% project_pagination projects %}
+  {% project_list projects %}
+  {% project_pagination projects %}
 {% endblock "content" %}
