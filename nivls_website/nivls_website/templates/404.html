@@ -1,25 +1,33 @@
-{% extends "error_base.html" %}
+{% extends "base.html" %}
 
 {% block "title" %}404{% endblock %}
 
+{% block "head_css" %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}commons/css/error.min.css">
+{% endblock %}
+
 {% block "body" %}
-  <div class="parallax" id="parallax">
-    <div class="layer layer-0">
-      <img src="{{ STATIC_URL }}commons/img/errors/background.png" />
+  <div class="container">
+    <div class="row">
+      <div class="span8 offset4">
+
+      </div>
     </div>
-    <div class="layer small-tie-hunter">
-      <img src="{{ STATIC_URL }}commons/img/errors/tie_hunter_small.png" />
+
+    <div class="row">
+      <div class="span10 offset2">
+	<img class="pull-left" src="{{ STATIC_URL }}/commons/img/error/reaper.jpg">
+
+	<div class="content">
+	  <h1>404</h1>
+	  <p>Too late, i already took care of it.</p>
+	  <small>You should go</small> -
+	  <a href="/">
+	    Go back to the main page
+	  </a>
+	</div>
+
+      </div>
     </div>
-    <div class="layer ackbar">
-      <img src="{{ STATIC_URL }}commons/img/errors/ackbar.png" />
-    </div>
-    <div class="layer its-a-trap">
-      <img src="{{ STATIC_URL }}commons/img/errors/its_a_trap.png" />
-    </div>
-    <div class="layer tie-hunter">
-      <img src="{{ STATIC_URL }}commons/img/errors/tie_hunter.png" />
-    </div>
-    <div class="layer e404">
-      <img src="{{ STATIC_URL }}commons/img/errors/404.png" />
-    </div>
+  </div>
 {% endblock %}
