@@ -9,4 +9,5 @@ INSTALLED_APPS = INSTALLED_APPS + (
     'lab',
     'blog',
     'seo',
+    'logger',
     )

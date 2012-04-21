@@ -90,8 +90,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'logger.middleware.LoggerMiddleware',
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'sentry.client.middleware.Sentry404CatchMiddleware',
 )
 
 TEMPLATE_DIRS = (
@@ -110,8 +110,6 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django.contrib.sitemaps',
 #    'debug_toolbar',
-    'sentry',
-    'sentry.client',
     'bootstrap',
 )
 
