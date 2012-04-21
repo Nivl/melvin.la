@@ -1,4 +1,4 @@
-   // fix sub nav on scroll
+/* Twitter bootstrap subnav */
 var $win = $(window)
 , $nav = $('.subnav')
 , navTop = $('.subnav').length && $('.subnav').offset().top - 40
@@ -19,10 +19,5 @@ function processScroll() {
     }
 }
 
-$(document).ready(function() {
-
-    /*
-      PrettyPhoto
-    */
-    //$("a[rel^='prettyPhoto']").prettyPhoto();
-});
+/* PrettyPhoto */
+$("a[rel^='prettyPhoto']").prettyPhoto();
