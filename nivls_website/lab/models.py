@@ -142,7 +142,7 @@ class Project(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('project', (), {'slug': self.slug})
+        return ('lab-project', (), {'slug': self.slug})
 
     class Meta:
         unique_together = ('site', 'slug')
