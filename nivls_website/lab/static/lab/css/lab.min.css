@@ -14,10 +14,12 @@
 @media (min-width:979px){#menu{height:100%;position:fixed;} #content{margin-top:30px;}}@media (max-width:979px){ul.nav-list{padding-left:0;padding-right:0;}}#menu.well{-webkit-border-radius:0px;-moz-border-radius:0px;border-radius:0px;}
 #menu ul li{text-align:center;margin-bottom:10px;}#menu ul li a{color:inherit;}#menu ul li a:hover{background-color:inherit;}
 #menu ul li a small{font-size:11px;}
-#body{margin-top:20px;}#body h2 a{color:inherit;}#body h2 a:hover{text-decoration:inherit;}
+#body{margin-top:20px;}#body .row{margin-left:0px;}
+#body h2 a{color:inherit;}#body h2 a:hover{text-decoration:inherit;}
+#body #content h2{margin:0 20px;}
 #body h1{margin:20px 0;}
 #body .anchor{padding-top:50px;}
-#body dd{border-left:solid #049cdb 3px;padding-left:10px;margin-bottom:-19px;padding-bottom:5px;}
+#body dd{border-left:solid #049cdb 3px;padding-left:10px;}
 #body dd,#body dt{padding-top:5px;}
 #diagram-wrapper #diagram{margin-top:-30px;}
 #diagram-wrapper .get{display:none;}

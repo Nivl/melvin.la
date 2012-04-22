@@ -116,23 +116,26 @@ class Client(models.Model):
 
 
 class Project(models.Model):
-    site         = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    name         = models.CharField(max_length=255)
-    slug         = models.SlugField()
-    start_date   = models.DateField(default=datetime.now)
-    license      = models.ForeignKey(License
-                                     ,limit_choices_to={'site': settings.SITE_ID})
-    sources_url  = models.URLField(null=True, blank=True)
-    description  = models.TextField()
-    edit_date    = models.DateField(auto_now=True)
-    demo_codebox = models.TextField(null=True, blank=True)
-    languages    = models.ManyToManyField(Language
+    site             = models.ForeignKey(I18nSite, default=settings.SITE_ID)
+    name             = models.CharField(max_length=255)
+    slug             = models.SlugField()
+    catchphrase      = models.CharField(max_length=255
+                                        ,null=True, blank=True)
+    overall_progress = models.PositiveSmallIntegerField(default=0)
+    start_date       = models.DateField(default=datetime.now)
+    license          = models.ForeignKey(License
+                                         ,limit_choices_to={'site': settings.SITE_ID})
+    sources_url      = models.URLField(null=True, blank=True)
+    description      = models.TextField()
+    edit_date        = models.DateField(auto_now=True)
+    demo_codebox     = models.TextField(null=True, blank=True)
+    languages        = models.ManyToManyField(Language
                                           ,through='ProjectLanguageRate')
-    coworkers    = models.ManyToManyField(Coworker, null=True, blank=True,
+    coworkers        = models.ManyToManyField(Coworker, null=True, blank=True,
+                                              limit_choices_to={'site': settings.SITE_ID})
+    clients          = models.ManyToManyField(Client, null=True, blank=True,
                                           limit_choices_to={'site': settings.SITE_ID})
-    clients      = models.ManyToManyField(Client, null=True, blank=True,
-                                          limit_choices_to={'site': settings.SITE_ID})
-    tags         = models.ManyToManyField(Tag, null=True, blank=True)
+    tags             = models.ManyToManyField(Tag, null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -155,7 +158,7 @@ class ProjectLanguageRate(models.Model):
 
 
 class Progress(models.Model):
-    description = models.TextField()
+    description = models.CharField(max_length=255)
     pub_date    = models.DateField(default=datetime.now)
     project     = models.ForeignKey(Project)
 
@@ -164,6 +167,14 @@ class Progress(models.Model):
 
     class Meta:
         ordering = ['-pub_date']
+
+
+class Todo(models.Model):
+    task = models.CharField(max_length=255)
+    project     = models.ForeignKey(Project)
+
+    def __unicode__(self):
+        return self.task
 
 
 class Image(models.Model):

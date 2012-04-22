@@ -12,6 +12,10 @@ class ProgressInline(admin.TabularInline):
     model = Progress
     extra = 0
 
+class TodoInline(admin.TabularInline):
+    model = Todo
+    extra = 0
+
 class ImageInline(admin.TabularInline):
     model = Image
     extra = 1
@@ -26,7 +30,7 @@ class DownloadInline(admin.TabularInline):
 
 class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}
-    inlines = [ProjectLanguageRateInline, ProgressInline,
+    inlines = [ProjectLanguageRateInline, ProgressInline, TodoInline,
                ImageInline, VideoInline, DownloadInline]
 
     def queryset(self, request):

@@ -2,17 +2,36 @@
 
 <h1>{% trans "Progress" %}</h1>
 
-<span class="span8 offset1">
-  {% for event in progress %}
+  <div class="progress progress-striped {% if project.overall_progress != 100%}active{% endif %}">
+    <div class="bar" style="width:{{ project.overall_progress }}%;"></div>
+  </div>
+
+<div class="row">
+  <div class="span8 offset1">
     <dl class="dl-horizontal">
-      <dt>
-	<time datetime="{{ event.pub_date|date:"c"|fix_html5_tz }}" pubdate>
-	  {{ event.pub_date|naturalday }}
-	</time>
-      <dd>
-	<span>
-	  {{ event.description }}
-	</span>
+      {% for event in progress %}
+	<dt>
+	  <time datetime="{{ event.pub_date|date:"c"|fix_html5_tz }}" pubdate>
+	    {{ event.pub_date|naturalday }}
+	  </time>
+	  <dd>
+	    <span>
+	      {{ event.description }}
+	    </span>
+	  {% endfor%}
     </dl>
-  {% endfor%}
-</span>
+  </div>
+</div>
+{% if todo %}
+  <div class="row">
+    <h2>{% trans "Todo" %}</h2>
+    <div class="span8 offset1">
+      <ul>
+	{% for task in todo %}
+	  <li class="dl-horizontal">
+	    {{ task.task }}
+	  {% endfor%}
+    </div>
+  </div>
+{% endif %}
+

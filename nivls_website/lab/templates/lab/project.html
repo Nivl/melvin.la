@@ -3,6 +3,9 @@
 {% load url from future %}
 {% load i18n %}
 
+
+{% block "body-params" %} data-spy="scroll" data-target=".subnav" data-offset="-80"{% endblock %}
+
 {% block "sub_head_css" %}
   <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/prettyPhoto.css">
   <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}lab/css/slicing.css">
@@ -20,7 +23,7 @@
 
 {% block "content" %}
 
-  {% with progress=project.progress_set.all images=project.image_set.all videos=project.video_set.all downloads=project.download_set.all %}
+  {% with progress=project.progress_set.all todo=project.todo_set.all images=project.image_set.all videos=project.video_set.all downloads=project.download_set.all %}
 
     <h1>{{ project.name }}</h1>
 

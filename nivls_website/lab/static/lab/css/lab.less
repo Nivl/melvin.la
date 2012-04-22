@@ -165,6 +165,10 @@ body {
 #body {
     margin-top: 20px;
 
+    .row {
+	margin-left: 0px;
+    }
+
     h2 {
 	a {
 	    color: inherit;
@@ -172,6 +176,12 @@ body {
 	    &:hover {
 		text-decoration: inherit;
 	    }
+	}
+    }
+
+    #content {
+	h2 {
+	    margin: 0 20px;
 	}
     }
 
@@ -186,8 +196,6 @@ body {
     dd {
 	border-left: solid @blue 3px;
 	padding-left: 10px;
-	margin-bottom: -19px;
-	padding-bottom: 5px;
     }
 
     dd, dt {

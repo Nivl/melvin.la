@@ -31,7 +31,7 @@
     <![endif]-->
   </head>
 
-  <body data-spy="scroll" data-target=".subnav" data-offset="-80">
+  <body{% block "body-params" %}{% endblock %}>
     {% block "body" %}{% endblock %}
 
     <script src="https://www.google.com/jsapi"></script>
