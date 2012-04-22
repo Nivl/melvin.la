@@ -3,6 +3,21 @@
 
 {% block "sub_head_js" %}
   {% include "comments/ajax_form.html" %}
+  <script src="{{ STATIC_URL }}commons/js/Markdown.Converter.js"></script>
+  <script src="{{ STATIC_URL }}commons/js/Markdown.Sanitizer.js"></script>
+  <script src="{{ STATIC_URL }}commons/js/jquery.oninput.min.js"></script>
+
+  <script>
+     $(function() {
+       var $textarea = $('#id_comment'),
+           $preview = $('#form-preview'),
+           converter = new Markdown.getSanitizingConverter();
+
+       $textarea.input(function(event) {
+         $preview.html(converter.makeHtml($textarea.val()));
+       }).trigger('input');
+     });
+  </script>
 {% endblock "sub_head_js" %}
 
 {% block "sub_head_css" %}
@@ -89,6 +104,19 @@
 	<div id="comment_form">
 	  {% render_comment_form for post %}
 	</div>
+
+	<div class="well">
+	  <h2>
+	    Preview
+	    <small>
+	      <a href="http://daringfireball.net/projects/markdown/">
+		Markdown enabled
+	      </a>
+	    </small>
+	  </h2>
+	  <div id="form-preview"></div>
+	</div>
+
       {% else %}
 	{% trans "Comments has been disabled for this post." %}
       {% endif %}

@@ -20,7 +20,7 @@
 	</span>
 
 	<div class="content">
-	  {{ comment.comment|markdown:"safe,codehilite" }}
+	  {{ comment.comment|sanitize|markdown:"codehilite" }}
 	</div>
     </section>
   {% endfor %}
