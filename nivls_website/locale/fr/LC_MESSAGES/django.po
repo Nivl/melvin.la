@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-29 17:53+0100\n"
+"POT-Creation-Date: 2012-04-22 22:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: templates/base.html:5 templates/error_base.html:4
+#: nivls_website/templates/base.html:5
 msgid "en"
 msgstr "fr"
 
-#: templates/error_base.html:8
-msgid "Server Error"
-msgstr ""
+#: nivls_website/templates/comments/ajax_form.html:25
+msgid "Error!"
+msgstr "Error !"
 
-#: templates/comments/ajax_form.html:18
+#: nivls_website/templates/comments/ajax_form.html:25
 msgid ""
 "Your comment was unable to be posted at this time. We apologise for the "
 "inconvenience."
@@ -34,7 +34,7 @@ msgstr ""
 "Votre commentaire n\\'a pas pu être posté. Nous nous excusons pour cet "
 "inconvénient."
 
-#: templates/comments/comment_notification_email.txt:3
+#: nivls_website/templates/comments/comment_notification_email.txt:3
 #, python-format
 msgid ""
 "New comment from: <strong>%(comment.user_name)s</strong> on <strong>"
@@ -43,37 +43,49 @@ msgstr ""
 "Nouveau commentaire de : <strong>%(comment.user_name)s</strong> sur <strong>"
 "%(content_object)s</strong>"
 
-#: templates/comments/comment_notification_email.txt:5
+#: nivls_website/templates/comments/comment_notification_email.txt:5
 msgid "Author info:"
-msgstr "Information:"
+msgstr "Information :"
 
-#: templates/comments/comment_notification_email.txt:6
-#, fuzzy
+#: nivls_website/templates/comments/comment_notification_email.txt:6
 msgid "Email: "
-msgstr "Email : "
+msgstr "Email : "
 
-#: templates/comments/comment_notification_email.txt:7
+#: nivls_website/templates/comments/comment_notification_email.txt:7
 msgid "URL: "
-msgstr "URL : "
+msgstr "URL : "
 
-#: templates/comments/comment_notification_email.txt:8
+#: nivls_website/templates/comments/comment_notification_email.txt:8
 msgid "IP: "
-msgstr "IP : "
+msgstr "IP : "
 
-#: templates/comments/comment_notification_email.txt:10
-#, fuzzy
+#: nivls_website/templates/comments/comment_notification_email.txt:10
 msgid "Comment was: "
-msgstr "Le commentaire est : "
+msgstr "Le commentaire est : "
 
-#: templates/comments/list.html:9
+#: nivls_website/templates/comments/form.html:25
+#: nivls_website/templates/comments/preview.html:25
+msgid "Sending..."
+msgstr "Envoi..."
+
+#: nivls_website/templates/comments/form.html:26
+#: nivls_website/templates/comments/preview.html:26
+msgid "Send"
+msgstr "Envoyer"
+
+#: nivls_website/templates/comments/list.html:10
 msgid "By "
 msgstr "Par "
 
-#: templates/comments/list.html:17
+#: nivls_website/templates/comments/list.html:18
 msgid "at "
 msgstr "à "
 
-#: templates/comments/posted.html:2
+#: nivls_website/templates/comments/posted.html:4
+msgid "Sent!"
+msgstr "Envoyé !"
+
+#: nivls_website/templates/comments/posted.html:5
 msgid ""
 "Your comment has been successfully saved, it will soon be validated by an "
 "administrator."

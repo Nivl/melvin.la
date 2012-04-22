@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-29 00:22+0100\n"
+"POT-Creation-Date: 2012-04-22 22:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,15 +47,15 @@ msgstr "%(sitename)s - Categorie : %(name)s"
 msgid "Latest posts for the category '%(name)s'"
 msgstr "Derniers articles de la catégorie '%(name)s'"
 
-#: forms.py:7
+#: forms.py:8
 msgid "Subject"
 msgstr "Sujet"
 
-#: forms.py:8
+#: forms.py:9
 msgid "Email address"
 msgstr "Adresse email"
 
-#: forms.py:9
+#: forms.py:10
 msgid "Message"
 msgstr "Message"
 
@@ -64,7 +64,11 @@ msgstr "Message"
 msgid "Archives from %(date)s"
 msgstr "Archive de %(date)s"
 
-#: templates/blog/ajax_contact_form.html:22
+#: templates/blog/ajax_contact_form.html:36
+msgid "Error!"
+msgstr ""
+
+#: templates/blog/ajax_contact_form.html:36
 msgid ""
 "Your message was unable to be sent at this time. We apologise for the "
 "inconvenience."
@@ -72,133 +76,135 @@ msgstr ""
 "Votre message n\\'a pas pu être envoyé. Nous nous excusons pour cet "
 "inconvénient."
 
-#: templates/blog/ajax_mail_sent.html:2
-msgid "The message has been sent, you should receive an answer in a few hours."
+#: templates/blog/ajax_mail_sent.html:5
+msgid "Sent!"
+msgstr "Envoyé !"
+
+#: templates/blog/ajax_mail_sent.html:6
+msgid ""
+"The message has been successfully sent, you should receive an answer in a "
+"few hours."
 msgstr ""
 "Le message a bien été envoyé, vous recevrez une réponse d'ici quelques "
 "heures."
 
-#: templates/blog/contact.html:8 templates/blog/contact.html.py:11
-#: templates/blog/header.html:10
+#: templates/blog/contact.html:8 templates/blog/contact.html.py:18
+#: templates/blog/header.html:28
 msgid "Contact"
 msgstr "Contact"
 
-#: templates/blog/header.html:9
+#: templates/blog/header.html:22
 msgid "Blog"
 msgstr "Blog"
 
-#: templates/blog/header.html:11
+#: templates/blog/header.html:34
+msgid "Lab"
+msgstr "Lab"
+
+#: templates/blog/header.html:40
 msgid "about"
 msgstr "A propos"
 
-#: templates/blog/login.html:4
+#: templates/blog/header.html:53
+msgid "His portfolio"
+msgstr "Son portfolio"
+
+#: templates/blog/header.html:59
+msgid "His C.V."
+msgstr "Son C.V."
+
+#: templates/blog/login.html:5 templates/blog/login.html.py:9
+#: templates/blog/login.html:21
 msgid "Login"
 msgstr "Connexion"
 
-#: templates/blog/login.html:9
-msgid "Your username and password didn't match. Please try again."
-msgstr "Vos identifiants sont invalides. Veuillez réesayer."
-
-#: templates/blog/menu.html:5
-msgid "Categories"
-msgstr "Catégories"
-
-#: templates/blog/menu.html:16
-msgid "Tags"
-msgstr "Tags"
-
-#: templates/blog/menu.html:23
-msgid "Archives"
-msgstr "Archives"
-
-#: templates/blog/post.html:24
+#: templates/blog/post.html:40
 msgid "Share"
 msgstr "Partager"
 
-#: templates/blog/post.html:30 templates/blog/templatetags/post_list.html:12
+#: templates/blog/post.html:46
 msgid "By "
 msgstr "Par "
 
-#: templates/blog/post.html:34 templates/blog/templatetags/post_list.html:16
-msgid "In: "
-msgstr "Dans: "
-
-#: templates/blog/post.html:40 templates/blog/templatetags/post_list.html:21
-msgid "Tagged under: "
-msgstr "Taggé sous: "
-
 #: templates/blog/post.html:50
-msgid "Available in: "
-msgstr "Diponible en : "
+msgid "In: "
+msgstr "Dans : "
 
-#: templates/blog/post.html:72
+#: templates/blog/post.html:66
+msgid "Available in: "
+msgstr "Diponible en : "
+
+#: templates/blog/post.html:89
 msgid "Know more"
 msgstr "En savoir plus"
 
-#: templates/blog/post.html:76
+#: templates/blog/post.html:93
 msgid "Comments"
 msgstr "Commentaires"
 
-#: templates/blog/post.html:80
+#: templates/blog/post.html:97
 msgid "There are no comments"
 msgstr "Il n'y a aucun commentaire"
 
-#: templates/blog/post.html:82
+#: templates/blog/post.html:99
 #, python-format
 msgid "1 comment"
 msgid_plural "%(counter)s comments"
 msgstr[0] "1 commentaire"
 msgstr[1] "%(counter)s commentaires"
 
-#: templates/blog/post.html:92
+#: templates/blog/post.html:122
 msgid "Comments has been disabled for this post."
 msgstr "Les commentaires ont été désactivé pour cet article."
 
-#: templates/blog/templatetags/archives.html:9
+#: templates/blog/templatetags/archives.html:6
+msgid "Archives"
+msgstr "Archives"
+
+#: templates/blog/templatetags/archives.html:15
 msgid "There is no post."
 msgstr "Il n'y a aucun article."
 
-#: templates/blog/templatetags/categories.html:12
-#: templates/blog/templatetags/tag_cloud.html:4
+#: templates/blog/templatetags/categories.html:5
+msgid "Categories"
+msgstr "Catégories"
+
+#: templates/blog/templatetags/categories.html:17
+#: templates/blog/templatetags/tag_cloud.html:8
 #, python-format
 msgid "1 post"
 msgid_plural "%(counter)s posts"
 msgstr[0] "1 article"
 msgstr[1] "%(counter)s articles"
 
-#: templates/blog/templatetags/categories.html:18
+#: templates/blog/templatetags/categories.html:23
 msgid "There are no categories."
 msgstr "Il n'y a aucune catégorie"
 
-#: templates/blog/templatetags/display_contact_form.html:15
+#: templates/blog/templatetags/display_contact_form.html:12
+msgid "Sending..."
+msgstr "Envoi..."
+
+#: templates/blog/templatetags/display_contact_form.html:13
 msgid "Send"
 msgstr "Envoyer"
 
-#: templates/blog/templatetags/menus.html:15
+#: templates/blog/templatetags/menus.html:14
 msgid "There are no links."
 msgstr "Il n'y a aucun lien."
 
-#: templates/blog/templatetags/pagination.html:4
-msgid "Previous"
-msgstr "Précédant"
-
-#: templates/blog/templatetags/pagination.html:8
-#, python-format
-msgid "Page %(current)s on %(total)s."
-msgstr "Page %(current)s sur %(total)s."
-
-#: templates/blog/templatetags/pagination.html:12
-msgid "Next"
-msgstr "Suivant"
-
-#: templates/blog/templatetags/post_list.html:35
+#: templates/blog/templatetags/post_list.html:24
 msgid "Read more"
 msgstr "Lire l'article"
 
-#: templates/blog/templatetags/post_list.html:39
+#: templates/blog/templatetags/post_list.html:36
 msgid "There are no posts."
 msgstr "Il n'y a aucun article."
 
-#: templates/blog/templatetags/tag_cloud.html:9
+#: templates/blog/templatetags/tag_cloud.html:3
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/blog/templatetags/tag_cloud.html:13
 msgid "There are no tags."
 msgstr "Il n'y a aucun tag."
