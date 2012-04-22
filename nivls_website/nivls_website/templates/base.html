@@ -15,6 +15,9 @@
 	  href="{{ STATIC_URL }}commons/css/bootstrap.min.css">
 
     <link rel="stylesheet"
+	  href="{{ STATIC_URL }}commons/css/prettify.css">
+
+    <link rel="stylesheet"
 	  href="{{ STATIC_URL }}commons/css/main.min.css">
 
     {% block "head_css" %}{% endblock %}
@@ -28,7 +31,7 @@
     <!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
 	</script>
-    <![endif]-->
+	<![endif]-->
   </head>
 
   <body{% block "body-params" %}{% endblock %}>
@@ -44,6 +47,8 @@
     <script src="{{ STATIC_URL }}commons/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}commons/js/koco.jquery.js"></script>
     <script src="{{ STATIC_URL }}commons/js/dream.js"></script>
+    <script src="{{ STATIC_URL }}commons/js/jquery.timers.js"></script>
+    <script src="{{ STATIC_URL }}commons/js/prettify/prettify.js"></script>
     <script src="{{ STATIC_URL }}commons/js/main.js"></script>
     {% block "head_js" %}{% endblock %}
     {{ seo.free_block|safe }}

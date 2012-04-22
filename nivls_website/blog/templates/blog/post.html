@@ -16,13 +16,14 @@
        $textarea.input(function(event) {
          $preview.html(converter.makeHtml($textarea.val()));
        }).trigger('input');
+
+       $textarea.keydown(function() {
+         $(this).stopTime();
+         $(this).oneTime(500, function() { styleCode(); });
+       });
      });
   </script>
 {% endblock "sub_head_js" %}
-
-{% block "sub_head_css" %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}blog/css/pygments.css">
-{% endblock "sub_head_css" %}
 
 {% block "title" %}{{ post.title }}{% endblock "title" %}
 
@@ -76,7 +77,7 @@
     </header>
 
     <section class="content">
-      {{ post.parsed_content|markdown:'codehilite' }}
+      {{ post.parsed_content|markdown }}
     </section>
 
     <footer>
