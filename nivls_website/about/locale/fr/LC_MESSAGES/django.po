@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-22 22:09+0200\n"
+"POT-Creation-Date: 2012-04-23 00:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,8 +123,8 @@ msgstr "Téléchargements"
 msgid "Download this C.V. as PDF"
 msgstr "Télécharger ce C.V. au format PDF"
 
-#: templates/about/header.html:29 templates/about/portfolio.html:5
-#: templates/about/portfolio.html.py:6
+#: templates/about/header.html:29 templates/about/portfolio.html:6
+#: templates/about/portfolio.html.py:7
 msgid "Portfolio"
 msgstr "Portfolio"
 
@@ -136,11 +136,20 @@ msgstr "Blog"
 msgid "Lab"
 msgstr "Lab"
 
-#: templates/about/portfolio.html:52
+#: templates/about/portfolio.html:20
+#, python-format
+msgid ""
+"The projects listed here are mainly professional ones.<br />To see the other "
+"projects, go to the <a href=\"%(url_lab)s\">lab</a>."
+msgstr "Les projets listés ici sont principalement des projets professionnels."
+"<br />Pour voir les autres projets, rendez vous sur le "
+"<a href=\"%(url_lab)s\">lab</a>."
+
+#: templates/about/portfolio.html:63
 msgid "Know more"
 msgstr "En savoir plus"
 
-#: templates/about/portfolio.html:58
+#: templates/about/portfolio.html:69
 msgid "Visit "
 msgstr "Visiter "
 
