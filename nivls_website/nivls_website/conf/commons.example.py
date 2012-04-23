@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
 #    'debug_toolbar',
     'bootstrap',
+    'bootstrapform',
 )
 
 DEFAULT_FILE_STORAGE = "commons.storage.UniqueFileSystemStorage"

@@ -3,6 +3,7 @@ from sitemaps import *
 
 sitemaps = {
     'lab_project': ProjectSitemap,
+    'lab_tag': TagSitemap,
     }
 
 urlpatterns = patterns(

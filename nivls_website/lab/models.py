@@ -20,6 +20,10 @@ class Tag(models.Model):
     admin_thumbnail.short_description = 'Thumbnail'
     admin_thumbnail.allow_tags = True
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('lab-tag', (), {'slug': self.slug})
+
     def save(self, *arg, **kwargs):
         if self.pk is not None:
             origin = Tag.objects.get(pk=self.pk)
