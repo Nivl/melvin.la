@@ -9,8 +9,9 @@
 
     <li class="span3">
       <div class="thumbnail">
-	<img src="{{ post.thumbnail.url }}" alt="thumbnail" />
-
+	<a href="{{ post.get_absolute_url }}">
+	  <img src="{{ post.thumbnail.url }}" alt="thumbnail" />
+	</a>
 	<div class="caption">
 	  <h5>{{ post.title }}</h5>
 
