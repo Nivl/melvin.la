@@ -11,7 +11,7 @@
     <dl class="dl-horizontal">
       {% for event in progress %}
 	<dt>
-	  <time datetime="{{ event.pub_date|utc|date:"Y-m-d H:i\Z" }}" pubdate>
+	  <time datetime="{{ event.pub_date|utc|date:"Y-m-d H:i\Z" }}">
 	    {{ event.pub_date|naturalday }}
 	  </time>
 	  <dd>

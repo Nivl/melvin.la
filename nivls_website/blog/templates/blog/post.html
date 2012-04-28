@@ -44,7 +44,7 @@
       </div>
       <div class="info">
 	{% trans "By " %}{{ post.author }},
-	<time datetime="{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}" pubdate>
+	<time datetime="{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}">
 	  {{ post.pub_date|naturalday }}
 	</time>
 	{% trans "In: " %}<a href="{{ post.category.get_absolute_url }}">

@@ -13,7 +13,7 @@
 	  {% else %}
 	    {{ comment.user_name }},
 	  {% endif %}
-	  <time datetime="{{ comment.submit_date|utc|date:"Y-m-d H:i\Z" }}" pubdate>
+	  <time datetime="{{ comment.submit_date|utc|date:"Y-m-d H:i\Z" }}">
 	    {{ comment.submit_date|naturalday }}
 	    {% trans "at " %}{{ comment.submit_date|date }}
 	  </time>
