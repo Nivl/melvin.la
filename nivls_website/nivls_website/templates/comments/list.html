@@ -1,4 +1,4 @@
-{% load comments markup humanize common_tags i18n %}
+{% load comments markup humanize common_tags i18n tz %}
 
 <section id="comments">
   {% get_comment_list for post as comment_list %}
@@ -13,7 +13,7 @@
 	  {% else %}
 	    {{ comment.user_name }},
 	  {% endif %}
-	  <time datetime="{{ comment.submit_date|date:"cO"|fix_html5_tz }}" pubdate>
+	  <time datetime="{{ comment.submit_date|utc|date:"Y-m-d H:i\Z" }}" pubdate>
 	    {{ comment.submit_date|naturalday }}
 	    {% trans "at " %}{{ comment.submit_date|date }}
 	  </time>

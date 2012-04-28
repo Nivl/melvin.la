@@ -18,9 +18,3 @@ def replace_regexp(string, args):
     replace = args.split(args[0])[2]
 
     return re.sub(search, replace, string)
-
-@register.filter
-def fix_html5_tz(datimezone):
-    if len(datimezone) == 24:
-        return datimezone[:22] + ":" + datimezone[22:]
-    return datimezone

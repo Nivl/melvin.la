@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% load blog_tags markup comments humanize common_tags i18n %}
+{% load blog_tags markup comments humanize common_tags i18n tz %}
 
 {% block "sub_head_js" %}
   {% include "comments/ajax_form.html" %}
@@ -44,7 +44,7 @@
       </div>
       <div class="info">
 	{% trans "By " %}{{ post.author }},
-	<time datetime="{{ post.pub_date|date:"cO"|fix_html5_tz }}" pubdate>
+	<time datetime="{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}" pubdate>
 	  {{ post.pub_date|naturalday }}
 	</time>
 	{% trans "In: " %}<a href="{{ post.category.get_absolute_url }}">
