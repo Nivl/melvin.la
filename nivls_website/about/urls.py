@@ -10,7 +10,7 @@ urlpatterns = patterns(
 static_urlpatterns = patterns(
     '',
     url(r'^cv/$', 'about.views.cv', name='cv'),
-    url(r'^cv_pdf/$', 'about.views.cv_pdf', name='cv-pdf'),
+    url(r'^cv_pdf/$', 'about.views.cv_pdf', name='cv_pdf'),
     url(r'^portfolio/$', 'about.views.portfolio', name='portfolio'),
 )
 
