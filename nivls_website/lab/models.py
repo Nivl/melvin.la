@@ -190,6 +190,14 @@ class Image(models.Model):
     def __unicode__(self):
         return self.name
 
+    def save(self, *arg, **kwargs):
+        if self.pk is not None:
+            origin = Image.objects.get(pk=self.pk)
+            if origin.image != self.image:
+                if os.path.exists(origin.image.path):
+                    os.remove(origin.image.path)
+        super(Image, self).save(*arg, **kwargs)
+
 
 class DownloadIcon(models.Model):
     name        = models.CharField(max_length=50)
