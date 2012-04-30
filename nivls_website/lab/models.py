@@ -150,7 +150,7 @@ class Project(models.Model):
 
     class Meta:
         unique_together = ('site', 'slug')
-
+        ordering        = ['-start_date']
 
 class ProjectLanguageRate(models.Model):
     language    = models.ForeignKey(Language)
