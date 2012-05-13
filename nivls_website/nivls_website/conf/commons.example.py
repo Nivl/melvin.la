@@ -57,6 +57,9 @@ STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                            "static"))
 STATIC_URL = 'http://static.' + DOMAIN_NAME + '/'
 
+ALLOWED_INCLUDE_ROOTS = (STATIC_ROOT + '/commons/css/',
+                         STATIC_ROOT + '/about/css/')
+
 STATICFILES_DIRS = (
     os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "static")),
 )

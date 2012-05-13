@@ -1,6 +1,7 @@
 {% extends "about/base.html" %}
 
 {% load markup i18n %}
+{% load url from future %}
 
 {% block "title" %}{% trans "Portfolio" %}{% endblock "title" %}
 {% block "content-title" %}{% trans "Portfolio" %}{% endblock "content-title" %}
@@ -12,6 +13,16 @@
 {% endblock %}
 
 {% block "content" %}
+  <section class="portfolio row-fluid">
+    <article class="span11 centered-text">
+      <div class="content">
+	{% url 'lab-home' as url_lab %}
+	{% blocktrans %}The projects listed here are mainly professional ones.<br />To see the other projects, go to the <a href="{{ url_lab }}">lab</a>.{% endblocktrans %}
+      </div>
+    </article>
+  </section>
+
+  <hr />
 
   {% for project in projects %}
     <section class="portfolio row-fluid">

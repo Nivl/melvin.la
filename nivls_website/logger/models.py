@@ -15,4 +15,4 @@ class Logger404(models.Model):
 
     class Meta:
         verbose_name_plural = 'Logger404'
-        ordering = ['hit']
+        ordering = ['-hit']

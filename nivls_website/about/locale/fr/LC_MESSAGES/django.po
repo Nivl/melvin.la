@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-25 19:21+0100\n"
+"POT-Creation-Date: 2012-04-23 00:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,60 +18,141 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: templates/about/about.html:5 templates/about/base.html:20
-msgid "Home"
-msgstr "Accueil"
-
-#: templates/about/about.html:9
-msgid "Who am I?"
-msgstr "Qui suis-je ?"
-
-#: templates/about/about.html:12
-msgid "Free for job"
-msgstr ""
-
-#: templates/about/about.html:22
-msgid "Contact me"
-msgstr "Me contacter"
-
-#: templates/about/base.html:21 templates/about/portfolio.html:5
-#: templates/about/portfolio.html.py:6
-msgid "Portfolio"
-msgstr "Portfolio"
-
-#: templates/about/base.html:22 templates/about/cv.html:5
-#: templates/about/cv.html.py:6
-msgid "C.V."
-msgstr "C.V."
-
-#: templates/about/base.html:23
-msgid "Blog"
-msgstr "Blog"
-
-#: templates/about/cv.html:12 templates/about/cv_pdf.html:117
+#: models.py:20
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/about/cv.html:19 templates/about/cv_pdf.html:122
-msgid "Skills"
-msgstr "Compétences"
+#: models.py:21
+msgid "Profiles"
+msgstr "Profils"
 
-#: templates/about/cv.html:26 templates/about/cv_pdf.html:129
-msgid "Awards"
-msgstr "Prix et récompences"
+#: models.py:43
+msgid "Contact link"
+msgstr "Lien de contact"
 
-#: templates/about/cv.html:33 templates/about/cv.html.py:37
+#: models.py:44
+msgid "Contact links"
+msgstr "Liens de contact"
+
+#: models.py:64
+msgid "Work Type"
+msgstr "Type de travail"
+
+#: models.py:65
+msgid "Work Types"
+msgstr "Types de travail"
+
+#: models.py:78
+msgid "Work Field"
+msgstr "Secteur"
+
+#: models.py:79
+msgid "Work Fields"
+msgstr "Secteurs"
+
+#: models.py:113
+msgid "Work Project"
+msgstr "Projet"
+
+#: models.py:114
+msgid "Work Projects"
+msgstr "Projets"
+
+#: models.py:135
+msgid "C.V. Section"
+msgstr "C.V. Section"
+
+#: models.py:136
+msgid "C.V. Sections"
+msgstr "C.V. Sections"
+
+#: models.py:171
+msgid "C.V. Category"
+msgstr "C.V. Categorie"
+
+#: models.py:172
+msgid "C.V. Categories"
+msgstr "C.V. Categories"
+
+#: models.py:191
+msgid "C.V. Content"
+msgstr "C.V. Contenu"
+
+#: models.py:192
+msgid "C.V. Contents"
+msgstr "C.V. Contenus"
+
+#: models.py:207
+msgid "C.V. Sub-content"
+msgstr "C.V. Sous-contenu"
+
+#: models.py:208
+msgid "C.V. Sub-contents"
+msgstr "C.V. Sous-contenus"
+
+#: templates/about/about.html:6 templates/about/header.html:23
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/about/about.html:10
+msgid "Who am I?"
+msgstr "Qui suis-je ?"
+
+#: templates/about/about.html:14
+msgid "Free for job"
+msgstr ""
+
+#: templates/about/about.html:17
+msgid "Not Free for job"
+msgstr ""
+
+#: templates/about/about.html:28
+msgid "Contact me"
+msgstr "Me contacter"
+
+#: templates/about/cv.html:6 templates/about/cv.html.py:7
+#: templates/about/header.html:35
+msgid "C.V."
+msgstr "C.V."
+
+#: templates/about/cv.html:42 templates/about/cv.html.py:49
 msgid "Downloads"
 msgstr "Téléchargements"
 
-#: templates/about/cv.html:40
+#: templates/about/cv.html:52
 msgid "Download this C.V. as PDF"
 msgstr "Télécharger ce C.V. au format PDF"
 
-#: templates/about/portfolio.html:42
+#: templates/about/header.html:29 templates/about/portfolio.html:6
+#: templates/about/portfolio.html.py:7
+msgid "Portfolio"
+msgstr "Portfolio"
+
+#: templates/about/header.html:41
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/about/header.html:47
+msgid "Lab"
+msgstr "Lab"
+
+#: templates/about/portfolio.html:20
+#, python-format
+msgid ""
+"The projects listed here are mainly professional ones.<br />To see the other "
+"projects, go to the <a href=\"%(url_lab)s\">lab</a>."
+msgstr "Les projets listés ici sont principalement des projets professionnels."
+"<br />Pour voir les autres projets, rendez vous sur le "
+"<a href=\"%(url_lab)s\">lab</a>."
+
+#: templates/about/portfolio.html:63
 msgid "Know more"
 msgstr "En savoir plus"
 
-#: templates/about/portfolio.html:46
+#: templates/about/portfolio.html:69
 msgid "Visit "
 msgstr "Visiter "
+
+#: templates/about/templatetags/cat_as_list.html:6
+msgid ": "
+msgstr " : "

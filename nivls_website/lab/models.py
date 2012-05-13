@@ -20,6 +20,10 @@ class Tag(models.Model):
     admin_thumbnail.short_description = 'Thumbnail'
     admin_thumbnail.allow_tags = True
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('lab-tag', (), {'slug': self.slug})
+
     def save(self, *arg, **kwargs):
         if self.pk is not None:
             origin = Tag.objects.get(pk=self.pk)
@@ -142,11 +146,11 @@ class Project(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('project', (), {'slug': self.slug})
+        return ('lab-project', (), {'slug': self.slug})
 
     class Meta:
         unique_together = ('site', 'slug')
-
+        ordering        = ['-start_date']
 
 class ProjectLanguageRate(models.Model):
     language    = models.ForeignKey(Language)
@@ -185,6 +189,14 @@ class Image(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *arg, **kwargs):
+        if self.pk is not None:
+            origin = Image.objects.get(pk=self.pk)
+            if origin.image != self.image:
+                if os.path.exists(origin.image.path):
+                    os.remove(origin.image.path)
+        super(Image, self).save(*arg, **kwargs)
 
 
 class DownloadIcon(models.Model):

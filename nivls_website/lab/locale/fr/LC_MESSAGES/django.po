@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-29 18:26+0100\n"
+"POT-Creation-Date: 2012-04-22 22:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,27 +18,49 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: templates/lab/project.html:33
-msgid "Infos"
-msgstr "Infos"
+#: templates/lab/header.html:23
+msgid "Blog"
+msgstr "Blog"
 
-#: templates/lab/project.html:35
+#: templates/lab/header.html:29
+msgid "Lab"
+msgstr "Lab"
+
+#: templates/lab/header.html:35
+msgid "About"
+msgstr "À propos"
+
+#: templates/lab/header.html:49
+msgid "His portfolio"
+msgstr "Son portfolio"
+
+#: templates/lab/header.html:55
+msgid "His C.V."
+msgstr "Son C.V."
+
+#: templates/lab/project.html:34
+msgid "Informations"
+msgstr "Informations"
+
+#: templates/lab/project.html:36
+#: templates/lab/project_includes/progress.html:3
 msgid "Progress"
 msgstr "Progression"
 
-#: templates/lab/project.html:38
+#: templates/lab/project.html:39 templates/lab/project_includes/images.html:3
 msgid "Images"
 msgstr "Images"
 
-#: templates/lab/project.html:41
+#: templates/lab/project.html:42 templates/lab/project_includes/videos.html:3
 msgid "Videos"
 msgstr "Vidéos"
 
-#: templates/lab/project.html:44
+#: templates/lab/project.html:45
+#: templates/lab/project_includes/downloads.html:3
 msgid "Downloads"
 msgstr "Téléchargements"
 
-#: templates/lab/project.html:47
+#: templates/lab/project.html:48
 msgid "Demos"
 msgstr "Démos"
 
@@ -47,18 +69,30 @@ msgstr "Démos"
 msgid "Informations about %(project_name)s"
 msgstr "Informations sur %(project.name)s"
 
-#: templates/lab/project_includes/infos.html:26
+#: templates/lab/project_includes/infos.html:7
 msgid "Project License: "
-msgstr "Licence du projet : "
+msgstr "Licence du projet : "
 
-#: templates/lab/project_includes/infos.html:44
+#: templates/lab/project_includes/infos.html:27
 msgid "Browse the sources"
 msgstr "Voir les sources du projet"
 
-#: templates/lab/project_includes/infos.html:57
+#: templates/lab/project_includes/infos.html:60
 msgid "Client(s)"
 msgstr "Client(s)"
 
-#: templates/lab/project_includes/infos.html:83
+#: templates/lab/project_includes/infos.html:86
 msgid "Team"
 msgstr "Équipe"
+
+#: templates/lab/project_includes/progress.html:27
+msgid "Todo"
+msgstr "À faire"
+
+#: templates/lab/templatetags/project_list.html:16
+msgid "Know more"
+msgstr "En savoir plus"
+
+#: templates/lab/templatetags/tags.html:11
+msgid "Home"
+msgstr "Accueil"

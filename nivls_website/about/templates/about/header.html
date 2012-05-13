@@ -1,58 +1,30 @@
+{% extends "header.html" %}
+
 {% load i18n  %}
 {% load url from future  %}
 
-<header>
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container-fluid">
-	<a class="btn btn-navbar" data-toggle="collapse"
-	   data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-	</a>
-	<a class="brand" href="/">
-	  Laplanche-melv<span class="n-dot">.</span>in
-	</a>
-	<div class="nav-collapse">
-          <ul class="nav">
+{% block "menu-about" %}
+  <li{% ifequal act_menu "home" %} class="active"{% endifequal %}>
+    <a href="{% url "home" %}">
+      <i class="icon-user icon-white"></i>
+      {% trans "About" %}
+    </a>
 
-	    <li{% ifequal act_menu "home" %} class="active"{% endifequal %}>
-	      <a href="{% url "home" %}">
-		<i class="icon-home icon-white"></i>
-		{% trans "Home" %}
-	      </a>
+  <li{% ifequal act_menu "portfolio" %} class="active"{% endifequal %}>
+    <a href="{% url "portfolio" %}">
+      <i class="icon-picture icon-white"></i>
+      {% trans "Portfolio" %}
+    </a>
 
-	    <li{% ifequal act_menu "portfolio" %} class="active"{% endifequal %}>
-	      <a href="{% url "portfolio" %}">
-		<i class="icon-picture icon-white"></i>
-		{% trans "Portfolio" %}
-	      </a>
+   <li{% ifequal act_menu "cv" %} class="active"{% endifequal %}>
+     <a href="{% url "cv" %}">
+       <i class="icon-th-list icon-white"></i>
+       {% trans "C.V." %}
+     </a>
+{% endblock %}
 
-	    <li{% ifequal act_menu "cv" %} class="active"{% endifequal %}>
-	      <a href="{% url "cv" %}">
-		<i class="icon-th-list icon-white"></i>
-		{% trans "C.V." %}
-	      </a>
 
-	    <li>
-	      <a href="{% url "blog" %}">
-		<i class="icon-book icon-white"></i>
-		{% trans "Blog" %}
-	      </a>
-
-	    <li>
-	      <a href="{% url "lab-home" %}">
-		<i class="icon-nivl-lab icon-nivl-white"></i>
-		{% trans "Lab" %}
-	      </a>
-
-          </ul>
-	</div><!--/.nav-collapse -->
-      </div>
-    </div>
-  </div>
-
+{% block "next" %}
   <div class="container-fluid">
     <div class="row-fluid">
       <div id="body" class="span12">
@@ -60,4 +32,4 @@
       </div>
     </div>
   </div>
-</header>
+{% endblock %}

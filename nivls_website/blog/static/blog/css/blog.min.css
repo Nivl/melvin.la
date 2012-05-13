@@ -16,9 +16,9 @@ body{background-color:#ededed;}
 #body h1{margin-bottom:10px;}
 article#post{margin-bottom:30px;}article#post header{margin-bottom:10px;padding-left:10px;padding-bottom:10px;border-left:5px solid #049cdb;border-bottom:1px solid #049cdb;}article#post header .info{line-height:15px;font-size:0.85em;}
 article#post h3{margin-bottom:3px;}
-article#post section.content p{margin-bottom:15px;font-size:13px;}article#post section.content p img.pull-right{padding:4px;margin:0 0 2px 7px;}
-article#post section.content p img.pull-left{padding:4px;margin:0 7px 2px 0;}
-article#post footer{margin-top:50px;clear:both;}article#post footer h2{margin-top:20px;}
+article#post section.content p{margin-bottom:15px;font-size:13px;}article#post section.content p img.pull-right,article#post section.content p a.pull-right{padding:4px;margin:0 0 2px 7px;}
+article#post section.content p img.pull-left,article#post section.content p a.pull-left{padding:4px;margin:0 7px 2px 0;}
+article#post footer{margin-top:50px;}article#post footer h2{margin-top:20px;}
 article#post footer section#comments{margin:10px 0;}article#post footer section#comments .comment{padding-bottom:10px;margin-top:10px;border-bottom:1px solid #d4d4d4;}article#post footer section#comments .comment .info{font-size:0.85em;}
 article#post footer section#comments .comment .content{margin-left:20px;padding-left:10px;border-left:3px solid #049cdb;}article#post footer section#comments .comment .content p{margin:10px 5px 10px 0;}
 section#post-list h5{height:40px;}
