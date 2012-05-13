@@ -7,3 +7,4 @@ Requirements
 * [django-bootstrap-form](https://github.com/tzangms/django-bootstrap-form)
 * [html5lib](http://code.google.com/p/html5lib/)
 * [wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/) >= 0.11.0 rc1
+* [django-social-auth](https://github.com/omab/django-social-auth)

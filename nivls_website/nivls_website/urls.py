@@ -21,7 +21,9 @@ urlpatterns = patterns(
          'authentication_form': BootstrapLoginForm}
         , name='login'),
 
-    url(r'^', include('about.urls')),
+    url(r'', include('social_auth.urls')),
+
+    url(r'', include('about.urls')),
     )
 
 sitemaps = dict(smap_about.items() + smap_blog.items() + smap_lab.items())

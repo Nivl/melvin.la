@@ -3,8 +3,10 @@ import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+SOCIAL_AUTH_RAISE_EXCEPTIONS = DEBUG
 
 DOMAIN_NAME = 'localhost:8000'
+SESSION_COOKIE_DOMAIN = '.' + DOMAIN_NAME
 
 ROOT_URLCONF = 'nivls_website.urls'
 
@@ -82,6 +84,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'django.contrib.messages.context_processors.messages',
+    'nivls_website.context_processors.static_root',
+    'social_auth.context_processors.social_auth_by_name_backends',
     )
 
 MIDDLEWARE_CLASSES = (
@@ -98,6 +102,34 @@ TEMPLATE_DIRS = (
     os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "templates"))
 )
 
+LOGIN_REDIRECT_URL = '/accounts/login-success/'
+LOGIN_ERROR_URL = '/accounts/login-fail/'
+
+SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
+SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
+
+SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
+SOCIAL_AUTH_EXTRA_DATA = False
+SOCIAL_AUTH_EXPIRATION = 'expires'
+
+AUTHENTIFICATION_BACKENDS = (
+    'social_auth.backends.twitter.TwitterBackend',
+    'social_auth.backends.facebook.FacebookBackend',
+    'social_auth.backends.google.GoogleOAuth2Backend',
+    'social_auth.backends.contrib.github.GithubBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    )
+
+TWITTER_CONSUMER_KEY         = ''
+TWITTER_CONSUMER_SECRET      = ''
+FACEBOOK_APP_ID              = ''
+FACEBOOK_API_SECRET          = ''
+FACEBOOK_EXTENDED_PERMISSIONS = ['email']
+GOOGLE_OAUTH2_CLIENT_ID      = ''
+GOOGLE_OAUTH2_CLIENT_SECRET  = ''
+GITHUB_APP_ID                = ''
+GITHUB_API_SECRET            = ''
+
 INSTALLED_APPS = (
     'django.contrib.markup',
     'django.contrib.humanize',
@@ -111,6 +143,8 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
 #    'debug_toolbar',
     'bootstrap',
+    'bootstrapform',
+    'social_auth',
 )
 
 DEFAULT_FILE_STORAGE = "commons.storage.UniqueFileSystemStorage"
