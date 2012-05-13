@@ -71,6 +71,20 @@
 	    {% endblock %}
         </ul>
 
+	<ul class="nav pull-right">
+	  <li class="dropdown">
+	    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+	      Sign In <i class="caret"></i>
+	    </a>
+	    <div class="dropdown-menu login-box">
+	      <form action="" method="post">
+		<input placeholder="Name" id="xx" type="text" name="xx" />
+		<input placeholder="Password" type="password" id="xxx"  name="xxx" />
+		<input class="btn btn-primary" type="submit" value="Sign In" />
+	      </form>
+	    </div>
+	</ul>
+
 	{% block "menu-new-links" %} {% endblock %}
 
       </div><!--/.nav-collapse -->

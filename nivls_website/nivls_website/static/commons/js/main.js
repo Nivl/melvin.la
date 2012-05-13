@@ -12,6 +12,12 @@ $(window).konami(function() {
     }
 });
 
+$(function() {
+    $('.dropdown input, .dropdown label').click(function(e) {
+	e.stopPropagation();
+    });
+});
+
 /* google prettyprint  */
 function styleCode()
 {

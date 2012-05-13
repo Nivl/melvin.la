@@ -7,3 +7,4 @@ body{padding-top:60px;}
 .icon-nivl-white{background-image:url("../img/icon-nivl-white.png");}
 .icon-nivl-lab{background-position:0 0;}
 .drawingpix{position:absolute;top:-50px;left:-50px;}
+.login-box{width:240px;padding:10px;text-align:center;}.login-box input{width:95%;}
