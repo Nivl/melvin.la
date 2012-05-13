@@ -15,49 +15,53 @@
 
 
 {% block "content" %}
+
   <article class="accordion" id="resume">
 
     {% for section in sections %}
+      <div class="accordion-group">
+	<h2>
+          <a class="accordion-toggle" data-toggle="collapse"
+	     data-parent="#resume" href="#{{ section.slug }}">
+            {{ section.name }}
+          </a>
+	</h2>
+
+	<section id="{{ section.slug }}" class="collapse{% if forloop.counter == 1 %} in{% endif %}">
+
+	  <div class="block">
+	    <div class="container-fluid">
+	      <div class="row-fluid">
+		{% display_cat section.cvcategory_set.all.0 12 0 %}
+	      </div>
+	    </div>
+	  </div>
+	</section>
+      </div>
+    {% endfor %}
+
+    <div class="accordion-group">
       <h2>
-        <a class="accordion-toggle" data-toggle="collapse"
-	   data-parent="#resume" href="#{{ section.slug }}">
-          {{ section.name }}
-        </a>
+	<a class="accordion-toggle" data-toggle="collapse"
+	   data-parent="#resume" href="#downloads">{% trans "Downloads" %}</a>
       </h2>
-
-      <section id="{{ section.slug }}" class="collapse{% if forloop.counter == 1 %} in{% endif %}">
-
+      <section id="downloads" class="collapse">
 	<div class="block">
 	  <div class="container-fluid">
 	    <div class="row-fluid">
-	      {% display_cat section.cvcategory_set.all.0 12 0 %}
+	      <div class="span12">
+		<h3>{% trans "Downloads" %}</h3>
+		<ul>
+		  <li><a href="{% url "cv_pdf" %}">
+		      {% trans "Download this C.V. as PDF" %}
+		    </a>
+		</ul>
+	      </div>
 	    </div>
 	  </div>
 	</div>
       </section>
-    {% endfor %}
-
-    <h2>
-      <a class="accordion-toggle" data-toggle="collapse"
-	 data-parent="#resume" href="#downloads">{% trans "Downloads" %}</a>
-    </h2>
-    <section id="downloads" class="collapse">
-      <div class="block">
-	<div class="container-fluid">
-	  <div class="row-fluid">
-	    <div class="span12">
-	      <h3>{% trans "Downloads" %}</h3>
-	      <ul>
-		<li><a href="{% url "cv_pdf" %}">
-		    {% trans "Download this C.V. as PDF" %}
-		  </a>
-	      </ul>
-	    </div>
-	  </div>
-	</div>
-      </div>
-    </section>
-
+    </div>
   </article>
 
 {% endblock "content" %}
