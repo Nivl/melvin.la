@@ -6,7 +6,7 @@ urlpatterns = patterns(
     url(r'^$', 'about.views.home', name='home'),
 )
 
-# Static which wiil be added to the sitemap
+# Static which will be added to the sitemap
 static_urlpatterns = patterns(
     '',
     url(r'^cv/$', 'about.views.cv', name='cv'),
