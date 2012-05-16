@@ -22,5 +22,6 @@ article#post footer{margin-top:50px;}article#post footer h2{margin-top:20px;}
 article#post footer section#comments{margin:10px 0;}article#post footer section#comments .comment{padding-bottom:10px;margin-top:10px;border-bottom:1px solid #d4d4d4;}article#post footer section#comments .comment .info{font-size:0.85em;}
 article#post footer section#comments .comment .content{margin-left:20px;padding-left:10px;border-left:3px solid #049cdb;}article#post footer section#comments .comment .content p{margin:10px 5px 10px 0;}
 section#post-list h5{height:40px;}
+section#post-list .row{margin-left:0px;}
 section#post-list section.description{height:115px;}
 body>footer{background-color:#222222;color:white;font-size:0.85em;padding:20px;text-align:center;}body>footer p{margin-bottom:10px;}
