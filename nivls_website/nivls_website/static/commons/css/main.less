@@ -1,4 +1,45 @@
+/******************************************************************************
+**									     **
+**                        Variables and functions                            **
+**									     **
+******************************************************************************/
+
+@import "mixins";
 @import "variables";
+
+.display-icon(@padding, @size) {
+    margin: none;
+    padding: none;
+    background-image: url("../img/social-medias.png");
+    background-repeat: no-repeat;
+    background-position: @padding top;
+    width: @size;
+    height: @size;
+    margin-top: 5px;
+
+    a {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+
+	background-image: url("../img/social-medias.png");
+	background-repeat: no-repeat;
+	background-position: @padding -@size;
+
+	.transition(opacity 0.4s linear);
+
+	&:hover {
+	    opacity: 0;
+	}
+    }
+}
+
+/******************************************************************************
+ **									     **
+ **                        End variables and functions                       **
+ **									     **
+ *****************************************************************************/
 
 body {
     padding-top: 60px;
@@ -46,5 +87,40 @@ body {
 
     input {
 	width: 95%;
+    }
+
+    .social-media-box {
+	margin-bottom: 5px;
+
+	p.login-sm {
+	    margin-top: 10px;
+	    margin-right: 20px;
+	    margin-left: 10px;
+	}
+
+	ul.social-medias-icons {
+	    heigth: 34px;
+
+	    li {
+		@icon-size: 32px;
+
+
+		&#facebook-icon {
+		    .display-icon(left, @icon-size)
+		}
+
+		&#twitter-icon {
+		    .display-icon(-@icon-size, @icon-size)
+		}
+
+		&#github-icon {
+		    .display-icon(-@icon-size * 2, @icon-size)
+		}
+
+		&#google-icon {
+		    .display-icon(-@icon-size * 3, @icon-size)
+		}
+	    }
+	}
     }
 }

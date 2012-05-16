@@ -73,16 +73,44 @@
 
 	<ul class="nav pull-right">
 	  <li class="dropdown">
-	    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-	      Sign In <i class="caret"></i>
-	    </a>
-	    <div class="dropdown-menu login-box">
-	      <form action="" method="post">
-		<input placeholder="Name" id="xx" type="text" name="xx" />
-		<input placeholder="Password" type="password" id="xxx"  name="xxx" />
-		<input class="btn btn-primary" type="submit" value="Sign In" />
-	      </form>
-	    </div>
+	    {% if not user.is_authenticated %}
+	      <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+		Sign in <i class="caret"></i>
+	      </a>
+	      <div class="dropdown-menu login-box">
+
+		<div class="social-media-box clearfix">
+		  <p class="login-sm pull-left">{% trans "login with:" %}</p>
+
+		  <ul class="nav nav-pills social-medias-icons">
+		    <li id="facebook-icon">
+		      <a href="{% url "socialauth_begin" "facebook" %}?next={{ request.get_full_path }}"></a>
+		    <li id="twitter-icon">
+		      <a href="{% url "socialauth_begin" "twitter" %}?next={{ request.get_full_path }}"></a>
+		    <li id="google-icon">
+		      <a href="{% url "socialauth_begin" "google-oauth2" %}?next={{ request.get_full_path }}"></a>
+		    <li id="github-icon">
+		      <a href="{% url "socialauth_begin" "github" %}?next={{ request.get_full_path }}"></a>
+		  </ul>
+		</div>
+		<p>{% trans "Or login using your account:" %}</p>
+		<form action="{% url "login" %}" method="post">
+		  {% csrf_token %}
+		  <input placeholder="{% trans "Username" %}"
+			 id="id_username" name="username" type="text" />
+		  <input placeholder="{% trans "Password" %}"
+			 type="password" id="id_password"  name="password" />
+		  <input type="hidden" name="next"
+			 value="{{ request.get_full_path }}" />
+		  <input value="{% trans "Sign In" %}"
+			 class="btn btn-primary" type="submit" />
+		</form>
+	      </div>
+	    {% else %}
+	      <a href="#">{{ user.username }}</a>
+	      <li><a href="{% url "logout" %}?next={{ request.get_full_path }}">Log out</a>
+	    {% endif %}
+
 	</ul>
 
 	{% block "menu-new-links" %} {% endblock %}

@@ -16,12 +16,15 @@ urlpatterns = patterns(
     url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login',
-        {'template_name': 'blog/login.html',
-         'authentication_form': BootstrapLoginForm}
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login'
+        , {'template_name': 'blog/login.html'
+           ,'authentication_form': BootstrapLoginForm}
         , name='login'),
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'
+        , {'next_page': '/'}
+        , name='logout'),
 
-    url(r'', include('social_auth.urls')),
+    url(r'social/', include('social_auth.urls')),
 
     url(r'', include('about.urls')),
     )
