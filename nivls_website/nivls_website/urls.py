@@ -16,13 +16,17 @@ urlpatterns = patterns(
     url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login'
+    url(r'^accounts/signup/$', 'nivls_website.views.signup'
+        , {'template_name': 'blog/signup.html'
+           ,'authentication_form': BootstrapLoginForm}
+        , name='signup'),
+    url(r'^accounts/signin/$', 'django.contrib.auth.views.login'
         , {'template_name': 'blog/login.html'
            ,'authentication_form': BootstrapLoginForm}
-        , name='login'),
-    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'
+        , name='signin'),
+    url(r'^accounts/signout/$', 'django.contrib.auth.views.logout'
         , {'next_page': '/'}
-        , name='logout'),
+        , name='signout'),
 
     url(r'social/', include('social_auth.urls')),
 

@@ -105,7 +105,7 @@ TEMPLATE_DIRS = (
     os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "templates"))
 )
 
-LOGIN_REDIRECT_URL = '/accounts/login-success/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/accounts/login-fail/'
 
 SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'

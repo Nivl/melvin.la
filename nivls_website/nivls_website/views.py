@@ -1,0 +1,2 @@
+def signup(request):
+    pass

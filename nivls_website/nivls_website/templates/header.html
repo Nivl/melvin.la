@@ -72,8 +72,10 @@
         </ul>
 
 	<ul class="nav pull-right">
-	  <li class="dropdown">
-	    {% if not user.is_authenticated %}
+	  {% if not user.is_authenticated %}
+	    <li><a href="{% url "signup" %}">Sign up</a>
+	    <li class="divider-vertical">
+	    <li class="dropdown">
 	      <a class="dropdown-toggle" href="#" data-toggle="dropdown">
 		Sign in <i class="caret"></i>
 	      </a>
@@ -94,7 +96,7 @@
 		  </ul>
 		</div>
 		<p>{% trans "Or login using your account:" %}</p>
-		<form action="{% url "login" %}" method="post">
+		<form action="{% url "signin" %}" method="post">
 		  {% csrf_token %}
 		  <input placeholder="{% trans "Username" %}"
 			 id="id_username" name="username" type="text" />
@@ -107,8 +109,8 @@
 		</form>
 	      </div>
 	    {% else %}
-	      <a href="#">{{ user.username }}</a>
-	      <li><a href="{% url "logout" %}?next={{ request.get_full_path }}">Log out</a>
+	      <li><a href="#">{{ user.username }}</a>
+	      <li><a href="{% url "signout" %}?next={{ request.get_full_path }}">Log out</a>
 	    {% endif %}
 
 	</ul>
