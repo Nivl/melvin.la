@@ -8,9 +8,7 @@
 
   <h1 class="centered-text">{% trans "Login" %}</h1>
 
-<form method="post"
-      class="form-horizontal"
-      action="{% url 'django.contrib.auth.views.login' %}">
+<form method="post" class="form-horizontal" action="{% url "signup" %}">
   {% csrf_token %}
 
   {{ form }}

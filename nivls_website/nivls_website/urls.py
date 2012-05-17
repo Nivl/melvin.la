@@ -2,7 +2,6 @@ from django.conf.urls.defaults import patterns, include, url
 from django.views.generic.simple import direct_to_template
 from django.contrib import admin
 from commons.views import TexplainView
-from commons.forms import BootstrapLoginForm
 
 from blog.urls import sitemaps as smap_blog
 from about.urls import sitemaps as smap_about
@@ -17,16 +16,11 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^accounts/signup/$', 'nivls_website.views.signup'
-        , {'template_name': 'blog/signup.html'
-           ,'authentication_form': BootstrapLoginForm}
+        , {'template_name': 'blog/signup.html'}
         , name='signup'),
-    url(r'^accounts/signin/$', 'django.contrib.auth.views.login'
-        , {'template_name': 'blog/login.html'
-           ,'authentication_form': BootstrapLoginForm}
-        , name='signin'),
+    url(r'^accounts/signin/$', 'nivls_website.views.signin', name='signin'),
     url(r'^accounts/signout/$', 'django.contrib.auth.views.logout'
-        , {'next_page': '/'}
-        , name='signout'),
+        , {'next_page': '/'}, name='signout'),
 
     url(r'social/', include('social_auth.urls')),
 
