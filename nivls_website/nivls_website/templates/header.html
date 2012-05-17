@@ -12,7 +12,7 @@
       </a>
       <a class="brand" href="/">
 	Laplanche-melv<span class="n-dot">.</span>in
-      </a>
+       </a>
       <div class="nav-collapse">
         <ul class="nav">
 
@@ -82,7 +82,7 @@
 	      <div class="dropdown-menu login-box">
 
 		<div class="social-media-box clearfix">
-		  <p class="login-sm pull-left">{% trans "login with:" %}</p>
+		  <p class="login-sm pull-left">{% trans "sign in with:" %}</p>
 
 		  <ul class="nav nav-pills social-medias-icons">
 		    <li id="facebook-icon">
@@ -95,7 +95,7 @@
 		      <a href="{% url "socialauth_begin" "github" %}?next={{ request.get_full_path }}"></a>
 		  </ul>
 		</div>
-		<p>{% trans "Or login using your account:" %}</p>
+		<p>{% trans "Or sign in using your account:" %}</p>
 		<form action="{% url "signin" %}" method="post">
 		  {% csrf_token %}
 		  <input placeholder="{% trans "Username" %}"
@@ -112,7 +112,6 @@
 	      <li><a href="#">{{ user.username }}</a>
 	      <li><a href="{% url "signout" %}?next={{ request.get_full_path }}">Log out</a>
 	    {% endif %}
-
 	</ul>
 
 	{% block "menu-new-links" %} {% endblock %}
