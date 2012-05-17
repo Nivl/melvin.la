@@ -109,8 +109,21 @@
 		</form>
 	      </div>
 	    {% else %}
-	      <li><a href="#">{{ user.username }}</a>
-	      <li><a href="{% url "signout" %}?next={{ request.get_full_path }}">Log out</a>
+	      <li class="dropdown">
+		<a class="dropdown-toggle" href="#" data-toggle="dropdown">
+		  <i class="icon-wrench icon-white"></i>
+		</a>
+		<ul class="dropdown-menu">
+		  <li class="centered-text">{{ user.username }}
+		  <li class="divider">
+		  <li><a href="{% url "view-account" %}"><i class="icon-user"></i> {% trans "My profile" %}</a>
+		  <li><a href="{% url "edit-account" %}"><i class="icon-edit"></i> {% trans "Edit my informations" %}</a>
+		  <li><a href="{% url "manage-social-account" %}"><i class="icon-tasks"></i> {% trans "Social media accounts" %}</a>
+		  <li class="divider">
+		  <li><a href="{% url "signout" %}?next={{ request.get_full_path }}">
+		      <i class="icon-off"></i> Log out
+		    </a>
+		</ul>
 	    {% endif %}
 	</ul>
 

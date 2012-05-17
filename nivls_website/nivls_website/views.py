@@ -7,6 +7,14 @@ from commons.forms import BootstrapLoginForm
 def signup(request):
     pass
 
+def view_account(request):
+    pass
+
+def edit_account(request):
+    pass
+
+def manage_social_account(request):
+    pass
 
 def signin(request):
     if request.user.is_authenticated():
