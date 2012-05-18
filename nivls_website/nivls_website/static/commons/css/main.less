@@ -57,6 +57,20 @@ body {
     display: none;
 }
 
+span.label + span.label {
+    margin-left: 5px;
+}
+
+.label {
+    a {
+	color: inherit;
+
+	&:hover {
+	    text-decoration: inherit;
+	}
+    }
+}
+
 .n-dot {
     color: @blue;
 }

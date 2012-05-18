@@ -23,12 +23,12 @@ urlpatterns = patterns(
         , name='manage-social-account'),
     url(r'^accounts/signin/$', 'nivls_website.views.signin', name='signin'),
     url(r'^accounts/signup/$', 'nivls_website.views.signup'
-        , {'template_name': 'blog/signup.html'}
+        , {'template_name': 'blog/accounts/signup.html'}
         , name='signup'),
     url(r'^accounts/signout/$', 'django.contrib.auth.views.logout'
         , {'next_page': '/'}, name='signout'),
 
-    url(r'account/social/', include('social_auth.urls')),
+    url(r'accounts/social/', include('social_auth.urls')),
 
     url(r'', include('about.urls')),
     )
