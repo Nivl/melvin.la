@@ -10,4 +10,5 @@ INSTALLED_APPS = INSTALLED_APPS + (
     'blog',
     'seo',
     'logger',
+    'user_profile',
     )

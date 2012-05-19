@@ -1,6 +1,6 @@
 {% extends "blog/base.html" %}
 {% load url from future %}
-{% load i18n common_tags %}
+{% load i18n common_tags user_tags %}
 
 {% block "title" %}{% trans "Manage social media accounts" %}{% endblock "title" %}
 
@@ -14,14 +14,15 @@
 
   <p>{% trans "List of your linked accounts:" %}</p>
 
-  <ul class="well">
+  <ul class="unstyled well">
     {% for account in social_auth.associated %}
-      <li>{% blocktrans with provider=account.provider uid=account.uid%}<strong>{{ provider }}</strong> with uid <strong>{{ uid }}</strong>{% endblocktrans %}
-	<span class="label label-important">
+      <li><span class="label label-important">
 	  <a href="{% url "socialauth_disconnect_individual" account.provider|replace:",_,-" account.id %}?next={{ request.get_full_path }}">
 	    {% trans "Revoke" %}
 	  </a>
 	</span>
+	&nbsp;
+	<strong>{{ account.provider }}</strong> {% trans "with account" %} <strong>{{ account|social_link }}</strong>
     {% empty %}
       {% trans "No account linked" %}
     {% endfor %}
