@@ -14,21 +14,7 @@ urlpatterns = patterns(
     url(r'^lab/', include('lab.urls')),
     url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
-
-    url(r'^accounts/view/$', 'nivls_website.views.view_account'
-        , name='view-account'),
-    url(r'^accounts/edit/$', 'nivls_website.views.edit_account'
-        , name='edit-account'),
-    url(r'^accounts/manage-social-account/$', 'nivls_website.views.manage_social_account'
-        , name='manage-social-account'),
-    url(r'^accounts/signin/$', 'nivls_website.views.signin', name='signin'),
-    url(r'^accounts/signup/$', 'nivls_website.views.signup'
-        , {'template_name': 'blog/accounts/signup.html'}
-        , name='signup'),
-    url(r'^accounts/signout/$', 'django.contrib.auth.views.logout'
-        , {'next_page': '/'}, name='signout'),
-
-    url(r'accounts/social/', include('social_auth.urls')),
+    url(r'^accounts/', include('user_profile.urls')),
 
     url(r'', include('about.urls')),
     )

@@ -162,6 +162,7 @@ INSTALLED_APPS = (
     'social_auth',
 )
 
+AUTH_PROFILE_MODULE = 'user_profile.UserProfile'
 DEFAULT_FILE_STORAGE = "commons.storage.UniqueFileSystemStorage"
 
 # A sample logging configuration. The only tangible logging

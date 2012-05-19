@@ -1,0 +1,42 @@
+{% extends "users/base.html" %}
+{% load url from future %}
+{% load i18n common_tags user_tags %}
+
+{% block "title" %}{% trans "Manage social media accounts" %}{% endblock "title" %}
+
+{% block "content" %}
+  <h1 class="centered-text">{% trans "Manage social media accounts" %}</h1>
+
+  <p class="alert alert-info">
+    {% blocktrans %}Here you can link/unlink your social media accounts to this website.<br/>Linking your accounts will help you to sign in here in an easier way: You will only have to click on a linked account on the sign in menu to be logged.{% endblocktrans %}
+  </p>
+
+  <p>{% trans "List of your linked accounts:" %}</p>
+
+  <ul class="unstyled well">
+    {% for account in social_auth.associated %}
+      <li><span class="label label-important">
+	  <a href="{% url "socialauth_disconnect_individual" account.provider|replace:",_,-" account.id %}?next={{ request.get_full_path }}">
+	    {% trans "Revoke" %}
+	  </a>
+	</span>
+	&nbsp;
+	<strong>{{ account.provider }}</strong> {% trans "with account" %} <strong>{{ account|social_link }}</strong>
+    {% empty %}
+      {% trans "No account linked" %}
+    {% endfor %}
+  </ul>
+
+  <p class="centered-text">
+    {% trans "List of linkable social media (click to link, you can link multiple accounts from the same social media):" %}
+  </p>
+  <p class="centered-text">
+    {% for provider in social_auth.backends %}
+      <span class="label">
+	<a href="{% url "socialauth_begin" provider|replace:",_,-" %}?next={{ request.get_full_path }}">
+	  {{ provider }}
+	</a>
+      </span>
+    {% endfor %}
+  </p>
+{% endblock %}

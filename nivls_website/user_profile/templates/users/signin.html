@@ -1,0 +1,25 @@
+{% extends "users/base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block "title" %}{% trans "Sign in" %}{% endblock "title" %}
+{% block body_classes %}span6 offset3{% endblock %}
+
+{% block "content" %}
+
+  <h1 class="centered-text">{% trans "Sign in" %}</h1>
+
+  <form method="post" class="form-horizontal" action="{% url "signin" %}">
+    {% csrf_token %}
+
+    {{ form }}
+    <input type="hidden" name="next" value="{{ next }}" />
+
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">{% trans "Sign in" %}</button>
+      <button type="reset" class="btn btn-danger">{% trans "Reset" %}</button>
+    </div>
+  </form>
+
+{% endblock %}

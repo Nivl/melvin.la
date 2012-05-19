@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load url from future  %}
+
+{% block "head_css" %}
+  {% block "sub_head_css" %}{% endblock "sub_head_css" %}
+  <link rel="stylesheet" media="screen"
+	href="{{ STATIC_URL }}users/css/users.min.css">
+{% endblock "head_css" %}
+
+{% block "body" %}
+
+  {% include "header.html" %}
+
+  <div class="container">
+    <div class="row">
+      <div id="body" class="{% block body_classes %}span12{% endblock %}">
+	{% block "content" %}{% endblock "content" %}
+      </div>
+    </div>
+  </div>
+{% endblock "body" %}
