@@ -9,34 +9,6 @@
 
 @bg-color: #ededed;
 
-.display-icon(@padding, @size) {
-    margin: none;
-    padding: none;
-    background-image: url("../img/icons/social-medias.png");
-    background-repeat: no-repeat;
-    background-position: @padding top;
-    width: @size;
-    height: @size;
-    margin-top: 5px;
-
-    a {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
-
-	background-image: url("../img/icons/social-medias.png");
-	background-repeat: no-repeat;
-	background-position: @padding -@size;
-
-	.transition(opacity 0.4s linear);
-
-	&:hover {
-	    opacity: 0;
-	}
-    }
-}
-
 /******************************************************************************
  **									     **
  **                        End variables and functions                       **
@@ -56,36 +28,6 @@ body {
 .btn {
     i {
 	vertical-align: -2px;
-    }
-}
-
-.nav-collapse {
-    ul.n-socialm-icons {
-	heigth: 34px;
-
-	li {
-	    @icon-size: 32px;
-
-	    &#github-icon {
-		.display-icon(0px, @icon-size)
-	    }
-
-	    &#rss-icon {
-		.display-icon(-@icon-size, @icon-size)
-	    }
-
-	    &#google-icon {
-		.display-icon(-@icon-size * 2, @icon-size)
-	    }
-
-	    &#twitter-icon {
-		.display-icon(-@icon-size * 3, @icon-size)
-	    }
-
-	    &#facebook-icon {
-		.display-icon(-@icon-size * 4, @icon-size)
-	    }
-	}
     }
 }
 
@@ -158,7 +100,6 @@ article#post {
 	h2 {
 	    margin-top: 20px;
 	}
-
 
 	section#comments {
 	    margin: 10px 0;
