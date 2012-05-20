@@ -1,3 +1,5 @@
+$('[rel=tooltip]').tooltip()
+
 var konamiCount = 1;
 $(window).konami(function() {
     if (konamiCount == 1) {

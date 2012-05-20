@@ -16,8 +16,17 @@ html, body {
     background-color: @bg-color;
 }
 
-#body {
-    h1 {
-	margin-bottom: 20px;
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    a {
+	&:hover {
+	    text-decoration: none;
+	}
     }
+}
+.accordion-group, .accordion-inner {
+    border-color: #d1d1d1;
 }

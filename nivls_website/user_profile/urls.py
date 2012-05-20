@@ -11,15 +11,14 @@ urlpatterns = patterns(
     url(r'^manage-social-account/$', 'manage_social_account'
         , name='manage-social-account'),
 
-    url(r'^signin/$', 'signin', name='signin'),
-    url(r'^signup/$', 'signup' , {'template_name': 'users/signup.html'}
-        , name='signup'),
+    url(r'^sign-in/$', 'sign_in', name='sign-in'),
+    url(r'^sign-up/$', 'sign_up', name='sign-up'),
 
     url(r'social/', include('social_auth.urls')),
     )
 
 urlpatterns += patterns(
     '',
-    url(r'^signout/$', 'django.contrib.auth.views.logout'
-        , {'next_page': '/'}, name='signout'),
+    url(r'^sign-out/$', 'django.contrib.auth.views.logout'
+        , {'next_page': '/'}, name='sign-out'),
     )

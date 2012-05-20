@@ -106,7 +106,8 @@ TEMPLATE_DIRS = (
 )
 
 LOGIN_REDIRECT_URL = '/'
-LOGIN_ERROR_URL = '/accounts/login-fail/'
+LOGIN_ERROR_URL = '/accounts/sign-in/fail/'
+LOGIN_URL = '/accounts/sign-in/'
 
 SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'

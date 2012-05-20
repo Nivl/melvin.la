@@ -8,7 +8,7 @@ from commons.forms import BootstrapLoginForm
 from social_auth.models import UserSocialAuth
 from forms import *
 
-def signup(request):
+def sign_up(request):
     if request.user.is_authenticated():
         try:
             resolve(request.GET.get('next', ''))
@@ -16,7 +16,11 @@ def signup(request):
         except Resolver404:
             return HttpResponseRedirect(reverse('home'))
     else:
-        pass
+        if request.method == 'POST':
+            form = UserForm(request.POST, request.FILES)
+        else:
+            form = UserForm()
+        return render(request, "users/sign_up.html", {'form': form})
 
 @login_required
 def view_account(request):
@@ -34,7 +38,7 @@ def edit_account(request):
 def manage_social_account(request):
     return render(request, "users/manage_social_accounts.html")
 
-def signin(request):
+def sign_in(request):
     if request.user.is_authenticated():
         try:
             resolve(request.GET.get('next', ''))
@@ -42,5 +46,5 @@ def signin(request):
         except Resolver404:
             return HttpResponseRedirect(reverse('home'))
     else:
-        return login(request, template_name='users/signin.html'
+        return login(request, template_name='users/sign_in.html'
                      ,authentication_form=BootstrapLoginForm)

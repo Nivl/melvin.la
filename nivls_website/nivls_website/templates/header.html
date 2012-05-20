@@ -73,7 +73,7 @@
 
 	<ul class="nav pull-right">
 	  {% if not user.is_authenticated %}
-	    <li><a href="{% url "signup" %}">Sign up</a>
+	    <li><a href="{% url "sign-up" %}">Sign up</a>
 	    <li class="divider-vertical">
 	    <li class="dropdown">
 	      <a class="dropdown-toggle" href="#" data-toggle="dropdown">
@@ -85,18 +85,18 @@
 		  <p class="login-sm pull-left">{% trans "sign in with:" %}</p>
 
 		  <ul class="nav nav-pills social-medias-icons">
-		    <li id="facebook-icon">
+		    <li class="facebook-icon">
 		      <a href="{% url "socialauth_begin" "facebook" %}?next={{ request.get_full_path }}"></a>
-		    <li id="twitter-icon">
+		    <li class="twitter-icon">
 		      <a href="{% url "socialauth_begin" "twitter" %}?next={{ request.get_full_path }}"></a>
-		    <li id="google-icon">
+		    <li class="google-icon">
 		      <a href="{% url "socialauth_begin" "google-oauth2" %}?next={{ request.get_full_path }}"></a>
-		    <li id="github-icon">
+		    <li class="github-icon">
 		      <a href="{% url "socialauth_begin" "github" %}?next={{ request.get_full_path }}"></a>
 		  </ul>
 		</div>
 		<p>{% trans "Or sign in using your account:" %}</p>
-		<form action="{% url "signin" %}" method="post">
+		<form action="{% url "sign-in" %}" method="post">
 		  {% csrf_token %}
 		  <input placeholder="{% trans "Username" %}"
 			 id="id_username" name="username" type="text" />
@@ -120,7 +120,7 @@
 		  <li><a href="{% url "edit-account" %}"><i class="icon-edit"></i> {% trans "Edit my informations" %}</a>
 		  <li><a href="{% url "manage-social-account" %}"><i class="icon-tasks"></i> {% trans "Social media accounts" %}</a>
 		  <li class="divider">
-		  <li><a href="{% url "signout" %}?next={{ request.get_full_path }}">
+		  <li><a href="{% url "sign-out" %}?next={{ request.get_full_path }}">
 		      <i class="icon-off"></i> Sign out
 		    </a>
 		</ul>
