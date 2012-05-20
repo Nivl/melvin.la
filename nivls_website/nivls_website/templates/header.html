@@ -1,5 +1,6 @@
 {% load i18n  %}
 {% load url from future  %}
+{% load user_tags  %}
 
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
@@ -85,14 +86,7 @@
 		  <p class="login-sm pull-left">{% trans "sign in with:" %}</p>
 
 		  <ul class="nav nav-pills social-medias-icons">
-		    <li class="facebook-icon">
-		      <a href="{% url "socialauth_begin" "facebook" %}?next={{ request.get_full_path }}"></a>
-		    <li class="twitter-icon">
-		      <a href="{% url "socialauth_begin" "twitter" %}?next={{ request.get_full_path }}"></a>
-		    <li class="google-icon">
-		      <a href="{% url "socialauth_begin" "google-oauth2" %}?next={{ request.get_full_path }}"></a>
-		    <li class="github-icon">
-		      <a href="{% url "socialauth_begin" "github" %}?next={{ request.get_full_path }}"></a>
+		    {{ social_auth.backends|social_sign_in_links:request }}
 		  </ul>
 		</div>
 		<p>{% trans "Or sign in using your account:" %}</p>
@@ -124,7 +118,7 @@
 		      <i class="icon-off"></i> Sign out
 		    </a>
 		</ul>
-	    {% endif %}
+	      {% endif %}
 	</ul>
 
 	{% block "menu-new-links" %} {% endblock %}

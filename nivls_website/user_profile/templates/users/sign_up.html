@@ -1,0 +1,73 @@
+{% extends "users/base.html" %}
+{% load url from future %}
+{% load i18n bootstrap user_tags %}
+
+{% block "title" %}{% trans "Sign up" %}{% endblock "title" %}
+{% block body_classes %}span8 offset2{% endblock %}
+
+{% block "content" %}
+  <h1 class="centered-text">{% trans "Sign up" %}</h1>
+
+  <div class="accordion" id="sign-up-accordion">
+    <div class="accordion-group">
+      <div class="accordion-heading">
+	<h2>
+	  <a class="accordion-toggle"
+	     data-toggle="collapse"
+	     data-parent="#sign-up-accordion"
+	     href="#sign-up-social">
+	      Sign up using a social media account <small>(faster)</small>
+	  </a>
+	</h2>
+      </div>
+      <div id="sign-up-social" class="accordion-body collapse in">
+	<div class="accordion-inner">
+	  <p class="alert alert-info">
+	    {% trans "Signing up using one of your social media account is the simplest and faster way to sign up. You won't have to fill any forms or to validate your account." %}
+	  </p>
+
+	  <p>{% trans "Click on the provider you want to use:" %}</p>
+
+	  <ul class="nav nav-pills social-medias-icons">
+	    {{ social_auth.backends|social_sign_in_links:request }}
+	  </ul>
+	</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-heading">
+	<h2>
+	  <a class="accordion-toggle"
+	     data-toggle="collapse"
+	     data-parent="#sign-up-accordion"
+	     href="#sign-up-manually">
+	    Sign up manually <small>(painful)</small>
+	  </a>
+	</h2>
+      </div>
+      <div id="sign-up-manually" class="accordion-body collapse">
+	<div class="accordion-inner">
+	  <p class="alert alert-info">
+	    {% trans "If you choose to sign up " %}
+	  </p>
+
+	  <form class="form-horizontal" method="post"
+		action="{% url "sign-up" %}">
+	    {% csrf_token %}
+	    {{ form|bootstrap }}
+
+	    <div class="form-actions">
+	      <button type="submit" class="btn btn-primary">
+		{% trans "Sign up" %}
+	      </button>
+	      <button type="reset" class="btn btn-danger">
+		{% trans "Reset" %}
+	      </button>
+	    </div>
+	  </form>
+	</div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
