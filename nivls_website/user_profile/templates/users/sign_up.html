@@ -1,9 +1,12 @@
 {% extends "users/base.html" %}
 {% load url from future %}
-{% load i18n bootstrap user_tags %}
+
+{% block "sub_head_js" %}
+  {% include "users/sign_up_ajax.html" %}
+{% endblock "sub_head_js" %}
 
 {% block "title" %}{% trans "Sign up" %}{% endblock "title" %}
-{% block body_classes %}span8 offset2{% endblock %}
+{% block body_classes %}span10 offset1{% endblock %}
 
 {% block "content" %}
   <h1 class="centered-text">{% trans "Sign up" %}</h1>
@@ -23,7 +26,7 @@
       <div id="sign-up-social" class="accordion-body collapse in">
 	<div class="accordion-inner">
 	  <p class="alert alert-info">
-	    {% trans "Signing up using one of your social media account is the simplest and faster way to sign up. You won't have to fill any forms or to validate your account." %}
+	    {% trans "Signing up using one of your social media account is the simplest and fastest way to sign up. You won't have to fill any forms or to validate your account." %}
 	  </p>
 
 	  <p>{% trans "Click on the provider you want to use:" %}</p>
@@ -49,16 +52,19 @@
       <div id="sign-up-manually" class="accordion-body collapse">
 	<div class="accordion-inner">
 	  <p class="alert alert-info">
-	    {% trans "If you choose to sign up " %}
+	    {% trans "If you choose to sign up this way, we will send you an e-mail to validate your account." %}
 	  </p>
 
 	  <form class="form-horizontal" method="post"
-		action="{% url "sign-up" %}">
+		id="sign-up-form"
+                action="{% url "sign-up" %}">
 	    {% csrf_token %}
-	    {{ form|bootstrap }}
+	    {{ form }}
 
 	    <div class="form-actions">
-	      <button type="submit" class="btn btn-primary">
+	      <button type="submit"
+		      data-loading-text="{% trans "Signing up..." %}"
+		      class="btn btn-primary">
 		{% trans "Sign up" %}
 	      </button>
 	      <button type="reset" class="btn btn-danger">

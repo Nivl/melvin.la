@@ -4,6 +4,7 @@ from django.db import models
 
 class UserProfile(models.Model):
     user             = models.OneToOneField(User)
+    activation_code  = models.CharField(max_length=255, blank=True, null=True)
     avatar           = models.ImageField(upload_to="users/profiles/"
                                          , blank=True)
     show_facebook    = models.BooleanField(default=False)

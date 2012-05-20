@@ -1,9 +1,11 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from bootstrap.forms import BootstrapForm
+from commons import happyforms
 from models import UserProfile
 
-class UserForm(forms.Form):
+class UserForm(BootstrapForm, happyforms.Form):
     username = forms.RegexField(regex=r'^[\w.@+-]+$'
                                 ,max_length=30
                                 ,widget=forms.TextInput()

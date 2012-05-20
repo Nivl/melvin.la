@@ -17,7 +17,9 @@ def sign_up(request):
             return HttpResponseRedirect(reverse('home'))
     else:
         if request.method == 'POST':
-            form = UserForm(request.POST, request.FILES)
+            form = UserForm(request.POST)
+            if form.is_valid():
+                pass
         else:
             form = UserForm()
         return render(request, "users/sign_up.html", {'form': form})
