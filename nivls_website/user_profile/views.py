@@ -1,3 +1,4 @@
+import uuid
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login
@@ -19,7 +20,24 @@ def sign_up(request):
         if request.method == 'POST':
             form = UserForm(request.POST)
             if form.is_valid():
-                pass
+                u = User.objects.create_user(form.cleaned_data['username']
+                                              ,form.cleaned_data['email']
+                                              ,form.cleaned_data['password1'])
+                u.first_name = form.cleaned_data['first_name'];
+                u.last_name = form.cleaned_data['last_name'];
+                u.is_staff = False;
+                u.is_active = False;
+                u.is_superuser = False;
+                u.save()
+                profile = UserProfile.objects.get(user=u)
+                profile.activation_code = uuid.uuid4()
+                profile.save()
+                #send_mail(subject,
+                #      msg,
+                #      form.cleaned_data['email'],
+                #      [settings.ADMINS[0][1]])
+                return render(request, 'users/signed_up.html')
+
         else:
             form = UserForm()
         return render(request, "users/sign_up.html", {'form': form})
