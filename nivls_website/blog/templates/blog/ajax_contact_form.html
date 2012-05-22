@@ -20,12 +20,18 @@ function bindPostContactHandler() {
 		{
 		    $('#contact-form')
 			.find("button[type='submit']")
-			.button('reset')
+			.button('reset');
 
 		    $('#contact-form').before(html);
+		    $('#contact-form').replaceWith('<div class="centered-text" id="contact-form"><img src="{{ STATIC_URL }}/commons/img/ajax-loader.gif" alt="loading..." /></div>');
+
+		    $('<div>').load('{% url "contact" %} #contact-form', function() {
+			$('#contact-form').replaceWith($(this).html());
+			bindPostContactHandler();
+		    });
 		}
 		else
-		    $('#contact-form').replaceWith(form)
+		    $('#contact-form').replaceWith(form);
                 bindPostContactHandler();
 	    },
             error: function (XMLHttpRequest, textStatus, errorThrown) {

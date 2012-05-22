@@ -2,7 +2,6 @@
 import datetime
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
-from django.views.decorators.csrf import csrf_protect
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
@@ -13,23 +12,25 @@ from models import Post, Category, Tag
 from forms import ContactForm
 from commons.simple_paginator import simple_paginator
 
-@csrf_protect
 def contact(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST, request=request)
-        if form.is_valid():
-            msg = form.cleaned_data['message'] + "\n\n\n" + ('-' * 80)
-            msg += "\n\n Ip : " + request.META["REMOTE_ADDR"]
-            subject = u"[Nivl’s blog] " + form.cleaned_data['subject']
-            send_mail(subject,
-                      msg,
-                      form.cleaned_data['email'],
-                      [settings.ADMINS[0][1]])
-            return render(request, 'blog/ajax_mail_sent.html')
+        if request.is_ajax():
+            form = ContactForm(request.POST, request=request)
+            if form.is_valid():
+                msg = form.cleaned_data['message'] + "\n\n\n" + ('-' * 80)
+                msg += "\n\n Ip : " + request.META["REMOTE_ADDR"]
+                send_mail(form.cleaned_data['subject']
+                          ,msg
+                          ,form.cleaned_data['email']
+                          ,[ row[1] for row in settings.ADMINS ]
+                          ,fail_silently=True)
+                return render(request, 'blog/ajax_mail_sent.html')
+        else:
+            raise Http404
+
     else:
         form = ContactForm(request=request)
     return render(request, "blog/contact.html", {'form':form})
-
 
 def home(request):
     post_list = Post.objects.select_related().filter(is_public=1
