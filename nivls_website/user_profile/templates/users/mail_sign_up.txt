@@ -1,0 +1,10 @@
+{% load url from future %}
+{% load i18n %}
+{% url "activate-account" code as activation_link %}
+
+{% blocktrans with uname=user.first_name %}Hi {{ uname }},{% endblocktrans %}
+
+
+{% trans "You have successfully created your account, now it's time to acivate it by clicking on the following link: " %} {{ activation_link }}
+
+{% trans "You can update your informations in the user menu." %}
