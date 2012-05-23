@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from bootstrap.forms import BootstrapForm
+from captcha.fields import CaptchaField
 from commons import happyforms
 from models import UserProfile
 
@@ -18,6 +19,7 @@ class UserForm(BootstrapForm, happyforms.Form):
                                  ,label=_("Password"))
     password2  = forms.CharField(widget=forms.PasswordInput(render_value=False)
                                  ,label=_("Password (again)"))
+    captcha    = CaptchaField()
 
     def clean_username(self):
         data = self.cleaned_data.get('username')

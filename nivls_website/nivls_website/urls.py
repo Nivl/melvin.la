@@ -15,6 +15,7 @@ urlpatterns = patterns(
     url(r'^blog/', include('blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('user_profile.urls')),
+    url(r'^captcha/', include('captcha.urls')),
 
     url(r'', include('about.urls')),
     )
