@@ -27,9 +27,9 @@ def contact(request):
                 return render(request, 'blog/ajax_mail_sent.html')
         else:
             raise Http404
-
     else:
         form = ContactForm(request=request)
+
     return render(request, "blog/contact.html", {'form':form})
 
 def home(request):

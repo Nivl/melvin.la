@@ -18,6 +18,9 @@ class ContactForm(BootstrapForm, happyforms.Form):
         super(ContactForm, self).__init__(data=data, files=files,
                                           *args, **kwargs)
         self.request = request
+        if request.user.is_authenticated():
+            self.fields['email'].widget = forms.HiddenInput()
+            self.initial['email'] = request.user.email;
 
     def clean_honeypot(self):
         value = self.cleaned_data['honeypot']
