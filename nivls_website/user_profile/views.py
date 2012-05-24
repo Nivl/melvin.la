@@ -51,6 +51,24 @@ def sign_up(request):
             form = UserForm()
         return render(request, "users/sign_up.html", {'form': form})
 
+
+def activate_account(request, code):
+    if not request.user.is_authenticated():
+        try:
+            profile = UserProfile.objects.get(activation_code=code)
+            user = profile.user
+            user.is_active = 1
+            user.save()
+            profile.activation_code = ''
+            profile.save()
+            return login(request, template_name='users/sign_in.html'
+                         , authentication_form=BootstrapLoginForm
+                         , extra_context={'success': _('Your account has been successfully activated, you can now sign in.')})
+        except UserProfile.DoesNotExist:
+            return login(request, template_name='users/sign_in.html'
+                         , authentication_form=BootstrapLoginForm
+                         , extra_context={'error': _('This activation link does not exists. If you are experiencing activation issues, you can contact us using the contact form.')})
+
 @login_required
 def view_account(request):
     pass
