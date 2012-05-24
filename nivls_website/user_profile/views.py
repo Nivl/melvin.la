@@ -74,6 +74,10 @@ def view_account(request):
     pass
 
 @login_required
+def edit_profile(request):
+    pass
+
+@login_required
 def edit_account(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES)

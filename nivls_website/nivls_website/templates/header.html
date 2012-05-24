@@ -112,6 +112,7 @@
 		  <li class="divider">
 		  <li><a href="{% url "view-account" %}"><i class="icon-user"></i> {% trans "My profile" %}</a>
 		  <li><a href="{% url "edit-account" %}"><i class="icon-edit"></i> {% trans "Edit my informations" %}</a>
+		  <li><a href="{% url "edit-profile" %}"><i class="icon-cog"></i> {% trans "Edit my settings" %}</a>
 		  <li><a href="{% url "manage-social-account" %}"><i class="icon-tasks"></i> {% trans "Social media accounts" %}</a>
 		  <li class="divider">
 		  <li><a href="{% url "sign-out" %}?next={{ request.get_full_path }}">

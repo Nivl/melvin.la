@@ -4,10 +4,9 @@ from forms import UserProfile
 urlpatterns = patterns(
     'user_profile.views',
 
-    url(r'^view/$', 'view_account'
-        , name='view-account'),
-    url(r'^edit/$', 'edit_account'
-        , name='edit-account'),
+    url(r'^view/$', 'view_account', name='view-account'),
+    url(r'^edit/$', 'edit_account', name='edit-account'),
+    url(r'^edit-profile/$', 'edit_profile', name='edit-profile'),
     url(r'^manage-social-account/$', 'manage_social_account'
         , name='manage-social-account'),
 
