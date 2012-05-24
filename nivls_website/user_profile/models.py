@@ -7,6 +7,7 @@ class UserProfile(models.Model):
     activation_code  = models.CharField(max_length=255, blank=True, null=True)
     avatar           = models.ImageField(upload_to="users/profiles/"
                                          , blank=True)
+    use_name         = models.BooleanField(default=False)
     show_facebook    = models.BooleanField(default=False)
     show_google_plus = models.BooleanField(default=False)
     show_twitter     = models.BooleanField(default=False)
