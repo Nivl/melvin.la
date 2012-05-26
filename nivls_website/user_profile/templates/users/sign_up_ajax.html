@@ -3,38 +3,13 @@
 
 <script type="text/javascript">
 function bindPostSignUpHandler() {
-    $('#sign-up-form').submit(function() {
-	$('#sign-up-form')
-	    .find("button[type='submit']")
-	    .button('loading')
-
-        $.ajax({
-            type: "POST",
-            data: $('#sign-up-form').serialize(),
-            url: '{% url "sign-up" %}',
-            cache: false,
-            dataType: "html",
-            success: function(html, textStatus) {
-		var form = $(html).find("#sign-up-form")
-		if (form.text() == '')
-		    $('#sign-up-form').replaceWith(html);
-		else
-		    $('#sign-up-form').replaceWith(form)
-                bindPostSignUpHandler();
-	    },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-		$('#sign-up-form')
-		    .find("button[type='submit']")
-		    .button('reset')
-
-                $('#sign-up-form').before('<div class="alert alert-error alert-block fade in"><a class="close" data-dismiss="alert">×</a><h4 class="alert-heading">{% trans "Error!" %}</h4>{% trans "Your registration was unable to be processed at this time. We apologise for the inconvenience." %}</div>');
-            }
-        });
-        return false;
-    });
+    ajax_form('#sign-up-form'
+	      , '{% url "sign-up" %}'
+	      , bindPostSignUpHandler
+	      , '{% trans "Your registration was unable to be processed at this time. We apologise for the inconvenience." %}',
+	      true);
 }
 
-$(document).ready(function() {
-    bindPostSignUpHandler();
-});
+bindPostSignUpHandler();
+
 </script>

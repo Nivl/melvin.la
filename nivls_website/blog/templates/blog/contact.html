@@ -2,6 +2,7 @@
 {% load blog_tags i18n %}
 
 {% block "sub_head_js" %}
+  <script src="{{ STATIC_URL }}commons/js/ajax_form.js"></script>
   {% include "blog/ajax_contact_form.html" %}
 {% endblock "sub_head_js" %}
 
