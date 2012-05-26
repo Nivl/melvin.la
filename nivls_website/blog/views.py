@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
@@ -26,7 +26,7 @@ def contact(request):
                           ,fail_silently=True)
                 return render(request, 'blog/contact_ok.html')
         else:
-            raise Http404
+            return HttpResponseForbidden()
     else:
         form = ContactForm(request=request)
 
