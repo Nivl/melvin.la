@@ -34,10 +34,10 @@ def sign_up(request):
                 profile.save()
 
                 subject = _('Your validation link')
-                text_content = render_to_string('users/mail_sign_up.txt'
+                text_content = render_to_string('users/sign_up_mail.txt'
                                                 ,{'user': u
                                                   ,'code': profile.activation_code})
-                html_content = render_to_string('users/mail_sign_up.html'
+                html_content = render_to_string('users/sign_up_mail.html'
                                                 ,{'user': u
                                                   ,'code': profile.activation_code})
                 msg = EmailMultiAlternatives(subject
@@ -46,7 +46,7 @@ def sign_up(request):
                                              ,[u.email])
                 msg.attach_alternative(html_content, 'text/html')
                 msg.send(fail_silently = True)
-                return render(request, 'users/signed_up.html')
+                return render(request, 'users/sign_up_ok.html')
         else:
             form = UserForm()
         return render(request, "users/sign_up.html", {'form': form})

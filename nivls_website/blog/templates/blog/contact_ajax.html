@@ -1,9 +1,11 @@
 {% load url from future %}
 {% load i18n %}
 
+<script src="{{ STATIC_URL }}commons/js/ajax_form.js"></script>
+
 <script type="text/javascript">
 function bindPostContactHandler() {
-    ajax_form('#contact-form'
+  ajax_form('#contact-form'
 	      , '{% url "contact" %}'
 	      , bindPostContactHandler
 	      , '{% trans "Your message was unable to be sent at this time. We apologise for the inconvenience." %}',

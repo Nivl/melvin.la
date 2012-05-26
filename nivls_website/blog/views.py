@@ -24,7 +24,7 @@ def contact(request):
                           ,form.cleaned_data['email']
                           ,[ row[1] for row in settings.ADMINS ]
                           ,fail_silently=True)
-                return render(request, 'blog/ajax_mail_sent.html')
+                return render(request, 'blog/contact_ok.html')
         else:
             raise Http404
     else:
