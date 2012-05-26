@@ -75,14 +75,22 @@ def view_account(request):
 
 @login_required
 def edit_profile(request):
-    pass
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES,
+                               instance=request.user.get_profile())
+        if form.is_valid():
+            form.save()
+            return render(request, "users/edit_profile_ok.html")
+    else:
+        form = UserProfileForm(instance=request.user.get_profile())
+    return render(request, "users/edit_profile.html", {'form': form})
 
 @login_required
 def edit_account(request):
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES)
+        form = UserForm(request.POST, request.FILES)
     else:
-        form = UserProfileForm()
+        form = UserForm()
     return render(request, "users/edit.html", {'form': form})
 
 @login_required

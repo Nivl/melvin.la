@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from bootstrap.forms import BootstrapForm
+from bootstrap.forms import BootstrapForm, BootstrapModelForm
 from captcha.fields import CaptchaField
 from commons import happyforms
 from models import UserProfile
@@ -45,8 +45,7 @@ class UserForm(BootstrapForm, happyforms.Form):
 
         return cleaned_data
 
-class UserProfileForm(UserForm):
-    pass
-#    class Meta:
-#        model = UserProfile
-#        exclude = ('user')
+class UserProfileForm(BootstrapModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ('user', 'activation_code', 'avatar')

@@ -51,3 +51,53 @@ class ColorPickerWidget(forms.TextInput):
                       });
             </script>''' % name)
 
+
+class CroppedImageWidget(forms.TextInput):
+    class Media:
+        css = {
+            'all': (
+                settings.STATIC_URL + 'commons/css/jquery.Jcrop.min.css',
+                )
+            }
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js',
+            settings.STATIC_URL + 'commons/js/jquery.Jcrop.min.js',
+            )
+
+    def __init__(self, language=None, attrs=None):
+        self.language = language or settings.LANGUAGE_CODE[:2]
+        super(CroppedImageWidget, self).__init__(attrs=attrs)
+
+    def render(self, name, value, attrs=None):
+        rendered = super(CroppedImageWidget, self).render(name, value, attrs)
+        return rendered + mark_safe(u'''<script type="text/javascript">
+            $('#id_%s').ColorPicker({
+                        onSubmit: function(hsb, hex, rgb, el) {
+                          $(el).val(hex);
+                          $(el).ColorPickerHide();
+                        },
+
+                       onChange: function(hsb, hex, rgb, el) {
+                          $(el).val(hex);
+                        },
+
+                        onShow: function (colpkr) {
+                          $(colpkr).fadeIn(500);
+                          return false;
+                        },
+
+                        onHide: function (colpkr) {
+                          $(colpkr).fadeOut(500);
+                          return false;
+                        },
+
+                        onBeforeShow: function () {
+                          $(this).ColorPickerSetColor(this.value);
+                        },
+
+                      })
+                      .bind('keyup', function(){
+                        $(this).ColorPickerSetColor(this.value);
+                      });
+            </script>''' % name)
+
