@@ -49,3 +49,6 @@ class UserProfileForm(BootstrapModelForm):
     class Meta:
         model = UserProfile
         exclude = ('user', 'activation_code', 'avatar')
+
+class AvatarForm(forms.Form):
+    avatar = forms.CharField(widget=forms.HiddenInput)

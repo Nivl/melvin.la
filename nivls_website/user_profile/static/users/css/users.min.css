@@ -2,3 +2,4 @@ html,body{background-color:#ededed;}
 h1{margin-bottom:20px;}
 h2 a:hover{text-decoration:none;}
 .accordion-group,.accordion-inner{border-color:#d1d1d1;}
+.avatar-preview{width:125px;height:125px;overflow:hidden;}

@@ -1,7 +1,16 @@
 {% load i18n %}
+{% load url from future %}
 
 <div class="alert alert-success alert-block">
   <a class="close" data-dismiss="alert">×</a>
   <h4 class="alert-heading">{% trans "Updated!" %}</h4>
   {% trans "Your account has been successfully updated." %}
+
+  {% if has_file %}
+    <script>
+      $(document).ready(function() {
+        window.location = "{% url "edit-avatar" %}"
+      });
+    </script>
+  {% endif %}
 </div>

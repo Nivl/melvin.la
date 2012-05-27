@@ -7,6 +7,7 @@ urlpatterns = patterns(
     url(r'^view/$', 'view_account', name='view-account'),
     url(r'^edit/$', 'edit_account', name='edit-account'),
     url(r'^edit-profile/$', 'edit_profile', name='edit-profile'),
+    url(r'^edit-avatar/$', 'edit_avatar', name='edit-avatar'),
     url(r'^manage-social-account/$', 'manage_social_account'
         , name='manage-social-account'),
 

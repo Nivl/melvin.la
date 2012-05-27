@@ -1,0 +1,80 @@
+{% extends "users/base.html" %}
+{% load url from future %}
+{% load l10n i18n bootstrap %}
+
+{% block "sub_head_css" %}
+  <link rel="stylesheet" media="screen"
+	href="{{ STATIC_URL }}commons/css/jquery.Jcrop.min.css">
+{% endblock "sub_head_css" %}
+
+{% block "sub_head_js" %}
+  <script src="{{ STATIC_URL }}/commons/js/jquery.Jcrop.min.js"></script>
+  <script>
+    var jcrop_api, boundx, boundy;
+
+    $('#avatar-img').Jcrop({
+      onChange: updatePreview,
+      onSelect: updatePreview,
+      aspectRatio: {{ ratio|unlocalize }},
+      {% if min_size %}
+	minSize: [{{ min_size.0 }}, {{ min_size.1 }}],
+      {% endif %}
+
+      {% if max_size %}
+	maxSize: [{{ max_size.0 }}, {{ max_size.1 }}],
+      {% endif %}
+
+      {% if select %}
+	setSelect: [{{ select.0.0 }}, {{ select.0.1 }}, {{ select.1.0 }}, {{ select.1.1 }}],
+      {% endif %}
+    }, function(){
+         var bounds = this.getBounds();
+         boundx = bounds[0];
+         boundy = bounds[1];
+         jcrop_api = this;
+    });
+
+    function updatePreview(c) {
+      if (parseInt(c.w) > 0) {
+        var rx = 125 / c.w;
+        var ry = 125 / c.h;
+
+	$('#id_avatar').val(boundx + "x" + boundy + " " + c.x + "x" + c.y + " " + c.w + "x" + c.h)
+
+        $('#preview').css({
+          width: Math.round(rx * boundx) + 'px',
+          height: Math.round(ry * boundy) + 'px',
+          marginLeft: '-' + Math.round(rx * c.x) + 'px',
+          marginTop: '-' + Math.round(ry * c.y) + 'px'
+        });
+      }
+    };
+
+   </script>
+{% endblock "sub_head_js" %}
+
+{% block "title" %}{% trans "Avatar" %}{% endblock "title" %}
+{% block body_classes %}span4 offset4{% endblock %}
+
+{% block "content" %}
+  <h1 class="centered-text">{% trans "Avatar" %}</h1>
+
+  <img src="{{ picture.url }}" id="avatar-img" />
+
+  <h2>Preview</h2>
+
+  <div class="avatar-preview">
+    <img src="{{ picture.url }}" id="preview" alt="Preview"
+	 class="jcrop-preview" />
+  </div>
+
+  <form method="post" action="{% url "edit-avatar" %}">
+    {% csrf_token %}
+    {{ form }}
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
+      <button type="reset" class="btn btn-danger">{% trans "Reset" %}</button>
+    </div>
+  </form>
+{% endblock %}

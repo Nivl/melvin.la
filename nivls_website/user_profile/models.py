@@ -8,7 +8,11 @@ class UserProfile(models.Model):
     activation_code  = models.CharField(max_length=255, blank=True, null=True)
     picture          = models.ImageField(upload_to="users/profiles/"
                                          , blank=True)
-    avatar           = CroppedImageField('picture', '125x125', blank=True)
+    avatar           = CroppedImageField('picture'
+                                         , '125x125'
+                                         , set_select=[[0,0], [125,125]]
+                                         , min_size=[50, 50]
+                                         , blank=True)
     use_name         = models.BooleanField(default=False)
     show_facebook    = models.BooleanField(default=False)
     show_google_plus = models.BooleanField(default=False)

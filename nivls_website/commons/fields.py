@@ -13,9 +13,13 @@ class ColorField(models.CharField):
 
 class CroppedImageField(models.CharField):
     def __init__(self
-                 , image, ratio, min_size=(0,0), max_size=(0,0)
-                 , initial=((0,0), (0,0)), *args, **kwargs):
+                 , image, ratio, min_size=[0,0], max_size=[0,0]
+                 , set_select=[[0,0], [0,0]], *args, **kwargs):
         kwargs['max_length'] = 255
+        self.ratio = ratio
+        self.min_size = min_size
+        self.max_size = max_size
+        self.set_select  = set_select
         super(CroppedImageField, self).__init__(*args, **kwargs)
 
     def formfield(self, **kwargs):

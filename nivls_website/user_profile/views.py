@@ -87,12 +87,52 @@ def edit_profile(request):
                                    instance=request.user.get_profile())
             if form.is_valid():
                 form.save()
-                return render(request, "users/edit_profile_ok.html")
+                return render(request, "users/edit_profile_ok.html"
+                              , {'has_file': len(request.FILES) != 0})
         else:
             return HttpResponseForbidden()
     else:
         form = UserProfileForm(instance=request.user.get_profile())
     return render(request, "users/edit_profile.html", {'form': form})
+
+
+@login_required
+def edit_avatar(request):
+    profile = request.user.get_profile()
+    ratio_list = UserProfile._meta.get_field('avatar').ratio.split('x')
+    ratio = float(ratio_list[0]) / float(ratio_list[1])
+
+    min_size = UserProfile._meta.get_field('avatar').min_size
+    min_size = min_size if min_size != [0, 0] else False
+
+    max_size = UserProfile._meta.get_field('avatar').max_size
+    max_size = max_size if max_size != [0, 0] else False
+
+    select = []
+    select_str = profile.avatar
+    select_list = profile.avatar.split(" ")
+    select_values = select_list[1].split("x")
+    select.append([select_values[0], select_values[1]])
+    select_values = select_list[2].split("x")
+    select.append([select_values[0], select_values[1]])
+
+    if request.method == 'POST':
+        form = AvatarForm(request.POST)
+        if form.is_valid():
+            profile.avatar = form.cleaned_data['avatar']
+            profile.save()
+    else:
+        form = AvatarForm(initial={'avatar': profile.avatar})
+
+    return render(request, "users/edit_avatar.html", {
+            'picture': profile.picture
+            , 'current': profile.avatar
+            , 'ratio': ratio
+            , 'min_size': min_size
+            , 'max_size': max_size
+            , 'select': select
+            , 'form': form
+            })
 
 
 @login_required
