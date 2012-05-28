@@ -1,7 +1,8 @@
-function ajax_form(form_selector, form_url, callback, error_msg, remove_form, file_upload, progress_selector) {
+function ajax_form(form_selector, form_url, callback, error_msg, remove_form, to_reload, file_upload, progress_selector) {
 
     remove_form = typeof remove_form !== 'undefined' ? remove_form : true;
     file_upload = typeof file_upload !== 'undefined' ? file_upload : false;
+    to_reload = typeof to_reload !== 'undefined' ? to_reload : [];
     progress_selector = typeof progress_selector !== 'undefined' ? progress_selector : 'progress';
 
     var target_name = form_selector;
@@ -48,17 +49,30 @@ function ajax_form(form_selector, form_url, callback, error_msg, remove_form, fi
 		if (form.text() == '') {
 		    if (remove_form) {
 			$(form_selector).replaceWith(html);
-		    } else {
-			$(form_selector)
-			    .find("button[type='submit']")
-			    .button('reset');
+		    } else if (!remove_form || to_reload != {}) {
+			if (remove_form == false) {
+			    $(form_selector)
+				.find("button[type='submit']")
+				.button('reset');
 
-			$(form_selector).before(html);
-			$(form_selector).replaceWith('<div class="centered-text" id="' + target_name + '"><img src="' + STATIC_URL + '/commons/img/ajax-loader.gif" alt="loading..." /></div>');
+			    $(form_selector).before(html);
+			    $(form_selector)
+				.replaceWith('<div class="centered-text" id="' + target_name + '"><img src="' + STATIC_URL + '/commons/img/ajax-loader.gif" alt="loading..." /></div>');
+			}
 
-			$('<div>').load(form_url.concat(' ', form_selector), function() {
-			    $(form_selector).replaceWith($(this).html());
-			    callback();
+			$.get(form_url, function(data) {
+			    if (remove_form == false) {
+				$(form_selector)
+				    .replaceWith($(data).find(form_selector));
+				callback();
+			    }
+
+			    var selector = '';
+			    for (var i=0; i<to_reload.length; i++) {
+				selector = to_reload[i];
+				$(selector)
+				    .replaceWith($(data).find(selector));
+			    }
 			});
 		    }
 		} else {
