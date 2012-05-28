@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.db import models
@@ -13,11 +14,11 @@ class UserProfile(models.Model):
                                          , set_select=[[0,0], [125,125]]
                                          , min_size=[50, 50]
                                          , blank=True)
-    use_name         = models.BooleanField(default=False)
-    show_facebook    = models.BooleanField(default=False)
-    show_google_plus = models.BooleanField(default=False)
-    show_twitter     = models.BooleanField(default=False)
-    show_github      = models.BooleanField(default=False)
+    use_name         = models.BooleanField(default=False, verbose_name=_('Display my real name instead of my user name'))
+    show_facebook    = models.BooleanField(default=False, verbose_name=_('Show my facebook account'))
+    show_google_plus = models.BooleanField(default=False, verbose_name=_('Show my google+ account'))
+    show_twitter     = models.BooleanField(default=False, verbose_name=_('Show my twitter account'))
+    show_github      = models.BooleanField(default=False, verbose_name=_('Show my github account'))
 
     def __unicode__(self):
         return self.user.__unicode__()

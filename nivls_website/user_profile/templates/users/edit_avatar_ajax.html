@@ -1,0 +1,17 @@
+{% load url from future %}
+{% load i18n %}
+
+<script src="{{ STATIC_URL }}commons/js/ajax_form.js"></script>
+
+<script type="text/javascript">
+function bindPostEditAvatarHandler() {
+  ajax_form('#edit-avatar-form'
+	      , '{% url "edit-avatar" %}'
+	      , bindPostEditAvatarHandler
+	      , '{% trans "The update was unable to be processed at this time. We apologise for the inconvenience." %}'
+	      , false);
+}
+
+bindPostEditAvatarHandler();
+
+</script>

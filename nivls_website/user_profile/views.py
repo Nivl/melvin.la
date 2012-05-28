@@ -99,6 +99,9 @@ def edit_profile(request):
 @login_required
 def edit_avatar(request):
     profile = request.user.get_profile()
+    if not profile.picture:
+        return HttpResponseForbidden()
+
     ratio_list = UserProfile._meta.get_field('avatar').ratio.split('x')
     ratio = float(ratio_list[0]) / float(ratio_list[1])
 
@@ -109,20 +112,24 @@ def edit_avatar(request):
     max_size = max_size if max_size != [0, 0] else False
 
     select = []
-    select_str = profile.avatar
-    select_list = profile.avatar.split(" ")
-    select_values = select_list[1].split("x")
-    select.append([select_values[0], select_values[1]])
-    select_values = select_list[2].split("x")
-    select.append([select_values[0], select_values[1]])
+    for select_list in profile.avatar.split(" "):
+        x, y = select_list.split("x")
+        select.append([x, y])
 
     if request.method == 'POST':
-        form = AvatarForm(request.POST)
-        if form.is_valid():
-            profile.avatar = form.cleaned_data['avatar']
-            profile.save()
+        if request.is_ajax():
+            form = CroppedImageForm(request.POST, field='avatar'
+                                    , obj=UserProfile, image=profile.picture)
+            if form.is_valid():
+                profile.avatar = form.cleaned_data['coordinates']
+                profile.save()
+                return render(request, 'users/edit_avatar_ok.html')
+        else:
+            return HttpResponseForbidden()
     else:
-        form = AvatarForm(initial={'avatar': profile.avatar})
+        form = CroppedImageForm(field='avatar', obj=UserProfile
+                                , image=profile.picture
+                                , initial={'coordinates': profile.avatar})
 
     return render(request, "users/edit_avatar.html", {
             'picture': profile.picture

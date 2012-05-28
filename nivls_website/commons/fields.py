@@ -11,11 +11,12 @@ class ColorField(models.CharField):
         kwargs['widget'] = ColorPickerWidget
         return super(ColorField, self).formfield(**kwargs)
 
+
 class CroppedImageField(models.CharField):
     def __init__(self
                  , image, ratio, min_size=[0,0], max_size=[0,0]
                  , set_select=[[0,0], [0,0]], *args, **kwargs):
-        kwargs['max_length'] = 255
+        kwargs['max_length'] = 30
         self.ratio = ratio
         self.min_size = min_size
         self.max_size = max_size
