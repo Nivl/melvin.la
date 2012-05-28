@@ -22,14 +22,11 @@ def sign_up(request):
             if request.is_ajax():
                 form = UserForm(request.POST)
                 if form.is_valid():
-                    u = User.objects.create_user(form.cleaned_data['username']
-                                                 ,form.cleaned_data['email']
-                                                 ,form.cleaned_data['password1'])
-                    u.first_name = form.cleaned_data['first_name'];
-                    u.last_name = form.cleaned_data['last_name'];
-                    u.is_staff = False;
-                    u.is_active = False;
-                    u.is_superuser = False;
+                    u = form.save(commit=False)
+                    u.set_password(form.cleaned_data['password1'])
+                    u.is_staff = False
+                    u.is_active = False
+                    u.is_superuser = False
                     u.save()
                     profile = UserProfile.objects.get(user=u)
                     profile.activation_code = uuid.uuid4()

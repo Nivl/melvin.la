@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.template.defaultfilters import filesizeformat
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -9,20 +10,26 @@ from captcha.fields import CaptchaField
 from commons import happyforms
 from models import UserProfile
 
-class UserForm(BootstrapForm, happyforms.Form):
-    username = forms.RegexField(regex=r'^[\w.@+-]+$'
-                                ,max_length=30
-                                ,widget=forms.TextInput()
-                                ,label=_('Username')
-                                ,error_messages={'invalid':_('This value may contain only letters, numbers and @/./+/-/_ characters.')})
-    first_name = forms.CharField(label=_("First name"))
-    last_name  = forms.CharField(label=_("Last name"))
-    email      = forms.EmailField(label=_("E-mail"))
+class UserForm(BootstrapModelForm, happyforms.ModelForm):
+    class Meta:
+        model = User
+        exclude = ('password', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions', 'last_login', 'date_joined')
     password1  = forms.CharField(widget=forms.PasswordInput(render_value=False)
                                  ,label=_("Password"))
     password2  = forms.CharField(widget=forms.PasswordInput(render_value=False)
                                  ,label=_("Password (again)"))
     captcha    = CaptchaField()
+
+    def __init__(self, data=None, files=None, *args, **kwargs):
+        super(UserForm, self).__init__(data=data, files=files, *args, **kwargs)
+        self.fields['email'].required = True
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['username'] = forms.RegexField(regex=r'^[\w.@+-]+$'
+                                                   ,max_length=30
+                                                   ,widget=forms.TextInput()
+                                                   ,label=_('Username')
+                                                   ,error_messages={'invalid':_('This value may contain only letters, numbers and @/./+/-/_ characters.')})
 
     def clean_username(self):
         data = self.cleaned_data.get('username')
