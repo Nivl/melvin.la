@@ -5,6 +5,10 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 SOCIAL_AUTH_RAISE_EXCEPTIONS = DEBUG
 
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda o: "/accounts/view/%s/" % o.username,
+    }
+
 EMAIL_SUBJECT_PREFIX = "[Nivl's website] "
 DOMAIN_NAME = 'localhost:8000'
 SESSION_COOKIE_DOMAIN = '.' + DOMAIN_NAME

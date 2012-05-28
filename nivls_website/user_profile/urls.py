@@ -4,7 +4,7 @@ from forms import UserProfile
 urlpatterns = patterns(
     'user_profile.views',
 
-    url(r'^view/$', 'view_account', name='view-account'),
+    url(r'^view/(?P<name>[\w.@+-]+)/$', 'view_account', name='view-account'),
     url(r'^edit/$', 'edit_account', name='edit-account'),
     url(r'^edit-profile/$', 'edit_profile', name='edit-profile'),
     url(r'^edit-avatar/$', 'edit_avatar', name='edit-avatar'),
