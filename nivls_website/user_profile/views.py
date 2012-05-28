@@ -10,7 +10,7 @@ from django.contrib.auth.views import login
 from django.core.urlresolvers import resolve, Resolver404, reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from commons.forms import BootstrapLoginForm
+from commons.forms import BootstrapLoginForm, CroppedImageForm
 from social_auth.models import UserSocialAuth
 from forms import *
 
