@@ -57,7 +57,7 @@ class UserProfileForm(BootstrapModelForm):
     def clean_picture(self):
         data        = self.cleaned_data.get('picture')
 
-        if data:
+        try:
             min_size    = UserProfile._meta.get_field('avatar').min_size
             max_size    = UserProfile._meta.get_field('avatar').max_size
 
@@ -74,5 +74,7 @@ class UserProfileForm(BootstrapModelForm):
                     or (max_size[1] != 0 and h > max_size[1]):
                 raise forms.ValidationError(_("Your image is to large. the maximum size is %(x)dx%(y)d" % {'x': max_size[0], 'y': max_size[1]}))
 
+        except AttributeError:
+            pass
         return data;
 
