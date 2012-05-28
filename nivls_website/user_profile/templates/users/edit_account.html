@@ -2,18 +2,25 @@
 {% load url from future %}
 {% load i18n bootstrap %}
 
+{% block "sub_head_js" %}
+  {% include "users/edit_account_ajax.html" %}
+{% endblock "sub_head_js" %}
+
 {% block "title" %}{% trans "Edit my informations" %}{% endblock "title" %}
-{% block body_classes %}span6 offset3{% endblock %}
+{% block body_classes %}span8 offset2{% endblock %}
 
 {% block "content" %}
   <h1 class="centered-text">{% trans "Edit my informations" %}</h1>
 
-  <form class="form-horizontal" method="post" action="{% url "edit-account" %}">
+  <form class="form-horizontal"
+	id="edit-account-form"
+	method="post"
+	action="{% url "edit-account" %}">
     {% csrf_token %}
-    {{ form|bootstrap }}
+    {{ form }}
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">{% trans "Sign in" %}</button>
+      <button type="submit" class="btn btn-primary">{% trans "Edit" %}</button>
       <button type="reset" class="btn btn-danger">{% trans "Reset" %}</button>
     </div>
   </form>

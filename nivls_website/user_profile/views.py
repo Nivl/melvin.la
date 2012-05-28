@@ -1,5 +1,4 @@
 import uuid
-from django.http import HttpResponseForbidden
 from django.utils.translation import ugettext as _
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
@@ -8,7 +7,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login
 from django.core.urlresolvers import resolve, Resolver404, reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from commons.forms import BootstrapLoginForm, CroppedImageForm
 from social_auth.models import UserSocialAuth
@@ -30,6 +29,7 @@ def sign_up(request):
                     u.save()
                     profile = UserProfile.objects.get(user=u)
                     profile.activation_code = uuid.uuid4()
+                    profile.lock_username = True
                     profile.save()
 
                     subject = _('Your validation link')
@@ -141,11 +141,28 @@ def edit_avatar(request):
 
 @login_required
 def edit_account(request):
+    profile  = request.user.get_profile()
+    username = request.user.username
     if request.method == 'POST':
-        form = UserForm(request.POST, request.FILES)
+        if request.is_ajax():
+            form = UserEditForm(request.POST
+                                , edit_username=(not profile.lock_username)
+                                , instance=request.user)
+            if form.is_valid():
+                u = form.save(commit=False)
+                if form.cleaned_data['password1']:
+                    u.set_password(form.cleaned_data['password1'])
+                u.save()
+                if form.cleaned_data['username'] != username:
+                    profile.lock_username = True
+                    profile.save()
+                return render(request, 'users/edit_account_ok.html')
+        else:
+            return HttpResponseForbidden()
     else:
-        form = UserForm()
-    return render(request, "users/edit.html", {'form': form})
+        form = UserEditForm(edit_username=(not profile.lock_username)
+                            , instance=request.user)
+    return render(request, "users/edit_account.html", {'form': form})
 
 
 @login_required

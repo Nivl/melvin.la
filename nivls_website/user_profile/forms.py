@@ -56,10 +56,47 @@ class UserForm(BootstrapModelForm, happyforms.ModelForm):
         return cleaned_data
 
 
+class UserEditForm(UserForm):
+    def __init__(self, data=None, files=None, edit_username=False,
+                 *args, **kwargs):
+        super(UserEditForm, self).__init__(data=data, files=files
+                                           , *args, **kwargs)
+        self.fields.pop('captcha')
+        self.fields['password1'].required = False
+        self.fields['password2'].required = False
+        self.fields['password1'].label = _('New password')
+
+        if not edit_username:
+            self.fields['username'].widget.attrs['readonly'] = True
+        else:
+            self.fields['username'].help_text = _("This is a one shot field, you can only edit your username once.")
+        self.edit_username = edit_username
+
+
+    def clean_email(self):
+        data = self.cleaned_data.get('email')
+
+        if data != self.instance.email \
+                and User.objects.filter(email=data).exists():
+            raise forms.ValidationError(_("This email address is already in use."))
+        return data
+
+
+    def clean_username(self):
+        if not self.edit_username:
+            return self.instance.username
+
+        data = self.cleaned_data.get('username')
+        if data != self.instance.username \
+                and User.objects.filter(username=data).exists():
+            raise forms.ValidationError(_("Sorry, this username has already been taken."))
+        return data
+
+
 class UserProfileForm(BootstrapModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user', 'activation_code', 'avatar')
+        exclude = ('user', 'activation_code', 'avatar', 'lock_username')
 
     def clean_picture(self):
         data        = self.cleaned_data.get('picture')
