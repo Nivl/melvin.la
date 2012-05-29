@@ -3,7 +3,7 @@ from django.utils.translation import ugettext as _
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login
 from django.core.urlresolvers import resolve, Resolver404, reverse
@@ -72,9 +72,10 @@ def activate_account(request, code):
 
 
 @login_required
-def view_account(request):
-    pass
-
+def view_account(request, name):
+    u = get_object_or_404(User, username=name)
+    return render(request, "users/view.html", {'target_user': u
+                                               , 'profile': u.get_profile()})
 
 @login_required
 def edit_profile(request):

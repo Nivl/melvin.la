@@ -1,0 +1,20 @@
+{% extends "users/base.html" %}
+{% load url from future %}
+{% load i18n bootstrap user_tags %}
+
+{% block "sub_head_js" %}
+  {% include "users/edit_account_ajax.html" %}
+{% endblock "sub_head_js" %}
+
+{% block "title" %}{% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}{% endblock "title" %}
+{% block body_classes %}span8 offset2{% endblock %}
+
+{% block "content" %}
+  <h1 class="centered-text">{% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}</h1>
+
+  <div class="row">
+    <div class="span4">
+      {{ target_user|square_thumbnail:'160' }}
+    </div>
+  </div>
+{% endblock %}
