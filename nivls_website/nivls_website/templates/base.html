@@ -1,3 +1,4 @@
+{% load url from future %}
 {% load seo_tags i18n %}
 {% get_seo %}
 
@@ -50,6 +51,7 @@
     <script src="{{ STATIC_URL }}commons/js/dream.js"></script>
     <script src="{{ STATIC_URL }}commons/js/jquery.timers.js"></script>
     <script src="{{ STATIC_URL }}commons/js/prettify/prettify.js"></script>
+    <script src="{% url "django.views.i18n.javascript_catalog" %}"></script>
     <script src="{{ STATIC_URL }}commons/js/main.js"></script>
     {% block "head_js" %}{% endblock %}
     {{ seo.free_block|safe }}

@@ -1,5 +1,4 @@
 function ajax_form(form_selector, form_url, callback, error_msg, remove_form, to_reload, file_upload, progress_selector) {
-
     remove_form = typeof remove_form !== 'undefined' ? remove_form : true;
     file_upload = typeof file_upload !== 'undefined' ? file_upload : false;
     to_reload = typeof to_reload !== 'undefined' ? to_reload : [];
@@ -57,7 +56,7 @@ function ajax_form(form_selector, form_url, callback, error_msg, remove_form, to
 
 			    $(form_selector).before(html);
 			    $(form_selector)
-				.replaceWith('<div class="centered-text" id="' + target_name + '"><img src="' + STATIC_URL + '/commons/img/ajax-loader.gif" alt="loading..." /></div>');
+				.replaceWith('<div class="centered-text" id="' + target_name + '"><img src="' + STATIC_URL + '/commons/img/ajax-loader.gif" alt="' + gettext('loading...') + '" /></div>');
 			}
 
 			$.get(form_url, function(data) {
@@ -86,7 +85,7 @@ function ajax_form(form_selector, form_url, callback, error_msg, remove_form, to
 		    .find("button[type='submit']")
 		    .button('reset')
 
-                $(form_selector).before('<div class="alert alert-error alert-block fade in"><a class="close" data-dismiss="alert">×</a><h4 class="alert-heading">{% trans "Error!" %}</h4>' + error_msg + '</div>');
+                $(form_selector).before('<div class="alert alert-error alert-block fade in"><a class="close" data-dismiss="alert">×</a><h4 class="alert-heading">' + gettext('Error!') + '</h4>' + error_msg + '</div>');
             }
         });
         return false;

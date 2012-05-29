@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-22 22:33+0200\n"
+"POT-Creation-Date: 2012-05-29 21:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,70 @@ msgstr ""
 #: nivls_website/templates/base.html:5
 msgid "en"
 msgstr "fr"
+
+#: nivls_website/templates/header.html:23
+msgid "Blog"
+msgstr ""
+
+#: nivls_website/templates/header.html:29
+msgid "Contact"
+msgstr ""
+
+#: nivls_website/templates/header.html:35
+msgid "Lab"
+msgstr ""
+
+#: nivls_website/templates/header.html:42
+msgid "About"
+msgstr ""
+
+#: nivls_website/templates/header.html:55
+msgid "His portfolio"
+msgstr ""
+
+#: nivls_website/templates/header.html:61
+msgid "His C.V."
+msgstr ""
+
+#: nivls_website/templates/header.html:86
+msgid "Sign in with:"
+msgstr ""
+
+#: nivls_website/templates/header.html:92
+msgid "Or sign in using your account:"
+msgstr ""
+
+#: nivls_website/templates/header.html:95
+msgid "Username"
+msgstr ""
+
+#: nivls_website/templates/header.html:97
+msgid "Password"
+msgstr ""
+
+#: nivls_website/templates/header.html:101
+msgid "Sign in"
+msgstr ""
+
+#: nivls_website/templates/header.html:113
+msgid "My profile"
+msgstr ""
+
+#: nivls_website/templates/header.html:114
+msgid "Edit my informations"
+msgstr ""
+
+#: nivls_website/templates/header.html:115
+msgid "Edit my settings"
+msgstr ""
+
+#: nivls_website/templates/header.html:117
+msgid "Edit thumbnail"
+msgstr ""
+
+#: nivls_website/templates/header.html:119
+msgid "Social media accounts"
+msgstr ""
 
 #: nivls_website/templates/comments/ajax_form.html:25
 msgid "Error!"

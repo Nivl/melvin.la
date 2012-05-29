@@ -31,7 +31,7 @@ urlpatterns += patterns(
     )
 
 js_info_dict = {
-    'packages': ('lab',),
+    'packages': ('lab', 'nivls_website'),
 }
 
 urlpatterns += patterns('',
