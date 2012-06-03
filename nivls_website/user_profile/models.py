@@ -8,6 +8,10 @@ from commons.fields import CroppedImageField
 class UserProfile(models.Model):
     user             = models.OneToOneField(User)
     activation_code  = models.CharField(max_length=255, blank=True, null=True)
+
+    occupation       = models.CharField(max_length=255, blank=True, null=True)
+    hobbies          = models.CharField(max_length=255, blank=True, null=True)
+    website          = models.URLField(blank=True, null=True)
     picture          = models.ImageField(upload_to="users/profiles/"
                                          , blank=True)
     avatar           = CroppedImageField('picture'

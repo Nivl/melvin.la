@@ -12,9 +12,29 @@
 {% block "content" %}
   <h1 class="centered-text">{% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}</h1>
 
-  <div class="row">
-    <div class="span4">
-      {{ target_user|square_thumbnail:'160' }}
-    </div>
+  <div class="pull-left margin-right-2">
+    {{ target_user|square_thumbnail:'160' }}
   </div>
+
+  <ul class="unstyled space-li-10 margin-top-3">
+    <li><strong>{% trans "Name:" %}</strong> {{ target_user.last_name }} {{ target_user.first_name }}
+
+    {% if profile.website %}
+      <li><strong>{% trans "Website:" %}</strong> <a href="{{ profile.website }}">{{ profile.website }}</a>
+    {% endif %}
+
+    {% if profile.occupation %}
+      <li><strong>{% trans "Occupation:" %}</strong> {{ profile.occupation }}
+    {% endif %}
+
+    {% if profile.hobbies %}
+      <li><strong>{% trans "Hobbies:" %}</strong> {{ profile.hobbies }}
+    {% endif %}
+  </ul>
+
+  <ul class="nav nav-pills social-medias-icons">
+    {{ target_user|social_user_links }}
+  </ul>
+
+</div>
 {% endblock %}
