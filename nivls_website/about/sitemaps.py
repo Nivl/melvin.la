@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.sitemaps import Sitemap
 
+
 class StaticSitemap(Sitemap):
     changefreq = "monthly"
     pattern = list()
@@ -13,4 +14,3 @@ class StaticSitemap(Sitemap):
 
     def location(self, obj):
         return "/%s/" % obj
-

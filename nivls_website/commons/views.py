@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import subprocess
 from django.http import HttpResponse
 from django.template.loader import get_template
@@ -7,16 +8,20 @@ from django.shortcuts import render_to_response
 from django.views.generic.base import TemplateView
 from django.contrib.sites.models import Site
 
+
 class TexplainView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(TexplainView, self).get_context_data(**kwargs)
         context['site'] = Site.objects.get_current()
-        return context;
+        return context
 
     def render_to_response(self, context, **kwargs):
-        return super(TexplainView, self).render_to_response(context
-                                                            ,content_type='text/plain'
-                                                            ,**kwargs)
+        return super(TexplainView, self).render_to_response(
+            context,
+            content_type='text/plain',
+            **kwargs
+            )
+
 
 def write_pdf(template_src, context_dict, output):
     template = get_template(template_src)

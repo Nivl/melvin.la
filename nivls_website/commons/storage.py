@@ -2,6 +2,7 @@ from django.core.files.storage import FileSystemStorage
 import os
 import uuid
 
+
 class UniqueFileSystemStorage(FileSystemStorage):
     def get_unique_filename(self, filename):
         root, ext = os.path.splitext(filename)

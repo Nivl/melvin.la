@@ -6,15 +6,18 @@ from blog.models import *
 
 # Post
 
+
 class InlineComment(GenericTabularInline):
     model = Comment
     extra = 0
     ct_field = 'content_type'
     ct_fk_field = 'object_pk'
 
+
 class InlineImage(admin.TabularInline):
     model = Image
     extra = 0
+
 
 class AdminPost(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
@@ -25,7 +28,8 @@ class AdminPost(admin.ModelAdmin):
     inlines = [InlineImage, InlineComment]
 
     def queryset(self, request):
-        return super(AdminPost, self).queryset(request).filter(site=settings.SITE_ID)
+        return super(AdminPost, self).queryset(request) \
+                                     .filter(site=settings.SITE_ID)
 
     def make_public(self, request, queryset):
         nb_row = queryset.update(is_public=1)
@@ -41,7 +45,8 @@ class AdminPost(admin.ModelAdmin):
             message = "1 post was "
         else:
             message = "%s posts were " % nb_row
-        self.message_user(request, "% successfully marked as private" % message)
+        self.message_user(request,
+                          "% successfully marked as private" % message)
 
     def lock_comment(self, request, queryset):
         nb_row = queryset.update(allow_comment=0)
@@ -63,38 +68,44 @@ class AdminPost(admin.ModelAdmin):
         js = (settings.STATIC_URL + 'admin/js/admin_post_preview.js',)
 
 
-
 admin.site.register(Post, AdminPost)
 
 
 # Others
 
+
 class AdminCategory(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
     def queryset(self, request):
-        return super(AdminCategory, self).queryset(request).filter(site=settings.SITE_ID)
+        return super(AdminCategory, self).queryset(request) \
+                                         .filter(site=settings.SITE_ID)
 
     def get_ordering(self, request):
         return ["left"]
+
 
 class AdminTag(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
     def queryset(self, request):
-        return super(AdminTag, self).queryset(request).filter(site=settings.SITE_ID)
+        return super(AdminTag, self).queryset(request) \
+                                    .filter(site=settings.SITE_ID)
 
 # Menu
+
 
 class InlineLink(admin.TabularInline):
     model = Link
     extra = 1
 
+
 class AdminMenu(admin.ModelAdmin):
     inlines = [InlineLink]
 
     def queryset(self, request):
-        return super(AdminMenu, self).queryset(request).filter(site=settings.SITE_ID)
+        return super(AdminMenu, self).queryset(request) \
+                                     .filter(site=settings.SITE_ID)
 
 admin.site.register(Tag, AdminTag)
 admin.site.register(Menu, AdminMenu)

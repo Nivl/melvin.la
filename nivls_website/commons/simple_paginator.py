@@ -1,4 +1,6 @@
-from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, InvalidPage, \
+    EmptyPage, PageNotAnInteger
+
 
 def simple_paginator(obj_list, obj_per_page, current_page):
     if current_page == None:

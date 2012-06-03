@@ -15,26 +15,32 @@ class InlineCategory(admin.TabularInline):
     model = CVCategory
     extra = 1
 
+
 class CVSectionAdmin(CommonAdminWithSlug):
     inlines = [InlineCategory]
+
 
 class InlineContent(admin.TabularInline):
     model = CVContent
     extra = 1
 
+
 class CVCategoryAdmin(CommonAdmin):
     inlines = [InlineContent]
     list_filter = ['section']
+
 
 class InlineSubContent(admin.TabularInline):
     model = CVSubContent
     extra = 1
 
+
 class CVContentAdmin(CommonAdmin):
     inlines = [InlineSubContent]
 
     def queryset(self, request):
-        return super(CVContentAdmin, self).queryset(request).filter(has_subcontent=True)
+        return super(CVContentAdmin, self).queryset(request) \
+                                          .filter(has_subcontent=True)
 
 admin.site.register(CVSection, CVSectionAdmin)
 admin.site.register(CVCategory, CVCategoryAdmin)

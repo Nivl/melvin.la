@@ -4,42 +4,54 @@ from lab.models import *
 from commons.admin import CommonAdminWithSlug, PrepoSlugAdmin
 
 # Project
+
+
 class ProjectLanguageRateInline(admin.TabularInline):
     model = ProjectLanguageRate
     extra = 1
+
 
 class ProgressInline(admin.TabularInline):
     model = Progress
     extra = 0
 
+
 class TodoInline(admin.TabularInline):
     model = Todo
     extra = 0
+
 
 class ImageInline(admin.TabularInline):
     model = Image
     extra = 1
 
+
 class VideoInline(admin.TabularInline):
     model = Video
     extra = 1
+
 
 class DownloadInline(admin.TabularInline):
     model = Download
     extra = 1
 
+
 class ProjectAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',),}
+    prepopulated_fields = {'slug': ['name']}
     inlines = [ProjectLanguageRateInline, ProgressInline, TodoInline,
                ImageInline, VideoInline, DownloadInline]
 
     def queryset(self, request):
-        return super(ProjectAdmin, self).queryset(request).filter(site=settings.SITE_ID)
+        return super(ProjectAdmin, self).queryset(request) \
+                                        .filter(site=settings.SITE_ID)
+
 
 # Others
 
+
 class DLIconAdmin(admin.ModelAdmin):
     list_display = ['admin_thumbnail']
+
 
 class TagAdmin(PrepoSlugAdmin):
     list_display = ['admin_thumbnail', 'name']

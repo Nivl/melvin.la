@@ -8,8 +8,15 @@ sitemaps = {
 
 urlpatterns = patterns(
     '',
-    url(r'^$', 'lab.views.home', name='lab-home'),
-    url(r'^tag/(?P<slug>[-\w]+)/$', 'lab.views.tag', name='lab-tag'),
-    url(r'^project/(?P<slug>[-\w]+)/$', 'lab.views.project', name='lab-project'),
-    )
+    url(r'^$',
+        'lab.views.home',
+        name='lab-home'),
 
+    url(r'^tag/(?P<slug>[-\w]+)/$',
+        'lab.views.tag',
+        name='lab-tag'),
+
+    url(r'^project/(?P<slug>[-\w]+)/$',
+        'lab.views.project',
+        name='lab-project'),
+    )

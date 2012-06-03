@@ -10,4 +10,3 @@ def on_comment_will_be_posted(sender, comment, request, **kwargs):
 comment_will_be_posted.connect(on_comment_will_be_posted,
                                sender=Comment,
                                dispatch_uid="comment_spam_check_akismet")
-

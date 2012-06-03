@@ -8,13 +8,23 @@ from commons.fields import ColorField
 from commons.models import I18nSite
 import os
 
+
 class Tag(models.Model):
-    name           = models.CharField(max_length=255)
-    slug           = models.SlugField(unique=True)
-    icon_enabled   = models.ImageField(upload_to='lab/icons/'
-                                       ,help_text='32x32')
-    icon_disabled  = models.ImageField(upload_to='lab/icons/'
-                                       ,help_text='32x32')
+    name = models.CharField(
+        max_length=255
+        )
+    slug = models.SlugField(
+        unique=True
+        )
+    icon_enabled = models.ImageField(
+        upload_to='lab/icons/',
+        help_text='32x32'
+        )
+    icon_disabled = models.ImageField(
+        upload_to='lab/icons/',
+        help_text='32x32'
+        )
+
     def admin_thumbnail(self):
         return u'<img src="%s" />' % (self.icon_enabled.url)
     admin_thumbnail.short_description = 'Thumbnail'
@@ -40,8 +50,12 @@ class Tag(models.Model):
 
 
 class Language(models.Model):
-    name  = models.CharField(max_length=255)
-    slug  = models.SlugField(unique=True)
+    name = models.CharField(
+        max_length=255
+        )
+    slug = models.SlugField(
+        unique=True
+        )
     color = ColorField()
 
     def __unicode__(self):
@@ -49,13 +63,24 @@ class Language(models.Model):
 
 
 class License(models.Model):
-    site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    name        = models.CharField(max_length=50)
-    slug        = models.SlugField()
-    url         = models.URLField(null=True, blank=True)
-    image       = models.ImageField(upload_to="lab/licenses/"
-                                    ,null=True
-                                    ,blank=True)
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID
+        )
+    name = models.CharField(
+        max_length=50
+        )
+    slug = models.SlugField(
+        )
+    url = models.URLField(
+        null=True,
+        blank=True
+        )
+    image = models.ImageField(
+        upload_to="lab/licenses/",
+        null=True,
+        blank=True
+        )
 
     def __unicode__(self):
         return self.name
@@ -68,18 +93,31 @@ class License(models.Model):
                     os.remove(origin.image.path)
         super(License, self).save(*arg, **kwargs)
 
-
     class Meta:
         unique_together = ('site', 'slug')
 
+
 class Coworker(models.Model):
-    site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    name        = models.CharField(max_length=50)
-    slug        = models.SlugField()
-    description = models.CharField(max_length=255)
-    url         = models.URLField(null=True, blank=True)
-    image       = models.ImageField(upload_to="lab/coworker/"
-                                    ,help_text="126x126")
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID
+        )
+    name = models.CharField(
+        max_length=50
+        )
+    slug = models.SlugField(
+        )
+    description = models.CharField(
+        max_length=255
+        )
+    url = models.URLField(
+        null=True,
+        blank=True
+        )
+    image = models.ImageField(
+        upload_to="lab/coworker/",
+        help_text="126x126"
+        )
 
     def __unicode__(self):
         return self.name
@@ -95,14 +133,28 @@ class Coworker(models.Model):
     class Meta:
         unique_together = ('site', 'slug')
 
+
 class Client(models.Model):
-    site        = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    name        = models.CharField(max_length=50)
-    slug        = models.SlugField()
-    description = models.CharField(max_length=255)
-    url         = models.URLField(null=True, blank=True)
-    image       = models.ImageField(upload_to="lab/client/"
-                                    ,help_text="126x126")
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID
+        )
+    name = models.CharField(
+        max_length=50
+        )
+    slug = models.SlugField(
+        )
+    description = models.CharField(
+        max_length=255
+        )
+    url = models.URLField(
+        null=True,
+        blank=True
+        )
+    image = models.ImageField(
+        upload_to="lab/client/",
+        help_text="126x126"
+        )
 
     def __unicode__(self):
         return self.name
@@ -120,26 +172,64 @@ class Client(models.Model):
 
 
 class Project(models.Model):
-    site             = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    name             = models.CharField(max_length=255)
-    slug             = models.SlugField()
-    catchphrase      = models.CharField(max_length=255
-                                        ,null=True, blank=True)
-    overall_progress = models.PositiveSmallIntegerField(default=0)
-    start_date       = models.DateField(default=datetime.now)
-    license          = models.ForeignKey(License
-                                         ,limit_choices_to={'site': settings.SITE_ID})
-    sources_url      = models.URLField(null=True, blank=True)
-    description      = models.TextField()
-    edit_date        = models.DateField(auto_now=True)
-    demo_codebox     = models.TextField(null=True, blank=True)
-    languages        = models.ManyToManyField(Language
-                                          ,through='ProjectLanguageRate')
-    coworkers        = models.ManyToManyField(Coworker, null=True, blank=True,
-                                              limit_choices_to={'site': settings.SITE_ID})
-    clients          = models.ManyToManyField(Client, null=True, blank=True,
-                                          limit_choices_to={'site': settings.SITE_ID})
-    tags             = models.ManyToManyField(Tag, null=True, blank=True)
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID
+        )
+    name = models.CharField(
+        max_length=255
+        )
+    slug = models.SlugField(
+        )
+    catchphrase = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+        )
+    overall_progress = models.PositiveSmallIntegerField(
+        default=0
+        )
+    start_date = models.DateField(
+        default=datetime.now
+        )
+    license = models.ForeignKey(
+        License,
+        limit_choices_to={'site': settings.SITE_ID}
+        )
+    sources_url = models.URLField(
+        null=True,
+        blank=True
+        )
+    description = models.TextField(
+        )
+    edit_date = models.DateField(
+        auto_now=True
+        )
+    demo_codebox = models.TextField(
+        null=True,
+        blank=True
+        )
+    languages = models.ManyToManyField(
+        Language,
+        through='ProjectLanguageRate'
+        )
+    coworkers = models.ManyToManyField(
+        Coworker,
+        null=True,
+        blank=True,
+        limit_choices_to={'site': settings.SITE_ID}
+        )
+    clients = models.ManyToManyField(
+        Client,
+        null=True,
+        blank=True,
+        limit_choices_to={'site': settings.SITE_ID}
+        )
+    tags = models.ManyToManyField(
+        Tag,
+        null=True,
+        blank=True
+        )
 
     def __unicode__(self):
         return self.name
@@ -150,21 +240,33 @@ class Project(models.Model):
 
     class Meta:
         unique_together = ('site', 'slug')
-        ordering        = ['-start_date']
+        ordering = ['-start_date']
+
 
 class ProjectLanguageRate(models.Model):
-    language    = models.ForeignKey(Language)
-    project     = models.ForeignKey(Project)
-    rate        = models.PositiveIntegerField()
+    language = models.ForeignKey(
+        Language
+        )
+    project = models.ForeignKey(
+        Project
+        )
+    rate = models.PositiveIntegerField(
+        )
 
     def __unicode__(self):
         return "%s / %s" % (self.project, self.language)
 
 
 class Progress(models.Model):
-    description = models.CharField(max_length=255)
-    pub_date    = models.DateField(default=datetime.now)
-    project     = models.ForeignKey(Project)
+    description = models.CharField(
+        max_length=255
+        )
+    pub_date = models.DateField(
+        default=datetime.now
+        )
+    project = models.ForeignKey(
+        Project
+        )
 
     def __unicode__(self):
         return "%s" % self.pub_date
@@ -174,18 +276,29 @@ class Progress(models.Model):
 
 
 class Todo(models.Model):
-    task = models.CharField(max_length=255)
-    project     = models.ForeignKey(Project)
+    task = models.CharField(
+        max_length=255
+        )
+    project = models.ForeignKey(
+        Project
+        )
 
     def __unicode__(self):
         return self.task
 
 
 class Image(models.Model):
-    name        = models.CharField(max_length=255)
-    description  = models.TextField()
-    image       = models.ImageField(upload_to="lab/projets/images/")
-    project     = models.ForeignKey(Project)
+    name = models.CharField(
+        max_length=255
+        )
+    description = models.TextField(
+        )
+    image = models.ImageField(
+        upload_to="lab/projets/images/"
+        )
+    project = models.ForeignKey(
+        Project
+        )
 
     def __unicode__(self):
         return self.name
@@ -200,9 +313,13 @@ class Image(models.Model):
 
 
 class DownloadIcon(models.Model):
-    name        = models.CharField(max_length=50)
-    image       = models.ImageField(upload_to="lab/projets/downloads/icons/"
-                                    ,help_text="128x128")
+    name = models.CharField(
+        max_length=50
+        )
+    image = models.ImageField(
+        upload_to="lab/projets/downloads/icons/",
+        help_text="128x128"
+        )
 
     def admin_thumbnail(self):
         return u'<img src="%s" />' % (self.image.url)
@@ -222,25 +339,50 @@ class DownloadIcon(models.Model):
 
 
 class Download(models.Model):
-    name           = models.CharField(max_length=50)
-    description    = models.CharField(max_length=255, null=True, blank=True)
-    uploaded_file  = models.FileField(upload_to="lab/projets/downloads/files/"
-                                      ,null=True, blank=True)
-    url            = models.URLField(null=True, blank=True)
-    icon           = models.ForeignKey(DownloadIcon)
-    project        = models.ForeignKey(Project)
+    name = models.CharField(
+        max_length=50
+        )
+    description = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+        )
+    uploaded_file = models.FileField(
+        upload_to="lab/projets/downloads/files/",
+        null=True,
+        blank=True
+        )
+    url = models.URLField(
+        null=True,
+        blank=True
+        )
+    icon = models.ForeignKey(
+        DownloadIcon
+        )
+    project = models.ForeignKey(
+        Project
+        )
 
     def __unicode__(self):
         return self.name
 
 
 class Video(models.Model):
-    name         = models.CharField(max_length=255)
-    description  = models.TextField()
-    url          = models.URLField()
-    thumbnail    = models.ImageField(upload_to="lab/projets/videos/")
-    is_iframe    = models.BooleanField()
-    project      = models.ForeignKey(Project)
+    name = models.CharField(
+        max_length=255
+        )
+    description = models.TextField(
+        )
+    url = models.URLField(
+        )
+    thumbnail = models.ImageField(
+        upload_to="lab/projets/videos/"
+        )
+    is_iframe = models.BooleanField(
+        )
+    project = models.ForeignKey(
+        Project
+        )
 
     def __unicode__(self):
         return self.name

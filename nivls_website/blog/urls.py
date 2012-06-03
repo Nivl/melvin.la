@@ -44,19 +44,33 @@ urlpatterns = patterns(
 # Static which wiil be added to the sitemap
 static_urlpatterns = patterns(
     '',
-    url(r'^contact/$', 'blog.views.contact', name='contact'),
+    url(r'^contact/$',
+        'blog.views.contact',
+        name='contact'),
     )
 
 
 feeds_urlpatterns = patterns(
     '',
-    url(r'^feed/latest/rss/$', LatestPostFeed(), name="rss-blog-latest"),
-    url(r'^tag/(?P<slug>[-\w]+)/rss/$', TagFeed(), name="rss-blog-tag-latest"),
-    url(r'^category/(?P<slug>[-\w]+)/rss/$', CatFeed(), name="rss-blog-category-latest"),
+    url(r'^feed/latest/rss/$',
+        LatestPostFeed(),
+        name="rss-blog-latest"),
+    url(r'^tag/(?P<slug>[-\w]+)/rss/$',
+        TagFeed(),
+        name="rss-blog-tag-latest"),
+    url(r'^category/(?P<slug>[-\w]+)/rss/$',
+        CatFeed(),
+        name="rss-blog-category-latest"),
 
-    url(r'^feed/latest/atom/$', LatestPostFeedAtom(), name="atom-blog-latest"),
-    url(r'^tag/(?P<slug>[-\w]+)/atom/$', TagFeedAtom(), name="atom-blog-tag-latest"),
-    url(r'^category/(?P<slug>[-\w]+)/atom/$', CatFeedAtom(), name="atom-blog-category-latest"),
+    url(r'^feed/latest/atom/$',
+        LatestPostFeedAtom(),
+        name="atom-blog-latest"),
+    url(r'^tag/(?P<slug>[-\w]+)/atom/$',
+        TagFeedAtom(),
+        name="atom-blog-tag-latest"),
+    url(r'^category/(?P<slug>[-\w]+)/atom/$',
+        CatFeedAtom(),
+        name="atom-blog-category-latest"),
     )
 
 sitemaps = {

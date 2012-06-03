@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 import akismet
 
+
 def akismet_is_valid(request, data):
     akismet.USERAGENT = "David Lynch's Python library/1.0"
     current_site = Site.objects.get_current()

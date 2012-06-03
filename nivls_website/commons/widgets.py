@@ -2,6 +2,7 @@ from django import forms
 from django.conf import settings
 from django.utils.safestring import mark_safe
 
+
 class ColorPickerWidget(forms.TextInput):
     class Media:
         css = {
@@ -100,4 +101,3 @@ class CroppedImageWidget(forms.TextInput):
                         $(this).ColorPickerSetColor(this.value);
                       });
             </script>''' % name)
-

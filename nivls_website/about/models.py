@@ -7,11 +7,18 @@ from commons.fields import ColorField
 from lab.models import Project as LabProject
 from commons.models import I18nSite
 
+
 class Profile(models.Model):
-    site     = models.OneToOneField(I18nSite, primary_key=True,
-                                    default=settings.SITE_ID)
-    about_me            = models.TextField()
-    free_for_job        = models.BooleanField(default=True)
+    site = models.OneToOneField(
+        I18nSite,
+        primary_key=True,
+        default=settings.SITE_ID
+        )
+    about_me = models.TextField(
+        )
+    free_for_job = models.BooleanField(
+        default=True
+        )
 
     def __unicode__(self):
         return self.site.language
@@ -20,12 +27,20 @@ class Profile(models.Model):
         verbose_name = _("Profile")
         verbose_name_plural = _("Profiles")
 
+
 class ContactLink(models.Model):
-    name        = models.CharField(max_length=255)
-    link        = models.URLField()
-    image       = models.ImageField(upload_to="about/contact"
-                                    ,help_text="128x128 px")
-    order       = models.PositiveSmallIntegerField(default=0)
+    name = models.CharField(
+        max_length=255
+        )
+    link = models.URLField(
+        )
+    image = models.ImageField(
+        upload_to="about/contact",
+        help_text="128x128 px"
+        )
+    order = models.PositiveSmallIntegerField(
+        default=0
+        )
 
     def __unicode__(self):
         return self.name
@@ -44,17 +59,24 @@ class ContactLink(models.Model):
         verbose_name_plural = _("Contact links")
 
 
-  ###########################################################################
-##                                                                           ##
-##                                Work                                       ##
-##                                                                           ##
+ ###########################################################################
+##                                                                          ##
+##                                Work                                      ##
+##                                                                          ##
   ###########################################################################
 
 class WorkType(models.Model):
-    site  = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    name  = models.CharField(max_length=255)
-    slug  = models.SlugField()
-    color = ColorField()
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID
+        )
+    name = models.CharField(
+        max_length=255
+        )
+    slug = models.SlugField(
+        )
+    color = ColorField(
+        )
 
     def __unicode__(self):
         return self.name
@@ -66,9 +88,15 @@ class WorkType(models.Model):
 
 
 class WorkField(models.Model):
-    site  = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    name  = models.CharField(max_length=255)
-    slug  = models.SlugField()
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID
+        )
+    name = models.CharField(
+        max_length=255
+        )
+    slug = models.SlugField(
+        )
 
     def __unicode__(self):
         return self.name
@@ -80,22 +108,44 @@ class WorkField(models.Model):
 
 
 class WorkProject(models.Model):
-    site            = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    name            = models.CharField(max_length=255)
-    slug            = models.SlugField()
-    is_personal     = models.BooleanField()
-    school_project  = models.BooleanField()
-    lab             = models.ForeignKey(LabProject, blank=True, null=True
-                                    ,limit_choices_to={'site': settings.SITE_ID})
-    prod_date       = models.DateField(default=datetime.now)
-    screenshot      = models.ImageField(upload_to='about/portfolio/',
-                                        help_text='258x158 px')
-    url             = models.URLField()
-    description     = models.TextField()
-    works           = models.ManyToManyField(WorkType
-                                             ,limit_choices_to={'site': settings.SITE_ID})
-    field           = models.ForeignKey(WorkField
-                                        ,limit_choices_to={'site': settings.SITE_ID})
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID
+        )
+    name = models.CharField(
+        max_length=255
+        )
+    slug = models.SlugField(
+        )
+    is_personal = models.BooleanField(
+        )
+    school_project = models.BooleanField(
+        )
+    lab = models.ForeignKey(
+        LabProject,
+        blank=True,
+        null=True,
+        limit_choices_to={'site': settings.SITE_ID}
+        )
+    prod_date = models.DateField(
+        default=datetime.now
+        )
+    screenshot = models.ImageField(
+        upload_to='about/portfolio/',
+        help_text='258x158 px'
+        )
+    url = models.URLField(
+        )
+    description = models.TextField(
+        )
+    works = models.ManyToManyField(
+        WorkType,
+        limit_choices_to={'site': settings.SITE_ID}
+        )
+    field = models.ForeignKey(
+        WorkField,
+        limit_choices_to={'site': settings.SITE_ID}
+        )
 
     def __unicode__(self):
         return self.name
@@ -115,16 +165,24 @@ class WorkProject(models.Model):
 
 
   ###########################################################################
-##                                                                           ##
-##                                C.V.                                       ##
-##                                                                           ##
+##                                                                          ##
+##                                  C.V.                                    ##
+##                                                                          ##
   ###########################################################################
 
 class CVSection(models.Model):
-    site  = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    name  = models.CharField(max_length=255)
-    slug  = models.SlugField()
-    order = models.PositiveSmallIntegerField(default=0)
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID
+        )
+    name = models.CharField(
+        max_length=255
+        )
+    slug = models.SlugField(
+        )
+    order = models.PositiveSmallIntegerField(
+        default=0
+        )
 
     def __unicode__(self):
         return self.name
@@ -135,6 +193,7 @@ class CVSection(models.Model):
         verbose_name = _("C.V. Section")
         verbose_name_plural = _("C.V. Sections")
 
+
 class CVCategory(models.Model):
     DISPLAY_TYPES = (
         ('L', 'List'),
@@ -142,14 +201,26 @@ class CVCategory(models.Model):
         ('D', 'Description List'),
         )
 
-    site           = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    section        = models.ForeignKey(CVSection
-                                       ,limit_choices_to={'site': settings.SITE_ID})
-    name           = models.CharField(max_length=255)
-    left           = models.PositiveSmallIntegerField()
-    right          = models.PositiveSmallIntegerField()
-    display_type   = models.CharField(max_length=1, default='L'
-                                      ,choices=DISPLAY_TYPES)
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID
+        )
+    section = models.ForeignKey(
+        CVSection,
+        limit_choices_to={'site': settings.SITE_ID}
+        )
+    name = models.CharField(
+        max_length=255
+        )
+    left = models.PositiveSmallIntegerField(
+        )
+    right = models.PositiveSmallIntegerField(
+        )
+    display_type = models.CharField(
+        max_length=1,
+        default='L',
+        choices=DISPLAY_TYPES
+        )
 
     def __unicode__(self):
         return self.name
@@ -158,8 +229,8 @@ class CVCategory(models.Model):
         return self.right - self.left > 1
 
     def get_first_child(self):
-        return CVCategory.objects.filter(left=(self.left + 1)
-                                         ,section=self.section)
+        return CVCategory.objects.filter(left=(self.left + 1),
+                                         section=self.section)
 
     def get_next_sibling(self):
         return CVCategory.objects.filter(left=(self.right + 1),
@@ -173,15 +244,32 @@ class CVCategory(models.Model):
 
 
 class CVContent(models.Model):
-    site               = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    category           = models.ForeignKey(CVCategory
-                                           ,limit_choices_to={'site': settings.SITE_ID})
-    order              = models.PositiveSmallIntegerField(default=0)
-    key                = models.CharField(max_length=255
-                                          ,blank=True, null=True)
-    value              = models.TextField()
-    value_for_download = models.CharField(max_length=255, blank=True, null=True)
-    has_subcontent     = models.BooleanField(default=False)
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID
+        )
+    category = models.ForeignKey(
+        CVCategory,
+        limit_choices_to={'site': settings.SITE_ID}
+        )
+    order = models.PositiveSmallIntegerField(
+        default=0
+        )
+    key = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+        )
+    value = models.TextField(
+        )
+    value_for_download = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+        )
+    has_subcontent = models.BooleanField(
+        default=False
+        )
 
     def __unicode__(self):
         return "%s - %s" % (self.key, self.value)
@@ -193,11 +281,19 @@ class CVContent(models.Model):
 
 
 class CVSubContent(models.Model):
-    site               = models.ForeignKey(I18nSite, default=settings.SITE_ID)
-    content            = models.ForeignKey(CVContent
-                                           ,limit_choices_to={'site': settings.SITE_ID})
-    order              = models.PositiveSmallIntegerField(default=0)
-    value              = models.CharField(max_length=255)
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID
+        )
+    content = models.ForeignKey(
+        CVContent,
+        limit_choices_to={'site': settings.SITE_ID})
+    order = models.PositiveSmallIntegerField(
+        default=0
+        )
+    value = models.CharField(
+        max_length=255
+        )
 
     def __unicode__(self):
         return self.value

@@ -38,7 +38,9 @@ class UserProfile(models.Model):
         min_size=[50, 50],
         blank=True
         )
-    lock_username = models.BooleanField(default=False)
+    lock_username = models.BooleanField(
+        default=False
+        )
     use_name = models.BooleanField(
         default=False,
         verbose_name=_('Display my real name ' \

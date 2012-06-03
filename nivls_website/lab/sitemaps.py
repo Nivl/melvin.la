@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.sitemaps import Sitemap
 from models import Project, Tag
 
+
 class ProjectSitemap(Sitemap):
     changefreq = "daily"
 
@@ -10,6 +11,7 @@ class ProjectSitemap(Sitemap):
 
     def location(self, obj):
         return obj.get_absolute_url()
+
 
 class TagSitemap(Sitemap):
     changefreq = "daily"
