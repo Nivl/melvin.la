@@ -77,22 +77,6 @@ def view_account(request, name):
     return render(request, "users/view.html", {'target_user': u
                                                , 'profile': u.get_profile()})
 
-@login_required
-def edit_profile(request):
-    if request.method == 'POST':
-        if request.is_ajax():
-            form = UserProfileForm(request.POST, request.FILES,
-                                   instance=request.user.get_profile())
-            if form.is_valid():
-                form.save()
-                return render(request, "users/edit_profile_ok.html"
-                              , {'has_file': len(request.FILES) != 0})
-        else:
-            return HttpResponseForbidden()
-    else:
-        form = UserProfileForm(instance=request.user.get_profile())
-    return render(request, "users/edit_profile.html", {'form': form})
-
 
 @login_required
 def edit_avatar(request):
@@ -146,24 +130,33 @@ def edit_account(request):
     username = request.user.username
     if request.method == 'POST':
         if request.is_ajax():
-            form = UserEditForm(request.POST
-                                , edit_username=(not profile.lock_username)
-                                , instance=request.user)
-            if form.is_valid():
-                u = form.save(commit=False)
-                if form.cleaned_data['password1']:
+            account_form = UserEditForm(request.POST
+                                        , edit_username=(not profile.lock_username)
+                                        , instance=request.user)
+
+            profile_form = UserProfileForm(request.POST, request.FILES
+                                        , instance=profile)
+            if account_form.is_valid() and profile_form.is_valid():
+                u = account_form.save(commit=False)
+                p = profile_form.save(commit=False)
+                if account_form.cleaned_data['password1']:
                     u.set_password(form.cleaned_data['password1'])
                 u.save()
-                if form.cleaned_data['username'] != username:
-                    profile.lock_username = True
-                    profile.save()
-                return render(request, 'users/edit_account_ok.html')
+                if account_form.cleaned_data['username'] != username:
+                    p.lock_username = True
+                p.save()
+                return render(request, 'users/edit_account_ok.html'
+                              , {'has_file': len(request.FILES) != 0})
         else:
             return HttpResponseForbidden()
     else:
-        form = UserEditForm(edit_username=(not profile.lock_username)
-                            , instance=request.user)
-    return render(request, "users/edit_account.html", {'form': form})
+        account_form = UserEditForm(edit_username=(not profile.lock_username)
+                                    , instance=request.user)
+        profile_form = UserProfileForm(instance=request.user.get_profile())
+    return render(request, "users/edit_account.html", {
+            'account_form': account_form
+            ,'profile_form': profile_form
+            })
 
 
 @login_required

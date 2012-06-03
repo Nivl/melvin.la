@@ -10,7 +10,9 @@ function bindPostEditAccountHandler() {
 	      , bindPostEditAccountHandler
 	      , '{% trans "The update was unable to be processed at this time. We apologise for the inconvenience." %}'
 	      , false
-	      , [ '#header-menu-user' ]);
+	      , [ '#header-menu-user' ]
+	      , true
+	      , '#edit-profile-progress');
 }
 
 bindPostEditAccountHandler();

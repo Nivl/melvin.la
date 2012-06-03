@@ -6,22 +6,34 @@
   {% include "users/edit_account_ajax.html" %}
 {% endblock "sub_head_js" %}
 
-{% block "title" %}{% trans "Edit my informations" %}{% endblock "title" %}
+{% block "title" %}{% trans "Edit my account" %}{% endblock "title" %}
 {% block body_classes %}span8 offset2{% endblock %}
 
 {% block "content" %}
-  <h1 class="centered-text">{% trans "Edit my informations" %}</h1>
+  <h1 class="centered-text">{% trans "Edit my account" %}</h1>
 
   <form class="form-horizontal"
 	id="edit-account-form"
 	method="post"
+	enctype="multipart/form-data"
 	action="{% url "edit-account" %}">
     {% csrf_token %}
-    {{ form }}
+    {{ account_form }}
+    {{ profile_form|bootstrap }}
 
     <div class="form-actions">
-      <button type="submit" class="btn btn-primary">{% trans "Edit" %}</button>
-      <button type="reset" class="btn btn-danger">{% trans "Reset" %}</button>
+      <button type="submit" class="btn btn-primary">
+	{% trans "Edit" %}
+      </button>
+
+      <button type="reset" class="btn btn-danger">
+	{% trans "Reset" %}
+      </button>
+    </div>
+
+    <div id="edit-profile-progress" class="progress progress-striped active">
+      <div id="edit-profile-progress-bar" class="bar" style="width: 0%;">
+      </div>
     </div>
   </form>
 {% endblock %}
