@@ -1,17 +1,13 @@
 from django.contrib import admin
-from django.contrib.comments.models import Comment
-from django.contrib.contenttypes.generic import GenericTabularInline
 from django.conf import settings
 from blog.models import *
 
 # Post
 
 
-class InlineComment(GenericTabularInline):
+class InlineComment(admin.TabularInline):
     model = Comment
     extra = 0
-    ct_field = 'content_type'
-    ct_fk_field = 'object_pk'
 
 
 class InlineImage(admin.TabularInline):

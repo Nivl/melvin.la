@@ -1,0 +1,57 @@
+{% load i18n blog_tags %}
+
+<h2>{% trans "Comments" %}</h2>
+
+{% with comments=post.comment_set.all %}
+  {% if comments|length_is:"0" %}
+    {% trans "There are no comments" %}
+  {% else %}
+    {% blocktrans count counter=comments|length %}1 comment{% plural %}{{ counter }} comments{% endblocktrans %}
+  {% endif %}
+
+  <section id="comments">
+    {% for comment in comments %}
+      {% blog_display_single_comment comment %}
+    {% endfor %}
+
+    {% if post.allow_comment %}
+      <section class="comment">
+	<span class="info">
+	  {% trans "Preview of your comment" %} -
+	  <a href="http://daringfireball.net/projects/markdown/">
+	    {% trans "help" %}
+	  </a>
+	</span>
+	<div id="form-preview" class="content"></div>
+      </section>
+    {% endif %}
+  </section>
+
+{% endwith %}
+
+{% if post.allow_comment %}
+  <form id="comment-form"
+	class="form-horizontal"
+	method="post"
+	action="{{ post.get_absolute_url }}">
+    {% csrf_token %}
+
+    {{ form }}
+
+    <div class="form-actions">
+      <button type="submit"
+	      data-loading-text="{% trans "Sending..." %}"
+	      class="btn btn-primary">
+	{% trans "Send" %}
+      </button>
+
+      <button type="reset"
+	      class="btn btn-danger">
+	{% trans "Reset" %}
+      </button>
+    </div>
+  </form>
+
+{% else %}
+  {% trans "Comments has been disabled for this post." %}
+{% endif %}

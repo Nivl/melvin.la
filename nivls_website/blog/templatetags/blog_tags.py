@@ -6,6 +6,17 @@ from blog.models import Post, Menu, Link, Category, Tag
 register = template.Library()
 
 
+@register.inclusion_tag("blog/templatetags/single_comment.html")
+def blog_display_single_comment(comment):
+    return {'comment': comment}
+
+
+@register.inclusion_tag("blog/templatetags/comment_tools.html")
+def blog_comment_tools(post, form):
+    return {'post': post,
+            'form': form}
+
+
 @register.inclusion_tag("blog/templatetags/display_contact_form.html")
 def display_contact_form(form):
     return {'form': form}

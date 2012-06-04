@@ -2,7 +2,7 @@
 {% load blog_tags markup comments humanize common_tags i18n tz %}
 
 {% block "sub_head_js" %}
-  {% include "comments/ajax_form.html" %}
+  {% include "blog/comment_ajax.html" with post=post %}
   <script src="{{ STATIC_URL }}commons/js/Markdown.Converter.js"></script>
   <script src="{{ STATIC_URL }}commons/js/Markdown.Sanitizer.js"></script>
   <script src="{{ STATIC_URL }}commons/js/jquery.oninput.min.js"></script>
@@ -90,37 +90,8 @@
 	  </a>
 	</div>
 	{% endif %}
-      <h2>{% trans "Comments" %}</h2>
 
-      {% get_comment_count for post as comment_count %}
-      {% ifequal comment_count 0 %}
-	{% trans "There are no comments" %}
-      {% else %}
-	{% blocktrans count counter=comment_count %}1 comment{% plural %}{{ counter }} comments{% endblocktrans %}
-      {% endifequal %}
-
-      {% render_comment_list for post %}
-
-      {% if post.allow_comment %}
-	<div id="comment_form">
-	  {% render_comment_form for post %}
-	</div>
-
-	<div class="well">
-	  <h2>
-	    Preview
-	    <small>
-	      <a href="http://daringfireball.net/projects/markdown/">
-		Markdown enabled
-	      </a>
-	    </small>
-	  </h2>
-	  <div id="form-preview"></div>
-	</div>
-
-      {% else %}
-	{% trans "Comments has been disabled for this post." %}
-      {% endif %}
+	{% blog_comment_tools post form %}
     </footer>
   </article>
 {% endblock %}

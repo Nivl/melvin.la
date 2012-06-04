@@ -1,14 +1,12 @@
 import os
 from datetime import datetime
-from django.contrib.comments.moderation import AlreadyModerated, \
-    CommentModerator, moderator
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sitemaps import ping_google
+from django.utils.translation import gettext_lazy as _
 from commons.models import I18nSite
 from commons.renders import image_name_to_link
-import commons.signals
 from lab.models import Project
 
 
@@ -255,16 +253,49 @@ class Image(models.Model):
                     os.remove(origin.image.path)
         super(Image, self).save(*arg, **kwargs)
 
-### Moderator
 
+class Comment(models.Model):
+    user = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        verbose_name=_('user')
+        )
+    post = models.ForeignKey(
+        Post,
+        verbose_name=_('post')
+        )
+    is_public = models.BooleanField(
+        verbose_name=_('is public'),
+        default=False
+        )
+    ip_address = models.GenericIPAddressField(
+        verbose_name=_('IP address')
+        )
+    pub_date = models.DateTimeField(
+        default=datetime.now,
+        verbose_name=_('publication date')
+        )
+    name = models.CharField(
+        verbose_name=_('name'),
+        max_length=255,
+        null=True,
+        blank=True
+        )
+    email = models.EmailField(
+        verbose_name=_('email address'),
+        null=True,
+        blank=True
+        )
+    website = models.URLField(
+        verbose_name=_('website'),
+        null=True,
+        blank=True
+        )
+    comment = models.TextField(
+        verbose_name=_('comment')
+        )
 
-class PostModerator(CommentModerator):
-    email_notification = True
-    enable_field = 'allow_comment'
-    moderate_after = 0
-    auto_moderate_field = 'pub_date'
-
-try:
-    moderator.register(Post, PostModerator)
-except AlreadyModerated:
-    pass
+    class Meta:
+        verbose_name = _('comment')
+        verbose_name_plural = _('comments')

@@ -8,9 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 from django.contrib.sites.models import Site
 from django.template.defaultfilters import date as _date
-from models import Post, Category, Tag
-from forms import ContactForm
 from commons.simple_paginator import simple_paginator
+from models import Post, Category, Tag
+from forms import *
 
 
 def contact(request):
@@ -51,7 +51,25 @@ def display_post(request, year, month, day, slug):
                              slug=slug,
                              is_public=1,
                              site=Site.objects.get_current())
-    return render(request, "blog/post.html", {"post": post})
+    if request.method == 'POST':
+        if request.is_ajax():
+            form = CommentForm(request.POST, request=request,
+                               user=request.user)
+            if form.is_valid():
+                c = form.save(commit=False)
+                c.ip_address = request.META['REMOTE_ADDR']
+                c.post = post
+                if request.user.is_authenticated():
+                    c.user = request.user
+                    c.is_public = True
+                c.save()
+                return render(request, "blog/comment_ok.html")
+        else:
+            return HttpResponseForbidden()
+    else:
+        form = CommentForm(request=request, user=request.user)
+    return render(request, "blog/post.html", {"post": post,
+                                              "form": form})
 
 
 @login_required

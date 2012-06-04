@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<script src="{{ STATIC_URL }}commons/js/ajax_form.js"></script>
+
+<script type="text/javascript">
+function bindPostCommentHandler() {
+  ajax_form('#comment-form'
+	      , '{{ post.get_absolute_url }}'
+	      , bindPostCommentHandler
+	      , '{% trans "Your comment was unable to be sent at this time. We apologise for the inconvenience." %}',
+	     false);
+}
+
+bindPostCommentHandler();
+</script>
