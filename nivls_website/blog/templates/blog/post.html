@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% load blog_tags markup comments humanize common_tags i18n tz %}
+{% load blog_tags markup humanize common_tags i18n tz %}
 
 {% block "sub_head_js" %}
   {% include "blog/comment_ajax.html" with post=post %}
