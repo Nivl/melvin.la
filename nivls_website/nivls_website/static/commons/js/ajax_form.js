@@ -1,7 +1,9 @@
-function ajax_form(form_selector, form_url, callback, error_msg, remove_form, to_reload, file_upload, progress_selector) {
+function ajax_form(form_selector, form_url, main_callback, error_msg, remove_form, success_callback, success_callback_async, success_callback_when, to_reload, file_upload, progress_selector) {
     remove_form = typeof remove_form !== 'undefined' ? remove_form : true;
     file_upload = typeof file_upload !== 'undefined' ? file_upload : false;
     to_reload = typeof to_reload !== 'undefined' ? to_reload : [];
+    success_callback = typeof success_callback !== 'undefined' ? success_callback : function () {};
+    success_callback_get = typeof success_callback !== 'undefined' ? success_callback : function () {};
     progress_selector = typeof progress_selector !== 'undefined' ? progress_selector : 'progress';
 
     var target_name = form_selector;
@@ -63,7 +65,7 @@ function ajax_form(form_selector, form_url, callback, error_msg, remove_form, to
 			    if (remove_form == false) {
 				$(form_selector)
 				    .replaceWith($(data).find(form_selector));
-				callback();
+				main_callback();
 			    }
 
 			    var selector = '';
@@ -72,12 +74,14 @@ function ajax_form(form_selector, form_url, callback, error_msg, remove_form, to
 				$(selector)
 				    .replaceWith($(data).find(selector));
 			    }
+			    success_callback_async();
 			});
 		    }
 		} else {
 		    $(form_selector).replaceWith(form)
 		}
-                callback();
+		success_callback();
+                main_callback();
 	    },
 
             error: function (XMLHttpRequest, textStatus, errorThrown) {

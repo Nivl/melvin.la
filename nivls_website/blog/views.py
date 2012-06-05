@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404, HttpResponseForbidden
+from django.http import Http404, HttpResponseForbidden, HttpResponse
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
@@ -63,7 +63,10 @@ def display_post(request, year, month, day, slug):
                     c.user = request.user
                     c.is_public = True
                 c.save()
-                return render(request, "blog/comment_ok.html")
+                if request.user.is_authenticated():
+                    return HttpResponse()
+                else:
+                    return render(request, "blog/comment_ok.html")
         else:
             return HttpResponseForbidden()
     else:

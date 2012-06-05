@@ -4,12 +4,15 @@
 <script src="{{ STATIC_URL }}commons/js/ajax_form.js"></script>
 
 <script type="text/javascript">
+
 function bindPostEditAccountHandler() {
   ajax_form('#edit-account-form'
 	      , '{% url "edit-account" %}'
 	      , bindPostEditAccountHandler
 	      , '{% trans "The update was unable to be processed at this time. We apologise for the inconvenience." %}'
 	      , false
+              , function () {}
+              , function () {}
 	      , [ '#header-menu-user' ]
 	      , true
 	      , '#edit-profile-progress');

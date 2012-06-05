@@ -2,11 +2,6 @@
 
 <div class="alert alert-success alert-block fade in">
   <a class="close" data-dismiss="alert">×</a>
-  {% if user.is_authenticated %}
-    <h4 class="alert-heading">{% trans "Posted!" %}</h4>
-    {% trans "Your comment has been successfully posted!" %}
-  {% else %}
-    <h4 class="alert-heading">{% trans "Sent!" %}</h4>
-    {% trans "Your comment has been successfully saved, it will soon be validated by an administrator." %}
-  {% endif %}
+  <h4 class="alert-heading">{% trans "Sent!" %}</h4>
+  {% trans "Your comment has been successfully saved, it will soon be validated by an administrator." %}
 </div>
