@@ -1,5 +1,6 @@
 {% load markup humanize common_tags i18n tz %}
 
+
 <section class="comment">
   <span class="info">
     {% trans "By " %}
@@ -7,11 +8,11 @@
     {% if comment.user %}
       <a href="{{ comment.user.get_absolute_url }}">
 	{% if comment.user.get_profile.use_name %}
-	  {{ comment.user.first_name }} {{ comment.user.last_name }}
-	{% else %}
+	  {{ comment.user.first_name }} {{ comment.user.last_name }}{% comment %}
+	{% endcomment %}{% else %}
 	  {{ comment.user.username }}
-	{% endif %}
-      </a>,
+	{% endif %}{% comment %}
+	  {% endcomment %}</a>,
     {% else %}
       {% if comment.website %}
 	<a href="{{ comment.website }}">{{ comment.name }}</a>,
