@@ -11,13 +11,17 @@
     {% blocktrans %}Here you can link/unlink your social media accounts to this website.<br/>Linking your accounts will help you to sign in here in an easier way: You will only have to click on a linked account on the sign in menu to be logged.{% endblocktrans %}
   </p>
 
+  <p class="alert alert-danger">
+    {% blocktrans %}If you want to completely revoke an access, you have to do it on your provider's website.{% endblocktrans %}
+  </p>
+
   <p>{% trans "List of your linked accounts:" %}</p>
 
   <ul class="unstyled well">
     {% for account in social_auth.associated %}
       <li><span class="label label-important">
 	  <a href="{% url "socialauth_disconnect_individual" account.provider|replace:",_,-" account.id %}?next={{ request.get_full_path }}">
-	    {% trans "Revoke" %}
+	    {% trans "Delete" %}
 	  </a>
 	</span>
 	&nbsp;
