@@ -204,6 +204,9 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
 
+    def get_public_comments(self):
+        return self.comment_set.filter(is_public=True)
+
     @models.permalink
     def get_absolute_url(self):
         return ('post', (), {'year': self.pub_date.year,

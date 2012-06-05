@@ -2,7 +2,7 @@
 
 <h2>{% trans "Comments" %}</h2>
 
-{% with comments=post.comment_set.all %}
+{% with comments=post.get_public_comments %}
   {% if comments|length_is:"0" %}
     {% trans "There are no comments" %}
   {% else %}
