@@ -2,13 +2,13 @@
 {% load blog_tags markup humanize common_tags i18n tz %}
 
 {% block "sub_head_js" %}
-  {% include "blog/comment_ajax.html" with post=post %}
+
   <script src="{{ STATIC_URL }}commons/js/Markdown.Converter.js"></script>
   <script src="{{ STATIC_URL }}commons/js/Markdown.Sanitizer.js"></script>
   <script src="{{ STATIC_URL }}commons/js/jquery.oninput.min.js"></script>
 
   <script>
-     $(function() {
+    function preview() {
        var $textarea = $('#id_comment'),
            $preview = $('#form-preview'),
            converter = new Markdown.getSanitizingConverter();
@@ -21,8 +21,12 @@
          $(this).stopTime();
          $(this).oneTime(500, function() { styleCode(); });
        });
-     });
+     };
+    preview();
   </script>
+
+  {% include "blog/comment_ajax.html" with post=post %}
+
 {% endblock "sub_head_js" %}
 
 {% block "title" %}{{ post.title }}{% endblock "title" %}
