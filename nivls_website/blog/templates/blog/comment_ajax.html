@@ -5,7 +5,9 @@
 
 <script type="text/javascript">
 function addNewComment() {
-  $('.comment').last().prev().animateHighlight();
+  {% if user.is_authenticated %}
+    $('.comment').last().prev().animateHighlight();
+  {% endif %}
   preview();
 }
 
