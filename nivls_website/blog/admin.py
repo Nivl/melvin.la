@@ -88,6 +88,7 @@ class AdminTag(admin.ModelAdmin):
         return super(AdminTag, self).queryset(request) \
                                     .filter(site=settings.SITE_ID)
 
+
 class AdminComment(admin.ModelAdmin):
     list_filter = ['is_public', 'post']
     actions = ['make_public', 'make_private']
