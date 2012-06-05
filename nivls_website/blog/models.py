@@ -299,6 +299,9 @@ class Comment(models.Model):
         verbose_name=_('comment')
         )
 
+    def __unicode__(self):
+        return self.comment
+
     class Meta:
         verbose_name = _('comment')
         verbose_name_plural = _('comments')

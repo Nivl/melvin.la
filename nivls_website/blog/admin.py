@@ -88,6 +88,24 @@ class AdminTag(admin.ModelAdmin):
         return super(AdminTag, self).queryset(request) \
                                     .filter(site=settings.SITE_ID)
 
+class AdminComment(admin.ModelAdmin):
+    list_filter = ['is_public', 'post']
+    actions = ['make_public', 'make_private']
+    list_display = ('comment', 'is_public', 'post')
+    search_fields = ['user__username', 'name', 'comment']
+    ordering = ['-pub_date']
+
+    def queryset(self, request):
+        return super(AdminComment, self).queryset(request) \
+                                        .filter(post__site=settings.SITE_ID)
+
+    def make_public(self, request, queryset):
+        nb_row = queryset.update(is_public=1)
+        if nb_row == 1:
+            message = "1 comment was "
+        else:
+            message = "%s comments were " % nb_row
+        self.message_user(request, "% successfully marked as public" % message)
 # Menu
 
 
@@ -106,3 +124,4 @@ class AdminMenu(admin.ModelAdmin):
 admin.site.register(Tag, AdminTag)
 admin.site.register(Menu, AdminMenu)
 admin.site.register(Category, AdminCategory)
+admin.site.register(Comment, AdminComment)
