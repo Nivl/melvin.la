@@ -1,6 +1,10 @@
 {% load i18n %}
+{% load url from future %}
 
-<form id="contact-form" method="post" class="form-horizontal">
+<form id="contact-form"
+      method="post"
+      class="form-horizontal"
+      action="{% url "contact-form" %}">
 
   {% csrf_token %}
 

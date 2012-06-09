@@ -17,5 +17,5 @@
 {% block "content" %}
   <h1 class="centered-text">{% trans "Contact" %}</h1>
 
-  {% display_contact_form form %}
+  {% include "blog/contact_form.html" with form=form %}
 {% endblock "content" %}

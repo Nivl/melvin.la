@@ -1,15 +1,42 @@
 {% load url from future %}
 {% load i18n %}
 
-<script src="{{ STATIC_URL }}commons/js/ajax_form.js"></script>
+<script src="{{ STATIC_URL }}commons/js/Ajaxion.js"></script>
 
 <script type="text/javascript">
 function bindPostContactHandler() {
-  ajax_form('#contact-form'
-	      , '{% url "contact" %}'
-	      , bindPostContactHandler
-	      , '{% trans "Your message was unable to be sent at this time. We apologise for the inconvenience." %}',
-	     false);
+  ajax = new Ajaxion('{% url "contact-form" %}',
+                     {'selector': '#contact-form',
+                      'events': 'submit'},
+                     'POST',
+                     [
+			{
+                         'url': '{% url "contact-form" %}',
+                         'visible': true,
+                         'callbacks': [
+                                       bindPostContactHandler,
+                                       ],
+                         'selectors' : [
+                                         {
+                                           'current': '#contact-form',
+                                           'target': '*',
+                                           'insert': false
+                                         }
+                                       ],
+                        }
+			],
+                     {
+                         'success': [
+                                     {
+                                      'callback': bindPostContactHandler,
+                                      'force': 1
+                                     },
+                                     {'callback': ajaxion_cb_push_before}
+                                     ],
+
+                     }
+                    );
+  ajax.start();
 }
 
 bindPostContactHandler();

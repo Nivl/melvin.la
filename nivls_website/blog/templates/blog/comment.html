@@ -1,0 +1,33 @@
+{% load i18n blog_tags %}
+
+<h2>{% trans "Comments" %}</h2>
+
+{% with comments=post.get_public_comments %}
+  <div id="comments-count">
+    {% include "blog/comment_count.html" with count=comments|length %}
+  </div>
+
+  <section id="comments">
+    <div id="comment-list">
+      {% include "blog/comment_list.html" with comments=comments %}
+    </div>
+
+    {% if post.allow_comment %}
+      <section class="comment">
+	<span class="info">
+	  {% trans "Preview of your comment" %} -
+	  <a href="http://daringfireball.net/projects/markdown/">
+	    {% trans "help" %}
+	  </a>
+	</span>
+	<div id="form-preview" class="content"></div>
+      </section>
+    {% endif %}
+  </section>
+{% endwith %}
+
+{% if post.allow_comment %}
+  {% include "blog/comment_form.html" with url=post.get_form_url form=form %}
+{% else %}
+  {% trans "Comments has been disabled for this post." %}
+{% endif %}

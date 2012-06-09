@@ -3,6 +3,8 @@ from django.views.generic.simple import redirect_to
 from feeds import *
 from sitemaps import *
 
+post_r = '(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)'
+
 urlpatterns = patterns(
     '',
     url(r'^$', 'blog.views.home',
@@ -20,9 +22,21 @@ urlpatterns = patterns(
         'blog.views.post_list_by_archives',
         name='archives-day'),
 
-    url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
+    url(r'^%s/$' % post_r,
         'blog.views.display_post',
         name='post'),
+
+    url(r"^%s/comments/list/$" % post_r,
+        'blog.views.comment_list',
+        name='post-comment-list'),
+
+    url(r"^%s/comments/form/$" % post_r,
+        'blog.views.comment_form',
+        name='post-comment-form'),
+
+    url(r"^%s/comments/count/$" % post_r,
+        'blog.views.comment_count',
+        name='post-comment-count'),
 
     url(r'^preview/'
         '(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
@@ -37,11 +51,15 @@ urlpatterns = patterns(
         'blog.views.post_list_by_tags',
         name='tag'),
 
+    url(r'^contact/form/$',
+        'blog.views.contact_form',
+        name='contact-form'),
+
     url(r'^comments/', include('django.contrib.comments.urls')),
 )
 
 
-# Static which wiil be added to the sitemap
+# Static which will be added to the sitemap
 static_urlpatterns = patterns(
     '',
     url(r'^contact/$',

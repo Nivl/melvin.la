@@ -207,6 +207,9 @@ class Post(models.Model):
     def get_public_comments(self):
         return self.comment_set.filter(is_public=True)
 
+    def count_public_comments(self):
+        return self.comment_set.filter(is_public=True).count()
+
     @models.permalink
     def get_absolute_url(self):
         return ('post', (), {'year': self.pub_date.year,
@@ -214,6 +217,33 @@ class Post(models.Model):
                              'day': self.pub_date.strftime("%d"),
                              'slug': self.slug,
                              })
+
+    @models.permalink
+    def get_form_url(self):
+        return ('post-comment-form', (), {
+                'year': self.pub_date.year,
+                'month': self.pub_date.strftime("%m"),
+                'day': self.pub_date.strftime("%d"),
+                'slug': self.slug,
+                })
+
+    @models.permalink
+    def get_comment_count_url(self):
+        return ('post-comment-count', (), {
+                'year': self.pub_date.year,
+                'month': self.pub_date.strftime("%m"),
+                'day': self.pub_date.strftime("%d"),
+                'slug': self.slug,
+                })
+
+    @models.permalink
+    def get_comments_url(self):
+        return ('post-comment-list', (), {
+                'year': self.pub_date.year,
+                'month': self.pub_date.strftime("%m"),
+                'day': self.pub_date.strftime("%d"),
+                'slug': self.slug,
+                })
 
     def save(self, *arg, **kwargs):
         if self.pk is not None:

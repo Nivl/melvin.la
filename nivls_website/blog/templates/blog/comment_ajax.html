@@ -1,28 +1,62 @@
 {% load i18n %}
 
-<script src="{{ STATIC_URL }}commons/js/ajax_form.js"></script>
+<script src="{{ STATIC_URL }}commons/js/Ajaxion.js"></script>
 <script src="{{ STATIC_URL }}commons/js/jquery.color.js"></script>
 
 <script type="text/javascript">
 function addNewComment() {
-  {% if user.is_authenticated %}
-    $('.comment').last().prev().animateHighlight();
-  {% endif %}
-  preview();
+  $('#comment-list .comment:last-child').animateHighlight();
 }
 
 function bindPostCommentHandler() {
-  ajax = new Ajaxion('{{ post.get_absolute_url }}',
+  ajax = new Ajaxion('{{ post.get_form_url }}',
                      {'selector': '#comment-form',
                       'events': 'submit'},
                      'POST',
                      [
 			{
-                         'url': '{{ post.get_absolute_url }}',
+                         'url': '{{ post.get_form_url }}',
                          'visible': true,
-                         'callbacks': [bindPostCommentHandler],
-                         'selectors' : {'#post-footer': '#post-footer'},
+                         'callbacks': [
+                                       bindPostCommentHandler,
+                                       preview,
+                                       ],
+                         'selectors' : [
+                                         {
+                                           'current': '#comment-form',
+                                           'target': '*',
+                                           'insert': false
+                                         }
+                                       ],
                         },
+			{% if user.is_authenticated %}
+                         {
+                           'url': '{{ post.get_comments_url }}',
+                           'visible': false,
+                           'callbacks': [
+                                         addNewComment,
+                                         preview,
+					],
+                           'selectors' : [
+                                           {
+                                             'current': '#comment-list',
+                                             'target': '*',
+                                             'insert': true
+                                           }
+                                         ],
+                          },
+                          {
+                           'url': '{{ post.get_comment_count_url }}',
+                           'visible': false,
+                           'selectors' : [
+                                           {
+                                             'current': '#comments-count',
+                                             'target': '*',
+                                             'insert': true
+                                           }
+                                         ],
+                          },
+			{% endif %}
                      ],
                      {
                          'success': [
@@ -30,6 +64,7 @@ function bindPostCommentHandler() {
                                       'callback': bindPostCommentHandler,
                                       'force': 1
                                      },
+                                     {'callback': ajaxion_cb_push_before}
                                      ],
 
                      }
@@ -37,18 +72,5 @@ function bindPostCommentHandler() {
   )
   ajax.start();
 }
-
-/*
-function bindPostCommentHandler() {
-  ajax_form('#comment-form'
-	      , '{{ post.get_absolute_url }}'
-	      , bindPostCommentHandler
-	      , '{% trans "Your comment was unable to be sent at this time. We apologise for the inconvenience." %}',
-	     false,
-             function () {},
-             addNewComment,
-	     ['#post-footer']);
-}
-*/
 bindPostCommentHandler();
 </script>

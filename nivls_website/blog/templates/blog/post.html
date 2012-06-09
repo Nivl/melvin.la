@@ -95,7 +95,7 @@
 	</div>
 	{% endif %}
 
-	{% blog_comment_tools post form %}
+	{% include "blog/comment.html" with post=post form=form %}
     </footer>
   </article>
 {% endblock %}

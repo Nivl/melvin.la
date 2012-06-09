@@ -19,14 +19,26 @@
 		  'url': '/blog/my_post/comments/',
 		  'callbacks' : [],
 		  'visible': false,
-		  'selectors' : ['#comments': '*']
+		  'selectors' : [
+                                  {
+				    'current': '#comments'.
+				    'target': '*'
+		  		    'insert': false
+				  }
+				]
 		},
 
 		{
 		  'url': '/blog/my_post/',
 		  'callbacks' : [],
 		  'visible': true,
-		  'selectors' : {'#form': '#form'}
+		  'selectors' : [
+                                  {
+				    'current': '#form'.
+				    'target': '#form'
+		  		    'insert': true
+				  }
+				]
 		},
      	 ],
 	 {
@@ -157,18 +169,13 @@ function _ajaxion_success(html, textStatus) {
 
     var proceed = true;
     var selector = that.bind['selector'];
-
     if (that.method == 'POST' && that.checkForm) {
-	var form = $(html).find(selector);
+	var form = $('<noexists>' + html + '</noexists>').find(selector);
 	if (form.text() != '') {
 	    proceed = false;
 	    $(selector).replaceWith(form);
 	}
-	else {
-	    console.log(form);
-	}
     }
-
 
     if ('success' in that.callbacks) {
 	for (var i=0; i<that.callbacks['success'].length; i++) {
@@ -191,11 +198,10 @@ function _ajaxion_success_reload_part() {
 	if ('visible' in that.to_reload[i]) {
 	    if (that.to_reload[i]['visible']
 		&& 'selectors' in that.to_reload[i]) {
-		for (var key in that.to_reload[i]['selectors']) {
-		    if (that.to_reload[i]['selectors'].hasOwnProperty(key)) {
-			$(key)
-			    .html('<img src="' + STATIC_URL + '/commons/img/ajax-loader.gif" alt="' + gettext('loading...') + '" />');
-		    }
+		for (var j=0 in that.to_reload[i]['selectors'].length) {
+		    var key = that.to_reload[i]['selectors'][j]['current']
+		    $(key)
+			.html('<img src="' + STATIC_URL + '/commons/img/ajax-loader.gif" alt="' + gettext('loading...') + '" />');
 		}
 	    }
 	}
@@ -203,14 +209,19 @@ function _ajaxion_success_reload_part() {
     }
 }
 
+
 function _ajaxion_success_reload_part_async_call(i, obj) {
     $.get(obj.to_reload[i]['url'], function (data) {
 	if ('selectors' in obj.to_reload[i]) {
-	    var rep = '';
-	    for (var key in obj.to_reload[i]['selectors']) {
-		if (obj.to_reload[i]['selectors'].hasOwnProperty(key)) {
-		    rep = obj.to_reload[i]['selectors'][key];
-		    $(key).replaceWith($(data).find(rep));
+	    for (var j=0; j<obj.to_reload[i]['selectors'].length; j++) {
+		var current = obj.to_reload[i]['selectors'][j]
+		var key = current['current']
+		var target = current['target']
+		var content = (target == '*') ? data : $(data).find(target)
+		if ('insert' in current && current['insert'] == false) {
+		    $(key).replaceWith(content);
+		} else {
+		    $(key).html(content);
 		}
 	    }
 	}
@@ -223,110 +234,12 @@ function _ajaxion_success_reload_part_async_call(i, obj) {
     });
 }
 
-function ajaxion_success_callback_replace(html, textStatus) {
-    $(this.bind['selector']).replaceWith(html);
+function ajaxion_cb_replace(html, textStatus) {
+    that = _Ajaxion_this;
+    $(that.bind['selector']).replaceWith(html);
 }
 
-function ajaxion_success_callback_push_before(html, textStatus) {
-    $(this.bind['selector']).before(html);
+function ajaxion_cb_push_before(html, textStatus) {
+    that = _Ajaxion_this;
+    $(that.bind['selector']).before(html);
 }
-
-/*
-function ajax_form(obj.form_selector, obj.form_url, main_callback, error_msg, remove_form, success_callback, success_callback_async, to_reload, file_upload, progress_selector) {
-    remove_form = typeof remove_form !== 'undefined' ? remove_form : true;
-    file_upload = typeof file_upload !== 'undefined' ? file_upload : false;
-    to_reload = typeof to_reload !== 'undefined' ? to_reload : [];
-    success_callback = typeof success_callback !== 'undefined' ? success_callback : function () {};
-    success_callback_get = typeof success_callback !== 'undefined' ? success_callback : function () {};
-    progress_selector = typeof progress_selector !== 'undefined' ? progress_selector : 'progress';
-
-    var target_name = obj.form_selector;
-    if (target_name[0] == '#' || target_name[0] == '.')
-	target_name = target_name.substring(1);
-
-    $(obj.form_selector).submit(function() {
-	var form_data = new FormData($(obj.form_selector)[0]);
-
-	$(obj.form_selector)
-	    .find("button[type='submit']")
-	    .button('loading');
-
-        $.ajax({
-            type: "POST",
-            data: file_upload ? form_data : $(obj.form_selector).serialize(),
-            url: obj.form_url,
-            cache: false,
-            dataType: "html",
-            contentType: file_upload ? false : 'application/x-www-form-urlencoded',
-            processData: file_upload != true,
-
-	    xhr: function() {
-	    	if (file_upload == false)
-	    	    return $.ajaxSettings.xhr();
-
-	    	myXhr = $.ajaxSettings.xhr();
-	    	if(myXhr.upload){
-                    myXhr.upload.addEventListener('progress', function(e) {
-	    		if(e.lengthComputable)
-			{
-			    var percent = Math.round(e.loaded * 100 / e.total);
-	    		    $(progress_selector + '-bar').width(percent + '%');
-			    if (percent == 100)
-				$(progress_selector).removeClass('active');
-			}
-	    	    }, false);
-	    	}
-	    	return myXhr;
-            },
-
-            success: function(html, textStatus) {
-		var form = $(html).find(obj.form_selector);
-		if (form.text() == '') {
-		    if (remove_form) {
-			$(obj.form_selector).replaceWith(html);
-		    } else if (!remove_form || to_reload != {}) {
-			if (remove_form == false) {
-			    $(obj.form_selector)
-				.find("button[type='submit']")
-				.button('reset');
-
-			    $(obj.form_selector).before(html);
-			    $(obj.form_selector)
-				.replaceWith('<div class="centered-text" id="' + target_name + '"><img src="' + STATIC_URL + '/commons/img/ajax-loader.gif" alt="' + gettext('loading...') + '" /></div>');
-			}
-
-			$.get(obj.form_url, function(data) {
-			    if (remove_form == false) {
-				$(obj.form_selector)
-				    .replaceWith($(data).find(obj.form_selector));
-				main_callback();
-			    }
-
-			    var selector = '';
-			    for (var i=0; i<to_reload.length; i++) {
-				selector = to_reload[i];
-				$(selector)
-				    .replaceWith($(data).find(selector));
-			    }
-			    success_callback_async();
-			});
-		    }
-		} else {
-		    $(obj.form_selector).replaceWith(form)
-		}
-		success_callback();
-                main_callback();
-	    },
-
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-		$(obj.form_selector)
-		    .find("button[type='submit']")
-		    .button('reset')
-
-                $(obj.form_selector).before('<div class="alert alert-error alert-block fade in"><a class="close" data-dismiss="alert">×</a><h4 class="alert-heading">' + gettext('Error!') + '</h4>' + error_msg + '</div>');
-            }
-        });
-        return false;
-    });
-}
-*/
