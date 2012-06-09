@@ -11,7 +11,34 @@ function addNewComment() {
   preview();
 }
 
+function bindPostCommentHandler() {
+  ajax = new Ajaxion('{{ post.get_absolute_url }}',
+                     {'selector': '#comment-form',
+                      'events': 'submit'},
+                     'POST',
+                     [
+			{
+                         'url': '{{ post.get_absolute_url }}',
+                         'visible': true,
+                         'callbacks': [bindPostCommentHandler],
+                         'selectors' : {'#post-footer': '#post-footer'},
+                        },
+                     ],
+                     {
+                         'success': [
+                                     {
+                                      'callback': bindPostCommentHandler,
+                                      'force': 1
+                                     },
+                                     ],
 
+                     }
+
+  )
+  ajax.start();
+}
+
+/*
 function bindPostCommentHandler() {
   ajax_form('#comment-form'
 	      , '{{ post.get_absolute_url }}'
@@ -22,6 +49,6 @@ function bindPostCommentHandler() {
              addNewComment,
 	     ['#post-footer']);
 }
-
+*/
 bindPostCommentHandler();
 </script>
