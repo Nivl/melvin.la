@@ -3,7 +3,7 @@
 
 {% block "content" %}
   {% blog_slideshow %}
-  {% blog_post_list posts.object_list %}
-  {% blog_pagination posts %}
+  {% include "blog/listing.html" with posts=posts.object_list %}
+  {% include "blog/pagination.html" with paginator=posts %}
 {% endblock %}
 

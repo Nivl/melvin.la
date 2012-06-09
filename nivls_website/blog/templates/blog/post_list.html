@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% load blog_tags %}
+{% load blog_tags markup humanize common_tags i18n %}
 
 {% block "sub_head_link" %}
   {% if obj_feed %}
@@ -17,10 +17,7 @@
 
   <h1 class="centered-text">{{ obj_name }}</h1>
 
-  <section id="post_list">
-    {% blog_post_list posts.object_list %}
-  </section>
-
-  {% blog_pagination posts %}
+  {% include "blog/listing.html" with posts=posts %}
+  {% include "blog/pagination.html" with paginator=posts %}
 {% endblock %}
 
