@@ -15,6 +15,17 @@ from models import Post, Category, Tag
 from forms import *
 
 
+
+@require_safe
+def home(request):
+    post_list = Post.objects.select_related() \
+                            .filter(is_public=1,
+                                    site=Site.objects.get_current()) \
+                            .order_by('-pub_date')
+    posts = simple_paginator(post_list, 10, request.GET.get('page'))
+    return render(request, "blog/home.html", {"posts": posts})
+
+
 @require_safe
 def contact(request):
     form = ContactForm(request=request)
@@ -38,16 +49,6 @@ def contact_form(request):
         form = ContactForm(request=request)
 
     return render(request, "blog/contact_form.html", {'form': form})
-
-
-@require_safe
-def home(request):
-    post_list = Post.objects.select_related() \
-                            .filter(is_public=1,
-                                    site=Site.objects.get_current()) \
-                            .order_by('-pub_date')
-    posts = simple_paginator(post_list, 10, request.GET.get('page'))
-    return render(request, "blog/home.html", {"posts": posts})
 
 
 @require_safe
@@ -143,6 +144,7 @@ def preview_post(request, year, month, day, slug):
                                  slug=slug,
                                  author=request.user,
                                  site=Site.objects.get_current())
+    post.allow_comment = False
     return render(request, "blog/post.html", {"post": post})
 
 
