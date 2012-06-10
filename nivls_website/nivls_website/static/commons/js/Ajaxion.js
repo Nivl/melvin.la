@@ -104,11 +104,11 @@ function ajaxion_start() {
 	$.ajax({
 	    type: obj.method,
 	    url: obj.url,
-	    data:  data,
+	    data: data,
 	    cache: obj.cache,
 	    dataType: obj.dataType,
 	    contentType: contentType,
-	    rocessData: obj.fileUpload != true,
+	    processData: obj.fileUpload == false,
 	    xhr: obj._xhr,
 	    error: obj._error,
 	    success: obj._success,
