@@ -2,23 +2,24 @@ from django.conf.urls.defaults import patterns, include, url
 from sitemaps import *
 
 urlpatterns = patterns(
-    '',
+    'about.views',
+
     url(r'^$',
-        'about.views.home',
+        'home',
         name='home'),
 )
 
-# Static which will be added to the sitemap
 static_urlpatterns = patterns(
-    '',
+    'about.views',
+
     url(r'^cv/$',
-        'about.views.cv',
+        'cv',
         name='cv'),
     url(r'^cv_pdf/$',
-        'about.views.cv_pdf',
+        'cv_pdf',
         name='cv_pdf'),
     url(r'^portfolio/$',
-        'about.views.portfolio',
+        'portfolio',
         name='portfolio'),
 )
 

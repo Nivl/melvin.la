@@ -6,58 +6,55 @@ from sitemaps import *
 post_r = '(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)'
 
 urlpatterns = patterns(
-    '',
-    url(r'^$', 'blog.views.home',
+    'blog.views',
+    url(r'^$', 'home',
         name='blog'),
 
     url(r'^(?P<year>\d{4})/$',
-        'blog.views.post_list_by_archives',
+        'post_list_by_archives',
         name='archives-year'),
 
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/$',
-        'blog.views.post_list_by_archives',
+        'post_list_by_archives',
         name='archives-month'),
 
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/$',
-        'blog.views.post_list_by_archives',
+        'post_list_by_archives',
         name='archives-day'),
 
     url(r'^%s/$' % post_r,
-        'blog.views.display_post',
+        'display_post',
         name='post'),
 
     url(r"^%s/comments/list/$" % post_r,
-        'blog.views.comment_list',
+        'comment_list',
         name='post-comment-list'),
 
     url(r"^%s/comments/form/$" % post_r,
-        'blog.views.comment_form',
+        'comment_form',
         name='post-comment-form'),
 
     url(r"^%s/comments/count/$" % post_r,
-        'blog.views.comment_count',
+        'comment_count',
         name='post-comment-count'),
 
     url(r'^preview/'
         '(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
-        'blog.views.preview_post',
+        'preview_post',
         name='preview-post'),
 
     url(r'^category/(?P<slug>[-\w]+)/$',
-        'blog.views.post_list_by_categories',
+        'post_list_by_categories',
         name='category'),
 
     url(r'^tag/(?P<slug>[-\w]+)/$',
-        'blog.views.post_list_by_tags',
+        'post_list_by_tags',
         name='tag'),
 
     url(r'^contact/form/$',
-        'blog.views.contact_form',
+        'contact_form',
         name='contact-form'),
-
-    url(r'^comments/', include('django.contrib.comments.urls')),
 )
-
 
 # Static which will be added to the sitemap
 static_urlpatterns = patterns(
