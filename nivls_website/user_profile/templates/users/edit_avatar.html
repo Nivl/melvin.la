@@ -1,6 +1,5 @@
 {% extends "users/base.html" %}
-{% load url from future %}
-{% load l10n i18n bootstrap %}
+{% load l10n i18n %}
 
 {% block "title" %}{% trans "Edit thumbnail" %}{% endblock "title" %}
 {% block body_classes %}span12{% endblock %}
@@ -62,16 +61,7 @@
 {% block "content" %}
   <h1 class="centered-text">{% trans "Edit thumbnail" %}</h1>
 
-  <form id="edit-avatar-form" method="post" action="{% url "edit-avatar" %}">
-    {% csrf_token %}
-    {{ form|bootstrap }}
-
-    <div class="form-actions centered-text">
-      <button type="submit" class="btn btn-primary">
-	{% trans "Update" %}
-      </button>
-    </div>
-  </form>
+  {% include "users/edit_avatar_form.html" with form=form %}
 
   <div class="row">
     <div class="span10">

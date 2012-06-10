@@ -1,15 +1,42 @@
 {% load url from future %}
 {% load i18n %}
 
-<script src="{{ STATIC_URL }}commons/js/ajax_form.js"></script>
+<script src="{{ STATIC_URL }}commons/js/Ajaxion.js"></script>
 
 <script type="text/javascript">
 function bindPostEditAvatarHandler() {
-  ajax_form('#edit-avatar-form'
-	      , '{% url "edit-avatar" %}'
-	      , bindPostEditAvatarHandler
-	      , '{% trans "The update was unable to be processed at this time. We apologise for the inconvenience." %}'
-	      , false);
+  ajax = new Ajaxion('{% url "edit-avatar-form" %}',
+                     {'selector': '#edit-avatar-form',
+                      'events': 'submit'},
+                     'POST',
+                     [
+			{
+                         'url': '{% url "edit-avatar-form" %}',
+                         'visible': true,
+                         'callbacks': [
+                                       bindPostEditAvatarHandler,
+                                       ],
+                         'selectors' : [
+                                         {
+                                           'current': '#edit-avatar-form',
+                                           'target': '*',
+                                           'insert': false
+                                         }
+                                       ],
+                        }
+	             ],
+                     {
+                         'success': [
+                                     {
+                                      'callback': bindPostEditAvatarHandler,
+                                      'force': 1
+                                     },
+                                     {'callback': ajaxion_cb_push_before}
+                                     ],
+
+                     }
+                    );
+  ajax.start();
 }
 
 bindPostEditAvatarHandler();

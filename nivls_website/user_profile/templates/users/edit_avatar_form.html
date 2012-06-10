@@ -1,0 +1,15 @@
+{% load i18n bootstrap %}
+{% load url from future %}
+
+<form id="edit-avatar-form"
+      method="post"
+      action="{% url "edit-avatar-form" %}">
+  {% csrf_token %}
+  {{ form|bootstrap }}
+
+  <div class="form-actions centered-text">
+    <button type="submit" class="btn btn-primary">
+      {% trans "Update" %}
+    </button>
+  </div>
+</form>

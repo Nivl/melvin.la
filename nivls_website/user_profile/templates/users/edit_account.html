@@ -1,5 +1,4 @@
 {% extends "users/base.html" %}
-{% load url from future %}
 {% load i18n bootstrap %}
 
 {% block "sub_head_js" %}
@@ -12,28 +11,5 @@
 {% block "content" %}
   <h1 class="centered-text">{% trans "Edit my account" %}</h1>
 
-  <form class="form-horizontal"
-	id="edit-account-form"
-	method="post"
-	enctype="multipart/form-data"
-	action="{% url "edit-account" %}">
-    {% csrf_token %}
-    {{ account_form }}
-    {{ profile_form|bootstrap }}
-
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary">
-	{% trans "Edit" %}
-      </button>
-
-      <button type="reset" class="btn btn-danger">
-	{% trans "Reset" %}
-      </button>
-    </div>
-
-    <div id="edit-profile-progress" class="progress progress-striped active">
-      <div id="edit-profile-progress-bar" class="bar" style="width: 0%;">
-      </div>
-    </div>
-  </form>
+  {% include "users/edit_account_form.html" %}
 {% endblock %}

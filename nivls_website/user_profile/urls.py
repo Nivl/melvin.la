@@ -12,14 +12,21 @@ urlpatterns = patterns(
         'edit_account',
         name='edit-account'),
 
+    url(r'^edit/form/$',
+        'edit_account_form',
+        name='edit-account-form'),
+
     url(r'^edit-avatar/$',
         'edit_avatar',
         name='edit-avatar'),
 
+    url(r'^edit-avatar/form/$',
+        'edit_avatar_form',
+        name='edit-avatar-form'),
+
     url(r'^manage-social-account/$',
         'manage_social_account',
         name='manage-social-account'),
-
 
     url(r'^sign-in/$',
         'sign_in',

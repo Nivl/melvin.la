@@ -1,23 +1,56 @@
 {% load url from future %}
 {% load i18n %}
 
-<script src="{{ STATIC_URL }}commons/js/ajax_form.js"></script>
+
+<script src="{{ STATIC_URL }}commons/js/Ajaxion.js"></script>
 
 <script type="text/javascript">
-
 function bindPostEditAccountHandler() {
-  ajax_form('#edit-account-form'
-	      , '{% url "edit-account" %}'
-	      , bindPostEditAccountHandler
-	      , '{% trans "The update was unable to be processed at this time. We apologise for the inconvenience." %}'
-	      , false
-              , function () {}
-              , function () {}
-	      , [ '#header-menu-user' ]
-	      , true
-	      , '#edit-profile-progress');
+  ajax = new Ajaxion('{% url "edit-account-form" %}',
+                     {'selector': '#edit-account-form',
+                      'events': 'submit'},
+                     'POST',
+                     [
+			{
+                         'url': '{% url "edit-account-form" %}',
+                         'visible': true,
+                         'callbacks': [
+                                       bindPostEditAccountHandler,
+                                       ],
+                         'selectors' : [
+                                         {
+                                           'current': '#edit-account-form',
+                                           'target': '*',
+                                           'insert': false
+                                         }
+                                       ],
+                        },
+                        {
+                         'url': '{% url "edit-account" %}',
+                         'visible': true,
+                         'selectors' : [
+                                         {
+                                           'current': '#header-menu-user',
+                                           'target': '#header-menu-user',
+                                           'insert': false
+                                         }
+                                       ],
+                        }
+	             ],
+                     {
+                         'success': [
+                                     {
+                                      'callback': bindPostEditAccountHandler,
+                                      'force': 1
+                                     },
+                                     {'callback': ajaxion_cb_push_before}
+                                     ],
+
+                     }
+                    );
+  ajax.fileUpload = true;
+  ajax.start();
 }
 
 bindPostEditAccountHandler();
-
 </script>
