@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponseNotAllowed, HttpResponse
 from django.conf import settings
 from django.core.mail import send_mail
+from django.views.decorators.http import require_safe
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 from django.contrib.sites.models import Site
@@ -14,6 +15,7 @@ from models import Post, Category, Tag
 from forms import *
 
 
+@require_safe
 def contact(request):
     form = ContactForm(request=request)
     return render(request, "blog/contact.html", {'form': form})
@@ -38,6 +40,7 @@ def contact_form(request):
     return render(request, "blog/contact_form.html", {'form': form})
 
 
+@require_safe
 def home(request):
     post_list = Post.objects.select_related() \
                             .filter(is_public=1,
@@ -47,6 +50,7 @@ def home(request):
     return render(request, "blog/home.html", {"posts": posts})
 
 
+@require_safe
 def display_post(request, year, month, day, slug):
     post = get_object_or_404(Post,
                              pub_date__year=year,
@@ -60,6 +64,7 @@ def display_post(request, year, month, day, slug):
                                               "form": form})
 
 
+@require_safe
 @ajax_only()
 def comment_list(request, year, month, day, slug):
     post = get_object_or_404(Post,
@@ -73,6 +78,7 @@ def comment_list(request, year, month, day, slug):
     return render(request, "blog/comment_list.html", {"comments": comments})
 
 
+@require_safe
 @ajax_only()
 def comment_count(request, year, month, day, slug):
     post = get_object_or_404(Post,
@@ -119,6 +125,7 @@ def comment_form(request, year, month, day, slug):
             })
 
 
+@require_safe
 @login_required
 def preview_post(request, year, month, day, slug):
     if request.user.is_superuser:
@@ -139,6 +146,7 @@ def preview_post(request, year, month, day, slug):
     return render(request, "blog/post.html", {"post": post})
 
 
+@require_safe
 def post_list_by_categories(request, slug):
     cat = get_object_or_404(Category, slug=slug)
     cat_list = Category.objects.filter(left__gte=cat.left,
@@ -161,6 +169,7 @@ def post_list_by_categories(request, slug):
          })
 
 
+@require_safe
 def post_list_by_tags(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
     post_list = Post.objects.select_related() \
@@ -178,6 +187,7 @@ def post_list_by_tags(request, slug):
                    })
 
 
+@require_safe
 def post_list_by_archives(request, year, month=None, day=None):
     if year and month and day:
         archive_date = _date(datetime.date(int(year), int(month), int(day)))

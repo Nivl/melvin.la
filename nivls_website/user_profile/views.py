@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login
 from django.core.urlresolvers import resolve, Resolver404, reverse
+from django.views.decorators.http import require_safe
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from social_auth.models import UserSocialAuth
@@ -15,6 +16,7 @@ from commons.decorators import ajax_only, login_forbidden
 from forms import *
 
 
+@require_safe
 @login_forbidden()
 def sign_up(request):
     form = UserForm()
@@ -63,6 +65,7 @@ def sign_up_form(request):
     return render(request, "users/sign_up_form.html", {'form': form})
 
 
+@require_safe
 @login_forbidden()
 def activate_account(request, code):
     try:
@@ -94,6 +97,7 @@ def activate_account(request, code):
             )
 
 
+@require_safe
 @login_required
 def view_account(request, name):
     u = get_object_or_404(User, username=name)
@@ -101,6 +105,7 @@ def view_account(request, name):
                                                'profile': u.get_profile()})
 
 
+@require_safe
 @login_required
 def edit_avatar(request):
     profile = request.user.get_profile()
@@ -158,6 +163,7 @@ def edit_avatar_form(request):
     return render(request, "users/edit_avatar_form.html", {'form': form})
 
 
+@require_safe
 @login_required
 def edit_account(request):
     profile = request.user.get_profile()
@@ -208,6 +214,7 @@ def edit_account_form(request):
             })
 
 
+@require_safe
 @login_required
 def manage_social_account(request):
     return render(request, "users/manage_social_accounts.html")
