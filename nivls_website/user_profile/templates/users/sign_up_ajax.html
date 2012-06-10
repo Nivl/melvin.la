@@ -1,15 +1,42 @@
 {% load url from future %}
 {% load i18n %}
 
-<script src="{{ STATIC_URL }}commons/js/ajax_form.js"></script>
+<script src="{{ STATIC_URL }}commons/js/Ajaxion.js"></script>
 
 <script type="text/javascript">
 function bindPostSignUpHandler() {
-    ajax_form('#sign-up-form'
-	      , '{% url "sign-up" %}'
-	      , bindPostSignUpHandler
-	      , '{% trans "Your registration was unable to be processed at this time. We apologise for the inconvenience." %}',
-	      true);
+  ajax = new Ajaxion('{% url "sign-up-form" %}',
+                     {'selector': '#sign-up-form',
+                      'events': 'submit'},
+                     'POST',
+                     [
+			{
+                         'url': '{% url "sign-up-form" %}',
+                         'visible': true,
+                         'callbacks': [
+                                       bindPostSignUpHandler,
+                                       ],
+                         'selectors' : [
+                                         {
+                                           'current': '#sign-up-form',
+                                           'target': '*',
+                                           'insert': false
+                                         }
+                                       ],
+                        }
+	             ],
+                     {
+                         'success': [
+                                     {
+                                      'callback': bindPostSignUpHandler,
+                                      'force': 1
+                                     },
+                                     {'callback': ajaxion_cb_replace}
+                                     ],
+
+                     }
+                    );
+  ajax.start();
 }
 
 bindPostSignUpHandler();

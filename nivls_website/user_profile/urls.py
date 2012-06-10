@@ -29,6 +29,10 @@ urlpatterns = patterns(
         'sign_up',
         name='sign-up'),
 
+    url(r'^sign-up/form/$',
+        'sign_up_form',
+        name='sign-up-form'),
+
     url(r'^activate/(?P<code>[a-f0-9]{8}-' \
             '[a-f0-9]{4}-4[a-f0-9]{3}-' \
             '[89ab][a-f0-9]{3}-' \

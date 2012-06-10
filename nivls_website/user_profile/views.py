@@ -9,55 +9,58 @@ from django.contrib.auth.views import login
 from django.core.urlresolvers import resolve, Resolver404, reverse
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
-from commons.forms import BootstrapLoginForm, CroppedImageForm
 from social_auth.models import UserSocialAuth
+from commons.forms import BootstrapLoginForm, CroppedImageForm
+from commons.decorators import ajax_only, login_forbidden
 from forms import *
 
 
+@login_forbidden()
 def sign_up(request):
-    if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('home'))
-    else:
-        if request.method == 'POST':
-            if request.is_ajax():
-                form = UserForm(request.POST)
-                if form.is_valid():
-                    u = form.save(commit=False)
-                    u.set_password(form.cleaned_data['password1'])
-                    u.is_staff = False
-                    u.is_active = False
-                    u.is_superuser = False
-                    u.save()
-                    profile = UserProfile.objects.get(user=u)
-                    profile.activation_code = uuid.uuid4()
-                    profile.lock_username = True
-                    profile.save()
+    form = UserForm()
+    return render(request, "users/sign_up.html", {'form': form})
 
-                    subject = _('Your validation link')
-                    text_content = render_to_string(
-                        'users/sign_up_mail.txt',
-                        {'user': u,
-                         'code': profile.activation_code}
-                        )
-                    html_content = render_to_string(
-                        'users/sign_up_mail.html',
-                        {'user': u,
-                         'code': profile.activation_code}
-                        )
-                    msg = EmailMultiAlternatives(
-                        subject,
-                        text_content,
-                        settings.EMAIL_NO_REPLY,
-                        [u.email]
-                        )
-                    msg.attach_alternative(html_content, 'text/html')
-                    msg.send(fail_silently=True)
-                    return render(request, 'users/sign_up_ok.html')
-            else:
-                return HttpResponseForbidden()
-        else:
-            form = UserForm()
-        return render(request, "users/sign_up.html", {'form': form})
+
+@login_forbidden()
+@ajax_only()
+def sign_up_form(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            u = form.save(commit=False)
+            u.set_password(form.cleaned_data['password1'])
+            u.is_staff = False
+            u.is_active = False
+            u.is_superuser = False
+            u.save()
+            profile = UserProfile.objects.get(user=u)
+            profile.activation_code = uuid.uuid4()
+            profile.lock_username = True
+            profile.save()
+
+            subject = _('Your validation link')
+            text_content = render_to_string(
+                'users/sign_up_mail.txt',
+                {'user': u,
+                 'code': profile.activation_code}
+                )
+            html_content = render_to_string(
+                'users/sign_up_mail.html',
+                {'user': u,
+                 'code': profile.activation_code}
+                )
+            msg = EmailMultiAlternatives(
+                subject,
+                text_content,
+                settings.EMAIL_NO_REPLY,
+                [u.email]
+                )
+            msg.attach_alternative(html_content, 'text/html')
+            msg.send(fail_silently=True)
+            return render(request, 'users/sign_up_ok.html')
+    else:
+        form = UserForm()
+    return render(request, "users/sign_up_form.html", {'form': form})
 
 
 def activate_account(request, code):

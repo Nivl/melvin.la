@@ -56,23 +56,7 @@
 	    {% trans "If you choose to sign up this way, we will send you an e-mail to validate your account." %}
 	  </p>
 
-	  <form class="form-horizontal" method="post"
-		id="sign-up-form"
-                action="{% url "sign-up" %}">
-	    {% csrf_token %}
-	    {{ form }}
-
-	    <div class="form-actions">
-	      <button type="submit"
-		      data-loading-text="{% trans "Signing up..." %}"
-		      class="btn btn-primary">
-		{% trans "Sign up" %}
-	      </button>
-	      <button type="reset" class="btn btn-danger">
-		{% trans "Reset" %}
-	      </button>
-	    </div>
-	  </form>
+	  {% include "users/sign_up_form.html" with form=form %}
 	</div>
       </div>
     </div>
