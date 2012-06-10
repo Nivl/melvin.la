@@ -21,7 +21,7 @@ def contact(request):
     return render(request, "blog/contact.html", {'form': form})
 
 
-@ajax_only()
+@ajax_only
 def contact_form(request):
     if request.method == 'POST':
         form = ContactForm(request.POST, request=request)
@@ -65,7 +65,7 @@ def display_post(request, year, month, day, slug):
 
 
 @require_safe
-@ajax_only()
+@ajax_only
 def comment_list(request, year, month, day, slug):
     post = get_object_or_404(Post,
                              pub_date__year=year,
@@ -79,7 +79,7 @@ def comment_list(request, year, month, day, slug):
 
 
 @require_safe
-@ajax_only()
+@ajax_only
 def comment_count(request, year, month, day, slug):
     post = get_object_or_404(Post,
                              pub_date__year=year,
@@ -92,7 +92,7 @@ def comment_count(request, year, month, day, slug):
     return render(request, "blog/comment_count.html", {"count": count})
 
 
-@ajax_only()
+@ajax_only
 def comment_form(request, year, month, day, slug):
     post = get_object_or_404(Post,
                              pub_date__year=year,

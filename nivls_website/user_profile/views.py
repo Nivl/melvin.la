@@ -17,14 +17,14 @@ from forms import *
 
 
 @require_safe
-@login_forbidden()
+@login_forbidden
 def sign_up(request):
     form = UserForm()
     return render(request, "users/sign_up.html", {'form': form})
 
 
-@login_forbidden()
-@ajax_only()
+@login_forbidden
+@ajax_only
 def sign_up_form(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -66,7 +66,7 @@ def sign_up_form(request):
 
 
 @require_safe
-@login_forbidden()
+@login_forbidden
 def activate_account(request, code):
     try:
         profile = UserProfile.objects.get(activation_code=code)
@@ -141,7 +141,7 @@ def edit_avatar(request):
             })
 
 
-@ajax_only()
+@ajax_only
 @login_required
 def edit_avatar_form(request):
     profile = request.user.get_profile()
@@ -176,7 +176,7 @@ def edit_account(request):
             })
 
 
-@ajax_only()
+@ajax_only
 @login_required
 def edit_account_form(request):
     profile = request.user.get_profile()
