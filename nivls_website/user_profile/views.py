@@ -17,13 +17,13 @@ from forms import *
 
 
 @require_safe
-@login_forbidden
+@login_forbidden()
 def sign_up(request):
     form = UserForm()
     return render(request, "users/sign_up.html", {'form': form})
 
 
-@login_forbidden
+@login_forbidden()
 @ajax_only
 def sign_up_form(request):
     if request.method == 'POST':
@@ -66,7 +66,7 @@ def sign_up_form(request):
 
 
 @require_safe
-@login_forbidden
+@login_forbidden()
 def activate_account(request, code):
     try:
         profile = UserProfile.objects.get(activation_code=code)
