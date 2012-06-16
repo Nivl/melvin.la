@@ -51,13 +51,9 @@
 
 */
 
-var _Ajaxion_this = '';
-
-function Ajaxion(url, bind, method, to_reload, callbacks) {
+function Ajaxion (url, bind, method, to_reload, callbacks) {
     to_reload = typeof to_reload !== 'undefined' ? to_reload : [];
     callbacks = typeof callbacks !== 'undefined' ? callbacks : {};
-
-    _Ajaxion_this = this;
 
     this.url = url;
     this.bind = bind;
@@ -70,31 +66,29 @@ function Ajaxion(url, bind, method, to_reload, callbacks) {
     this.dataType = 'html';
     this.checkForm = true;
     this.error_msg = gettext('Your action was unable to be executed at this time. We apologise for the inconvenience.');
-
-    this.start = ajaxion_start;
-    this._xhr = _ajaxion_xhr;
-    this._success = _ajaxion_success;
-    this._error = _ajaxion_error;
-    this._success_reload_part = _ajaxion_success_reload_part;
 }
 
-function ajaxion_start() {
-    var obj = this;
+Ajaxion.prototype.start = function () {
+    that = this;
 
-    $(this.bind['selector']).bind(this.bind['events'], function() {
+    if (!('events' in this.bind)) {
+	this.bind['events'] = 'dummy';
+    }
+
+    $(this.bind['selector']).bind(this.bind['events'], function () {
 	var data = {};
 	var contentType = 'application/x-www-form-urlencoded';
-	var selector = obj.bind['selector'];
+	var selector = that.bind['selector'];
 
-	if (obj.method == 'POST') {
+	if (that.method == 'POST') {
 	    data = $(selector).serialize();
 
-	    if (obj.fileUpload) {
+	    if (that.fileUpload) {
 		data = new FormData($(selector)[0]);
 		contentType = false;
 	    }
 
-	    if (obj.useFormOptions) {
+	    if (that.useFormOptions) {
 		$(selector)
 		    .find("button[type='submit']")
 		    .button('loading');
@@ -102,25 +96,33 @@ function ajaxion_start() {
 	}
 
 	$.ajax({
-	    type: obj.method,
-	    url: obj.url,
+	    type: that.method,
+	    url: that.url,
 	    data: data,
-	    cache: obj.cache,
-	    dataType: obj.dataType,
+	    cache: that.cache,
+	    dataType: that.dataType,
 	    contentType: contentType,
-	    processData: obj.fileUpload == false,
-	    xhr: obj._xhr,
-	    error: obj._error,
-	    success: obj._success,
+	    processData: that.fileUpload == false,
+	    xhr: function () {
+		return that._xhr(that);
+	    },
+	    error: function (XMLHttpRequest,
+			     textStatus,
+			     errorThrown) {
+		that._error(XMLHttpRequest, textStatus, errorThrown, that);
+	    },
+	    success: function (html, textStatus) {
+		that._success(html, textStatus, that);
+	    },
 	});
 	return false;
     });
+
+    if (this.bind['events'] == 'dummy')
+	$(this.bind['selector']).trigger('dummy');
 }
 
-
-function _ajaxion_xhr() {
-    that = _Ajaxion_this;
-
+Ajaxion.prototype._xhr = function (that) {
     var myXhr = $.ajaxSettings.xhr();
 
     if ('xhr' in that.callbacks) {
@@ -130,7 +132,7 @@ function _ajaxion_xhr() {
     }
     if (that.fileUpload && that.useFormOptions && myXhr.upload) {
 	myXhr.upload.addEventListener('progress', function(e) {
-	    if(e.lengthComputable){
+	    if (e.lengthComputable){
 		var percent = Math.round(e.loaded * 100 / e.total);
 	    	$('form-progress-bar').width(percent + '%');
 		if (percent == 100) {
@@ -143,8 +145,8 @@ function _ajaxion_xhr() {
 }
 
 
-function _ajaxion_error(XMLHttpRequest, textStatus, errorThrown) {
-    that = _Ajaxion_this;
+Ajaxion.prototype._error = function (XMLHttpRequest, textStatus,
+				     errorThrown, that) {
     var selector = that.bind['selector'];
 
     if ('error' in that.callbacks) {
@@ -164,9 +166,7 @@ function _ajaxion_error(XMLHttpRequest, textStatus, errorThrown) {
 }
 
 
-function _ajaxion_success(html, textStatus) {
-    that = _Ajaxion_this;
-
+Ajaxion.prototype._success = function (html, textStatus, that) {
     var proceed = true;
     var selector = that.bind['selector'];
     if (that.method == 'POST' && that.checkForm) {
@@ -181,19 +181,18 @@ function _ajaxion_success(html, textStatus) {
 	for (var i=0; i<that.callbacks['success'].length; i++) {
 	    if (proceed
 		|| ('force' in that.callbacks['success'][i]
-		 && that.callbacks['success'][i]['force'] == true))
-	    that.callbacks['success'][i]['callback'](html, textStatus);
+		    && that.callbacks['success'][i]['force'] == true))
+		that.callbacks['success'][i]['callback'](html,textStatus,that);
 	}
     }
 
     if (proceed) {
-	that._success_reload_part();
+	that._success_reload_part(that);
     }
 }
 
 
-function _ajaxion_success_reload_part() {
-    that = _Ajaxion_this;
+Ajaxion.prototype._success_reload_part = function (that) {
     for (var i=0; i<that.to_reload.length; i++) {
 	if ('visible' in that.to_reload[i]) {
 	    if (that.to_reload[i]['visible']
@@ -205,12 +204,12 @@ function _ajaxion_success_reload_part() {
 		}
 	    }
 	}
-	_ajaxion_success_reload_part_async_call(i, that);
+	that._success_reload_part_async_call(i, that);
     }
 }
 
 
-function _ajaxion_success_reload_part_async_call(i, obj) {
+Ajaxion.prototype._success_reload_part_async_call = function(i, obj) {
     $.get(obj.to_reload[i]['url'], function (data) {
 	if ('selectors' in obj.to_reload[i]) {
 	    for (var j=0; j<obj.to_reload[i]['selectors'].length; j++) {
@@ -234,12 +233,12 @@ function _ajaxion_success_reload_part_async_call(i, obj) {
     });
 }
 
-function ajaxion_cb_replace(html, textStatus) {
-    that = _Ajaxion_this;
+
+Ajaxion.prototype.cb_replace = function(html, textStatus, that) {
     $(that.bind['selector']).replaceWith(html);
 }
 
-function ajaxion_cb_push_before(html, textStatus) {
-    that = _Ajaxion_this;
+
+Ajaxion.prototype.cb_push_before = function (html, textStatus, that) {
     $(that.bind['selector']).before(html);
 }
