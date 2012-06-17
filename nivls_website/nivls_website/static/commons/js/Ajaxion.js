@@ -238,6 +238,9 @@ Ajaxion.prototype.cb_replace = function(html, textStatus, that) {
     $(that.bind['selector']).replaceWith(html);
 }
 
+Ajaxion.prototype.cb_insert = function(html, textStatus, that) {
+    $(that.bind['selector']).html(html);
+}
 
 Ajaxion.prototype.cb_push_before = function (html, textStatus, that) {
     $(that.bind['selector']).before(html);
