@@ -63,6 +63,7 @@ function Ajaxion (url, bind, method, to_reload, callbacks) {
     this.fileUpload = false;
     this.useFormOptions = true;
     this.cache = false;
+    this.unbind = true;
     this.dataType = 'html';
     this.checkForm = true;
     this.error_msg = gettext('Your action was unable to be executed at this time. We apologise for the inconvenience.');
@@ -115,6 +116,8 @@ Ajaxion.prototype.start = function () {
 		that._success(html, textStatus, that);
 	    },
 	});
+	if (that.unbind)
+	    $(that.bind['selector']).unbind(that.bind['events']);
 	return false;
     });
 
