@@ -17,6 +17,7 @@ urlpatterns = patterns(
     url(r'^accounts/', include('user_profile.urls')),
     url(r'^captcha/', include('captcha.urls')),
 
+    url(r'^jsurls.js$', 'django_js_utils.views.jsurls', {}, 'jsurls'),
     url(r'', include('about.urls')),
     )
 

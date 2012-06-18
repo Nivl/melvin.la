@@ -4,73 +4,132 @@
 <script src="{{ STATIC_URL }}commons/js/jquery.color.js"></script>
 
 <script type="text/javascript">
+
+var commentForm = new Ajaxion('{{ post.get_form_url }}',
+			  {'selector': '#comment-form',
+			   'events': 'submit'},
+			  'POST',
+			  [
+			      {
+				  'url': '{{ post.get_form_url }}',
+				  'visible': true,
+				  'callbacks': [
+				      preview,
+				  ],
+				  'selectors' : [
+				      {
+					  'current': '#comment-form',
+					  'target': '*',
+					  'insert': false
+				      }
+				  ],
+			      },
+			      {% if user.is_authenticated %}
+                                {
+				    'url': '{{ post.get_comments_url }}',
+				    'visible': false,
+				    'callbacks': [
+					addNewComment,
+					preview,
+				    ],
+				    'selectors' : [
+					{
+					    'current': '#comment-list',
+					    'target': '*',
+					    'insert': true
+					}
+				    ],
+				},
+                              {
+				  'url': '{{ post.get_comment_count_url }}',
+				  'visible': false,
+				  'selectors' : [
+                                      {
+					  'current': '#comments-count',
+					  'target': '*',
+					  'insert': true
+                                      }
+				  ],
+                              },
+			    {% endif %}
+			  ],
+			  {
+			      'success': [
+				  {'callback': Ajaxion.cb_push_before},
+				  {
+				      'callback': preview,
+				      'force': true
+				  }
+			      ],
+
+			  }
+			 );
+
+var boundAction = {};
+
+/* Callbacks */
+
 function addNewComment() {
-  $('#comment-list .comment:last-child').animateHighlight();
+    $('#comment-list .comment:last-child').animateHighlight();
 }
 
-function bindPostCommentHandler() {
-  ajax = new Ajaxion('{{ post.get_form_url }}',
-                     {'selector': '#comment-form',
-                      'events': 'submit'},
-                     'POST',
-                     [
-			{
-                         'url': '{{ post.get_form_url }}',
-                         'visible': true,
-                         'callbacks': [
-                                       bindPostCommentHandler,
-                                       preview,
-                                       ],
-                         'selectors' : [
-                                         {
-                                           'current': '#comment-form',
-                                           'target': '*',
-                                           'insert': false
-                                         }
-                                       ],
-                        },
-			{% if user.is_authenticated %}
-                         {
-                           'url': '{{ post.get_comments_url }}',
-                           'visible': false,
-                           'callbacks': [
-                                         addNewComment,
-                                         preview,
-					],
-                           'selectors' : [
-                                           {
-                                             'current': '#comment-list',
-                                             'target': '*',
-                                             'insert': true
-                                           }
-                                         ],
-                          },
-                          {
-                           'url': '{{ post.get_comment_count_url }}',
-                           'visible': false,
-                           'selectors' : [
-                                           {
-                                             'current': '#comments-count',
-                                             'target': '*',
-                                             'insert': true
-                                           }
-                                         ],
-                          },
-			{% endif %}
-                     ],
-                     {
-                         'success': [
-                                     {
-                                      'callback': bindPostCommentHandler,
-                                      'force': 1
-                                     },
-                                     {'callback': ajaxion_cb_push_before}
-                                     ],
+/* call */
 
-                     }
+commentForm.start();
+preview();
 
-  )
-  ajax.start();
-}
-bindPostCommentHandler();
+/* functions */
+
+$('.comment').hover(
+    function () {
+	$(this).find('.edit-comment-link').show()
+    },
+
+    function () {
+	$(this).find('.edit-comment-link').hide()
+    });
+
+$('.edit-comment-link').click(function() {
+    var that = this;
+    var area = $(this).parents('.comment').find('.editable_area');
+    var pk = $(area).prop('id').replace('comment_', '');
+    var commentEdit = new Ajaxion('', {}, 'GET');
+
+    commentEdit.bind = {'selector': '#' + $(area).prop('id')};
+    commentEdit.callbacks['success'] = [{'callback': Ajaxion.cb_insert}];
+    var url_values = {
+        year:'{{ post.pub_date.year }}',
+        month:'{{ post.pub_date|date:'m' }}',
+        day:'{{ post.pub_date.day }}',
+        slug:'{{ post.slug }}',
+        pk:pk
+    }
+
+    if ($(area).find(">:first-child").prop("tagName") == 'P') {
+	commentEdit.url = django_js_utils.urls.resolve('post-comment-single-form', url_values);
+
+	commentEdit.callbacks['success'].push({'callback': function() {
+	    var commentEditForm = new Ajaxion('', {}, 'POST');;
+            commentEditForm.bind = {'selector': '#comment-single-form-' + pk,
+                                    'events': 'submit',
+                                    'parent': '#comment_' + pk};
+            commentEditForm.url = commentEdit.url;
+
+	    commentEditForm.callbacks['success'] = [{'callback': function() {
+		$(that).trigger('click');
+	    }}];
+	    commentEditForm.start();
+            boundAction[$(area).prop('id')] = commentEditForm;
+	}});
+    } else {
+        boundAction[$(area).prop('id')].stop();
+	delete boundAction[$(area).prop('id')];
+        commentEdit.url = django_js_utils.urls.resolve('post-comment-single', url_values);
+    }
+    commentEdit.start();
+    commentEdit.stop();
+    return false;
+});
+
+
 </script>

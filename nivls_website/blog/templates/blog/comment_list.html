@@ -21,9 +21,12 @@
 	{{ comment.pub_date|naturalday }}
 	{% trans "at " %}{{ comment.pub_date|date }}
       </time>
+      <a class="edit-comment-link" href="#" style="display:none;">
+	<i class="icon-edit"></i>
+      </a>
     </span>
 
-    <div class="content">
+    <div id="comment_{{ comment.pk }}" class="content editable_area">
       {{ comment.comment|sanitize|markdown }}
     </div>
   </section>

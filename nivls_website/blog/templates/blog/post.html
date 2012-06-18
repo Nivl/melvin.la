@@ -7,24 +7,6 @@
   <script src="{{ STATIC_URL }}commons/js/Markdown.Sanitizer.js"></script>
   <script src="{{ STATIC_URL }}commons/js/jquery.oninput.min.js"></script>
 
-  <script>
-    function preview() {
-       var $textarea = $('#id_comment'),
-           $preview = $('#form-preview'),
-           converter = new Markdown.getSanitizingConverter();
-
-       $textarea.input(function(event) {
-         $preview.html(converter.makeHtml($textarea.val()));
-       }).trigger('input');
-
-       $textarea.keydown(function() {
-         $(this).stopTime();
-         $(this).oneTime(500, function() { styleCode(); });
-       });
-     };
-    preview();
-  </script>
-
   {% include "blog/comment_ajax.html" with post=post user=user %}
 
 {% endblock "sub_head_js" %}

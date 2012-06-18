@@ -1,9 +1,6 @@
 {% load url from future %}
 {% load i18n %}
 
-
-<script src="{{ STATIC_URL }}commons/js/Ajaxion.js"></script>
-
 <script type="text/javascript">
 function bindPostEditAccountHandler() {
   ajax = new Ajaxion('{% url "edit-account-form" %}',
@@ -43,7 +40,7 @@ function bindPostEditAccountHandler() {
                                       'callback': bindPostEditAccountHandler,
                                       'force': 1
                                      },
-                                     {'callback': ajaxion_cb_push_before}
+                                     {'callback': Ajaxion.cb_push_before}
                                      ],
 
                      }

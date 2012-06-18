@@ -39,6 +39,7 @@
   <body{% block "body-params" %}{% endblock %}>
     {% block "body" %}{% endblock %}
 
+
     <script src="https://www.google.com/jsapi"></script>
     <script>
       var STATIC_URL = "{{ STATIC_URL }}";
@@ -52,6 +53,8 @@
     <script src="{{ STATIC_URL }}commons/js/jquery.timers.js"></script>
     <script src="{{ STATIC_URL }}commons/js/prettify/prettify.js"></script>
     <script src="{% url "django.views.i18n.javascript_catalog" %}"></script>
+    <script src="{{ STATIC_URL }}django_js_utils.js"></script>
+    <script src="{% url "jsurls" %}"></script>
     <script src="{{ STATIC_URL }}commons/js/Ajaxion.js"></script>
     <script src="{{ STATIC_URL }}commons/js/main.js"></script>
     {% block "head_js" %}{% endblock %}

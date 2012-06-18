@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponseNotAllowed, HttpResponse
 from django.conf import settings
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_safe
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
@@ -13,7 +14,6 @@ from commons.simple_paginator import simple_paginator
 from commons.decorators import ajax_only
 from models import Post, Category, Tag
 from forms import *
-
 
 
 @require_safe
@@ -77,6 +77,35 @@ def comment_list(request, year, month, day, slug):
                              site=Site.objects.get_current())
     comments = post.get_public_comments()
     return render(request, "blog/comment_list.html", {"comments": comments})
+
+
+@require_safe
+@ajax_only
+def comment_single(request, year, month, day, slug, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    return render(request, "blog/comment_single.html", {
+            'comment': comment.comment
+            })
+
+
+@ajax_only
+def comment_single_form(request, year, month, day, slug, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.method == 'POST':
+        form = SingleCommentForm(request.POST, prefix="single")
+        if form.is_valid():
+            comment.comment = form.cleaned_data['comment']
+            comment.save()
+            return HttpResponse()
+    else:
+        form = SingleCommentForm(initial={'comment': comment.comment},
+                                 prefix="single")
+    return render(request, "blog/comment_single_form.html",
+                  {"form": form,
+                   "pk": pk,
+                   'url': reverse('post-comment-single-form',
+                                  args=[year, month, day, slug, pk])
+                   })
 
 
 @require_safe

@@ -173,10 +173,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
+    'django.contrib.admin',
 #    'debug_toolbar',
     'bootstrap',
     'bootstrapform',
     'social_auth',
+    'captcha',
+    'django_js_utils',
 )
 
 AUTH_PROFILE_MODULE = 'user_profile.UserProfile'

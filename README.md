@@ -9,3 +9,4 @@ Requirements
 * [wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/) >= 0.11.0 rc1
 * [django-social-auth](https://github.com/omab/django-social-auth) which require [python-openid](http://pypi.python.org/pypi/python-openid/) and [python-oauth2](https://github.com/simplegeo/python-oauth2)
 * [django-simple-captcha](https://github.com/mbi/django-simple-captcha)
+* [django-js-utils](https://github.com/ljosa/django-js-utils)

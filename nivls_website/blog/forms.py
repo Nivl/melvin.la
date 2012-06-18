@@ -84,3 +84,10 @@ class CommentForm(BootstrapModelForm, happyforms.ModelForm):
             return self.cleaned_data['comment']
         else:
             raise forms.ValidationError('Spam attempt detected!')
+
+
+class SingleCommentForm(BootstrapForm, happyforms.Form):
+    comment = forms.CharField(
+        widget=forms.Textarea(attrs={'style': 'width: 100%;'}),
+        label=_('<!-- Comment -->'),
+        )

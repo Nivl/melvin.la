@@ -38,6 +38,14 @@ urlpatterns = patterns(
         'comment_count',
         name='post-comment-count'),
 
+    url(r"^%s/comments/get/(?P<pk>\d+)/$" % post_r,
+        'comment_single',
+        name='post-comment-single'),
+
+    url(r"^%s/comments/get/(?P<pk>\d+)/form/$" % post_r,
+        'comment_single_form',
+        name='post-comment-single-form'),
+
     url(r'^preview/'
         '(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
         'preview_post',
