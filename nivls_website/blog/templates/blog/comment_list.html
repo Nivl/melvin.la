@@ -7,7 +7,7 @@
 
       {% if comment.user %}
 	<a href="{{ comment.user.get_absolute_url }}">
-	  {% if comment.user.get_profile.use_name %}{{ comment.user.first_name }} {{ comment.user.last_name }}{% else %}{{ comment.user.username }}{% endif %}</a>,
+	  {% if comment.user.get_profile.use_name %}{{ comment.user.get_full_name }}{% else %}{{ comment.user.username }}{% endif %}</a>,
 
       {% else %}
 	{% if comment.website %}
