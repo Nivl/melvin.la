@@ -1,4 +1,4 @@
-{% load i18n markup %}
+{% load i18n markup user_tags %}
 
 <h1>{% blocktrans with project_name=project.name %}Informations about {{ project_name }}{% endblocktrans %}</h1>
 
@@ -54,53 +54,85 @@
   {{ project.description|markdown }}
 </div>
 
-{% with project.clients.all as clients %}
-  {% if clients %}
-    <div id="clients" class="clearfix">
-      <h2>{% trans "Client(s)" %}</h2>
-      <div class="client-list">
-	{% for client in clients %}
-	  <div class="qitem">
-	    <a target="_blank" href="{{ client.url }}">
-	      <img src="{{ client.image.url }}"
-		   alt="{{ client.name }}"
-		   title="{{ client.name }}"
-		   width="126" height="126"></a>
-	    <span class="caption">
-	      <h4>{{ client.name }}</h4>
-	      <p>
-		{{ client.description }}
-	      </p>
-	    </span>
-	  </div>
-	{% endfor %}
+{% with project.clients_user.all as clients_user %}
+  {% with project.clients.all as clients %}
+    {% if clients or clients_user%}
+      <div id="clients" class="clearfix">
+	<h2>{% trans "Client(s)" %}</h2>
+	<div class="client-list">
+	  {% for client in clients_user %}
+	    <div class="qitem">
+	      <a target="_parent" href="{{ client.get_profile.website }}">
+		{{ client|square_thumbnail:"126" }}
+	      <span class="caption">
+		<h4>{{ client.get_full_name }}</h4>
+		<p>
+		  {{ client.get_profile.occupation }}
+		</p>
+	      </span>
+	    </div>
+	  {% endfor %}
+
+	  {% for client in clients %}
+	    <div class="qitem">
+	      <a target="_blank" href="{{ client.url }}">
+		<img src="{{ client.image.url }}"
+		     alt="{{ client.name }}"
+		     title="{{ client.name }}"
+		     width="126" height="126"
+		     class="thumbnail"></a>
+	      <span class="caption">
+		<h4>{{ client.name }}</h4>
+		<p>
+		  {{ client.description }}
+		</p>
+	      </span>
+	    </div>
+	  {% endfor %}
+	</div>
       </div>
-    </div>
-  {% endif %}
+    {% endif %}
+  {% endwith %}
 {% endwith %}
 
 
-{% with project.coworkers.all as coworkers %}
-  {% if coworkers %}
-    <div id="coworkers" class="clearfix">
-      <h2>{% trans "Team" %}</h2>
-      <div class="coworker-list">
-	{% for coworker in coworkers %}
-	  <div class="qitem">
-	    <a target="_parent" href="{{ coworker.url }}">
-	      <img src="{{ coworker.image.url }}"
-		   alt="{{ coworker.name }}"
-		   title="{{ coworker.name }}"
-		   width="126" height="126"></a>
-	    <span class="caption">
-	      <h4>{{ coworker.name }}</h4>
-	      <p>
-		{{ coworker.description }}
-	      </p>
-	    </span>
-	  </div>
-	{% endfor %}
+{% with project.coworkers_user.all as coworkers_user %}
+  {% with project.coworkers.all as coworkers %}
+    {% if coworkers or coworkers_user %}
+      <div id="coworkers" class="clearfix">
+	<h2>{% trans "Team" %}</h2>
+	<div>
+	  {% for coworker in coworkers_user %}
+	    <div>
+	      <a href="{{ coworker.get_profile.website }}">
+		{{ coworker|square_thumbnail:"126" }}
+	      </a>
+	      <div class="caption">
+		<h5>{{ coworker.get_full_name }}</h5>
+		<p>
+		  {{ coworker.get_profile.occupation }}
+		</p>
+	      </div>
+	    </div>
+	  {% endfor %}
+
+	  {% for coworker in coworkers %}
+	    <div>
+	      <a href="{{ coworker.url }}">
+		<img src="{{ coworker.image.url }}"
+		     alt="{{ coworker.name }}"
+		     title="{{ coworker.name }}"
+		     width="126" height="126">
+	      </a>
+	      <div class="caption">
+		<h5>{{ coworker.name }}</h5>
+		<p>
+		  {{ coworker.description }}
+		</p>
+	      </div>
+	    </div>
+	  {% endfor %}
       </div>
-    </div>
-  {% endif %}
+    {% endif %}
+  {% endwith %}
 {% endwith %}

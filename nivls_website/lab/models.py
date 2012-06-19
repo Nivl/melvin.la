@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
-
 from datetime import datetime
+from django.contrib.auth.models import User
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -213,11 +213,21 @@ class Project(models.Model):
         Language,
         through='ProjectLanguageRate'
         )
+    coworkers_user = models.ManyToManyField(
+        User,
+        null=True,
+        blank=True
+        )
     coworkers = models.ManyToManyField(
         Coworker,
         null=True,
         blank=True,
         limit_choices_to={'site': settings.SITE_ID}
+        )
+    clients_user = models.ManyToManyField(
+        User,
+        null=True,
+        blank=True
         )
     clients = models.ManyToManyField(
         Client,
