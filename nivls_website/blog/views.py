@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404, HttpResponseNotAllowed, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
@@ -90,7 +90,19 @@ def comment_single(request, year, month, day, slug, pk):
 
 @ajax_only
 def comment_single_form(request, year, month, day, slug, pk):
+    post = get_object_or_404(Post,
+                             pub_date__year=year,
+                             pub_date__month=month,
+                             pub_date__day=day,
+                             slug=slug,
+                             is_public=1,
+                             site=Site.objects.get_current())
+
     comment = get_object_or_404(Comment, pk=pk)
+    if not request.user.is_authenticated() \
+            or not (request.user == comment.user \
+                        or request.user.has_perm('blog.change_comment')):
+        return HttpResponseForbidden()
     if request.method == 'POST':
         form = SingleCommentForm(request.POST, prefix="single")
         if form.is_valid():

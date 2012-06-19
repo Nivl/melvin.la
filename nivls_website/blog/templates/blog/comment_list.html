@@ -21,9 +21,12 @@
 	{{ comment.pub_date|naturalday }}
 	{% trans "at " %}{{ comment.pub_date|date }}
       </time>
-      <a class="edit-comment-link" href="#" style="display:none;">
-	<i class="icon-edit"></i>
-      </a>
+
+      {% if user.is_authenticated and user == comment.user or perms.blog.change_comment %}
+	<a class="edit-comment-link" href="#" style="display:none;">
+	  <i class="icon-edit"></i>
+	</a>
+      {% endif %}
     </span>
 
 
