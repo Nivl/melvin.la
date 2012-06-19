@@ -17,6 +17,11 @@ urlpatterns = patterns(
     url(r'^accounts/', include('user_profile.urls')),
     url(r'^captcha/', include('captcha.urls')),
 
+
+    url(r'^ajax/get_header/$',
+        'nivls_website.views.get_common_header',
+        name='get-common-header'),
+
     url(r'^jsurls.js$', 'django_js_utils.views.jsurls', {}, 'jsurls'),
     url(r'', include('about.urls')),
     )
