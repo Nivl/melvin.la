@@ -129,6 +129,9 @@ $('.edit-comment-link').click(function() {
         boundAction[$(area).prop('id')].stop();
 	delete boundAction[$(area).prop('id')];
         commentEdit.url = django_js_utils.urls.resolve('post-comment-single', url_values);
+	commentEdit.callbacks['success'].push({'callback': function () {
+	    $(that).parents('.comment').animateHighlight();
+	}});
     }
     commentEdit.start();
     commentEdit.stop();
