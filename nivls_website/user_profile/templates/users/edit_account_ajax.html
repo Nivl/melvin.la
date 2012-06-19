@@ -2,52 +2,42 @@
 {% load i18n %}
 
 <script type="text/javascript">
-function bindPostEditAccountHandler() {
-  ajax = new Ajaxion('{% url "edit-account-form" %}',
-                     {'selector': '#edit-account-form',
-                      'events': 'submit'},
-                     'POST',
-                     [
-			{
-                         'url': '{% url "edit-account-form" %}',
-                         'visible': true,
-                         'callbacks': [
-                                       bindPostEditAccountHandler,
-                                       ],
-                         'selectors' : [
-                                         {
-                                           'current': '#edit-account-form',
-                                           'target': '*',
-                                           'insert': false
-                                         }
-                                       ],
-                        },
-                        {
-                         'url': '{% url "edit-account" %}',
-                         'visible': true,
-                         'selectors' : [
-                                         {
-                                           'current': '#header-menu-user',
-                                           'target': '#header-menu-user',
-                                           'insert': false
-                                         }
-                                       ],
-                        }
-	             ],
-                     {
-                         'success': [
-                                     {
-                                      'callback': bindPostEditAccountHandler,
-                                      'force': 1
-                                     },
-                                     {'callback': Ajaxion.cb_push_before}
-                                     ],
+var ajax = new Ajaxion('{% url "edit-account-form" %}',
+                       {'selector': '#edit-account-form',
+			'events': 'submit'},
+                       'POST',
+                       [
+			   {
+                               'url': '{% url "edit-account-form" %}',
+                               'visible': true,
+                               'selectors' : [
+				   {
+                                       'current': '#edit-account-form',
+                                       'target': '*',
+                                       'insert': false
+				   }
+                               ],
+			   },
+			   {
+                               'url': '{% url "edit-account" %}',
+                               'visible': true,
+                               'selectors' : [
+				   {
+                                       'current': '#header-menu-user',
+                                       'target': '#header-menu-user',
+                                       'insert': false
+				   }
+                               ],
+			   }
+	               ],
+                       {
+			   'success': [
+                               {'callback': Ajaxion.cb_push_before}
+			   ],
 
-                     }
-                    );
-  ajax.fileUpload = true;
-  ajax.start();
-}
+                       }
+                      );
+ajax.fileUpload = true;
+ajax.start();
 
-bindPostEditAccountHandler();
 </script>

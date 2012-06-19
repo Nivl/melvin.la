@@ -4,41 +4,28 @@
 <script src="{{ STATIC_URL }}commons/js/Ajaxion.js"></script>
 
 <script type="text/javascript">
-function bindPostSignUpHandler() {
-  ajax = new Ajaxion('{% url "sign-up-form" %}',
-                     {'selector': '#sign-up-form',
-                      'events': 'submit'},
-                     'POST',
-                     [
-			{
-                         'url': '{% url "sign-up-form" %}',
-                         'visible': true,
-                         'callbacks': [
-                                       bindPostSignUpHandler,
-                                       ],
-                         'selectors' : [
-                                         {
-                                           'current': '#sign-up-form',
-                                           'target': '*',
-                                           'insert': false
-                                         }
-                                       ],
-                        }
-	             ],
-                     {
-                         'success': [
-                                     {
-                                      'callback': bindPostSignUpHandler,
-                                      'force': 1
-                                     },
-                                     {'callback': ajaxion_cb_replace}
-                                     ],
-
-                     }
-                    );
-  ajax.start();
-}
-
-bindPostSignUpHandler();
-
+var ajax = new Ajaxion('{% url "sign-up-form" %}',
+                       {'selector': '#sign-up-form',
+			'events': 'submit'},
+                       'POST',
+                       [
+			   {
+                               'url': '{% url "sign-up-form" %}',
+                               'visible': true,
+                               'selectors' : [
+                                   {
+                                       'current': '#sign-up-form',
+                                       'target': '*',
+                                       'insert': false
+                                   }
+                               ],
+                           }
+	               ],
+                       {
+                           'success': [
+                               {'callback': Ajaxion.cb_replace}
+                           ],
+                       }
+                      );
+ajax.start();
 </script>

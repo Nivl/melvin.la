@@ -4,41 +4,29 @@
 <script src="{{ STATIC_URL }}commons/js/Ajaxion.js"></script>
 
 <script type="text/javascript">
-function bindPostEditAvatarHandler() {
-  ajax = new Ajaxion('{% url "edit-avatar-form" %}',
-                     {'selector': '#edit-avatar-form',
-                      'events': 'submit'},
-                     'POST',
-                     [
+ var ajax = new Ajaxion('{% url "edit-avatar-form" %}',
+			{'selector': '#edit-avatar-form',
+			 'events': 'submit'},
+			'POST',
+			[
+			    {
+				'url': '{% url "edit-avatar-form" %}',
+				'visible': true,
+				'selectors' : [
+                                    {
+                                        'current': '#edit-avatar-form',
+                                        'target': '*',
+                                        'insert': false
+                                    }
+                                ],
+                            }
+			],
 			{
-                         'url': '{% url "edit-avatar-form" %}',
-                         'visible': true,
-                         'callbacks': [
-                                       bindPostEditAvatarHandler,
-                                       ],
-                         'selectors' : [
-                                         {
-                                           'current': '#edit-avatar-form',
-                                           'target': '*',
-                                           'insert': false
-                                         }
-                                       ],
-                        }
-	             ],
-                     {
-                         'success': [
-                                     {
-                                      'callback': bindPostEditAvatarHandler,
-                                      'force': 1
-                                     },
-                                     {'callback': ajaxion_cb_push_before}
-                                     ],
+                            'success': [
+                                {'callback': Ajaxion.cb_push_before}
+                            ],
 
-                     }
-                    );
-  ajax.start();
-}
-
-bindPostEditAvatarHandler();
-
+			}
+                       );
+ajax.start();
 </script>
