@@ -36,7 +36,7 @@
     </div>
 
     <div id="comment_{{ comment.pk }}" class="content editable_area">
-      {{ comment.comment|sanitize|markdown }}
+      {% include "blog/comment_single.html" with comment=comment.comment %}
     </div>
   </section>
 

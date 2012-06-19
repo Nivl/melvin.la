@@ -1,1 +1,2 @@
-<p>{{ comment }}</p>
+{% load markup common_tags %}
+{{ comment|sanitize|markdown }}
