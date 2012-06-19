@@ -131,7 +131,7 @@ def gravatar(user, size=80):
 
 
 @register.filter(is_safe=True)
-def gravatar_from_email(email, alt, size=80):
+def gravatar_from_email(email, alt="gravatar", size=80):
     g_hash = md5(email.lower()).hexdigest()
     link = 'http://www.gravatar.com/avatar/'
     return mark_safe(
