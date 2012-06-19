@@ -19,9 +19,9 @@ from forms import *
 @require_safe
 def home(request):
     post_list = Post.objects.select_related() \
-                            .filter(is_public=1,
-                                    site=Site.objects.get_current()) \
-                            .order_by('-pub_date')
+        .filter(is_public=1,
+                site=Site.objects.get_current()) \
+        .order_by('-pub_date')
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request, "blog/home.html", {"posts": posts})
 
@@ -83,9 +83,9 @@ def comment_list(request, year, month, day, slug):
 @ajax_only
 def comment_single(request, year, month, day, slug, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    return render(request, "blog/comment_single.html", {
-            'comment': comment.comment
-            })
+    return render(request, "blog/comment_single.html",
+                  {'comment': comment.comment
+                   })
 
 
 @ajax_only
@@ -149,10 +149,10 @@ def comment_form(request, year, month, day, slug):
                 return render(request, "blog/comment_ok.html")
     else:
         form = CommentForm(user=request.user, request=request)
-    return render(request, "blog/comment_form.html", {
-            "url": post.get_form_url(),
-            "form": form
-            })
+    return render(request, "blog/comment_form.html",
+                  {"url": post.get_form_url(),
+                   "form": form
+                   })
 
 
 @require_safe
@@ -185,10 +185,10 @@ def post_list_by_categories(request, slug):
                                        site=Site.objects.get_current())
 
     post_list = Post.objects.select_related() \
-                            .filter(category__in=cat_list,
-                                    is_public=1,
-                                    site=Site.objects.get_current()) \
-                            .order_by('-pub_date')
+        .filter(category__in=cat_list,
+                is_public=1,
+                site=Site.objects.get_current()) \
+        .order_by('-pub_date')
 
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(
@@ -204,10 +204,10 @@ def post_list_by_categories(request, slug):
 def post_list_by_tags(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
     post_list = Post.objects.select_related() \
-                            .filter(tags=tag,
-                                    is_public=1,
-                                    site=Site.objects.get_current()) \
-                            .order_by('-pub_date')
+        .filter(tags=tag,
+                is_public=1,
+                site=Site.objects.get_current()) \
+        .order_by('-pub_date')
 
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request,
