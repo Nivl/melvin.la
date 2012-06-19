@@ -96,7 +96,11 @@ $('.edit-comment-link').click(function() {
     var commentEdit = new Ajaxion('', {}, 'GET');
 
     commentEdit.bind = {'selector': '#' + $(area).prop('id')};
-    commentEdit.callbacks['success'] = [{'callback': Ajaxion.cb_insert}];
+    commentEdit.callbacks['success'] = [{'callback': Ajaxion.cb_insert},
+					{'callback': function hide_avatar() {
+					    $("#comment_" + pk + "_avatar")
+						.toggle();
+					}}];
     var url_values = {
         year:'{{ post.pub_date.year }}',
         month:'{{ post.pub_date|date:'m' }}',
@@ -109,7 +113,7 @@ $('.edit-comment-link').click(function() {
 	commentEdit.url = django_js_utils.urls.resolve('post-comment-single-form', url_values);
 
 	commentEdit.callbacks['success'].push({'callback': function() {
-	    var commentEditForm = new Ajaxion('', {}, 'POST');;
+	    var commentEditForm = new Ajaxion('', {}, 'POST');
             commentEditForm.bind = {'selector': '#comment-single-form-' + pk,
                                     'events': 'submit',
                                     'parent': '#comment_' + pk};

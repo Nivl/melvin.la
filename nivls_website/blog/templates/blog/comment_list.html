@@ -1,7 +1,7 @@
-{% load markup humanize common_tags i18n tz %}
+{% load markup humanize common_tags user_tags i18n tz %}
 
 {% for comment in comments %}
-  <section class="comment">
+  <section class="comment clearfix">
     <span class="info">
       {% trans "By " %}
 
@@ -25,6 +25,15 @@
 	<i class="icon-edit"></i>
       </a>
     </span>
+
+
+    <div id="comment_{{ comment.pk }}_avatar" class="pull-left margin-right-1">
+      {% if comment.user %}
+	{{ comment.user|square_thumbnail }}
+      {% else %}
+	{{ comment.email|gravatar_from_email }}
+      {% endif  %}
+    </div>
 
     <div id="comment_{{ comment.pk }}" class="content editable_area">
       {{ comment.comment|sanitize|markdown }}
