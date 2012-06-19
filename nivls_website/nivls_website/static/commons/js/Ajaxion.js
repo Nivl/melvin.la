@@ -47,7 +47,6 @@
 
 	 },
        );
-
 */
 
 function Ajaxion (url, bind, method, to_reload, callbacks) {
@@ -71,7 +70,6 @@ function Ajaxion (url, bind, method, to_reload, callbacks) {
 Ajaxion.prototype.stop = function (that) {
     that = typeof that !== 'undefined' ? that : this;
     $(document).off(that.bind['events'], that.bind['selector']);
-    console.log(that.bind['events'] + " removed from " + that.bind['selector']);
 }
 
 Ajaxion.prototype.start = function () {
@@ -81,10 +79,7 @@ Ajaxion.prototype.start = function () {
 	this.bind['events'] = 'dummy';
     }
 
-    console.log(that.bind['events'] + " attached to " + that.bind['selector']);
-
     $(document).on(this.bind['events'], this.bind['selector'], function (e) {
-	console.log(that.bind['events'] + " triggered by " + that.bind['selector']);
 	var data = {};
 	var contentType = 'application/x-www-form-urlencoded';
 	var selector = that.bind['selector'];
