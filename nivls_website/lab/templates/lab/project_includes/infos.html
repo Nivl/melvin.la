@@ -59,35 +59,13 @@
     {% if clients or clients_user%}
       <div id="clients" class="clearfix">
 	<h2>{% trans "Client(s)" %}</h2>
-	<div class="client-list">
+	<div class="business-card">
 	  {% for client in clients_user %}
-	    <div class="qitem">
-	      <a target="_parent" href="{{ client.get_profile.website }}">
-		{{ client|square_thumbnail:"126" }}
-	      <span class="caption">
-		<h4>{{ client.get_full_name }}</h4>
-		<p>
-		  {{ client.get_profile.occupation }}
-		</p>
-	      </span>
-	    </div>
+	    {% include "lab/project_includes/business_card.html" with item=client is_user=1 %}
 	  {% endfor %}
 
 	  {% for client in clients %}
-	    <div class="qitem">
-	      <a target="_blank" href="{{ client.url }}">
-		<img src="{{ client.image.url }}"
-		     alt="{{ client.name }}"
-		     title="{{ client.name }}"
-		     width="126" height="126"
-		     class="thumbnail"></a>
-	      <span class="caption">
-		<h4>{{ client.name }}</h4>
-		<p>
-		  {{ client.description }}
-		</p>
-	      </span>
-	    </div>
+	    {% include "lab/project_includes/business_card.html" with item=client is_user=0 %}
 	  {% endfor %}
 	</div>
       </div>
@@ -101,37 +79,15 @@
     {% if coworkers or coworkers_user %}
       <div id="coworkers" class="clearfix">
 	<h2>{% trans "Team" %}</h2>
-	<div>
+	<div class="business-card">
 	  {% for coworker in coworkers_user %}
-	    <div>
-	      <a href="{{ coworker.get_profile.website }}">
-		{{ coworker|square_thumbnail:"126" }}
-	      </a>
-	      <div class="caption">
-		<h5>{{ coworker.get_full_name }}</h5>
-		<p>
-		  {{ coworker.get_profile.occupation }}
-		</p>
-	      </div>
-	    </div>
+	    {% include "lab/project_includes/business_card.html" with item=coworker is_user=1 %}
 	  {% endfor %}
 
 	  {% for coworker in coworkers %}
-	    <div>
-	      <a href="{{ coworker.url }}">
-		<img src="{{ coworker.image.url }}"
-		     alt="{{ coworker.name }}"
-		     title="{{ coworker.name }}"
-		     width="126" height="126">
-	      </a>
-	      <div class="caption">
-		<h5>{{ coworker.name }}</h5>
-		<p>
-		  {{ coworker.description }}
-		</p>
-	      </div>
-	    </div>
+	    {% include "lab/project_includes/business_card.html" with item=coworker is_user=0 %}
 	  {% endfor %}
+	</div>
       </div>
     {% endif %}
   {% endwith %}

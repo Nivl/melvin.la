@@ -26,3 +26,8 @@
 #downloads a{color:black;}#downloads a figure{-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;transition:all 0.2s ease-out;border-radius:5px;padding:5px 0;margin-right:10px;width:128px;float:left;}#downloads a figure:hover{background-color:#049cdb;}
 #downloads a figure figcaption{text-align:center;}
 #downloads a figure img{padding-left:15px;}
+.business-card img{border:0;position:absolute;}
+.business-card .item{margin:5px 5px 5px 0;position:relative;float:left;}.business-card .item .thumbnail{width:126px;height:126px;}
+.business-card .item .caption{width:126px;height:126px;background:#000;color:#fff;font-weight:bold;position:absolute;left:5px;top:5px;-webkit-transition:opacity 0.3s linear;-moz-transition:opacity 0.3s linear;-ms-transition:opacity 0.3s linear;-o-transition:opacity 0.3s linear;transition:opacity 0.3s linear;opacity:0;filter:alpha(opacity=0);}.business-card .item .caption:hover{opacity:0.8;filter:alpha(opacity=80);}
+.business-card .item .caption a{text-decoration:none;color:#0cc7dd;padding:5px;display:block;}
+.business-card .item .caption p{padding:5px;margin:0;font-size:10px;}
