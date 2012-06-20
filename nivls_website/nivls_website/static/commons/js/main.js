@@ -7,18 +7,8 @@ $.fn.animateHighlight = function(highlightColor, duration) {
     this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
 };
 
-var konamiCount = 1;
 $(window).konami(function() {
-    if (konamiCount == 1) {
-	$("body").css("overflow", "hidden");
-	dream_force_stop = false;
-	dream();
-	++konamiCount;
-    }
-    else if (konamiCount == 2) {
-	dream_force_stop = true;
-	konamiCount = 1
-    }
+    $('body').append('<script src="http://hi.kickassapp.com/kickass.js"></script>');
 });
 
 $(function() {
