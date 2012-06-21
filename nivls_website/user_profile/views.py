@@ -17,6 +17,50 @@ from forms import *
 
 
 @require_safe
+@login_required
+def user_admin(request):
+    email_form = EditEmailForm(request=request,
+                               initial={'email': request.user.email})
+    psw_form = EditPasswordForm(request=request)
+    return render(request, "users/admin.html",
+                  {'email_form': email_form,
+                   'psw_form': psw_form
+                   })
+
+
+@ajax_only
+@login_required
+def edit_password_form(request):
+    if request.method == 'POST':
+        form = EditPasswordForm(request.POST, request=request)
+        if form.is_valid():
+            request.user.set_password(form.cleaned_data['new_password'])
+            request.user.save()
+            p = request.user.get_profile()
+            p.has_password = True
+            p.save()
+            return render(request, 'users/admin_password_ok.html')
+    else:
+        form = EditPasswordForm(request=request)
+    return render(request, "users/admin_password_form.html", {'form': form})
+
+
+@ajax_only
+@login_required
+def edit_email_form(request):
+    if request.method == 'POST':
+        form = EditEmailForm(request.POST, request=request)
+        if form.is_valid():
+            request.user.email = form.cleaned_data['email']
+            request.user.save()
+            return render(request, 'users/admin_email_ok.html')
+    else:
+        form = EditEmailForm(initial={'email': request.user.email},
+                             request=request)
+    return render(request, "users/admin_email_form.html", {'form': form})
+
+
+@require_safe
 @login_forbidden()
 def sign_up(request):
     form = UserForm()
@@ -38,6 +82,7 @@ def sign_up_form(request):
             profile = UserProfile.objects.get(user=u)
             profile.activation_code = uuid.uuid4()
             profile.lock_username = True
+            profile.has_password = True
             profile.save()
 
             subject = _('Your validation link')
@@ -228,7 +273,6 @@ def edit_settings_form(request):
     if request.method == 'POST':
         form = UserProfileSettingsForm(
             request.POST,
-            request.FILES,
             instance=profile
             )
         if form.is_valid():

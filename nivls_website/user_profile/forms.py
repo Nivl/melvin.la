@@ -77,9 +77,9 @@ class UserEditForm(UserForm):
         super(UserEditForm, self).__init__(data=data, files=files,
                                            *args, **kwargs)
         self.fields.pop('captcha')
-        self.fields['password1'].required = False
-        self.fields['password2'].required = False
-        self.fields['password1'].label = _('New password')
+        self.fields.pop('password1')
+        self.fields.pop('password2')
+        self.fields.pop('email')
 
         if not edit_username:
             self.fields['username'].widget.attrs['readonly'] = True
@@ -90,31 +90,12 @@ class UserEditForm(UserForm):
                 )
         self.edit_username = edit_username
 
-    def clean_email(self):
-        data = self.cleaned_data.get('email')
-
-        if data != self.instance.email \
-                and User.objects.filter(email=data).exists():
-            raise forms.ValidationError(_('This email address is already '\
-                                              'in use.'))
-        return data
-
-    def clean_username(self):
-        if not self.edit_username:
-            return self.instance.username
-
-        data = self.cleaned_data.get('username')
-        if data != self.instance.username \
-                and User.objects.filter(username=data).exists():
-            raise forms.ValidationError(_('Sorry, this username has '\
-                                              'already been taken.'))
-        return data
-
 
 class UserProfileForm(BootstrapModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user', 'activation_code', 'avatar', 'lock_username')
+        exclude = ('user', 'activation_code', 'avatar', 'has_password',
+                   'lock_username')
 
     def clean_picture(self):
         data = self.cleaned_data.get('picture')
@@ -158,11 +139,98 @@ class UserProfileInfoForm(UserProfileForm):
         model = UserProfile
         exclude = ('user', 'activation_code', 'avatar', 'lock_username',
                    'show_twitter', 'show_google_plus', 'show_facebook',
-                   'use_name', 'show_github')
+                   'use_name', 'show_github', 'has_password')
 
 
 class UserProfileSettingsForm(UserProfileForm):
     class Meta:
         model = UserProfile
         exclude = ('user', 'activation_code', 'avatar', 'lock_username',
-                   'picture', 'website', 'hobbies', 'occupation')
+                   'picture', 'website', 'hobbies', 'occupation',
+                   'has_password')
+
+
+class EditEmailForm(UserForm):
+    class Meta:
+        model = User
+        exclude = ('password', 'is_active', 'is_staff',
+                   'is_superuser', 'groups', 'user_permissions',
+                   'last_login', 'date_joined')
+
+
+class EditEmailForm(BootstrapForm, happyforms.Form):
+    password = forms.CharField(
+        widget=forms.PasswordInput(render_value=False),
+        label=_("Password"),
+        required=True,
+        )
+    email = forms.EmailField(
+        label=_("E-mail address"),
+        required=True,
+        )
+
+
+    def __init__(self, data=None, files=None, request=None, *args, **kwargs):
+        if request is None:
+            raise TypeError("Keyword argument 'request' must be supplied")
+        super(EditEmailForm, self).__init__(data=data, files=files,
+                                               *args, **kwargs)
+        self.request = request
+
+
+    def clean_email(self):
+        data = self.cleaned_data.get('email')
+        if data != self.request.user.email \
+                and User.objects.filter(email=data).exists():
+            raise forms.ValidationError(_('This email address is already '\
+                                              'in use.'))
+        return data
+
+    def clean_password(self):
+        data = self.cleaned_data.get('password')
+        if not self.request.user.check_password(data):
+            raise forms.ValidationError(_("Wrong password."))
+        return data
+
+class EditPasswordForm(BootstrapForm, happyforms.Form):
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(),
+        label=_("Old password"),
+        required=True,
+        )
+    new_password = forms.CharField(
+        widget=forms.PasswordInput(),
+        label=_("New password"),
+        required=True,
+        )
+    new_password_again = forms.CharField(
+        widget=forms.PasswordInput(),
+        label=_("New password again"),
+        required=True,
+        )
+
+    def __init__(self, data=None, files=None, request=None, *args, **kwargs):
+        if request is None:
+            raise TypeError("Keyword argument 'request' must be supplied")
+        super(EditPasswordForm, self).__init__(data=data, files=files,
+                                               *args, **kwargs)
+        if not request.user.get_profile().has_password:
+            self.fields.pop('old_password')
+        self.request = request
+
+
+    def clean(self):
+        cleaned_data = super(EditPasswordForm, self).clean()
+        psw1 = cleaned_data.get('new_password')
+        psw2 = cleaned_data.get('new_password_again')
+        if psw1 != psw2:
+            raise forms.ValidationError(_("The passwords did not matched."))
+        return cleaned_data
+
+
+    def clean_old_password(self):
+        data = self.cleaned_data.get('old_password')
+        if self.request.user.get_profile().has_password:
+            if not self.request.user.check_password(data):
+                raise forms.ValidationError(_("Wrong password."))
+        return data

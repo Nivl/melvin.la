@@ -41,6 +41,9 @@ class UserProfile(models.Model):
     lock_username = models.BooleanField(
         default=False
         )
+    has_password = models.BooleanField(
+        default=False
+        )
     use_name = models.BooleanField(
         default=False,
         verbose_name=_('Display my real name ' \

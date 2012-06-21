@@ -1,0 +1,19 @@
+{% extends "users/base.html" %}
+{% load i18n bootstrap %}
+
+{% block "sub_head_js" %}
+  {% include "users/admin_ajax.html" %}
+{% endblock "sub_head_js" %}
+
+{% block "title" %}{% trans "Administration" %}{% endblock "title" %}
+{% block body_classes %}span8 offset2{% endblock %}
+
+{% block "content" %}
+  <h1 class="centered-text">{% trans "Administration" %}</h1>
+
+  <h3>Change my password</h3>
+  {% include "users/admin_password_form.html" with form=psw_form %}
+
+  <h3>Change my email address</h3>
+  {% include "users/admin_email_form.html" with form=email_form %}
+{% endblock %}

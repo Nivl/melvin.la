@@ -112,10 +112,11 @@
 		  <li class="divider">
 		  <li><a href="{{ user.get_absolute_url }}"><i class="icon-user"></i> {% trans "My profile" %}</a>
 		  <li><a href="{% url "edit-account" %}"><i class="icon-edit"></i> {% trans "Edit my account" %}</a>
-		  <li><a href="{% url "edit-settings" %}"><i class="icon-list"></i> {% trans "Edit my settings" %}</a>
 		  {% if user.get_profile.picture %}
 		    <li><a href="{% url "edit-avatar" %}"><i class="icon-camera"></i> {% trans "Edit thumbnail" %}</a>
 		  {% endif %}
+		  <li><a href="{% url "edit-settings" %}"><i class="icon-list"></i> {% trans "Edit my settings" %}</a>
+		  <li {% if not user.get_profile.has_password %}class="important"{% endif %}><a href="{% url "user-admin" %}"><i class="icon-warning-sign"></i> {% trans "Manage my account" %}</a>
 		  <li><a href="{% url "manage-social-account" %}"><i class="icon-tasks"></i> {% trans "Social media accounts" %}</a>
 		  <li class="divider">
 		  <li><a href="{% url "sign-out" %}?next={{ request.get_full_path }}">

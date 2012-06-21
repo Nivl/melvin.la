@@ -12,6 +12,17 @@ urlpatterns = patterns(
         'edit_account',
         name='edit-account'),
 
+    url(r'^admin/$',
+        'user_admin',
+        name='user-admin'),
+
+    url(r'^admin/password/$',
+        'edit_password_form',
+        name='edit-password-form'),
+
+    url(r'^admin/email/$',
+        'edit_email_form',
+        name='edit-email-form'),
 
     url(r'^edit/form/$',
         'edit_account_form',
@@ -20,7 +31,6 @@ urlpatterns = patterns(
     url(r'^edit-settings/$',
         'edit_settings',
         name='edit-settings'),
-
 
     url(r'^edit-settings/form/$',
         'edit_settings_form',
