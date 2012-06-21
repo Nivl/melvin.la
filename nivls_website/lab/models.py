@@ -216,7 +216,8 @@ class Project(models.Model):
     coworkers_user = models.ManyToManyField(
         User,
         null=True,
-        blank=True
+        blank=True,
+        related_name="coworker_user",
         )
     coworkers = models.ManyToManyField(
         Coworker,
@@ -227,7 +228,8 @@ class Project(models.Model):
     clients_user = models.ManyToManyField(
         User,
         null=True,
-        blank=True
+        blank=True,
+        related_name="client_user",
         )
     clients = models.ManyToManyField(
         Client,
