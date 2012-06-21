@@ -12,9 +12,19 @@ urlpatterns = patterns(
         'edit_account',
         name='edit-account'),
 
+
     url(r'^edit/form/$',
         'edit_account_form',
         name='edit-account-form'),
+
+    url(r'^edit-settings/$',
+        'edit_settings',
+        name='edit-settings'),
+
+
+    url(r'^edit-settings/form/$',
+        'edit_settings_form',
+        name='edit-settings-form'),
 
     url(r'^edit-avatar/$',
         'edit_avatar',

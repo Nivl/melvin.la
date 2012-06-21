@@ -151,3 +151,18 @@ class UserProfileForm(BootstrapModelForm):
         except AttributeError:
             pass
         return data
+
+
+class UserProfileInfoForm(UserProfileForm):
+    class Meta:
+        model = UserProfile
+        exclude = ('user', 'activation_code', 'avatar', 'lock_username',
+                   'show_twitter', 'show_google_plus', 'show_facebook',
+                   'use_name', 'show_github')
+
+
+class UserProfileSettingsForm(UserProfileForm):
+    class Meta:
+        model = UserProfile
+        exclude = ('user', 'activation_code', 'avatar', 'lock_username',
+                   'picture', 'website', 'hobbies', 'occupation')

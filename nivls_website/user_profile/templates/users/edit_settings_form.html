@@ -1,0 +1,20 @@
+{% load url from future %}
+{% load i18n bootstrap %}
+
+<form class="form-horizontal"
+      id="edit-settings-form"
+      method="post"
+      action="{% url "edit-settings-form" %}">
+  {% csrf_token %}
+  {{ form|bootstrap }}
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">
+      {% trans "Edit" %}
+    </button>
+
+    <button type="reset" class="btn btn-danger">
+      {% trans "Reset" %}
+    </button>
+  </div>
+</form>

@@ -112,6 +112,7 @@
 		  <li class="divider">
 		  <li><a href="{{ user.get_absolute_url }}"><i class="icon-user"></i> {% trans "My profile" %}</a>
 		  <li><a href="{% url "edit-account" %}"><i class="icon-edit"></i> {% trans "Edit my account" %}</a>
+		  <li><a href="{% url "edit-settings" %}"><i class="icon-list"></i> {% trans "Edit my settings" %}</a>
 		  {% if user.get_profile.picture %}
 		    <li><a href="{% url "edit-avatar" %}"><i class="icon-camera"></i> {% trans "Edit thumbnail" %}</a>
 		  {% endif %}

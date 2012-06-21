@@ -169,7 +169,7 @@ def edit_account(request):
     profile = request.user.get_profile()
     account_form = UserEditForm(edit_username=(not profile.lock_username),
                                 instance=request.user)
-    profile_form = UserProfileForm(instance=profile)
+    profile_form = UserProfileInfoForm(instance=profile)
     return render(request, "users/edit_account.html", {
             'account_form': account_form,
             'profile_form': profile_form
@@ -188,7 +188,7 @@ def edit_account_form(request):
             instance=request.user
             )
 
-        profile_form = UserProfileForm(
+        profile_form = UserProfileInfoForm(
             request.POST,
             request.FILES,
             instance=profile
@@ -198,20 +198,45 @@ def edit_account_form(request):
             p = profile_form.save(commit=False)
             if account_form.cleaned_data['password1']:
                 u.set_password(form.cleaned_data['password1'])
-        u.save()
-        if account_form.cleaned_data['username'] != username:
-            p.lock_username = True
-        p.save()
-        return render(request, 'users/edit_account_ok.html',
-                      {'has_file': len(request.FILES) != 0})
+            u.save()
+            if account_form.cleaned_data['username'] != username:
+                p.lock_username = True
+            p.save()
+            return render(request, 'users/edit_account_ok.html',
+                          {'has_file': len(request.FILES) != 0})
     else:
         account_form = UserEditForm(edit_username=(not profile.lock_username),
                                     instance=request.user)
-        profile_form = UserProfileForm(instance=request.user.get_profile())
+        profile_form = UserProfileInfoForm(instance=profile)
     return render(request, "users/edit_account_form.html", {
             'account_form': account_form,
             'profile_form': profile_form
             })
+
+
+@require_safe
+@login_required
+def edit_settings(request):
+    form = UserProfileSettingsForm(instance=request.user.get_profile())
+    return render(request, "users/edit_settings.html", {'form': form})
+
+
+@ajax_only
+@login_required
+def edit_settings_form(request):
+    profile = request.user.get_profile()
+    if request.method == 'POST':
+        form = UserProfileSettingsForm(
+            request.POST,
+            request.FILES,
+            instance=profile
+            )
+        if form.is_valid():
+            form.save()
+            return render(request, 'users/edit_settings_ok.html')
+    else:
+        form = UserProfileSettingsForm(instance=profile)
+    return render(request, "users/edit_settings_form.html", {'form': form})
 
 
 @require_safe
