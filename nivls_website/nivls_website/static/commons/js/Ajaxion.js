@@ -147,9 +147,9 @@ Ajaxion.prototype._xhr = function (that) {
 	myXhr.upload.addEventListener('progress', function(e) {
 	    if (e.lengthComputable){
 		var percent = Math.round(e.loaded * 100 / e.total);
-	    	$('form-progress-bar').width(percent + '%');
+	    	$('#form-progress-bar').width(percent + '%');
 		if (percent == 100) {
-		    $('form-progress').removeClass('active');
+		    $('#form-progress').removeClass('active');
 		}
 	    }
 	}, false);
