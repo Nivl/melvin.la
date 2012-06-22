@@ -239,11 +239,8 @@ def edit_account_form(request):
             instance=profile
             )
         if account_form.is_valid() and profile_form.is_valid():
-            u = account_form.save(commit=False)
+            u = account_form.save()
             p = profile_form.save(commit=False)
-            if account_form.cleaned_data['password1']:
-                u.set_password(form.cleaned_data['password1'])
-            u.save()
             if account_form.cleaned_data['username'] != username:
                 p.lock_username = True
             p.save()

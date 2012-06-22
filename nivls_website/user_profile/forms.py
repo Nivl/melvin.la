@@ -91,6 +91,18 @@ class UserEditForm(UserForm):
         self.edit_username = edit_username
 
 
+    def clean_username(self):
+        if not self.edit_username:
+            return self.instance.username
+
+        data = self.cleaned_data.get('username')
+        if data != self.instance.username \
+                and User.objects.filter(username=data).exists():
+            raise forms.ValidationError(_('Sorry, this username has '\
+                                              'already been taken.'))
+        return data
+
+
 class UserProfileForm(BootstrapModelForm):
     class Meta:
         model = UserProfile
