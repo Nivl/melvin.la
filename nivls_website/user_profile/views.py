@@ -1,9 +1,10 @@
 import uuid
+from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login
 from django.core.urlresolvers import resolve, Resolver404, reverse
@@ -15,6 +16,21 @@ from commons.forms import BootstrapLoginForm, CroppedImageForm
 from commons.decorators import ajax_only, login_forbidden
 from forms import *
 
+
+@require_safe
+def sign_in_failed(request):
+    if request.user.is_authenticated():
+        messages.error(request, True)
+        return redirect('manage-social-account')
+    else:
+        return login(
+            request,
+            template_name='users/sign_in.html',
+            authentication_form=BootstrapLoginForm,
+            extra_context={'error': _('The sign in has failed. If you '
+                                      'think the problem comes from us, '
+                                      'feel free to contact us.')}
+            )
 
 @require_safe
 @login_required

@@ -52,6 +52,10 @@ urlpatterns = patterns(
         'sign_in',
         name='sign-in'),
 
+    url(r'^sign-in/fail/$',
+        'sign_in_failed',
+        name='sign-in-failed'),
+
     url(r'^sign-up/$',
         'sign_up',
         name='sign-up'),

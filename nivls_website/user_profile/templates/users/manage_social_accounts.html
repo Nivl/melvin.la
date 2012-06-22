@@ -11,9 +11,10 @@
     {% blocktrans %}Here you can link/unlink your social media accounts to this website.<br/>Linking your accounts will help you to sign in here in an easier way: You will only have to click on a linked account on the sign in menu to be logged.{% endblocktrans %}
   </p>
 
-  <p class="alert alert-danger">
+  <div class="alert alert-block">
+    <h4 class="alert-heading">Warning!</h4>
     {% blocktrans %}If you want to completely revoke an access, you have to do it on your provider's website.{% endblocktrans %}
-  </p>
+  </div>
 
   <p>{% trans "List of your linked accounts:" %}</p>
 
@@ -30,6 +31,16 @@
       {% trans "No account linked" %}
     {% endfor %}
   </ul>
+
+
+  {% if messages %}
+    {% for message in messages %}{% endfor %}
+    <div class="alert alert-danger alert-block fade in">
+      <a class="close" data-dismiss="alert" href="#">×</a>
+      <h4 class="alert-heading">Error!</h4>
+      {% trans "The link has failed. If you think the problem comes from us, feel free to contact us." %}
+    </div>
+  {% endif %}
 
   <p class="centered-text">
     {% trans "List of linkable social media (click to link, you can link multiple accounts from the same social media):" %}
