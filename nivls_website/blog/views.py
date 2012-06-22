@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.conf import settings
@@ -155,6 +157,29 @@ def comment_form(request, year, month, day, slug):
                 c.user = request.user
                 c.is_public = True
             c.save()
+
+            subject = _('new comment for "%s"' % post.title)
+            text_content = render_to_string(
+                'blog/comment_mail.txt',
+                {'user': request.user,
+                 'comment': c,
+                 'post': post}
+                )
+            html_content = render_to_string(
+                'blog/comment_mail.html',
+                {'user': request.user,
+                 'comment': c,
+                 'post': post}
+                )
+            msg = EmailMultiAlternatives(
+                subject,
+                text_content,
+                settings.EMAIL_NO_REPLY,
+                [ post.author.email ]
+                )
+            msg.attach_alternative(html_content, 'text/html')
+            msg.send(fail_silently=True)
+
             if request.user.is_authenticated():
                 return HttpResponse()
             else:
