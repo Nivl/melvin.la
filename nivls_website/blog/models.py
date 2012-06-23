@@ -13,15 +13,18 @@ from lab.models import Project
 class Menu(models.Model):
     site = models.ForeignKey(
         I18nSite,
-        default=settings.SITE_ID
-        )
+        default=settings.SITE_ID,
+        verbose_name=_("site"))
+
     name = models.CharField(
-        max_length=50
-        )
+        max_length=50,
+        verbose_name=_("name"))
+
     order = models.PositiveSmallIntegerField(
-        )
+        verbose_name=_("order"))
+
     hide = models.BooleanField(
-        )
+        verbose_name=_("hide"))
 
     def __unicode__(self):
         return self.name
@@ -29,16 +32,19 @@ class Menu(models.Model):
 
 class Link(models.Model):
     name = models.CharField(
-        max_length=50
-        )
+        max_length=50,
+        verbose_name=_("name"))
+
     title = models.CharField(
-        max_length=50
-        )
+        max_length=50,
+        verbose_name=_("title"))
+
     url = models.URLField(
-        )
+        verbose_name=_("URL"))
+
     menu = models.ForeignKey(
-        Menu
-        )
+        Menu,
+        verbose_name=_("menu"))
 
     def __unicode__(self):
         return self.name
@@ -47,13 +53,15 @@ class Link(models.Model):
 class Tag(models.Model):
     site = models.ForeignKey(
         I18nSite,
-        default=settings.SITE_ID
-        )
+        default=settings.SITE_ID,
+        verbose_name=_("site"))
+
     name = models.CharField(
-        max_length=50
-        )
+        max_length=50,
+        verbose_name=_("name"))
+
     slug = models.SlugField(
-        )
+        verbose_name=_("slug"))
 
     def __unicode__(self):
         return self.name
@@ -80,30 +88,37 @@ class Tag(models.Model):
 class Category(models.Model):
     site = models.ForeignKey(
         I18nSite,
-        default=settings.SITE_ID
-        )
+        default=settings.SITE_ID,
+        verbose_name=_("site"))
+
     name = models.CharField(
-        max_length=50
-        )
+        max_length=50,
+        verbose_name=_("name"))
+
     slug = models.SlugField(
-        )
+        verbose_name=_("slug"))
+
     description = models.CharField(
         max_length=80,
         blank=True,
-        null=True
-        )
+        null=True,
+        verbose_name=_("description"))
+
     is_root = models.BooleanField(
-        )
+        verbose_name=_("is root"))
+
     left = models.PositiveIntegerField(
-        )
+        verbose_name=_("left"))
+
     right = models.PositiveIntegerField(
-        )
+        verbose_name=_("right"))
+
     thumbnail = models.ImageField(
         upload_to="categories/",
         help_text="115x115",
         blank=True,
-        null=True
-        )
+        null=True,
+        verbose_name=_("thumbnail"))
 
     def has_child(self):
         return self.right - self.left > 1
@@ -130,73 +145,89 @@ class Category(models.Model):
         unique_together = (
             ('site', 'right'),
             ('site', 'left'),
-            ('site', 'slug')
-            )
+            ('site', 'slug'))
 
 
 class Post(models.Model):
     site = models.ForeignKey(
         I18nSite,
-        default=settings.SITE_ID
-        )
+        default=settings.SITE_ID,
+        verbose_name=_("site"))
+
     is_public = models.BooleanField(
-        )
+        verbose_name=_("is public"))
+
     pub_date = models.DateTimeField(
-        default=datetime.now
-        )
+        default=datetime.now,
+        verbose_name=_("publication date"))
+
     author = models.ForeignKey(
-        User
-        )
+        User,
+        verbose_name=_("author"))
+
     category = models.ForeignKey(
         Category,
-        limit_choices_to={'site': settings.SITE_ID}
-        )
+        limit_choices_to={'site': settings.SITE_ID},
+        verbose_name=_("category"))
+
     lab = models.ForeignKey(
         Project,
         blank=True,
         null=True,
-        limit_choices_to={'site': settings.SITE_ID}
-        )
+        limit_choices_to={'site': settings.SITE_ID},
+        verbose_name=_("Lab"))
+
     title = models.CharField(
-        max_length=50
-        )
+        max_length=50,
+        verbose_name=_("title"))
+
     slug = models.SlugField(
-        )
+        verbose_name=_("slug"))
+
     main_image = models.ImageField(
         upload_to="articles/originals/",
-        help_text="570x270"
-        )
+        help_text="570x270",
+        verbose_name=_("main image"))
+
     short_description = models.CharField(
         max_length=80,
-        help_text="80 chars maximum"
-        )
+        help_text="80 chars maximum",
+        verbose_name=_("short description"))
+
     thumbnail = models.ImageField(
         upload_to="articles/thumbnails/",
-        help_text="260x180")
+        help_text="260x180",
+        verbose_name=_("thumbnail"))
+
     long_description = models.CharField(
         max_length=175,
-        help_text="175 chars maximum"
-        )
+        help_text="175 chars maximum",
+        verbose_name=_("long description"))
+
     content = models.TextField(
-        )
+        verbose_name=_("content"))
+
     tags = models.ManyToManyField(
         Tag,
         blank=True,
         null=True,
-        limit_choices_to={'site': settings.SITE_ID}
-        )
+        limit_choices_to={'site': settings.SITE_ID},
+        verbose_name=_("Tags"))
+
     i18n = models.ManyToManyField(
         "self",
         blank=True,
         null=True,
-        limit_choices_to=~models.Q(site=settings.SITE_ID)
-        )
+        limit_choices_to=~models.Q(site=settings.SITE_ID),
+        verbose_name=_("i18n"))
+
     allow_comment = models.BooleanField(
-        default=True
-        )
+        default=True,
+        verbose_name=_("allow comment"))
+
     edit_date = models.DateTimeField(
-        auto_now=True
-        )
+        auto_now=True,
+        verbose_name=_("edit date"))
 
     def parsed_content(self):
         return image_name_to_link(self.content, self.image_set.all())
@@ -266,14 +297,16 @@ class Post(models.Model):
 
 class Image(models.Model):
     name = models.CharField(
-        max_length=50
-        )
+        max_length=50,
+        verbose_name=_("name"))
+
     image = models.ImageField(
-        upload_to="articles/images/"
-        )
+        upload_to="articles/images/",
+        verbose_name=_("image"))
+
     post = models.ForeignKey(
-        Post
-        )
+        Post,
+        verbose_name=_("post"))
 
     def __unicode__(self):
         return self.name
@@ -292,42 +325,41 @@ class Comment(models.Model):
         User,
         null=True,
         blank=True,
-        verbose_name=_('user')
-        )
+        verbose_name=_('user'))
+
     post = models.ForeignKey(
         Post,
-        verbose_name=_('post')
-        )
+        verbose_name=_('post'))
+
     is_public = models.BooleanField(
         verbose_name=_('is public'),
-        default=False
-        )
+        default=False)
+
     ip_address = models.GenericIPAddressField(
-        verbose_name=_('IP address')
-        )
+        verbose_name=_('IP address'))
+
     pub_date = models.DateTimeField(
         default=datetime.now,
-        verbose_name=_('publication date')
-        )
+        verbose_name=_('publication date'))
+
     name = models.CharField(
         verbose_name=_('name'),
         max_length=255,
         null=True,
-        blank=True
-        )
+        blank=True)
+
     email = models.EmailField(
         verbose_name=_('email address'),
         null=True,
-        blank=True
-        )
+        blank=True)
+
     website = models.URLField(
         verbose_name=_('website'),
         null=True,
-        blank=True
-        )
+        blank=True)
+
     comment = models.TextField(
-        verbose_name=_('comment')
-        )
+        verbose_name=_('comment'))
 
     def __unicode__(self):
         return self.comment

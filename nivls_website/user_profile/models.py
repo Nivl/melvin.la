@@ -7,64 +7,76 @@ from commons.fields import CroppedImageField
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(
+        User,
+        verbose_name=_("user"))
+
     activation_code = models.CharField(
         max_length=255,
         blank=True,
-        null=True
-        )
+        null=True,
+        verbose_name=_("activation code"))
+
     occupation = models.CharField(
         max_length=255,
         blank=True,
-        null=True
-        )
+        null=True,
+        verbose_name=_("occupation"))
+
     hobbies = models.CharField(
         max_length=255,
         blank=True,
-        null=True
-        )
+        null=True,
+        verbose_name=_("hobbies"))
+
     website = models.URLField(
         blank=True,
-        null=True
-        )
+        null=True,
+        verbose_name=_("website"))
+
     picture = models.ImageField(
         upload_to="users/profiles/",
-        blank=True
-        )
+        blank=True,
+        null=True,
+        verbose_name=_("picture"))
+
     avatar = CroppedImageField(
         'picture',
         '125x125',
         set_select=[[0, 0], [125, 125]],
         min_size=[50, 50],
-        blank=True
-        )
+        blank=True,
+        null=True,
+        verbose_name=_("avatar"))
+
     lock_username = models.BooleanField(
-        default=False
-        )
+        default=False,
+        verbose_name=_("lock username"))
+
     has_password = models.BooleanField(
-        default=False
-        )
+        default=False,
+        verbose_name=_("has password"))
+
     use_name = models.BooleanField(
         default=False,
-        verbose_name=_('Display my real name ' \
-                           'instead of my user name')
-        )
+        verbose_name=_('display my real name '
+                       'instead of my user name'))
+
     show_facebook = models.BooleanField(
         default=False,
-        verbose_name=_('Show my facebook account')
-        )
+        verbose_name=_('show my facebook account'))
+
     show_google_plus = models.BooleanField(
         default=False,
-        verbose_name=_('Show my google+ account')
-        )
+        verbose_name=_('show my google+ account'))
+
     show_twitter = models.BooleanField(
         default=False,
-        verbose_name=_('Show my twitter account')
-        )
+        verbose_name=_('show my twitter account'))
+
     show_github = models.BooleanField(
         default=False,
-        verbose_name=_('Show my github account')
-        )
+        verbose_name=_('show my github account'))
 
     def __unicode__(self):
         return self.user.__unicode__()
