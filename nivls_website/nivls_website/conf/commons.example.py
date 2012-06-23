@@ -100,12 +100,14 @@ TEMPLATE_LOADERS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
+    'django.core.context_processors.request',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'django.contrib.messages.context_processors.messages',
     'nivls_website.context_processors.static_root',
-    'social_auth.context_processors.social_auth_by_name_backends',
+    'nivls_website.context_processors.domain_name',
+    'social_auth.context_processors.social_auth_backends',
     )
 
 MIDDLEWARE_CLASSES = (

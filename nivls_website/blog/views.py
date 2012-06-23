@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, get_object_or_404
@@ -163,13 +164,15 @@ def comment_form(request, year, month, day, slug):
                 'blog/comment_mail.txt',
                 {'user': request.user,
                  'comment': c,
-                 'post': post}
+                 'post': post,},
+                RequestContext(request)
                 )
             html_content = render_to_string(
                 'blog/comment_mail.html',
                 {'user': request.user,
                  'comment': c,
-                 'post': post}
+                 'post': post},
+                RequestContext(request)
                 )
             msg = EmailMultiAlternatives(
                 subject,

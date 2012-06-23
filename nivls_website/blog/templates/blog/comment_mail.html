@@ -23,4 +23,4 @@
   « {{ comment.comment }} »
 </p>
 
-<p><a href="{% url "admin:blog_comment_changelist" %}">{% trans "Go to the administration" %}</p>
+<p><a href="http://{{ DOMAIN_NAME }}{% url "admin:blog_comment_changelist" %}">{% trans "Go to the administration" %}</p>
