@@ -1,5 +1,5 @@
 *.pyc
-nivls_website/nivls_website/conf/commons.py
 /media/
 /static/
 .directory
+private.py
