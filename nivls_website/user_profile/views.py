@@ -6,7 +6,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth.views import login
+from django.contrib.auth.views import login, password_reset_confirm
 from django.core.urlresolvers import resolve, Resolver404, reverse
 from django.views.decorators.http import require_safe
 from django.http import HttpResponseRedirect, HttpResponseForbidden
@@ -15,6 +15,28 @@ from social_auth.models import UserSocialAuth
 from commons.forms import BootstrapLoginForm, CroppedImageForm
 from commons.decorators import ajax_only, login_forbidden
 from forms import *
+
+@ajax_only
+def my_password_reset_confirm_form(request, uidb36, token):
+    return password_reset_confirm(
+        request,
+        template_name='users/password_confirm_form.html',
+        uidb36=uidb36,
+        token=token,
+        extra_context={'e_uidb36': uidb36,
+                       'e_token': token})
+
+
+@require_safe
+def my_password_reset_confirm(request, uidb36, token):
+    return password_reset_confirm(
+        request,
+        template_name='users/password_confirm.html',
+        uidb36=uidb36,
+        token=token,
+        extra_context={'e_uidb36': uidb36,
+                       'e_token': token}
+        )
 
 
 @require_safe

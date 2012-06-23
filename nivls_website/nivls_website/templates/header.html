@@ -101,6 +101,7 @@
 		  <input value="{% trans "Sign in" %}"
 			 class="btn btn-primary" type="submit" />
 		</form>
+		<a href="{% url 'reset-password' %}">{% trans "I lost my password" %}</a>
 	      </div>
 	    {% else %}
 	      <li class="dropdown">

@@ -1,8 +1,46 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.contrib.auth.views import password_reset, password_reset_done
+from django.contrib.auth.views import password_reset_complete
 from forms import UserProfile
+
+reset_password_opt = {
+    'email_template_name': 'users/password_reset_email.html',
+    'subject_template_name': 'users/password_reset_subject.txt'
+    }
 
 urlpatterns = patterns(
     'user_profile.views',
+
+    url(r'^reset-password/$',
+        password_reset,
+        dict({'template_name': 'users/password_reset.html'}.items() +
+             reset_password_opt.items()),
+        name='reset-password'),
+
+    url(r'^reset-password/form/$',
+        password_reset,
+        dict({'template_name': 'users/password_reset_form.html'}.items() +
+             reset_password_opt.items()),
+        name='reset-password-form'),
+
+    url(r'^reset-password/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$',
+        'my_password_reset_confirm',
+        name='reset-password-confirm'),
+
+    url(r'^reset-password/confirm/form/'
+        '(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$',
+        'my_password_reset_confirm_form',
+        name='reset-password-confirm-form'),
+
+    url(r'^reset-password/done/$',
+        password_reset_done,
+        {'template_name': 'users/password_reset_done.html'},
+        name='reset-password-done'),
+
+    url(r'^reset-password/confirm/done/$',
+        password_reset_complete,
+        {'template_name': 'users/password_confirm_done.html'},
+        name='password_reset_complete'),
 
     url(r'^view/(?P<name>[\w.@+-]+)/$',
         'view_account',
