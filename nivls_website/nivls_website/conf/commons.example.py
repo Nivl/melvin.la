@@ -111,6 +111,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     )
 
 MIDDLEWARE_CLASSES = (
+    'johnny.middleware.LocalStoreClearMiddleware',
+    'johnny.middleware.QueryCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -164,6 +166,16 @@ GOOGLE_OAUTH2_CLIENT_SECRET  = ''
 GOOGLE_OAUTH2_EXTRA_DATA     = [('id', 'id')]
 GITHUB_APP_ID                = ''
 GITHUB_API_SECRET            = ''
+
+CACHES = {
+    'default': dict(
+        BACKEND = 'johnny.backends.memcached.MemcachedCache',
+        LOCATION = ['127.0.0.1:11211'],
+        JOHNNY_CACHE = True,
+        )
+}
+
+JOHNNY_MIDDLEWARE_KEY_PREFIX='jc_nivls_website'
 
 INSTALLED_APPS = (
     'django.contrib.markup',
