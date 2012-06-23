@@ -3,38 +3,31 @@
 
 <script type="text/javascript">
 function bindPostContactHandler() {
-  ajax = new Ajaxion('{% url "contact-form" %}',
-                     {'selector': '#contact-form',
-                      'events': 'submit'},
-                     'POST',
-                     [
-			{
-                         'url': '{% url "contact-form" %}',
-                         'visible': true,
-                         'callbacks': [
-                                       bindPostContactHandler,
-                                       ],
-                         'selectors' : [
-                                         {
-                                           'current': '#contact-form',
-                                           'target': '*',
-                                           'insert': false
-                                         }
-                                       ],
-                        }
-			],
-                     {
-                         'success': [
-                                     {
-                                      'callback': bindPostContactHandler,
-                                      'force': 1
-                                     },
-                                     {'callback': ajaxion_cb_push_before}
-                                     ],
+var ajax = new Ajaxion('{% url "contact-form" %}',
+                       {'selector': '#contact-form',
+			'events': 'submit'},
+                       'POST',
+                       [
+			   {
+                               'url': '{% url "contact-form" %}',
+                               'visible': true,
+                               'selectors' : [
+                                   {
+                                       'current': '#contact-form',
+                                       'target': '*',
+                                       'insert': false
+                                   }
+                               ],
+                           }
+		       ],
+                       {
+                           'success': [
+                               {'callback': Ajaxion.cb_push_before}
+                           ],
 
-                     }
-                    );
-  ajax.start();
+                       }
+                      );
+    ajax.start();
 }
 
 bindPostContactHandler();
