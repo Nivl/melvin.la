@@ -1,32 +1,25 @@
 {% extends "base.html" %}
+{% load url from future %}
 
-{% block "title" %}404{% endblock %}
+{% block "title" %}404 - Page not found{% endblock %}
 
 {% block "head_css" %}
   <link rel="stylesheet" href="{{ STATIC_URL }}commons/css/error.min.css">
 {% endblock %}
 
 {% block "body" %}
-  <div class="container">
+  <div class="content">
     <div class="row">
       <div class="span8 offset4">
-
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="span10 offset2">
-	<img class="pull-left" src="{{ STATIC_URL }}/commons/img/error/reaper.jpg">
-
-	<div class="content">
-	  <h1>404</h1>
-	  <p>Too late, i already took care of it.</p>
-	  <small>You should go</small> -
-	  <a href="/">
-	    Go back to the main page
-	  </a>
+	<h1>404 <small>Page not found</small></h1>
+	<div class="msg">
+	  <p>
+	    Sorry but this page no longer exists (or has never existed).
+	  </p>
+	  <p>
+	    You can go <a href="#" onClick="javascript: history.go(-1); return false;">back</a>, go to the <a href="{% url "home" %}">home page</a>, or <a href="{% url "contact" %}">contact us</a>.
+	  </p>
 	</div>
-
       </div>
     </div>
   </div>

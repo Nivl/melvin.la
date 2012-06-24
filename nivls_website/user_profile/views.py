@@ -1,4 +1,5 @@
 import uuid
+from django.views.defaults import permission_denied
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.core.mail import EmailMultiAlternatives
@@ -9,7 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import login, password_reset_confirm
 from django.core.urlresolvers import resolve, Resolver404, reverse
 from django.views.decorators.http import require_safe
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from social_auth.models import UserSocialAuth
 from commons.forms import BootstrapLoginForm, CroppedImageForm
@@ -193,7 +194,7 @@ def view_account(request, name):
 def edit_avatar(request):
     profile = request.user.get_profile()
     if not profile.picture:
-        return HttpResponseForbidden()
+        return permission_denied(request)
 
     ratio_list = UserProfile._meta.get_field('avatar').ratio.split('x')
     ratio = float(ratio_list[0]) / float(ratio_list[1])

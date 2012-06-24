@@ -1,5 +1,5 @@
 {% load url from future %}
-{% load seo_tags i18n %}
+{% load seo_tags i18n staticfiles %}
 {% get_seo as _ %}
 
 <!DOCTYPE html>
@@ -12,24 +12,24 @@
     <meta name="description"
 	  content="{% block "meta-description" %}{{ seo.description }}{% endblock %}">
 
-    <link rel="shortcut icon"  href="{{ STATIC_URL }}commons/img/favicon.ico">
+    <link rel="shortcut icon" href="{% static "commons/img/favicon.ico" %}">
 
     <link rel="publisher" href="https://plus.google.com/107029584179497153748">
 
     <link rel="stylesheet"
-	  href="{{ STATIC_URL }}commons/css/bootstrap.min.css">
+	  href="{% static "commons/css/bootstrap.min.css" %}">
 
     <link rel="stylesheet"
-	  href="{{ STATIC_URL }}commons/css/prettify.css">
+	  href="{% static "commons/css/prettify.css" %}">
 
     <link rel="stylesheet"
-	  href="{{ STATIC_URL }}commons/css/main.min.css">
+	  href="{% static "commons/css/main.min.css" %}">
 
     {% block "head_css" %}{% endblock %}
     {% block "head_link" %}{% endblock %}
 
     <link rel="stylesheet"
-	  href="{{ STATIC_URL }}commons/css/bootstrap-responsive.min.css">
+	  href="{% static "commons/css/bootstrap-responsive.min.css" %}">
 
     {% block "head_last_css" %}{% endblock %}
 
@@ -45,21 +45,21 @@
 
     <script src="https://www.google.com/jsapi"></script>
     <script>
-      var STATIC_URL = "{{ STATIC_URL }}";
+      var STATIC_URL = "{% static "" %}";
       google.load("chrome-frame", "1");
       google.load("jquery", "1.7");
     </script>
 
-    <script src="{{ STATIC_URL }}commons/js/bootstrap.min.js"></script>
-    <script src="{{ STATIC_URL }}commons/js/koco.jquery.js"></script>
-    <script src="{{ STATIC_URL }}commons/js/dream.js"></script>
-    <script src="{{ STATIC_URL }}commons/js/jquery.timers.js"></script>
-    <script src="{{ STATIC_URL }}commons/js/prettify/prettify.js"></script>
+    <script src="{% static "commons/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "commons/js/koco.jquery.js" %}"></script>
+    <script src="{% static "commons/js/dream.js" %}"></script>
+    <script src="{% static "commons/js/jquery.timers.js" %}"></script>
+    <script src="{% static "commons/js/prettify/prettify.js" %}"></script>
     <script src="{% url "django.views.i18n.javascript_catalog" %}"></script>
-    <script src="{{ STATIC_URL }}django_js_utils.js"></script>
+    <script src="{% static "django_js_utils.js" %}"></script>
     <script src="{% url "jsurls" %}"></script>
-    <script src="{{ STATIC_URL }}commons/js/Ajaxion.js"></script>
-    <script src="{{ STATIC_URL }}commons/js/main.js"></script>
+    <script src="{% static "commons/js/Ajaxion.js" %}"></script>
+    <script src="{% static "commons/js/main.js" %}"></script>
     {% block "head_js" %}{% endblock %}
     {{ seo.free_block|safe }}
   </body>
