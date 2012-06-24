@@ -381,3 +381,39 @@ ul.social-medias-icons {
 	}
     }
 }
+
+
+#browser-warning {
+    color: #333 !important;
+
+    h3 {
+	font-family: inherit !important;
+    }
+
+    .browser-list {
+	.item {
+	    height: 90px;
+	    width: 90px;
+
+	    &:first-child {
+		margin-left: 150px;
+	    }
+
+	    [class^="browser-icon"],
+	    [class*=" browser-icon"] {
+		background-image: url("../img/supported-browsers.png");
+		background-repeat: no-repeat;
+		height: 90px;
+		width: 90px;
+	    }
+
+	    .browser-icon-chrome {
+		background-position: 0 0;
+	    }
+
+	    .browser-icon-firefox {
+		background-position: -90px 0;
+	    }
+	}
+    }
+}
