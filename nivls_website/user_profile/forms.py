@@ -20,12 +20,12 @@ class UserForm(BootstrapModelForm, happyforms.ModelForm):
 
     password1 = forms.CharField(
         widget=forms.PasswordInput(render_value=False),
-        label=_("Password")
-        )
+        label=_("Password"))
+
     password2 = forms.CharField(
         widget=forms.PasswordInput(render_value=False),
-        label=_("Password (again)")
-        )
+        label=_("Password (again)"))
+
     captcha = CaptchaField()
 
     def __init__(self, data=None, files=None, *args, **kwargs):
@@ -39,25 +39,24 @@ class UserForm(BootstrapModelForm, happyforms.ModelForm):
             max_length=30,
             widget=forms.TextInput(),
             label=_('Username'),
-            error_messages={'invalid':_('This value may contain only '\
-                                             'letters, numbers and '\
-                                             '@/./+/-/_ characters.')}
-            )
+            error_messages={'invalid': _('This value may contain only '
+                                         'letters, numbers and '
+                                         '@/./+/-/_ characters.')}, )
 
     def clean_username(self):
         data = self.cleaned_data.get('username')
 
         if User.objects.filter(username=data).exists():
-            raise forms.ValidationError(_('Sorry, this username has already' \
-                                              ' been taken.'))
+            raise forms.ValidationError(_('Sorry, this username has already'
+                                          ' been taken.'))
         return data
 
     def clean_email(self):
         data = self.cleaned_data.get('email')
 
         if User.objects.filter(email=data).exists():
-            raise forms.ValidationError(_('This email address is already ' \
-                                              'in use.'))
+            raise forms.ValidationError(_('This email address is already '
+                                          'in use.'))
         return data
 
     def clean(self):
@@ -85,11 +84,9 @@ class UserEditForm(UserForm):
             self.fields['username'].widget.attrs['readonly'] = True
         else:
             self.fields['username'].help_text = _(
-                'This is a one shot field, you can only edit your '\
-                    'username once.'
-                )
+                'This is a one shot field, you can only edit your '
+                'username once.')
         self.edit_username = edit_username
-
 
     def clean_username(self):
         if not self.edit_username:
@@ -98,8 +95,8 @@ class UserEditForm(UserForm):
         data = self.cleaned_data.get('username')
         if data != self.instance.username \
                 and User.objects.filter(username=data).exists():
-            raise forms.ValidationError(_('Sorry, this username has '\
-                                              'already been taken.'))
+            raise forms.ValidationError(_('Sorry, this username has '
+                                          'already been taken.'))
         return data
 
 
@@ -118,28 +115,23 @@ class UserProfileForm(BootstrapModelForm):
 
             if data._size > settings.MAX_UPLOAD_SIZE:
                 raise forms.ValidationError(
-                    _('Please keep filesize under %s. Current filesize %s') \
-                        % (filesizeformat(settings.MAX_UPLOAD_SIZE),
-                           filesizeformat(data._size))
-                    )
+                    _('Please keep filesize under %s. Current filesize %s')
+                    % (filesizeformat(settings.MAX_UPLOAD_SIZE),
+                       filesizeformat(data._size)))
             w, h = get_image_dimensions(data)
 
             if (min_size[0] != 0 and w < min_size[0]) \
                     or (min_size[1] != 0 and h < min_size[1]):
                 raise forms.ValidationError(
-                    _('Your image is to small. the minimum size ' \
-                          'is %(x)dx%(y)d' \
-                          % {'x': min_size[0], 'y': min_size[1]})
-                    )
+                    _('Your image is to small. the minimum size is %(x)dx%(y)d'
+                      % {'x': min_size[0], 'y': min_size[1]}))
 
             if (max_size[0] != 0 and w > max_size[0]) \
                     or (max_size[1] != 0 and h > max_size[1]):
                 raise forms.ValidationError(
-                    _('Your image is to large. the maximum size ' \
-                          'is %(x)dx%(y)d' \
-                          % {'x': max_size[0],
-                             'y': max_size[1]})
-                    )
+                    _('Your image is to large. the maximum size is %(x)dx%(y)d'
+                      % {'x': max_size[0],
+                         'y': max_size[1]}))
 
         except AttributeError:
             pass
@@ -173,29 +165,26 @@ class EditEmailForm(UserForm):
 class EditEmailForm(BootstrapForm, happyforms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(render_value=False),
-        label=_("Password"),
         required=True,
-        )
-    email = forms.EmailField(
-        label=_("E-mail address"),
-        required=True,
-        )
+        label=_("Password"))
 
+    email = forms.EmailField(
+        required=True,
+        label=_("E-mail address"))
 
     def __init__(self, data=None, files=None, request=None, *args, **kwargs):
         if request is None:
             raise TypeError("Keyword argument 'request' must be supplied")
         super(EditEmailForm, self).__init__(data=data, files=files,
-                                               *args, **kwargs)
+                                            *args, **kwargs)
         self.request = request
-
 
     def clean_email(self):
         data = self.cleaned_data.get('email')
         if data != self.request.user.email \
                 and User.objects.filter(email=data).exists():
-            raise forms.ValidationError(_('This email address is already '\
-                                              'in use.'))
+            raise forms.ValidationError(_('This email address is already '
+                                          'in use.'))
         return data
 
     def clean_password(self):
@@ -204,22 +193,22 @@ class EditEmailForm(BootstrapForm, happyforms.Form):
             raise forms.ValidationError(_("Wrong password."))
         return data
 
+
 class EditPasswordForm(BootstrapForm, happyforms.Form):
     old_password = forms.CharField(
         widget=forms.PasswordInput(),
-        label=_("Old password"),
         required=True,
-        )
+        label=_("Old password"))
+
     new_password = forms.CharField(
         widget=forms.PasswordInput(),
-        label=_("New password"),
         required=True,
-        )
+        label=_("New password"))
+
     new_password_again = forms.CharField(
         widget=forms.PasswordInput(),
-        label=_("New password again"),
         required=True,
-        )
+        label=_("New password again"))
 
     def __init__(self, data=None, files=None, request=None, *args, **kwargs):
         if request is None:
@@ -230,7 +219,6 @@ class EditPasswordForm(BootstrapForm, happyforms.Form):
             self.fields.pop('old_password')
         self.request = request
 
-
     def clean(self):
         cleaned_data = super(EditPasswordForm, self).clean()
         psw1 = cleaned_data.get('new_password')
@@ -238,7 +226,6 @@ class EditPasswordForm(BootstrapForm, happyforms.Form):
         if psw1 != psw2:
             raise forms.ValidationError(_("The passwords did not matched."))
         return cleaned_data
-
 
     def clean_old_password(self):
         data = self.cleaned_data.get('old_password')

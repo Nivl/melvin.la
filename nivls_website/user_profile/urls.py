@@ -5,8 +5,8 @@ from forms import UserProfile
 
 reset_password_opt = {
     'email_template_name': 'users/password_reset_email.html',
-    'subject_template_name': 'users/password_reset_subject.txt'
-    }
+    'subject_template_name': 'users/password_reset_subject.txt',
+}
 
 urlpatterns = patterns(
     'user_profile.views',
@@ -102,19 +102,19 @@ urlpatterns = patterns(
         'sign_up_form',
         name='sign-up-form'),
 
-    url(r'^activate/(?P<code>[a-f0-9]{8}-' \
-            '[a-f0-9]{4}-4[a-f0-9]{3}-' \
-            '[89ab][a-f0-9]{3}-' \
-            '[a-f0-9]{12})/$',
+    url(r'^activate/(?P<code>[a-f0-9]{8}-'
+        '[a-f0-9]{4}-4[a-f0-9]{3}-'
+        '[89ab][a-f0-9]{3}-'
+        '[a-f0-9]{12})/$',
         'activate_account',
         name='activate-account'),
 
     url(r'^social/', include('social_auth.urls')),
-    )
+)
 
 urlpatterns += patterns(
     '',
     url(r'^sign-out/$', 'django.contrib.auth.views.logout',
-         {'next_page': '/'},
+        {'next_page': '/'},
         name='sign-out'),
-    )
+)

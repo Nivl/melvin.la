@@ -9,20 +9,19 @@ from commons.protection import akismet_is_valid
 class ContactForm(BootstrapForm, happyforms.Form):
     subject = forms.CharField(
         max_length=100,
-        label=_('Subject')
-        )
+        label=_('Subject'))
+
     email = forms.EmailField(
-        label=_('Email address')
-        )
+        label=_('Email address'))
+
     message = forms.CharField(
         widget=forms.Textarea,
-        label=_('Message')
-        )
+        label=_('Message'))
+
     honeypot = forms.CharField(
         required=False,
         label="<!-- honeypot -->",
-        widget=forms.TextInput(attrs={'class': 'hidden'})
-        )
+        widget=forms.TextInput(attrs={'class': 'hidden'}))
 
     def __init__(self, data=None, files=None, request=None, *args, **kwargs):
         if request is None:
@@ -55,8 +54,7 @@ class CommentForm(BootstrapModelForm, happyforms.ModelForm):
     honeypot = forms.CharField(
         required=False,
         label='<!-- honeypot -->',
-        widget=forms.TextInput(attrs={'class': 'hidden'})
-        )
+        widget=forms.TextInput(attrs={'class': 'hidden'}))
 
     def __init__(self, data=None, files=None, user=None, request=None,
                  *args, **kwargs):
@@ -89,5 +87,4 @@ class CommentForm(BootstrapModelForm, happyforms.ModelForm):
 class SingleCommentForm(BootstrapForm, happyforms.Form):
     comment = forms.CharField(
         widget=forms.Textarea(attrs={'style': 'width: 100%;'}),
-        label=_('<!-- Comment -->'),
-        )
+        label=_('<!-- Comment -->'))

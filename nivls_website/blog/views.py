@@ -103,8 +103,8 @@ def comment_single_form(request, year, month, day, slug, pk):
 
     comment = get_object_or_404(Comment, pk=pk)
     if not request.user.is_authenticated() \
-            or not (request.user == comment.user \
-                        or request.user.has_perm('blog.change_comment')):
+            or not (request.user == comment.user
+                    or request.user.has_perm('blog.change_comment')):
         return HttpResponseForbidden()
     if request.method == 'POST':
         form = SingleCommentForm(request.POST, prefix="single")
@@ -164,22 +164,22 @@ def comment_form(request, year, month, day, slug):
                 'blog/comment_mail.txt',
                 {'user': request.user,
                  'comment': c,
-                 'post': post,},
-                RequestContext(request)
-                )
+                 'post': post},
+                RequestContext(request))
+
             html_content = render_to_string(
                 'blog/comment_mail.html',
                 {'user': request.user,
                  'comment': c,
                  'post': post},
-                RequestContext(request)
-                )
+                RequestContext(request))
+
             msg = EmailMultiAlternatives(
                 subject,
                 text_content,
                 settings.EMAIL_NO_REPLY,
-                [ post.author.email ]
-                )
+                [post.author.email])
+
             msg.attach_alternative(html_content, 'text/html')
             msg.send(fail_silently=True)
 

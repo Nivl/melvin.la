@@ -6,14 +6,10 @@ from django.utils.safestring import mark_safe
 class ColorPickerWidget(forms.TextInput):
     class Media:
         css = {
-            'all': (
-                settings.STATIC_URL + 'commons/css/colorpicker.css',
-                )
-            }
+            'all': (settings.STATIC_URL + 'commons/css/colorpicker.css', )}
         js = (
             'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js',
-            settings.STATIC_URL + 'commons/js/colorpicker.js',
-            )
+            settings.STATIC_URL + 'commons/js/colorpicker.js', )
 
     def __init__(self, language=None, attrs=None):
         self.language = language or settings.LANGUAGE_CODE[:2]
@@ -56,14 +52,10 @@ class ColorPickerWidget(forms.TextInput):
 class CroppedImageWidget(forms.TextInput):
     class Media:
         css = {
-            'all': (
-                settings.STATIC_URL + 'commons/css/jquery.Jcrop.min.css',
-                )
-            }
+            'all': (settings.STATIC_URL + 'commons/css/jquery.Jcrop.min.css')}
         js = (
             'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js',
-            settings.STATIC_URL + 'commons/js/jquery.Jcrop.min.js',
-            )
+            settings.STATIC_URL + 'commons/js/jquery.Jcrop.min.js', )
 
     def __init__(self, language=None, attrs=None):
         self.language = language or settings.LANGUAGE_CODE[:2]

@@ -7,9 +7,9 @@ from nivls_website.conf.commons import *
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 TEMPLATE_CONTEXT_PROCESSORS += (
     'social_auth.context_processors.social_auth_backends',
-    )
+)
 
-SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
+SOCIAL_AUTH_COMPLETE_URL_NAME = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
 
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
@@ -32,7 +32,7 @@ AUTHENTICATION_BACKENDS += (
     'social_auth.backends.google.GoogleOAuth2Backend',
     'social_auth.backends.contrib.github.GithubBackend',
     'social_auth.backends.facebook.FacebookBackend',
-    )
+)
 
 
 #
@@ -43,11 +43,11 @@ INTERNAL_IPS = ('127.0.0.1',)
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
-    }
+}
 
 MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    )
+)
 
 
 #
@@ -57,14 +57,13 @@ MIDDLEWARE_CLASSES += (
 MIDDLEWARE_CLASSES = (
     'johnny.middleware.LocalStoreClearMiddleware',
     'johnny.middleware.QueryCacheMiddleware',
-    ) + MIDDLEWARE_CLASSES
+) + MIDDLEWARE_CLASSES
 
 CACHES = {
-    'default': dict(
-        BACKEND = 'johnny.backends.memcached.MemcachedCache',
-        LOCATION = ['127.0.0.1:11211'],
-        JOHNNY_CACHE = True,
-        )
-    }
+    'default': dict(BACKEND='johnny.backends.memcached.MemcachedCache',
+                    LOCATION=['127.0.0.1:11211'],
+                    JOHNNY_CACHE=True,
+                    )
+}
 
-JOHNNY_MIDDLEWARE_KEY_PREFIX='jc_nivls_website'
+JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_nivls_website'

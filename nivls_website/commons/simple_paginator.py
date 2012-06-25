@@ -3,7 +3,7 @@ from django.core.paginator import Paginator, InvalidPage, \
 
 
 def simple_paginator(obj_list, obj_per_page, current_page):
-    if current_page == None:
+    if current_page is None:
         current_page = 1
     paginator = Paginator(obj_list, obj_per_page)
     try:

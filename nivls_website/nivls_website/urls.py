@@ -24,7 +24,7 @@ urlpatterns = patterns(
 
     url(r'^jsurls.js$', 'django_js_utils.views.jsurls', {}, 'jsurls'),
     url(r'', include('about.urls')),
-    )
+)
 
 sitemaps = dict(smap_about.items() + smap_blog.items() + smap_lab.items())
 
@@ -34,12 +34,13 @@ urlpatterns += patterns(
 
     url(r'^robots.txt$', TexplainView.as_view(template_name='robots.txt')),
     url(r'^humans.txt$', TexplainView.as_view(template_name='humans.txt')),
-    )
+)
 
 js_info_dict = {
     'packages': ('lab', 'nivls_website'),
 }
 
-urlpatterns += patterns('',
+urlpatterns += patterns(
+    '',
     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
 )

@@ -10,7 +10,7 @@ register = template.Library()
 def blog_slideshow():
     posts = Post.objects.filter(is_public=1,
                                 site=Site.objects.get_current()) \
-                    .order_by('-pub_date')[:5]
+                        .order_by('-pub_date')[:5]
     return {'object': posts}
 
 
@@ -18,7 +18,7 @@ def blog_slideshow():
 def blog_menus():
     menus = Menu.objects.filter(hide=False,
                                 site=Site.objects.get_current()) \
-                    .order_by('order')
+                        .order_by('order')
     return {'menus': menus}
 
 
@@ -26,7 +26,7 @@ def blog_menus():
 def blog_archives():
     dates = Post.objects.filter(is_public=1,
                                 site=Site.objects.get_current()) \
-                    .dates('pub_date', 'month', order='DESC')
+                        .dates('pub_date', 'month', order='DESC')
     return {'dates': dates}
 
 

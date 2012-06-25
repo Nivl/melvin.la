@@ -20,7 +20,7 @@ LOGIN_ERROR_URL = '/accounts/sign-in/fail/'
 LOGIN_URL = '/accounts/sign-in/'
 ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda o: "/accounts/view/%s/" % o.username,
-    }
+}
 
 SESSION_COOKIE_DOMAIN = '.' + DOMAIN_NAME
 MAX_UPLOAD_SIZE = 5242880
@@ -48,7 +48,7 @@ STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                            "..",
                                            "static"))
 STATIC_URL = 'http://static.' + DOMAIN_NAME + '/'
-ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/" # rm when 1.4
+ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"  # rm when 1.4
 
 ALLOWED_INCLUDE_ROOTS = (STATIC_ROOT + '/commons/css/',
                          STATIC_ROOT + '/about/css/')
@@ -60,14 +60,14 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-    )
+    #'django.template.loaders.eggs.Loader',
+)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -79,7 +79,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'nivls_website.context_processors.static_root',
     'nivls_website.context_processors.domain_name',
-    )
+)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -97,7 +97,7 @@ TEMPLATE_DIRS = (
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    )
+)
 
 INSTALLED_APPS = (
     'django.contrib.markup',
@@ -116,8 +116,8 @@ INSTALLED_APPS = (
     'social_auth',
     'captcha',
     'django_js_utils',
-#    'django_evolution',
-    )
+    #'django_evolution',
+)
 
 LOGGING = {
     'version': 1,

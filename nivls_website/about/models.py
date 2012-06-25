@@ -84,8 +84,7 @@ class WorkType(models.Model):
         verbose_name=_("slug"))
 
     color = ColorField(
-        verbose_name=_("color")
-        )
+        verbose_name=_("color"))
 
     def __unicode__(self):
         return self.name

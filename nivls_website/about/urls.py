@@ -25,7 +25,6 @@ static_urlpatterns = patterns(
 
 
 sitemaps = {
-    'about_static': StaticSitemap(static_urlpatterns),
-    }
+    'about_static': StaticSitemap(static_urlpatterns), }
 
 urlpatterns += static_urlpatterns

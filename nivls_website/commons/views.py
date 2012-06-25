@@ -19,8 +19,7 @@ class TexplainView(TemplateView):
         return super(TexplainView, self).render_to_response(
             context,
             content_type='text/plain',
-            **kwargs
-            )
+            **kwargs)
 
 
 def write_pdf(template_src, context_dict, output):

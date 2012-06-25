@@ -17,6 +17,7 @@ from commons.forms import BootstrapLoginForm, CroppedImageForm
 from commons.decorators import ajax_only, login_forbidden
 from forms import *
 
+
 @ajax_only
 def my_password_reset_confirm_form(request, uidb36, token):
     return password_reset_confirm(
@@ -36,8 +37,7 @@ def my_password_reset_confirm(request, uidb36, token):
         uidb36=uidb36,
         token=token,
         extra_context={'e_uidb36': uidb36,
-                       'e_token': token}
-        )
+                       'e_token': token})
 
 
 @require_safe
@@ -52,8 +52,8 @@ def sign_in_failed(request):
             authentication_form=BootstrapLoginForm,
             extra_context={'error': _('The sign in has failed. If you '
                                       'think the problem comes from us, '
-                                      'feel free to contact us.')}
-            )
+                                      'feel free to contact us.')})
+
 
 @require_safe
 @login_required
@@ -128,19 +128,19 @@ def sign_up_form(request):
             text_content = render_to_string(
                 'users/sign_up_mail.txt',
                 {'user': u,
-                 'code': profile.activation_code}
-                )
+                 'code': profile.activation_code})
+
             html_content = render_to_string(
                 'users/sign_up_mail.html',
                 {'user': u,
-                 'code': profile.activation_code}
-                )
+                 'code': profile.activation_code})
+
             msg = EmailMultiAlternatives(
                 subject,
                 text_content,
                 settings.EMAIL_NO_REPLY,
-                [u.email]
-                )
+                [u.email])
+
             msg.attach_alternative(html_content, 'text/html')
             msg.send(fail_silently=True)
             return render(request, 'users/sign_up_ok.html')
@@ -163,22 +163,21 @@ def activate_account(request, code):
             request,
             template_name='users/sign_in.html',
             authentication_form=BootstrapLoginForm,
-            extra_context={'success': _(
-                        'Your account has been '\
-                            'successfully activated, you can now sign in.'
-                        )}
-            )
+            extra_context={
+                'success': _('Your account has been '
+                             'successfully activated, you can now sign in.'
+                             )})
+
     except UserProfile.DoesNotExist:
         return login(
             request,
             template_name='users/sign_in.html',
             authentication_form=BootstrapLoginForm,
-            extra_context={'error': _(
-                    'This activation link does not exists. '\
-                        'If you are experiencing activation issues, '\
-                        'you can contact us using the contact form.'
-                    )}
-            )
+            extra_context={
+                'error': _('This activation link does not exists. '
+                           'If you are experiencing activation issues, '
+                           'you can contact us using the contact form.'
+                           )})
 
 
 @require_safe
@@ -214,15 +213,15 @@ def edit_avatar(request):
                             image=profile.picture,
                             initial={'coordinates': profile.avatar})
 
-    return render(request, "users/edit_avatar.html", {
-            'picture': profile.picture,
-            'current': profile.avatar,
-            'ratio': ratio,
-            'min_size': min_size,
-            'max_size': max_size,
-            'select': select,
-            'form': form,
-            })
+    return render(request, "users/edit_avatar.html",
+                  {'picture': profile.picture,
+                   'current': profile.avatar,
+                   'ratio': ratio,
+                   'min_size': min_size,
+                   'max_size': max_size,
+                   'select': select,
+                   'form': form,
+                   })
 
 
 @ajax_only
@@ -254,10 +253,10 @@ def edit_account(request):
     account_form = UserEditForm(edit_username=(not profile.lock_username),
                                 instance=request.user)
     profile_form = UserProfileInfoForm(instance=profile)
-    return render(request, "users/edit_account.html", {
-            'account_form': account_form,
-            'profile_form': profile_form
-            })
+    return render(request, "users/edit_account.html",
+                  {'account_form': account_form,
+                   'profile_form': profile_form,
+                   })
 
 
 @ajax_only
@@ -269,14 +268,13 @@ def edit_account_form(request):
         account_form = UserEditForm(
             request.POST,
             edit_username=(not profile.lock_username),
-            instance=request.user
-            )
+            instance=request.user)
 
         profile_form = UserProfileInfoForm(
             request.POST,
             request.FILES,
-            instance=profile
-            )
+            instance=profile)
+
         if account_form.is_valid() and profile_form.is_valid():
             u = account_form.save()
             p = profile_form.save(commit=False)
@@ -289,10 +287,10 @@ def edit_account_form(request):
         account_form = UserEditForm(edit_username=(not profile.lock_username),
                                     instance=request.user)
         profile_form = UserProfileInfoForm(instance=profile)
-    return render(request, "users/edit_account_form.html", {
-            'account_form': account_form,
-            'profile_form': profile_form
-            })
+    return render(request, "users/edit_account_form.html",
+                  {'account_form': account_form,
+                   'profile_form': profile_form,
+                   })
 
 
 @require_safe
@@ -309,8 +307,8 @@ def edit_settings_form(request):
     if request.method == 'POST':
         form = UserProfileSettingsForm(
             request.POST,
-            instance=profile
-            )
+            instance=profile)
+
         if form.is_valid():
             form.save()
             return render(request, 'users/edit_settings_ok.html')

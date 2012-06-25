@@ -70,7 +70,7 @@ static_urlpatterns = patterns(
     url(r'^contact/$',
         'blog.views.contact',
         name='contact'),
-    )
+)
 
 
 feeds_urlpatterns = patterns(
@@ -94,11 +94,10 @@ feeds_urlpatterns = patterns(
     url(r'^category/(?P<slug>[-\w]+)/atom/$',
         CatFeedAtom(),
         name="atom-blog-category-latest"),
-    )
+)
 
 sitemaps = {
     'blog_post': PostSitemap,
-    'blog_static': StaticSitemap(static_urlpatterns),
-    }
+    'blog_static': StaticSitemap(static_urlpatterns), }
 
 urlpatterns += static_urlpatterns + feeds_urlpatterns

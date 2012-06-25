@@ -13,8 +13,7 @@ class CroppedImageForm(forms.Form):
         regex=r'^\d+x\d+ \d+x\d+$',
         max_length=30,
         widget=forms.HiddenInput(),
-        error_messages={'invalid': _('Invalid coordinates.')}
-        )
+        error_messages={'invalid': _('Invalid coordinates.')})
 
     def __init__(self, data=None, files=None,
                  image=None, obj=None, field=None, *args, **kwargs):

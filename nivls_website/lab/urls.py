@@ -3,8 +3,7 @@ from sitemaps import *
 
 sitemaps = {
     'lab_project': ProjectSitemap,
-    'lab_tag': TagSitemap,
-    }
+    'lab_tag': TagSitemap, }
 
 urlpatterns = patterns(
     'lab.views',
@@ -18,5 +17,4 @@ urlpatterns = patterns(
 
     url(r'^project/(?P<slug>[-\w]+)/$',
         'project',
-        name='lab-project'),
-    )
+        name='lab-project'), )
