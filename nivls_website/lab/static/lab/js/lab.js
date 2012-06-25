@@ -1,23 +1,25 @@
-/* Twitter bootstrap subnav */
-var $win = $(window)
-, $nav = $('.subnav')
-, navTop = $('.subnav').length && $('.subnav').offset().top - 40
-, isFixed = 0
+$(function() {
+    /* Twitter bootstrap subnav */
+    var $win = $(window)
+    , $nav = $('.subnav')
+    , navTop = $('.subnav').length && $('.subnav').offset().top - 40
+    , isFixed = 0
 
-processScroll()
+    processScroll()
 
-$win.on('scroll', processScroll)
+    $win.on('scroll', processScroll)
 
-function processScroll() {
-    var i, scrollTop = $win.scrollTop()
-    if (scrollTop >= navTop && !isFixed) {
-        isFixed = 1
-        $nav.addClass('subnav-fixed')
-    } else if (scrollTop <= navTop && isFixed) {
-        isFixed = 0
-        $nav.removeClass('subnav-fixed')
+    function processScroll() {
+	var i, scrollTop = $win.scrollTop()
+	if (scrollTop >= navTop && !isFixed) {
+            isFixed = 1
+            $nav.addClass('subnav-fixed')
+	} else if (scrollTop <= navTop && isFixed) {
+            isFixed = 0
+            $nav.removeClass('subnav-fixed')
+	}
     }
-}
 
-/* PrettyPhoto */
-$("a[rel^='prettyPhoto']").prettyPhoto();
+    /* PrettyPhoto */
+    $("a[rel^='prettyPhoto']").prettyPhoto();
+});
