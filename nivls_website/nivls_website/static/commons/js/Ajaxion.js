@@ -59,12 +59,10 @@ function Ajaxion (url, bind, method, to_reload, callbacks) {
     this.to_reload = to_reload;
     this.callbacks = callbacks;
     this.fileUpload = false;
-    this.useFormOptions = true;
     this.cache = false;
     this.unbind = false;
     this.dataType = 'html';
     this.checkForm = true;
-    this.error_msg = gettext('Your action was unable to be executed at this time. We apologise for the inconvenience.');
 }
 
 Ajaxion.prototype.stop = function (that) {
@@ -92,11 +90,9 @@ Ajaxion.prototype.start = function () {
 		contentType = false;
 	    }
 
-	    if (that.useFormOptions) {
-		$(selector)
-		    .find("button[type='submit']")
-		    .button('loading');
-	    }
+	    $(selector)
+		.find("button[type='submit']")
+		.button('loading');
 	}
 
 	$.ajax({
@@ -138,12 +134,12 @@ Ajaxion.prototype._complete = function (jqXHR, textStatus, that) {
 Ajaxion.prototype._xhr = function (that) {
     var myXhr = $.ajaxSettings.xhr();
 
-    if ('xhr' in that.callbacks) {
+   if ('xhr' in that.callbacks) {
 	for (var i=0; i<that.callbacks['xhr'].length; i++) {
-	    that.callbacks['xhr'][i](myXhr);
+	    that.callbacks['xhr'][i](myXhr, that);
 	}
     }
-    if (that.fileUpload && that.useFormOptions && myXhr.upload) {
+    if (that.fileUpload && myXhr.upload) {
 	myXhr.upload.addEventListener('progress', function(e) {
 	    if (e.lengthComputable){
 		var percent = Math.round(e.loaded * 100 / e.total);
@@ -165,16 +161,14 @@ Ajaxion.prototype._error = function (XMLHttpRequest, textStatus,
     if ('error' in that.callbacks) {
 	for (var i=0; i<that.callbacks['error'].length; i++) {
 	    that.callbacks['error'][i](XMLHttpRequest, textStatus,
-				       errorThrown);
+				       errorThrown, that);
 	}
     }
 
-    if (that.method == 'POST' && that.useFormOptions) {
+    if (that.method == 'POST') {
 	$(selector)
 	    .find("button[type='submit']")
 	    .button('reset')
-
-	$(selector).before('<div class="alert alert-error alert-block fade in"><a class="close" data-dismiss="alert">×</a><h4 class="alert-heading">' + gettext('Error!') + '</h4>' + that.error_msg + '</div>');
     }
 }
 
@@ -241,12 +235,11 @@ Ajaxion.prototype._success_reload_part_async_call = function(i, obj) {
 
 	if ('callbacks' in obj.to_reload[i]) {
 	    for (var j=0; j<obj.to_reload[i]['callbacks'].length; j++) {
-		obj.to_reload[i]['callbacks'][j](data);
+		obj.to_reload[i]['callbacks'][j](data, obj);
 	    }
 	}
     });
 }
-
 
 Ajaxion.cb_replace = function(html, textStatus, that) {
     $(that.bind['selector']).replaceWith(html);
@@ -257,6 +250,13 @@ Ajaxion.cb_insert = function(html, textStatus, that) {
     $(that.bind['selector']).html(html);
 }
 
+
 Ajaxion.cb_push_before = function (html, textStatus, that) {
     $(that.bind['selector']).before(html);
+}
+
+
+Ajaxion.cb_error_push_before = function (XMLHttpRequest, textStatus,
+					 errorThrown, that) {
+    $(that.bind['selector']).before('<div class="alert alert-error alert-block fade in"><a class="close" data-dismiss="alert">×</a><h4 class="alert-heading">' + gettext('Error!') + '</h4>' + gettext('Your action was unable to be executed at this time. We apologise for the inconvenience.') + '</div>');
 }
