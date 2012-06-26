@@ -13,9 +13,6 @@ var commentForm = new Ajaxion('{{ post.get_form_url }}',
 			      {
 				  'url': '{{ post.get_form_url }}',
 				  'visible': true,
-				  'callbacks': [
-				      preview,
-				  ],
 				  'selectors' : [
 				      {
 					  'current': '#comment-form',
@@ -29,8 +26,7 @@ var commentForm = new Ajaxion('{{ post.get_form_url }}',
 				    'url': '{{ post.get_comments_url }}',
 				    'visible': false,
 				    'callbacks': [
-					addNewComment,
-					preview,
+					addNewComment
 				    ],
 				    'selectors' : [
 					{
@@ -57,7 +53,7 @@ var commentForm = new Ajaxion('{{ post.get_form_url }}',
 			      'success': [
 				  {'callback': Ajaxion.cb_push_before},
 				  {
-				      'callback': preview,
+				      'callback': clearPreview,
 				      'force': true
 				  }
 			      ],
@@ -69,6 +65,21 @@ var boundAction = {};
 
 /* Callbacks */
 
+var converter = new Markdown.getSanitizingConverter();
+
+$(document).on('input keydown', '#id_comment', function(event) {
+    $('#form-preview').html(converter.makeHtml($(this).val()));
+}).trigger('input');
+
+$(document).on('keydown', '#id_comment', function() {
+    $(this).stopTime();
+    $(this).oneTime(500, function() { styleCode(); });
+});
+
+function clearPreview() {
+    $('#form-preview').empty();
+};
+
 function addNewComment() {
     $('#comment-list .comment:last-child').animateHighlight();
 }
@@ -76,7 +87,6 @@ function addNewComment() {
 /* call */
 
 commentForm.start();
-preview();
 
 /* functions */
 
