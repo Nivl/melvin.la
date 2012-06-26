@@ -1,16 +1,20 @@
 {% load url from future %}
 {% load i18n bootstrap %}
 
+
 <form class="form-horizontal"
       id="edit-account-form"
       method="post"
       enctype="multipart/form-data"
       action="{% url "edit-account-form" %}">
-  {% csrf_token %}
-  {{ account_form }}
-  {{ profile_form|bootstrap }}
 
-  <div class="form-actions">
+  <div class="modal-body">
+    {% csrf_token %}
+    {{ account_form }}
+    {{ profile_form|bootstrap }}
+  </div>
+
+  <div class="modal-footer">
     <button type="submit" class="btn btn-primary">
       {% trans "Edit" %}
     </button>
@@ -18,10 +22,5 @@
     <button type="reset" class="btn btn-danger">
       {% trans "Reset" %}
     </button>
-  </div>
-
-  <div id="form-progress" class="progress progress-striped active">
-    <div id="form-progress-bar" class="bar" style="width: 0%;">
-    </div>
   </div>
 </form>

@@ -5,10 +5,13 @@
       id="edit-settings-form"
       method="post"
       action="{% url "edit-settings-form" %}">
-  {% csrf_token %}
-  {{ form|bootstrap }}
 
-  <div class="form-actions">
+  <div class="modal-body">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+  </div>
+
+  <div class="modal-footer">
     <button type="submit" class="btn btn-primary">
       {% trans "Edit" %}
     </button>

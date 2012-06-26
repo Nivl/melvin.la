@@ -3,3 +3,5 @@ h1{margin-bottom:20px;}
 h2 a:hover{text-decoration:none;}
 .accordion-group,.accordion-inner{border-color:#d1d1d1;}
 .avatar-preview{width:125px;height:125px;overflow:hidden;}
+a.well{display:block;text-decoration:none;}a.well:hover{background-color:#333;color:white;}
+a.important{background-color:#e24d4d;color:white;}a.important:hover{background-color:#e24d4d;color:white;}

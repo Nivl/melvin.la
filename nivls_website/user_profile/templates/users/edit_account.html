@@ -6,10 +6,84 @@
 {% endblock "sub_head_js" %}
 
 {% block "title" %}{% trans "Edit my account" %}{% endblock "title" %}
-{% block body_classes %}span8 offset2{% endblock %}
+{% block body_classes %}<!--span8 offset2-->{% endblock %}
 
 {% block "content" %}
-  <h1 class="centered-text">{% trans "Edit my account" %}</h1>
 
-  {% include "users/edit_account_form.html" %}
+  <div class="row">
+    <div class="span5">
+      <a href="#modal-edit-profile" data-toggle="modal" class="well">
+	<h3>{% trans "Edit my profile" %}</h3>
+	<div class="content">
+	  Here you can change your name, hobbies, occupation, …
+	</div>
+      </a>
+      <div class="modal hide" id="modal-edit-profile">
+	<div class="modal-header">
+	  <button type="button" class="close" data-dismiss="modal">×</button>
+	  <h3>{% trans "Edit my profile" %}</h3>
+	</div>
+	<div id="edit-account-form">
+	  <img src="{{ STATIC_URL }}commons/img/ajax-loader.gif" alt="loading">
+	</div>
+      </div>
+    </div>
+
+    <div class="span5 offset1">
+      <a href="#modal-edit-settings" data-toggle="modal" class="well">
+	<h3>{% trans "Edit my settings" %}</h3>
+	<div class="content">
+	  If you want to enable/disable some features, it's the place.
+	</div>
+      </a>
+      <div class="modal hide" id="modal-edit-settings">
+	<div class="modal-header">
+	  <button type="button" class="close" data-dismiss="modal">×</button>
+	  <h3>{% trans "Edit my settings" %}</h3>
+	</div>
+	<div id="edit-settings-form">
+	  <img src="{{ STATIC_URL }}commons/img/ajax-loader.gif" alt="loading">
+	</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="span5">
+      <a href="#modal-edit-email" data-toggle="modal" class="well">
+	<h3>{% trans "Edit my email address" %}</h3>
+	<div class="content">
+	  You must have set a password to change you email address.
+	</div>
+      </a>
+      <div class="modal hide" id="modal-edit-email">
+	<div class="modal-header">
+	  <button type="button" class="close" data-dismiss="modal">×</button>
+	  <h3>{% trans "Edit my email address" %}</h3>
+	</div>
+	<div id="edit-email-form">
+	  <img src="{{ STATIC_URL }}commons/img/ajax-loader.gif" alt="loading">
+	</div>
+      </div>
+    </div>
+
+    <div class="span5 offset1">
+      <a href="#modal-edit-password" data-toggle="modal" class="well{% if not user.get_profile.has_password %} important{% endif %}">
+	<h3>{% trans "Edit my password" %}</h3>
+	<div class="content">
+	  Here you can change or set your password.
+	</div>
+      </a>
+      <div class="modal hide" id="modal-edit-password">
+	<div class="modal-header">
+	  <button type="button" class="close" data-dismiss="modal">×</button>
+	  <h3>{% trans "Edit my password" %}</h3>
+	</div>
+	<div id="edit-password-form">
+	  <img src="{{ STATIC_URL }}commons/img/ajax-loader.gif" alt="loading">
+	</div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

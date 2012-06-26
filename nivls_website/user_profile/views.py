@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import login, password_reset_confirm
 from django.core.urlresolvers import resolve, Resolver404, reverse
 from django.views.decorators.http import require_safe
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from social_auth.models import UserSocialAuth
 from commons.forms import BootstrapLoginForm, CroppedImageForm
@@ -54,19 +54,6 @@ def sign_in_failed(request):
                                       'think the problem comes from us, '
                                       'feel free to contact us.')})
 
-
-@require_safe
-@login_required
-def user_admin(request):
-    email_form = EditEmailForm(request=request,
-                               initial={'email': request.user.email})
-    psw_form = EditPasswordForm(request=request)
-    return render(request, "users/admin.html",
-                  {'email_form': email_form,
-                   'psw_form': psw_form
-                   })
-
-
 @ajax_only
 @login_required
 def edit_password_form(request):
@@ -78,10 +65,10 @@ def edit_password_form(request):
             p = request.user.get_profile()
             p.has_password = True
             p.save()
-            return render(request, 'users/admin_password_ok.html')
+            return HttpResponse('OK')
     else:
         form = EditPasswordForm(request=request)
-    return render(request, "users/admin_password_form.html", {'form': form})
+    return render(request, "users/edit_password_form.html", {'form': form})
 
 
 @ajax_only
@@ -92,11 +79,11 @@ def edit_email_form(request):
         if form.is_valid():
             request.user.email = form.cleaned_data['email']
             request.user.save()
-            return render(request, 'users/admin_email_ok.html')
+            return HttpResponse('OK')
     else:
         form = EditEmailForm(initial={'email': request.user.email},
                              request=request)
-    return render(request, "users/admin_email_form.html", {'form': form})
+    return render(request, "users/edit_email_form.html", {'form': form})
 
 
 @require_safe
@@ -252,10 +239,18 @@ def edit_account(request):
     profile = request.user.get_profile()
     account_form = UserEditForm(edit_username=(not profile.lock_username),
                                 instance=request.user)
-    profile_form = UserProfileInfoForm(instance=profile)
+    account_profile_form = UserProfileInfoForm(instance=profile)
+    settings_form = UserProfileSettingsForm(instance=profile)
+    email_form = EditEmailForm(request=request,
+                               initial={'email': request.user.email})
+    psw_form = EditPasswordForm(request=request)
+
     return render(request, "users/edit_account.html",
                   {'account_form': account_form,
-                   'profile_form': profile_form,
+                   'account_profile_form': account_profile_form,
+                   'settings_form': settings_form,
+                   'email_form': email_form,
+                   'psw_form': psw_form,
                    })
 
 
@@ -281,8 +276,7 @@ def edit_account_form(request):
             if account_form.cleaned_data['username'] != username:
                 p.lock_username = True
             p.save()
-            return render(request, 'users/edit_account_ok.html',
-                          {'has_file': len(request.FILES) != 0})
+            return HttpResponse("OK");
     else:
         account_form = UserEditForm(edit_username=(not profile.lock_username),
                                     instance=request.user)
@@ -291,14 +285,6 @@ def edit_account_form(request):
                   {'account_form': account_form,
                    'profile_form': profile_form,
                    })
-
-
-@require_safe
-@login_required
-def edit_settings(request):
-    form = UserProfileSettingsForm(instance=request.user.get_profile())
-    return render(request, "users/edit_settings.html", {'form': form})
-
 
 @ajax_only
 @login_required
@@ -311,7 +297,7 @@ def edit_settings_form(request):
 
         if form.is_valid():
             form.save()
-            return render(request, 'users/edit_settings_ok.html')
+            return HttpResponse("OK");
     else:
         form = UserProfileSettingsForm(instance=profile)
     return render(request, "users/edit_settings_form.html", {'form': form})
