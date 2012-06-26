@@ -25,6 +25,7 @@ var ajax = new Ajaxion('{% url "sign-up-form" %}',
                            'success': [
                                {'callback': Ajaxion.cb_replace}
                            ],
+			   'error': [Ajaxion.cb_error_push_before],
                        }
                       );
 ajax.start();

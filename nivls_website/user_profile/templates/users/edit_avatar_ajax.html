@@ -25,7 +25,7 @@
                             'success': [
                                 {'callback': Ajaxion.cb_push_before}
                             ],
-
+			    'error': [Ajaxion.cb_error_push_before],
 			}
                        );
 ajax.start();

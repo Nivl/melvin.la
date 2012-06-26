@@ -6,60 +6,58 @@
 <script type="text/javascript">
 
 var commentForm = new Ajaxion('{{ post.get_form_url }}',
-			  {'selector': '#comment-form',
-			   'events': 'submit'},
-			  'POST',
-			  [
-			      {
-				  'url': '{{ post.get_form_url }}',
-				  'visible': true,
-				  'selectors' : [
-				      {
-					  'current': '#comment-form',
-					  'target': '*',
-					  'insert': false
-				      }
-				  ],
-			      },
-			      {% if user.is_authenticated %}
-                                {
-				    'url': '{{ post.get_comments_url }}',
-				    'visible': false,
-				    'callbacks': [
-					addNewComment
-				    ],
-				    'selectors' : [
-					{
-					    'current': '#comment-list',
-					    'target': '*',
-					    'insert': true
-					}
-				    ],
-				},
-                              {
-				  'url': '{{ post.get_comment_count_url }}',
-				  'visible': false,
-				  'selectors' : [
-                                      {
-					  'current': '#comments-count',
-					  'target': '*',
-					  'insert': true
-                                      }
-				  ],
-                              },
-			    {% endif %}
-			  ],
-			  {
-			      'success': [
-				  {'callback': Ajaxion.cb_push_before},
+			      {'selector': '#comment-form',
+			       'events': 'submit'},
+			      'POST',
+			      [
 				  {
-				      'callback': clearPreview,
-				      'force': true
-				  }
+				      'url': '{{ post.get_form_url }}',
+				      'visible': true,
+				      'selectors' : [
+					  {
+					      'current': '#comment-form',
+					      'target': '*',
+					      'insert': false
+					  }
+				      ],
+				  },
+				  {% if user.is_authenticated %}
+                                    {
+					'url': '{{ post.get_comments_url }}',
+					'visible': false,
+					'callbacks': [
+					    addNewComment
+					],
+					'selectors' : [
+					    {
+						'current': '#comment-list',
+						'target': '*',
+						'insert': true
+					    }
+					],
+				    },
+				  {
+				      'url': '{{ post.get_comment_count_url }}',
+				      'visible': false,
+				      'selectors' : [
+					  {
+					      'current': '#comments-count',
+					      'target': '*',
+					      'insert': true
+					  }
+				      ],
+				  },
+				{% endif %}
 			      ],
-
-			  }
-			 );
+			      {
+				  'success': [
+				      {'callback': Ajaxion.cb_push_before},
+				      {'callback': clearPreview,
+				       'force': true}
+				  ],
+				  'error': [Ajaxion.cb_error_push_before]
+			      }
+			     );
 
 var boundAction = {};
 
@@ -111,6 +109,7 @@ $('.edit-comment-link').click(function() {
 					    $("#comment_" + pk + "_avatar")
 						.toggle();
 					}}];
+    commentEdit.callbacks['error'] = [Ajaxion.cb_error_push_before];
     var url_values = {
         year:'{{ post.pub_date.year }}',
         month:'{{ post.pub_date|date:'m' }}',
@@ -132,6 +131,7 @@ $('.edit-comment-link').click(function() {
 	    commentEditForm.callbacks['success'] = [{'callback': function() {
 		$(that).trigger('click');
 	    }}];
+	    commentEditForm.callbacks['error'] = [Ajaxion.cb_error_push_before];
 	    commentEditForm.start();
             boundAction[$(area).prop('id')] = commentEditForm;
 	}});
