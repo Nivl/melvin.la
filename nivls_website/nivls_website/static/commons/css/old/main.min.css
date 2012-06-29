@@ -1,0 +1,81 @@
+.clearfix{*zoom:1;}.clearfix:before,.clearfix:after{display:table;content:"";}
+.clearfix:after{clear:both;}
+.hide-text{overflow:hidden;text-indent:100%;white-space:nowrap;}
+.input-block-level{display:block;width:100%;min-height:28px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;}
+.margin-1{margin:10px;}
+.margin-2{margin:20px;}
+.margin-3{margin:30px;}
+.margin-4{margin:40px;}
+.margin-5{margin:50px;}
+.margin-top-1{margin-top:10px;}
+.margin-top-2{margin-top:20px;}
+.margin-top-3{margin-top:30px;}
+.margin-top-4{margin-top:40px;}
+.margin-top-5{margin-top:50px;}
+.margin-bottom-1{margin-bottom:10px;}
+.margin-bottom-2{margin-bottom:20px;}
+.margin-bottom-3{margin-bottom:30px;}
+.margin-bottom-4{margin-bottom:40px;}
+.margin-bottom-5{margin-bottom:50px;}
+.margin-left-1{margin-left:10px;}
+.margin-left-2{margin-left:20px;}
+.margin-left-3{margin-left:30px;}
+.margin-left-4{margin-left:40px;}
+.margin-left-5{margin-left:50px;}
+.margin-right-1{margin-right:10px;}
+.margin-right-2{margin-right:20px;}
+.margin-right-3{margin-right:30px;}
+.margin-right-4{margin-right:40px;}
+.margin-right-5{margin-right:50px;}
+.padding-1{padding:10px;}
+.padding-2{padding:20px;}
+.padding-3{padding:30px;}
+.padding-4{padding:40px;}
+.padding-5{padding:50px;}
+.padding-top-1{padding-top:10px;}
+.padding-top-2{padding-top:20px;}
+.padding-top-3{padding-top:30px;}
+.padding-top-4{padding-top:40px;}
+.padding-top-5{padding-top:50px;}
+.padding-bottom-1{padding-bottom:10px;}
+.padding-bottom-2{padding-bottom:20px;}
+.padding-bottom-3{padding-bottom:30px;}
+.padding-bottom-4{padding-bottom:40px;}
+.padding-bottom-5{padding-bottom:50px;}
+.padding-left-1{padding-left:10px;}
+.padding-left-2{padding-left:20px;}
+.padding-left-3{padding-left:30px;}
+.padding-left-4{padding-left:40px;}
+.padding-left-5{padding-left:50px;}
+.padding-right-1{padding-right:10px;}
+.padding-right-2{padding-right:20px;}
+.padding-right-3{padding-right:30px;}
+.padding-right-4{padding-right:40px;}
+.padding-right-5{padding-right:50px;}
+.space-li-10 li{margin:10px 0;}
+body{padding-top:60px;}
+.sidebar-nav{padding:9px 0;}
+.pull-center{margin:0 auto;}
+.pull-center-ugly{margin:0 40%;}
+.centered-text{text-align:center;}
+.hidden{display:none;}
+span.label+span.label{margin-left:5px;}
+.label a{color:inherit;}.label a:hover{text-decoration:inherit;}
+.n-dot{color:#049cdb;}
+[class^="icon-nivl"],[class*=" icon-nivl"]{background-image:url("../img/icon-nivl.png");}
+.icon-nivl-white{background-image:url("../img/icon-nivl-white.png");}
+.icon-nivl-lab{background-position:0 0;}
+.drawingpix{position:absolute;top:-50px;left:-50px;}
+.login-box{width:240px;padding:10px;text-align:center;}.login-box form{margin-bottom:0;}
+.login-box input{width:95%;}
+.login-box .social-media-box{margin-bottom:5px;}.login-box .social-media-box p.login-sm{margin-top:10px;margin-right:20px;margin-left:10px;}
+ul.social-medias-icons{heigth:34px;}ul.social-medias-icons li.facebook-icon{margin:none;padding:none;background-image:url("../img/social-medias.png");background-repeat:no-repeat;background-position:left top;width:32px;height:32px;margin-top:5px;}ul.social-medias-icons li.facebook-icon a{margin:0;padding:0;width:100%;height:100%;background-image:url("../img/social-medias.png");background-repeat:no-repeat;background-position:left -32px;-webkit-transition:opacity 0.4s linear;-moz-transition:opacity 0.4s linear;-ms-transition:opacity 0.4s linear;-o-transition:opacity 0.4s linear;transition:opacity 0.4s linear;}ul.social-medias-icons li.facebook-icon a:hover{opacity:0;}
+ul.social-medias-icons li.twitter-icon{margin:none;padding:none;background-image:url("../img/social-medias.png");background-repeat:no-repeat;background-position:-32px top;width:32px;height:32px;margin-top:5px;}ul.social-medias-icons li.twitter-icon a{margin:0;padding:0;width:100%;height:100%;background-image:url("../img/social-medias.png");background-repeat:no-repeat;background-position:-32px -32px;-webkit-transition:opacity 0.4s linear;-moz-transition:opacity 0.4s linear;-ms-transition:opacity 0.4s linear;-o-transition:opacity 0.4s linear;transition:opacity 0.4s linear;}ul.social-medias-icons li.twitter-icon a:hover{opacity:0;}
+ul.social-medias-icons li.github-icon{margin:none;padding:none;background-image:url("../img/social-medias.png");background-repeat:no-repeat;background-position:-64px top;width:32px;height:32px;margin-top:5px;}ul.social-medias-icons li.github-icon a{margin:0;padding:0;width:100%;height:100%;background-image:url("../img/social-medias.png");background-repeat:no-repeat;background-position:-64px -32px;-webkit-transition:opacity 0.4s linear;-moz-transition:opacity 0.4s linear;-ms-transition:opacity 0.4s linear;-o-transition:opacity 0.4s linear;transition:opacity 0.4s linear;}ul.social-medias-icons li.github-icon a:hover{opacity:0;}
+ul.social-medias-icons li.google-oauth2-icon{margin:none;padding:none;background-image:url("../img/social-medias.png");background-repeat:no-repeat;background-position:-96px top;width:32px;height:32px;margin-top:5px;}ul.social-medias-icons li.google-oauth2-icon a{margin:0;padding:0;width:100%;height:100%;background-image:url("../img/social-medias.png");background-repeat:no-repeat;background-position:-96px -32px;-webkit-transition:opacity 0.4s linear;-moz-transition:opacity 0.4s linear;-ms-transition:opacity 0.4s linear;-o-transition:opacity 0.4s linear;transition:opacity 0.4s linear;}ul.social-medias-icons li.google-oauth2-icon a:hover{opacity:0;}
+.dropdown li.important a{background-color:#f19696;}
+#browser-warning{color:#333 !important;}#browser-warning h3{font-family:inherit !important;}
+#browser-warning .browser-list .item{height:90px;width:90px;}#browser-warning .browser-list .item:first-child{margin-left:150px;}
+#browser-warning .browser-list .item [class^="browser-icon"],#browser-warning .browser-list .item [class*=" browser-icon"]{background-image:url("../img/supported-browsers.png");background-repeat:no-repeat;height:90px;width:90px;}
+#browser-warning .browser-list .item .browser-icon-chrome{background-position:0 0;}
+#browser-warning .browser-list .item .browser-icon-firefox{background-position:-90px 0;}

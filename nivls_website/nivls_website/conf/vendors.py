@@ -46,7 +46,7 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 MIDDLEWARE_CLASSES += (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+#    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 

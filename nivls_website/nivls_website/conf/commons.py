@@ -110,7 +110,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.admin',
-    'debug_toolbar',
+#    'debug_toolbar',
     'bootstrap',
     'bootstrapform',
     'social_auth',
