@@ -15,7 +15,8 @@ function styleCode() {
 }
 
 $(function() {
-    $('[rel=tooltip]').tooltip()
+    $('[rel=tooltip]').tooltip();
+    $('.animated-thumbnails > li').hoverdir();
 
     $.fn.animateHighlight = function(highlightColor, duration) {
 	var highlightBg = highlightColor || "#FFFF9C";
@@ -24,13 +25,15 @@ $(function() {
 	this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
     };
 
-    $(window).konami(function() {
-	$('body').append('<script src="http://hi.kickassapp.com/kickass.js"></script>');
-    });
-
-    $('.dropdown input, .dropdown label').click(function(e) {
-	e.stopPropagation();
-    });
-
     styleCode();
 });
+
+
+
+    // $(window).konami(function() {
+    // 	$('body').append('<script src="http://hi.kickassapp.com/kickass.js"></script>');
+    // });
+
+    // $('.dropdown input, .dropdown label').click(function(e) {
+    // 	e.stopPropagation();
+    // });

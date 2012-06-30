@@ -1,6 +1,6 @@
 {% extends "about/base.html" %}
 
-{% load markup i18n %}
+{% load markup i18n staticfiles %}
 {% load url from future %}
 
 {% block "title" %}{% trans "Portfolio" %}{% endblock "title" %}
@@ -13,68 +13,28 @@
 {% endblock %}
 
 {% block "content" %}
-  <section class="portfolio row-fluid">
-    <article class="span11 centered-text">
-      <div class="content">
-	{% url 'lab-home' as url_lab %}
-	{% blocktrans %}The projects listed here are mainly professional ones.<br />To see the other projects, go to the <a href="{{ url_lab }}">lab</a>.{% endblocktrans %}
-      </div>
-    </article>
+
+  <section class="clean-section">
+    <div class="section-content">
+      <ul class="animated-thumbnails">
+	{% for project in projects %}
+	  <li><a href="{{ project.url }}">
+	      <img src="{{ project.screenshot.url }}"
+		   alt="{{ project.name }}" />
+	      <div>
+		<h4>{{ project.description }}</h4>
+		<p></p>
+	      </div>
+	    </a>
+	{% endfor %}
+	<li><a href="#">
+	    <img src="{% static "/commons/img/test/thumbnail_4.jpg" %}" />
+	    <div>
+	      <h4>{% trans "See more" %}</h4>
+	      <p>{% trans "You can see the other projects on the lab." %}</p>
+	    </div>
+	  </a>
+      </ul>
+    </div>
   </section>
-
-  <hr />
-
-  {% for project in projects %}
-    <section class="portfolio row-fluid">
-      <article class="span11">
-
-	<figure class="pull-left">
-	  <a href="{{ project.url }}">
-	    <img src="{{ project.screenshot.url }}" alt="{{ project.name }}" />
-	  </a>
-	</figure>
-
-	<h2>{{ project.name }}</h2>
-
-	<div class="content">
-	  <div class="pull-right">
-	    {% with project.works.all as labels %}
-	      {% if labels %}
-		<div class="label-list">
-		  {% for label in labels %}
-		    <div class="label"
-			 style="background-color:#{{ label.color }};">
-		      {{ label.name }}
-		    </div>
-		  {% endfor %}
-		</div>
-	      {% endif %}
-	    {% endwith %}
-	  </div>
-
-	  {{ project.description|linebreaksbr }}
-	</div>
-
-	<footer>
-	  {% if project.lab %}
-	    <a class="button lab-project"
-	       href="{{ project.lab.get_absolute_url }}">
-	      <i class="icon-info-sign icon-white"></i>
-	      {% trans "Know more" %}
-	    </a> -
-	  {% endif %}
-
-	  <a href="{{ project.url }}">
-	    <i class="icon-share icon-white"></i>
-	    {% trans "Visit " %}{{ project.name }}
-	  </a>
-	</footer>
-      </article>
-    </section>
-
-    {%  if not forloop.last %}
-      <hr />
-    {% endif %}
-  {% endfor %}
 {% endblock "content" %}
-

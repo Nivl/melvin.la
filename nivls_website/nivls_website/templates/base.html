@@ -83,8 +83,9 @@
       </div>
     </div>
 
-    {% block "body" %}{% endblock %}
-
+    <div id="body">
+      {% block "body" %}{% endblock %}
+    </div>
 
     <script src="https://www.google.com/jsapi"></script>
     <script>
@@ -94,20 +95,17 @@
     </script>
 
     <script src="{% static "commons/js/bootstrap.min.js" %}"></script>
-    <script src="{% static "commons/js/koco.jquery.js" %}"></script>
-    <script src="{% static "commons/js/dream.js" %}"></script>
-    <script src="{% static "commons/js/jquery.timers.js" %}"></script>
-    <script src="{% static "commons/js/jquery.cookie.js" %}"></script>
+    <script src="{% static "commons/js/jquery/jquery.koco.js" %}"></script>
+    <script src="{% static "commons/js/jquery/jquery.timers.js" %}"></script>
+    <script src="{% static "commons/js/jquery/jquery.cookie.js" %}"></script>
+    <script src="{% static "commons/js/jquery/jquery.hoverdir.js" %}"></script>
     <script src="{% static "commons/js/prettify/prettify.js" %}"></script>
     <script src="{% url "django.views.i18n.javascript_catalog" %}"></script>
     <script src="{% static "django_js_utils.js" %}"></script>
     <script src="{% url "jsurls" %}"></script>
     <script src="{% static "commons/js/Ajaxion.js" %}"></script>
     <script src="{% static "commons/js/main.js" %}"></script>
-
-
     <script src="{% static "commons/js/browsers-warning.js" %}"></script>
-
 
     {% block "head_js" %}{% endblock %}
     {{ seo.free_block|safe }}

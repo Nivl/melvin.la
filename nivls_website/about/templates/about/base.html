@@ -3,40 +3,55 @@
 {% load url from future %}
 {% load markup i18n %}
 
-{% block "head_js" %}
-  <script src="{{ STATIC_URL }}about/js/jquery.lettering.js"></script>
-  <script src="{{ STATIC_URL }}about/js/about.js"></script>
-{% endblock "head_js" %}
-
-{% block "head_css" %}
-  <link href="http://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
-  <link rel="stylesheet" media="screen" href="{{ STATIC_URL }}about/css/about.min.css">
-{% endblock "head_css" %}
-
 {% block "body" %}
-
-  {% with act_menu="home" %}
+  <header>
     {% block "header" %}
-      <header>
-	{% include "about/header.html" %}
-      </header>
+      {% include "header.html" %}
     {% endblock %}
-  {% endwith %}
+  </header>
 
-  <div class="container">
-    <div class="row">
-      <div class="span12">
-	<div id="content-wrapper">
-	  <h2 id="content-title">
-	    {% block "content-title" %}{% endblock "content-title" %}
-	  </h2>
+  <div id="page-content">
+    <div class="container">
+      <div class="row">
+	<div class="span12">
+	  <div id="content-wrapper">
+	    <h2 id="content-title">
+	      {% block "content-title" %}{% endblock "content-title" %}
+	    </h2>
 
-	  <div id="content">
-	    {% block "content" %}{% endblock "content" %}
+	    <div id="content">
+	      {% block "content" %}{% endblock "content" %}
+	    </div>
 	  </div>
 	</div>
       </div>
     </div>
   </div>
+
+  <footer>
+    <p>
+      © 2012. All Right Reserved. Melvin Laplanche<br />
+    </p>
+    <p>
+      <a href="http://www.djangoproject.com/">
+	<img src="http://media.djangoproject.com/img/badges/djangosite80x15.gif"
+	     alt="A Django site." title="A Django site.">
+      </a>
+
+      <a href="http://www.alwaysdata.com/">
+	<img src="{{ STATIC_URL }}blog/img/icons/alwaysdata.png"
+	     alt="Hosted by Alwaysdata." title="Hosted by Alwaysdata.">
+      </a>
+    </p>
+    <p>
+      <a href="http://www.w3.org/html/logo/">
+	<img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-device-multimedia-performance-semantics.png"
+	     width="150" height="37"
+	     alt="HTML5 Powered with CSS3 / Styling, Device Access, Multimedia, Performance &amp; Integration, and Semantics"
+	     title="HTML5 Powered with CSS3 / Styling, Device Access, Multimedia, Performance &amp; Integration, and Semantics">
+      </a>
+
+    </p>
+  </footer>
 
 {% endblock "body" %}
