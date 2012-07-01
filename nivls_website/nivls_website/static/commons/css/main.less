@@ -1,6 +1,43 @@
 @import "../bootstrap/less/mixins";
 @import "../bootstrap/less/variables";
 
+
+/******************************************************************************
+ * MIXINS
+ *****************************************************************************/
+
+.display-icon(@padding, @size, @url: "../img/social-medias.png") {
+    margin: none;
+    padding: none;
+    background-image: url(@url);
+    background-repeat: no-repeat;
+    background-position: @padding top;
+    width: @size;
+    height: @size;
+    margin-top: 5px;
+
+    a {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+
+	background-image: url(@url);
+	background-repeat: no-repeat;
+	background-position: @padding -@size;
+
+	.transition(opacity 0.4s linear);
+
+	&:hover {
+	    opacity: 0;
+	}
+    }
+}
+
+/******************************************************************************
+ * END MIXIN
+ *****************************************************************************/
+
 /******************************************************************************
  * UTILITIES
  *****************************************************************************/
@@ -30,11 +67,36 @@ body {
     padding-top: 60px;
 }
 
+li {
+    p {
+	display: inline;
+    }
+}
 
 hr {
     .center-block();
     width: 90%;
     border-top-color: #ccc;
+}
+
+table {
+    width: 100%;
+
+    tr {
+	th, td {
+	    padding: 5px;
+	    border: 1px solid #cecece;
+
+	    p {
+		margin: 5px;
+	    }
+	}
+
+	th {
+	    margin: 0 15px;
+	    background-color: white;
+	}
+    }
 }
 
 #body > footer {
@@ -59,6 +121,32 @@ hr {
 
 .center-text {
     text-align: center;
+}
+
+
+.clean-accordion {
+    .accordion-group {
+	border: none
+    }
+}
+
+
+.main-accordion {
+    h2 {
+	text-align: center;
+    }
+
+    h3 {
+	background-color: #5e97ff;
+	border: 1px solid #4f6ea7;
+	border-left-color: #aec9fc;
+	border-top-color: #aec9fc;
+	color: whiteSmoke;
+	//padding-left: 10px;
+	text-shadow: 0px 1px 0 #818181;
+	padding: 2px 10px;
+	margin: 15px 0;
+    }
 }
 
 .clean-section {
@@ -109,24 +197,6 @@ hr {
 		background-color: rgba(0, 0, 0, 0.7);
 		width: 100%;
 		height: 100%;
-
-		// p {
-		//     display: block;
-		//     padding: 10px 0;
-		//     margin: 40px 20px 20px 20px;
-		//     text-transform: uppercase;
-		//     font-weight: normal;
-		//     color: rgba(255, 255, 255, 0.9);
-		//     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-		//     border-bottom: 1px solid rgba(255,255,255,0.5);
-		//     box-shadow: 0 1px 0 rgba(0,0,0,0.1), 0 -10px 0 rgba(255,255,255,0.3);
-		//     small {
-		// 	color: @white;
-		// 	display: block;
-		// 	margin-top: 5px;
-		// 	text-transform: none;
-		//     }
-		// }
 
 		h4 {
 		    color: @white;
@@ -184,7 +254,112 @@ hr {
     }
 }
 
+ul.social-medias-icons {
+    heigth: 34px;
+
+    li {
+	@icon-size: 32px;
+
+	&.facebook-icon {
+	    .display-icon(left, @icon-size)
+	}
+
+	&.twitter-icon {
+	    .display-icon(-@icon-size, @icon-size)
+	}
+
+	&.github-icon {
+	    .display-icon(-@icon-size * 2, @icon-size)
+	}
+
+	&.google-oauth2-icon {
+	    .display-icon(-@icon-size * 3, @icon-size)
+	}
+    }
+}
+
+.navbar-lower {
+    top: 20px;
+}
 
 /******************************************************************************
  * END CLASSES
  *****************************************************************************/
+
+#navbar-main-list > li {
+    width: 100px;
+
+    &.active {
+	font-weight: bolder;
+    }
+
+    a {
+	position: relative;
+	text-align: center;
+	z-index: 2;
+    }
+}
+
+#browser-warning {
+    color: #333 !important;
+
+    h3 {
+	font-family: inherit !important;
+    }
+
+    .browser-list {
+	.item {
+	    height: 90px;
+	    width: 90px;
+
+	    &:first-child {
+		margin-left: 150px;
+	    }
+
+	    [class^="browser-icon"],
+	    [class*=" browser-icon"] {
+		background-image: url("../img/supported-browsers.png");
+		background-repeat: no-repeat;
+		height: 90px;
+		width: 90px;
+	    }
+
+	    .browser-icon-chrome {
+		background-position: 0 0;
+	    }
+
+	    .browser-icon-firefox {
+		background-position: -90px 0;
+	    }
+	}
+    }
+}
+
+
+.login-box {
+    width: 240px;
+    padding: 10px;
+    text-align: center;
+
+    form {
+	margin-bottom: 0;
+    }
+
+    input {
+	width: 95%;
+    }
+
+    p {
+	display: block !important;
+    }
+
+    .social-media-box {
+	margin-bottom: 5px;
+
+	p.login-sm {
+	    margin-top: 10px;
+	    margin-right: 20px;
+	    margin-left: 10px;
+	}
+    }
+}

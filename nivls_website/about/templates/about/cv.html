@@ -4,8 +4,6 @@
 {% load markup i18n about_tags %}
 
 {% block "title" %}{% trans "C.V." %}{% endblock "title" %}
-{% block "content-title" %}{% trans "C.V." %}{% endblock "content-title" %}
-
 
 {% block "header" %}
   {% with act_menu="cv" %}
@@ -16,7 +14,7 @@
 
 {% block "content" %}
 
-  <article class="accordion" id="resume">
+  <article class="accordion clean-accordion main-accordion" id="resume">
 
     {% for section in sections %}
       <div class="accordion-group">
@@ -65,4 +63,3 @@
   </article>
 
 {% endblock "content" %}
-
