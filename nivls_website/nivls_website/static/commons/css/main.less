@@ -293,11 +293,13 @@ ul.social-medias-icons {
 }
 
 #navbar_img {
+    @width: 100px;
     position: fixed;
     top: 0px;
+    left: -@width;
     background-image: url('../img/navbar-active.png');
     height: 60px;
-    width: 100px;
+    width: @width;
 }
 
 #navbar-main-list > li {

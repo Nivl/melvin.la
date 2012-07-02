@@ -56,7 +56,8 @@
 
 	<ul id="header-menu-user" class="nav pull-right">
 	  {% if not user.is_authenticated %}
-	    <li><a href="{% url "sign-up" %}">Sign up</a>
+	    <li><a class="hide-navbar-img"
+		   href="{% url "sign-up" %}">Sign up</a>
 	    <li class="divider-vertical">
 	    <li class="dropdown">
 	      <a class="dropdown-toggle" href="#" data-toggle="dropdown">

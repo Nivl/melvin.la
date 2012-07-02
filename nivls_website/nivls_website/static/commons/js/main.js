@@ -18,14 +18,20 @@ $(function() {
     var navbar_current = $('#navbar-main-list > li.active').offset();
     var navbar_img = $('<div>');
     navbar_img.attr('id', 'navbar_img');
-    navbar_img.offset(navbar_current);
+    if (navbar_current != null)
+	navbar_img.offset(navbar_current);
     $('#navbar').prepend(navbar_img);
     $('#navbar-main-list > li.active').removeClass('active');
     $('#navbar-main-list > li').click(function(){
 	var left = $(this).offset()['left'];
-	var that = this;
     	navbar_img.animate({
 	    left: left,
+     	}, 200);
+    });
+
+    $('.hide-navbar-img').click(function(){
+    	navbar_img.animate({
+	    left: '-100px',
      	}, 200);
     });
 
