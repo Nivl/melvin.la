@@ -108,16 +108,16 @@ table {
 
     p {
 	margin-bottom: 10px;
-    }
-}
+     }
+ }
 
-/******************************************************************************
- * END HTML
- *****************************************************************************/
+ /******************************************************************************
+  * END HTML
+  *****************************************************************************/
 
-/******************************************************************************
- * CLASSES
- *****************************************************************************/
+ /******************************************************************************
+  * CLASSES
+  *****************************************************************************/
 
 .center-text {
     text-align: center;
@@ -142,7 +142,6 @@ table {
 	border-left-color: #aec9fc;
 	border-top-color: #aec9fc;
 	color: whiteSmoke;
-	//padding-left: 10px;
 	text-shadow: 0px 1px 0 #818181;
 	padding: 2px 10px;
 	margin: 15px 0;
@@ -152,22 +151,22 @@ table {
 .clean-section {
     .clearfix();
 
-    margin: 40px 0;
-    width: 95%;
+     margin: 40px 0;
+     width: 95%;
 
-    .section-image-right {
-	float: right;
-	margin-left: 50px;
-    }
+     .section-image-right {
+	 float: right;
+	 margin-left: 50px;
+     }
 
-    .section-image-left {
-	float: left;
-	margin-right: 50px;
-    }
+     .section-image-left {
+	 float: left;
+	 margin-right: 50px;
+     }
 
-    .section-content {
-	padding-left: 80px;
-    }
+     .section-content {
+	 padding-left: 80px;
+     }
 }
 
 
@@ -207,7 +206,7 @@ table {
 		    color: rgba(255, 255, 255, 0.9);
 		    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 		    box-shadow: 0 1px 0 rgba(0,0,0,0.1), 0 -10px 0 rgba(255,255,255,0.3);
-		 }
+		}
 
 		p {
 		    font-size: 11px;
@@ -286,17 +285,35 @@ ul.social-medias-icons {
  * END CLASSES
  *****************************************************************************/
 
+#body > header {
+    position: fixed;
+    height: 60px;
+    top: 0;
+    left: 0;
+}
+
+#navbar_img {
+    position: fixed;
+    top: 0px;
+    background-image: url('../img/navbar-active.png');
+    height: 60px;
+    width: 100px;
+}
+
 #navbar-main-list > li {
     width: 100px;
 
     &.active {
 	font-weight: bolder;
+
+	&:hover {
+	    color: white;
+	}
     }
 
     a {
 	position: relative;
 	text-align: center;
-	z-index: 2;
     }
 }
 
