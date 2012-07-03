@@ -1,6 +1,12 @@
 {% extends "blog/base.html" %}
 {% load blog_tags markup humanize common_tags i18n tz %}
 
+{% block "header" %}
+  {% with act_menu="blog" %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock "header" %}
+
 {% block "sub_head_js" %}
 
   <script src="{{ STATIC_URL }}commons/js/Markdown.Converter.js"></script>

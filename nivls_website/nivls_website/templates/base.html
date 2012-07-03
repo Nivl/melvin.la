@@ -36,52 +36,10 @@
     <!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
 	</script>
-	<![endif]-->
+    <![endif]-->
   </head>
 
   <body{% block "body-params" %}{% endblock %}>
-
-    <div class="modal hide fade" id="browser-warning">
-      <div class="modal-header">
-	<a href="#" class="close" data-dismiss="modal">×</a>
-	<h3>{% trans "Browser compatibilities" %}</h3>
-      </div>
-      <div class="modal-body">
-	<p>
-	  {% trans "This website use some experimental features. To get the best experience using it, you will need the newest version of your browser or change to another one." %}
-	</p>
-	<p>
-	  {% trans "List of supported bowsers:" %}
-	  <div class="browser-list clearfix">
-
-	    <div class="pull-left item">
-	      <a href="https://www.google.com/chrome">
-		<div class="browser-icon-chrome"></div>
-		<p class="centered-text">Google chrome</p>
-	      </a>
-	    </div>
-
-	    <div class="pull-left item margin-left-4">
-	      <a href="https://www.mozilla.org/firefox/new/">
-		<div class="browser-icon-firefox"></div>
-		<p class="centered-text">Firefox</p>
-	      </a>
-	    </div>
-	  </div>
-	</p>
-	<p class="margin-top-3">
-	  {% trans "The other browsers has not been tested, some like Opera should work fine, others like Internet Explorer will miss some features." %}
-	</p>
-      </div>
-      <div class="modal-footer">
-	<button type="button" class="btn btn-danger" data-dismiss="modal">
-	  Don't care, I'm a warrior
-	</button>
-	<button type="button" class="btn btn-success" data-dismiss="modal">
-	  My browser is good
-	</button>
-      </div>
-    </div>
 
     <div id="body">
       {% block "body" %}{% endblock %}

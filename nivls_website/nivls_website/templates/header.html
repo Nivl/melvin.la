@@ -1,118 +1,119 @@
 {% load i18n  %}
-{% load url from future  %}
+{% load url from future %}
 {% load user_tags  %}
 
-<div id="navbar" class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <a class="btn btn-navbar" data-toggle="collapse"
-	 data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <a class="brand" href="/">
-	Laplanche-melv<span class="n-dot">.</span>in
-       </a>
-      <div class="nav-collapse">
-        <ul id="navbar-main-list" class="nav">
 
-	  <li{% ifequal act_menu "blog" %} class="active"{% endifequal %}>
-	    <a href="{% url "blog" %}">
-	      <i class="icon-book icon-white"></i>
-	      {% trans "Blog" %}
-	    </a>
+<header>
+  <div id="navbar" class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+	<a class="btn btn-navbar" data-toggle="collapse"
+	   data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+	</a>
+	<a class="brand" href="/">
+	  Laplanche-melv<span class="n-dot">.</span>in
+	</a>
+	<div class="nav-collapse">
+          <ul id="navbar-main-list" class="nav">
 
-	  <li{% ifequal act_menu "contact" %} class="active"{% endifequal %}>
-	    <a href="{% url "contact" %}">
-	      <i class="icon-envelope icon-white"></i>
-	      {% trans "Contact" %}
-	    </a>
-
-	  <li{% ifequal act_menu "lab" %} class="active"{% endifequal %}>
-	    <a href="{% url "lab-home" %}">
-	      <i class="icon-nivl-lab icon-nivl-white"></i>
-	      {% trans "Lab" %}
-	    </a>
-
-	  <li{% ifequal act_menu "home" %} class="active"{% endifequal %}>
-	    <a href="{% url "home" %}">
-	      <i class="icon-user icon-white"></i>
-	      {% trans "About" %}
-	    </a>
-
-	  <li{% ifequal act_menu "portfolio" %} class="active"{% endifequal %}>
-	    <a href="{% url "portfolio" %}">
-	      <i class="icon-picture icon-white"></i>
-	      {% trans "Portfolio" %}
-	    </a>
-
-	  <li{% ifequal act_menu "cv" %} class="active"{% endifequal %}>
-	    <a href="{% url "cv" %}">
-	      <i class="icon-th-list icon-white"></i>
-	      {% trans "C.V." %}
-	    </a>
-        </ul>
-
-	<ul id="header-menu-user" class="nav pull-right">
-	  {% if not user.is_authenticated %}
-	    <li><a class="hide-navbar-img"
-		   href="{% url "sign-up" %}">Sign up</a>
-	    <li class="divider-vertical">
-	    <li class="dropdown">
-	      <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-		Sign in <i class="caret"></i>
+	    <li{% ifequal act_menu "blog" %} class="active"{% endifequal %}>
+	      <a href="{% url "blog" %}">
+		<i class="icon-book icon-white"></i>
+		{% trans "Blog" %}
 	      </a>
-	      <div class="dropdown-menu login-box">
 
-		<div class="social-media-box clearfix">
-		  <p class="login-sm pull-left">{% trans "Sign in with:" %}</p>
+	      <li{% ifequal act_menu "contact" %} class="active"{% endifequal %}>
+		<a href="{% url "contact" %}">
+		  <i class="icon-envelope icon-white"></i>
+		  {% trans "Contact" %}
+		</a>
 
-		  <ul class="nav nav-pills social-medias-icons">
-		    {{ social_auth.backends|social_sign_in_links:request }}
-		  </ul>
-		</div>
-		<p>{% trans "Or sign in using your account:" %}</p>
-		<form action="{% url "sign-in" %}" method="post">
-		  {% csrf_token %}
-		  <input placeholder="{% trans "Username" %}"
-			 id="id_username" name="username" type="text" />
-		  <input placeholder="{% trans "Password" %}"
-			 type="password" id="id_password"  name="password" />
-		  <input type="hidden" name="next"
-			 value="{{ request.get_full_path }}" />
-		  <input value="{% trans "Sign in" %}"
-			 class="btn btn-primary" type="submit" />
-		</form>
-		<a href="{% url 'reset-password' %}">{% trans "I lost my password" %}</a>
-	      </div>
-	    {% else %}
+		<li{% ifequal act_menu "lab" %} class="active"{% endifequal %}>
+		  <a href="{% url "lab-home" %}">
+		    <i class="icon-nivl-lab icon-nivl-white"></i>
+		    {% trans "Lab" %}
+		  </a>
+
+		  <li{% ifequal act_menu "home" %} class="active"{% endifequal %}>
+		    <a href="{% url "home" %}">
+		      <i class="icon-user icon-white"></i>
+		      {% trans "About" %}
+		    </a>
+
+		    <li{% ifequal act_menu "portfolio" %} class="active"{% endifequal %}>
+		      <a href="{% url "portfolio" %}">
+			<i class="icon-picture icon-white"></i>
+			{% trans "Portfolio" %}
+		      </a>
+
+		      <li{% ifequal act_menu "cv" %} class="active"{% endifequal %}>
+			<a href="{% url "cv" %}">
+			  <i class="icon-th-list icon-white"></i>
+			  {% trans "C.V." %}
+			</a>
+          </ul>
+
+	  <ul id="header-menu-user" class="nav pull-right">
+	    {% if not user.is_authenticated %}
+	      <li><a class="hide-navbar-img"
+		     href="{% url "sign-up" %}">Sign up</a>
+	      <li class="divider-vertical">
 	      <li class="dropdown">
 		<a class="dropdown-toggle" href="#" data-toggle="dropdown">
-		  <i class="icon-wrench icon-white"></i>
+		  Sign in <i class="caret"></i>
 		</a>
-		<ul class="dropdown-menu">
-		  <li class="nav-header centered-text">{{ user.username }}
-		  <li class="divider">
-		  <li><a href="{{ user.get_absolute_url }}"><i class="icon-user"></i> {% trans "My profile" %}</a>
-		  <li{% if not user.get_profile.has_password %} class="important"{% endif %}><a href="{% url "edit-account" %}"><i class="icon-edit"></i> {% trans "Edit my account" %}</a>
-		  {% if user.get_profile.picture %}
-		    <li><a href="{% url "edit-avatar" %}"><i class="icon-camera"></i> {% trans "Edit thumbnail" %}</a>
-		  {% endif %}
-		  <li><a href="{% url "manage-social-account" %}"><i class="icon-tasks"></i> {% trans "Social media accounts" %}</a>
-		  <li class="divider">
-		  <li><a href="{% url "sign-out" %}?next={{ request.get_full_path }}">
-		      <i class="icon-off"></i> Sign out
-		    </a>
-		</ul>
-	      {% endif %}
-	</ul>
+		<div class="dropdown-menu login-box">
 
-	{% block "menu-new-links" %} {% endblock %}
+		  <div class="social-media-box clearfix">
+		    <p class="login-sm pull-left">{% trans "Sign in with:" %}</p>
 
-      </div><!--/.nav-collapse -->
+		    <ul class="nav nav-pills social-medias-icons">
+		      {{ social_auth.backends|social_sign_in_links:request }}
+		    </ul>
+		  </div>
+		  <p>{% trans "Or sign in using your account:" %}</p>
+		  <form action="{% url "sign-in" %}" method="post">
+		    {% csrf_token %}
+		    <input placeholder="{% trans "Username" %}"
+			   id="id_username" name="username" type="text" />
+		    <input placeholder="{% trans "Password" %}"
+			   type="password" id="id_password"  name="password" />
+		    <input type="hidden" name="next"
+			   value="{{ request.get_full_path }}" />
+		    <input value="{% trans "Sign in" %}"
+			   class="btn btn-primary" type="submit" />
+		  </form>
+		  <a href="{% url 'reset-password' %}">{% trans "I lost my password" %}</a>
+		</div>
+	      {% else %}
+		<li class="dropdown">
+		  <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+		    <i class="icon-wrench icon-white"></i>
+		  </a>
+		  <ul class="dropdown-menu">
+		    <li class="nav-header centered-text">{{ user.username }}
+		    <li class="divider">
+		    <li><a href="{{ user.get_absolute_url }}"><i class="icon-user"></i> {% trans "My profile" %}</a>
+		      <li{% if not user.get_profile.has_password %} class="important"{% endif %}><a href="{% url "edit-account" %}"><i class="icon-edit"></i> {% trans "Edit my account" %}</a>
+			{% if user.get_profile.picture %}
+			  <li><a href="{% url "edit-avatar" %}"><i class="icon-camera"></i> {% trans "Edit thumbnail" %}</a>
+			{% endif %}
+			<li><a href="{% url "manage-social-account" %}"><i class="icon-tasks"></i> {% trans "Social media accounts" %}</a>
+			<li class="divider">
+			<li><a href="{% url "sign-out" %}?next={{ request.get_full_path }}">
+			    <i class="icon-off"></i> Sign out
+			  </a>
+		  </ul>
+		{% endif %}
+	  </ul>
+
+	  {% block "menu-new-links" %} {% endblock %}
+
+	</div><!--/.nav-collapse -->
+      </div>
     </div>
   </div>
-</div>
-
-{% block "next" %}{% endblock %}
+</header>

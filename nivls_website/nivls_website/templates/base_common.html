@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block "body" %}
+  {% include "browser_warning.html" %}
+
+  {% block "header" %}
+    {% include "header.html" %}
+  {% endblock "header" %}
+
+  <div id="body-content">
+    {% block "body-content" %}{% endblock "body-content" %}
+  </div>
+
+  {% include "footer.html" %}
+{% endblock "body" %}

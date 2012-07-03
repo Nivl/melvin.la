@@ -1,9 +1,14 @@
 {% extends "blog/base.html" %}
 {% load blog_tags %}
 
+{% block "header" %}
+  {% with act_menu="blog" %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock "header" %}
+
 {% block "content" %}
   {% blog_slideshow %}
   {% include "blog/listing.html" with posts=posts.object_list %}
   {% include "blog/pagination.html" with paginator=posts %}
 {% endblock %}
-

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_common.html" %}
 {% load url from future  %}
 
 {% block "head_js" %}
@@ -11,9 +11,7 @@
 	href="{{ STATIC_URL }}users/css/users.min.css">
 {% endblock "head_css" %}
 
-{% block "body" %}
-
-  {% include "header.html" %}
+{% block "body-content" %}
 
   <div class="container">
     <div class="row">
@@ -22,4 +20,4 @@
       </div>
     </div>
   </div>
-{% endblock "body" %}
+{% endblock "body-content" %}
