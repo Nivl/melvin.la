@@ -10,6 +10,7 @@
   {% endwith %}
 {% endblock %}
 
+
 {% block "content" %}
   <section class="clean-section">
     <div class="section-image-left">
@@ -73,7 +74,7 @@
   <section class="clean-section">
     <h2>{% trans "Be social" %}</h2>
 
-    <div class="section-content">
+    <div class="section-content clean-links">
       {% for link in contact_links %}
 	<a href="{{ link.link }}">
 	  <img src="{{ link.image.url }}" alt="{{ link.name }}">
