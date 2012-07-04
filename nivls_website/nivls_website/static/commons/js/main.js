@@ -20,6 +20,7 @@ $(function() {
     navbar_img.attr('id', 'navbar_img');
     if (navbar_current != null)
 	navbar_img.offset(navbar_current);
+    navbar_img.css('top', '0px');
     $('#navbar').prepend(navbar_img);
     $('#navbar-main-list > li.active').removeClass('active');
     $('#navbar-main-list > li').click(function(){
