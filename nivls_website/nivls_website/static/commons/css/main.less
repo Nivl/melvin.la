@@ -63,6 +63,10 @@
 /******************************************************************************
  * HTML
  *****************************************************************************/
+body, html {
+    height: 100%
+}
+
 body {
     padding-top: 60px;
 }
@@ -278,15 +282,28 @@ ul.social-medias-icons {
  * END CLASSES
  *****************************************************************************/
 
+@footer-size: 122px; // padding not counted
+
+#body {
+    min-height: 100%;
+    position: relative;
+}
+
 #body-content {
     padding-top: 25px;
+    padding-bottom: @footer-size + 20px;
 }
 
 #body > footer {
+    position: absolute;
+    bottom: 0;
+    height: @footer-size;
+    width: 100%;
+    padding-top: 20px;
+
     background-color: @grayDarker;
     color: @white;
     font-size: 0.85em;
-    padding: 20px;
     text-align: center;
 
     p {
