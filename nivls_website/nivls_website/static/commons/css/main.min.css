@@ -37,7 +37,7 @@ ul.social-medias-icons li.google-oauth2-icon{margin:none;padding:none;background
 .clean-links a{text-decoration:none;}.clean-links a:hover{text-decoration:none;}
 #body{min-height:100%;position:relative;}
 #body-content{padding-top:25px;padding-bottom:142px;}
-#body>footer{position:absolute;bottom:0;height:122px;width:100%;padding-top:20px;background-color:#222222;color:#ffffff;font-size:0.85em;text-align:center;}#body>footer p{margin-bottom:10px;}
+#body>footer{position:absolute;bottom:0;height:122px;width:100%;padding-top:20px;background-color:#2f373c;color:#ffffff;font-size:0.85em;text-align:center;}#body>footer p{margin-bottom:10px;}
 #navbar_img{position:fixed;top:0px;left:-100px;background-image:url('../img/navbar-active.png');height:60px;width:100px;}
 #navbar-main-list>li{width:100px;}#navbar-main-list>li.active{font-weight:bolder;}#navbar-main-list>li.active:hover{color:white;}
 #navbar-main-list>li a{position:relative;text-align:center;}
