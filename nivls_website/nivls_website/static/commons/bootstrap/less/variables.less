@@ -23,9 +23,12 @@
 // -------------------------
 
 @yellowGoogle:		#fcc02b;
-@blueGoogle:		#3174ee;
-@blueDarkGoogle:	#2c69d5;
 @blueTextGoogle:	#9bbdf8;
+
+@blueGreyText:		#98b5c7;
+@blueGrey:		#586a75;
+@blueGreyDarker:	#465158;
+
 
 @blue:                  #049cdb;
 @blueDark:              #0064cd;
@@ -45,7 +48,7 @@
 
 // Links
 // -------------------------
-@linkColor:             #08c;
+@linkColor:             darken(@blueGreyText, 30%); //#08c;
 @linkColorHover:        darken(@linkColor, 15%);
 
 
@@ -79,7 +82,7 @@
 @btnBackgroundHighlight:            darken(@white, 10%);
 @btnBorder:                         #ccc;
 
-@btnPrimaryBackground:              @linkColor;
+@btnPrimaryBackground:              #08c;
 @btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 15%);
 
 @btnInfoBackground:                 #5bc0de;
@@ -112,7 +115,7 @@
 @dropdownBorder:                rgba(0,0,0,.2);
 @dropdownLinkColor:             @grayDark;
 @dropdownLinkColorHover:        @white;
-@dropdownLinkBackgroundHover:   @blueGoogle;
+@dropdownLinkBackgroundHover:   @blueGrey;
 @dropdownDividerTop:            #e5e5e5;
 @dropdownDividerBottom:         @white;
 
@@ -152,12 +155,12 @@
 // Navbar
 // -------------------------
 @navbarHeight:                    40px;
-@navbarBackground:                @blueDarkGoogle;
-@navbarBackgroundHighlight:       @blueGoogle;
+@navbarBackground:                @blueGreyDarker;
+@navbarBackgroundHighlight:       @blueGrey;
 
 @navbarText:                      @grayDark;
 @navbarLinkColor:                 @white;
-@navbarLinkColorHover:            @blueTextGoogle;
+@navbarLinkColorHover:            @blueGreyText;
 @navbarLinkColorActive:           @navbarLinkColor;
 @navbarLinkBackgroundHover:       transparent;
 @navbarLinkBackgroundActive:      @yellowGoogle;
