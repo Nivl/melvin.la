@@ -39,7 +39,7 @@ ul.social-medias-icons li.google-oauth2-icon{margin:none;padding:none;background
 #body-content{padding-top:25px;padding-bottom:142px;}
 #body>footer{position:absolute;bottom:0;height:122px;width:100%;padding-top:20px;background-color:#2f373c;color:#ffffff;font-size:0.85em;text-align:center;}#body>footer p{margin-bottom:10px;}
 #navbar_img{position:fixed;top:0px;left:-100px;background-image:url('../img/navbar-active.png');height:60px;width:100px;}
-#navbar-main-list>li{width:100px;}#navbar-main-list>li.active{font-weight:bolder;}#navbar-main-list>li.active:hover{color:white;}
+#navbar-main-list>li{width:90px;}#navbar-main-list>li.active:hover{color:white;}
 #navbar-main-list>li a{position:relative;text-align:center;}
 #browser-warning{color:#333 !important;}#browser-warning h3{font-family:inherit !important;}
 #browser-warning .browser-list .item{height:90px;width:90px;}#browser-warning .browser-list .item:first-child{margin-left:150px;}
