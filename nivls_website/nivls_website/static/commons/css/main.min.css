@@ -14,7 +14,7 @@ table tr th{margin:0 15px;background-color:white;}
 .center-text{text-align:center;}
 .clean-accordion .accordion-group{border:none;}
 .main-accordion h2{text-align:center;}
-.main-accordion h3{background-color:#5e97ff;border:1px solid #4f6ea7;border-left-color:#aec9fc;border-top-color:#aec9fc;color:whiteSmoke;text-shadow:0px 1px 0 #818181;padding:2px 10px;margin:15px 0;}
+.main-accordion h3{background-color:#5d788a;border:1px solid #425F72;border-left-color:#a3c2d6;border-top-color:#a3c2d6;color:whiteSmoke;text-shadow:0px 1px 0 #818181;padding:2px 10px;margin:15px 0;}
 .clean-section{*zoom:1;margin:40px 0;width:95%;}.clean-section:before,.clean-section:after{display:table;content:"";}
 .clean-section:after{clear:both;}
 .clean-section .section-image-right{float:right;margin-left:50px;}
