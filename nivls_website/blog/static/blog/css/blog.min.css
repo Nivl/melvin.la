@@ -2,10 +2,6 @@
 .clearfix:after{clear:both;}
 .hide-text{overflow:hidden;text-indent:100%;white-space:nowrap;}
 .input-block-level{display:block;width:100%;min-height:28px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;}
-img{max-width:100%;}
-html{background-color:#222222;}
-body{background-color:#ededed;}
-.btn i{vertical-align:-2px;}
 #tagcloud{text-align:center;}#tagcloud a:hover{text-decoration:none;}
 #contact-form input,#comment-form input,#contact-form textarea,#comment-form textarea,#contact-form select,#comment-form select,#contact-form .uneditable-input,#comment-form .uneditable-input{width:320px;}
 #body h1{margin-bottom:10px;}
@@ -19,4 +15,3 @@ article#post footer section#comments .comment .content{margin-left:20px;padding-
 section#post-list h5{height:40px;}
 section#post-list .row{margin-left:0px;}
 section#post-list section.description{height:115px;}
-body>footer{background-color:#222222;color:white;font-size:0.85em;padding:20px;text-align:center;}body>footer p{margin-bottom:10px;}
