@@ -1,8 +1,5 @@
 {% load i18n %}
 
-<script src="{{ STATIC_URL }}commons/js/Ajaxion.js"></script>
-<script src="{{ STATIC_URL }}commons/js/jquery.color.js"></script>
-
 <script type="text/javascript">
 
 var commentForm = new Ajaxion('{{ post.get_form_url }}',
@@ -147,6 +144,5 @@ $('.edit-comment-link').click(function() {
     commentEdit.stop();
     return false;
 });
-
 
 </script>

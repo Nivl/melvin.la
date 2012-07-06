@@ -77,6 +77,10 @@ body {
     padding-top: 60px;
 }
 
+h1 {
+    margin-bottom: 10px;
+}
+
 li {
     p {
 	display: inline;
@@ -128,6 +132,15 @@ table {
     }
 }
 
+.form-actions {
+    background-color: #d0d6dA
+}
+
+.bigger-fields {
+    input, textarea, select, .uneditable-input{
+	width: 320px;
+    }
+}
 
 .main-accordion {
     h2 {
@@ -284,8 +297,103 @@ ul.social-medias-icons {
     }
 }
 
+.post-list {
+    h5 {
+	height: 40px;
+    }
+
+    .row {
+	margin-left: 0px;
+    }
+
+    section.description {
+	height: 115px;
+    }
+}
+
+
+article.post {
+    margin-bottom: 30px;
+
+    header {
+	margin-bottom: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+
+	border-left: 5px solid #6596B6;
+	border-bottom: 1px solid #6596B6;
+
+	.info {
+	    line-height: 15px;
+	    font-size:0.85em;
+	}
+    }
+
+    h3 {
+	margin-bottom: 3px;
+    }
+
+    section.content {
+	p {
+	    margin-bottom: 15px;
+
+	    img, a {
+		&.pull-right {
+		    padding: 4px;
+		    margin: 0 0 2px 7px;
+		}
+
+		&.pull-left {
+		    padding: 4px;
+		    margin: 0 7px 2px 0;
+		}
+	    }
+	}
+    }
+
+    footer{
+	margin-top: 50px;
+
+	h2 {
+	    margin-top: 20px;
+	}
+
+	section#comments {
+	    margin: 10px 0;
+
+	    .comment {
+		padding-bottom: 10px;
+		margin-top: 10px;
+		border-bottom: 1px solid darken(@bodyBackground, 10%);
+
+		.comment-avatar{
+		    margin-right: 10px;
+		    float: left;
+		}
+
+		.info {
+		    font-size: 0.85em;
+		}
+
+		.content {
+		    margin-left: 20px;
+		    padding-left: 10px;
+
+		    p {
+			margin: 10px 5px 10px 0;
+		    }
+		}
+	    }
+	}
+    }
+}
+
 /******************************************************************************
  * END CLASSES
+ *****************************************************************************/
+
+/******************************************************************************
+ * ID
  *****************************************************************************/
 
 @footer-size: 122px; // padding not counted
@@ -413,3 +521,9 @@ ul.social-medias-icons {
 	}
     }
 }
+
+
+
+/******************************************************************************
+ * END ID
+ *****************************************************************************/

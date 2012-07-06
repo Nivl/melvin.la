@@ -1,4 +1,20 @@
 /* google prettyprint  */
+
+function preview() {
+    var textarea = $('#id_comment');
+    var preview = $('#form-preview');
+    var converter = new Markdown.getSanitizingConverter();
+
+    textarea.input(function(event) {
+        preview.html(converter.makeHtml(textarea.val()));
+    }).trigger('input');
+
+    textarea.keydown(function() {
+        $(this).stopTime();
+        $(this).oneTime(500, function() { styleCode(); });
+    });
+}
+
 function styleCode() {
     var a = false;
 
@@ -36,6 +52,7 @@ $(function() {
      	}, 200);
     });
 
+    $('.carousel').carousel()
     $('[rel=tooltip]').tooltip();
     $('.animated-thumbnails > li').hoverdir();
 

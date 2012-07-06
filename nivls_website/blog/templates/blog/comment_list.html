@@ -29,8 +29,7 @@
       {% endif %}
     </span>
 
-
-    <div id="comment_{{ comment.pk }}_avatar" class="pull-left margin-right-1">
+    <div id="comment_{{ comment.pk }}_avatar" class="comment-avatar">
       {% if comment.user %}
 	{{ comment.user|square_thumbnail }}
       {% else %}

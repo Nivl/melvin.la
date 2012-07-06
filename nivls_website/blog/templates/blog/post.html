@@ -8,19 +8,13 @@
 {% endblock "header" %}
 
 {% block "sub_head_js" %}
-
-  <script src="{{ STATIC_URL }}commons/js/Markdown.Converter.js"></script>
-  <script src="{{ STATIC_URL }}commons/js/Markdown.Sanitizer.js"></script>
-  <script src="{{ STATIC_URL }}commons/js/jquery.oninput.min.js"></script>
-
   {% include "blog/comment_ajax.html" with post=post user=user %}
-
 {% endblock "sub_head_js" %}
 
 {% block "title" %}{{ post.title }}{% endblock "title" %}
 
 {% block "content" %}
-  <article id="post">
+  <article class="post">
     <header>
       <h2>{{ post.title }}</h2>
       <div class="pull-right add-this">

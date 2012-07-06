@@ -1,6 +1,6 @@
 {% load markup humanize common_tags i18n %}
 
-<section id="post-list">
+<section class="post-list">
   {% for post in posts %}
     {% if forloop.counter0|divisibleby:3 %}
       <div class="row">

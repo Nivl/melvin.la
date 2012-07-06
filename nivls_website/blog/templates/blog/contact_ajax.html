@@ -2,9 +2,8 @@
 {% load i18n %}
 
 <script type="text/javascript">
-function bindPostContactHandler() {
 var ajax = new Ajaxion('{% url "contact-form" %}',
-                       {'selector': '#contact-form',
+		       {'selector': '#contact-form',
 			'events': 'submit'},
                        'POST',
                        [
@@ -27,9 +26,5 @@ var ajax = new Ajaxion('{% url "contact-form" %}',
 			   'error': [Ajaxion.cb_error_push_before],
 
                        }
-                      );
-    ajax.start();
-}
-
-bindPostContactHandler();
+                      ).start();
 </script>
