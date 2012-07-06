@@ -61,6 +61,16 @@
     }
 }
 
+.label {
+    a {
+	color: white;
+
+	&:hover {
+	    color: @white;
+	    text-decoration: none;
+	}
+    }
+}
 
 /******************************************************************************
  * END BOOTSTRAP FIXES
@@ -117,6 +127,14 @@ table {
  /******************************************************************************
   * CLASSES
   *****************************************************************************/
+
+.pull-center {
+    .center-block()
+}
+
+.pull-center-ugly {
+    margin-left: 40%;
+}
 
 .center-text {
     text-align: center;
@@ -262,7 +280,7 @@ table {
 }
 
 ul.social-medias-icons {
-    heigth: 34px;
+    height: 34px;
 
     li {
 	@icon-size: 32px;
