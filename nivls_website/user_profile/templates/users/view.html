@@ -10,13 +10,13 @@
 {% block body_classes %}span8 offset2{% endblock %}
 
 {% block "content" %}
-  <h1 class="centered-text">{% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}</h1>
+  <h1 class="center-text">{% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}</h1>
 
   <div class="pull-left margin-right-2">
     {{ target_user|square_thumbnail:'160' }}
   </div>
 
-  <ul class="unstyled space-li-10 margin-top-3">
+  <ul class="unstyled space-li-10 margin-top-2">
     <li><strong>{% trans "Name:" %}</strong> {{ target_user.last_name }} {{ target_user.first_name }}
 
     {% if profile.website %}

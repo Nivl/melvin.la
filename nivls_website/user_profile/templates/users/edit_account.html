@@ -12,7 +12,7 @@
 
   <div class="row">
     <div class="span5">
-      <a href="#modal-edit-profile" data-toggle="modal" class="well">
+      <a href="#modal-edit-profile" data-toggle="modal" class="well link-box">
 	<h3>{% trans "Edit my profile" %}</h3>
 	<div class="content">
 	  Here you can change your name, hobbies, occupation, …
@@ -30,7 +30,7 @@
     </div>
 
     <div class="span5 offset1">
-      <a href="#modal-edit-settings" data-toggle="modal" class="well">
+      <a href="#modal-edit-settings" data-toggle="modal" class="well link-box">
 	<h3>{% trans "Edit my settings" %}</h3>
 	<div class="content">
 	  If you want to enable/disable some features, it's the place.
@@ -51,7 +51,7 @@
 
   <div class="row">
     <div class="span5">
-      <a href="#modal-edit-email" data-toggle="modal" class="well">
+      <a href="#modal-edit-email" data-toggle="modal" class="well link-box">
 	<h3>{% trans "Edit my email address" %}</h3>
 	<div class="content">
 	  You must have set a password to change you email address.
@@ -69,7 +69,7 @@
     </div>
 
     <div class="span5 offset1">
-      <a href="#modal-edit-password" data-toggle="modal" class="well{% if not user.get_profile.has_password %} important{% endif %}">
+      <a href="#modal-edit-password" data-toggle="modal" class="well link-box{% if not user.get_profile.has_password %} important{% endif %}">
 	<h3>{% trans "Edit my password" %}</h3>
 	<div class="content">
 	  Here you can change or set your password.
