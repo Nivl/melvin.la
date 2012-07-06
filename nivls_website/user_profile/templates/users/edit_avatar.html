@@ -11,7 +11,7 @@
 
 {% block "sub_head_js" %}
   {% include "users/edit_avatar_ajax.html" %}
-  <script src="{{ STATIC_URL }}/commons/js/jquery.Jcrop.min.js"></script>
+  <script src="{{ STATIC_URL }}/commons/js/jquery/jquery.Jcrop.min.js"></script>
   <script>
     var jcrop_api, boundx, boundy, multiplicator;
 
@@ -59,7 +59,7 @@
 {% endblock "sub_head_js" %}
 
 {% block "content" %}
-  <h1 class="centered-text">{% trans "Edit thumbnail" %}</h1>
+  <h1 class="center-text">{% trans "Edit thumbnail" %}</h1>
 
   {% include "users/edit_avatar_form.html" with form=form %}
 
