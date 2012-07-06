@@ -11,8 +11,8 @@ body{padding-top:60px;}
 h1{margin-bottom:10px;}
 li p{display:inline;}
 hr{display:block;margin-left:auto;margin-right:auto;width:90%;border-top-color:#ccc;}
-table{width:100%;}table tr th,table tr td{padding:5px;border:1px solid #cecece;}table tr th p,table tr td p{margin:5px;}
-table tr th{margin:0 15px;background-color:white;}
+table tr th,table tr td{vertical-align:middle !important;}table tr th p,table tr td p{margin:0;}
+table tr th{text-align:center !important;background-color:white;}
 .center-text{text-align:center;}
 .clean-accordion .accordion-group{border:none;}
 .form-actions{background-color:#d0d6da;}
