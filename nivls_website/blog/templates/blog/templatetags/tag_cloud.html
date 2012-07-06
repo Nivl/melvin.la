@@ -2,7 +2,7 @@
 
 <li class="nav-header"><i class="icon-tags"></i> {% trans "Tags" %}</li>
 <li>
-  <div id="tagcloud">
+  <div class="center-text">
     {% for tag in tags %}
       <a href="{{ tag.obj.get_absolute_url }}"
 	 title="{% blocktrans count counter=tag.obj.num_post %}1 post{% plural %}{{ counter }} posts{% endblocktrans %}"
