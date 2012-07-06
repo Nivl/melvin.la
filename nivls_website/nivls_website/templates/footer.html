@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <footer>
   <p>
     © 2012. All Right Reserved. Melvin Laplanche<br />
@@ -9,7 +11,7 @@
     </a>
 
     <a href="http://www.alwaysdata.com/">
-      <img src="{{ STATIC_URL }}blog/img/icons/alwaysdata.png"
+      <img src="{% static "commons/img/alwaysdata.png" %}"
 	   alt="Hosted by Alwaysdata." title="Hosted by Alwaysdata.">
     </a>
   </p>
