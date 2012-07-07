@@ -11,3 +11,4 @@ Dependencies
 * [django-simple-captcha](https://github.com/mbi/django-simple-captcha)
 * [django-js-utils](https://github.com/ljosa/django-js-utils)
 * [johnny-cache](http://packages.python.org/johnny-cache/)
+* [django-pipeline](https://github.com/cyberdelia/django-pipeline) which require [lessc](https://github.com/cloudhead/less.js) and a js/css minifier ([see list](http://django-pipeline.readthedocs.org/en/latest/compressors.html). cssmin and UglifyJS are recomended).

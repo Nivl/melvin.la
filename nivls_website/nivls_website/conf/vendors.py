@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse_lazy
 from nivls_website.conf.commons import *
 
 #
@@ -34,7 +35,6 @@ AUTHENTICATION_BACKENDS += (
     'social_auth.backends.facebook.FacebookBackend',
 )
 
-
 #
 # Debug toolbar
 #
@@ -46,7 +46,7 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 MIDDLEWARE_CLASSES += (
-#    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 
@@ -59,6 +59,7 @@ MIDDLEWARE_CLASSES = (
     'johnny.middleware.QueryCacheMiddleware',
 ) + MIDDLEWARE_CLASSES
 
+
 CACHES = {
     'default': dict(BACKEND='johnny.backends.memcached.MemcachedCache',
                     LOCATION=['127.0.0.1:11211'],
@@ -67,3 +68,47 @@ CACHES = {
 }
 
 JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_nivls_website'
+
+#
+# Django pipeline
+#
+
+INSTALLED_APPS += (
+    'pipeline',
+)
+
+PIPELINE_COMPILERS = (
+    'pipeline.compilers.less.LessCompiler',
+)
+
+MIDDLEWARE_CLASSES += (
+    'pipeline.middleware.MinifyHTMLMiddleware',
+)
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+PIPELINE_JS = {
+    'main': {'source_filenames': ('js/*.js',
+                                  'commons/js/0/*.js',
+                                  'commons/js/10/*.js',
+                                  'commons/js/20/*.js',
+                                  'commons/js/30/*.js',
+                                  'commons/js/40/*.js',
+                                  ),
+             'output_filename': 'commons/compiled/scripts.js',
+             },
+    }
+
+PIPELINE_CSS = {
+    'main': {'source_filenames': ('commons/css/0/*.css',
+                                  'commons/css/10/*.css',
+                                  'commons/css/20/*.less',
+                                  'commons/css/30/*.css',
+                                  ),
+             'output_filename': 'commons/compiled/styles.css',
+             'variant': 'datauri',
+             },
+}
+
+PIPELINE = True
+PIPELINE_DISABLE_WRAPPER = True

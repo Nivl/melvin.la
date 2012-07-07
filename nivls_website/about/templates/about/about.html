@@ -17,10 +17,10 @@
       <a href="{% url "cv" %}">
 	{% if profile.free_for_job %}
 	  <img alt="{% trans "Free for job" %}"
-	       src="{{ STATIC_URL }}about/img/free_for_job.png">
+	       src="{{ STATIC_URL }}commons/img/free_for_job.png">
 	   {% else %}
 	     <img alt="{% trans "Not Free for job" %}"
-		  src="{{ STATIC_URL }}about/img/not_free_for_job.png">
+		  src="{{ STATIC_URL }}commons/img/not_free_for_job.png">
 	   {% endif %}
       </a>
     </div>
