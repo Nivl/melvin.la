@@ -28,19 +28,19 @@
 
 {% block "body-content" %}
 
-<div class="row">
-  <div id="menu" class="span1 well">
-    {% with act_menu="home" %}
-      {% block "menu" %}
-	{% include "lab/menu.html" %}
-      {% endblock "menu" %}
-    {% endwith %}
-  </div>
+  <div class="container">
+    <div class="row">
+      <div id="body" class="span9"
+	   data-spy="scroll" data-target=".subnav">
+	{% block "content" %}{% endblock "content" %}
+      </div>
+  {% with act_menu="home" %}
+    {% block "menu" %}
+      {% include "lab/menu.html" %}
+    {% endblock "menu" %}
+  {% endwith %}
 
-  <div id="body" class="span10 offset2"
-       data-spy="scroll" data-target=".subnav">
-    {% block "content" %}{% endblock "content" %}
+    </div>
   </div>
-</div>
 
 {% endblock "body-content" %}

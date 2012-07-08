@@ -2,18 +2,30 @@
 
 <script>
   {% ifnotequal act_menu "home" %}
-    $(".nivl-icon-home").hover(
-    function() {$(this).children("img").attr("src","{% static "/lab/img/icons/home.png" %}");},
-    function() {$(this).children("img").attr("src","{% static "/lab/img/icons/home-grey.png" %}");}
-    );
+    $(".nivl-icon-home").hover(function() {
+	$(this).find("img").animate({
+	    opacity: 1,
+	}, 300);
+    },
+    function() {
+	$(this).find("img").animate({
+	    opacity: 0,
+	}, 300);
+    });
   {% endifnotequal %}
 
   {% for tag in tags %}
     {% ifnotequal act_menu tag.slug %}
-      $(".nivl-icon-{{ tag.slug }}").hover(
-      function() {$(this).children("img").attr("src","{{ tag.icon_enabled.url }}");},
-      function() {$(this).children("img").attr("src","{{ tag.icon_disabled.url }}");}
-    );
+      $(".nivl-icon-{{ tag.slug }}").hover(function() {
+	  $(this).find("img").animate({
+	      opacity: 1,
+	  }, 300);
+      },
+      function() {
+	  $(this).find("img").animate({
+	      opacity: 0,
+	  }, 300);
+      });
     {% endifnotequal %}
   {% endfor %}
 </script>
