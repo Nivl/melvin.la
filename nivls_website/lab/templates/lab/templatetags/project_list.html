@@ -2,19 +2,18 @@
 {% load url from future %}
 
 {% for project in projects %}
-  <article>
-    <h2>
-      <a href="{% url "lab-project" project.slug %}">
-	{{ project.name }}
-      </a>
-    </h2>
+  <section class="clean-section">
+    <h2>{{ project.name }}</h2>
 
-    <div class="well">
+    <div class="section-content margin-top-1">
       {{ project.description|markdown }}
       <a href="{% url "lab-project" project.slug %}"
 	 class="btn btn-info">
 	{% trans "Know more" %}
-	</a>
+      </a>
     </div>
-  </article>
+  </section>
+
+  <hr />
+
 {% endfor %}

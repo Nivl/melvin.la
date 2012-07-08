@@ -9,8 +9,8 @@
 	  <img src="{% static "/commons/img/home.png" %}" alt="home">
 	{% else %}
 	  <div style="background-image: url({% static "/commons/img/home-grey.png" %}); background-repeat: no-repeat; background-position-x: 14px;">
-		<img style="opacity:0" src="{% static "/commons/img/home.png" %}" alt="{{ tag.slug }}">
-	      </div>
+	    <img style="opacity:0" src="{% static "/commons/img/home.png" %}" alt="{{ tag.slug }}">
+	  </div>
 	{% endifequal %}
 	<figcaption>{% trans "Home" %}</figcaption>
       </a>

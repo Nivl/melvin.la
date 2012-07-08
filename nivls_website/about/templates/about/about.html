@@ -3,13 +3,11 @@
 {% load url from future %}
 {% load markup i18n staticfiles %}
 
-
 {% block "header" %}
   {% with act_menu="home" %}
     {{ block.super }}
   {% endwith %}
 {% endblock %}
-
 
 {% block "content" %}
   <section class="clean-section">
