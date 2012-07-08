@@ -34,6 +34,25 @@
     }
 }
 
+.display-generated-icon(@size) {
+    .main-icon {
+	background-repeat: no-repeat;
+	width: @size;
+	height: @size;
+	.center-block();
+
+	img {
+	    .transition(opacity 0.3s linear);
+	}
+    }
+
+    &:hover{
+	img {
+	    opacity: 0;
+	}
+    }
+}
+
 /******************************************************************************
  * END MIXIN
  *****************************************************************************/
@@ -152,6 +171,9 @@ table {
     text-align: center;
 }
 
+.generated-icon {
+    .display-generated-icon(32px);
+}
 
 .clean-accordion {
     .accordion-group {

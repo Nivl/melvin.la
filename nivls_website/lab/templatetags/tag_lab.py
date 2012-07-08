@@ -15,13 +15,6 @@ def lab_tags(act_menu):
             'act_menu': act_menu}
 
 
-@register.inclusion_tag("lab/templatetags/tags_js.html")
-def lab_tags_js(act_menu):
-    tags = Tag.objects.all()
-    return {'tags': tags,
-            'act_menu': act_menu}
-
-
 @register.inclusion_tag("lab/templatetags/pagination.html")
 def project_pagination(paginator):
     return {'paginator': paginator}

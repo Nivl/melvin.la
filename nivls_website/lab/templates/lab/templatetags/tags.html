@@ -4,14 +4,17 @@
 <div class="row center-text">
   <li class="span1">
     <figure class="inline-figure">
-      <a class="nivl-icon-home" href="{% url 'lab-home' %}">
-	{% ifequal act_menu "home" %}
-	  <img src="{% static "/commons/img/home.png" %}" alt="home">
-	{% else %}
-	  <div style="background-image: url({% static "/commons/img/home-grey.png" %}); background-repeat: no-repeat; background-position-x: 14px;">
-	    <img style="opacity:0" src="{% static "/commons/img/home.png" %}" alt="{{ tag.slug }}">
-	  </div>
-	{% endifequal %}
+      <a class="generated-icon" href="{% url 'lab-home' %}">
+	<div class="main-icon"
+	     style="background-image: url({% static "/commons/img/home.png" %});">
+	  {% ifequal act_menu "home" %}
+	    <img src="{% static "/commons/img/home.png" %}" alt="home">
+	  {% else %}
+	    <img src="{% static "/commons/img/home-grey.png" %}"
+		 alt="{{ tag.slug }}">
+	  {% endifequal %}
+	</div>
+
 	<figcaption>{% trans "Home" %}</figcaption>
       </a>
     </figure>
@@ -19,15 +22,15 @@
     {% for tag in tags %}
       <li class="span1">
 	<figure class="inline-figure">
-	  <a class="nivl-icon-{{ tag.slug }}"
-	   href="{% url "lab-tag" tag.slug %}">
-	    {% ifequal act_menu tag.slug %}
-	      <img src="{{ tag.icon_enabled.url }}" alt="{{ tag.slug }}">
-	    {% else %}
-	      <div style="background-image: url({{ tag.icon_disabled.url }}); background-repeat: no-repeat; background-position-x: 14px;">
-		<img style="opacity:0" src="{{ tag.icon_enabled.url }}" alt="{{ tag.slug }}">
-	      </div>
-	    {% endifequal %}
+	  <a class="generated-icon" href="{% url "lab-tag" tag.slug %}">
+	    <div class="main-icon"
+		 style="background-image: url({{ tag.icon_enabled.url }});">
+	       {% ifequal act_menu tag.slug %}
+		 <img src="{{ tag.icon_enabled.url }}" alt="{{ tag.slug }}">
+	       {% else %}
+		 <img src="{{ tag.icon_disabled.url }}" alt="{{ tag.slug }}">
+	       {% endifequal %}
+	    </div>
 	    <figcaption>{{ tag.name }}</figcaption>
 	  </a>
 	</figure>
