@@ -39,11 +39,14 @@ $(function() {
     navbar_img.css('top', '0px');
     $('#navbar').prepend(navbar_img);
     $('#navbar-main-list > li.active').removeClass('active');
-    $('#navbar-main-list > li').click(function(){
+    $('#navbar-main-list > li').click(function() {
 	var left = $(this).offset()['left'];
     	navbar_img.animate({
-	    left: left,
-     	}, 200);
+	    left: left
+     	}, {
+	    duration: 'slow',
+	    easing: 'easeOutBack'
+	});
     });
 
     $('.hide-navbar-img').click(function(){
