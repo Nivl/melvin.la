@@ -88,7 +88,8 @@ MIDDLEWARE_CLASSES += (
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 PIPELINE_JS = {
-    'main': {'source_filenames': ('js/*.js',
+    'main': {'source_filenames': ('django_js_utils.js',
+                                  'js/*.js',
                                   'commons/js/0/*.js',
                                   'commons/js/10/*.js',
                                   'commons/js/20/*.js',
