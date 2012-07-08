@@ -2,7 +2,6 @@
 
 <h1>{% blocktrans with project_name=project.name %}Informations about {{ project_name }}{% endblocktrans %}</h1>
 
-
 <ul class="unstyled">
   <li><strong>{% trans "Project License: " %}</strong>
     {% if project.license.url %}
@@ -24,15 +23,15 @@
       <li>
 	<a class="btn" href="{{ project.sources_url }}">
 	  <i class="icon-share"></i>
-	    {% trans "Browse the sources" %}
+	  {% trans "Browse the sources" %}
 	</a>
     {% endif %}
 </ul>
 
 
 <div class="well clearfix">
-  <div id="diagram-wrapper" class="pull-right">
-    <div id="diagram"></div>
+  <div class="rounded-diagram-wrapper pull-right">
+    <div id="rounded-diagram"></div>
 
     <div class="get">
 	{% with project.projectlanguagerate_set.all as languages %}
