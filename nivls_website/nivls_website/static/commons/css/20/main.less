@@ -222,6 +222,62 @@ table {
     }
 }
 
+.business-card {
+    img {
+	border:0;
+	position:absolute;
+    }
+
+    .item {
+	margin:5px 5px 5px 0;
+	position:relative;
+	float:left;
+
+	.thumbnail {
+	    width: 126px;
+	    height: 126px;
+	}
+
+	.caption {
+	    .border-radius(4px);
+
+	    width:126px;
+	    height:126px;
+	    background:#000;
+	    color:#fff;
+	    font-weight:bold;
+
+	    position:absolute;
+	    left: 5px;
+	    top: 5px;
+
+	    .transition(opacity 0.3s linear);
+
+	    .opacity(0);
+
+	    &:hover {
+		.opacity(80);
+	    }
+
+	    a {
+		text-decoration:none;
+		color:#0cc7dd;
+
+		padding:5px;
+		display:block;
+	    }
+
+	    p {
+		padding:5px;
+		margin:0;
+		font-size:10px;
+		text-align: center;
+	    }
+
+	}
+    }
+}
+
 .clean-section {
     .clearfix();
 
