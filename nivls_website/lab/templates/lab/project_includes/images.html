@@ -2,13 +2,14 @@
 
 <h1>{% trans "Images" %}</h1>
 
-{% for image in images %}
-  {% if forloop.counter0|divisibleby:3 %}
-    <ul class="thumbnails">
-  {% endif %}
+<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+  {% for image in images %}
+    {% if forloop.counter0|divisibleby:3 %}
+      <ul class="thumbnails">
+    {% endif %}
 
     <li class="span3">
-      <a class="thumbnail" rel="prettyPhoto[image_list]"
+      <a class="thumbnail" rel="gallery"
 	 title="{{ image.description }}" href="{{ image.image.url }}">
 	<img src="{{ image.image.url }}" alt="{{ image.name }}"
 	     title="{{ image.name }}">
@@ -18,3 +19,4 @@
       </ul>
     {% endif %}
 {% endfor%}
+</div>
