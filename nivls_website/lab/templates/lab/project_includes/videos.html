@@ -3,17 +3,9 @@
 <h1>{% trans "Videos" %}</h1>
 
 {% for video in videos %}
-  {% if forloop.counter0|divisibleby:3 %}
-      <ul class="thumbnails">
-    {% endif %}
-
-    <a class="thumbnail" rel="prettyPhoto[video_list]"
-       title="{{ video.description }}" href="{{ video.url }}">
-      <img src="{{ video.thumbnail.url }}" alt="{{ video.name }}"
-	   title="{{ video.name }}">
-    </a>
-
-    {% if forloop.counter|divisibleby:3 or forloop.last %}
-      </ul>
-    {% endif %}
+  <div class="video">
+    <h3>{{ video.name }}</h3>
+    <p>{{ video.description }}</p>
+    <iframe src="{{ video.url }}" frameborder="0" width="480" height="270"></iframe>
+  </div>
 {% endfor%}

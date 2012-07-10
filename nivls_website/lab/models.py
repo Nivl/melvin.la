@@ -441,24 +441,9 @@ class Video(models.Model):
     url = models.URLField(
         verbose_name=_("URL"))
 
-    thumbnail = models.ImageField(
-        upload_to="lab/projets/videos/",
-        verbose_name=_("Thumbnail"))
-
-    is_iframe = models.BooleanField(
-        verbose_name=_("is_iframe"))
-
     project = models.ForeignKey(
         Project,
         verbose_name=_("project"))
 
     def __unicode__(self):
         return self.name
-
-    def save(self, *arg, **kwargs):
-        if self.pk is not None:
-            origin = Video.objects.get(pk=self.pk)
-            if origin.thumbnail != self.thumbnail:
-                if os.path.exists(origin.thumbnail.path):
-                    os.remove(origin.thumbnail.path)
-        super(Video, self).save(*arg, **kwargs)
