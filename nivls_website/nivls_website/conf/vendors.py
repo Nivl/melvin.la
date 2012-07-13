@@ -93,8 +93,6 @@ PIPELINE_JS = {
                                   'commons/js/0/*.js',
                                   'commons/js/10/*.js',
                                   'commons/js/20/*.js',
-                                  'commons/js/30/*.js',
-                                  'commons/js/40/*.js',
                                   ),
              'output_filename': 'commons/compiled/scripts.js',
              },
