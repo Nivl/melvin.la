@@ -7,7 +7,7 @@ from django.template import Context
 from django.shortcuts import render_to_response
 from django.views.generic.base import TemplateView
 from django.contrib.sites.models import Site
-
+from django.conf import settings
 
 class TexplainView(TemplateView):
     def get_context_data(self, **kwargs):
@@ -32,8 +32,8 @@ def write_pdf(template_src, context_dict, output):
     file.write(rendered.encode('utf-8'))
     file.close()
 
-    command_args = '/usr/bin/wkhtmltopdf --page-size Letter ' + \
-        temp_html_file_name + ' -'
+    command_args = '%s --page-size Letter %s -' % (settings.WKHTMLTOPDF_PATH ,
+                                                   temp_html_file_name)
 
     popen = subprocess.Popen(command_args,
                              stdout=subprocess.PIPE,

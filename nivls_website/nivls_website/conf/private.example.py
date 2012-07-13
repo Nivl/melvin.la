@@ -20,6 +20,8 @@ AKISMET_API_KEY = "PUT_YOUR_KEY_HERE"  # http://akismet.com/get/
 
 SECRET_KEY = 'dtfgyu&^*(){:"56433RDTF90po;luhsau'
 
+WKHTMLTOPDF_PATH = '/usr/bin/wkhtmltopdf'
+
 #
 # Social Auth
 #
