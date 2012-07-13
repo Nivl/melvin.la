@@ -69,6 +69,7 @@ function Ajaxion (url, bind, method, to_reload, callbacks) {
 Ajaxion.prototype.stop = function (that) {
     that = typeof that !== 'undefined' ? that : this;
     $(document).off(that.bind['events'], that.bind['selector']);
+    return that;
 }
 
 Ajaxion.prototype.start = function () {
