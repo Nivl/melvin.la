@@ -111,14 +111,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.admin',
-#    'debug_toolbar',
-    'bootstrap',
-    'bootstrapform',
-    'social_auth',
-    'captcha',
-    'django_js_utils',
-    #'django_evolution',
-    'pipeline',
 )
 
 LOGGING = {

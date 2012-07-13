@@ -5,6 +5,8 @@ from nivls_website.conf.commons import *
 # Social Auth
 #
 
+INSTALLED_APPS += ('social_auth',)
+
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 TEMPLATE_CONTEXT_PROCESSORS += (
     'social_auth.context_processors.social_auth_backends',
@@ -38,6 +40,8 @@ AUTHENTICATION_BACKENDS += (
 #
 # Debug toolbar
 #
+
+#INSTALLED_APPS = ('debug_toolbar',)
 
 INTERNAL_IPS = ('127.0.0.1',)
 
@@ -73,9 +77,7 @@ JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_nivls_website'
 # Django pipeline
 #
 
-INSTALLED_APPS += (
-    'pipeline',
-)
+INSTALLED_APPS += ('pipeline',)
 
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
@@ -97,7 +99,7 @@ PIPELINE_JS = {
                                   ),
              'output_filename': 'commons/compiled/scripts.js',
              },
-    }
+}
 
 PIPELINE_CSS = {
     'main': {'source_filenames': ('commons/css/0/*.css',
@@ -109,11 +111,10 @@ PIPELINE_CSS = {
              'variant': 'datauri',
              },
 
-    'error': {'source_filenames':
-                  ('commons/css/0/bootstrap.min.css',
-                   'commons/css/20/error.less',
-                   'commons/css/30/bootstrap-responsive.min.css',
-                   ),
+    'error': {'source_filenames': ('commons/css/0/bootstrap.min.css',
+                                   'commons/css/20/error.less',
+                                   'commons/css/30/bootstrap-responsive.min.css',
+                                   ),
               'output_filename': 'commons/compiled/error.css',
               'variant': 'datauri',
               },
@@ -121,3 +122,16 @@ PIPELINE_CSS = {
 
 PIPELINE = DEBUG
 PIPELINE_DISABLE_WRAPPER = True
+
+
+#
+# Others
+#
+
+INSTALLED_APPS += (
+    'bootstrap',
+    'bootstrapform',
+    'captcha',
+    'django_js_utils',
+    #'django_evolution',
+)
