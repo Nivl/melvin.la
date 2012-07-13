@@ -31,6 +31,7 @@
 		  'url': '/blog/my_post/',
 		  'callbacks' : [],
 		  'visible': true,
+		  'disabled': false,
 		  'selectors' : [
                                   {
 				    'current': '#form'.
@@ -202,17 +203,20 @@ Ajaxion.prototype._success = function (html, textStatus, that) {
 
 Ajaxion.prototype._success_reload_part = function (that) {
     for (var i=0; i<that.to_reload.length; i++) {
-	if ('visible' in that.to_reload[i]) {
-	    if (that.to_reload[i]['visible']
-		&& 'selectors' in that.to_reload[i]) {
-		for (var j=0 in that.to_reload[i]['selectors'].length) {
-		    var key = that.to_reload[i]['selectors'][j]['current']
-		    $(key)
-			.html('<img src="' + STATIC_URL + '/commons/img/ajax-loader.gif" alt="' + gettext('loading...') + '" />');
+	if (! ('disabled' in that.to_reload[i]) ||
+	    that.to_reload[i]['disabled'] == false) {
+	    if ('visible' in that.to_reload[i]) {
+		if (that.to_reload[i]['visible']
+		    && 'selectors' in that.to_reload[i]) {
+		    for (var j=0 in that.to_reload[i]['selectors'].length) {
+			var key = that.to_reload[i]['selectors'][j]['current']
+			$(key)
+			    .html('<img src="' + STATIC_URL + '/commons/img/ajax-loader.gif" alt="' + gettext('loading...') + '" />');
+		    }
 		}
 	    }
+	    that._success_reload_part_async_call(i, that);
 	}
-	that._success_reload_part_async_call(i, that);
     }
 }
 
