@@ -1,15 +1,10 @@
 {% extends "users/base.html" %}
-{% load i18n bootstrap %}
-
-{% block "sub_head_js" %}
-  {% include "users/edit_account_ajax.html" %}
-{% endblock "sub_head_js" %}
+{% load i18n bootstrap staticfiles %}
 
 {% block "title" %}{% trans "Edit my account" %}{% endblock "title" %}
 {% block body_classes %}<!--span8 offset2-->{% endblock %}
 
 {% block "content" %}
-
   <div class="row">
     <div class="span5">
       <a href="#modal-edit-profile" data-toggle="modal" class="well link-box">

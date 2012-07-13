@@ -93,6 +93,7 @@ PIPELINE_JS = {
                                   'commons/js/0/*.js',
                                   'commons/js/10/*.js',
                                   'commons/js/20/*.js',
+                                  'commons/js/30/*.js',
                                   ),
              'output_filename': 'commons/compiled/scripts.js',
              },
@@ -118,5 +119,5 @@ PIPELINE_CSS = {
               },
 }
 
-PIPELINE = True
+PIPELINE = DEBUG
 PIPELINE_DISABLE_WRAPPER = True

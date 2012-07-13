@@ -7,9 +7,9 @@
   {% endwith %}
 {% endblock "header" %}
 
-{% block "sub_head_js" %}
+{% block "app_js" %}
   {% include "blog/comment_ajax.html" with post=post user=user %}
-{% endblock "sub_head_js" %}
+{% endblock "app_js" %}
 
 {% block "title" %}{{ post.title }}{% endblock "title" %}
 

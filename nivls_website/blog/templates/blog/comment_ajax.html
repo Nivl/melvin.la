@@ -2,99 +2,33 @@
 
 <script type="text/javascript">
 
-var commentForm = new Ajaxion('{{ post.get_form_url }}',
-			      {'selector': '#comment-form',
-			       'events': 'submit'},
-			      'POST',
-			      [
-				  {
-				      'url': '{{ post.get_form_url }}',
-				      'visible': true,
-				      'selectors' : [
-					  {
-					      'current': '#comment-form',
-					      'target': '*',
-					      'insert': false
-					  }
-				      ],
-				  },
-				  {% if user.is_authenticated %}
-                                    {
-					'url': '{{ post.get_comments_url }}',
-					'visible': false,
-					'callbacks': [
-					    addNewComment
-					],
-					'selectors' : [
-					    {
-						'current': '#comment-list',
-						'target': '*',
-						'insert': true
-					    }
-					],
-				    },
-				  {
-				      'url': '{{ post.get_comment_count_url }}',
-				      'visible': false,
-				      'selectors' : [
-					  {
-					      'current': '#comments-count',
-					      'target': '*',
-					      'insert': true
-					  }
-				      ],
-				  },
-				{% endif %}
-			      ],
-			      {
-				  'success': [
-				      {'callback': Ajaxion.cb_push_before},
-				      {'callback': clearPreview,
-				       'force': true}
-				  ],
-				  'error': [Ajaxion.cb_error_push_before]
-			      }
-			     );
+{% if user.is_authenticated %}
+  commentFormAjax.to_reload[1]['disabled'] = false;
+  commentFormAjax.to_reload[1]['url'] = '{{ post.get_comments_url }}';
 
+  commentFormAjax.to_reload[2]['disabled'] = false;
+  commentFormAjax.to_reload[2]['url'] = '{{ post.get_comment_count_url }}';
+
+
+{% endif %}
+commentFormAjax.url = '{{ post.get_form_url }}';
+commentFormAjax.stop().start();
+
+/* Comments ajax */
 var boundAction = {};
 
-/* Callbacks */
+$(document).off('mouseenter mouseleave', '.comment')
+    .on({
+	mouseenter: function() {
+	    $(this).find('.edit-comment-link').show()
+	},
+	mouseleave: function() {
+	    $(this).find('.edit-comment-link').hide()
+	},
+    }, '.comment');
 
-var converter = new Markdown.getSanitizingConverter();
-
-$(document).on('input keydown', '#id_comment', function(event) {
-    $('#form-preview').html(converter.makeHtml($(this).val()));
-}).trigger('input');
-
-$(document).on('keydown', '#id_comment', function() {
-    $(this).stopTime();
-    $(this).oneTime(500, function() { styleCode(); });
-});
-
-function clearPreview() {
-    $('#form-preview').empty();
-};
-
-function addNewComment() {
-    $('#comment-list .comment:last-child').animateHighlight();
-}
-
-/* call */
-
-commentForm.start();
-
-/* functions */
-
-$('.comment').hover(
-    function () {
-	$(this).find('.edit-comment-link').show()
-    },
-
-    function () {
-	$(this).find('.edit-comment-link').hide()
-    });
-
-$('.edit-comment-link').click(function() {
+$(document).off('click', '.edit-comment-link')
+    .on('click', '.edit-comment-link', function (e) {
     var that = this;
     var area = $(this).parents('.comment').find('.editable_area');
     var pk = $(area).prop('id').replace('comment_', '');

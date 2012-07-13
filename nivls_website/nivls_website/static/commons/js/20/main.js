@@ -1,17 +1,16 @@
 /* google prettyprint  */
 
 function preview() {
-    var textarea = $('#id_comment');
-    var preview = $('#form-preview');
-    var converter = new Markdown.getSanitizingConverter();
+    var markdownConverter = new Markdown.getSanitizingConverter();
 
-    textarea.input(function(event) {
-        preview.html(converter.makeHtml(textarea.val()));
+    $(document).on('input keydown', '[data-parse="1"]', function() {
+	var target = $(this).data('target');
+	$(target).html(markdownConverter.makeHtml($(this).val()));
     }).trigger('input');
 
-    textarea.keydown(function() {
-        $(this).stopTime();
-        $(this).oneTime(500, function() { styleCode(); });
+    $(document).on('keydown', '[data-parse="1"]', function() {
+	$(this).stopTime();
+	$(this).oneTime(500, function() { styleCode(); });
     });
 }
 
@@ -31,6 +30,9 @@ function styleCode() {
 }
 
 $(function() {
+    /***********
+     * Nav bar
+     **********/
     var navbar_current = $('#navbar-main-list > li.active').offset();
     var navbar_img = $('<div>');
     navbar_img.attr('id', 'navbar_img');
@@ -55,10 +57,9 @@ $(function() {
      	}, 200);
     });
 
-    $('.carousel').carousel()
-    $('[rel=tooltip]').tooltip();
-    $('.animated-thumbnails > li').hoverdir();
-
+    /***********
+     * animateHighlight
+     **********/
     $.fn.animateHighlight = function(highlightColor, duration) {
 	var highlightBg = highlightColor || "#FFFF9C";
 	var animateMs = duration || 1500;
@@ -66,15 +67,14 @@ $(function() {
 	this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
     };
 
+
+    /***********
+     * Global
+     **********/
+    $('.carousel').carousel()
+    $('[rel=tooltip]').tooltip();
+    $('.animated-thumbnails > li').hoverdir();
+
     styleCode();
+    preview();
 });
-
-
-
-    // $(window).konami(function() {
-    // 	$('body').append('<script src="http://hi.kickassapp.com/kickass.js"></script>');
-    // });
-
-    // $('.dropdown input, .dropdown label').click(function(e) {
-    // 	e.stopPropagation();
-    // });

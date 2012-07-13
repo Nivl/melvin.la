@@ -4,8 +4,7 @@
 {% block "title" %}{% trans "Edit thumbnail" %}{% endblock "title" %}
 {% block body_classes %}span12{% endblock %}
 
-{% block "sub_head_js" %}
-  {% include "users/edit_avatar_ajax.html" %}
+{% block "app_js" %}
   <script>
     var jcrop_api, boundx, boundy, multiplicator;
 
@@ -50,7 +49,7 @@
       }
     };
    </script>
-{% endblock "sub_head_js" %}
+{% endblock "app_js" %}
 
 {% block "content" %}
   <h1 class="center-text">{% trans "Edit thumbnail" %}</h1>
