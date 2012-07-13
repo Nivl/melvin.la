@@ -28,7 +28,7 @@
 		},
 
 		{
-		  'url': '/blog/my_post/',
+		  'url': 'current_url',
 		  'callbacks' : [],
 		  'visible': true,
 		  'disabled': false,
@@ -223,6 +223,9 @@ Ajaxion.prototype._success_reload_part = function (that) {
 
 
 Ajaxion.prototype._success_reload_part_async_call = function(i, obj) {
+    if (obj.to_reload[i]['url'] == 'current_url') {
+	obj.to_reload[i]['url'] = obj.url;
+    }
     $.get(obj.to_reload[i]['url'], function (data) {
 	if ('selectors' in obj.to_reload[i]) {
 	    for (var j=0; j<obj.to_reload[i]['selectors'].length; j++) {
