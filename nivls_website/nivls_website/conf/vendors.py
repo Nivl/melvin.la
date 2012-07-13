@@ -103,12 +103,21 @@ PIPELINE_JS = {
 PIPELINE_CSS = {
     'main': {'source_filenames': ('commons/css/0/*.css',
                                   'commons/css/10/*.css',
-                                  'commons/css/20/*.less',
+                                  'commons/css/20/main.less',
                                   'commons/css/30/*.css',
                                   ),
              'output_filename': 'commons/compiled/styles.css',
              'variant': 'datauri',
              },
+
+    'error': {'source_filenames':
+                  ('commons/css/0/bootstrap.min.css',
+                   'commons/css/20/error.less',
+                   'commons/css/30/bootstrap-responsive.min.css',
+                   ),
+              'output_filename': 'commons/compiled/error.css',
+              'variant': 'datauri',
+              },
 }
 
 PIPELINE = True
