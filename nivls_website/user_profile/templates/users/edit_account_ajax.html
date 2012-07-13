@@ -10,7 +10,7 @@ $(document).on('hidden', '[id^=modal-edit-]', function() {
 
     console.log(target);
 
-    target.replaceWith('<div id="' + target.prop('id') + '"><img src="{{ STATIC_URL }}commons/img/ajax-loader.gif" alt="loading"></div>');
+    target.replaceWith('<div id="' + target.prop('id') + '"><img src="{% static "commons/img/ajax-loader.gif" %}" alt="loading"></div>');
 });
 
 

@@ -3,9 +3,6 @@
 {% load markup i18n staticfiles %}
 {% load url from future %}
 
-{% block "title" %}{% trans "Portfolio" %}{% endblock "title" %}
-{% block "content-title" %}{% trans "Portfolio" %}{% endblock "content-title" %}
-
 {% block "header" %}
   {% with act_menu="portfolio" %}
     {{ block.super }}
@@ -28,7 +25,7 @@
 	    </a>
 	{% endfor %}
 	<li><a href="#">
-	    <img src="{% static "/commons/img/test/thumbnail_4.jpg" %}" />
+	    <img src="{% static "commons/img/test/thumbnail_4.jpg" %}" />
 	    <div>
 	      <h4>{% trans "See more" %}</h4>
 	      <p>{% trans "You can see the other projects on the lab." %}</p>

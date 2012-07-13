@@ -13,15 +13,10 @@
 	  content="{% block "meta-description" %}{{ seo.description }}{% endblock %}">
 
     <link rel="shortcut icon" href="{% static "commons/img/favicon.ico" %}">
-
     <link rel="publisher" href="https://plus.google.com/107029584179497153748">
 
-    {% compressed_css 'main' %}
-
-    {% block "head_css" %}{% endblock %}
+    {% block "local_css" %}{% endblock %}
     {% block "head_link" %}{% endblock %}
-
-    {% block "head_last_css" %}{% endblock %}
 
     <!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">

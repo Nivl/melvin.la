@@ -2,7 +2,7 @@
 import os
 from nivls_website.conf.private import *
 
-DEBUG = True
+DEBUG = not True
 TEMPLATE_DEBUG = DEBUG
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'

@@ -3,23 +3,17 @@
 {% load url from future %}
 {% load markup i18n staticfiles %}
 
-{% block "header" %}
-  {% with act_menu="home" %}
-    {{ block.super }}
-  {% endwith %}
-{% endblock %}
-
 {% block "content" %}
   <section class="clean-section">
     <div class="section-image-left">
       <a href="{% url "cv" %}">
 	{% if profile.free_for_job %}
 	  <img alt="{% trans "Free for job" %}"
-	       src="{{ STATIC_URL }}commons/img/free_for_job.png">
-	   {% else %}
-	     <img alt="{% trans "Not Free for job" %}"
-		  src="{{ STATIC_URL }}commons/img/not_free_for_job.png">
-	   {% endif %}
+	       src="{% static "commons/img/free_for_job.png" %}">
+	{% else %}
+	  <img alt="{% trans "Not Free for job" %}"
+	       src="{% static "commons/img/not_free_for_job.png" %}">
+	{% endif %}
       </a>
     </div>
 
@@ -30,34 +24,32 @@
 
   <hr />
 
-  <section class="clean-section">
-    <h2>{% trans "Main links" %}</h2>
-
+  <section>
     <div class="section-content">
       <ul class="animated-thumbnails">
 	<li><a href="#">
-	    <img src="{% static "/commons/img/test/thumbnail_1.jpg" %}" />
+	    <img src="{% static "commons/img/test/thumbnail_1.jpg" %}" />
 	    <div>
 	      <h4>Natalie & Justin Cleaning by Justin Younger</h4>
 	      <p></p>
 	    </div>
 	  </a>
 	<li><a href="#">
-	    <img src="{% static "/commons/img/test/thumbnail_2.jpg" %}" />
+	    <img src="{% static "commons/img/test/thumbnail_2.jpg" %}" />
 	    <div>
 	      <h4>Natalie & Justin Cleaning by Justin Younger</h4>
 	      <p></p>
 	    </div>
 	  </a>
 	<li><a href="#">
-	    <img src="{% static "/commons/img/test/thumbnail_3.jpg" %}" />
+	    <img src="{% static "commons/img/test/thumbnail_3.jpg" %}" />
 	    <div>
 	      <h4>Natalie & Justin Cleaning by Justin Younger</h4>
 	      <p></p>
 	    </div>
 	  </a>
 	<li><a href="#">
-	    <img src="{% static "/commons/img/test/thumbnail_4.jpg" %}" />
+	    <img src="{% static "commons/img/test/thumbnail_4.jpg" %}" />
 	    <div>
 	      <h4>Natalie & Justin Cleaning by Justin Younger</h4>
 	      <p></p>

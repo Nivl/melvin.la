@@ -4,14 +4,8 @@
 {% block "title" %}{% trans "Edit thumbnail" %}{% endblock "title" %}
 {% block body_classes %}span12{% endblock %}
 
-{% block "sub_head_css" %}
-  <link rel="stylesheet" media="screen"
-	href="{{ STATIC_URL }}commons/css/jquery.Jcrop.min.css">
-{% endblock "sub_head_css" %}
-
 {% block "sub_head_js" %}
   {% include "users/edit_avatar_ajax.html" %}
-  <script src="{{ STATIC_URL }}/commons/js/jquery/jquery.Jcrop.min.js"></script>
   <script>
     var jcrop_api, boundx, boundy, multiplicator;
 
