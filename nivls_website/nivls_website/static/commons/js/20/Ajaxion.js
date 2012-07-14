@@ -189,10 +189,15 @@ Ajaxion.prototype._success = function (html, textStatus, that) {
 
     if ('success' in that.callbacks) {
 	for (var i=0; i<that.callbacks['success'].length; i++) {
-	    if (proceed
-		|| ('force' in that.callbacks['success'][i]
-		    && that.callbacks['success'][i]['force'] == true))
-		that.callbacks['success'][i]['callback'](html,textStatus,that);
+	    if ((proceed
+		 || ('force' in that.callbacks['success'][i]
+		     && that.callbacks['success'][i]['force'] == true))
+		&& (!('disabled' in that.callbacks['success'][i])
+		    || that.callbacks['success'][i]['disabled'] == false)) {
+		that.callbacks['success'][i]['callback'](html,
+							 textStatus,
+							 that);
+	    }
 	}
     }
 
