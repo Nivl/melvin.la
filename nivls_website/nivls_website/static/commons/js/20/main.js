@@ -53,6 +53,17 @@ $(function() {
 	});
     });
 
+    $(document).on('click', 'a[data-navbar]', function() {
+	var target = $(this).data('navbar');
+	var left = $(target).offset()['left'];
+    	navbar_img.animate({
+	    left: left
+     	}, {
+	    duration: 'slow',
+	    easing: 'easeOutBack'
+	});
+    });
+
     $('.hide-navbar-img').click(function(){
     	navbar_img.animate({
 	    left: '-100px',
@@ -110,7 +121,7 @@ $(function() {
 	g_page_reload_ajax.start();
     });
 
-    $('a[rel=ajax]').on('click', function(event){
+    $(document).on('click', 'a[rel=ajax]', function(event){
 	options = {'url': window.location.pathname};
 	window.History.pushState(null,
 				 $(this).attr('title'),
@@ -120,7 +131,7 @@ $(function() {
 	return false;
     });
 
-    $('a[rel=ajax-content]').on('click', function(event){
+    $(document).on('click', 'a[rel=ajax-content]', function(event){
 	options = {'url': window.location.pathname};
 	window.History.pushState(null,
 				 $(this).attr('title'),
