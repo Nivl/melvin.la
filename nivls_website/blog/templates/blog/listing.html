@@ -9,7 +9,7 @@
 
       <li class="span3">
 	<div class="thumbnail">
-	  <a href="{{ post.get_absolute_url }}">
+	  <a rel="ajax-content" href="{{ post.get_absolute_url }}">
 	    <img src="{{ post.thumbnail.url }}" alt="thumbnail" />
 	  </a>
 	  <div class="caption">
@@ -20,7 +20,9 @@
 	    </section>
 
 	    <p>
-	      <a class="btn btn-info" href="{{ post.get_absolute_url }}">
+	      <a rel="ajax-content"
+		 class="btn btn-info"
+		 href="{{ post.get_absolute_url }}">
 		<i class="icon-plus-sign icon-white"></i>
 		{% trans "Read more" %}
 	      </a>

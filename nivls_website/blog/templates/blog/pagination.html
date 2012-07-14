@@ -3,16 +3,18 @@
   <ul>
 
     <li{% if not paginator.has_previous %} class="disabled"{% endif %}>
-      <a href="?page={{ paginator.previous_page_number }}">«</a>
+      <a rel="ajax-content"
+	 href="?page={{ paginator.previous_page_number }}">«</a>
 
     {% for i in paginator.paginator.page_range %}
       <li{% ifequal i paginator.number %} class="active"{% endifequal %}>
-      	<a href="?page={{ i }}">{{ i }}</a>
+      	<a rel="ajax-content" href="?page={{ i }}">{{ i }}</a>
     {% endfor %}
 
 
     <li{% if not paginator.has_next %} class="disabled"{% endif %}>
-      <a href="?page={{ paginator.previous_page_number }}">»</a>
+      <a rel="ajax-content"
+	 href="?page={{ paginator.previous_page_number }}">»</a>
 
   </ul>
 </section>

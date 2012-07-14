@@ -33,7 +33,8 @@
 	<time datetime="{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}">
 	  {{ post.pub_date|naturalday }}
 	</time>
-	{% trans "In: " %}<a href="{{ post.category.get_absolute_url }}">
+	{% trans "In: " %}<a rel="ajax-content"
+			     href="{{ post.category.get_absolute_url }}">
 	  {{ post.category }}
 	</a>
 	{% with post.tags.all as tags %}
@@ -41,7 +42,8 @@
 	    <br />
 	    <i class="icon-tags"></i>
 	    {% for tag in tags %}
-	      <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+	      <a rel="ajax-content"
+		 href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
 	      {% if not forloop.last %},{% endif %}
 	    {% endfor %}
 	  {% endif %}
@@ -69,7 +71,8 @@
     <footer id="post-footer">
       {% if post.lab %}
 	<div class="lab-button">
-	  <a class="btn btn-info lab-project"
+	  <a rel="ajax" class="btn btn-info lab-project"
+	     data-navbar="#navbar-lab"
 	     href="{{ post.lab.get_absolute_url }}">
 	    <i class="icon-info-sign icon-white"></i>
 	    {% trans "Know more" %}
