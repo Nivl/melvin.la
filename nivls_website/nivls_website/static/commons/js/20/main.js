@@ -70,6 +70,7 @@ $(function() {
 	{
 	    'success': [
 		{
+		    'disabled': true,
 		    'callback': function(html, status, that) {
 			var response = $('<html />').html(html);
 			var to_change = ['#local_link', '#body-content',
@@ -81,9 +82,22 @@ $(function() {
 			}
 		    },
 		},
+		{
+		    'disabled': true,
+		    'callback': function(html, status, that) {
+			var response = $('<html />').html(html);
+			var to_change = ['#local_link', '#body-content-only',
+					 '#app_js'];
+			for (var i=0; i<to_change.length; i++) {
+			    $(to_change[i]).hide().html(response
+							.find(to_change[i])
+							.html()).fadeIn();
+			}
+		    },
+		},
 	    ]
 	}
-    )
+    );
 
     $(window).bind('statechange', function() {
 	var State = window.History.getState();
@@ -98,6 +112,18 @@ $(function() {
 	window.History.pushState(null,
 				 $(this).attr('title'),
 				 $(this).attr('href'));
+	g_page_reload_ajax.callbacks['success'][0]['disabled'] = false;
+	g_page_reload_ajax.callbacks['success'][1]['disabled'] = true;
+	return false;
+    });
+
+    $('a[rel=ajax-content]').on('click', function(event){
+	options = {'url': window.location.pathname};
+	window.History.pushState(null,
+				 $(this).attr('title'),
+				 $(this).attr('href'));
+	g_page_reload_ajax.callbacks['success'][0]['disabled'] = true;
+	g_page_reload_ajax.callbacks['success'][1]['disabled'] = false;
 	return false;
     });
 
