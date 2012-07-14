@@ -30,6 +30,7 @@ function styleCode() {
 }
 
 $(function() {
+
     /***********
      * Nav bar
      **********/
@@ -41,8 +42,9 @@ $(function() {
     navbar_img.css('top', '0px');
     $('#navbar').prepend(navbar_img);
     $('#navbar-main-list > li.active').removeClass('active');
-    $('#navbar-main-list > li').click(function() {
-	var left = $(this).offset()['left'];
+    $('#navbar-main-list > li a').click(function() {
+	var parent = $(this).parent('li');
+	var left = $(parent).offset()['left'];
     	navbar_img.animate({
 	    left: left
      	}, {
@@ -55,6 +57,48 @@ $(function() {
     	navbar_img.animate({
 	    left: '-100px',
      	}, 200);
+    });
+
+    /***********
+     * Ajax
+     **********/
+    var g_page_reload_ajax = new Ajaxion(
+	'',
+	{selector: 'body'},
+	'GET',
+	[],
+	{
+	    'success': [
+		{
+		    'callback': function(html, status, that) {
+			var response = $('<html />').html(html);
+			var to_change = ['#local_link', '#body-content',
+					 '#app_js'];
+			for (var i=0; i<to_change.length; i++) {
+			    $(to_change[i]).hide().html(response
+							.find(to_change[i])
+							.html()).fadeIn();
+			}
+		    },
+		},
+	    ]
+	}
+    )
+
+    $(window).bind('statechange', function() {
+	var State = window.History.getState();
+	var relativeURL = State.url.replace(window.History.getRootUrl(), '');
+	relativeURL = '/' + relativeURL
+	g_page_reload_ajax.url = relativeURL;
+	g_page_reload_ajax.start();
+    });
+
+    $('a[rel=ajax]').on('click', function(event){
+	options = {'url': window.location.pathname};
+	window.History.pushState(null,
+				 $(this).attr('title'),
+				 $(this).attr('href'));
+	return false;
     });
 
     /***********

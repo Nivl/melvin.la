@@ -120,7 +120,7 @@ PIPELINE_CSS = {
               },
 }
 
-PIPELINE = DEBUG
+PIPELINE = not DEBUG
 PIPELINE_DISABLE_WRAPPER = True
 
 

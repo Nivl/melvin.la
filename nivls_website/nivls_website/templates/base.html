@@ -2,50 +2,60 @@
 {% load seo_tags i18n staticfiles compressed %}
 {% get_seo as _ %}
 
-<!DOCTYPE html>
-<html lang="{% trans "en" %}">
-  <head>
-    <meta charset="utf-8">
-    <title>{% block "title" %}{{ seo.title }}{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="{{ seo.keywords }}">
-    <meta name="description"
-	  content="{% block "meta-description" %}{{ seo.description }}{% endblock %}">
+{% if not request.is_ajax %}
+  <!DOCTYPE html>
+  <html lang="{% trans "en" %}">
+    <head>
+      <meta charset="utf-8">
+      <title>{% block "title" %}{{ seo.title }}{% endblock %}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="keywords" content="{{ seo.keywords }}">
+      <meta name="description"
+	    content="{% block "meta-description" %}{{ seo.description }}{% endblock %}">
 
-    <link rel="shortcut icon" href="{% static "commons/img/favicon.ico" %}">
-    <link rel="publisher" href="https://plus.google.com/107029584179497153748">
+      <link rel="shortcut icon" href="{% static "commons/img/favicon.ico" %}">
+      <link rel="publisher" href="https://plus.google.com/107029584179497153748">
 
-    {% block "local_css" %}{% endblock %}
-    {% block "head_link" %}{% endblock %}
+      {% block "local_css" %}{% endblock %}
+      <div id="local_link">
+	{% block "head_link" %}{% endblock %}
+      </div>
 
-    <!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+      <!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+	  </script>
+	  <![endif]-->
+    </head>
+
+    <body{% block "body-params" %}{% endblock %}>
+
+      {% endif %}
+	<div id="body">
+	  {% block "body" %}{% endblock %}
+	</div>
+      {% if not request.is_ajax %}
+
+	<script src="https://www.google.com/jsapi"></script>
+	<script>
+	  var STATIC_URL = "{% static "" %}";
+	  google.load("chrome-frame", "1");
+	  google.load("jquery", "1.7");
 	</script>
-    <![endif]-->
-  </head>
 
-  <body{% block "body-params" %}{% endblock %}>
+	<script src="{% url "django.views.i18n.javascript_catalog" %}"></script>
+	<script src="{% url "jsurls" %}"></script>
 
-    <div id="body">
-      {% block "body" %}{% endblock %}
-    </div>
+	{% compressed_js 'main' %}
+      {% endif %}
 
-    <script src="https://www.google.com/jsapi"></script>
-    <script>
-      var STATIC_URL = "{% static "" %}";
-      google.load("chrome-frame", "1");
-      google.load("jquery", "1.7");
-    </script>
+      <div id="app_js">
+	{% block "app_js" %}{% endblock %}
+      </div>
 
-    <script src="{% url "django.views.i18n.javascript_catalog" %}"></script>
-    <script src="{% url "jsurls" %}"></script>
-
-    {% compressed_js 'main' %}
-
-    {% block "app_js" %}{% endblock %}
-
-    <script>
-      {{ seo.free_block|safe }}
-    </script>
-  </body>
-</html>
+      {% if not request.is_ajax %}
+	<script>
+	  {{ seo.free_block|safe }}
+	</script>
+      </body>
+    </html>
+  {% endif %}
