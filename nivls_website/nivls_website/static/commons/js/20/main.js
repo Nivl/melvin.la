@@ -95,6 +95,9 @@ $(function() {
 			}
 		    },
 		},
+		{
+		    'callback': styleCode,
+		}
 	    ]
 	}
     );
