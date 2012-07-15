@@ -127,6 +127,10 @@ h2 {
     background-color: @blueGrayLighter;
 }
 
+.breadcrumb {
+    #gradient > .vertical(@bodyBackground, #e4e4e4);
+}
+
 /******************************************************************************
  * END BOOTSTRAP FIXES
  *****************************************************************************/
@@ -589,8 +593,16 @@ article.post {
     position: relative;
 }
 
+#breadcrumb {
+    margin-top: 70px;
+}
+
+.container + #body-content {
+    margin-top: 0px;
+}
+
 #body-content {
-    padding-top: 70px;
+    margin-top: 70px;
     padding-bottom: @footer-size + 60px;
 }
 

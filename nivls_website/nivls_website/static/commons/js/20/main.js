@@ -117,13 +117,34 @@ $(function() {
 	var State = window.History.getState();
 	var relativeURL = State.url.replace(window.History.getRootUrl(), '');
 	relativeURL = '/' + relativeURL
+
+	if (State.data['type'] == 'new') {
+	    $('#breadcrumb').html('<li><a href="' + State.data['href'] + '">' + State.data['content'] + '</a>');
+	} else if (State.data['type'] == 'append') {
+	    var last = $('#breadcrumb li').last();
+	    var first = $('#breadcrumb li').first();
+
+	    console.log(last.children('a'));
+	    console.log(State.data['href']);
+
+	    if (first == last || last.prev().children('a').attr('href') != State.data['href']) {
+		last.append('<span class="divider">/<span/>');
+		$('#breadcrumb').append('<li><a href="' + State.data['href'] + '">' + State.data['content'] + '</a>');
+	    } else {
+		last.prev().children('span').remove();
+		last.remove();
+	    }
+	}
+
 	g_page_reload_ajax.url = relativeURL;
 	g_page_reload_ajax.start();
     });
 
     $(document).on('click', 'a[rel=ajax]', function(event){
 	options = {'url': window.location.pathname};
-	window.History.pushState(null,
+	window.History.pushState({'type': 'new',
+				  'content': $(this).html(),
+				  'href': $(this).attr('href')},
 				 $(this).attr('title'),
 				 $(this).attr('href'));
 	g_page_reload_ajax.callbacks['success'][0]['disabled'] = false;
@@ -133,7 +154,9 @@ $(function() {
 
     $(document).on('click', 'a[rel=ajax-content]', function(event){
 	options = {'url': window.location.pathname};
-	window.History.pushState(null,
+	window.History.pushState({'type': 'append',
+				  'content': $(this).html(),
+				  'href': $(this).attr('href')},
 				 $(this).attr('title'),
 				 $(this).attr('href'));
 	g_page_reload_ajax.callbacks['success'][0]['disabled'] = true;

@@ -10,6 +10,11 @@
   {% block "sub_head_link" %}{% endblock "sub_head_link" %}
 {% endblock "head_link" %}
 
+{% block "breadcrumb-content" %}
+  <li>
+    <a href="{% url "blog" %}">Blog</a>
+{% endblock "breadcrumb-content" %}
+
 {% block "body-content" %}
   <div class="container">
     <div class="row">
