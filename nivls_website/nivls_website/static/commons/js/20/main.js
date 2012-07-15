@@ -80,14 +80,18 @@ $(function() {
     /***********
      * Lab menu
      **********/
-    $(document).on('click', '#lab-nav-list a', function() {
+    function lab_change_menu(id) {
 	var active = $('#lab-nav-list').find('.active');
 	active.removeClass('active').addClass('hide');
 	active.next().removeClass('hide');
 
-	var current = $(this).find('.hide');
+	var current = $('#' + id).find('.hide');
 	current.removeClass('hide').addClass('active');
 	current.next().addClass('hide');
+    }
+
+    $(document).on('click', '#lab-nav-list a', function() {
+	lab_change_menu($(this).prop('id'));
     });
 
 
@@ -135,6 +139,7 @@ $(function() {
 
     $(window).bind('statechange', function() {
 	var navbar_id = $('#navbar-main-list > li.active').prop('id');
+	var lab_tag_id = $('#lab-nav-list .active').parents('a').prop('id');
 	var State = window.History.getState();
 	var relativeURL = State.url.replace(window.History.getRootUrl(), '');
 	relativeURL = '/' + relativeURL;
@@ -154,6 +159,15 @@ $(function() {
 	    moveNavbar(navbar_target);
 	}
 
+	console.log(lab_tag_id);
+	console.log(State.data['lab_tag_id']);
+	console.log('--');
+
+	if (lab_tag_id !== State.data['lab_tag_id']
+	    && State.data['lab_tag_id'] !== undefined) {
+	    lab_change_menu(State.data['lab_tag_id']);
+	}
+
 	if (State.data['breadcrumb'] !== undefined
 	    && State.data['breadcrumb'].length) {
 	    $('#breadcrumb').html(State.data['breadcrumb']).show();
@@ -166,8 +180,6 @@ $(function() {
 	g_page_reload_ajax.callbacks['success'][0]['disabled'] = content_only;
 	g_page_reload_ajax.callbacks['success'][1]['disabled'] = !content_only;
 	g_page_reload_ajax.url = relativeURL;
-	console.log(content_only);
-	console.log(g_page_reload_ajax);
 	g_page_reload_ajax.start();
     });
 
@@ -218,11 +230,13 @@ $(function() {
 	var content_only = $(this).attr('rel') == 'ajax-content';
 	var breadcrumb = getNewBreadcrumb(this);
 	var navbar_id = $('#navbar-main-list > li.active').prop('id');
+	var lab_tag_id = $('#lab-nav-list .active').parents('a').prop('id');
 
 	options = {'url': window.location.pathname};
 	window.History.pushState({'breadcrumb': breadcrumb.html(),
 				  'content_only': content_only,
-				  'navbar_id': navbar_id},
+				  'navbar_id': navbar_id,
+				  'lab_tag_id': lab_tag_id},
 				 $(this).attr('title'),
 				 $(this).attr('href'));
 	return false;
