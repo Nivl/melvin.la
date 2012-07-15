@@ -45,8 +45,7 @@
 	    {% for tag in tags %}
 	      <a rel="ajax-content"
 	 	 data-depth="10"
-		 href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
-	      {% if not forloop.last %},{% endif %}
+		 href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
 	    {% endfor %}
 	  {% endif %}
 	{% endwith %}
