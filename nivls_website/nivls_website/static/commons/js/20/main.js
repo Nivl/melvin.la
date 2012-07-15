@@ -1,3 +1,4 @@
+
 function preview() {
     var markdownConverter = new Markdown.getSanitizingConverter();
 
@@ -10,6 +11,11 @@ function preview() {
 	$(this).stopTime();
 	$(this).oneTime(500, function() { styleCode(); });
     });
+}
+
+function enableBootstrapEffects() {
+    $('.carousel').carousel()
+    $('[rel=tooltip]').tooltip();
 }
 
 function styleCode() {
@@ -28,7 +34,6 @@ function styleCode() {
 }
 
 $(function() {
-
     /***********
      * Nav bar
      **********/
@@ -119,9 +124,8 @@ $(function() {
 			}
 		    },
 		},
-		{
-		    'callback': styleCode,
-		}
+		{'callback': styleCode,},
+		{'callback': enableBootstrapEffects,},
 	    ]
 	}
     );
@@ -131,12 +135,13 @@ $(function() {
 	var relativeURL = State.url.replace(window.History.getRootUrl(), '');
 	relativeURL = '/' + relativeURL;
 	if (State.data['breadcrumb'].length) {
-	    $('#breadcrumb').hide().html(State.data['breadcrumb']).fadeIn();
+	    $('#breadcrumb').html(State.data['breadcrumb']).show();
 	} else {
 	    $('#breadcrumb').fadeOut(function(){
 		$(this).empty();
 	    });
 	}
+
 	g_page_reload_ajax.url = relativeURL;
 	g_page_reload_ajax.start();
     });
@@ -220,10 +225,9 @@ $(function() {
     /***********
      * Global
      **********/
-    $('.carousel').carousel()
-    $('[rel=tooltip]').tooltip();
     $('.animated-thumbnails > li').hoverdir();
 
+    enableBootstrapEffects();
     styleCode();
     preview();
 });
