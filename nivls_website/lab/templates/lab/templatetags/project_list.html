@@ -7,7 +7,10 @@
 
     <div class="section-content margin-top-1">
       {{ project.description|markdown }}
-      <a href="{% url "lab-project" project.slug %}"
+      <a data-depth="30"
+	 rel="ajax-content"
+	 title="{{ project.name }}"
+	 href="{% url "lab-project" project.slug %}"
 	 class="btn btn-info">
 	{% trans "Know more" %}
       </a>

@@ -2,7 +2,6 @@
 
 <section class="pagination pagination-centered">
   <ul>
-
     <li{% if not paginator.has_previous %} class="disabled"{% endif %}>
       <a rel="ajax-content"
 	 title="{% blocktrans with i=paginator.previous_page_number %}Page {{ i }}{% endblocktrans %}"

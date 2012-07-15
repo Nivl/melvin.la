@@ -4,14 +4,30 @@
 <div class="row center-text">
   <li class="span1">
     <figure class="inline-figure">
-      <a class="generated-icon" href="{% url 'lab-home' %}">
+      <a rel="ajax-content"
+	 data-depth="1"
+	 title="{% trans "Lab" %}"
+	 class="generated-icon"
+	 href="{% url 'lab-home' %}">
 	<div class="main-icon"
 	     style="background-image: url({% static "/commons/img/home.png" %});">
+
 	  {% ifequal act_menu "home" %}
-	    <img src="{% static "/commons/img/home.png" %}" alt="home">
+	    <img class="enabled active"
+		 alt="home"
+		 src="{% static "/commons/img/home.png" %}">
+
+	    <img class="disabled hide"
+		 alt="home"
+		 src="{% static "/commons/img/home-grey.png" %}">
 	  {% else %}
-	    <img src="{% static "/commons/img/home-grey.png" %}"
-		 alt="{{ tag.slug }}">
+	    <img class="enabled hide"
+		 alt="home"
+		 src="{% static "/commons/img/home.png" %}">
+
+	    <img class="disabled"
+		 alt="home"
+		 src="{% static "/commons/img/home-grey.png" %}">
 	  {% endifequal %}
 	</div>
 
@@ -22,15 +38,33 @@
     {% for tag in tags %}
       <li class="span1">
 	<figure class="inline-figure">
-	  <a class="generated-icon" href="{% url "lab-tag" tag.slug %}">
+	  <a rel="ajax-content"
+	     data-depth="10"
+	     title="{{ tag.name }}"
+	     class="generated-icon"
+	     href="{% url "lab-tag" tag.slug %}">
 	    <div class="main-icon"
 		 style="background-image: url({{ tag.icon_enabled.url }});">
-	       {% ifequal act_menu tag.slug %}
-		 <img src="{{ tag.icon_enabled.url }}" alt="{{ tag.slug }}">
-	       {% else %}
-		 <img src="{{ tag.icon_disabled.url }}" alt="{{ tag.slug }}">
-	       {% endifequal %}
+
+	      {% ifequal act_menu tag.slug %}
+		<img class="enabled activated"
+		     alt="{{ tag.slug }}"
+		     src="{{ tag.icon_enabled.url }}">
+
+		<img class="disabled hide"
+		     alt="{{ tag.slug }}"
+		     src="{{ tag.icon_disabled.url }}">
+	      {% else %}
+		<img class="enabled hide"
+		     alt="{{ tag.slug }}"
+		     src="{{ tag.icon_enabled.url }}">
+
+		<img class="deactivated"
+		     alt="{{ tag.slug }}"
+		     src="{{ tag.icon_disabled.url }}">
+	      {% endifequal %}
 	    </div>
+
 	    <figcaption>{{ tag.name }}</figcaption>
 	  </a>
 	</figure>
