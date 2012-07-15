@@ -9,7 +9,10 @@
 
       <li class="span3">
 	<div class="thumbnail">
-	  <a rel="ajax-content" href="{{ post.get_absolute_url }}">
+	  <a data-depth="30"
+	     rel="ajax-content"
+	     title="{{ post.title }}"
+	     href="{{ post.get_absolute_url }}">
 	    <img src="{{ post.thumbnail.url }}" alt="thumbnail" />
 	  </a>
 	  <div class="caption">
@@ -21,6 +24,8 @@
 
 	    <p>
 	      <a rel="ajax-content"
+		 data-depth="30"
+		 title="{{ post.title }}"
 		 class="btn btn-info"
 		 href="{{ post.get_absolute_url }}">
 		<i class="icon-plus-sign icon-white"></i>

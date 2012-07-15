@@ -1,5 +1,3 @@
-/* google prettyprint  */
-
 function preview() {
     var markdownConverter = new Markdown.getSanitizingConverter();
 
@@ -116,49 +114,72 @@ $(function() {
     $(window).bind('statechange', function() {
 	var State = window.History.getState();
 	var relativeURL = State.url.replace(window.History.getRootUrl(), '');
-	relativeURL = '/' + relativeURL
-
-	if (State.data['type'] == 'new') {
-	    $('#breadcrumb').html('<li><a href="' + State.data['href'] + '">' + State.data['content'] + '</a>');
-	} else if (State.data['type'] == 'append') {
-	    var last = $('#breadcrumb li').last();
-	    var first = $('#breadcrumb li').first();
-
-	    console.log(last.children('a'));
-	    console.log(State.data['href']);
-
-	    if (first == last || last.prev().children('a').attr('href') != State.data['href']) {
-		last.append('<span class="divider">/<span/>');
-		$('#breadcrumb').append('<li><a href="' + State.data['href'] + '">' + State.data['content'] + '</a>');
-	    } else {
-		last.prev().children('span').remove();
-		last.remove();
-	    }
-	}
-
+	relativeURL = '/' + relativeURL;
+	$('#breadcrumb').hide().html(State.data['breadcrumb']).fadeIn();
 	g_page_reload_ajax.url = relativeURL;
 	g_page_reload_ajax.start();
     });
 
-    $(document).on('click', 'a[rel=ajax]', function(event){
+    function getNewBreadcrumb(that) {
+	var breadcrumb = $('#breadcrumb').clone();
+
+	breadcrumb.children('li').each(function() {
+	    var prev = $(this).prev();
+	    if ($(this).children('a').data('depth') >= $(that).data('depth')) {
+		$(this).nextAll().remove();
+		$(this).remove();
+		console.log('removed some elements');
+		if (prev.length) {
+		    console.log('Span removed');
+		    prev.children('span').remove();
+		}
+	    }
+	});
+
+	console.log(breadcrumb);
+
+	if (breadcrumb.children('li').last().length) {
+	    breadcrumb.children('li').last()
+		.append('<span class="divider">/<span/>');
+	}
+
+	var new_elem = '<li><a';
+	new_elem += ' data-depth="' + $(that).data('depth') + '"';
+	new_elem += ' rel="' + $(that).attr('rel') + '"';
+	if ($(that).attr('title') !== undefined) {
+	    new_elem += ' title="' + $(that).attr('title') + '"';
+	}
+
+	new_elem += 'href="' + $(that).attr('href') + '">';
+	if ($(that).attr('title') !== undefined) {
+	    new_elem += $(that).attr('title');
+	} else {
+	    new_elem += $(that).html();
+	}
+	new_elem += '</a>';
+	breadcrumb.append(new_elem);
+
+	return breadcrumb;
+    }
+
+    function pushState(that) {
+	var breadcrumb = getNewBreadcrumb(that);
+
 	options = {'url': window.location.pathname};
-	window.History.pushState({'type': 'new',
-				  'content': $(this).html(),
-				  'href': $(this).attr('href')},
-				 $(this).attr('title'),
-				 $(this).attr('href'));
+	window.History.pushState({'breadcrumb': breadcrumb.html()},
+				 $(that).attr('title'),
+				 $(that).attr('href'));
+    }
+
+    $(document).on('click', 'a[rel=ajax]', function(event){
+	pushState(this);
 	g_page_reload_ajax.callbacks['success'][0]['disabled'] = false;
 	g_page_reload_ajax.callbacks['success'][1]['disabled'] = true;
 	return false;
     });
 
     $(document).on('click', 'a[rel=ajax-content]', function(event){
-	options = {'url': window.location.pathname};
-	window.History.pushState({'type': 'append',
-				  'content': $(this).html(),
-				  'href': $(this).attr('href')},
-				 $(this).attr('title'),
-				 $(this).attr('href'));
+	pushState(this);
 	g_page_reload_ajax.callbacks['success'][0]['disabled'] = true;
 	g_page_reload_ajax.callbacks['success'][1]['disabled'] = false;
 	return false;

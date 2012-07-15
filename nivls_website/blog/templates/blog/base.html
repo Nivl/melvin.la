@@ -1,5 +1,6 @@
 {% extends "base_common.html" %}
-{% load url from future  %}
+{% load url from future %}
+{% load i18n %}
 
 {% block "head_link" %}
   <link rel="alternate" type="application/atom+xml"
@@ -12,7 +13,10 @@
 
 {% block "breadcrumb-content" %}
   <li>
-    <a href="{% url "blog" %}">Blog</a>
+    <a data-depth="1"
+       rel="ajax-content"
+       title="{% trans "Blog" %}"
+       href="{% url "blog" %}">Blog</a>
 {% endblock "breadcrumb-content" %}
 
 {% block "body-content" %}

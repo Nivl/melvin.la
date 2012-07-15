@@ -2,7 +2,8 @@
   <div class="carousel-inner">
     {% for item in object %}
       <div class="item{% if forloop.counter == 1 %} active{% endif %}">
-	<a rel="ajax-content"
+	<a data-depth="30"
+	   rel="ajax-content"
 	   href="{{ item.get_absolute_url }}" title="{{ item.title }}">
 	  <img src="{{ item.main_image.url }}" alt="{{ item.title }}">
 	</a>

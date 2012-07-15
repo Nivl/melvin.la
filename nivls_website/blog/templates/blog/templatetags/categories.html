@@ -13,8 +13,9 @@
       <ul class="nested_tree_child">
     {% else %}
       <li>
-        <a rel="ajax-content" href="{{ object.get_absolute_url }}"
-	   title="{% blocktrans count counter=object.num_post %}1 post{% plural %}{{ counter }} posts{% endblocktrans %}">
+        <a data-depth="10"
+	   rel="ajax-content"
+	   href="{{ object.get_absolute_url }}">
 	  {{ object.name }}
 	</a>
     {% endifequal %}

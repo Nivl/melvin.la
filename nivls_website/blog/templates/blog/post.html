@@ -34,6 +34,7 @@
 	  {{ post.pub_date|naturalday }}
 	</time>
 	{% trans "In: " %}<a rel="ajax-content"
+			     data-depth="10"
 			     href="{{ post.category.get_absolute_url }}">
 	  {{ post.category }}
 	</a>
@@ -43,6 +44,7 @@
 	    <i class="icon-tags"></i>
 	    {% for tag in tags %}
 	      <a rel="ajax-content"
+	 	 data-depth="10"
 		 href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
 	      {% if not forloop.last %},{% endif %}
 	    {% endfor %}
@@ -71,8 +73,11 @@
     <footer id="post-footer">
       {% if post.lab %}
 	<div class="lab-button">
-	  <a rel="ajax" class="btn btn-info lab-project"
+	  <a data-depth="1"
+	     rel="ajax"
+	     class="btn btn-info lab-project"
 	     data-navbar="#navbar-lab"
+	     title="{% trans "Lab" %}"
 	     href="{{ post.lab.get_absolute_url }}">
 	    <i class="icon-info-sign icon-white"></i>
 	    {% trans "Know more" %}

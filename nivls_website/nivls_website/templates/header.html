@@ -2,7 +2,6 @@
 {% load url from future %}
 {% load user_tags  %}
 
-
 <header>
   <div id="navbar" class="navbar navbar-fixed-top">
     <div class="navbar-inner">
@@ -21,45 +20,45 @@
 
 	    <li id="navbar-blog"
 		{% ifequal act_menu "blog" %} class="active"{% endifequal %}>
-	      <a rel="ajax" href="{% url "blog" %}">
+	      <a data-depth="1" rel="ajax" href="{% url "blog" %}">
 		<i class="icon-book icon-white"></i>
 		{% trans "Blog" %}
 	      </a>
 
 	    <li id="navbar-contact"
 		{% ifequal act_menu "contact" %} class="active"{% endifequal %}>
-		<a rel="ajax" href="{% url "contact" %}">
-		  <i class="icon-envelope icon-white"></i>
-		  {% trans "Contact" %}
-		</a>
+	      <a data-depth="1" rel="ajax" href="{% url "contact" %}">
+		<i class="icon-envelope icon-white"></i>
+		{% trans "Contact" %}
+	      </a>
 
 	    <li id="navbar-lab"
 		{% ifequal act_menu "lab" %} class="active"{% endifequal %}>
-		  <a rel="ajax" href="{% url "lab-home" %}">
-		    <i class="icon-nivl-lab icon-nivl-white"></i>
-		    {% trans "Lab" %}
-		  </a>
+	      <a data-depth="1" rel="ajax" href="{% url "lab-home" %}">
+		<i class="icon-nivl-lab icon-nivl-white"></i>
+		{% trans "Lab" %}
+	      </a>
 
 	    <li id="navbar-about"
 		{% ifequal act_menu "home" %} class="active"{% endifequal %}>
-		    <a rel="ajax" href="{% url "home" %}">
-		      <i class="icon-user icon-white"></i>
-		      {% trans "About" %}
-		    </a>
+	      <a data-depth="0" rel="ajax" href="{% url "home" %}">
+		<i class="icon-user icon-white"></i>
+		{% trans "About" %}
+	      </a>
 
 	    <li id="navbar-portfolio"
 		{% ifequal act_menu "portfolio" %} class="active"{% endifequal %}>
-		      <a rel="ajax" href="{% url "portfolio" %}">
-			<i class="icon-picture icon-white"></i>
-			{% trans "Portfolio" %}
-		      </a>
+	      <a data-depth="0" rel="ajax" href="{% url "portfolio" %}">
+		<i class="icon-picture icon-white"></i>
+		{% trans "Portfolio" %}
+	      </a>
 
 	    <li id="navbar-cv"
 		{% ifequal act_menu "cv" %} class="active"{% endifequal %}>
-			<a rel="ajax" href="{% url "cv" %}">
-			  <i class="icon-th-list icon-white"></i>
-			  {% trans "C.V." %}
-			</a>
+	      <a data-depth="0" rel="ajax" href="{% url "cv" %}">
+		<i class="icon-th-list icon-white"></i>
+		{% trans "C.V." %}
+	      </a>
           </ul>
 
 	  <ul id="header-menu-user" class="nav pull-right">
