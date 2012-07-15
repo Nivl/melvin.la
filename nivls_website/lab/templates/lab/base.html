@@ -1,6 +1,6 @@
 {% extends "base_common.html" %}
-{% load url from future  %}
-{% load tag_lab  %}
+{% load url from future %}
+{% load tag_lab i18n %}
 
 {% block "head_js" %}
   {% block "sub_head_js" %}{% endblock "sub_head_js" %}
@@ -12,6 +12,13 @@
   {% endwith %}
 {% endblock %}
 
+{% block "breadcrumb-content" %}
+  <li>
+    <a data-depth="1"
+       rel="ajax-content"
+       title="{% trans "Lab" %}"
+       href="{% url "lab-home" %}">{% trans "Lab" %}</a>
+{% endblock "breadcrumb-content" %}
 
 {% block "body-content" %}
   <div id="modal-gallery" class="modal modal-gallery hide fade">

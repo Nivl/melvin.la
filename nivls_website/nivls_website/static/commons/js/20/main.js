@@ -115,7 +115,13 @@ $(function() {
 	var State = window.History.getState();
 	var relativeURL = State.url.replace(window.History.getRootUrl(), '');
 	relativeURL = '/' + relativeURL;
-	$('#breadcrumb').hide().html(State.data['breadcrumb']).fadeIn();
+	if (State.data['breadcrumb'].length) {
+	    $('#breadcrumb').hide().html(State.data['breadcrumb']).fadeIn();
+	} else {
+	    $('#breadcrumb').fadeOut(function(){
+		$(this).empty();
+	    });
+	}
 	g_page_reload_ajax.url = relativeURL;
 	g_page_reload_ajax.start();
     });
@@ -123,20 +129,21 @@ $(function() {
     function getNewBreadcrumb(that) {
 	var breadcrumb = $('#breadcrumb').clone();
 
+	if ($(that).data('depth') == 0) {
+	    breadcrumb.empty();
+	    return breadcrumb;
+	}
+
 	breadcrumb.children('li').each(function() {
 	    var prev = $(this).prev();
 	    if ($(this).children('a').data('depth') >= $(that).data('depth')) {
 		$(this).nextAll().remove();
 		$(this).remove();
-		console.log('removed some elements');
 		if (prev.length) {
-		    console.log('Span removed');
 		    prev.children('span').remove();
 		}
 	    }
 	});
-
-	console.log(breadcrumb);
 
 	if (breadcrumb.children('li').last().length) {
 	    breadcrumb.children('li').last()
@@ -194,7 +201,6 @@ $(function() {
 	var originalBg = this.css("backgroundColor");
 	this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
     };
-
 
     /***********
      * Global

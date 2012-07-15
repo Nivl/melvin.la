@@ -13,17 +13,18 @@
   {% endblock "header" %}
 
   {% block "breadcrumb" %}
-    <div class="container">
-      <div class="row">
-	<div class="span9">
-	  <ul id="breadcrumb" class="breadcrumb">
-	    {% block "breadcrumb-content" %}{% endblock "breadcrumb-content" %}
-	  </ul>
+    <div id="breadcrumb-container">
+      <div class="container">
+	<div class="row">
+	  <div class="span9">
+	    <ul id="breadcrumb" class="breadcrumb {% block "breadcrumb-classes" %}{% endblock %}">
+	      {% block "breadcrumb-content" %}{% endblock %}
+	    </ul>
+	  </div>
 	</div>
       </div>
     </div>
   {% endblock "breadcrumb" %}
-
 
   <div id="body-content">
     {% block "body-content" %}{% endblock "body-content" %}
