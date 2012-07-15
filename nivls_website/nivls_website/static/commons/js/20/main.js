@@ -77,7 +77,7 @@ $(function() {
     /***********
      * Lab menu
      **********/
-    $('#lab-nav-list').on('click', 'a', function() {
+    $(document).on('click', '#lab-nav-list a', function() {
 	var active = $('#lab-nav-list').find('.active');
 	active.removeClass('active').addClass('hide');
 	active.next().removeClass('hide');
