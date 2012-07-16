@@ -28,16 +28,6 @@
 		{% trans "Blog" %}
 	      </a>
 
-	    <li id="navbar-contact"
-		{% ifequal act_menu "contact" %} class="active"{% endifequal %}>
-	      <a data-depth="1"
-		 title="{% trans "Contact" %}"
-		 rel="ajax"
-		 href="{% url "contact" %}">
-		<i class="icon-envelope icon-white"></i>
-		{% trans "Contact" %}
-	      </a>
-
 	    <li id="navbar-lab"
 		{% ifequal act_menu "lab" %} class="active"{% endifequal %}>
 	      <a data-depth="1"
@@ -67,6 +57,13 @@
 	      <a data-depth="0" rel="ajax" href="{% url "cv" %}">
 		<i class="icon-th-list icon-white"></i>
 		{% trans "C.V." %}
+	      </a>
+
+	    <li id="navbar-contact"
+		{% ifequal act_menu "contact" %} class="active"{% endifequal %}>
+	      <a data-depth="0" rel="ajax" href="{% url "contact" %}">
+		<i class="icon-envelope icon-white"></i>
+		{% trans "Contact" %}
 	      </a>
           </ul>
 

@@ -3,8 +3,36 @@ from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.contrib.sites.models import Site
 from django.views.decorators.http import require_safe
+from django.core.mail import send_mail
 from commons.views import write_pdf
+from commons.decorators import ajax_only
 from models import *
+from forms import *
+
+
+@require_safe
+def contact(request):
+    form = ContactForm(request=request)
+    return render(request, "about/contact.html", {'form': form})
+
+
+@ajax_only
+def contact_form(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST, request=request)
+        if form.is_valid():
+            msg = form.cleaned_data['message'] + "\n\n\n" + ('-' * 80)
+            msg += "\n\n Ip : " + request.META["REMOTE_ADDR"]
+            send_mail(form.cleaned_data['subject'],
+                      msg,
+                      form.cleaned_data['email'],
+                      [row[1] for row in settings.ADMINS],
+                      fail_silently=True)
+            return render(request, 'about/contact_ok.html')
+    else:
+        form = ContactForm(request=request)
+
+    return render(request, "about/contact_form.html", {'form': form})
 
 
 @require_safe

@@ -6,7 +6,6 @@ from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.conf import settings
-from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_safe
 from django.contrib.auth.decorators import login_required
@@ -27,31 +26,6 @@ def home(request):
         .order_by('-pub_date')
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request, "blog/home.html", {"posts": posts})
-
-
-@require_safe
-def contact(request):
-    form = ContactForm(request=request)
-    return render(request, "blog/contact.html", {'form': form})
-
-
-@ajax_only
-def contact_form(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST, request=request)
-        if form.is_valid():
-            msg = form.cleaned_data['message'] + "\n\n\n" + ('-' * 80)
-            msg += "\n\n Ip : " + request.META["REMOTE_ADDR"]
-            send_mail(form.cleaned_data['subject'],
-                      msg,
-                      form.cleaned_data['email'],
-                      [row[1] for row in settings.ADMINS],
-                      fail_silently=True)
-            return render(request, 'blog/contact_ok.html')
-    else:
-        form = ContactForm(request=request)
-
-    return render(request, "blog/contact_form.html", {'form': form})
 
 
 @require_safe

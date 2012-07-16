@@ -17,7 +17,6 @@ urlpatterns = patterns(
     url(r'^accounts/', include('user_profile.urls')),
     url(r'^captcha/', include('captcha.urls')),
 
-
     url(r'^ajax/get_header/$',
         'nivls_website.views.get_common_header',
         name='get-common-header'),

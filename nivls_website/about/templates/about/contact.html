@@ -1,0 +1,16 @@
+{% extends "about/base.html" %}
+{% load i18n %}
+
+{% block "header" %}
+  {% with act_menu="contact" %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock %}
+
+{% block "title" %}{% trans "Contact" %}{% endblock "title" %}
+
+{% block "content" %}
+  <h1 class="center-text">{% trans "Contact" %}</h1>
+
+  {% include "about/contact_form.html" with form=form %}
+{% endblock "content" %}

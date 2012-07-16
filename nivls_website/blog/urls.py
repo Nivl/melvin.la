@@ -58,20 +58,7 @@ urlpatterns = patterns(
     url(r'^tag/(?P<slug>[-\w]+)/$',
         'post_list_by_tags',
         name='tag'),
-
-    url(r'^contact/form/$',
-        'contact_form',
-        name='contact-form'),
 )
-
-# Static which will be added to the sitemap
-static_urlpatterns = patterns(
-    '',
-    url(r'^contact/$',
-        'blog.views.contact',
-        name='contact'),
-)
-
 
 feeds_urlpatterns = patterns(
     '',
@@ -98,6 +85,5 @@ feeds_urlpatterns = patterns(
 
 sitemaps = {
     'blog_post': PostSitemap,
-    'blog_static': StaticSitemap(static_urlpatterns), }
-
-urlpatterns += static_urlpatterns + feeds_urlpatterns
+}
+urlpatterns += feeds_urlpatterns

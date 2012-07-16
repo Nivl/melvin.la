@@ -1,6 +1,4 @@
-from django.conf import settings
 from django.contrib.sitemaps import Sitemap
-
 
 class StaticSitemap(Sitemap):
     changefreq = "monthly"
