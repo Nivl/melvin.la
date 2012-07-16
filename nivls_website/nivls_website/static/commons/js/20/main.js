@@ -16,6 +16,7 @@ function preview() {
 function enableBootstrapEffects() {
     $('.carousel').carousel()
     $('[rel=tooltip]').tooltip();
+    $('.animated-thumbnails > li').hoverdir();
 }
 
 function styleCode() {
@@ -111,10 +112,6 @@ $(function() {
 			var response = $('<html />').html(html);
 			var to_change = ['#local_link', '#body-content',
 					 '#app_js'];
-
-			console.log(response);
-
-
 			for (var i=0; i<to_change.length; i++) {
 			    $(to_change[i]).hide().html(response
 							.find(to_change[i])
@@ -128,9 +125,6 @@ $(function() {
 			var response = $('<html />').html(html);
 			var to_change = ['#local_link', '#body-content-only',
 					 '#app_js'];
-
-			console.log(response);
-
 			for (var i=0; i<to_change.length; i++) {
 			    $(to_change[i]).hide().html(response
 							.find(to_change[i])
@@ -258,8 +252,6 @@ $(function() {
     /***********
      * Global
      **********/
-    $('.animated-thumbnails > li').hoverdir();
-
     enableBootstrapEffects();
     styleCode();
     preview();
