@@ -7,9 +7,10 @@ sitemaps = {
 
 urlpatterns = patterns(
     'lab.views',
+
     url(r'^$',
         'home',
-        name='lab-home'),
+        name='lab'),
 
     url(r'^tag/(?P<slug>[-\w]+)/$',
         'tag',
