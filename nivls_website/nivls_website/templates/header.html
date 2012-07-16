@@ -72,12 +72,14 @@
 
 	  <ul id="header-menu-user" class="nav pull-right">
 	    {% if not user.is_authenticated %}
-	      <li><a class="hide-navbar-img"
-		     href="{% url "sign-up" %}">Sign up</a>
+	      <li><a rel="ajax"
+		     data-depth="0"
+		     class="hide-navbar-img"
+		     href="{% url "sign-up" %}">{% trans "Sign up" %}</a>
 	      <li class="divider-vertical">
 	      <li class="dropdown">
 		<a class="dropdown-toggle" href="#" data-toggle="dropdown">
-		  Sign in <i class="caret"></i>
+		  {% trans "Sign in" %} <i class="caret"></i>
 		</a>
 		<div class="dropdown-menu login-box">
 
@@ -100,24 +102,55 @@
 		    <input value="{% trans "Sign in" %}"
 			   class="btn btn-primary" type="submit" />
 		  </form>
-		  <a href="{% url 'reset-password' %}">{% trans "I lost my password" %}</a>
+		  <a rel="ajax"
+		     data-depth="0"
+		     class="hide-navbar-img"
+		     href="{% url 'reset-password' %}">
+		    {% trans "I lost my password" %}
+		  </a>
 		</div>
 	      {% else %}
 		<li class="dropdown">
-		  <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+		  <a class="dropdown-toggle"
+		     href="#"
+		     data-toggle="dropdown">
 		    <i class="icon-wrench icon-white"></i>
 		  </a>
 		  <ul class="dropdown-menu">
-		    <li class="nav-header centered-text">{{ user.username }}
+		    <li class="nav-header centered-text">
+		      {{ user.username }}
 		    <li class="divider">
-		    <li><a href="{{ user.get_absolute_url }}"><i class="icon-user"></i> {% trans "My profile" %}</a>
-		      <li{% if not user.get_profile.has_password %} class="important"{% endif %}><a href="{% url "edit-account" %}"><i class="icon-edit"></i> {% trans "Edit my account" %}</a>
+		    <li>
+		      <a rel="ajax"
+			 data-depth="0"
+		 	 class="hide-navbar-img"
+			 href="{{ user.get_absolute_url }}">
+			<i class="icon-user"></i> {% trans "My profile" %}
+		      </a>
+
+		      <li{% if not user.get_profile.has_password %} class="important"{% endif %}>
+			<a rel="ajax"
+			   data-depth="0"
+		 	   class="hide-navbar-img"
+			   href="{% url "edit-account" %}">
+			  <i class="icon-edit"></i> {% trans "Edit my account" %}
+			</a>
 			{% if user.get_profile.picture %}
-			  <li><a href="{% url "edit-avatar" %}"><i class="icon-camera"></i> {% trans "Edit thumbnail" %}</a>
+			  <li>
+			    <a class="hide-navbar-img"
+			       href="{% url "edit-avatar" %}">
+			      <i class="icon-camera"></i> {% trans "Edit thumbnail" %}</a>
 			{% endif %}
-			<li><a href="{% url "manage-social-account" %}"><i class="icon-tasks"></i> {% trans "Social media accounts" %}</a>
+			<li>
+			  <a rel="ajax"
+			     data-depth="0"
+		 	     class="hide-navbar-img"
+			     href="{% url "manage-social-account" %}">
+			    <i class="icon-tasks"></i> {% trans "Social media accounts" %}
+			  </a>
 			<li class="divider">
-			<li><a href="{% url "sign-out" %}?next={{ request.get_full_path }}">
+			<li>
+			  <a href="{% url "sign-out" %}?next={{ request.get_full_path }}">
 			    <i class="icon-off"></i> Sign out
 			  </a>
 		  </ul>

@@ -111,6 +111,10 @@ $(function() {
 			var response = $('<html />').html(html);
 			var to_change = ['#local_link', '#body-content',
 					 '#app_js'];
+
+			console.log(response);
+
+
 			for (var i=0; i<to_change.length; i++) {
 			    $(to_change[i]).hide().html(response
 							.find(to_change[i])
@@ -124,6 +128,9 @@ $(function() {
 			var response = $('<html />').html(html);
 			var to_change = ['#local_link', '#body-content-only',
 					 '#app_js'];
+
+			console.log(response);
+
 			for (var i=0; i<to_change.length; i++) {
 			    $(to_change[i]).hide().html(response
 							.find(to_change[i])
@@ -158,10 +165,6 @@ $(function() {
 	    }
 	    moveNavbar(navbar_target);
 	}
-
-	console.log(lab_tag_id);
-	console.log(State.data['lab_tag_id']);
-	console.log('--');
 
 	if (lab_tag_id !== State.data['lab_tag_id']
 	    && State.data['lab_tag_id'] !== undefined) {
