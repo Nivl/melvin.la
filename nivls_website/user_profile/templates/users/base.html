@@ -6,7 +6,8 @@
 {% block "body-content" %}
   <div class="container">
     <div class="row">
-      <div class="{% block body_classes %}span12{% endblock %}">
+      <div id="body-content-only"
+	   class="{% block body_classes %}span12{% endblock %}">
 	{% block "content" %}{% endblock "content" %}
       </div>
     </div>
