@@ -17,9 +17,7 @@
       <link rel="publisher" href="https://plus.google.com/107029584179497153748">
 
       {% block "local_css" %}{% endblock %}
-      <div id="local_link">
-	{% block "head_link" %}{% endblock %}
-      </div>
+      {% block "head_link" %}{% endblock %}
 
       <!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
@@ -48,9 +46,7 @@
 	{% compressed_js 'main' %}
       {% endif %}
 
-      <div id="app_js">
-	{% block "app_js" %}{% endblock %}
-      </div>
+      {% block "app_js" %}{% endblock %}
 
       {% if not request.is_ajax %}
 	<script>

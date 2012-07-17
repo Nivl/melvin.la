@@ -110,8 +110,7 @@ $(function() {
 		    'disabled': true,
 		    'callback': function(html, status, that) {
 			var response = $('<html />').html(html);
-			var to_change = ['#local_link', '#body-content',
-					 '#app_js'];
+			var to_change = ['#local_link', '#body-content'];
 			for (var i=0; i<to_change.length; i++) {
 			    $(to_change[i]).hide().html(response
 							.find(to_change[i])
@@ -123,8 +122,7 @@ $(function() {
 		    'disabled': true,
 		    'callback': function(html, status, that) {
 			var response = $('<html />').html(html);
-			var to_change = ['#local_link', '#body-content-only',
-					 '#app_js'];
+			var to_change = ['#local_link', '#body-content-only'];
 			for (var i=0; i<to_change.length; i++) {
 			    $(to_change[i]).hide().html(response
 							.find(to_change[i])
