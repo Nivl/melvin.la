@@ -2,13 +2,18 @@ from django.conf.urls.defaults import patterns, include, url
 from django.views.generic.simple import redirect_to
 from feeds import *
 from sitemaps import *
+from commons.sitemaps import StaticSitemap
 
 post_r = '(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)'
 
-urlpatterns = patterns(
+static_urlpatterns = patterns(
     'blog.views',
     url(r'^$', 'home',
         name='blog'),
+)
+
+urlpatterns = patterns(
+    'blog.views',
 
     url(r'^(?P<year>\d{4})/$',
         'post_list_by_archives',
@@ -84,6 +89,7 @@ feeds_urlpatterns = patterns(
 )
 
 sitemaps = {
+    'blog_static': StaticSitemap(static_urlpatterns, changefreq='daily'),
     'blog_post': PostSitemap,
 }
-urlpatterns += feeds_urlpatterns
+urlpatterns += static_urlpatterns + feeds_urlpatterns

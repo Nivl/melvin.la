@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from commons.sitemaps import StaticSitemap
+from sitemaps import MainSitemap
 
 urlpatterns = patterns(
     'about.views',
@@ -35,6 +36,8 @@ static_urlpatterns = patterns(
 
 
 sitemaps = {
-    'about_static': StaticSitemap(static_urlpatterns), }
+    'about_root': MainSitemap(),
+    'about_static': StaticSitemap(static_urlpatterns),
+    }
 
 urlpatterns += static_urlpatterns
