@@ -14,7 +14,8 @@
 	    content="{% block "meta-description" %}{{ seo.description }}{% endblock %}">
 
       <link rel="shortcut icon" href="{% static "commons/img/favicon.ico" %}">
-      <link rel="publisher" href="https://plus.google.com/107029584179497153748">
+
+      {{ seo.free_head_block|safe }}
 
       {% block "local_css" %}{% endblock %}
       {% block "head_link" %}{% endblock %}
@@ -48,9 +49,7 @@
       {% block "app_js" %}{% endblock %}
 
       {% if not request.is_ajax %}
-	<script>
-	  {{ seo.free_block|safe }}
-	</script>
+	  {{ seo.free_javascript_block|safe }}
       </body>
     </html>
   {% endif %}

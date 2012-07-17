@@ -12,15 +12,30 @@ class SEO(models.Model):
         verbose_name=_("site"))
 
     title = models.CharField(
+        null=True,
+        blank=True,
         max_length=255,
         verbose_name=_("title"))
 
     description = models.TextField(
+        null=True,
+        blank=True,
         verbose_name=_("description"))
+
     keywords = models.TextField(
+        null=True,
+        blank=True,
         verbose_name=_("keywords"))
-    free_block = models.TextField(
-        verbose_name=_("free block"))
+
+    free_javascript_block = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_("free javascript block"))
+
+    free_head_block = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_("free head block"))
 
     def __unicode__(self):
         return self.site.__unicode__()
