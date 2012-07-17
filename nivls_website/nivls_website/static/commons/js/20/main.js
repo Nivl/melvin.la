@@ -132,8 +132,13 @@ $(function() {
 		},
 		{'callback': styleCode,},
 		{'callback': enableBootstrapEffects,},
+		{'callback': function(){$('#loading-msg').fadeOut();},},
 	    ]
-	}
+	},
+	[function(){
+	    $('#loading-msg').fadeIn();
+	},]
+
     );
 
     $(window).bind('statechange', function() {

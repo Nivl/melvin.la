@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load compressed %}
+{% load compressed staticfiles %}
 
 {% block "local_css" %}
   {% compressed_css 'main' %}
@@ -11,6 +11,11 @@
   {% block "header" %}
     {% include "inc/header.html" %}
   {% endblock "header" %}
+
+  <div id="loading-msg">
+    <img alt="loading" src="{% static "commons/img/loading-small.gif" %}">
+    &nbsp;loading...
+  </div>
 
   {% block "breadcrumb" %}
     <div id="breadcrumb-container">
