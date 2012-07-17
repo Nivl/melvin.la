@@ -13,7 +13,3 @@ def lab_tags(act_menu):
                       .order_by('-num_project', 'name')
     return {'tags': tags,
             'act_menu': act_menu}
-
-@register.inclusion_tag("lab/templatetags/project_list.html")
-def project_list(projects):
-    return {'projects': projects}

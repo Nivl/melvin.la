@@ -16,6 +16,6 @@
 {% endblock "menu" %}
 
 {% block "content" %}
-  {% project_list projects %}
-  {% project_pagination projects %}
+  {% include "lab/project_list.html" with projects=projects %}
+  {% include "pagination.html" with paginator=projects %}
 {% endblock "content" %}
