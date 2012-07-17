@@ -4,12 +4,12 @@
 
 {% with comments=post.get_public_comments %}
   <div id="comments-count">
-    {% include "blog/comment_count.html" with count=comments|length %}
+    {% include "blog/ajax/comment_count.html" with count=comments|length %}
   </div>
 
   <section id="comments">
     <div id="comment-list">
-      {% include "blog/comment_list.html" with comments=comments %}
+      {% include "blog/ajax/comment_list.html" with comments=comments %}
     </div>
 
     {% if post.allow_comment %}
@@ -27,7 +27,7 @@
 {% endwith %}
 
 {% if post.allow_comment %}
-  {% include "blog/comment_form.html" with url=post.get_form_url form=form %}
+  {% include "blog/ajax/comment_form.html" with url=post.get_form_url form=form %}
 {% else %}
   {% trans "Comments has been disabled for this post." %}
 {% endif %}

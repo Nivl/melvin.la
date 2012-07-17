@@ -22,7 +22,7 @@ from forms import *
 def my_password_reset_confirm_form(request, uidb36, token):
     return password_reset_confirm(
         request,
-        template_name='users/password_confirm_form.html',
+        template_name='users/ajax/password_confirm_form.html',
         uidb36=uidb36,
         token=token,
         extra_context={'e_uidb36': uidb36,
@@ -68,7 +68,7 @@ def edit_password_form(request):
             return HttpResponse('OK')
     else:
         form = EditPasswordForm(request=request)
-    return render(request, "users/edit_password_form.html", {'form': form})
+    return render(request, "users/ajax/edit_password_form.html", {'form': form})
 
 
 @ajax_only
@@ -83,7 +83,7 @@ def edit_email_form(request):
     else:
         form = EditEmailForm(initial={'email': request.user.email},
                              request=request)
-    return render(request, "users/edit_email_form.html", {'form': form})
+    return render(request, "users/ajax/edit_email_form.html", {'form': form})
 
 
 @require_safe
@@ -113,12 +113,12 @@ def sign_up_form(request):
 
             subject = _('Your validation link')
             text_content = render_to_string(
-                'users/sign_up_mail.txt',
+                'users/inc/sign_up_mail.txt',
                 {'user': u,
                  'code': profile.activation_code})
 
             html_content = render_to_string(
-                'users/sign_up_mail.html',
+                'users/inc/sign_up_mail.html',
                 {'user': u,
                  'code': profile.activation_code})
 
@@ -130,10 +130,10 @@ def sign_up_form(request):
 
             msg.attach_alternative(html_content, 'text/html')
             msg.send(fail_silently=True)
-            return render(request, 'users/sign_up_ok.html')
+            return render(request, 'users/ajax/sign_up_ok.html')
     else:
         form = UserForm()
-    return render(request, "users/sign_up_form.html", {'form': form})
+    return render(request, "users/ajax/sign_up_form.html", {'form': form})
 
 
 @require_safe
@@ -224,13 +224,13 @@ def edit_avatar_form(request):
         if form.is_valid():
             profile.avatar = form.cleaned_data['coordinates']
             profile.save()
-            return render(request, 'users/edit_avatar_ok.html')
+            return render(request, 'users/ajax/edit_avatar_ok.html')
     else:
         form = CroppedImageForm(field='avatar',
                                 obj=UserProfile,
                                 image=profile.picture,
                                 initial={'coordinates': profile.avatar})
-    return render(request, "users/edit_avatar_form.html", {'form': form})
+    return render(request, "users/ajax/edit_avatar_form.html", {'form': form})
 
 
 @require_safe
@@ -281,7 +281,7 @@ def edit_account_form(request):
         account_form = UserEditForm(edit_username=(not profile.lock_username),
                                     instance=request.user)
         profile_form = UserProfileInfoForm(instance=profile)
-    return render(request, "users/edit_account_form.html",
+    return render(request, "users/ajax/edit_account_form.html",
                   {'account_form': account_form,
                    'profile_form': profile_form,
                    })
@@ -300,7 +300,7 @@ def edit_settings_form(request):
             return HttpResponse("OK");
     else:
         form = UserProfileSettingsForm(instance=profile)
-    return render(request, "users/edit_settings_form.html", {'form': form})
+    return render(request, "users/ajax/edit_settings_form.html", {'form': form})
 
 
 @require_safe

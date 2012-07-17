@@ -9,6 +9,6 @@
 
 {% block "content" %}
   {% blog_slideshow %}
-  {% include "blog/listing.html" with posts=posts.object_list %}
-  {% include "pagination.html" with paginator=posts %}
+  {% include "blog/inc/listing.html" with posts=posts.object_list %}
+  {% include "inc/pagination.html" with paginator=posts %}
 {% endblock %}

@@ -4,6 +4,6 @@
 {% load url from future %}
 
 {% block "content" %}
-    {% include "lab/project_list.html" with projects=projects %}
-    {% include "pagination.html" with paginator=projects %}
+    {% include "lab/inc/project_list.html" with projects=projects %}
+    {% include "inc/pagination.html" with paginator=projects %}
 {% endblock "content" %}

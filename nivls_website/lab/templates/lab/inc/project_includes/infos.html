@@ -60,11 +60,11 @@
 	<h2>{% trans "Client(s)" %}</h2>
 	<div class="business-card">
 	  {% for client in clients_user %}
-	    {% include "lab/project_includes/business_card.html" with item=client is_user=1 %}
+	    {% include "lab/inc/project_includes/business_card.html" with item=client is_user=1 %}
 	  {% endfor %}
 
 	  {% for client in clients %}
-	    {% include "lab/project_includes/business_card.html" with item=client is_user=0 %}
+	    {% include "lab/inc/project_includes/business_card.html" with item=client is_user=0 %}
 	  {% endfor %}
 	</div>
       </div>
@@ -80,11 +80,11 @@
 	<h2>{% trans "Team" %}</h2>
 	<div class="business-card">
 	  {% for coworker in coworkers_user %}
-	    {% include "lab/project_includes/business_card.html" with item=coworker is_user=1 %}
+	    {% include "lab/inc/project_includes/business_card.html" with item=coworker is_user=1 %}
 	  {% endfor %}
 
 	  {% for coworker in coworkers %}
-	    {% include "lab/project_includes/business_card.html" with item=coworker is_user=0 %}
+	    {% include "lab/inc/project_includes/business_card.html" with item=coworker is_user=0 %}
 	  {% endfor %}
 	</div>
       </div>

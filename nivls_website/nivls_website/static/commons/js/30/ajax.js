@@ -125,8 +125,7 @@ var confirmPasswordAjax = new Ajaxion('',
 					  ],
 					  'error': [Ajaxion.cb_error_push_before],
 				      }
-				     ).start();
-
+				     );
 
 new Ajaxion(resolve_urls('reset-password-form'),
 	    {'selector': '#reset-password-form',

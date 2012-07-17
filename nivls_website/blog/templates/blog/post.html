@@ -8,7 +8,7 @@
 {% endblock "header" %}
 
 {% block "app_js" %}
-  {% include "blog/comment_ajax.html" with post=post user=user %}
+  {% include "blog/inc/comment_ajax.html" with post=post user=user %}
 {% endblock "app_js" %}
 
 {% block "title" %}{{ post.title }}{% endblock "title" %}
@@ -84,7 +84,7 @@
 	</div>
 	{% endif %}
 
-	{% include "blog/comment.html" with post=post form=form %}
+	{% include "blog/inc/comment.html" with post=post form=form %}
     </footer>
   </article>
 {% endblock %}

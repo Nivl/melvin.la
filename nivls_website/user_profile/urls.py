@@ -4,8 +4,8 @@ from django.contrib.auth.views import password_reset_complete
 from forms import UserProfile
 
 reset_password_opt = {
-    'email_template_name': 'users/password_reset_email.html',
-    'subject_template_name': 'users/password_reset_subject.txt',
+    'email_template_name': 'users/inc/password_reset_email.html',
+    'subject_template_name': 'users/inc/password_reset_subject.txt',
 }
 
 urlpatterns = patterns(
@@ -19,7 +19,7 @@ urlpatterns = patterns(
 
     url(r'^reset-password/form/$',
         password_reset,
-        dict({'template_name': 'users/password_reset_form.html'}.items() +
+        dict({'template_name': 'users/ajax/password_reset_form.html'}.items() +
              reset_password_opt.items()),
         name='reset-password-form'),
 
@@ -34,12 +34,12 @@ urlpatterns = patterns(
 
     url(r'^reset-password/done/$',
         password_reset_done,
-        {'template_name': 'users/password_reset_done.html'},
+        {'template_name': 'users/ajax/password_reset_done.html'},
         name='reset-password-done'),
 
     url(r'^reset-password/confirm/done/$',
         password_reset_complete,
-        {'template_name': 'users/password_confirm_done.html'},
+        {'template_name': 'users/ajax/password_confirm_done.html'},
         name='password_reset_complete'),
 
     url(r'^view/(?P<name>[\w.@+-]+)/$',

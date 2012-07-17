@@ -53,14 +53,14 @@ def comment_list(request, year, month, day, slug):
                              is_public=1,
                              site=Site.objects.get_current())
     comments = post.get_public_comments()
-    return render(request, "blog/comment_list.html", {"comments": comments})
+    return render(request, "blog/ajax/comment_list.html", {"comments": comments})
 
 
 @require_safe
 @ajax_only
 def comment_single(request, year, month, day, slug, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    return render(request, "blog/comment_single.html",
+    return render(request, "blog/ajax/comment_single.html",
                   {'comment': comment.comment
                    })
 
@@ -89,7 +89,7 @@ def comment_single_form(request, year, month, day, slug, pk):
     else:
         form = SingleCommentForm(initial={'comment': comment.comment},
                                  prefix="single")
-    return render(request, "blog/comment_single_form.html",
+    return render(request, "blog/ajax/comment_single_form.html",
                   {"form": form,
                    "pk": pk,
                    'url': reverse('post-comment-single-form',
@@ -108,7 +108,7 @@ def comment_count(request, year, month, day, slug):
                              is_public=1,
                              site=Site.objects.get_current())
     count = post.count_public_comments()
-    return render(request, "blog/comment_count.html", {"count": count})
+    return render(request, "blog/ajax/comment_count.html", {"count": count})
 
 
 @ajax_only
@@ -135,14 +135,14 @@ def comment_form(request, year, month, day, slug):
 
             subject = _('new comment for "%s"' % post.title)
             text_content = render_to_string(
-                'blog/comment_mail.txt',
+                'blog/inc/comment_mail.txt',
                 {'user': request.user,
                  'comment': c,
                  'post': post},
                 RequestContext(request))
 
             html_content = render_to_string(
-                'blog/comment_mail.html',
+                'blog/inc/comment_mail.html',
                 {'user': request.user,
                  'comment': c,
                  'post': post},
@@ -160,10 +160,10 @@ def comment_form(request, year, month, day, slug):
             if request.user.is_authenticated():
                 return HttpResponse()
             else:
-                return render(request, "blog/comment_ok.html")
+                return render(request, "blog/ajax/comment_ok.html")
     else:
         form = CommentForm(user=request.user, request=request)
-    return render(request, "blog/comment_form.html",
+    return render(request, "blog/ajax/comment_form.html",
                   {"url": post.get_form_url(),
                    "form": form
                    })

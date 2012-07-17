@@ -23,6 +23,6 @@
 
   <h1 class="center-text">{{ obj_name }}</h1>
 
-  {% include "blog/listing.html" with posts=posts %}
-  {% include "pagination.html" with paginator=posts %}
+  {% include "blog/inc/listing.html" with posts=posts %}
+  {% include "inc/pagination.html" with paginator=posts %}
 {% endblock %}
