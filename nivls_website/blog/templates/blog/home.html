@@ -10,5 +10,5 @@
 {% block "content" %}
   {% blog_slideshow %}
   {% include "blog/listing.html" with posts=posts.object_list %}
-  {% include "blog/pagination.html" with paginator=posts %}
+  {% include "pagination.html" with paginator=posts %}
 {% endblock %}

@@ -5,5 +5,5 @@
 
 {% block "content" %}
   {% project_list projects %}
-  {% project_pagination projects %}
+  {% include "pagination.html" with paginator=projects %}
 {% endblock "content" %}
