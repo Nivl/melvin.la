@@ -4,6 +4,13 @@
 
   Each function in callbacks['xhr'] take the xhr as argument.
 
+  url :      Request URL
+  bind :     Bind information (selector, [event])
+  method:    Request method
+  to_reload: Callbacks when success (from a specific URL)
+  callbacks: Callbacs for error, success and xhr (based on the current URL)
+  before   : Callbacks to call right after the trigger and before the request
+
   Example
   -------
 
@@ -47,23 +54,27 @@
 	   'error': [func4, func5]
 
 	 },
+	 [callback1, callback2]
        );
 */
 
-function Ajaxion (url, bind, method, to_reload, callbacks) {
+function Ajaxion (url, bind, method, to_reload, callbacks, before) {
     to_reload = typeof to_reload !== 'undefined' ? to_reload : [];
     callbacks = typeof callbacks !== 'undefined' ? callbacks : {};
+    before = typeof before !== 'undefined' ? before : [];
 
     this.url = url;
     this.bind = bind;
     this.method = method;
     this.to_reload = to_reload;
     this.callbacks = callbacks;
+    this.before = before;
     this.fileUpload = false;
     this.cache = false;
     this.unbind = false;
     this.dataType = 'html';
     this.checkForm = true;
+    this.before = before;
 }
 
 Ajaxion.prototype.stop = function (that) {
@@ -80,6 +91,7 @@ Ajaxion.prototype.start = function () {
     }
 
     $(document).on(this.bind['events'], this.bind['selector'], function (e) {
+	that._beforeCallbacks(that);
 	var data = {};
 	var contentType = 'application/x-www-form-urlencoded';
 	var selector = that.bind['selector'];
@@ -127,10 +139,15 @@ Ajaxion.prototype.start = function () {
 	$(this.bind['selector']).trigger('dummy');
 }
 
+Ajaxion.prototype._beforeCallbacks = function (that) {
+    for (var i=0; i<that.before.length; i++) {
+	that.before[i](that);
+    }
+}
+
 Ajaxion.prototype._complete = function (jqXHR, textStatus, that) {
     if (that.unbind || that.bind['events'] == 'dummy')
 	that.stop(that);
-
 }
 
 Ajaxion.prototype._xhr = function (that) {
