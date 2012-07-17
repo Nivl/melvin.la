@@ -217,7 +217,7 @@ Ajaxion.prototype._success_reload_part = function (that) {
 		    for (var j=0 in that.to_reload[i]['selectors'].length) {
 			var key = that.to_reload[i]['selectors'][j]['current']
 			$(key)
-			    .html('<img src="' + STATIC_URL + '/commons/img/ajax-loader.gif" alt="' + gettext('loading...') + '" />');
+			    .html('<img src="' + STATIC_URL + '/commons/img/loading-small.gif" alt="loading..." />');
 		    }
 		}
 	    }

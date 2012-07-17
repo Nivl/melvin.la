@@ -396,7 +396,7 @@ new Ajaxion(resolve_urls('sign-up-form'),
 // Callbacks
 $(document).on('hidden', '[id^=modal-edit-]', function() {
     var target = $(this).find('[id^=edit-][id$=-form]');
-    target.replaceWith('<div id="' + target.prop('id') + '"><img src="../../img/ajax-loader.gif" alt="loading"></div>');
+    target.replaceWith('<div class="center-text" id="' + target.prop('id') + '"><img src="' + STATIC_URL + '/commons/img/loading-small.gif" alt="loading..."></div>');
 });
 
 
