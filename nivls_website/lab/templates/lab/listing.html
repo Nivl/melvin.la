@@ -4,12 +4,6 @@
 {% load url from future %}
 
 {% if tag %}
-  {% block "menu_js" %}
-    {% with act_menu=tag.slug %}
-      {{ block.super }}
-    {% endwith %}
-  {% endblock "menu_js" %}
-
   {% block "menu" %}
     {% with act_menu=tag.slug %}
       {{ block.super }}
