@@ -9,7 +9,9 @@ from models import *
 def home(request):
     project_list = Project.objects.filter(site=settings.SITE_ID)
     projects = simple_paginator(project_list, 5, request.GET.get('page'))
-    return render(request, "lab/listing.html", {'projects': projects})
+    return render(request, "lab/listing.html",
+                  {'projects': projects,
+                   'menu_name': 'home'})
 
 
 @require_safe
@@ -18,7 +20,8 @@ def tag(request, slug):
     project_list = Project.objects.filter(site=settings.SITE_ID, tags=tag)
     projects = simple_paginator(project_list, 5, request.GET.get('page'))
     return render(request, "lab/listing.html", {'projects': projects,
-                                                'tag': tag})
+                                                'tag': tag,
+                                                'menu_name': tag.slug})
 
 @require_safe
 def project(request, slug):

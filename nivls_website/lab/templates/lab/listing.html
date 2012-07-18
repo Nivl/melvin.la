@@ -5,7 +5,7 @@
 
 {% if tag %}
   {% block "menu" %}
-    {% with act_menu=tag.slug %}
+    {% with act_menu=menu_name %}
       {{ block.super }}
     {% endwith %}
   {% endblock "menu" %}
