@@ -11,25 +11,33 @@
 
     {% else %}
       <li class="disabled">
-	<a rel="ajax-content"
-	   title="{% blocktrans with i=1 %}Page {{ i }}{% endblocktrans %}"
-	   data-depth="20"
-	   href="?page=1">«</a>
+	<a href="#" onClick="return false;">«</a>
     {% endif %}
 
     {% for i in paginator.paginator.page_range %}
       <li{% ifequal i paginator.number %} class="active"{% endifequal %}>
-      	<a data-depth="20"
-	   title="{% blocktrans %}Page {{ i }}{% endblocktrans %}"
-	   rel="ajax-content"
-	   href="?page={{ i }}">{{ i }}</a>
+      	<a title="{% blocktrans %}Page {{ i }}{% endblocktrans %}"
+	   {% ifequal i paginator.number %}
+	     onClick="return false;"
+	     href="#"
+	   {% else %}
+	     data-depth="20"
+	     rel="ajax-content"
+	     href="?page={{ i }}"
+	   {% endifequal %}
+	   >{{ i }}</a>
     {% endfor %}
 
-    <li{% if not paginator.has_next %} class="disabled"{% endif %}>
-      <a data-depth="20"
-	 title="{% blocktrans with i=paginator.paginator.num_pages %}Page {{ i }}{% endblocktrans %}"
-	 rel="ajax-content"
-	 href="?page={{ paginator.paginator.num_pages }}">»</a>
 
+    {% if paginator.has_next %}
+      <li class="disabled">
+	<a data-depth="20"
+	   title="{% blocktrans with i=paginator.next_page_number %}Page {{ i }}{% endblocktrans %}"
+	   rel="ajax-content"
+	   href="?page={{ paginator.next_page_number }}">»</a>
+    {% else %}
+      <li class="disabled">
+	<a onClick="return false;" href="#">»</a>
+    {% endif %}
   </ul>
 </section>
