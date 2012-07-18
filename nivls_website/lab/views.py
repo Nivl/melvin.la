@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.views.decorators.http import require_safe
-from commons.simple_paginator import simple_paginator
+from commons.paginator import simple_paginator
 from models import *
 
 

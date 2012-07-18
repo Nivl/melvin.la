@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 from django.contrib.sites.models import Site
 from django.template.defaultfilters import date as _date
-from commons.simple_paginator import simple_paginator
+from commons.paginator import simple_paginator
 from commons.decorators import ajax_only
 from models import Post, Category, Tag
 from forms import *
