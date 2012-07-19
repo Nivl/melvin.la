@@ -36,5 +36,7 @@
     {% block "body-content" %}{% endblock "body-content" %}
   </div>
 
-  {% include "inc/footer.html" %}
+  {% block "footer" %}
+    {% include "inc/footer.html" %}
+  {% endblock "footer" %}
 {% endblock "body" %}
