@@ -51,7 +51,7 @@ STATIC_URL = 'http://static.' + DOMAIN_NAME + '/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"  # rm when 1.4
 
 ALLOWED_INCLUDE_ROOTS = (STATIC_ROOT + '/commons/css/',
-                         STATIC_ROOT + '/about/css/')
+                         STATIC_ROOT + '/commons/compiled/')
 
 STATICFILES_DIRS = (
     os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "static")),

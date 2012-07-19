@@ -35,6 +35,9 @@ def write_pdf(template_src, context_dict, output):
     command_args = '%s --page-size Letter %s -' % (settings.WKHTMLTOPDF_PATH ,
                                                    temp_html_file_name)
 
+    with open('/tmp/dbg', 'w') as f:
+        f.write(command_args);
+
     popen = subprocess.Popen(command_args,
                              stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE,

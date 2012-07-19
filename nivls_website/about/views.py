@@ -47,14 +47,16 @@ def home(request):
 @require_safe
 def cv(request):
     sections = CVSection.objects.filter(site=settings.SITE_ID)
-    return render(request, "about/cv.html", {'sections': sections})
+    return render(request, "about/cv.html", {'sections': sections,
+                                             'to_pdf': False})
 
 
 @require_safe
 def cv_pdf(request):
     sections = CVSection.objects.filter(site=settings.SITE_ID)
-    c = RequestContext(request, {'sections': sections})
-    return write_pdf("about/cv_pdf.html", c, "cv_laplanche_melvin.pdf")
+    c = RequestContext(request, {'sections': sections, 'to_pdf': True})
+    return write_pdf("about/cv.html", c, "cv_laplanche_melvin.pdf")
+
 
 
 @require_safe
