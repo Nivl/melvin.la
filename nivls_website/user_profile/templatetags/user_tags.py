@@ -8,7 +8,6 @@ from social_auth.models import UserSocialAuth
 
 register = template.Library()
 
-
 @register.filter(is_safe=True)
 def social_link(user_social):
     username = user_social.extra_data.get('username')

@@ -22,8 +22,11 @@ class CroppedImageField(models.CharField):
         self.min_size = min_size
         self.max_size = max_size
         self.set_select = set_select
+        self.image_field_name = image
         super(CroppedImageField, self).__init__(*args, **kwargs)
 
     def formfield(self, **kwargs):
-        kwargs['widget'] = CroppedImageWidget
+        kwargs['widget'] = CroppedImageWidget(self, attrs={
+                'data-target': self.image_field_name
+                })
         return super(CroppedImageField, self).formfield(**kwargs)
