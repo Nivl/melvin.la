@@ -61,22 +61,31 @@ class CroppedImageWidget(forms.TextInput):
     markup = """
 <script>
 $(window).load(function(){
-
-    var jcrop_api, boundx, boundy, multiplicator, img_width;
-    var target_id = 'image-id-%(picture_name)s';
-    var image_src = $('#id_%(picture_name)s').prevAll('a');
-    var image;
+    var boundx_%(field_name)s;
+    var boundy_%(field_name)s;
+    var multiplicator_%(field_name)s;
+    var img_width_%(field_name)s;
+    var target_id_%(field_name)s = 'image-id-%(picture_name)s';
+    var image_src_%(field_name)s = $('#id_%(picture_name)s').prevAll('a');
+    var image_%(field_name)s;
 
     function jCropUpdatePreview_id_%(field_name)s(c) {
 	if (parseInt(c.w) > 0) {
 	    var rx = 125 / c.w;
 	    var ry = 125 / c.h;
 
-	    $('#id_%(field_name)s').val(parseInt(c.x / multiplicator) + "x" + parseInt(c.y / multiplicator) + " " + parseInt(c.w / multiplicator) + "x" + parseInt(c.h / multiplicator))
+	    $('#id_%(field_name)s')
+		.val(parseInt(c.x / multiplicator_%(field_name)s)
+		     + "x"
+		     + parseInt(c.y / multiplicator_%(field_name)s)
+		     + " "
+		     + parseInt(c.w / multiplicator_%(field_name)s)
+		     + "x"
+		     + parseInt(c.h / multiplicator_%(field_name)s))
 
 	    $('#preview_id_%(field_name)s').css({
-		width: Math.round(rx * boundx) + 'px',
-		height: Math.round(ry * boundy) + 'px',
+		width: Math.round(rx * boundx_%(field_name)s) + 'px',
+		height: Math.round(ry * boundy_%(field_name)s) + 'px',
 		marginLeft: '-' + Math.round(rx * c.x) + 'px',
 		marginTop: '-' + Math.round(ry * c.y) + 'px'
 	    });
@@ -84,7 +93,7 @@ $(window).load(function(){
     };
 
     function jcropStart_id_%(field_name)s() {
-        $('#' + target_id).Jcrop({
+        $('#' + target_id_%(field_name)s).Jcrop({
 	    onChange: jCropUpdatePreview_id_%(field_name)s,
 	    onSelect: jCropUpdatePreview_id_%(field_name)s,
 	    aspectRatio: %(ratio)s,
@@ -92,27 +101,31 @@ $(window).load(function(){
 		%(max_size)s
 		%(select)s
         }, function(){
-	    if (img_width !== undefined) {
+	    if (img_width_%(field_name)s !== undefined) {
 		var bounds = this.getBounds();
-		boundx = bounds[0];
-		boundy = bounds[1];
-		multiplicator =  boundx / img_width;
-		jcrop_api = this;
-		this.animateTo([ %(x1)s * multiplicator, %(y1)s * multiplicator, (%(x2)s + %(x1)s) * multiplicator, (%(y2)s + %(y1)s) * multiplicator ]);
+		boundx_%(field_name)s = bounds[0];
+		boundy_%(field_name)s = bounds[1];
+		multiplicator_%(field_name)s = boundx_%(field_name)s / img_width_%(field_name)s;
+		this.animateTo([ %(x1)s * multiplicator_%(field_name)s,
+				 %(y1)s * multiplicator_%(field_name)s,
+				 (%(x2)s + %(x1)s) * multiplicator_%(field_name)s,
+				 (%(y2)s + %(y1)s) * multiplicator_%(field_name)s ]);
 	    }
 	});
     }
 
-    if ($('#id_%(picture_name)s') || $('#' + target_id)) {
-	if (image_src.length) {
-	    image = $('<img id="' + target_id + '">');
-	    image.attr('src', image_src.attr('href')).load(function(){
-		img_width = this.width;
-		image.insertAfter('#id_%(field_name)s');
-		jcropStart_id_%(field_name)s();
-	    });
-	} else if ($('#' + target_id).prop('tagName') == 'IMG') {
-	    img_width = $('#' + target_id).data('real-width');
+    if ($('#id_%(picture_name)s') || $('#' + target_id_%(field_name)s)) {
+	if (image_src_%(field_name)s.length) {
+	    image_%(field_name)s = $('<img id="' + target_id_%(field_name)s + '">');
+	    image_%(field_name)s
+		.attr('src', image_src_%(field_name)s.attr('href'))
+		.load(function(){
+		    img_width_%(field_name)s = this.width;
+		    image_%(field_name)s.insertAfter('#id_%(field_name)s');
+		    jcropStart_id_%(field_name)s();
+		});
+	} else if ($('#' + target_id_%(field_name)s).prop('tagName') == 'IMG') {
+	    img_width_%(field_name)s = $('#' + target_id_%(field_name)s).data('real-width');
             jcropStart_id_%(field_name)s();
 	}
     }
