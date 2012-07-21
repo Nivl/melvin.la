@@ -195,10 +195,12 @@ def edit_avatar(request):
     for select_list in profile.avatar.split(" "):
         x, y = select_list.split("x")
         select.append([x, y])
-    form = CroppedImageForm(field='avatar',
-                            obj=UserProfile,
-                            image=profile.picture,
-                            initial={'coordinates': profile.avatar})
+    # form = CroppedImageForm(field='avatar',
+    #                         obj=UserProfile,
+    #                         image=profile.picture,
+    #                         initial={'coordinates': profile.avatar})
+
+    form = UserAvatarForm(instance=profile)
 
     return render(request, "users/edit_avatar.html",
                   {'picture': profile.picture,

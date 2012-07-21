@@ -233,3 +233,9 @@ class EditPasswordForm(BootstrapForm, happyforms.Form):
             if not self.request.user.check_password(data):
                 raise forms.ValidationError(_("Wrong password."))
         return data
+
+
+class UserAvatarForm(BootstrapModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('avatar', )

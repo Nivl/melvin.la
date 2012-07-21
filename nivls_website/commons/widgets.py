@@ -61,53 +61,61 @@ class CroppedImageWidget(forms.TextInput):
     markup = """
 <script>
 $(window).load(function(){
-var image;
-var image_src = $('#id_%(picture_name)s').prevAll('a');
-var jcrop_api, boundx, boundy, multiplicator, img_width;
 
-if (image_src) {
-  image = $('<img id="image-id-%(field_name)s">');
-  image.attr('src', image_src.attr('href')).load(function(){
-    img_width = this.width;
+    var jcrop_api, boundx, boundy, multiplicator, img_width;
+    var target_id = 'image-id-%(picture_name)s';
+    var image_src = $('#id_%(picture_name)s').prevAll('a');
+    var image;
 
-  image.insertAfter('#id_%(field_name)s');
-function jCropUpdatePreview_id_%(field_name)s(c) {
-	    if (parseInt(c.w) > 0) {
-		var rx = 125 / c.w;
-		var ry = 125 / c.h;
+    function jCropUpdatePreview_id_%(field_name)s(c) {
+	if (parseInt(c.w) > 0) {
+	    var rx = 125 / c.w;
+	    var ry = 125 / c.h;
 
-		$('#id_%(field_name)s').val(parseInt(c.x / multiplicator) + "x" + parseInt(c.y / multiplicator) + " " + parseInt(c.w / multiplicator) + "x" + parseInt(c.h / multiplicator))
+	    $('#id_%(field_name)s').val(parseInt(c.x / multiplicator) + "x" + parseInt(c.y / multiplicator) + " " + parseInt(c.w / multiplicator) + "x" + parseInt(c.h / multiplicator))
 
-		$('#preview_id_%(field_name)s').css({
-		    width: Math.round(rx * boundx) + 'px',
-		    height: Math.round(ry * boundy) + 'px',
-		    marginLeft: '-' + Math.round(rx * c.x) + 'px',
-		    marginTop: '-' + Math.round(ry * c.y) + 'px'
-		});
-	    }
-	};
+	    $('#preview_id_%(field_name)s').css({
+		width: Math.round(rx * boundx) + 'px',
+		height: Math.round(ry * boundy) + 'px',
+		marginLeft: '-' + Math.round(rx * c.x) + 'px',
+		marginTop: '-' + Math.round(ry * c.y) + 'px'
+	    });
+	}
+    };
 
-        $('#image-id-%(field_name)s').Jcrop({
-            onChange: jCropUpdatePreview_id_%(field_name)s,
-            onSelect: jCropUpdatePreview_id_%(field_name)s,
-            aspectRatio: %(ratio)s,
-            %(min_size)s
-            %(max_size)s
-            %(select)s
+    function jcropStart_id_%(field_name)s() {
+        $('#' + target_id).Jcrop({
+	    onChange: jCropUpdatePreview_id_%(field_name)s,
+	    onSelect: jCropUpdatePreview_id_%(field_name)s,
+	    aspectRatio: %(ratio)s,
+		%(min_size)s
+		%(max_size)s
+		%(select)s
         }, function(){
-            if (img_width !== undefined) {
-            var bounds = this.getBounds();
-            boundx = bounds[0];
-            boundy = bounds[1];
-	    multiplicator =  boundx / img_width;
-            jcrop_api = this;
-	    this.animateTo([ %(x1)s * multiplicator, %(y1)s * multiplicator, (%(x2)s + %(x1)s) * multiplicator, (%(y2)s + %(y1)s) * multiplicator ]);
-}
+	    if (img_width !== undefined) {
+		var bounds = this.getBounds();
+		boundx = bounds[0];
+		boundy = bounds[1];
+		multiplicator =  boundx / img_width;
+		jcrop_api = this;
+		this.animateTo([ %(x1)s * multiplicator, %(y1)s * multiplicator, (%(x2)s + %(x1)s) * multiplicator, (%(y2)s + %(y1)s) * multiplicator ]);
+	    }
 	});
+    }
 
-
-});
-}
+    if ($('#id_%(picture_name)s') || $('#' + target_id)) {
+	if (image_src.length) {
+	    image = $('<img id="' + target_id + '">');
+	    image.attr('src', image_src.attr('href')).load(function(){
+		img_width = this.width;
+		image.insertAfter('#id_%(field_name)s');
+		jcropStart_id_%(field_name)s();
+	    });
+	} else if ($('#' + target_id).prop('tagName') == 'IMG') {
+	    img_width = $('#' + target_id).data('real-width');
+            jcropStart_id_%(field_name)s();
+	}
+    }
 });
 </script>
 """

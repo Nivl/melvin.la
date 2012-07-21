@@ -2,6 +2,7 @@
 {% load l10n i18n %}
 {% block "title" %}{% trans "Edit thumbnail" %}{% endblock "title" %}
 
+{% comment %}
 {% block "app_js" %}
  <script>
    var jcrop_api, boundx, boundy, multiplicator;
@@ -48,6 +49,7 @@
 	};
 </script>
 {% endblock %}
+{% endcomment %}
 
 {% block "content" %}
   <h1 class="center-text">{% trans "Edit thumbnail" %}</h1>
@@ -56,14 +58,16 @@
 
   <div class="row">
     <div class="span10">
-      <img src="{{ picture.url }}" id="avatar-img" />
+      <img src="{{ picture.url }}"
+	   id="image-id-picture"
+	   data-real-width="{{ picture.width }}" />
     </div>
 
     <div class="span2">
       <h2>Preview</h2>
 
       <div class="avatar-preview">
-	<img src="{{ picture.url }}" id="preview" alt="Preview"
+	<img src="{{ picture.url }}" id="preview_id_avatar" alt="Preview"
 	     class="jcrop-preview" />
       </div>
     </div>
