@@ -2,55 +2,6 @@
 {% load l10n i18n %}
 {% block "title" %}{% trans "Edit thumbnail" %}{% endblock "title" %}
 
-{% comment %}
-{% block "app_js" %}
- <script>
-   var jcrop_api, boundx, boundy, multiplicator;
-
-      $('#avatar-img').Jcrop({
-        onChange: updatePreview,
-	onSelect: updatePreview,
-	aspectRatio: {{ ratio|unlocalize }},
-
-        {% if min_size %}
-	  minSize: [{{ min_size.0 }}, {{ min_size.1 }}],
-        {% endif %}
-
-        {% if max_size %}
-	  maxSize: [{{ max_size.0 }}, {{ max_size.1 }}],
-        {% endif %}
-
-        {% if select %}
-	  setSelect: [{{ select.0.0 }}, {{ select.0.1 }}, {{ select.1.0 }}, {{ select.1.1 }}],
-        {% endif %}
-	}, function(){
-            var bounds = this.getBounds();
-            boundx = bounds[0];
-            boundy = bounds[1];
-	    multiplicator =  boundx / {{ picture.width }}
-            jcrop_api = this;
-	    this.animateTo([ {{ select.0.0 }} * multiplicator, {{ select.0.1 }} * multiplicator, ({{ select.1.0 }} + {{ select.0.0 }}) * multiplicator, ({{ select.1.1 }} + {{ select.0.1 }}) * multiplicator ]);
-	});
-
-	function updatePreview(c) {
-	    if (parseInt(c.w) > 0) {
-		var rx = 125 / c.w;
-		var ry = 125 / c.h;
-
-		$('#id_coordinates').val(parseInt(c.x / multiplicator) + "x" + parseInt(c.y / multiplicator) + " " + parseInt(c.w / multiplicator) + "x" + parseInt(c.h / multiplicator))
-
-		$('#preview').css({
-		    width: Math.round(rx * boundx) + 'px',
-		    height: Math.round(ry * boundy) + 'px',
-		    marginLeft: '-' + Math.round(rx * c.x) + 'px',
-		    marginTop: '-' + Math.round(ry * c.y) + 'px'
-		});
-	    }
-	};
-</script>
-{% endblock %}
-{% endcomment %}
-
 {% block "content" %}
   <h1 class="center-text">{% trans "Edit thumbnail" %}</h1>
 

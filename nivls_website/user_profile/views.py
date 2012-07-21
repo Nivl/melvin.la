@@ -181,35 +181,9 @@ def edit_avatar(request):
     profile = request.user.get_profile()
     if not profile.picture:
         return permission_denied(request)
-
-    ratio_list = UserProfile._meta.get_field('avatar').ratio.split('x')
-    ratio = float(ratio_list[0]) / float(ratio_list[1])
-
-    min_size = UserProfile._meta.get_field('avatar').min_size
-    min_size = min_size if min_size != [0, 0] else False
-
-    max_size = UserProfile._meta.get_field('avatar').max_size
-    max_size = max_size if max_size != [0, 0] else False
-
-    select = []
-    for select_list in profile.avatar.split(" "):
-        x, y = select_list.split("x")
-        select.append([x, y])
-    # form = CroppedImageForm(field='avatar',
-    #                         obj=UserProfile,
-    #                         image=profile.picture,
-    #                         initial={'coordinates': profile.avatar})
-
-    form = UserAvatarForm(instance=profile)
-
     return render(request, "users/edit_avatar.html",
                   {'picture': profile.picture,
-                   'current': profile.avatar,
-                   'ratio': ratio,
-                   'min_size': min_size,
-                   'max_size': max_size,
-                   'select': select,
-                   'form': form,
+                   'form': UserAvatarForm(instance=profile),
                    })
 
 
@@ -221,17 +195,12 @@ def edit_avatar_form(request):
         return HttpResponseForbidden()
 
     if request.method == 'POST':
-        form = CroppedImageForm(request.POST, field='avatar',
-                                obj=UserProfile, image=profile.picture)
+        form = UserAvatarForm(request.POST, instance=profile)
         if form.is_valid():
-            profile.avatar = form.cleaned_data['coordinates']
-            profile.save()
+            form.save()
             return render(request, 'users/ajax/edit_avatar_ok.html')
     else:
-        form = CroppedImageForm(field='avatar',
-                                obj=UserProfile,
-                                image=profile.picture,
-                                initial={'coordinates': profile.avatar})
+        form = UserAvatarForm(instance=profile)
     return render(request, "users/ajax/edit_avatar_form.html", {'form': form})
 
 
