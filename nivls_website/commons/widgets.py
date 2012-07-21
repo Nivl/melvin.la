@@ -135,6 +135,7 @@ $(window).load(function(){
 
     def __init__(self, instance, attrs=None):
         self.instance = instance
+        attrs['style'] = 'display: none;'
         super(CroppedImageWidget, self).__init__(attrs=attrs)
 
 
