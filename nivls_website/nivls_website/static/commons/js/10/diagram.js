@@ -61,8 +61,9 @@ var o = {
 
     }
 }
-$(function(){
-    if ($('#rounded-diagram').length != 0) {
+
+function startLabDiagram() {
+    if ($('#rounded-diagram').length > 0) {
 	o.init();
     }
-});
+}

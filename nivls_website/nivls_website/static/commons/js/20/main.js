@@ -1,3 +1,9 @@
+function reloadJsEffects() {
+    styleCode();
+    enableBootstrapEffects();
+    reloadShareButtons();
+    startLabDiagram();
+}
 
 function reloadShareButtons() {
     gapi.plusone.go();
@@ -134,10 +140,8 @@ $(function() {
 			}
 		    },
 		},
-		{'callback': styleCode,},
-		{'callback': enableBootstrapEffects,},
+		{'callback': reloadJsEffects,},
 		{'callback': function(){$('#loading-msg').fadeOut();},},
-		{'callback': reloadShareButtons, },
 	    ]
 	},
 	[function(){
