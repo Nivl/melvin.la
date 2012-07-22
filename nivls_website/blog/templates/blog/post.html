@@ -8,9 +8,10 @@
 {% endblock "header" %}
 
 {% block "app_js" %}
+  <script>
+    reloadShareButtons();
+  </script>
   {% include "blog/inc/comment_ajax.html" with post=post user=user %}
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4e6d17e05f6e608b"></script>
-
 {% endblock "app_js" %}
 
 {% block "title" %}{{ post.title }}{% endblock "title" %}
@@ -19,14 +20,11 @@
   <article class="post">
     <header>
       <h2>{{ post.title }}</h2>
-      <div class="pull-right add-this">
-	<div class="addthis_toolbox addthis_default_style ">
-	  <a class="addthis_button_google_plusone" g:plusone:count="false"></a>
-	  <a class="addthis_button_facebook"></a>
-	  <a class="addthis_button_twitter"></a>
-	  <a href="http://www.addthis.com/bookmark.php?v=250&amp;pubid=xa-4e6d17e05f6e608b" class="addthis_button_compact">{% trans "Share" %}</a>
-	</div>
+
+      <div class="pull-right share-btn">
+	<div class="g-plusone item" data-size="small"></div>
       </div>
+
       <div class="info">
 	{% trans "By " %}{{ post.author }},
 	<time datetime="{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}">

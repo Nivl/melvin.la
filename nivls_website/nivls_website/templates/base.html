@@ -21,8 +21,6 @@
       {% block "head_link" %}{% endblock %}
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-
-
       <!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
 	  </script>
@@ -37,8 +35,10 @@
 	</div>
       {% if not request.is_ajax %}
 
-	<script>
-	  var STATIC_URL = "{% static "" %}";
+	<script>var STATIC_URL="{% static "" %}";</script>
+
+	<script src="https://apis.google.com/js/plusone.js">
+	  {parsetags: 'explicit'}
 	</script>
 
 	<script src="{% url "django.views.i18n.javascript_catalog" %}"></script>

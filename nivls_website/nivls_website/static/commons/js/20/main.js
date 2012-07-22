@@ -1,4 +1,8 @@
 
+function reloadShareButtons() {
+    gapi.plusone.go();
+}
+
 function preview() {
     var markdownConverter = new Markdown.getSanitizingConverter();
 
@@ -133,6 +137,7 @@ $(function() {
 		{'callback': styleCode,},
 		{'callback': enableBootstrapEffects,},
 		{'callback': function(){$('#loading-msg').fadeOut();},},
+		{'callback': reloadShareButtons, },
 	    ]
 	},
 	[function(){
