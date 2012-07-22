@@ -6,6 +6,13 @@
  * MIXINS
  *****************************************************************************/
 
+.transform(@arg) {
+    transform: @arg;
+    -webkit-transform: @arg;
+    -moz-transform: @arg;
+    -o-transform: @arg;
+}
+
 .display-icon(@padding, @size, @url: "../../img/social-medias.png") {
     margin: none;
     padding: none;
@@ -268,9 +275,20 @@ table {
 	position:relative;
 	float:left;
 
+	&:hover {
+	    .thumbnail {
+		.transform(rotateY(180deg));
+	    }
+
+	    .caption {
+		.transform(rotateY(0deg))
+	    }
+	}
+
 	.thumbnail {
 	    width: 126px;
 	    height: 126px;
+	    .transition(all 1s ease-in-out);
 	}
 
 	.caption {
@@ -286,13 +304,10 @@ table {
 	    left: 5px;
 	    top: 5px;
 
-	    .transition(opacity 0.3s linear);
-
-	    .opacity(0);
-
-	    &:hover {
-		.opacity(80);
-	    }
+	    .transition(all 1s ease-in-out);
+	    .transform(rotateY(180deg));
+	    .opacity(80);
+	    .backface-visibility(hidden);
 
 	    a {
 		text-decoration:none;
