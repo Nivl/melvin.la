@@ -83,10 +83,6 @@ PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
 )
 
-MIDDLEWARE_CLASSES += (
-    'pipeline.middleware.MinifyHTMLMiddleware',
-)
-
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 PIPELINE_JS = {
