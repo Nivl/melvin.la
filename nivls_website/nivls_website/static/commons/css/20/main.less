@@ -6,11 +6,44 @@
  * MIXINS
  *****************************************************************************/
 
+.transition-delay(@value) {
+    -webkit-transition-delay: @value;
+    -moz-transition-delay: @value;
+    -o-transition-delay: @value;
+    -ms-transition-delay: @value;
+    transition-delay: @value;
+}
+
+.transform-style(@value) {
+    -webkit-transform-style: @value;
+    -moz-transform-style: @value;
+    -o-transform-style: @value;
+    -ms-transform-style: @value;
+    transform-style: @value;
+}
+
+.transform-origin(@value) {
+    -webkit-transform-origin: @value;
+    -moz-transform-origin: @value;
+    -o-transform-origin: @value;
+    -ms-transform-origin: @value;
+    transform-origin: @value;
+}
+
+.perspective(@value) {
+    -webkit-perspective: @value;
+    -moz-perspective: @value;
+    -o-perspective: @value;
+    -ms-perspective: @value;
+    perspective: @value;
+}
+
 .transform(@arg) {
-    transform: @arg;
     -webkit-transform: @arg;
     -moz-transform: @arg;
     -o-transform: @arg;
+    -ms-transform: @arg;
+    transform: @arg;
 }
 
 .display-icon(@padding, @size, @url: "../../img/social-medias.png") {
@@ -255,6 +288,176 @@ table {
 	text-shadow: 0px 1px 0 #818181;
 	padding: 2px 10px;
 	margin: 15px 0;
+    }
+}
+
+.images-box-3d {
+    @box-width: 350px;
+    @slice-width: @box-width / 5;
+    @trans-width: @slice-width - 1;
+
+    .front {
+	width: 350px;
+	height: 214px;
+	margin: 10px;
+	float: left;
+	position: relative;
+	border: 8px solid white;
+	.box-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
+	background-color: #333;
+	.perspective(800px);
+
+
+	.slice {
+	    width: @slice-width;
+	    height: 100%;
+	    z-index: 100;
+	    .transform-style(preserve-3d);
+	    .transform-origin(left center);
+
+	    -webkit-transition: -webkit-transform 150ms ease-in-out;
+	    -moz-transition: -moz-transform 150ms ease-in-out;
+	    -o-transition: -o-transform 150ms ease-in-out;
+	    -ms-transition: -ms-transform 150ms ease-in-out;
+	    transition: transform 150ms ease-in-out;
+	}
+
+	.back {
+	    width: 50%;
+	    height: 100%;
+	    position: absolute;
+	    right: 0;
+	    background: #666;
+	    z-index: 0;
+	    #gradient > .horizontal(#0a0a0a, #666666);
+
+	    h4 {
+		padding-top: 20px;
+		text-decoration: underline;
+
+		display: block;
+		float: right;
+		padding: 5px 20px 5px;
+		width: 100%;
+		text-align: right;
+		font-size: 11px;
+		color: rgba(255, 255, 255, 0.6);
+	    }
+
+	    span {
+		display: block;
+		float: right;
+		padding: 5px 20px 5px;
+		width: 100%;
+		text-align: right;
+		font-size: 11px;
+		color: rgba(255, 255, 255, 0.6);
+	    }
+
+	    a {
+		display: block;
+		font-size: 18px;
+		color: rgba(255, 255, 255, 0.4);
+		position: absolute;
+		right: 15px;
+		bottom: 15px;
+		border: 2px solid rgba(255, 255, 255, 0.3);
+		.border-radius(50%);
+		width: 30px;
+		height: 30px;
+		line-height: 25px;
+		text-align: center;
+		font-weight: 700;
+		text-decoration: none;
+
+		&:hover {
+		    color: white;
+		    border-color: white;
+		}
+	    }
+	}
+
+
+	&:hover {
+	    z-index: 100;
+
+	    .overlay {
+		opacity: 1;
+	    }
+
+	    .s1 {
+		.transition-delay(200ms);
+		.transform(rotate3d(0, 1, 0, -8deg));
+	    }
+
+	    .s2 {
+		.transition-delay(150ms);
+		.transform(translate3d(@trans-width, 0, 0) rotate3d(0, 1, 0, -15deg));
+	    }
+
+	    .s3 {
+		.transition-delay(100ms);
+		.transform(translate3d(@trans-width, 0, 0) rotate3d(0, 1, 0, -21deg));
+	    }
+
+
+	    .s4 {
+		.transition-delay(50ms);
+		.transform(translate3d(@trans-width, 0, 0) rotate3d(0, 1, 0, -35deg));
+	    }
+
+
+	    .s5 {
+		.transform(translate3d(@slice-width, 0, 0) rotate3d(0, 1, 0, -42deg));
+	    }
+	}
+
+	.s2, .s3, .s4, .s5 {
+	    .transform(translateX(@slice-width));
+	}
+
+	.s1 {
+	    background-position: 0px 0px;
+	}
+
+	.s2 {
+	    background-position: -@slice-width 0px;
+	}
+
+	.s3 {
+	    background-position: -(@slice-width * 2) 0px;
+	}
+
+	.s4 {
+	    background-position: -(@slice-width * 3) 0px;
+
+	    & > .overlay {
+		background-color: rgba(0,0,0,0) !important;
+		#gradient > .horizontal(rgba(0,0,0,0), rgba(0,0,0,0.3));
+	    }
+	}
+
+	.s5 {
+	    background-position: -(@slice-width * 4) 0px;
+
+	    & > .overlay {
+		#gradient > .horizontal(rgba(0,0,0,0.3), rgba(0,0,0,0));
+	    }
+	}
+
+	.overlay {
+	    width: @slice-width;
+	    height: 100%;
+	    opacity: 0;
+	    position: absolute;
+	    .transition(opacity 150ms ease-in-out);
+	}
+
+	img {
+	    position: absolute;
+	    z-index: 0;
+	    .transition(left 0.3s ease-in-out);
+	}
     }
 }
 

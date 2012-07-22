@@ -27,6 +27,7 @@ function enableBootstrapEffects() {
     $('.carousel').carousel()
     $('[rel=tooltip]').tooltip();
     $('.animated-thumbnails > li').hoverdir();
+    $('.images-box-3d').hoverfold()
 }
 
 function styleCode() {

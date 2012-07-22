@@ -13,25 +13,27 @@
 
   <section class="clean-section">
     <div class="section-content">
-      <ul class="animated-thumbnails">
+      <div class="images-box-3d">
 	{% for project in projects %}
-	  <li><a href="{{ project.url }}">
-	      <img src="{{ project.screenshot.url }}"
-		   alt="{{ project.name }}" />
-	      <div>
-		<h4>{{ project.description }}</h4>
-		<p></p>
-	      </div>
-	    </a>
-	{% endfor %}
-	<li><a href="#">
-	    <img src="{% static "commons/img/test/thumbnail_4.jpg" %}" />
-	    <div>
-	      <h4>{% trans "See more" %}</h4>
-	      <p>{% trans "You can see the other projects on the lab." %}</p>
+	  <div class="front">
+	    <div class="back">
+	      <h4>{{ project.name }}</h4>
+	      <span>Project manager</span>
+	      <span>Développement</span>
+	      <span>Consulting</span>
+	      <span>Chef de projet</span>
+	      <a data-depth="1"
+		 rel="ajax"
+		 data-navbar="#navbar-lab"
+		 title="{% trans "Lab" %}"
+		 href="{{ project.lab.get_absolute_url }}">→</a>
 	    </div>
-	  </a>
-      </ul>
+
+	    <img src="{{ project.screenshot.url }}"
+		 alt="{{ project.name }}" />
+	  </div>
+	{% endfor %}
+      </div>
     </div>
   </section>
 {% endblock "content" %}
