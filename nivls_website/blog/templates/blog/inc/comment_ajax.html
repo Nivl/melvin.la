@@ -8,9 +8,11 @@
 
   commentFormAjax.to_reload[2]['disabled'] = false;
   commentFormAjax.to_reload[2]['url'] = '{{ post.get_comment_count_url }}';
-
-
 {% endif %}
+
+commentFormAjax.callbacks['success'].push(
+    {'callback': function(){$.jStorage.deleteKey('{{ storage_key }}');}}
+);
 commentFormAjax.url = '{{ post.get_form_url }}';
 commentFormAjax.stop().start();
 

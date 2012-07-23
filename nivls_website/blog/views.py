@@ -11,7 +11,7 @@ from django.views.decorators.http import require_safe
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 from django.contrib.sites.models import Site
-from django.template.defaultfilters import date as _date
+from django.template.defaultfilters import slugify, date as _date
 from commons.paginator import simple_paginator
 from commons.decorators import ajax_only
 from models import Post, Category, Tag
@@ -37,9 +37,11 @@ def display_post(request, year, month, day, slug):
                              slug=slug,
                              is_public=1,
                              site=Site.objects.get_current())
-    form = CommentForm(request=request, user=request.user)
+    storage_key = slugify(post.get_absolute_url())
+    form = CommentForm(storage_key, request=request, user=request.user)
     return render(request, "blog/post.html", {"post": post,
-                                              "form": form})
+                                              "form": form,
+                                              'storage_key': storage_key})
 
 
 @require_safe
@@ -53,7 +55,8 @@ def comment_list(request, year, month, day, slug):
                              is_public=1,
                              site=Site.objects.get_current())
     comments = post.get_public_comments()
-    return render(request, "blog/ajax/comment_list.html", {"comments": comments})
+    return render(request, "blog/ajax/comment_list.html",
+                  {"comments": comments})
 
 
 @require_safe
@@ -120,9 +123,9 @@ def comment_form(request, year, month, day, slug):
                              slug=slug,
                              is_public=1,
                              site=Site.objects.get_current())
-
+    storage_key = slugify(post.get_absolute_url())
     if request.method == 'POST':
-        form = CommentForm(request.POST, request=request,
+        form = CommentForm(storage_key, request.POST, request=request,
                            user=request.user)
         if form.is_valid():
             c = form.save(commit=False)
@@ -162,10 +165,11 @@ def comment_form(request, year, month, day, slug):
             else:
                 return render(request, "blog/ajax/comment_ok.html")
     else:
-        form = CommentForm(user=request.user, request=request)
+        form = CommentForm(storage_key, user=request.user, request=request)
     return render(request, "blog/ajax/comment_form.html",
-                  {"url": post.get_form_url(),
-                   "form": form
+                  {'url': post.get_form_url(),
+                   'form': form,
+                   'storage_key': storage_key,
                    })
 
 

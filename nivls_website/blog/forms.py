@@ -16,13 +16,15 @@ class CommentForm(BootstrapModelForm, happyforms.ModelForm):
         label='<!-- honeypot -->',
         widget=forms.TextInput(attrs={'class': 'hidden'}))
 
-    def __init__(self, data=None, files=None, user=None, request=None,
+    def __init__(self, storage_key='comment-content',
+                 data=None, files=None, user=None, request=None,
                  *args, **kwargs):
         if request is None:
             raise TypeError("Keyword argument 'request' must be supplied")
         super(CommentForm, self).__init__(data=data, files=files,
                                           *args, **kwargs)
         self.fields['comment'].widget.attrs['data-parse'] = '#form-preview'
+        self.fields['comment'].widget.attrs['data-storage'] = storage_key
         if user.is_authenticated():
             del self.fields['email']
             del self.fields['name']

@@ -1,8 +1,17 @@
 function reloadJsEffects() {
     styleCode();
+    checkForLocalStorage();
     enableBootstrapEffects();
     reloadShareButtons();
     startLabDiagram();
+}
+
+function checkForLocalStorage() {
+    $.jStorage.reInit();
+    $('[data-storage]').each(function (){
+	var key = $(this).data('storage');
+	$(this).val($.jStorage.get(key, ''));
+    });
 }
 
 function reloadShareButtons() {
@@ -20,6 +29,18 @@ function preview() {
     $(document).on('keydown', '[data-parse]', function() {
 	$(this).stopTime();
 	$(this).oneTime(500, function() { styleCode(); });
+    });
+}
+
+function storageData() {
+    $(document).on('click', '[data-storage-reset]', function() {
+	var key = $(this).data('storage-reset');
+	$.jStorage.deleteKey(key);
+    });
+
+    $(document).on('input keydown', '[data-storage]', function() {
+	var key = $(this).data('storage');
+	$.jStorage.set(key, $(this).val(), {TTL: 604800000});
     });
 }
 
@@ -265,8 +286,8 @@ $(function() {
     /***********
      * Global
      **********/
-    enableBootstrapEffects();
-    styleCode();
+    reloadJsEffects();
+    storageData();
     preview();
 
     $(window).konami(function() {
