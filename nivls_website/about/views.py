@@ -58,9 +58,7 @@ def cv_pdf(request):
     return write_pdf("about/cv.html", c, "cv_laplanche_melvin.pdf")
 
 
-
 @require_safe
 def portfolio(request):
-    projects = WorkProject.objects.filter(site=settings.SITE_ID) \
-                                  .select_related().order_by("-prod_date")
+    projects = WorkProject.objects.filter(lab__site=settings.SITE_ID)
     return render(request, "about/portfolio.html", {'projects': projects})

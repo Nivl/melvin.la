@@ -17,11 +17,10 @@
 	{% for project in projects %}
 	  <div class="front">
 	    <div class="back">
-	      <h4>{{ project.name }}</h4>
-	      <span>Project manager</span>
-	      <span>Développement</span>
-	      <span>Consulting</span>
-	      <span>Chef de projet</span>
+	      <h4>{{ project.lab.name }}</h4>
+	      {% for label in project.works.all %}
+		<span>{{ label }}</span>
+	      {% endfor %}
 	      <a data-depth="1"
 		 rel="ajax"
 		 data-navbar="#navbar-lab"
@@ -30,8 +29,10 @@
 	    </div>
 
 	    <img src="{{ project.screenshot.url }}"
-		 alt="{{ project.name }}" />
+		 alt="{{ project.lab.name }}" />
 	  </div>
+	{% empty %}
+	  There are no projects
 	{% endfor %}
       </div>
     </div>

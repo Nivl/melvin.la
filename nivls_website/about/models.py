@@ -95,92 +95,43 @@ class WorkType(models.Model):
         verbose_name_plural = _("work Types")
 
 
-class WorkField(models.Model):
-    site = models.ForeignKey(
-        I18nSite,
-        default=settings.SITE_ID,
-        verbose_name=_("site"))
-
-    name = models.CharField(
-        max_length=255,
-        verbose_name=_("name"))
-
-    slug = models.SlugField(
-        verbose_name=_("slug"))
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        unique_together = ('site', 'slug')
-        verbose_name = _("work Field")
-        verbose_name_plural = _("work Fields")
-
-
 class WorkProject(models.Model):
-    site = models.ForeignKey(
-        I18nSite,
-        default=settings.SITE_ID,
-        verbose_name=_("site"))
-
-    name = models.CharField(
-        max_length=255,
-        verbose_name=_("name"))
-
-    slug = models.SlugField(
-        verbose_name=_("slug"))
-
-    is_personal = models.BooleanField(
-        verbose_name=_("is personal"))
-
-    school_project = models.BooleanField(
-        verbose_name=_("school project"))
-
     lab = models.ForeignKey(
         LabProject,
-        blank=True,
-        null=True,
+        primary_key=True,
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("lab"))
 
-    prod_date = models.DateField(
-        default=datetime.now,
-        verbose_name=_("production date"))
+    order = models.PositiveSmallIntegerField(
+        default=0,
+        verbose_name=_("order"))
 
     screenshot = models.ImageField(
         upload_to='about/portfolio/',
-        help_text='258x158 px',
+        help_text='350x214 px',
         verbose_name=_("screenshot"))
-
-    url = models.URLField(
-        verbose_name=_("URL"))
-
-    description = models.TextField(
-        verbose_name=_("description"))
 
     works = models.ManyToManyField(
         WorkType,
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("work"))
 
-    field = models.ForeignKey(
-        WorkField,
-        limit_choices_to={'site': settings.SITE_ID},
-        verbose_name=_("field"))
-
     def __unicode__(self):
-        return self.name
+        return self.lab.name
 
     def save(self, *arg, **kwargs):
-        if self.pk is not None:
+        try:
             origin = WorkProject.objects.get(pk=self.pk)
             if origin.screenshot != self.screenshot:
                 if os.path.exists(origin.screenshot.path):
                     os.remove(origin.screenshot.path)
+        except WorkProject.DoesNotExist:
+            pass
         super(WorkProject, self).save(*arg, **kwargs)
 
+
     class Meta:
-        unique_together = ('site', 'slug')
+        ordering = ["order"]
         verbose_name = _("work Project")
         verbose_name_plural = _("work Projects")
 

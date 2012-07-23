@@ -7,9 +7,7 @@ admin.site.register(Profile)
 admin.site.register(ContactLink)
 
 admin.site.register(WorkType, CommonAdminWithSlug)
-admin.site.register(WorkField, CommonAdminWithSlug)
-admin.site.register(WorkProject, CommonAdminWithSlug)
-
+admin.site.register(WorkProject)
 
 class InlineCategory(admin.TabularInline):
     model = CVCategory
