@@ -22,8 +22,7 @@ class CommentForm(BootstrapModelForm, happyforms.ModelForm):
             raise TypeError("Keyword argument 'request' must be supplied")
         super(CommentForm, self).__init__(data=data, files=files,
                                           *args, **kwargs)
-        self.fields['comment'].widget.attrs['data-parse'] = '1'
-        self.fields['comment'].widget.attrs['data-target'] = '#form-preview'
+        self.fields['comment'].widget.attrs['data-parse'] = '#form-preview'
         if user.is_authenticated():
             del self.fields['email']
             del self.fields['name']
