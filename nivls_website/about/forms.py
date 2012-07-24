@@ -28,6 +28,7 @@ class ContactForm(BootstrapForm, happyforms.Form):
         super(ContactForm, self).__init__(data=data, files=files,
                                           *args, **kwargs)
         self.request = request
+        self.fields['message'].widget.attrs['data-storage'] = 'contact-message'
         if request.user.is_authenticated():
             self.fields['email'].widget = forms.HiddenInput()
             self.initial['email'] = request.user.email

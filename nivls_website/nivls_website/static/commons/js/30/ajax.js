@@ -23,7 +23,10 @@ new Ajaxion(resolve_urls('contact-form'),
 	    ],
             {
 		'success': [
-                    {'callback': Ajaxion.cb_push_before}
+                    {'callback': Ajaxion.cb_push_before},
+                    {'callback': function(){
+			$.jStorage.deleteKey('contact-message')
+		    }},
 		],
 		'error': [Ajaxion.cb_error_push_before],
 
