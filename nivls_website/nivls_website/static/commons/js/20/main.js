@@ -24,11 +24,7 @@ function preview() {
     $(document).on('input keydown', '[data-parse]', function() {
 	var target = $(this).data('parse');
 	$(target).html(markdownConverter.makeHtml($(this).val()));
-    }).trigger('input');
-
-    $(document).on('keydown', '[data-parse]', function() {
-	$(this).stopTime();
-	$(this).oneTime(500, function() { styleCode(); });
+	$(target).html(prettyPrintOne($(target).html()));
     });
 }
 
