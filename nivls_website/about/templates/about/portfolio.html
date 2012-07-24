@@ -35,6 +35,21 @@
 	{% empty %}
 	  There are no projects
 	{% endfor %}
+
+	<div class="front">
+	  <div class="back">
+	    <h4>{% trans "See more projects" %}</h4>
+	    <span>{% trans "See more projects" %}</span>
+	    <a data-depth="1"
+	       rel="ajax"
+	       data-navbar="#navbar-lab"
+	       title="{% trans "Lab" %}"
+	       href="{% url "lab" %}">→</a>
+	  </div>
+
+	  <img src="{% static "commons/img/portfolio_+.png" %}"
+	       alt="{% trans "See more projects" %}" />
+	</div>
       </div>
     </div>
   </section>
