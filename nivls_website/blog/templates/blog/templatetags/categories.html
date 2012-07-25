@@ -1,25 +1,22 @@
 {% load i18n %}
 
-<li class="nav-header">
-  <i class="icon-th-list"></i>
-  {% trans "Categories" %}
-</li>
-
-{% for object in nested_tree %}
-  {% ifequal object "level_down" %}
-    </ul>
-  {% else %}
-    {% ifequal object "level_up" %}
-      <ul class="nested_tree_child">
+<ul>
+  {% for object in nested_tree %}
+    {% ifequal object "level_down" %}
+      </ul>
     {% else %}
-      <li>
-        <a data-depth="10"
-	   rel="ajax-content"
-	   href="{{ object.get_absolute_url }}">
-	  {{ object.name }}
-	</a>
+      {% ifequal object "level_up" %}
+	<ul class="nested_tree_child">
+      {% else %}
+	<li>
+          <a data-depth="10"
+	     rel="ajax-content"
+	     href="{{ object.get_absolute_url }}">
+	    {{ object.name }}
+	  </a>
+      {% endifequal %}
     {% endifequal %}
-  {% endifequal %}
-{% empty %}
-  <li>{% trans "There are no categories." %}
-{% endfor %}
+  {% empty %}
+    <li>{% trans "There are no categories." %}
+  {% endfor %}
+</ul>

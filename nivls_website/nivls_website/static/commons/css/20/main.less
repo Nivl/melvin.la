@@ -227,7 +227,6 @@ table {
  /*****************************************************************************
   * CLASSES
   ****************************************************************************/
-
 .share-btn {
     width: 10%;
 }
@@ -810,12 +809,74 @@ article.post {
 
 @footer-size: 122px; // padding not counted
 
-#menu > .sidebar-nav {
-    .box-shadow(3px 3px 30px 0px rgba(0, 0, 0, 0.5));
-    padding: 19px;
-    margin-bottom: 20px;
-    .border-radius(4px);
-    background-color: lighten(@bodyBackground, 1%);
+ul#left-menu {
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    top: 80px;
+    left: 0px;
+    list-style: none;
+
+    & > li {
+	@height: 70px;
+
+	z-index: 10;
+	width: 350px;
+	margin-left: -320px;
+	height: @height;
+	background-color: #ece9e9;
+	border: 1px solid #d5d5d5;
+	.border-radius(10px);
+
+	.content {
+	    position: relative;
+	    top: -70px;
+	    z-index: 15;
+	    .opacity(100);
+	    .border-radius(10px);
+	    width: 270px;
+	    min-height: @height - 20;
+	    padding: 10px 10px 10px 30px;
+	    background-color: #ece9e9;
+	    border-bottom: 1px solid #d5d5d5;
+	    border-right: 1px solid #d5d5d5;
+	}
+
+	& > a {
+	    display: block;
+	    width: 70px;
+	    height: @height;
+	    background-repeat: no-repeat;
+	    background-position: center center;
+	    position: relative;
+	    right: -297px;
+	    top: 0px;
+	}
+
+	&.categories {
+	    & > a {
+		background-image: url('../../img/categories.png');
+	    }
+	}
+
+	&.links {
+	    & > a {
+		background-image: url('../../img/links.png');
+	    }
+	}
+
+	&.tags {
+	    & > a {
+		background-image: url('../../img/tags.png');
+	    }
+	}
+
+	&.archives {
+	    & > a {
+		background-image: url('../../img/archives.png');
+	    }
+	}
+    }
 }
 
 #body {

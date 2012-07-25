@@ -1,17 +1,14 @@
 {% load i18n %}
 
-<li class="nav-header"><i class="icon-tags"></i> {% trans "Tags" %}</li>
-<li>
-  <div class="center-text">
-    {% for tag in tags %}
-      <a data-depth="10"
-	 rel="ajax-content"
-	 href="{{ tag.obj.get_absolute_url }}"
-	 style="font-size: {{tag.size}}px;" >
-	{{ tag.obj.name }}
-      </a>
+<div class="center-text">
+  {% for tag in tags %}
+    <a data-depth="10"
+       rel="ajax-content"
+       href="{{ tag.obj.get_absolute_url }}"
+       style="font-size: {{tag.size}}px;" >
+      {{ tag.obj.name }}
+    </a>
     {% empty %}
-      {% trans "There are no tags." %}
-    {% endfor %}
-  </div>
-</li>
+    {% trans "There are no tags." %}
+  {% endfor %}
+</div>

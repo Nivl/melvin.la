@@ -4,6 +4,15 @@ function reloadJsEffects() {
     enableBootstrapEffects();
     reloadShareButtons();
     startLabDiagram();
+
+    $('#left-menu > li').hover(
+	function () {
+	    $(this).stop().animate({'marginLeft':'-10px'},200);
+	},
+	function () {
+	    $(this).stop().animate({'marginLeft':'-320px'},200);
+	}
+    );
 }
 
 function checkForLocalStorage() {

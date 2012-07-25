@@ -1,18 +1,15 @@
 {% load url from future %}
 {% load i18n l10n %}
 
-<li class="nav-header">
-  <i class="icon-calendar"></i>
-  {% trans "Archives" %}
-</li>
-
-{% for date in dates %}
-  <li>
-    <a data-depth="10"
-       rel="ajax-content"
-       href="{% url "archives-month" year=date|date:"Y" month=date|date:"m" %}">
-      {{ date|date:'F Y' }}
-    </a>
-{% empty %}
-  <li> {% trans "There is no post." %}
-{% endfor %}
+<ul>
+  {% for date in dates %}
+    <li>
+      <a data-depth="10"
+	 rel="ajax-content"
+	 href="{% url "archives-month" year=date|date:"Y" month=date|date:"m" %}">
+	{{ date|date:'F Y' }}
+      </a>
+  {% empty %}
+      <li> {% trans "There is no post." %}
+  {% endfor %}
+</ul>
