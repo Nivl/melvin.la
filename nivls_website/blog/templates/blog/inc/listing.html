@@ -2,7 +2,7 @@
 
 <section class="post-list">
   {% for post in posts %}
-    {% if forloop.counter0|divisibleby:3 %}
+    {% if forloop.counter0|divisibleby:4 %}
       <div class="row">
 	<ul class="thumbnails">
       {% endif %}
@@ -35,7 +35,7 @@
 	  </div>
 	</div>
 
-	{% if forloop.counter|divisibleby:3 or forloop.last %}
+	{% if forloop.counter|divisibleby:4 or forloop.last %}
 	  </ul>
       </div>
     {% endif %}

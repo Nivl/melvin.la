@@ -23,11 +23,13 @@
   <div class="container">
     <div class="row">
 
-      <div id="body-content-only" class="span9">
+      <div id="body-content-only" class="span12">
 	{% block "content" %}{% endblock "content" %}
       </div>
 
-      {% include "blog/inc/menu.html" %}
+      {% comment %}
+	{% include "blog/inc/menu.html" %}
+      {% endcomment %}
 
     </div>
   </div>
