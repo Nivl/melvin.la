@@ -1,28 +1,8 @@
 {% load blog_tags i18n %}
 
 <ul id="left-menu">
-
-  <li class="categories">
-    <a href="#"></a>
-    <div class="content">
-      {% blog_categories %}
-    </div>
-
-  <li class="links">
-    <a href="#"></a>
-    <div class="content">
-      {% blog_menus %}
-    </div>
-
-  <li class="tags">
-    <a href="#"></a>
-    <div class="content">
-      {% blog_tagcloud %}
-    </div>
-
-  <li class="archives">
-    <a href="#"></a>
-    <div class="content">
-      {% blog_archives %}
-    </div>
+  {% blog_categories %}
+  {% blog_menus %}
+  {% blog_tagcloud %}
+  {% blog_archives %}
 </ul>

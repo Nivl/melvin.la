@@ -1,21 +1,23 @@
 {% load i18n %}
 
-<ul class="unstyled">
-  {% if menus %}
-    {% for menu in menus %}
-      <li class="nav-header margin-top-1">{{ menu.name }}
+{% if menus %}
 
-      {% with menu.link_set.all as links %}
-	{% for link in links %}
-	  <li class="margin-left-1">
-	    <a title="{{ link.title }}" href="{{ link.url }}">
-	      {{ link.name }}
-	    </a>
-	{% empty %}
-	  <li> {% trans "There are no links." %}
-	{% endfor %}
-      {% endwith %}
-    {% endfor %}
+  <li class="links">
+    <a href="#"></a>
+    <ul class="content unstyled">
+      {% for menu in menus %}
+	<li class="nav-header margin-top-1">{{ menu.name }}
 
-  {% endif %}
-</ul>
+	  {% with menu.link_set.all as links %}
+	    {% for link in links %}
+	      <li class="margin-left-1">
+		<a title="{{ link.title }}" href="{{ link.url }}">
+		  {{ link.name }}
+		</a>
+	    {% empty %}
+	      <li> {% trans "There are no links." %}
+	    {% endfor %}
+	  {% endwith %}
+      {% endfor %}
+    </ul>
+{% endif %}
