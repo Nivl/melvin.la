@@ -388,3 +388,7 @@ class Carousel(models.Model):
     def __unicode__(self):
         ordering = ['order']
         return self.post.__unicode__()
+
+    class Meta:
+        verbose_name = _('Carousel')
+        verbose_name_plural = _('Carousel')
