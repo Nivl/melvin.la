@@ -7,10 +7,35 @@ function reloadJsEffects() {
 
     $('#left-menu > li').hover(
 	function () {
-	    $(this).stop().animate({'marginLeft':'-10px'},200);
+	    if (!($(this).hasClass('animate'))) {
+		var that = this;
+		var height = $(this).find('.content').innerHeight();
+
+		if (height
+	    	    && $(this).nextAll().length > 0
+	    	    && height > $(this).innerHeight()) {
+
+	    	    var diff = height - $(this).innerHeight();
+
+	    	    $(this).next().animate({'marginTop': diff}, 100, 'linear',
+					   function(){
+					       $(that).toggleClass('animate');
+					   });
+		} else {
+		    $(this).toggleClass('animate');
+		}
+	    }
 	},
 	function () {
-	    $(this).stop().animate({'marginLeft':'-320px'},200);
+	    if ($(this).hasClass('animate')) {
+		$(this).toggleClass('animate');
+
+		var height = $(this).find('.content').innerHeight();
+		if (height && height > $(this).innerHeight()) {
+	    	    var diff = height - $(this).innerHeight();
+	    	    $(this).next().animate({'marginTop': 0}, 100, 'linear');
+		}
+	    }
 	}
     );
 }
