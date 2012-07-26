@@ -1067,8 +1067,14 @@ ul#left-menu {
 }
 
 .space-li-10 {
-    li {
-	margin: 10px;
+    & > li {
+	margin-top: 10px;
+    }
+}
+
+.space-li-clean-first {
+    & > li:first-child {
+	margin-top: 0px !important;
     }
 }
 
