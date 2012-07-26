@@ -17,10 +17,10 @@ function reloadJsEffects() {
 
 	    	    var diff = height - $(this).innerHeight();
 
-	    	    $(this).next().animate({'marginTop': diff}, 100, 'linear',
-					   function(){
-					       $(that).toggleClass('animate');
-					   });
+	    	    $(this).next().animate({'marginTop': diff}, 50, 'linear',
+		    			   function(){
+		    			       $(that).toggleClass('animate');
+		    			   });
 		} else {
 		    $(this).toggleClass('animate');
 		}
