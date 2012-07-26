@@ -1,17 +1,15 @@
 from django import template
 from django.db.models import Count
 from django.contrib.sites.models import Site
-from blog.models import Post, Menu, Link, Category, Tag
+from blog.models import *
 
 register = template.Library()
 
 
-@register.inclusion_tag("blog/templatetags/slideshow.html")
-def blog_slideshow():
-    posts = Post.objects.filter(is_public=1,
-                                site=Site.objects.get_current()) \
-                        .order_by('-pub_date')[:5]
-    return {'object': posts}
+@register.inclusion_tag("blog/templatetags/carousel.html")
+def blog_carousel():
+    posts = Carousel.objects.filter(site=Site.objects.get_current())
+    return {'posts': posts}
 
 
 @register.inclusion_tag("blog/templatetags/menus.html")

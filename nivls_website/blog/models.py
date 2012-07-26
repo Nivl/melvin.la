@@ -367,3 +367,24 @@ class Comment(models.Model):
     class Meta:
         verbose_name = _('comment')
         verbose_name_plural = _('comments')
+
+
+class Carousel(models.Model):
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID,
+        verbose_name=_("site"))
+
+    order = models.PositiveSmallIntegerField(
+        default=0,
+        verbose_name=_("order"))
+
+    post = models.ForeignKey(
+        Post,
+        limit_choices_to={'site': settings.SITE_ID,
+                          'is_public': 1},
+        verbose_name=_("post"))
+
+    def __unicode__(self):
+        ordering = ['order']
+        return self.post.__unicode__()

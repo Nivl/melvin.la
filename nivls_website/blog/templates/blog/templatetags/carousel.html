@@ -1,14 +1,17 @@
 <div id="homeCarousel" class="carousel slide">
   <div class="carousel-inner">
-    {% for item in object %}
+    {% for item in posts %}
       <div class="item{% if forloop.counter == 1 %} active{% endif %}">
 	<a data-depth="30"
 	   rel="ajax-content"
-	   href="{{ item.get_absolute_url }}" title="{{ item.title }}">
-	  <img src="{{ item.main_image.url }}" alt="{{ item.title }}">
+	   title="{{ item.post.title }}"
+	   href="{{ item.post.get_absolute_url }}">
+
+	  <img src="{{ item.post.main_image.url }}"
+	       alt="{{ item.post.title }}">
 	</a>
 	<div class="carousel-caption">
-	  <p>{{ item.short_description }}</p>
+	  <p>{{ item.post.short_description }}</p>
 	</div>
       </div>
     {% endfor %}

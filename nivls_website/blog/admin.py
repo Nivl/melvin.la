@@ -4,7 +4,6 @@ from blog.models import *
 
 # Post
 
-
 class InlineComment(admin.TabularInline):
     model = Comment
     extra = 0
@@ -126,3 +125,4 @@ admin.site.register(Tag, AdminTag)
 admin.site.register(Menu, AdminMenu)
 admin.site.register(Category, AdminCategory)
 admin.site.register(Comment, AdminComment)
+admin.site.register(Carousel)
