@@ -5,7 +5,7 @@ function reloadJsEffects() {
     reloadShareButtons();
     startLabDiagram();
 
-    $('#left-menu > li').hover(
+    $('#left-menu > li').off('hover').hover(
 	function () {
 	    if (!($(this).hasClass('animate'))) {
 		var that = this;
@@ -55,23 +55,26 @@ function reloadShareButtons() {
 function preview() {
     var markdownConverter = new Markdown.getSanitizingConverter();
 
-    $(document).on('input keydown', '[data-parse]', function() {
-	var target = $(this).data('parse');
-	$(target).html(markdownConverter.makeHtml($(this).val()));
-	$(target).html(prettyPrintOne($(target).html()));
-    });
+    $(document).off('input keydown', '[data-parse]')
+	.on('input keydown', '[data-parse]', function() {
+	    var target = $(this).data('parse');
+	    $(target).html(markdownConverter.makeHtml($(this).val()));
+	    $(target).html(prettyPrintOne($(target).html()));
+	});
 }
 
 function storageData() {
-    $(document).on('click', '[data-storage-reset]', function() {
-	var key = $(this).data('storage-reset');
-	$.jStorage.deleteKey(key);
-    });
+    $(document).off('click', '[data-storage-reset]')
+	.on('click', '[data-storage-reset]', function() {
+	    var key = $(this).data('storage-reset');
+	    $.jStorage.deleteKey(key);
+	});
 
-    $(document).on('input keydown', '[data-storage]', function() {
-	var key = $(this).data('storage');
-	$.jStorage.set(key, $(this).val(), {TTL: 604800000});
-    });
+    $(document).off('input keydown', '[data-storage]')
+	.on('input keydown', '[data-storage]', function() {
+	    var key = $(this).data('storage');
+	    $.jStorage.set(key, $(this).val(), {TTL: 604800000});
+	});
 }
 
 function enableBootstrapEffects() {
