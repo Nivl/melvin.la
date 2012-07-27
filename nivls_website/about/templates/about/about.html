@@ -28,55 +28,41 @@
     </div>
   </section>
 
-  <hr />
+  {% if navigation_links %}
+    <hr>
 
-  <section class="clean-section">
-    <div class="section-content">
-      <ul class="animated-thumbnails">
-	<li><a href="#">
-	    <img src="{% static "commons/img/test/thumbnail_1.jpg" %}" />
-	    <div>
-	      <h4>Natalie & Justin Cleaning by Justin Younger</h4>
-	      <p></p>
-	    </div>
+    <section class="clean-section">
+      <h2>{% trans "My website" %}</h2>
+      <div class="section-content">
+	<ul class="animated-thumbnails">
+	  {% for link in navigation_links %}
+	    <li>
+	      <a href="{{ link.link }}">
+		<img src="{{ link.image.url }}" />
+		<div>
+		  <h4>{{ link.name }}</h4>
+		  <p>{{ link.description }}</p>
+		</div>
+	      </a>
+	  {% endfor %}
+	</ul>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if contact_links %}
+    <hr>
+
+    <section class="clean-section">
+      <h2>{% trans "Be social" %}</h2>
+
+      <div class="section-content clean-links">
+	{% for link in contact_links %}
+	  <a href="{{ link.link }}">
+	    <img src="{{ link.image.url }}" alt="{{ link.name }}">
 	  </a>
-	<li><a href="#">
-	    <img src="{% static "commons/img/test/thumbnail_2.jpg" %}" />
-	    <div>
-	      <h4>Natalie & Justin Cleaning by Justin Younger</h4>
-	      <p></p>
-	    </div>
-	  </a>
-	<li><a href="#">
-	    <img src="{% static "commons/img/test/thumbnail_3.jpg" %}" />
-	    <div>
-	      <h4>Natalie & Justin Cleaning by Justin Younger</h4>
-	      <p></p>
-	    </div>
-	  </a>
-	<li><a href="#">
-	    <img src="{% static "commons/img/test/thumbnail_4.jpg" %}" />
-	    <div>
-	      <h4>Natalie & Justin Cleaning by Justin Younger</h4>
-	      <p></p>
-	    </div>
-	  </a>
-      </ul>
-    </div>
-  </section>
-
-  <hr />
-
-  <section class="clean-section">
-    <h2>{% trans "Be social" %}</h2>
-
-    <div class="section-content clean-links">
-      {% for link in contact_links %}
-	<a href="{{ link.link }}">
-	  <img src="{{ link.image.url }}" alt="{{ link.name }}">
-	</a>
-      {% endfor %}
-    </div>
-  </section>
-
+	{% endfor %}
+      </div>
+    </section>
+  {% endif %}
 {% endblock "content" %}

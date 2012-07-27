@@ -8,6 +8,50 @@ from lab.models import Project as LabProject
 from commons.models import I18nSite
 
 
+class NavigationLink(models.Model):
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID,
+        verbose_name=_("site"))
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_("name"))
+
+    description = models.CharField(
+        max_length=255,
+        verbose_name=_("description"))
+
+    link = models.CharField(
+        max_length=255,
+        verbose_name=_("link"))
+
+    image = models.ImageField(
+        upload_to="about/navigation_links",
+        help_text="220x165 px",
+        verbose_name=_("image"))
+
+    order = models.PositiveSmallIntegerField(
+        default=0,
+        verbose_name=_("order"))
+
+    def __unicode__(self):
+        return self.name
+
+    def save(self, *arg, **kwargs):
+        if self.pk is not None:
+            origin = NavigationLink.objects.get(pk=self.pk)
+            if origin.image != self.image:
+                if os.path.exists(origin.image.path):
+                    os.remove(origin.image.path)
+        super(NavigationLink, self).save(*arg, **kwargs)
+
+    class Meta:
+        ordering = ["order"]
+        verbose_name = _("navigation link")
+        verbose_name_plural = _("navigation links")
+
+
 class Profile(models.Model):
     site = models.OneToOneField(
         I18nSite,

@@ -5,6 +5,7 @@ from models import *
 
 admin.site.register(Profile)
 admin.site.register(ContactLink)
+admin.site.register(NavigationLink)
 
 admin.site.register(WorkType, CommonAdminWithSlug)
 admin.site.register(WorkProject)
