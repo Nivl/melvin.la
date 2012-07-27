@@ -127,16 +127,22 @@ $(function() {
 	});
     }
 
-    $('#navbar-main-list > li a').click(function() {
-	moveNavbar($(this).parent('li'));
+    $('#navbar-main-list > li a').click(function(e) {
+	if (e.which != 2 && !event.shiftKey && !event.ctrlKey) {
+	    moveNavbar($(this).parent('li'));
+	}
     });
 
     $(document).on('click', 'a[data-navbar]', function() {
-	moveNavbar($(this).data('navbar'));
+	if (e.which != 2 && !event.shiftKey && !event.ctrlKey) {
+	    moveNavbar($(this).data('navbar'));
+	}
     });
 
     $('.hide-navbar-img').click(function(){
-	moveNavbar(null);
+	if (e.which != 2 && !event.shiftKey && !event.ctrlKey) {
+	    moveNavbar(null);
+	}
     });
 
 
@@ -288,19 +294,21 @@ $(function() {
     }
 
     $(document).on('click', 'a[rel^=ajax]', function(event){
-	var content_only = $(this).attr('rel') == 'ajax-content';
-	var breadcrumb = getNewBreadcrumb(this);
-	var navbar_id = $('#navbar-main-list > li.active').prop('id');
-	var lab_tag_id = $('#lab-nav-list .active').parents('a').prop('id');
+	if (!event.shiftKey && !event.ctrlKey) {
+	    var content_only = $(this).attr('rel') == 'ajax-content';
+	    var breadcrumb = getNewBreadcrumb(this);
+	    var navbar_id = $('#navbar-main-list > li.active').prop('id');
+	    var lab_tag_id = $('#lab-nav-list .active').parents('a').prop('id');
 
-	options = {'url': window.location.pathname};
-	window.History.pushState({'breadcrumb': breadcrumb.html(),
-				  'content_only': content_only,
-				  'navbar_id': navbar_id,
-				  'lab_tag_id': lab_tag_id},
-				 $(this).attr('title'),
-				 $(this).attr('href'));
-	return false;
+	    options = {'url': window.location.pathname};
+	    window.History.pushState({'breadcrumb': breadcrumb.html(),
+				      'content_only': content_only,
+				      'navbar_id': navbar_id,
+				      'lab_tag_id': lab_tag_id},
+				     $(this).attr('title'),
+				     $(this).attr('href'));
+	    return false;
+	}
     });
 
     /***********
