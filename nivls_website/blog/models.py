@@ -186,7 +186,7 @@ class Post(models.Model):
 
     main_image = models.ImageField(
         upload_to="articles/originals/",
-        help_text="570x270",
+        help_text="1170x400",
         verbose_name=_("main image"))
 
     short_description = models.CharField(
