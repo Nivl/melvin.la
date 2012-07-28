@@ -136,13 +136,13 @@ $(function() {
 	}
     });
 
-    $(document).on('click', 'a[data-navbar]', function() {
+    $(document).on('click', 'a[data-navbar]', function(e) {
 	if (e.which != 2 && !event.shiftKey && !event.ctrlKey) {
 	    moveNavbar($(this).data('navbar'));
 	}
     });
 
-    $('.hide-navbar-img').click(function(){
+    $('.hide-navbar-img').click(function(e){
 	if (e.which != 2 && !event.shiftKey && !event.ctrlKey) {
 	    moveNavbar(null);
 	}
