@@ -26,6 +26,12 @@ class NavigationLink(models.Model):
         max_length=255,
         verbose_name=_("link"))
 
+    attributes = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name=_("attributes"))
+
     image = models.ImageField(
         upload_to="about/navigation_links",
         help_text="220x165 px",

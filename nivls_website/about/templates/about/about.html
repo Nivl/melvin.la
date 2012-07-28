@@ -37,7 +37,8 @@
 	<ul class="animated-thumbnails">
 	  {% for link in navigation_links %}
 	    <li>
-	      <a href="{{ link.link }}">
+	      <a {{ link.attributes|safe }}
+		 href="{{ link.link }}">
 		<img src="{{ link.image.url }}" />
 		<div>
 		  <h4>{{ link.name }}</h4>
