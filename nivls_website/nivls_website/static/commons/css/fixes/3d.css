@@ -1,0 +1,11 @@
+.images-box-3d .front {
+    overflow: hidden;
+}
+
+.images-box-3d .front:hover img {
+    left: -150px;
+}
+
+.images-box-3d .front div.view-back {
+    background: #666;
+}
