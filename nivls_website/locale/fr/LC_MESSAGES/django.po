@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-29 21:52+0200\n"
+"POT-Creation-Date: 2012-07-29 04:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,141 +18,124 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: nivls_website/templates/base.html:5
+#: nivls_website/templates/base.html:7
 msgid "en"
 msgstr "fr"
 
-#: nivls_website/templates/header.html:23
+#: nivls_website/templates/inc/browser_warning.html:6
+msgid "Browser compatibilities"
+msgstr "Compatibilité des navigateurs"
+
+#: nivls_website/templates/inc/browser_warning.html:10
+msgid ""
+"This website use some experimental features. To get the best experience "
+"using it, you will need the newest version of your browser or change to "
+"another one."
+msgstr ""
+"Ce site utilise des fonctionnalités expérimentales. Pour avoir la meilleure "
+"expérience possible, vous aurez besoin de la toute dernière version de votre "
+"navigateur, ou de changer pour un plus jour."
+
+#: nivls_website/templates/inc/browser_warning.html:13
+msgid "List of supported bowsers:"
+msgstr "Liste des navigateurs supporté :"
+
+#: nivls_website/templates/inc/browser_warning.html:31
+msgid ""
+"The other browsers have not been tested, some like Safari should work fine, "
+"others like Opera or Internet Explorer will miss several features."
+msgstr ""
+"Les autres navigateurs n'ont pas été testé. Certains, comme Safari, "
+"devraient fonctionner sans problème, d'autre, comme Opera où Internet "
+"Explorer, auront des fonctionalités en moins."
+
+#: nivls_website/templates/inc/header.html:24
+#: nivls_website/templates/inc/header.html:28
 msgid "Blog"
 msgstr ""
 
-#: nivls_website/templates/header.html:29
-msgid "Contact"
-msgstr ""
-
-#: nivls_website/templates/header.html:35
+#: nivls_website/templates/inc/header.html:36
+#: nivls_website/templates/inc/header.html:38
 msgid "Lab"
 msgstr ""
 
-#: nivls_website/templates/header.html:42
+#: nivls_website/templates/inc/header.html:45
+#: nivls_website/templates/inc/header.html:48
 msgid "About"
+msgstr "À propos"
+
+#: nivls_website/templates/inc/header.html:55
+#: nivls_website/templates/inc/header.html:58
+msgid "Portfolio"
 msgstr ""
 
-#: nivls_website/templates/header.html:55
-msgid "His portfolio"
+#: nivls_website/templates/inc/header.html:65
+#: nivls_website/templates/inc/header.html:68
+msgid "C.V."
 msgstr ""
 
-#: nivls_website/templates/header.html:61
-msgid "His C.V."
+#: nivls_website/templates/inc/header.html:75
+#: nivls_website/templates/inc/header.html:78
+msgid "Contact"
 msgstr ""
 
-#: nivls_website/templates/header.html:86
-msgid "Sign in with:"
-msgstr ""
+#: nivls_website/templates/inc/header.html:86
+#: nivls_website/templates/inc/header.html:88
+msgid "Sign up"
+msgstr "Inscription"
 
-#: nivls_website/templates/header.html:92
-msgid "Or sign in using your account:"
-msgstr ""
-
-#: nivls_website/templates/header.html:95
-msgid "Username"
-msgstr ""
-
-#: nivls_website/templates/header.html:97
-msgid "Password"
-msgstr ""
-
-#: nivls_website/templates/header.html:101
+#: nivls_website/templates/inc/header.html:92
+#: nivls_website/templates/inc/header.html:112
 msgid "Sign in"
-msgstr ""
+msgstr "Connexion"
 
-#: nivls_website/templates/header.html:113
+#: nivls_website/templates/inc/header.html:97
+msgid "Sign in with:"
+msgstr "Se connecter avec :"
+
+#: nivls_website/templates/inc/header.html:103
+msgid "Or sign in using your account:"
+msgstr "Ou se connecter en utilisant :"
+
+#: nivls_website/templates/inc/header.html:106
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: nivls_website/templates/inc/header.html:108
+msgid "Password"
+msgstr "Mot de passe"
+
+#: nivls_website/templates/inc/header.html:117
+#: nivls_website/templates/inc/header.html:120
+msgid "I lost my password"
+msgstr "J'ai perdu mon mot de passe"
+
+#: nivls_website/templates/inc/header.html:138
+#: nivls_website/templates/inc/header.html:140
 msgid "My profile"
-msgstr ""
+msgstr "Mon profil"
 
-#: nivls_website/templates/header.html:114
-msgid "Edit my informations"
-msgstr ""
+#: nivls_website/templates/inc/header.html:146
+#: nivls_website/templates/inc/header.html:149
+msgid "Edit my account"
+msgstr "Modifier mon compte"
 
-#: nivls_website/templates/header.html:115
-msgid "Edit my settings"
-msgstr ""
-
-#: nivls_website/templates/header.html:117
+#: nivls_website/templates/inc/header.html:155
 msgid "Edit thumbnail"
-msgstr ""
+msgstr "Modifier ma miniature"
 
-#: nivls_website/templates/header.html:119
+#: nivls_website/templates/inc/header.html:161
+#: nivls_website/templates/inc/header.html:163
 msgid "Social media accounts"
-msgstr ""
+msgstr "Comptes des réseaux sociaux"
 
-#: nivls_website/templates/comments/ajax_form.html:25
-msgid "Error!"
-msgstr "Error !"
+#: nivls_website/templates/inc/header.html:168
+msgid "Sign out"
+msgstr "Déconnexion"
 
-#: nivls_website/templates/comments/ajax_form.html:25
-msgid ""
-"Your comment was unable to be posted at this time. We apologise for the "
-"inconvenience."
-msgstr ""
-"Votre commentaire n\\'a pas pu être posté. Nous nous excusons pour cet "
-"inconvénient."
-
-#: nivls_website/templates/comments/comment_notification_email.txt:3
+#: nivls_website/templates/inc/pagination.html:8
+#: nivls_website/templates/inc/pagination.html:19
+#: nivls_website/templates/inc/pagination.html:35
 #, python-format
-msgid ""
-"New comment from: <strong>%(comment.user_name)s</strong> on <strong>"
-"%(content_object)s</strong>"
+msgid "Page %(i)s"
 msgstr ""
-"Nouveau commentaire de : <strong>%(comment.user_name)s</strong> sur <strong>"
-"%(content_object)s</strong>"
-
-#: nivls_website/templates/comments/comment_notification_email.txt:5
-msgid "Author info:"
-msgstr "Information :"
-
-#: nivls_website/templates/comments/comment_notification_email.txt:6
-msgid "Email: "
-msgstr "Email : "
-
-#: nivls_website/templates/comments/comment_notification_email.txt:7
-msgid "URL: "
-msgstr "URL : "
-
-#: nivls_website/templates/comments/comment_notification_email.txt:8
-msgid "IP: "
-msgstr "IP : "
-
-#: nivls_website/templates/comments/comment_notification_email.txt:10
-msgid "Comment was: "
-msgstr "Le commentaire est : "
-
-#: nivls_website/templates/comments/form.html:25
-#: nivls_website/templates/comments/preview.html:25
-msgid "Sending..."
-msgstr "Envoi..."
-
-#: nivls_website/templates/comments/form.html:26
-#: nivls_website/templates/comments/preview.html:26
-msgid "Send"
-msgstr "Envoyer"
-
-#: nivls_website/templates/comments/list.html:10
-msgid "By "
-msgstr "Par "
-
-#: nivls_website/templates/comments/list.html:18
-msgid "at "
-msgstr "à "
-
-#: nivls_website/templates/comments/posted.html:4
-msgid "Sent!"
-msgstr "Envoyé !"
-
-#: nivls_website/templates/comments/posted.html:5
-msgid ""
-"Your comment has been successfully saved, it will soon be validated by an "
-"administrator."
-msgstr ""
-"Votre commentaire a été correctement enregistré, il sera prochainement "
-"validé par un administrateur."
