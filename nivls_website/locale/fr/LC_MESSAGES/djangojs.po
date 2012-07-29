@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-29 21:54+0200\n"
+"POT-Creation-Date: 2012-07-29 15:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: nivls_website/static/commons/js/ajax_form.js:59
-msgid "loading..."
-msgstr ""
+#: nivls_website/static/commons/js/10/diagram.js:13
+msgid "Languages"
+msgstr "Langages"
 
-#: nivls_website/static/commons/js/ajax_form.js:88
+#: nivls_website/static/commons/js/20/Ajaxion.js:291
 msgid "Error!"
+msgstr "Erreur !"
+
+#: nivls_website/static/commons/js/20/Ajaxion.js:291
+msgid ""
+"Your action was unable to be executed at this time. We apologise for the "
+"inconvenience."
 msgstr ""
+"Votre action n'a pas pu être exécutée. Nous sommes désolé pour cet "
+"inconvénient."

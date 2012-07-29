@@ -22,6 +22,13 @@ ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda o: "/accounts/view/%s/" % o.username,
 }
 
+LOCALE_PATHS = (
+    os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                 "..",
+                                 "..",
+                                 "locale")),
+)
+
 SESSION_COOKIE_DOMAIN = '.' + DOMAIN_NAME
 MAX_UPLOAD_SIZE = 5242880
 MANAGERS = ADMINS
