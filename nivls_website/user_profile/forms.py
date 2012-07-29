@@ -115,15 +115,16 @@ class UserProfileForm(BootstrapModelForm):
 
             if data._size > settings.MAX_UPLOAD_SIZE:
                 raise forms.ValidationError(
-                    _('Please keep filesize under %s. Current filesize %s')
-                    % (filesizeformat(settings.MAX_UPLOAD_SIZE),
-                       filesizeformat(data._size)))
+                    _('Please keep filesize under %(max)s. '
+                      'Current filesize %(current)s')
+                    % {'max': filesizeformat(settings.MAX_UPLOAD_SIZE),
+                       'current': filesizeformat(data._size)})
             w, h = get_image_dimensions(data)
 
             if (min_size[0] != 0 and w < min_size[0]) \
                     or (min_size[1] != 0 and h < min_size[1]):
                 raise forms.ValidationError(
-                    _('Your image is to small. the minimum size is %(x)dx%(y)d'
+                    _('Your image is to small. The minimum size is %(x)dx%(y)d'
                       % {'x': min_size[0], 'y': min_size[1]}))
 
             if (max_size[0] != 0 and w > max_size[0]) \

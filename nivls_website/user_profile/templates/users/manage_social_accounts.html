@@ -12,7 +12,7 @@
   </p>
 
   <div class="alert alert-block">
-    <h4 class="alert-heading">Warning!</h4>
+    <h4 class="alert-heading">{% trans "Warning!" %}</h4>
     {% blocktrans %}If you want to completely revoke an access, you have to do it on your provider's website.{% endblocktrans %}
   </div>
 
@@ -26,7 +26,7 @@
 	  </a>
 	</span>
 	&nbsp;
-	<strong>{{ account.provider }}</strong> {% trans "with account" %} <strong>{{ account|social_link }}</strong>
+	<strong>{{ account.provider }}</strong> {% trans "with the account" %} <strong>{{ account|social_link }}</strong>
     {% empty %}
       {% trans "No account linked" %}
     {% endfor %}

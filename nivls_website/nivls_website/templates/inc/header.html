@@ -165,7 +165,7 @@
 			<li class="divider">
 			<li>
 			  <a href="{% url "sign-out" %}?next={{ request.get_full_path }}">
-			    <i class="icon-off"></i> Sign out
+			    <i class="icon-off"></i> {% trans "Sign out" %}
 			  </a>
 		  </ul>
 		{% endif %}
