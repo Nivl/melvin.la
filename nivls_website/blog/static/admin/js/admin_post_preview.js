@@ -7,7 +7,7 @@ $(document).ready(function() {
     pub_date = pub_date[2] + "/" + pub_date[1] + "/" + pub_date[0];
 
     var slug = $('#id_slug').val();
-    var url = domain_name + '/preview/' + pub_date + "/" + slug + "/";
+    var url = domain_name + '/blog/preview/' + pub_date + "/" + slug + "/";
 
     $('#id_content')
 	.before('<a href="http://' + url + '" target="_blank">Preview</a><br/>');
