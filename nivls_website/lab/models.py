@@ -22,12 +22,12 @@ class Tag(models.Model):
     icon_enabled = models.ImageField(
         upload_to='lab/icons/',
         help_text='32x32',
-        verbose_name=_("Icon enabled"))
+        verbose_name=_("icon 'enabled'"))
 
     icon_disabled = models.ImageField(
         upload_to='lab/icons/',
         help_text='32x32',
-        verbose_name=_("Icon disabled"))
+        verbose_name=_("icon 'disabled'"))
 
     def admin_thumbnail(self):
         return u'<img src="%s" />' % (self.icon_enabled.url)
@@ -63,7 +63,7 @@ class Language(models.Model):
         verbose_name=_("slug"))
 
     color = ColorField(
-        verbose_name=_("Color"))
+        verbose_name=_("color"))
 
     def __unicode__(self):
         return self.name
@@ -73,7 +73,7 @@ class License(models.Model):
     site = models.ForeignKey(
         I18nSite,
         default=settings.SITE_ID,
-        verbose_name=_("Site"))
+        verbose_name=_("site"))
 
     name = models.CharField(
         max_length=50,
@@ -91,7 +91,7 @@ class License(models.Model):
         upload_to="lab/licenses/",
         null=True,
         blank=True,
-        verbose_name=_("Image"))
+        verbose_name=_("image"))
 
     def __unicode__(self):
         return self.name
@@ -112,7 +112,7 @@ class Coworker(models.Model):
     site = models.ForeignKey(
         I18nSite,
         default=settings.SITE_ID,
-        verbose_name=_("Site"))
+        verbose_name=_("site"))
 
     name = models.CharField(
         max_length=50,
@@ -123,7 +123,7 @@ class Coworker(models.Model):
 
     description = models.CharField(
         max_length=255,
-        verbose_name=_("Description"))
+        verbose_name=_("description"))
 
     url = models.URLField(
         null=True,
@@ -133,7 +133,7 @@ class Coworker(models.Model):
     image = models.ImageField(
         upload_to="lab/coworker/",
         help_text="126x126",
-        verbose_name=_("Image"))
+        verbose_name=_("image"))
 
     def __unicode__(self):
         return self.name
@@ -154,7 +154,7 @@ class Client(models.Model):
     site = models.ForeignKey(
         I18nSite,
         default=settings.SITE_ID,
-        verbose_name=_("Site"))
+        verbose_name=_("site"))
 
     name = models.CharField(
         max_length=50,
@@ -165,7 +165,7 @@ class Client(models.Model):
 
     description = models.CharField(
         max_length=255,
-        verbose_name=_("Description"))
+        verbose_name=_("description"))
 
     url = models.URLField(
         null=True,
@@ -175,7 +175,7 @@ class Client(models.Model):
     image = models.ImageField(
         upload_to="lab/client/",
         help_text="126x126",
-        verbose_name=_("Image"))
+        verbose_name=_("image"))
 
     def __unicode__(self):
         return self.name
@@ -196,7 +196,7 @@ class Project(models.Model):
     site = models.ForeignKey(
         I18nSite,
         default=settings.SITE_ID,
-        verbose_name=_("Site"))
+        verbose_name=_("site"))
 
     name = models.CharField(
         max_length=255,
@@ -209,76 +209,76 @@ class Project(models.Model):
         max_length=255,
         null=True,
         blank=True,
-        verbose_name=_("Catchphrase"))
+        verbose_name=_("catchphrase"))
 
     overall_progress = models.PositiveSmallIntegerField(
         default=0,
-        verbose_name=_("Overall progress"))
+        verbose_name=_("overall progress"))
 
     start_date = models.DateField(
         default=datetime.now,
-        verbose_name=_("Start date"))
+        verbose_name=_("start date"))
 
     license = models.ForeignKey(
         License,
         limit_choices_to={'site': settings.SITE_ID},
-        verbose_name=_("License"))
+        verbose_name=_("license"))
 
     sources_url = models.URLField(
         null=True,
         blank=True,
-        verbose_name=_("Source URL"))
+        verbose_name=_("sources URL"))
 
     description = models.TextField(
-        verbose_name=_("Description"))
+        verbose_name=_("description"))
 
     edit_date = models.DateField(
         auto_now=True,
-        verbose_name=_("Edit date"))
+        verbose_name=_("edit date"))
 
     demo_codebox = models.TextField(
         null=True,
         blank=True,
-        verbose_name=_("Demo codebox"))
+        verbose_name=_("demo codebox"))
 
     languages = models.ManyToManyField(
         Language,
         through='ProjectLanguageRate',
-        verbose_name=_("Languages"))
+        verbose_name=_("languages"))
 
     coworkers_user = models.ManyToManyField(
         User,
         null=True,
         blank=True,
         related_name="coworker_user",
-        verbose_name=_("Coworkers (real users)"))
+        verbose_name=_("coworkers (real users)"))
 
     coworkers = models.ManyToManyField(
         Coworker,
         null=True,
         blank=True,
         limit_choices_to={'site': settings.SITE_ID},
-        verbose_name=_("Coworkers"))
+        verbose_name=_("coworkers"))
 
     clients_user = models.ManyToManyField(
         User,
         null=True,
         blank=True,
         related_name="clients_user",
-        verbose_name=_("Client (real users)"))
+        verbose_name=_("client (real users)"))
 
     clients = models.ManyToManyField(
         Client,
         null=True,
         blank=True,
         limit_choices_to={'site': settings.SITE_ID},
-        verbose_name=_("Clients"))
+        verbose_name=_("clients"))
 
     tags = models.ManyToManyField(
         Tag,
         null=True,
         blank=True,
-        verbose_name=_("Tags"))
+        verbose_name=_("tags"))
 
     def __unicode__(self):
         return self.name
@@ -295,14 +295,14 @@ class Project(models.Model):
 class ProjectLanguageRate(models.Model):
     language = models.ForeignKey(
         Language,
-        verbose_name=_("Language"))
+        verbose_name=_("language"))
 
     project = models.ForeignKey(
         Project,
         verbose_name=_("Project"))
 
     rate = models.PositiveIntegerField(
-        verbose_name=_("Rate"))
+        verbose_name=_("rate"))
 
     def __unicode__(self):
         return "%s / %s" % (self.project, self.language)
@@ -311,15 +311,15 @@ class ProjectLanguageRate(models.Model):
 class Progress(models.Model):
     description = models.CharField(
         max_length=255,
-        verbose_name=_("Description"))
+        verbose_name=_("description"))
 
     pub_date = models.DateField(
         default=datetime.now,
-        verbose_name=_("Pub date"))
+        verbose_name=_("publication date"))
 
     project = models.ForeignKey(
         Project,
-        verbose_name=_("Prohect"))
+        verbose_name=_("project"))
 
     def __unicode__(self):
         return "%s" % self.pub_date
@@ -331,11 +331,11 @@ class Progress(models.Model):
 class Todo(models.Model):
     task = models.CharField(
         max_length=255,
-        verbose_name=_("Task"))
+        verbose_name=_("task"))
 
     project = models.ForeignKey(
         Project,
-        verbose_name=_("Project"))
+        verbose_name=_("project"))
 
     def __unicode__(self):
         return self.task
@@ -347,15 +347,15 @@ class Image(models.Model):
         verbose_name=_("name"))
 
     description = models.TextField(
-        verbose_name=_("Description"))
+        verbose_name=_("description"))
 
     image = models.ImageField(
         upload_to="lab/projets/images/",
-        verbose_name=_("Image"))
+        verbose_name=_("image"))
 
     project = models.ForeignKey(
         Project,
-        verbose_name=_("Project"))
+        verbose_name=_("project"))
 
     def __unicode__(self):
         return self.name
@@ -377,7 +377,7 @@ class DownloadIcon(models.Model):
     image = models.ImageField(
         upload_to="lab/projets/downloads/icons/",
         help_text="128x128",
-        verbose_name=_("Image"))
+        verbose_name=_("image"))
 
     def admin_thumbnail(self):
         return u'<img src="%s" />' % (self.image.url)
@@ -405,13 +405,13 @@ class Download(models.Model):
         max_length=255,
         null=True,
         blank=True,
-        verbose_name=_("Description"))
+        verbose_name=_("description"))
 
     uploaded_file = models.FileField(
         upload_to="lab/projets/downloads/files/",
         null=True,
         blank=True,
-        verbose_name=_("Uploaded file"))
+        verbose_name=_("uploaded file"))
 
     url = models.URLField(
         null=True,
@@ -420,11 +420,11 @@ class Download(models.Model):
 
     icon = models.ForeignKey(
         DownloadIcon,
-        verbose_name=_("Icon"))
+        verbose_name=_("icon"))
 
     project = models.ForeignKey(
         Project,
-        verbose_name=_("Project"))
+        verbose_name=_("project"))
 
     def __unicode__(self):
         return self.name
@@ -436,7 +436,7 @@ class Video(models.Model):
         verbose_name=_("name"))
 
     description = models.TextField(
-        verbose_name=_("Description"))
+        verbose_name=_("description"))
 
     url = models.URLField(
         verbose_name=_("URL"))
