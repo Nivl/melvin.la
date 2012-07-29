@@ -9,7 +9,7 @@
       <a href="#modal-edit-profile" data-toggle="modal" class="well link-box">
 	<h3>{% trans "Edit my profile" %}</h3>
 	<div class="content">
-	  Here you can change your name, hobbies, occupation, …
+	  {% trans "Here you can change your name, hobbies, occupation, …" %}
 	</div>
       </a>
       <div class="modal hide" id="modal-edit-profile">
@@ -27,7 +27,7 @@
       <a href="#modal-edit-settings" data-toggle="modal" class="well link-box">
 	<h3>{% trans "Edit my settings" %}</h3>
 	<div class="content">
-	  If you want to enable/disable some features, it's the place.
+	  {% trans "If you want to enable/disable some features, it's the place." %}
 	</div>
       </a>
       <div class="modal hide" id="modal-edit-settings">
@@ -46,9 +46,9 @@
     <div class="span5">
       <a href="#modal-edit-email" data-toggle="modal" class="well link-box">
 	<h3>{% trans "Edit my email address" %}</h3>
-	<div class="content">
-	  You must have set a password to change you email address.
-	</div>
+	  <div class="content">
+	    {% trans "You must have set a password to change you email address." %}
+	  </div>
       </a>
       <div class="modal hide" id="modal-edit-email">
 	<div class="modal-header">
@@ -65,7 +65,7 @@
       <a href="#modal-edit-password" data-toggle="modal" class="well link-box{% if not user.get_profile.has_password %} important{% endif %}">
 	<h3>{% trans "Edit my password" %}</h3>
 	<div class="content">
-	  Here you can change or set your password.
+	  {% trans "Here you can change or set your password." %}
 	</div>
       </a>
       <div class="modal hide" id="modal-edit-password">

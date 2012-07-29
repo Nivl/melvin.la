@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-29 06:51-0700\n"
+"POT-Creation-Date: 2012-07-29 17:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -705,7 +705,6 @@ msgid "Todo"
 msgstr "À faire"
 
 #: lab/templates/lab/templatetags/tags.html:35
-#: nivls_website/templates/admin/base.html:56
 msgid "Home"
 msgstr "Accueil"
 
@@ -1002,20 +1001,38 @@ msgstr ""
 msgid "Edit my profile"
 msgstr "Modifier mon profil"
 
+#: user_profile/templates/users/edit_account.html:12
+msgid "Here you can change your name, hobbies, occupation, …"
+msgstr "Ici vous pouvez changer votre nom, hobbies, emploi, …"
+
 #: user_profile/templates/users/edit_account.html:28
 #: user_profile/templates/users/edit_account.html:36
 msgid "Edit my settings"
 msgstr "Modifier mes options"
+
+#: user_profile/templates/users/edit_account.html:30
+msgid "If you want to enable/disable some features, it's the place."
+msgstr "Si vous voulez activer/désactiver certaines options, c'est ici."
 
 #: user_profile/templates/users/edit_account.html:48
 #: user_profile/templates/users/edit_account.html:56
 msgid "Edit my email address"
 msgstr "Modifier mon adresse email"
 
+#: user_profile/templates/users/edit_account.html:50
+msgid "You must have set a password to change you email address."
+msgstr ""
+"Vous devez avoir défini un mot de passe pour pouvoir changer votre "
+"adresse email."
+
 #: user_profile/templates/users/edit_account.html:66
 #: user_profile/templates/users/edit_account.html:74
 msgid "Edit my password"
 msgstr "Modifier mon mot de passe"
+
+#: user_profile/templates/users/edit_account.html:68
+msgid "Here you can change or set your password."
+msgstr "Ici vous pouvez changer ou définir votre mot de passe."
 
 #: user_profile/templates/users/manage_social_accounts.html:5
 #: user_profile/templates/users/manage_social_accounts.html:8
@@ -1028,7 +1045,7 @@ msgid ""
 ">Linking your accounts will help you to sign in here in an easier way: You "
 "will only have to click on a linked account on the sign in menu to be logged."
 msgstr ""
-"Ici vous pouvez lier/délier vos compte de réseaux sociaux à ce site.<br/"
+"Ici vous pouvez lier/délier à ce site vos comptes de réseaux sociaux.<br/"
 ">Lier vos compte vous aidera à vos connecter très facilement: vous aurez "
 "juste à cliquer sur un compte lié dans le menu de connexion pour être "
 "connecté."
