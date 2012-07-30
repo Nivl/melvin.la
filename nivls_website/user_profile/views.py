@@ -1,4 +1,5 @@
 import uuid
+from django.template import RequestContext
 from django.views.defaults import permission_denied
 from django.contrib import messages
 from django.utils.translation import ugettext as _
@@ -115,12 +116,14 @@ def sign_up_form(request):
             text_content = render_to_string(
                 'users/inc/sign_up_mail.txt',
                 {'user': u,
-                 'code': profile.activation_code})
+                 'code': profile.activation_code},
+                context_instance=RequestContext(request))
 
             html_content = render_to_string(
                 'users/inc/sign_up_mail.html',
                 {'user': u,
-                 'code': profile.activation_code})
+                 'code': profile.activation_code},
+                context_instance=RequestContext(request))
 
             msg = EmailMultiAlternatives(
                 subject,

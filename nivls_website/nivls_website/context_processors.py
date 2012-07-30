@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.sites.models import Site
 
 
 def static_root(context):
@@ -6,4 +7,4 @@ def static_root(context):
 
 
 def domain_name(context):
-    return {'DOMAIN_NAME': settings.DOMAIN_NAME}
+    return {'DOMAIN_NAME': Site.objects.get_current().domain}

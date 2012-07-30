@@ -6,7 +6,7 @@
 
 
 {% trans "Comment informations:" %}
-{% trans "By: " %}{% if user.is_authenticated %}{{ user.get_absolute_url }}">{{ user.get_full_name }} ({{ user.username }}) {% else %}{{ comment.name }} {% trans "(Unregistered user)" %}{% endif %}
+{% trans "By: " %}{% if user.is_authenticated %}{{ user.get_full_name }} ({{ user.username }}) {% else %}{{ comment.name }} {% trans "(Unregistered user)" %}{% endif %}
 {% trans "IP: " %}{{ comment.ip_address }}
 {% trans "Comment: " %}
 « {{ comment.comment }} »

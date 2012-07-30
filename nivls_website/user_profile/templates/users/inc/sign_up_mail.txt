@@ -5,6 +5,6 @@
 {% blocktrans with uname=user.first_name %}Hi {{ uname }},{% endblocktrans %}
 
 
-{% trans "You have successfully created your account, now it's time to activate it by clicking on the following link: " %} {{ activation_link }}
+{% trans "You have successfully created your account, now it's time to activate it by clicking on the following link: " %} http://{{ DOMAIN_NAME }}{{ activation_link }}
 
 {% trans "You can update your informations in the user menu." %}
