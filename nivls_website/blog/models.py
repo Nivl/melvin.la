@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from django.utils import timezone
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -158,7 +158,7 @@ class Post(models.Model):
         verbose_name=_("is public"))
 
     pub_date = models.DateTimeField(
-        default=datetime.now,
+        default=timezone.now,
         verbose_name=_("publication date"))
 
     author = models.ForeignKey(
@@ -339,7 +339,7 @@ class Comment(models.Model):
         verbose_name=_('IP address'))
 
     pub_date = models.DateTimeField(
-        default=datetime.now,
+        default=timezone.now,
         verbose_name=_('publication date'))
 
     name = models.CharField(

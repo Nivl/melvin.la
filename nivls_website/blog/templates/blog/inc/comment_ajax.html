@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n tz %}
 
 <script type="text/javascript">
 
@@ -43,13 +43,16 @@ $(document).off('click', '.edit-comment-link')
 						.toggle();
 					}}];
     commentEdit.callbacks['error'] = [Ajaxion.cb_error_push_before];
+
+{% localtime off %}
     var url_values = {
         year:'{{ post.pub_date.year }}',
         month:'{{ post.pub_date|date:'m' }}',
-        day:'{{ post.pub_date.day }}',
+        day:'{{ post.pub_date|date:'d' }}',
         slug:'{{ post.slug }}',
         pk:pk
     }
+{% endlocaltime %}
 
     if ($(area).find(">:first-child").prop("tagName") == 'P') {
 	commentEdit.url = django_js_utils.urls.resolve('post-comment-single-form', url_values);

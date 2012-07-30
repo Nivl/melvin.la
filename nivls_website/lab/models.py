@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 from django.utils.translation import ugettext_lazy as _
-from datetime import datetime
+from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db import models
 from django.core.urlresolvers import reverse
@@ -216,7 +216,7 @@ class Project(models.Model):
         verbose_name=_("overall progress"))
 
     start_date = models.DateField(
-        default=datetime.now,
+        default=timezone.now,
         verbose_name=_("start date"))
 
     license = models.ForeignKey(
@@ -314,7 +314,7 @@ class Progress(models.Model):
         verbose_name=_("description"))
 
     pub_date = models.DateField(
-        default=datetime.now,
+        default=timezone.now,
         verbose_name=_("publication date"))
 
     project = models.ForeignKey(
