@@ -303,7 +303,7 @@ msgstr ""
 #: about/templates/about/portfolio.html:42
 #: about/templates/about/portfolio.html:51
 msgid "See more projects"
-msgstr "Projets"
+msgstr "Voir plus de projets"
 
 #: about/templates/about/templatetags/cat_as_list.html:6
 msgid ": "
@@ -1239,7 +1239,7 @@ msgid ""
 "You have successfully created your account, now it's time to activate it by "
 "clicking on the following link: "
 msgstr ""
-"Vous avez crée votre compte, maintenant c'est le moment de l'activé en "
+"Vous avez crée votre compte, c'est maintenant le moment de l'activer en "
 "cliquant sur le lien suivant : "
 
 #: user_profile/templates/users/inc/sign_up_mail.html:11
