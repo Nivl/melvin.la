@@ -157,18 +157,23 @@ $(window).load(function(){
         else:
             max_size_str = ''
 
-        select_str = 'setSelect: ['
         select = []
-        for select_list in value.split(" "):
-            if select:
-                select_str += ', '
-            x, y = select_list.split("x")
-            select_str += '%s, %s' % (x, y)
-            select.append([x, y])
+        select_str = 'setSelect: ['
+        if value:
+            for select_list in value.split(" "):
+                if select:
+                    select_str += ', '
+                x, y = select_list.split("x")
+                select_str += '%s, %s' % (x, y)
+                select.append([x, y])
         if select:
             select_str += '], '
         else:
             select_str = ''
+            if min_size != [0, 0]:
+                select = [[0, 0], min_size]
+            else:
+                select = [[0, 0], [10, 10]]
 
         return rendered + mark_safe(self.markup % {
                 'field_name': name,
