@@ -2,15 +2,6 @@
 import os
 from nivls_website.conf.private import *
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = '/tmp/django-mails/'
-EMAIL_SUBJECT_PREFIX = ""
-EMAIL_NO_REPLY = 'no-reply@' + DOMAIN_NAME
-DEFAULT_FROM_EMAIL = EMAIL_NO_REPLY
-
 AUTH_PROFILE_MODULE = 'user_profile.UserProfile'
 DEFAULT_FILE_STORAGE = "commons.storage.UniqueFileSystemStorage"
 
