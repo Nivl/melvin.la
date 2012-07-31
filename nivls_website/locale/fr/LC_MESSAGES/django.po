@@ -756,7 +756,7 @@ msgstr ""
 
 #: nivls_website/templates/inc/browser_warning.html:13
 msgid "List of supported bowsers:"
-msgstr "Liste des navigateurs supporté :"
+msgstr "Liste des navigateurs supportés :"
 
 #: nivls_website/templates/inc/browser_warning.html:31
 msgid ""
@@ -764,7 +764,7 @@ msgid ""
 "others like Opera or Internet Explorer will miss several features."
 msgstr ""
 "Les autres navigateurs n'ont pas été testé. Certains, comme Safari, "
-"devraient fonctionner sans problème, d'autre, comme Opera où Internet "
+"devraient fonctionner sans problème, d'autres, comme Opera où Internet "
 "Explorer, auront des fonctionalités en moins."
 
 #: nivls_website/templates/inc/header.html:45
