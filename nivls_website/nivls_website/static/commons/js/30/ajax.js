@@ -175,6 +175,14 @@ var editProfileAjax = new Ajaxion(resolve_urls('edit-account-form'),
 				  ],
 				  {
 				      'success': [
+					  {'callback': function(html,
+								textStatus,
+								that) {
+					      console.log(html);
+					      if (html == '302') {
+						  window.location = django_js_utils.urls.resolve('edit-avatar');
+					      }
+					  }},
 					  {'callback': hideOnSuccess}
 				      ],
 

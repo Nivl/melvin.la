@@ -250,7 +250,9 @@ def edit_account_form(request):
             if account_form.cleaned_data['username'] != username:
                 p.lock_username = True
             p.save()
-            return HttpResponse("OK");
+            if len(request.FILES) > 0:
+                return HttpResponse("302");
+            return HttpResponse("200");
     else:
         account_form = UserEditForm(edit_username=(not profile.lock_username),
                                     instance=request.user)
