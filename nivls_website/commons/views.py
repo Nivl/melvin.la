@@ -32,8 +32,10 @@ def write_pdf(template_src, context_dict, output):
     file.write(rendered.encode('utf-8'))
     file.close()
 
-    command_args = '%s --page-size Letter %s -' % (settings.WKHTMLTOPDF_PATH ,
-                                                   temp_html_file_name)
+    command_args = '%s --page-size Letter --disable-javascript %s -' % (
+        settings.WKHTMLTOPDF_PATH ,
+        temp_html_file_name)
+
     popen = subprocess.Popen(command_args,
                              stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE,

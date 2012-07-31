@@ -1,7 +1,7 @@
 Dependencies
 ============
 
-* [wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/) >= 0.11.0 rc1 (currently, only the i368 version works. The amd64 segfaults…)
+* [wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/) (only tested with the 0.11.0 rc1 static version)
 * [python-markdown](http://pypi.python.org/pypi/Markdown)
 * [akismet](http://kemayo.wordpress.com/2005/12/02/akismet-py/)
 * [django-bootstrap](https://github.com/earle/django-bootstrap)
