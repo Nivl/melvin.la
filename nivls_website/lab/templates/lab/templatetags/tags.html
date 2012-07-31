@@ -11,24 +11,24 @@
 	 href="{% url 'lab' %}"
 	 id="lab-tag-home">
 	<div class="main-icon"
-	     style="background-image: url({% static "/commons/img/home.png" %});">
+	     style="background-image: url({% static "commons/img/home.png" %});">
 
 	  {% ifequal act_menu "home" %}
 	    <img class="enabled active"
 		 alt="home"
-		 src="{% static "/commons/img/home.png" %}">
+		 src="{% static "commons/img/home.png" %}">
 
 	    <img class="disabled hide"
 		 alt="home"
-		 src="{% static "/commons/img/home-grey.png" %}">
+		 src="{% static "commons/img/home-grey.png" %}">
 	  {% else %}
 	    <img class="enabled hide"
 		 alt="home"
-		 src="{% static "/commons/img/home.png" %}">
+		 src="{% static "commons/img/home.png" %}">
 
 	    <img class="disabled"
 		 alt="home"
-		 src="{% static "/commons/img/home-grey.png" %}">
+		 src="{% static "commons/img/home-grey.png" %}">
 	  {% endifequal %}
 	</div>
 
