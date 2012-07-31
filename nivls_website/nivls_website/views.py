@@ -6,4 +6,4 @@ from commons.decorators import ajax_only
 @require_safe
 @ajax_only
 def get_common_header(request):
-    return render(request, "header.html")
+    return render(request, "inc/header.html")
