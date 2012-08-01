@@ -303,6 +303,9 @@ $(function() {
 	    var navbar_id = $('#navbar-main-list > li.active').prop('id');
 	    var lab_tag_id = $('#lab-nav-list .active').parents('a').prop('id');
 
+	    if (typeof _gaq !== 'undefined') {
+		_gaq.push(['_trackPageview', $(this).attr('href')]);
+	    }
 	    options = {'url': window.location.pathname};
 	    window.History.pushState({'breadcrumb': breadcrumb.html(),
 				      'content_only': content_only,
