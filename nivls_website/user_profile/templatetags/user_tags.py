@@ -42,6 +42,8 @@ def social_user_links(user):
     for account in accounts:
         if providers_links[account.provider]['show']:
             extra = account.extra_data
+            if not 'id' in extra:
+                extra['id'] = ''
             link = providers_links[account.provider]['link'] \
                 .replace('[uname]', extra['username']) \
                 .replace('[id]', str(extra['id']))
