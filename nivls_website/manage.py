@@ -2,8 +2,6 @@
 import os, sys
 from django.core.management import execute_manager
 
-sys.path.append("/home/www/modules/")
-
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "nivls_website.settings")
 
