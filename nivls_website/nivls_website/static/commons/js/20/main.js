@@ -49,7 +49,9 @@ function checkForLocalStorage() {
 }
 
 function reloadShareButtons() {
-    gapi.plusone.go();
+    if (typeof gapi !== 'undefined') {
+	gapi.plusone.go();
+    }
 }
 
 function preview() {
