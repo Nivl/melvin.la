@@ -100,6 +100,41 @@ function styleCode() {
 }
 
 $(function() {
+
+    if (Modernizr.history) {
+	navigationHTML5();
+    }
+
+    /***********
+     * animateHighlight
+     **********/
+    $.fn.animateHighlight = function(highlightColor, duration) {
+	var highlightBg = highlightColor || "#FFFF9C";
+	var animateMs = duration || 1500;
+	var originalBg = this.css("backgroundColor");
+	this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
+    };
+
+    /***********
+     * Global
+     **********/
+    reloadJsEffects();
+    storageData();
+    preview();
+
+    $(window).konami(function() {
+	$('#konami iframe')
+	    .attr('src', 'http://www.youtube.com/embed/MytfhzcSF-Y');
+	$('#konami').modal('toggle');
+	$('#konami').on('hidden', function() {
+	    $(this).find('iframe').attr('src', '');
+	});
+    });
+});
+
+
+function navigationHTML5(){
+
     /***********
      * Nav bar
      **********/
@@ -317,29 +352,4 @@ $(function() {
 	}
     });
 
-    /***********
-     * animateHighlight
-     **********/
-    $.fn.animateHighlight = function(highlightColor, duration) {
-	var highlightBg = highlightColor || "#FFFF9C";
-	var animateMs = duration || 1500;
-	var originalBg = this.css("backgroundColor");
-	this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
-    };
-
-    /***********
-     * Global
-     **********/
-    reloadJsEffects();
-    storageData();
-    preview();
-
-    $(window).konami(function() {
-	$('#konami iframe')
-	    .attr('src', 'http://www.youtube.com/embed/MytfhzcSF-Y');
-	$('#konami').modal('toggle');
-	$('#konami').on('hidden', function() {
-	    $(this).find('iframe').attr('src', '');
-	});
-    });
-});
+}
