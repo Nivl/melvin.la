@@ -752,7 +752,7 @@ msgid ""
 msgstr ""
 "Ce site utilise des fonctionnalités expérimentales. Pour avoir la meilleure "
 "expérience possible, vous aurez besoin de la toute dernière version de votre "
-"navigateur, ou de changer pour un plus jour."
+"navigateur, ou de changer pour un plus à jour."
 
 #: nivls_website/templates/inc/browser_warning.html:13
 msgid "List of supported bowsers:"
@@ -1172,16 +1172,16 @@ msgstr "Modifier"
 
 #: user_profile/templates/users/ajax/edit_avatar_form.html:11
 msgid "Update"
-msgstr "Mettre à jours"
+msgstr "Mettre à jour"
 
 #: user_profile/templates/users/ajax/edit_avatar_ok.html:6
 #: user_profile/templates/users/ajax/password_confirm_done.html:5
 msgid "Updated!"
-msgstr "Mis à jours !"
+msgstr "Mis à jour !"
 
 #: user_profile/templates/users/ajax/edit_avatar_ok.html:7
 msgid "Your thumbnail has been successfully updated."
-msgstr "Votre miniature a correctement mis à jours"
+msgstr "Votre miniature a correctement mis à jour"
 
 #: user_profile/templates/users/ajax/edit_email_form.html:12
 msgid "You didn't set a password, you cannot change your email address"
@@ -1245,4 +1245,4 @@ msgstr ""
 #: user_profile/templates/users/inc/sign_up_mail.html:11
 #: user_profile/templates/users/inc/sign_up_mail.txt:10
 msgid "You can update your informations in the user menu."
-msgstr "Vous pouvez mettre à jours vos informations dans le menu utilisateur."
+msgstr "Vous pouvez mettre à jour vos informations dans le menu utilisateur."
