@@ -291,8 +291,8 @@ class Post(models.Model):
         except Exception:
             pass
 
-        class Meta:
-            unique_together = ('slug', 'pub_date', 'site')
+    class Meta:
+        unique_together = ('slug', 'pub_date', 'site')
 
 
 class Image(models.Model):
