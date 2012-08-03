@@ -922,8 +922,22 @@ ul#left-menu {
     }
 }
 
+#search-form {
+    input {
+	.border-radius(15px);
+    }
+}
+
+@media (min-width: 979px) and (max-width: 1130px) {
+    #search-form {
+	input {
+	    width: 80px;
+	}
+    }
+}
+
 #navbar_img {
-    @width: 100px;
+    @width: 75px;
     position: fixed;
     top: 0px;
     left: -@width;
@@ -939,7 +953,7 @@ ul#left-menu {
 }
 
 #navbar-main-list > li {
-    width: 90px;
+    width: 75px;
 
     &.active {
 	&:hover {

@@ -24,7 +24,6 @@
 		 title="{% trans "Blog" %}"
 		 rel="ajax"
 		 href="{% url "blog" %}">
-		<i class="icon-book icon-white"></i>
 		{% trans "Blog" %}
 	      </a>
 
@@ -34,7 +33,6 @@
 		 rel="ajax"
 		 href="{% url "lab" %}"
 		 title="{% trans "Lab" %}">
-		<i class="icon-nivl-lab icon-nivl-white"></i>
 		{% trans "Lab" %}
 	      </a>
 
@@ -44,7 +42,6 @@
 		 rel="ajax"
 		 title="{% trans "About" %}"
 		 href="{% url "home" %}">
-		<i class="icon-user icon-white"></i>
 		{% trans "About" %}
 	      </a>
 
@@ -54,7 +51,6 @@
 		 rel="ajax"
 		 title="{% trans "Portfolio" %}"
 		 href="{% url "portfolio" %}">
-		<i class="icon-picture icon-white"></i>
 		{% trans "Portfolio" %}
 	      </a>
 
@@ -64,7 +60,6 @@
 		 rel="ajax"
 		 title="{% trans "C.V." %}"
 		 href="{% url "cv" %}">
-		<i class="icon-th-list icon-white"></i>
 		{% trans "C.V." %}
 	      </a>
 
@@ -74,7 +69,6 @@
 		 rel="ajax"
 		 title="{% trans "Contact" %}"
 		 href="{% url "contact" %}">
-		<i class="icon-envelope icon-white"></i>
 		{% trans "Contact" %}
 	      </a>
           </ul>
@@ -171,7 +165,12 @@
 		{% endif %}
 	  </ul>
 
-	  {% block "menu-new-links" %} {% endblock %}
+	  <form id="search-form" class="navbar-search pull-right">
+	    <input type="text" class="search-query"
+		   placeholder="Search"
+		   data-provide="typeahead"
+		   data-items="6">
+	  </form>
 
 	</div><!--/.nav-collapse -->
       </div>
