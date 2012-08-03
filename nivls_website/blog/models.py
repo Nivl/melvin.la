@@ -292,6 +292,7 @@ class Post(models.Model):
             pass
 
     class Meta:
+        ordering = ['-pub_date']
         unique_together = ('slug', 'pub_date', 'site')
 
 

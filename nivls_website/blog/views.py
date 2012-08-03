@@ -22,8 +22,7 @@ from forms import *
 def home(request):
     post_list = Post.objects.select_related() \
         .filter(is_public=1,
-                site=Site.objects.get_current()) \
-        .order_by('-pub_date')
+                site=Site.objects.get_current())
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request, "blog/home.html", {"posts": posts})
 
@@ -205,8 +204,7 @@ def post_list_by_categories(request, slug):
     post_list = Post.objects.select_related() \
         .filter(category__in=cat_list,
                 is_public=1,
-                site=Site.objects.get_current()) \
-        .order_by('-pub_date')
+                site=Site.objects.get_current())
 
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(
@@ -224,8 +222,7 @@ def post_list_by_tags(request, slug):
     post_list = Post.objects.select_related() \
         .filter(tags=tag,
                 is_public=1,
-                site=Site.objects.get_current()) \
-        .order_by('-pub_date')
+                site=Site.objects.get_current())
 
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request,
@@ -241,7 +238,6 @@ def post_list_by_archives(request, year, month=None, day=None):
     if year and month and day:
         archive_date = _date(datetime.date(int(year), int(month), int(day)))
         post_list = Post.objects.select_related() \
-                                .order_by("-pub_date") \
                                 .filter(pub_date__year=year,
                                         pub_date__month=month,
                                         pub_date__day=day,
@@ -250,7 +246,6 @@ def post_list_by_archives(request, year, month=None, day=None):
     elif year and month:
         archive_date = _date(datetime.date(int(year), int(month), 1), "F Y")
         post_list = Post.objects.select_related() \
-                                .order_by("-pub_date") \
                                 .filter(pub_date__year=year,
                                         pub_date__month=month,
                                         is_public=1,
@@ -258,7 +253,6 @@ def post_list_by_archives(request, year, month=None, day=None):
     else:
         archive_date = year
         post_list = Post.objects.select_related() \
-                                .order_by("-pub_date")\
                                 .filter(pub_date__year=year,
                                         is_public=1,
                                         site=Site.objects.get_current())
