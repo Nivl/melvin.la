@@ -13,7 +13,7 @@ def autocomplete(request):
     try:
         kwords = urllib.unquote_plus(request.GET.get('search', ''))
         if kwords:
-            words = list(Item.objects.filter(content__istartswith=kwords) \
+            words = list(Item.objects.filter(content__icontains=kwords) \
                 .values_list('content', flat=True)[:10])
     except:
         pass
