@@ -1,3 +1,7 @@
+function replaceAll(txt, replace, with_this) {
+    return txt.replace(new RegExp(replace, 'g'),with_this);
+}
+
 function reloadJsEffects() {
     styleCode();
     checkForLocalStorage();
@@ -101,11 +105,40 @@ function styleCode() {
     }
 }
 
-$(function() {
+function searchTypeahead() {
+    var search_typeahead = $('#search-form .search-query').typeahead()
+	.on('input', function(e){
+	    if ($.inArray(e.keyCode,[40,38,9,13,27]) === -1
+		&& $(this).val().length > 0){
+		var that = this;
+		var query = replaceAll(
+		    encodeURIComponent(
+			$('#search-form .search-query').val()
+		    ), '%20', '+');
 
+    		var url = django_js_utils.urls.resolve('autocomplete');
+    		url += '?search=' + query;
+
+		$.getJSON(url, function(data){
+		    var items = [];
+
+		    if (data) {
+			$.each(data, function(i, val){
+			    items.push(val);
+			});
+		    }
+		    $(that).data('typeahead').source = items;
+		});
+	    }
+	});
+}
+
+$(function() {
     if (Modernizr.history) {
 	navigationHTML5();
     }
+
+    searchTypeahead();
 
     /***********
      * animateHighlight
