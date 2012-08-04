@@ -3,23 +3,32 @@ from django.db import models
 
 
 class Item(models.Model):
-    content = models.charfield(
-        maxlength=255,
+    content = models.CharField(
+        max_length=255,
         verbose_name=_('content'))
 
     hit = models.PositiveIntegerField(
+        default=0,
         verbose_name=_('hit'))
 
+    def __unicode__(self):
+        return self.content
+
     class Meta:
-        ordering = ['hit']
+        ordering = ['-hit']
         verbose_name = _('item')
         verbose_name_plural = _('items')
 
 
 class BlacklistedWord(models.Model):
-    word = models.charfield(
-        maxlength=255,
+    word = models.CharField(
+        max_length=255,
         verbose_name=_('word'))
+
+    def __unicode__(self):
+        return self.word
+
+
 
     class Meta:
         verbose_name = _('blacklisted word')
