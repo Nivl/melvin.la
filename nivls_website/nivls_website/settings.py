@@ -11,4 +11,5 @@ INSTALLED_APPS = INSTALLED_APPS + (
     'seo',
     'logger',
     'user_profile',
+    'search_engine',
 )
