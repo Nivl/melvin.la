@@ -1,0 +1,86 @@
+{% extends "base_common.html" %}
+{% load bootstrap i18n common_tags %}
+
+{% block "breadcrumb" %}
+{% endblock "breadcrumb" %}
+
+{% block "body-content" %}
+  <div class="container">
+    <div class="row">
+      <div id="body-content-only" class="span8 offset2">
+
+	<h2>{% trans "Search" %}</h2>
+
+	<form method="get" class="form-horizontal">
+	  {{ form|bootstrap }}
+
+	  <div class="form-actions">
+	    <button type="submit" class="btn btn-primary">
+	      {% trans "Search" %}
+	    </button>
+
+	    <button class="btn btn-danger">
+	      {% trans "Effacer" %}
+	    </button>
+	  </div>
+	</form>
+
+	{% if query %}
+	  <h2>{% trans "Results" %}</h2>
+
+	  <ul class="unstyled">
+	    {% for result in page.object_list %}
+	      <li>
+		{% if result.object|app_name == "blog" %}
+		  <span class="label label-info">{% trans "Blog" %}</span>
+		{% elif result.object|app_name == "lab" %}
+		  <span class="label label-success">{% trans "Lab" %}</span>
+		{% endif %}
+
+		<a href="{{ result.object.get_absolute_url }}">
+		  {{ result.object }}
+		</a>
+	    {% empty %}
+	      <li>{% trans "No results found." %}
+	    {% endfor %}
+	  </ul>
+          {% if page.has_previous or page.has_next %}
+	    <section class="pagination pagination-centered">
+	      <ul>
+
+		{% if page.has_previous %}
+		  <li>
+		    <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">«</a>
+		{% else %}
+		  <li>
+		    <a href="#" onClick="return false;">«</a>
+		{% endif %}
+
+
+		{% for i in page.paginator.page_range %}
+		  <li{% ifequal i page.number %} class="active"{% endifequal %}>
+      		    <a {% ifequal i paginator.number %}
+			 onClick="return false;"
+      		         href="#"
+		       {% else %}
+			 href="?q={{ query }}&amp;page={{ i }}"
+		       {% endifequal %}
+		       >{{ i }}</a>
+		{% endfor %}
+
+
+		{% if page.has_previous %}
+		  <li>
+		    <a href="?q={{ query }}&amp;page={{ page.next_page_number }}">»</a>
+		{% else %}
+		  <li>
+		    <a href="#" onClick="return false;">»</a>
+		{% endif %}
+	      </ul>
+	    </section>
+          {% endif %}
+	{% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock "body-content" %}

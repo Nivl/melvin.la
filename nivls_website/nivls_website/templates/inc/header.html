@@ -165,9 +165,14 @@
 		{% endif %}
 	  </ul>
 
-	  <form id="search-form" class="navbar-search pull-right">
-	    <input type="text" class="search-query"
+	  <form method="get"
+		action="{% url "haystack_search" %}"
+		id="search-form"
+		class="navbar-search pull-right">
+	    <input type="text"
+		   class="search-query"
 		   placeholder="Search"
+		   name="q"
 		   data-provide="typeahead"
 		   data-items="6">
 	  </form>
