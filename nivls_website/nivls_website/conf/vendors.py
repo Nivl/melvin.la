@@ -121,6 +121,19 @@ PIPELINE_DISABLE_WRAPPER = True
 
 
 #
+# Haystack
+#
+
+HAYSTACK_SITECONF = 'nivls_website.search_sites'
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+
+HAYSTACK_WHOOSH_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                                                    '..',
+                                                    '..',
+                                                    '..',
+                                                    'whoosh_index'))
+
+#
 # Others
 #
 
@@ -130,4 +143,5 @@ INSTALLED_APPS += (
     'captcha',
     'django_js_utils',
     #'django_evolution',
+    'haystack',
 )

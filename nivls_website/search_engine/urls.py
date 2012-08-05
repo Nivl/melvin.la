@@ -4,5 +4,8 @@ urlpatterns = patterns('search_engine.views',
 
                        url(r'^autocomplete/$',
                            'autocomplete',
-                           name="autocomplete")
-                       )
+                           name="autocomplete"),
+
+                       url(r'^search/',
+                           include('haystack.urls')),
+)
