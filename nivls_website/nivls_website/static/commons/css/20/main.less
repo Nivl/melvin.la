@@ -101,6 +101,24 @@
  * BOOTSTRAP FIXES
  *****************************************************************************/
 
+.nav-collapse{
+    .search-form {
+	input {
+	    .border-radius(15px);
+	}
+    }
+}
+
+@media (min-width: 979px) and (max-width: 1130px) {
+    .nav-collapse{
+	.search-form {
+	    input {
+		width: 80px;
+	    }
+	}
+    }
+}
+
 [class^="icon-nivl"],
 [class*=" icon-nivl"] {
     background-image: url("../../img/icon-nivl.png");
@@ -931,20 +949,6 @@ ul#left-menu {
 
     p {
 	margin-bottom: 10px;
-    }
-}
-
-#search-form {
-    input {
-	.border-radius(15px);
-    }
-}
-
-@media (min-width: 979px) and (max-width: 1130px) {
-    #search-form {
-	input {
-	    width: 80px;
-	}
     }
 }
 

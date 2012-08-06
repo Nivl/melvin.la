@@ -333,12 +333,12 @@ function navigationHTML5(){
      * Search Form
      **************/
 
-    $('#search-form').submit(function(){
-	if ($('#search-form .search-query').val().length > 0) {
+    $('.search-form').submit(function(){
+	var search_query = $(this).find('.search-query');
+
+	if (search_query.val().length > 0) {
 	    var query = replaceAll(
-		encodeURIComponent(
-		    $('#search-form .search-query').val()
-		), '%20', '+');
+		encodeURIComponent(search_query.val()), '%20', '+');
     	    var url = django_js_utils.urls.resolve('update-typeahead');
     	    url += '?search=' + query;
 	    $.get(url);
@@ -348,14 +348,14 @@ function navigationHTML5(){
 	return false;
     });
 
-    $('#search-form .search-query').typeahead()
+    $('.search-form .search-query').typeahead()
 	.on('input', function(e){
 	    if ($.inArray(e.keyCode,[40,38,9,13,27]) === -1
 		&& $(this).val().length > 0){
 		var that = this;
 		var query = replaceAll(
 		    encodeURIComponent(
-			$('#search-form .search-query').val()
+			$(this).val()
 		    ), '%20', '+');
 
     		var url = django_js_utils.urls.resolve('autocomplete');
@@ -373,5 +373,4 @@ function navigationHTML5(){
 		});
 	    }
 	});
-
 }
