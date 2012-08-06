@@ -22,7 +22,7 @@
 		{% ifequal act_menu "blog" %} class="active"{% endifequal %}>
 	      <a data-depth="1"
 		 title="{% trans "Blog" %}"
-		 rel="ajax"
+		 data-ajax="body-content"
 		 href="{% url "blog" %}">
 		{% trans "Blog" %}
 	      </a>
@@ -30,7 +30,7 @@
 	    <li id="navbar-lab"
 		{% ifequal act_menu "lab" %} class="active"{% endifequal %}>
 	      <a data-depth="1"
-		 rel="ajax"
+		 data-ajax="body-content"
 		 href="{% url "lab" %}"
 		 title="{% trans "Lab" %}">
 		{% trans "Lab" %}
@@ -39,7 +39,7 @@
 	    <li id="navbar-about"
 		{% ifequal act_menu "home" %} class="active"{% endifequal %}>
 	      <a data-depth="0"
-		 rel="ajax"
+		 data-ajax="body-content"
 		 title="{% trans "About" %}"
 		 href="{% url "home" %}">
 		{% trans "About" %}
@@ -48,7 +48,7 @@
 	    <li id="navbar-portfolio"
 		{% ifequal act_menu "portfolio" %} class="active"{% endifequal %}>
 	      <a data-depth="0"
-		 rel="ajax"
+		 data-ajax="body-content"
 		 title="{% trans "Portfolio" %}"
 		 href="{% url "portfolio" %}">
 		{% trans "Portfolio" %}
@@ -57,7 +57,7 @@
 	    <li id="navbar-cv"
 		{% ifequal act_menu "cv" %} class="active"{% endifequal %}>
 	      <a data-depth="0"
-		 rel="ajax"
+		 data-ajax="body-content"
 		 title="{% trans "C.V." %}"
 		 href="{% url "cv" %}">
 		{% trans "C.V." %}
@@ -66,7 +66,7 @@
 	    <li id="navbar-contact"
 		{% ifequal act_menu "contact" %} class="active"{% endifequal %}>
 	      <a data-depth="0"
-		 rel="ajax"
+		 data-ajax="body-content"
 		 title="{% trans "Contact" %}"
 		 href="{% url "contact" %}">
 		{% trans "Contact" %}
@@ -75,7 +75,7 @@
 
 	  <ul id="header-menu-user" class="nav pull-right">
 	    {% if not user.is_authenticated %}
-	      <li><a rel="ajax"
+	      <li><a data-ajax="body-content"
 		     data-depth="0"
 		     title="{% trans "Sign up" %}"
 		     class="hide-navbar-img"
@@ -106,7 +106,7 @@
 		    <input value="{% trans "Sign in" %}"
 			   class="btn btn-primary" type="submit" />
 		  </form>
-		  <a rel="ajax"
+		  <a data-ajax="body-content"
 		     data-depth="0"
 		     title="{% trans "I lost my password" %}"
 		     class="hide-navbar-img"
@@ -126,7 +126,7 @@
 		      {{ user.username }}
 		    <li class="divider">
 		    <li>
-		      <a rel="ajax"
+		      <a data-ajax="body-content"
 			 data-depth="0"
 		 	 class="hide-navbar-img"
 		 	 title="{% trans "My profile" %}"
@@ -135,7 +135,7 @@
 		      </a>
 
 		      <li{% if not user.get_profile.has_password %} class="important"{% endif %}>
-			<a rel="ajax"
+			<a data-ajax="body-content"
 			   data-depth="0"
 			   title="{% trans "Edit my account" %}"
 		 	   class="hide-navbar-img"
@@ -149,7 +149,7 @@
 			      <i class="icon-camera"></i> {% trans "Edit thumbnail" %}</a>
 			{% endif %}
 			<li>
-			  <a rel="ajax"
+			  <a data-ajax="body-content"
 			     data-depth="0"
 		 	     class="hide-navbar-img"
 			     title="{% trans "Social media accounts" %}"
@@ -167,6 +167,7 @@
 
 	  <form method="get"
 		action="{% url "haystack_search" %}"
+		data-ajax="body-content"
 		id="search-form"
 		data-depth="0"
 		title="{% trans "Search" %}"

@@ -8,7 +8,7 @@
     <div class="section-content margin-top-1">
       {{ project.description|markdown }}
       <a data-depth="30"
-	 rel="ajax-content"
+	 data-ajax="body-content-only"
 	 title="{{ project.name }}"
 	 href="{% url "lab-project" project.slug %}"
 	 class="btn btn-info">

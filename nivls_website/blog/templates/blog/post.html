@@ -30,7 +30,7 @@
 	<time datetime="{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}">
 	  {{ post.pub_date|naturalday }}
 	</time>
-	{% trans "In: " %}<a rel="ajax-content"
+	{% trans "In: " %}<a data-ajax="body-content-only"
 			     data-depth="10"
 			     href="{{ post.category.get_absolute_url }}">
 	  {{ post.category }}
@@ -40,7 +40,7 @@
 	    <br />
 	    <i class="icon-tags"></i>
 	    {% for tag in tags %}
-	      <a rel="ajax-content"
+	      <a data-ajax="body-content-only"
 	 	 data-depth="10"
 		 href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
 	    {% endfor %}
@@ -70,7 +70,7 @@
       {% if post.lab %}
 	<div class="lab-button">
 	  <a data-depth="1"
-	     rel="ajax"
+	     data-ajax="body-content"
 	     class="btn btn-info lab-project"
 	     data-navbar="#navbar-lab"
 	     title="{% trans "Lab" %}"

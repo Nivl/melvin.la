@@ -4,7 +4,7 @@
 <div class="row center-text">
   <li class="span1">
     <figure class="inline-figure">
-      <a rel="ajax-content"
+      <a data-ajax="body-content-only"
 	 data-depth="1"
 	 title="{% trans "Lab" %}"
 	 class="generated-icon"
@@ -39,7 +39,7 @@
     {% for tag in tags %}
       <li class="span1">
 	<figure class="inline-figure">
-	  <a rel="ajax-content"
+	  <a data-ajax="body-content-only"
 	     data-depth="10"
 	     title="{{ tag.name }}"
 	     class="generated-icon"

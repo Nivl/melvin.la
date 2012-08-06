@@ -23,7 +23,7 @@
 		<span>{{ label }}</span>
 	      {% endfor %}
 	      <a data-depth="1"
-		 rel="ajax"
+		 data-ajax="body-content"
 		 data-navbar="#navbar-lab"
 		 title="{% trans "Lab" %}"
 		 href="{{ project.lab.get_absolute_url }}">→</a>
@@ -41,7 +41,7 @@
 	    <h4>{% trans "See more projects" %}</h4>
 	    <span>{% trans "See more projects" %}</span>
 	    <a data-depth="1"
-	       rel="ajax"
+	       data-ajax="body-content"
 	       data-navbar="#navbar-lab"
 	       title="{% trans "Lab" %}"
 	       href="{% url "lab" %}">→</a>

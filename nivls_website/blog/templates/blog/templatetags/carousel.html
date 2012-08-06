@@ -3,7 +3,7 @@
     {% for item in posts %}
       <div class="item{% if forloop.counter == 1 %} active{% endif %}">
 	<a data-depth="30"
-	   rel="ajax-content"
+	   data-ajax="body-content-only"
 	   title="{{ item.post.title }}"
 	   href="{{ item.post.get_absolute_url }}">
 

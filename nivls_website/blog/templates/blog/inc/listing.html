@@ -10,7 +10,7 @@
       <li class="span3">
 	<div class="thumbnail">
 	  <a data-depth="30"
-	     rel="ajax-content"
+	     data-ajax="body-content-only"
 	     title="{{ post.title }}"
 	     href="{{ post.get_absolute_url }}">
 	    <img src="{{ post.thumbnail.url }}" alt="thumbnail" />
@@ -23,7 +23,7 @@
 	    </section>
 
 	    <p>
-	      <a rel="ajax-content"
+	      <a data-ajax="body-content-only"
 		 data-depth="30"
 		 title="{{ post.title }}"
 		 class="btn btn-info"

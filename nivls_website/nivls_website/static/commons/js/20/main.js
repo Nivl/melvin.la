@@ -139,46 +139,6 @@ $(function() {
 
 
 function navigationHTML5(){
-    $('#search-form').submit(function(){
-	if ($('#search-form .search-query').val().length > 0) {
-	    var query = replaceAll(
-		encodeURIComponent(
-		    $('#search-form .search-query').val()
-		), '%20', '+');
-    	    var url = django_js_utils.urls.resolve('update-typeahead');
-    	    url += '?search=' + query;
-	    $.get(url);
-	}
-	var url = $(this).attr('action') + '?q=' + query;
-	changePage(url, $(this).attr('title'), this);
-	return false;
-    });
-
-    $('#search-form .search-query').typeahead()
-	.on('input', function(e){
-	    if ($.inArray(e.keyCode,[40,38,9,13,27]) === -1
-		&& $(this).val().length > 0){
-		var that = this;
-		var query = replaceAll(
-		    encodeURIComponent(
-			$('#search-form .search-query').val()
-		    ), '%20', '+');
-
-    		var url = django_js_utils.urls.resolve('autocomplete');
-    		url += '?search=' + query;
-
-		$.getJSON(url, function(data){
-		    var items = [];
-
-		    if (data) {
-			$.each(data, function(i, val){
-			    items.push(val);
-			});
-		    }
-		    $(that).data('typeahead').source = items;
-		});
-	    }
-	});
 
     /***********
      * Nav bar
@@ -250,47 +210,6 @@ function navigationHTML5(){
     /***********
      * Ajax
      **********/
-    var g_page_reload_ajax = new Ajaxion(
-	'',
-	{selector: 'body'},
-	'GET',
-	[],
-	{
-	    'success': [
-		{
-		    'disabled': true,
-		    'callback': function(html, status, that) {
-			var response = $('<html />').html(html);
-			var to_change = ['#local_link', '#body-content'];
-			for (var i=0; i<to_change.length; i++) {
-			    $(to_change[i]).hide().html(response
-							.find(to_change[i])
-							.html()).fadeIn();
-			}
-		    },
-		},
-		{
-		    'disabled': true,
-		    'callback': function(html, status, that) {
-			var response = $('<html />').html(html);
-			var to_change = ['#local_link', '#body-content-only'];
-			for (var i=0; i<to_change.length; i++) {
-			    $(to_change[i]).hide().html(response
-							.find(to_change[i])
-							.html()).fadeIn();
-			}
-		    },
-		},
-		{'callback': reloadJsEffects,},
-		{'callback': function(){$('#loading-msg').fadeOut();},},
-	    ]
-	},
-	[function(){
-	    $('#loading-msg').fadeIn();
-	},]
-
-    );
-
     $(window).bind('statechange', function() {
 	var navbar_id = $('#navbar-main-list > li.active').prop('id');
 	var lab_tag_id = $('#lab-nav-list .active').parents('a').prop('id');
@@ -298,8 +217,8 @@ function navigationHTML5(){
 	var relativeURL = State.url.replace(window.History.getRootUrl(), '');
 	relativeURL = '/' + relativeURL;
 
-	var content_only = State.data['content_only'];
-	if (content_only === undefined) {
+	var action = State.data['action'];
+	if (action === undefined) {
 	    window.location = relativeURL;
 	}
 
@@ -328,10 +247,18 @@ function navigationHTML5(){
 	    });
 	}
 
-	g_page_reload_ajax.callbacks['success'][0]['disabled'] = content_only;
-	g_page_reload_ajax.callbacks['success'][1]['disabled'] = !content_only;
-	g_page_reload_ajax.url = relativeURL;
-	g_page_reload_ajax.start();
+	$('#loading-msg').fadeIn();
+	$.get(relativeURL, function(html){
+	    var response = $('<html />').html(html);
+	    var to_change = ['#local_link', action];
+	    for (var i=0; i<to_change.length; i++) {
+		$(to_change[i]).hide().html(response
+					    .find(to_change[i])
+					    .html()).fadeIn();
+	    }
+	    reloadJsEffects();
+	    $('#loading-msg').fadeOut();
+	});
     });
 
     function getNewBreadcrumb(that) {
@@ -377,7 +304,7 @@ function navigationHTML5(){
     }
 
     function changePage(url, title, that){
-	var content_only = $(that).attr('rel') == 'ajax-content';
+	var action = '#' + $(that).data('ajax')
 	var breadcrumb = getNewBreadcrumb(that);
 	var navbar_id = $('#navbar-main-list > li.active').prop('id');
 	var lab_tag_id = $('#lab-nav-list .active').parents('a').prop('id');
@@ -388,17 +315,63 @@ function navigationHTML5(){
 
 	options = {'url': window.location.pathname};
 	window.History.pushState({'breadcrumb': breadcrumb.html(),
-				  'content_only': content_only,
+				  'action': action,
 				  'navbar_id': navbar_id,
 				  'lab_tag_id': lab_tag_id},
 				 title,
 				 url);
     }
 
-    $(document).on('click', 'a[rel^=ajax]', function(event){
+    $(document).on('click', 'a[data-ajax]', function(event){
 	if (!event.shiftKey && !event.ctrlKey) {
 	    changePage($(this).attr('href'), $(this).attr('title'), this);
 	    return false;
 	}
     });
+
+    /***************
+     * Search Form
+     **************/
+
+    $('#search-form').submit(function(){
+	if ($('#search-form .search-query').val().length > 0) {
+	    var query = replaceAll(
+		encodeURIComponent(
+		    $('#search-form .search-query').val()
+		), '%20', '+');
+    	    var url = django_js_utils.urls.resolve('update-typeahead');
+    	    url += '?search=' + query;
+	    $.get(url);
+	}
+	var url = $(this).attr('action') + '?q=' + query;
+	changePage(url, $(this).attr('title'), this);
+	return false;
+    });
+
+    $('#search-form .search-query').typeahead()
+	.on('input', function(e){
+	    if ($.inArray(e.keyCode,[40,38,9,13,27]) === -1
+		&& $(this).val().length > 0){
+		var that = this;
+		var query = replaceAll(
+		    encodeURIComponent(
+			$('#search-form .search-query').val()
+		    ), '%20', '+');
+
+    		var url = django_js_utils.urls.resolve('autocomplete');
+    		url += '?search=' + query;
+
+		$.getJSON(url, function(data){
+		    var items = [];
+
+		    if (data) {
+			$.each(data, function(i, val){
+			    items.push(val);
+			});
+		    }
+		    $(that).data('typeahead').source = items;
+		});
+	    }
+	});
+
 }
