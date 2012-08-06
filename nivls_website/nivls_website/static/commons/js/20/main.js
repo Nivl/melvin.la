@@ -343,7 +343,8 @@ function navigationHTML5(){
     	    url += '?search=' + query;
 	    $.get(url);
 	}
-	var url = $(this).attr('action') + '?q=' + query;
+	var query = $(this).serialize();
+	var url = $(this).attr('action') + '?' + query;
 	changePage(url, $(this).attr('title'), this);
 	return false;
     });
