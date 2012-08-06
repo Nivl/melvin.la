@@ -15,7 +15,7 @@ def autocomplete(request):
         kwords = urllib.unquote_plus(request.GET.get('search', ''))
         if kwords:
             words = list(Item.objects.filter(content__icontains=kwords,
-                                             hit__gte=7)
+                                             is_valid=True)
                          .values_list('content', flat=True)[:10])
     except:
         pass
