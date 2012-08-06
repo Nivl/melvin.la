@@ -11,6 +11,10 @@ class Item(models.Model):
         default=0,
         verbose_name=_('hit'))
 
+    is_valid = models.BooleanField(
+        default=False,
+        verbose_name=_('is valid'))
+
     def __unicode__(self):
         return self.content
 
@@ -25,10 +29,12 @@ class BlacklistedWord(models.Model):
         max_length=255,
         verbose_name=_('word'))
 
+    is_regex = models.BooleanField(
+        default=False,
+        verbose_name=_('is a regex'))
+
     def __unicode__(self):
         return self.word
-
-
 
     class Meta:
         verbose_name = _('blacklisted word')
