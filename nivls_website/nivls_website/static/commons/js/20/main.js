@@ -346,6 +346,7 @@ function navigationHTML5(){
 	var query = $(this).serialize();
 	var url = $(this).attr('action') + '?' + query;
 	changePage(url, $(this).attr('title'), this);
+	moveNavbar(null);
 	return false;
     });
 
