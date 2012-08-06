@@ -333,7 +333,7 @@ function navigationHTML5(){
      * Search Form
      **************/
 
-    $('.search-form').submit(function(){
+    $(document).on('submit', '.search-form', function(){
 	var search_query = $(this).find('.search-query');
 
 	if (search_query.val().length > 0) {

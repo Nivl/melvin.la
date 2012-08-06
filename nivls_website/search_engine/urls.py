@@ -1,4 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
+from haystack.views import SearchView, search_view_factory
+from forms import AjaxSearchForm
 
 urlpatterns = patterns('search_engine.views',
 
@@ -10,6 +12,7 @@ urlpatterns = patterns('search_engine.views',
                            'update_typeahead',
                            name='update-typeahead'),
 
-                       url(r'^search/',
-                           include('haystack.urls')),
+                       url(r'^search/$',
+                           search_view_factory(form_class=AjaxSearchForm),
+                           name='haystack_search'),
 )
