@@ -6,6 +6,10 @@ urlpatterns = patterns('search_engine.views',
                            'autocomplete',
                            name="autocomplete"),
 
+                       url(r'^update-typeahead/$',
+                           'update_typeahead',
+                           name='update-typeahead'),
+
                        url(r'^search/',
                            include('haystack.urls')),
 )
