@@ -7,6 +7,6 @@ class ProjectIndex(RealTimeSearchIndex):
     pub_date = DateTimeField(model_attr='start_date')
 
     def index_queryset(self):
-        return Project.objects.all()
+        return Project.objects.filter(site=settings.SITE_ID)
 
 site.register(Project, ProjectIndex)
