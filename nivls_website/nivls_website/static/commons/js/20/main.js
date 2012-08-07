@@ -87,7 +87,8 @@ function enableBootstrapEffects() {
     $('.carousel').carousel()
     $('[rel=tooltip]').tooltip();
     $('.animated-thumbnails > li').hoverdir();
-    $('.images-box-3d').hoverfold()
+    $('.images-box-3d').hoverfold();
+    $('.search-form .search-query').typeahead();
 }
 
 function styleCode() {
@@ -350,29 +351,28 @@ function navigationHTML5(){
 	return false;
     });
 
-    $('.search-form .search-query').typeahead()
-	.on('input', function(e){
-	    if ($.inArray(e.keyCode,[40,38,9,13,27]) === -1
-		&& $(this).val().length > 0){
-		var that = this;
-		var query = replaceAll(
-		    encodeURIComponent(
-			$(this).val()
-		    ), '%20', '+');
+    $(document).on('input', '.search-form .search-query', function(e) {
+	if ($.inArray(e.keyCode,[40,38,9,13,27]) === -1
+	    && $(this).val().length > 0){
+	    var that = this;
+	    var query = replaceAll(
+		encodeURIComponent(
+		    $(this).val()
+		), '%20', '+');
 
-    		var url = django_js_utils.urls.resolve('autocomplete');
-    		url += '?search=' + query;
+	    var url = django_js_utils.urls.resolve('autocomplete');
+	    url += '?search=' + query;
 
-		$.getJSON(url, function(data){
-		    var items = [];
+	    $.getJSON(url, function(data){
+		var items = [];
 
-		    if (data) {
-			$.each(data, function(i, val){
-			    items.push(val);
-			});
-		    }
-		    $(that).data('typeahead').source = items;
-		});
-	    }
-	});
+		if (data) {
+		    $.each(data, function(i, val){
+			items.push(val);
+		    });
+		}
+		$(that).data('typeahead').source = items;
+	    });
+	}
+    });
 }
