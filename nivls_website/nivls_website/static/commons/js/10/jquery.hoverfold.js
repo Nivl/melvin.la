@@ -1,3 +1,4 @@
+;
 (function($) {
     $.fn.hoverfold = function(args) {
 	this.each(function() {
