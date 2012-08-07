@@ -88,7 +88,11 @@ function enableBootstrapEffects() {
     $('[rel=tooltip]').tooltip();
     $('.animated-thumbnails > li').hoverdir();
     $('.images-box-3d').hoverfold();
-    $('.search-form .search-query').typeahead();
+    $('.search-form .search-query').typeahead({
+	updated : function () {
+	    this.$element.trigger('submit');
+	}
+    });
 }
 
 function styleCode() {

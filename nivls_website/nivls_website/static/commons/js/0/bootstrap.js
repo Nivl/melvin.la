@@ -1574,6 +1574,7 @@
     this.sorter = this.options.sorter || this.sorter
     this.highlighter = this.options.highlighter || this.highlighter
     this.updater = this.options.updater || this.updater
+    this.updated = this.options.updated || this.updated
     this.$menu = $(this.options.menu).appendTo('body')
     this.source = this.options.source
     this.shown = false
@@ -1589,11 +1590,15 @@
       this.$element
         .val(this.updater(val))
         .change()
+      return this.updated();
       return this.hide()
     }
 
   , updater: function (item) {
       return item
+    }
+
+  , updated: function () {
     }
 
   , show: function () {
