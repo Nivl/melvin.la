@@ -14,9 +14,7 @@ from models import UserProfile
 class UserForm(BootstrapModelForm, happyforms.ModelForm):
     class Meta:
         model = User
-        exclude = ('password', 'is_active', 'is_staff',
-                   'is_superuser', 'groups', 'user_permissions',
-                   'last_login', 'date_joined')
+        fields = ('username', 'first_name', 'last_name', 'email')
 
     password1 = forms.CharField(
         widget=forms.PasswordInput(render_value=False),
@@ -70,15 +68,23 @@ class UserForm(BootstrapModelForm, happyforms.ModelForm):
         return cleaned_data
 
 
-class UserEditForm(UserForm):
+class UserEditForm(BootstrapModelForm, happyforms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name')
+
     def __init__(self, data=None, files=None, edit_username=False,
                  *args, **kwargs):
         super(UserEditForm, self).__init__(data=data, files=files,
                                            *args, **kwargs)
-        self.fields.pop('captcha')
-        self.fields.pop('password1')
-        self.fields.pop('password2')
-        self.fields.pop('email')
+        self.fields['username'] = forms.RegexField(
+            regex=r'^[\w.@+-]+$',
+            max_length=30,
+            widget=forms.TextInput(),
+            label=_('Username'),
+            error_messages={'invalid': _('This value may contain only '
+                                         'letters, numbers and '
+                                         '@/./+/-/_ characters.')}, )
 
         if not edit_username:
             self.fields['username'].widget.attrs['readonly'] = True
@@ -100,7 +106,7 @@ class UserEditForm(UserForm):
         return data
 
 
-class UserProfileForm(BootstrapModelForm):
+class UserProfileForm(BootstrapModelForm, happyforms.ModelForm):
     class Meta:
         model = UserProfile
         exclude = ('user', 'activation_code', 'avatar', 'has_password',
@@ -142,25 +148,14 @@ class UserProfileForm(BootstrapModelForm):
 class UserProfileInfoForm(UserProfileForm):
     class Meta:
         model = UserProfile
-        exclude = ('user', 'activation_code', 'avatar', 'lock_username',
-                   'show_twitter', 'show_google_plus', 'show_facebook',
-                   'use_name', 'show_github', 'has_password')
+        fields = ('occupation', 'hobbies', 'website', 'picture')
 
 
-class UserProfileSettingsForm(UserProfileForm):
+class UserProfileSettingsForm(BootstrapModelForm, happyforms.ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user', 'activation_code', 'avatar', 'lock_username',
-                   'picture', 'website', 'hobbies', 'occupation',
-                   'has_password')
-
-
-class EditEmailForm(UserForm):
-    class Meta:
-        model = User
-        exclude = ('password', 'is_active', 'is_staff',
-                   'is_superuser', 'groups', 'user_permissions',
-                   'last_login', 'date_joined')
+        fields = ('show_twitter', 'show_google_plus', 'show_facebook',
+                  'use_name', 'show_github')
 
 
 class EditEmailForm(BootstrapForm, happyforms.Form):
@@ -236,7 +231,7 @@ class EditPasswordForm(BootstrapForm, happyforms.Form):
         return data
 
 
-class UserAvatarForm(BootstrapModelForm):
+class UserAvatarForm(BootstrapForm, happyforms.Form):
     class Meta:
         model = UserProfile
         fields = ('avatar', )
