@@ -66,11 +66,15 @@ urlpatterns = patterns(
         'edit_settings_form',
         name='edit-settings-form'),
 
-    url(r'^edit-avatar/$',
+    url(r'^edit-picture/$',
+        'edit_picture',
+        name='edit-picture'),
+
+    url(r'^edit-picture/thumbnail/$',
         'edit_avatar',
         name='edit-avatar'),
 
-    url(r'^edit-avatar/form/$',
+    url(r'^edit-picture/thumbnail/form/$',
         'edit_avatar_form',
         name='edit-avatar-form'),
 

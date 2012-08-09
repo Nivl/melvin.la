@@ -142,12 +142,10 @@
 			   href="{% url "edit-account" %}">
 			  <i class="icon-edit"></i> {% trans "Edit my account" %}
 			</a>
-			{% if user.get_profile.picture %}
-			  <li>
-			    <a class="hide-navbar-img"
-			       href="{% url "edit-avatar" %}">
-			      <i class="icon-camera"></i> {% trans "Edit thumbnail" %}</a>
-			{% endif %}
+			<li>
+			  <a class="hide-navbar-img"
+			     href="{% url "edit-picture" %}">
+			    <i class="icon-camera"></i> {% trans "Edit my profile picture" %}</a>
 			<li>
 			  <a data-ajax="body-content"
 			     data-depth="0"

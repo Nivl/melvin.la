@@ -156,43 +156,22 @@ new Ajaxion(resolve_urls('reset-password-form'),
 	   ).start();
 
 
-var editProfileAjax = new Ajaxion(resolve_urls('edit-account-form'),
-				  {'selector': '#edit-account-form',
-				   'events': 'submit'},
-				  'POST',
-				  [
-				      {
-					  'url': resolve_urls('get-common-header'),
-					  'visible': true,
-					  'selectors' : [
-					      {
-						  'current': '#header-menu-user',
-						  'target': '#header-menu-user',
-						  'insert': false
-					      }
-					  ],
-				      }
-				  ],
-				  {
-				      'success': [
-					  {'callback': function(html,
-								textStatus,
-								that) {
-					      if (html == '302') {
-						  window.location = django_js_utils.urls.resolve('edit-avatar');
-					      }
-					  }},
-					  {'callback': hideOnSuccess}
-				      ],
+new Ajaxion(resolve_urls('edit-account-form'),
+	    {'selector': '#edit-account-form',
+	     'events': 'submit'},
+	    'POST',
+	    [],
+	    {
+		'success': [
+		    {'callback': hideOnSuccess}
+		],
 
-				      'error': [
-					  colorOnError
-				      ],
-				  }
-				 );
+		'error': [
+		    colorOnError
+		],
+	    }
+	   ).start();
 
-editProfileAjax.fileUpload = true;
-editProfileAjax.start();
 
 new Ajaxion(resolve_urls('edit-account-form'),
 	    {'selector': '#modal-edit-profile',

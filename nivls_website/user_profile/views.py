@@ -180,6 +180,12 @@ def view_account(request, name):
 
 @require_safe
 @login_required
+def edit_picture(request):
+    return render(request, "users/edit_picture.html")
+
+
+@require_safe
+@login_required
 def edit_avatar(request):
     profile = request.user.get_profile()
     if not profile.picture:

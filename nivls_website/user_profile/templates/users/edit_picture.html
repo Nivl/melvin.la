@@ -1,0 +1,11 @@
+{% extends "users/base.html" %}
+{% load i18n staticfiles %}
+
+{% block "title" %}{% trans "Edit my profile picture" %}{% endblock "title" %}
+
+{% block "content" %}
+  <h2 class="center-text">
+    {% trans "You can drop your new picture this box: " %}
+  </h2>
+  <div id="drop-profil-picture" class="drop-area"></div>
+{% endblock %}

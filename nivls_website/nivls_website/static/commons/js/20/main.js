@@ -44,6 +44,24 @@ function reloadJsEffects() {
     );
 }
 
+function dropFile() {
+    if (Modernizr.draganddrop) {
+	$(document).on({
+	    dragenter: function(){
+		console.log('enter');
+		$(this).addClass('dragging');
+		return false;
+	    },
+
+	    dragleave: function(){
+		console.log('leave');
+		$(this).removeClass('dragging');
+		return false;
+	    }
+	}, '.drop-area');
+    }
+}
+
 function checkForLocalStorage() {
     $.jStorage.reInit();
     $('[data-storage]').each(function (){
@@ -131,6 +149,7 @@ $(function() {
     reloadJsEffects();
     storageData();
     preview();
+    dropFile();
 
     $(window).konami(function() {
 	$('#konami iframe')

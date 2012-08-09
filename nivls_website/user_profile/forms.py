@@ -106,49 +106,10 @@ class UserEditForm(BootstrapModelForm, happyforms.ModelForm):
         return data
 
 
-class UserProfileForm(BootstrapModelForm, happyforms.ModelForm):
+class UserProfileInfoForm(BootstrapModelForm, happyforms.ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user', 'activation_code', 'avatar', 'has_password',
-                   'lock_username')
-
-    def clean_picture(self):
-        data = self.cleaned_data.get('picture')
-
-        try:
-            min_size = UserProfile._meta.get_field('avatar').min_size
-            max_size = UserProfile._meta.get_field('avatar').max_size
-
-            if data._size > settings.MAX_UPLOAD_SIZE:
-                raise forms.ValidationError(
-                    _('Please keep filesize under %(max)s. '
-                      'Current filesize %(current)s')
-                    % {'max': filesizeformat(settings.MAX_UPLOAD_SIZE),
-                       'current': filesizeformat(data._size)})
-            w, h = get_image_dimensions(data)
-
-            if (min_size[0] != 0 and w < min_size[0]) \
-                    or (min_size[1] != 0 and h < min_size[1]):
-                raise forms.ValidationError(
-                    _('Your image is to small. The minimum size is %(x)dx%(y)d'
-                      % {'x': min_size[0], 'y': min_size[1]}))
-
-            if (max_size[0] != 0 and w > max_size[0]) \
-                    or (max_size[1] != 0 and h > max_size[1]):
-                raise forms.ValidationError(
-                    _('Your image is to large. the maximum size is %(x)dx%(y)d'
-                      % {'x': max_size[0],
-                         'y': max_size[1]}))
-
-        except AttributeError:
-            pass
-        return data
-
-
-class UserProfileInfoForm(UserProfileForm):
-    class Meta:
-        model = UserProfile
-        fields = ('occupation', 'hobbies', 'website', 'picture')
+        fields = ('occupation', 'hobbies', 'website')
 
 
 class UserProfileSettingsForm(BootstrapModelForm, happyforms.ModelForm):
@@ -231,7 +192,7 @@ class EditPasswordForm(BootstrapForm, happyforms.Form):
         return data
 
 
-class UserAvatarForm(BootstrapForm, happyforms.Form):
+class UserAvatarForm(BootstrapModelForm, happyforms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('avatar', )

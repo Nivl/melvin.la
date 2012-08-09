@@ -256,6 +256,18 @@ table {
  /*****************************************************************************
   * CLASSES
   ****************************************************************************/
+
+.drop-area {
+    border: 10px dashed #BBB;
+    height: 200px;
+
+    .transition(background-color 200ms linear);
+
+    &.dragging {
+	background-color: #FFFF9C;
+    }
+}
+
 .share-btn {
     width: 10%;
 }
