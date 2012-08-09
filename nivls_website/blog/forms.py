@@ -9,7 +9,7 @@ from commons.protection import akismet_is_valid
 class CommentForm(BootstrapModelForm, happyforms.ModelForm):
     class Meta:
         model = Comment
-        exclude = ('user', 'post', 'is_public', 'ip_address', 'pub_date')
+        fields = ('name', 'email', 'website', 'comment')
 
     honeypot = forms.CharField(
         required=False,
