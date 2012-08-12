@@ -260,12 +260,22 @@ table {
 .drop-area {
     border: 10px dashed #BBB;
     height: 200px;
+    margin-bottom: 30px;
 
     .transition(background-color 200ms linear);
 
-    &.dragging {
-	background-color: #FFFF9C;
+    &.valid-drop {
+	background-color: lighten(@green, 5%);
     }
+
+    &.invalid-drop {
+	background-color: lighten(@red, 20%);
+    }
+
+    &.dragging {
+	background-color: #FFFF9C !important;
+    }
+
 }
 
 .share-btn {
@@ -299,7 +309,7 @@ table {
 }
 
 .bigger-fields {
-    input, textarea, select, .uneditable-input{
+    input, textarea, select, .uneditable-input {
 	width: 320px;
     }
 }

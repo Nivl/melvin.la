@@ -34,9 +34,6 @@ new Ajaxion(resolve_urls('contact-form'),
 	   ).start();
 
 
-
-
-
 var commentFormAjax = new Ajaxion('',
 				  {'selector': '#comment-form',
 				   'events': 'submit'},
@@ -357,31 +354,58 @@ new Ajaxion(resolve_urls('edit-avatar-form'),
 
 
 new Ajaxion(resolve_urls('sign-up-form'),
-                       {'selector': '#sign-up-form',
-			'events': 'submit'},
-                       'POST',
-                       [
-			   {
-                               'url': 'current_url',
-                               'visible': true,
-                               'selectors' : [
-                                   {
-                                       'current': '#sign-up-form',
-                                       'target': '*',
-                                       'insert': false
-                                   }
-                               ],
-                           }
-	               ],
-                       {
-                           'success': [
-                               {'callback': Ajaxion.cb_replace}
-                           ],
-			   'error': [Ajaxion.cb_error_push_before],
-                       }
-                      ).start();
+            {'selector': '#sign-up-form',
+	     'events': 'submit'},
+            'POST',
+            [
+		{
+                    'url': 'current_url',
+                    'visible': true,
+                    'selectors' : [
+                        {
+                            'current': '#sign-up-form',
+                            'target': '*',
+                            'insert': false
+                        }
+                    ],
+                }
+	    ],
+            {
+                'success': [
+                    {'callback': Ajaxion.cb_replace}
+                ],
+		'error': [Ajaxion.cb_error_push_before],
+            }
+           ).start();
+
+var edit_picture_ajax = new Ajaxion(resolve_urls('edit-picture-form'),
+				    {'selector': '#profile-picture-form',
+				     'events': 'submit'},
+				    'POST',
+				    [
+					{
+					    'url': 'current_url',
+					    'selectors' : [
+						{
+						    'current': '#profile-picture-form',
+						    'target': '*',
+						    'insert': false
+						}
+					    ],
+					}
+				    ],
+				    {
+					'success': [
+					    {'callback': Ajaxion.cb_push_before}
+					],
+					'error': [Ajaxion.cb_error_push_before],
+				    });
+edit_picture_ajax.fileUpload = true;
+edit_picture_ajax.start();
+
 
 // Callbacks
+
 $(document).on('hidden', '[id^=modal-edit-]', function() {
     var target = $(this).find('[id^=edit-][id$=-form]');
     target.replaceWith('<div class="center-text" id="' + target.prop('id') + '"><img src="' + STATIC_URL + '/commons/img/loading-small.gif" alt="loading..."></div>');

@@ -70,6 +70,14 @@ urlpatterns = patterns(
         'edit_picture',
         name='edit-picture'),
 
+    url(r'^edit-picture/dropped-picture/$',
+        'handle_dropped_picture',
+        name='handle_dropped_picture'),
+
+    url(r'^edit-picture/form/$',
+        'edit_picture_form',
+        name='edit-picture-form'),
+
     url(r'^edit-picture/thumbnail/$',
         'edit_avatar',
         name='edit-avatar'),

@@ -196,3 +196,9 @@ class UserAvatarForm(BootstrapModelForm, happyforms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('avatar', )
+
+
+class UserPictureForm(BootstrapModelForm, happyforms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('picture', )

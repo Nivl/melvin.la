@@ -5,7 +5,18 @@
 
 {% block "content" %}
   <h2 class="center-text">
-    {% trans "You can drop your new picture this box: " %}
+    {% trans "You can drop your new picture in this box: " %}
   </h2>
-  <div id="drop-profil-picture" class="drop-area"></div>
+
+  <div id="drop-profil-picture" class="drop-area">
+    {% include "users/ajax/edit_picture_drop_form.html" %}
+  </div>
+
+  <div class="span8 offset2">
+    <h2 class="center-text">
+      {% trans "Or you can use this form: " %}
+    </h2>
+    {% include "users/ajax/edit_picture_form.html" %}
+  </div>
+
 {% endblock %}

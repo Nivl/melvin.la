@@ -181,7 +181,42 @@ def view_account(request, name):
 @require_safe
 @login_required
 def edit_picture(request):
-    return render(request, "users/edit_picture.html")
+    form = UserPictureForm(instance=request.user.get_profile())
+    return render(request, "users/edit_picture.html",
+                  {'form': form})
+
+
+@ajax_only
+@login_required
+def handle_dropped_picture(request):
+    profile = request.user.get_profile()
+    if request.method == 'POST':
+        form = UserPictureForm(request.POST, request.FILES,
+                               instance=profile)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("200")
+    else:
+        form = UserPictureForm(instance=profile)
+    return render(request, "users/ajax/edit_picture_drop_form.html",
+                  {'form': form})
+
+
+@ajax_only
+@login_required
+def edit_picture_form(request):
+    profile = request.user.get_profile()
+    if request.method == 'POST':
+        form = UserPictureForm(request.POST, request.FILES,
+                               instance=profile)
+        if form.is_valid():
+            form.save()
+            return render(request, "users/ajax/edit_picture_ok.html",
+                          {'has_file': len(request.FILES)})
+    else:
+        form = UserPictureForm(instance=profile)
+    return render(request, "users/ajax/edit_picture_form.html",
+                  {'form': form})
 
 
 @require_safe
@@ -247,7 +282,6 @@ def edit_account_form(request):
 
         profile_form = UserProfileInfoForm(
             request.POST,
-            request.FILES,
             instance=profile)
 
         if account_form.is_valid() and profile_form.is_valid():
@@ -256,8 +290,6 @@ def edit_account_form(request):
             if account_form.cleaned_data['username'] != username:
                 p.lock_username = True
             p.save()
-            if len(request.FILES) > 0:
-                return HttpResponse("302");
             return HttpResponse("200");
     else:
         account_form = UserEditForm(edit_username=(not profile.lock_username),

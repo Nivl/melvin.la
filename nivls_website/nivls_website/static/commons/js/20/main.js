@@ -1,3 +1,5 @@
+var resolve_urls = django_js_utils.urls.resolve;
+
 function replaceAll(txt, replace, with_this) {
     return txt.replace(new RegExp(replace, 'g'),with_this);
 }
@@ -48,14 +50,43 @@ function dropFile() {
     if (Modernizr.draganddrop) {
 	$(document).on({
 	    dragenter: function(){
-		console.log('enter');
 		$(this).addClass('dragging');
 		return false;
 	    },
 
 	    dragleave: function(){
-		console.log('leave');
 		$(this).removeClass('dragging');
+		return false;
+	    },
+
+	    drop: function(e){
+		var $that = $(this);
+
+		$(this).removeClass('dragging');
+		e.preventDefault();
+		e = e.originalEvent || e;
+
+		if (e.dataTransfer.files.length == 1) {
+		    var data = new FormData($(this).find('form')[0]);
+		    data.append('picture', e.dataTransfer.files[0]);
+
+		    Ajaxion.formUpload(
+			resolve_urls('handle_dropped_picture'),
+			data,
+			function (html){
+			    if (html == '200') {
+				$that.removeClass('invalid-drop');
+				$that.addClass('valid-drop');
+				window.location = resolve_urls('edit-avatar');
+			    } else {
+				$that.find('form').replaceWith(html);
+				$('#profile-picture-form [name="csrfmiddlewaretoken"]').val($that.find('form [name="csrfmiddlewaretoken"]').val());
+				$that.removeClass('valid-drop');
+				$that.addClass('invalid-drop');
+			    }
+			}
+		    );
+		}
 		return false;
 	    }
 	}, '.drop-area');
@@ -363,7 +394,7 @@ function navigationHTML5(){
 	if (search_query.val().length > 0) {
 	    var query = replaceAll(
 		encodeURIComponent(search_query.val()), '%20', '+');
-    	    var url = django_js_utils.urls.resolve('update-typeahead');
+    	    var url = resolve_urls('update-typeahead');
     	    url += '?search=' + query;
 	    $.get(url);
 	}
@@ -383,7 +414,7 @@ function navigationHTML5(){
 		    $(this).val()
 		), '%20', '+');
 
-	    var url = django_js_utils.urls.resolve('autocomplete');
+	    var url = resolve_urls('autocomplete');
 	    url += '?search=' + query;
 
 	    $.getJSON(url, function(data){
