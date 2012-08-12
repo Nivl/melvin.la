@@ -59,6 +59,7 @@
 */
 
 function Ajaxion (url, bind, method, to_reload, callbacks, before) {
+    bind = typeof bind !== 'undefined' ? bind : {};
     to_reload = typeof to_reload !== 'undefined' ? to_reload : [];
     callbacks = typeof callbacks !== 'undefined' ? callbacks : {};
     before = typeof before !== 'undefined' ? before : [];
@@ -73,71 +74,97 @@ function Ajaxion (url, bind, method, to_reload, callbacks, before) {
     this.cache = false;
     this.unbind = false;
     this.dataType = 'html';
+    this.data = {};
     this.checkForm = true;
     this.before = before;
 }
 
+
 Ajaxion.prototype.stop = function (that) {
     that = typeof that !== 'undefined' ? that : this;
-    $(document).off(that.bind['events'], that.bind['selector']);
+
+    if (this.bind && 'events' in this.bind && 'selector' in this.bind) {
+	$(document).off(that.bind['events'], that.bind['selector']);
+    }
+
     return that;
 }
+
 
 Ajaxion.prototype.start = function () {
     var that = this;
 
-    if (!('events' in this.bind)) {
-	this.bind['events'] = 'dummy';
+    if (!this.bind
+	|| !('events' in this.bind)
+	|| !('selector' in this.bind)) {
+	that._started(that);
+    } else {
+	$(document).on(this.bind['events'],
+		       this.bind['selector'],
+		       function (e) {
+			   that._started(that);
+			   return false;
+		       });
     }
+}
 
-    $(document).on(this.bind['events'], this.bind['selector'], function (e) {
-	that._beforeCallbacks(that);
-	var data = {};
-	var contentType = 'application/x-www-form-urlencoded';
-	var selector = that.bind['selector'];
 
-	if (that.method == 'POST') {
-	    data = $(selector).serialize();
+Ajaxion.prototype._started = function (that) {
+    that._beforeCallbacks(that);
+    var contentType = 'application/x-www-form-urlencoded';
+    var selector = that.bind['selector'];
+    var clear_data = $.isEmptyObject(that.data);
+
+    if (that.method == 'POST') {
+	if ($.isEmptyObject(that.data)) {
+	    that.data = $(selector).serialize();
 
 	    if (that.fileUpload) {
-		data = new FormData($(selector)[0]);
-		contentType = false;
+		that.data = new FormData($(selector)[0]);
 	    }
-
-	    $(selector)
-		.find("button[type='submit']")
-		.button('loading');
 	}
 
-	$.ajax({
-	    type: that.method,
-	    url: that.url,
-	    data: data,
-	    cache: that.cache,
-	    dataType: that.dataType,
-	    contentType: contentType,
-	    processData: that.fileUpload == false,
-	    complete: function (jqXHR, textStatus) {
-		that._complete(jqXHR, textStatus, that);
-	    },
-	    xhr: function () {
-		return that._xhr(that);
-	    },
-	    error: function (XMLHttpRequest,
-			     textStatus,
-			     errorThrown) {
-		that._error(XMLHttpRequest, textStatus, errorThrown, that);
-	    },
-	    success: function (html, textStatus) {
-		that._success(html, textStatus, that);
-	    },
-	});
-	return false;
+	if (that.fileUpload) {
+	    contentType = false;
+	}
+
+	$(selector)
+	    .find("button[type='submit']")
+	    .button('loading');
+    }
+
+    $.ajax({
+	type: that.method,
+	url: that.url,
+	data: that.data,
+	cache: that.cache,
+	dataType: that.dataType,
+	contentType: contentType,
+	processData: that.fileUpload == false,
+	complete: function (jqXHR, textStatus) {
+	    that._complete(jqXHR, textStatus, that);
+	},
+
+	xhr: function () {
+	    return that._xhr(that);
+	},
+
+	error: function (XMLHttpRequest,
+			 textStatus,
+			 errorThrown) {
+	    that._error(XMLHttpRequest, textStatus, errorThrown, that);
+	},
+
+	success: function (html, textStatus) {
+	    that._success(html, textStatus, that);
+	},
     });
 
-    if (this.bind['events'] == 'dummy')
-	$(this.bind['selector']).trigger('dummy');
+    if (clear_data) {
+	that.data = {};
+    }
 }
+
 
 Ajaxion.prototype._beforeCallbacks = function (that) {
     for (var i=0; i<that.before.length; i++) {
@@ -145,15 +172,17 @@ Ajaxion.prototype._beforeCallbacks = function (that) {
     }
 }
 
+
 Ajaxion.prototype._complete = function (jqXHR, textStatus, that) {
     if (that.unbind || that.bind['events'] == 'dummy')
 	that.stop(that);
 }
 
+
 Ajaxion.prototype._xhr = function (that) {
     var myXhr = $.ajaxSettings.xhr();
 
-   if ('xhr' in that.callbacks) {
+    if ('xhr' in that.callbacks) {
 	for (var i=0; i<that.callbacks['xhr'].length; i++) {
 	    that.callbacks['xhr'][i](myXhr, that);
 	}
