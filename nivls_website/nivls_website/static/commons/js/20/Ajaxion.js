@@ -300,6 +300,28 @@ Ajaxion.prototype._success_reload_part_async_call = function(i, obj) {
     });
 }
 
+/*
+  Shortcut
+*/
+
+Ajaxion.formUpload = function(url, data, success) {
+    var ajax = new Ajaxion(url, {}, 'POST');
+    var callback = typeof success !== 'undefined' ? success : data;
+
+    if (success !== 'undefined') {
+	ajax.data = data;
+    }
+    ajax.fileUpload = true;
+    ajax.callbacks = {'success': [{'callback': callback,
+				   'force': true}]};
+    ajax.start();
+}
+
+
+/*
+  Callbacks
+*/
+
 Ajaxion.cb_replace = function(html, textStatus, that) {
     $(that.bind['selector']).replaceWith(html);
 }
