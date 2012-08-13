@@ -55,6 +55,7 @@ def sign_in_failed(request):
                                       'think the problem comes from us, '
                                       'feel free to contact us.')})
 
+
 @ajax_only
 @login_required
 def edit_password_form(request):
@@ -66,7 +67,7 @@ def edit_password_form(request):
             p = request.user.get_profile()
             p.has_password = True
             p.save()
-            return HttpResponse('OK')
+            return HttpResponse('200')
     else:
         form = EditPasswordForm(request=request)
     return render(request, "users/ajax/edit_password_form.html", {'form': form})
@@ -80,7 +81,7 @@ def edit_email_form(request):
         if form.is_valid():
             request.user.email = form.cleaned_data['email']
             request.user.save()
-            return HttpResponse('OK')
+            return HttpResponse('200')
     else:
         form = EditEmailForm(initial={'email': request.user.email},
                              request=request)
@@ -311,7 +312,7 @@ def edit_settings_form(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponse("OK");
+            return HttpResponse("200");
     else:
         form = UserProfileSettingsForm(instance=profile)
     return render(request, "users/ajax/edit_settings_form.html", {'form': form})

@@ -2,19 +2,44 @@
 
 <script type="text/javascript">
 
-{% if user.is_authenticated %}
-  commentFormAjax.to_reload[1]['disabled'] = false;
-  commentFormAjax.to_reload[1]['url'] = '{{ post.get_comments_url }}';
+function clearPreview() {
+    $('#form-preview').empty();
+};
 
-  commentFormAjax.to_reload[2]['disabled'] = false;
-  commentFormAjax.to_reload[2]['url'] = '{{ post.get_comment_count_url }}';
-{% endif %}
+function addNewComment() {
+    $('#comment-list .comment:last-child').animateHighlight();
+}
 
-commentFormAjax.callbacks['success'].push(
-    {'callback': function(){$.jStorage.deleteKey('{{ storage_key }}');}}
-);
-commentFormAjax.url = '{{ post.get_form_url }}';
-commentFormAjax.stop().start();
+function addCommentAjax(that) {
+    console.log('in 2');
+    Ajaxion_post(
+        "{{ post.get_form_url }}", '#comment-form', function(data, proceed){
+	    clearPreview();
+            if (proceed){
+                $(this).before(data);
+		$.jStorage.deleteKey('{{ storage_key }}');
+
+                Ajaxion_switch_elem('{{ post.get_form_url }}',
+				    '#comment-form',
+				    '*');
+		{% if user.is_authenticated %}
+		  Ajaxion_switch_elem('{{ post.get_comments_url }}',
+				      '#comment-list',
+				      '*',
+				      [addNewComment]);
+
+		  Ajaxion_switch_elem('{{ post.get_comments_count_url }}',
+				      '#comment-count',
+				      '*');
+		{% endif %}
+            }
+        },
+        function(){
+            Ajaxion_cb_error_push_before(that);
+        });
+
+}
+
 
 /* Comments ajax */
 var boundAction = {};
@@ -31,57 +56,53 @@ $(document).off('mouseenter mouseleave', '.comment')
 
 $(document).off('click', '.edit-comment-link')
     .on('click', '.edit-comment-link', function (e) {
-    var that = this;
-    var area = $(this).parents('.comment').find('.editable_area');
-    var pk = $(area).prop('id').replace('comment_', '');
-    var commentEdit = new Ajaxion('', {}, 'GET');
+	var that = this;
+	var area = $(this).parents('.comment').find('.editable_area');
+	var pk = $(area).prop('id').replace('comment_', '');
 
-    commentEdit.bind = {'selector': '#' + $(area).prop('id')};
-    commentEdit.callbacks['success'] = [{'callback': Ajaxion.cb_insert},
-					{'callback': function hide_avatar() {
-					    $("#comment_" + pk + "_avatar")
-						.toggle();
-					}}];
-    commentEdit.callbacks['error'] = [Ajaxion.cb_error_push_before];
+	{% localtime off %}
+	  var url_values = {
+              year:'{{ post.pub_date.year }}',
+              month:'{{ post.pub_date|date:'m' }}',
+              day:'{{ post.pub_date|date:'d' }}',
+              slug:'{{ post.slug }}',
+              pk:pk
+	  }
+	{% endlocaltime %}
 
-{% localtime off %}
-    var url_values = {
-        year:'{{ post.pub_date.year }}',
-        month:'{{ post.pub_date|date:'m' }}',
-        day:'{{ post.pub_date|date:'d' }}',
-        slug:'{{ post.slug }}',
-        pk:pk
-    }
-{% endlocaltime %}
+	var selector = '#' + $(area).prop('id');
+	if ($(area).find(">:first-child").prop("tagName") == 'P') {
+	    var url = resolve_urls('post-comment-single-form', url_values);
 
-    if ($(area).find(">:first-child").prop("tagName") == 'P') {
-	commentEdit.url = django_js_utils.urls.resolve('post-comment-single-form', url_values);
+	    $.get(url, function(data){
+		$(selector).html(data);
+		$("#comment_" + pk + "_avatar").toggle();
 
-	commentEdit.callbacks['success'].push({'callback': function() {
-	    var commentEditForm = new Ajaxion('', {}, 'POST');
-            commentEditForm.bind = {'selector': '#comment-single-form-' + pk,
-                                    'events': 'submit',
-                                    'parent': '#comment_' + pk};
-            commentEditForm.url = commentEdit.url;
+		var post_selector = '#comment-single-form-' + pk;
 
-	    commentEditForm.callbacks['success'] = [{'callback': function() {
-		$(that).trigger('click');
-	    }}];
-	    commentEditForm.callbacks['error'] = [Ajaxion.cb_error_push_before];
-	    commentEditForm.start();
-            boundAction[$(area).prop('id')] = commentEditForm;
-	}});
-    } else {
-        boundAction[$(area).prop('id')].stop();
-	delete boundAction[$(area).prop('id')];
-        commentEdit.url = django_js_utils.urls.resolve('post-comment-single', url_values);
-	commentEdit.callbacks['success'].push({'callback': function () {
-	    $(that).parents('.comment').animateHighlight();
-	}});
-    }
-    commentEdit.start();
-    commentEdit.stop();
-    return false;
-});
+		$(post_selector).on('submit', function(){
+		    Ajaxion_post(
+			url, post_selector,
+			function(data, proceed){
+			    if (proceed) {
+				$(that).trigger('click');
+			    }
+			});
+		    return false;
+		});
+	    });
+	} else {
+	    var url = resolve_urls('post-comment-single', url_values);
+
+	    $.get(url, function(data){
+		$(selector).html(data);
+		$("#comment_" + pk + "_avatar").toggle();
+
+		$(that).parents('.comment').animateHighlight();
+	    });
+	}
+
+	return false;
+    });
 
 </script>

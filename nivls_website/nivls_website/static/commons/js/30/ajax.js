@@ -4,404 +4,256 @@
 
 var resolve_urls = django_js_utils.urls.resolve;
 
-new Ajaxion(resolve_urls('contact-form'),
-	    {'selector': '#contact-form',
-	     'events': 'submit'},
-            'POST',
-            [
-		{
-                    'url': 'current_url',
-                    'visible': true,
-                    'selectors' : [
-			{
-                            'current': '#contact-form',
-                            'target': '*',
-                            'insert': false
-			}
-                    ],
-		}
-	    ],
-            {
-		'success': [
-                    {'callback': Ajaxion.cb_push_before},
-                    {'callback': function(){
-			$.jStorage.deleteKey('contact-message')
-		    }},
-		],
-		'error': [Ajaxion.cb_error_push_before],
+$(document).on('submit', '#contact-form', function(){
+    var that = this;
 
-            }
-	   ).start();
+    Ajaxion_post(
+	resolve_urls('contact-form'), '#contact-form', function(data, proceed){
+	    if (proceed){
+		$(this).before(data);
+		$.jStorage.deleteKey('contact-message');
 
+		Ajaxion_switch_elem(
+		    resolve_urls('contact-form'),
+		    '#contact-form',
+		    '*');
+	    }
+	},
+	function(){
+	    Ajaxion_cb_error_push_before(that);
+	});
+    return false;
+});
 
-var commentFormAjax = new Ajaxion('',
-				  {'selector': '#comment-form',
-				   'events': 'submit'},
-				  'POST',
-				  [
-				      {
-					  'url': 'current_url',
-					  'visible': true,
-					  'selectors' : [
-					      {
-						  'current': '#comment-form',
-						  'target': '*',
-						  'insert': false
-					      }
-					  ],
-				      },
-
-				      {
-					  'url': '',
-					  'visible': false,
-					  'disabled': true,
-					  'callbacks': [
-					      addNewComment
-					  ],
-					  'selectors' : [
-					      {
-						  'current': '#comment-list',
-						  'target': '*',
-						  'insert': true
-					      }
-					  ],
-				      },
-				      {
-					  'url': '',
-					  'visible': false,
-					  'disabled': true,
-					  'selectors' : [
-					      {
-						  'current': '#comments-count',
-						  'target': '*',
-						  'insert': true
-					      }
-					  ],
-				      },
-				  ],
-				  {
-				      'success': [
-					  {'callback': Ajaxion.cb_push_before},
-					  {'callback': clearPreview,
-					   'force': true}
-				      ],
-				      'error': [Ajaxion.cb_error_push_before]
-				  }
-				 );
-// Callbacks
-
-function clearPreview() {
-    $('#form-preview').empty();
-};
-
-function addNewComment() {
-    $('#comment-list .comment:last-child').animateHighlight();
-}
+$(document).on('submit', '#comment-form', function(){
+    addCommentAjax(this);
+    return false;
+});
 
 /******************************************************************************
  * Users
  *****************************************************************************/
 
-var confirmPasswordAjax = new Ajaxion('',
-				      {'selector': '#confirm-password-form',
-				       'events': 'submit'},
-				      'POST',
-				      [
-					  {
-					      'url': 'current_url',
-					      'visible': true,
-					      'selectors' : [
-						  {
-						      'current': '#confirm-password-form',
-						      'target': '*',
-						      'insert': false
-						  }
-					      ],
-					  },
-				      ],
-				      {
-					  'success': [
-					      {'callback': Ajaxion.cb_replace}
-					  ],
-					  'error': [Ajaxion.cb_error_push_before],
-				      }
-				     );
+$(document).on('submit', '#confirm-password-form', function(){
+    confirmPasswordAjax(this);
+    return false;
+});
 
-new Ajaxion(resolve_urls('reset-password-form'),
-	    {'selector': '#reset-password-form',
-	     'events': 'submit'},
-	    'POST',
-	    [
-		{
-		    'url': 'current_url',
-		    'visible': true,
-		    'selectors' : [
-			{
-			    'current': '#reset-password-form',
-			    'target': '*',
-			    'insert': false
-			}
-		    ],
-		},
-	    ],
-	    {
-		'success': [
-		    {'callback': Ajaxion.cb_push_before}
-		],
-		'error': [Ajaxion.cb_error_push_before],
+$(document).on('submit', '#reset-password-form', function(){
+    var that = this;
+
+    Ajaxion_post(
+	resolve_urls('reset-password-form'),
+	'#reset-password-form',
+	function(data, proceed){
+	    if (proceed){
+		$(that).before(data);
+
+		Ajaxion_switch_elem(
+		    resolve_urls('reset-password-form'),
+		    '#reset-password-form',
+		    '*'
+		);
 	    }
-	   ).start();
+	},
+	function(){
+	    Ajaxion_cb_error_push_before(that);
+	});
+    return false;
+});
 
 
-new Ajaxion(resolve_urls('edit-account-form'),
-	    {'selector': '#edit-account-form',
-	     'events': 'submit'},
-	    'POST',
-	    [],
-	    {
-		'success': [
-		    {'callback': hideOnSuccess}
-		],
+$(document).on('submit', '#edit-account-form', function(){
+    var that = this;
 
-		'error': [
-		    colorOnError
-		],
+    Ajaxion_post(resolve_urls('edit-account-form'), '#edit-account-form',
+		 function(data, proceed){
+		     if (proceed){
+			 hideOnSuccess(that);
+		     }
+		 },
+		 function(){
+		     colorOnError(that);
+		 });
+    return false;
+});
+
+
+$(document).on('shown', '#modal-edit-profile', function(){
+    var that = this;
+
+    $.get(resolve_urls('edit-account-form'), function(data){
+	$('#edit-account-form').replaceWith(data);
+	clearError(that);
+    });
+});
+
+
+$(document).on('submit', '#edit-settings-form', function(){
+    var that = this;
+
+    Ajaxion_post(resolve_urls('edit-settings-form'), '#edit-settings-form',
+		 function(data, proceed){
+		     if (proceed){
+			 hideOnSuccess(that);
+		     }
+		 },
+		 function(){
+		     colorOnError(that);
+		 });
+    return false;
+});
+
+
+$(document).on('shown', '#modal-edit-settings', function(){
+    var that = this;
+
+    $.get(resolve_urls('edit-settings-form'), function(data){
+	$('#edit-settings-form').replaceWith(data);
+	clearError(that);
+    });
+});
+
+
+$(document).on('submit', '#edit-password-form', function(){
+    var that = this;
+
+    Ajaxion_post(
+	resolve_urls('edit-password-form'),
+	'#edit-password-form',
+	function(data, proceed){
+	    if (proceed){
+		hideOnSuccess(that);
+
+		$('a[href="#' + $('#edit-password-form')
+		  .parents('.modal').prop('id')  + '"]')
+		    .removeClass('important');
+
+		Ajaxion_switch_elem(
+		    resolve_urls('get-common-header'),
+		    '#header-menu-user'
+		);
+		Ajaxion_switch_elem(
+		    resolve_urls('edit-email-form'),
+		    '#header-menu-user',
+		    '*'
+		);
 	    }
-	   ).start();
+	},
+	function(){
+	    colorOnError(that);
+	});
+    return false;
+});
 
 
-new Ajaxion(resolve_urls('edit-account-form'),
-	    {'selector': '#modal-edit-profile',
-	     'events': 'shown'},
-	    'GET',
-	    [
-		{
-		    'url': 'current_url',
-		    'visible': true,
-		    'callbacks': [clearError],
-		    'selectors' : [
-			{
-			    'current': '#edit-account-form',
-			    'target': '*',
-			    'insert': false
-			}
-		    ],
-		},
-	    ]
-	   ).start();
+$(document).on('shown', '#modal-edit-password', function(){
+    var that = this;
 
+    $.get(resolve_urls('edit-password-form'), function(data){
+	$('#edit-password-form').replaceWith(data);
+	clearError(that);
+    });
+});
 
-new Ajaxion(resolve_urls('edit-settings-form'),
-	    {'selector': '#edit-settings-form',
-	     'events': 'submit'},
-	    'POST',
-	    [],
-	    {
-		'success': [
-		    {'callback': hideOnSuccess}
-		],
+$(document).on('submit', '#edit-email-form', function(){
+    var that = this;
 
-		'error': [
-		    colorOnError
-		],
+    Ajaxion_post(
+	resolve_urls('edit-email-form'),
+	'#edit-email-form',
+	function(data, proceed){
+	    if (proceed){
+		hideOnSuccess(that);
 	    }
-	   ).start();
-
-new Ajaxion(resolve_urls('edit-settings-form'),
-	    {'selector': '#modal-edit-settings',
-	     'events': 'shown'},
-	    'GET',
-	    [
-		{
-		    'url': 'current_url',
-		    'visible': true,
-		    'callbacks': [clearError],
-		    'selectors' : [
-			{
-			    'current': '#edit-settings-form',
-			    'target': '*',
-			    'insert': false
-			}
-		    ],
-		},
-	    ]
-	   ).start();
+	},
+	function(){
+	    colorOnError(that);
+	});
+    return false;
+});
 
 
-new Ajaxion(resolve_urls('edit-password-form'),
-	    {'selector': '#edit-password-form',
-	     'events': 'submit'},
-	    'POST',
-	    [
-		{
-		    'url': resolve_urls('get-common-header'),
-		    'visible': true,
-		    'selectors' : [
-			{
-			    'current': '#header-menu-user',
-			    'target': '#header-menu-user',
-			    'insert': false
-			}
-		    ],
-		},
-		{
-		    'url': resolve_urls('edit-email-form'),
-		    'visible': true,
-		    'selectors' : [
-			{
-			    'current': '#edit-email-form',
-			    'target': '*',
-			    'insert': false
-			}
-		    ],
-		}
-	    ],
-	    {
-		'success': [
-		    {'callback': hideOnSuccess},
-		    {'callback': function (a, b, that) {
-			$('a[href="#' + $(that.bind['selector'])
-			  .parents('.modal').prop('id')  + '"]')
-			    .removeClass('important');
-		    }}
-		],
-		'error': [colorOnError]
+$(document).on('shown', '#modal-edit-email', function(){
+    var that = this;
+
+    $.get(resolve_urls('edit-email-form'), function(data){
+	$('#edit-email-form').replaceWith(data);
+	clearError(that);
+    });
+});
+
+
+$(document).on('submit', '#edit-avatar-form', function(){
+    var that = this;
+
+    Ajaxion_post(
+	resolve_urls('edit-avatar-form'),
+	'#edit-avatar-form',
+	function(data, proceed){
+	    if (proceed){
+		$(that).before(data);
+
+		Ajaxion_switch_elem(
+		    resolve_urls('edit-avatar-form'),
+		    '#edit-avatar-form',
+		    '*'
+		);
 	    }
-	   ).start();
+	},
+	function(){
+	    Ajaxion_cb_error_push_before(that)
+	});
+    return false;
+});
 
 
-new Ajaxion(resolve_urls('edit-password-form'),
-	    {'selector': '#modal-edit-password',
-	     'events': 'shown'},
-	    'GET',
-	    [
-		{
-		    'url': 'current_url',
-		    'visible': true,
-		    'callbacks': [clearError],
-		    'selectors' : [
-			{
-			    'current': '#edit-password-form',
-			    'target': '*',
-			    'insert': false
-			}
-		    ],
-		},
-	    ]
-	   ).start();
+$(document).on('submit', '#sign-up-form', function(){
+    var that = this;
 
+    Ajaxion_post(
+	resolve_urls('sign-up-form'),
+	'#sign-up-form',
+	function(data, proceed){
+	    if (proceed){
+		$(that).before(data);
 
-new Ajaxion(resolve_urls('edit-email-form'),
-	    {'selector': '#edit-email-form',
-	     'events': 'submit'},
-	    'POST',
-	    [],
-	    {
-		'success': [
-		    {'callback': hideOnSuccess}
-		],
-
-		'error': [colorOnError]
+		Ajaxion_switch_elem(
+		    resolve_urls('sign-up-form'),
+		    '#sign-up-form',
+		    '*'
+		);
 	    }
-	   ).start();
+	},
+	function(){
+	    Ajaxion_cb_error_push_before(that)
+	});
+    return false;
+});
 
 
-new Ajaxion(resolve_urls('edit-email-form'),
-	    {'selector': '#modal-edit-email',
-	     'events': 'shown'},
-	    'GET',
-	    [
-		{
-		    'url': 'current_url',
-		    'visible': true,
-		    'callbacks': [clearError],
-		    'selectors' : [
-			{
-			    'current': '#edit-email-form',
-			    'target': '*',
-			    'insert': false
-			}
-		    ],
-		},
-	    ]
-	   ).start();
+$(document).on('submit', '#profile-picture-form', function(){
+    var that = this;
 
+    Ajaxion_formUpload(
+	resolve_urls('edit-picture-form'), null,
+	'#profile-picture-form',
+	function(data, proceed){
+	    if (proceed){
+		$(that).before(data);
 
-new Ajaxion(resolve_urls('edit-avatar-form'),
-	    {'selector': '#edit-avatar-form',
-	     'events': 'submit'},
-	    'POST',
-	    [
-		{
-		    'url': 'current_url',
-		    'visible': true,
-		    'selectors' : [
-                        {
-                            'current': '#edit-avatar-form',
-                            'target': '*',
-                            'insert': false
-                        }
-                    ],
-                }
-	    ],
-	    {
-                'success': [
-                    {'callback': Ajaxion.cb_push_before}
-                ],
-		'error': [Ajaxion.cb_error_push_before],
+		Ajaxion_switch_elem(
+		    resolve_urls('edit-picture-form'),
+		    '#profile-picture-form',
+		    '*'
+		);
 	    }
-           ).start();
-
-
-new Ajaxion(resolve_urls('sign-up-form'),
-            {'selector': '#sign-up-form',
-	     'events': 'submit'},
-            'POST',
-            [
-		{
-                    'url': 'current_url',
-                    'visible': true,
-                    'selectors' : [
-                        {
-                            'current': '#sign-up-form',
-                            'target': '*',
-                            'insert': false
-                        }
-                    ],
-                }
-	    ],
-            {
-                'success': [
-                    {'callback': Ajaxion.cb_replace}
-                ],
-		'error': [Ajaxion.cb_error_push_before],
-            }
-           ).start();
-
-var edit_picture_ajax = new Ajaxion(resolve_urls('edit-picture-form'),
-				    {'selector': '#profile-picture-form',
-				     'events': 'submit'},
-				    'POST',
-				    [
-					{
-					    'url': 'current_url',
-					    'selectors' : [
-						{
-						    'current': '#profile-picture-form',
-						    'target': '*',
-						    'insert': false
-						}
-					    ],
-					}
-				    ],
-				    {
-					'success': [
-					    {'callback': Ajaxion.cb_push_before}
-					],
-					'error': [Ajaxion.cb_error_push_before],
-				    });
-edit_picture_ajax.fileUpload = true;
-edit_picture_ajax.start();
+	},
+	function(){
+	    Ajaxion_cb_error_push_before(that)
+	});
+    return false;
+});
 
 
 // Callbacks
@@ -414,14 +266,14 @@ $(document).on('hidden', '[id^=modal-edit-]', function() {
 
 // HELPERS
 
-function hideOnSuccess(html, textStatus, that) {
-    $(that.bind['selector']).parents('.modal').modal('hide');
+function clearError(that) {
+    $(that).css('background-color', '#fff');
 }
 
-function clearError(data, that) {
-    $(that.bind['selector']).css('background-color', '#fff');
+function hideOnSuccess(that) {
+    $(that).parents('.modal').modal('hide');
 }
 
-function colorOnError(XMLHttpRequest, textStatus, errorThrown, that) {
-    $(that.bind['selector']).parents('.modal').css('background-color', '#f2dede');
+function colorOnError(that) {
+    $(that).parents('.modal').css('background-color', '#f2dede');
 }

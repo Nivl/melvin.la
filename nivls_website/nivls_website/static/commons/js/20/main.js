@@ -70,9 +70,10 @@ function dropFile() {
 		    var data = new FormData($(this).find('form')[0]);
 		    data.append('picture', e.dataTransfer.files[0]);
 
-		    Ajaxion.formUpload(
+		    Ajaxion_formUpload(
 			resolve_urls('handle_dropped_picture'),
 			data,
+			null,
 			function (html){
 			    if (html == '200') {
 				$that.removeClass('invalid-drop');
