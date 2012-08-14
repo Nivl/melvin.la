@@ -1,7 +1,6 @@
 @import "../../bootstrap/less/mixins";
 @import "../../bootstrap/less/variables";
 
-
 /******************************************************************************
  * MIXINS
  *****************************************************************************/
@@ -101,8 +100,22 @@
  * BOOTSTRAP FIXES
  *****************************************************************************/
 
+
+.navbar .nav .active > a,
+.navbar .nav .active > a:hover,
+.navbar .nav .active > a:focus,
+.navbar-fixed-top .navbar-inner {
+    .box-shadow(none);
+}
+
+.navbar .nav > li > a {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
 .nav-collapse{
     .search-form {
+	padding-right: 10px;\
 	input {
 	    .border-radius(15px);
 	}

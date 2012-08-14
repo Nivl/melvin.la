@@ -2,8 +2,7 @@ BOOTSTRAP_LESS = ./less/bootstrap.less
 BOOTSTRAP_RESPONSIVE_LESS = ./less/responsive.less
 
 #
-# BUILD SIMPLE BOOTSTRAP DIRECTORY
-# recess & uglifyjs are required
+# BUILD DOCS
 #
 
 bootstrap:
