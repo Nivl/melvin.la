@@ -26,7 +26,12 @@
       </div>
 
       <div class="info">
-	{% trans "By " %}{{ post.author }},
+	{% trans "By " %}
+	{% if post.author.get_profile.use_name %}
+	  {{ post.author.get_full_name }},
+	{% else %}
+	  {{ post.author }},
+        {% endif %}
 	<time datetime="{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}">
 	  {{ post.pub_date|naturalday }}
 	</time>
