@@ -105,23 +105,28 @@ a:focus {
 }
 
 h1 {
-    font-size: 30px
+    font-size: 30px;
+    ligne-height: 36px;
 }
 
 h2 {
-    font-size: 24px
+    font-size: 24px;
+    ligne-height: 36px;
 }
 
 h3 {
     font-size: 18px;
+    line-height: 27px;
 }
 
 h4 {
     font-size: 14px;
+    line-height: 18px;
 }
 
 h5 {
     font-size: 12px;
+    line-height: 18px;
 }
 
 .navbar .nav .active > a,
@@ -374,12 +379,10 @@ table {
     }
 
     h3 {
-	background-color: #5d788a;
-	border: 1px solid #425F72;
-	border-left-color: #a3c2d6;
-	border-top-color: #a3c2d6;
-	color: whiteSmoke;
-	text-shadow: 0px 1px 0 #818181;
+	background-color: @navbarBackground;
+	border: 1px solid #ddd;
+	color: @navbarLinkColor;
+	text-shadow: 0px 1px 0 white;
 	padding: 2px 10px;
 	margin: 15px 0;
     }
@@ -820,6 +823,7 @@ article.post {
 	    i {
 		margin-right: 3px;
 	    }
+
 	    line-height: 15px;
 	    font-size:0.85em;
 	}
