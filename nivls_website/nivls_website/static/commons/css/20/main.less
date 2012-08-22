@@ -131,9 +131,14 @@ h5 {
 
 .navbar .nav .active > a,
 .navbar .nav .active > a:hover,
-.navbar .nav .active > a:focus,
-.navbar-fixed-top .navbar-inner {
+.navbar .nav .active > a:focus {
     .box-shadow(none);
+}
+
+.navbar-fixed-top .navbar-inner,
+.navbar-static-top .navbar-inner {
+    .box-shadow(none);
+    border-bottom: 1px solid @navbarBorder;
 }
 
 .navbar .nav > li > a {
