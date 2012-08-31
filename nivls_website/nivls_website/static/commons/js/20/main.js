@@ -227,19 +227,19 @@ function navigationHTML5(){
     }
 
     $('#navbar-main-list > li a').click(function(e) {
-	if (e.which != 2 && !event.shiftKey && !event.ctrlKey) {
+	if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
 	    moveNavbar($(this).parent('li'));
 	}
     });
 
     $(document).on('click', 'a[data-navbar]', function(e) {
-	if (e.which != 2 && !event.shiftKey && !event.ctrlKey) {
+	if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
 	    moveNavbar($(this).data('navbar'));
 	}
     });
 
     $('.hide-navbar-img').click(function(e){
-	if (e.which != 2 && !event.shiftKey && !event.ctrlKey) {
+	if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
 	    moveNavbar(null);
 	}
     });
