@@ -11,7 +11,6 @@ function addNewComment() {
 }
 
 function addCommentAjax(that) {
-    console.log('in 2');
     Ajaxion_post(
         "{{ post.get_form_url }}", '#comment-form', function(data, proceed){
 	    clearPreview();
