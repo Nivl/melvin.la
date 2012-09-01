@@ -274,7 +274,7 @@ function navigationHTML5(){
 	relativeURL = '/' + relativeURL;
 
 	var action = State.data['action'];
-	if (action === undefined) {
+	if (action === undefined || $(action).length <= 0) {
 	    window.location = relativeURL;
 	}
 
