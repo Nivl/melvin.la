@@ -152,18 +152,18 @@
 @navbarCollapseWidth:             979px;
 
 @navbarHeight:                    43px;
-@navbarBackground:                #efefef;
-@navbarBackgroundHighlight:       #efefef;
+@navbarBackground:                @linkColor; // bottom
+@navbarBackgroundHighlight:       lighten(@linkColor, 5%); // top
 @navbarBorder:                    #ddd;
 
 @navbarText:                      @gray;
-@navbarLinkColor:                 #666;
-@navbarLinkColorHover:            @linkColor;
+@navbarLinkColor:                 @white; //#666;
+@navbarLinkColorHover:            #00a8ff;
 @navbarLinkColorActive:           @navbarLinkColor;
 @navbarLinkBackgroundHover:       transparent;
 @navbarLinkBackgroundActive:      transparent;
 
-@navbarBrandColor:                @navbarBackground;
+@navbarBrandColor:                darken(@navbarBackground, 7%); //#004061
 
 // Inverted navbar
 @navbarInverseBackground:                #111111;
