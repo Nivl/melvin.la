@@ -51,15 +51,13 @@
     background-image: url(@url);
     background-repeat: no-repeat;
     background-position: @padding top;
-    width: @size;
-    height: @size;
+    .square(@size);
     margin-top: 5px;
 
     a {
 	margin: 0;
 	padding: 0;
-	width: 100%;
-	height: 100%;
+	.square(100%);
 
 	background-image: url(@url);
 	background-repeat: no-repeat;
@@ -68,7 +66,7 @@
 	.transition(opacity 0.4s linear);
 
 	&:hover {
-	    opacity: 0;
+	    .opacity(0);
 	}
     }
 }
@@ -76,8 +74,7 @@
 .display-generated-icon(@size) {
     .main-icon {
 	background-repeat: no-repeat;
-	width: @size;
-	height: @size;
+	.square(@size);
 	.center-block();
 
 	img {
@@ -87,7 +84,7 @@
 
     &:hover{
 	img {
-	    opacity: 0;
+	    .opacity(0);
 	}
     }
 }
@@ -402,8 +399,7 @@ table {
     @trans-width: @slice-width - 1;
 
     .front {
-	width: 350px;
-	height: 214px;
+	.size(214px, 350px);
 	margin: 10px;
 	float: left;
 	position: relative;
@@ -414,8 +410,7 @@ table {
 
 
 	.slice {
-	    width: @slice-width;
-	    height: 100%;
+	    .size(100%, @slice-width);
 	    z-index: 100;
 	    .transform-style(preserve-3d);
 	    .transform-origin(left center);
@@ -428,8 +423,7 @@ table {
 	}
 
 	.back {
-	    width: 50%;
-	    height: 100%;
+	    .size(100%, 50%);
 	    position: absolute;
 	    right: 0;
 	    background: #666;
@@ -468,8 +462,7 @@ table {
 		bottom: 15px;
 		border: 2px solid rgba(255, 255, 255, 0.3);
 		.border-radius(50%);
-		width: 30px;
-		height: 30px;
+		.square(30px);
 		line-height: 25px;
 		text-align: center;
 		font-weight: 700;
@@ -487,7 +480,7 @@ table {
 	    z-index: 100;
 
 	    .overlay {
-		opacity: 1;
+		.opacity(100);
 	    }
 
 	    .s1 {
@@ -551,9 +544,8 @@ table {
 	}
 
 	.overlay {
-	    width: @slice-width;
-	    height: 100%;
-	    opacity: 0;
+	    .size(100%, @slice-width);
+	    .opacity(0);
 	    position: absolute;
 	    .transition(opacity 150ms ease-in-out);
 	}
@@ -588,16 +580,14 @@ table {
 	}
 
 	.thumbnail {
-	    width: 126px;
-	    height: 126px;
+	    .square(126px);
 	    .transition(all 0.5s ease-in-out);
 	}
 
 	.caption {
 	    .border-radius(4px);
 
-	    width:126px;
-	    height:126px;
+	     .square(126px);
 	    background:#000;
 	    color:#fff;
 	    font-weight:bold;
@@ -686,8 +676,7 @@ table {
 	    div {
 		position: absolute;
 		background-color: rgba(0, 0, 0, 0.7);
-		width: 100%;
-		height: 100%;
+		.square(100%);
 
 		h4 {
 		    color: @white;
@@ -918,10 +907,9 @@ ul#left-menu {
     & > li {
 	@height: 70px;
 
+	.size(@height, 350px);
 	z-index: 10;
-	width: 350px;
 	margin-left: -320px;
-	height: @height;
 	background-color: fade(@bodyBackground, 60%);
 	border: 1px solid #d5d5d5;
 	.border-radius(10px);
@@ -949,8 +937,7 @@ ul#left-menu {
 
 	& > .menu-icon {
 	    display: block;
-	    width: 70px;
-	    height: @height;
+	    .size(@height, 70px);
 	    background-repeat: no-repeat;
 	    background-position: center center;
 	    position: relative;
@@ -1005,8 +992,7 @@ ul#left-menu {
 #body > footer {
     position: absolute;
     bottom: 0;
-    height: @footer-size;
-    width: 100%;
+    .size(@footer-size, 100%);
     padding-top: 20px;
 
     background-color: @navbarBackground;
@@ -1026,8 +1012,7 @@ ul#left-menu {
     top: 0px;
     left: -@width;
     background-image: url('../../img/navbar-active.png');
-    height: @navbarHeight;
-    width: @width;
+    .size(@navbarHeight, @width);
 }
 
 @media (max-width: 979px) {
@@ -1062,8 +1047,7 @@ ul#left-menu {
 	.clearfix();
 
 	.item {
-	    height: 110px;
-	    width: 90px;
+	    .size(110px, 90px);
 	    float: left;
 	    margin-left: 40px;
 
@@ -1079,8 +1063,7 @@ ul#left-menu {
 	    [class*=" browser-icon"] {
 		background-image: url("../../img/supported-browsers.png");
 		background-repeat: no-repeat;
-		height: 90px;
-		width: 90px;
+		.square(90px);
 	    }
 
 	    .browser-icon-chrome {
@@ -1097,18 +1080,17 @@ ul#left-menu {
 #loading-msg {
     display: none;
     position: fixed;
-    top: @navbarHeight - 3px;
+    top: @navbarHeight;
     left: 48%;
     background-color: @white;
     border: 1px solid @borderColor;
     padding: 6px 10px 3px 10px;
-    .border-radius(3px);
+    .border-bottom-radius(3px);
     z-index: 10;
 }
 
 .avatar-preview {
-    width: 125px;
-    height: 125px;
+    .square(125px);
     overflow: hidden;
 }
 
