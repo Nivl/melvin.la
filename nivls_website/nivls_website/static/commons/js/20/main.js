@@ -343,7 +343,7 @@ function navigationHTML5(){
 
 	var new_elem = '<li><a';
 	new_elem += ' data-depth="' + $(that).data('depth') + '"';
-	new_elem += ' rel="' + $(that).attr('rel') + '"';
+	new_elem += ' data-ajax="' + $(that).data('ajax') + '"';
 	if ($(that).attr('title') !== undefined) {
 	    new_elem += ' title="' + $(that).attr('title') + '"';
 	}
