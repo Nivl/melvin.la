@@ -894,8 +894,6 @@ article.post {
  * ID
  *****************************************************************************/
 
-@footer-size: 122px; // padding not counted
-
 ul#left-menu {
     position: fixed;
     margin: 0px;
@@ -974,6 +972,7 @@ ul#left-menu {
 #body {
     min-height: 100%;
     position: relative;
+    overflow: hidden;
 }
 
 #breadcrumb-container {
@@ -984,9 +983,11 @@ ul#left-menu {
     margin-top: 0px;
 }
 
+@footer-size: 122px; // padding not counted
+@body-margin-top: 70px;
 #body-content {
-    margin-top: 70px;
-    padding-bottom: @footer-size + 60px;
+    margin-top: @body-margin-top;
+    padding-bottom: @footer-size + @body-margin-top;
 }
 
 #body > footer {
