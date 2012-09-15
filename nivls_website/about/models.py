@@ -87,6 +87,12 @@ class ContactLink(models.Model):
     link = models.URLField(
         verbose_name=_("link"))
 
+    attributes = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name=_("attributes"))
+
     image = models.ImageField(
         upload_to="about/contact",
         help_text="128x128 px",

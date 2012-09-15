@@ -59,7 +59,8 @@
 
       <div class="section-content clean-links">
 	{% for link in contact_links %}
-	  <a href="{{ link.link }}">
+	  <a {{ link.attributes|safe }}
+	     href="{{ link.link }}">
 	    <img src="{{ link.image.url }}" alt="{{ link.name }}">
 	  </a>
 	{% endfor %}
