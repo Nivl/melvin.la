@@ -1,6 +1,6 @@
 import os, sys
 
-sys.path.append("/home/www/modules/")
+sys.path.append("/home/laplan_m/Src/repo/python")
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 
