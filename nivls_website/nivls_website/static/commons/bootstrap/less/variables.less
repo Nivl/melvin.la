@@ -2,12 +2,13 @@
 // Variables
 // --------------------------------------------------
 
-
 // Global values
 // --------------------------------------------------
 
-@borderColor: #ccc;
-@grayArea: #e4e4e4;
+@borderColor:	#ccc;
+@grayArea:	#e4e4e4;
+@darkBlue:	#005581; // bottom
+@lightBlue:	lighten(@darkBlue, 5%); // top
 
 // Grays
 // -------------------------
@@ -46,13 +47,13 @@
 
 // Typography
 // -------------------------
-@sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
+@sansFontFamily:        "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @serifFontFamily:       Georgia, "Times New Roman", Times, serif;
 @monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
 
-@baseFontSize:          13px;
+@baseFontSize:          16px;
 @baseFontFamily:        @sansFontFamily;
-@baseLineHeight:        18px;
+@baseLineHeight:        21px;
 @altFontFamily:         @serifFontFamily;
 
 @headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
@@ -153,19 +154,19 @@
 // -------------------------
 @navbarCollapseWidth:             979px;
 
-@navbarHeight:                    43px;
-@navbarBackground:                @linkColor; // bottom
-@navbarBackgroundHighlight:       lighten(@linkColor, 5%); // top
+@navbarHeight:                    60px;
+@navbarBackground:                @white;
+@navbarBackgroundHighlight:       @white;
 @navbarBorder:                    @navbarBackground;
 
 @navbarText:                      @gray;
-@navbarLinkColor:                 @white;
+@navbarLinkColor:                 @gray;
 @navbarLinkColorHover:            #00a8ff;
 @navbarLinkColorActive:           @navbarLinkColor;
 @navbarLinkBackgroundHover:       transparent;
 @navbarLinkBackgroundActive:      transparent;
 
-@navbarBrandColor:                darken(@navbarBackground, 7%);
+@navbarBrandColor:                @grayDark;
 
 // Inverted navbar
 @navbarInverseBackground:                #111111;
