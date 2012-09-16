@@ -9,34 +9,40 @@
   {% include "inc/browser_warning.html" %}
   {% include "inc/konami.html" %}
 
-  {% block "header" %}
-    {% include "inc/header.html" %}
-  {% endblock "header" %}
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        {% block "header" %}
+        {% include "inc/header.html" %}
+        {% endblock "header" %}
 
-  <div id="loading-msg">
-    <img alt="loading" src="{% static "commons/img/loading-small.gif" %}">
-    &nbsp;loading...
-  </div>
+        <div id="loading-msg">
+          <img alt="loading" src="{% static "commons/img/loading-small.gif" %}">
+          &nbsp;loading...
+        </div>
 
-  {% block "breadcrumb" %}
-    <div id="breadcrumb-container">
-      <div class="container">
-	<div class="row">
-	  <div class="span12">
-	    <ul id="breadcrumb" class="breadcrumb {% block "breadcrumb-classes" %}{% endblock %}">
-	      {% block "breadcrumb-content" %}{% endblock %}
-	    </ul>
-	  </div>
-	</div>
+        {% block "breadcrumb" %}
+          <div id="breadcrumb-container">
+            <div class="container">
+              <div class="row">
+                <div class="span12">
+                  <ul id="breadcrumb" class="breadcrumb {% block "breadcrumb-classes" %}{% endblock %}">
+                    {% block "breadcrumb-content" %}{% endblock %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endblock "breadcrumb" %}
+
+        <div id="body-content">
+          {% block "body-content" %}{% endblock "body-content" %}
+        </div>
+
+        {% block "footer" %}
+        {% include "inc/footer.html" %}
+        {% endblock "footer" %}
       </div>
     </div>
-  {% endblock "breadcrumb" %}
-
-  <div id="body-content">
-    {% block "body-content" %}{% endblock "body-content" %}
   </div>
-
-  {% block "footer" %}
-    {% include "inc/footer.html" %}
-  {% endblock "footer" %}
 {% endblock "body" %}

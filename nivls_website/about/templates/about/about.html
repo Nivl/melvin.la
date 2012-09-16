@@ -13,13 +13,13 @@
   <section class="clean-section">
     <div class="section-image-left">
       <a href="{% url "cv" %}">
-	{% if profile.free_for_job %}
-	  <img alt="{% trans "Free for job" %}"
-	       src="{% static "commons/img/free_for_job.png" %}">
-	{% else %}
-	  <img alt="{% trans "Not Free for job" %}"
-	       src="{% static "commons/img/not_free_for_job.png" %}">
-	{% endif %}
+        {% if profile.free_for_job %}
+          <img alt="{% trans "Free for job" %}"
+               src="{% static "commons/img/free_for_job.png" %}">
+        {% else %}
+          <img alt="{% trans "Not Free for job" %}"
+               src="{% static "commons/img/not_free_for_job.png" %}">
+        {% endif %}
       </a>
     </div>
 
@@ -34,19 +34,19 @@
     <section class="clean-section">
       <h2>{% trans "My website" %}</h2>
       <div class="section-content">
-	<ul class="animated-thumbnails">
-	  {% for link in navigation_links %}
-	    <li>
-	      <a {{ link.attributes|safe }}
-		 href="{{ link.link }}">
-		<img src="{{ link.image.url }}" />
-		<div>
-		  <h4>{{ link.name }}</h4>
-		  <p>{{ link.description }}</p>
-		</div>
-	      </a>
-	  {% endfor %}
-	</ul>
+        <ul class="animated-thumbnails">
+          {% for link in navigation_links %}
+            <li>
+              <a {{ link.attributes|safe }}
+                 href="{{ link.link }}">
+                <img src="{{ link.image.url }}" />
+                <div>
+                  <h4>{{ link.name }}</h4>
+                  <p>{{ link.description }}</p>
+                </div>
+              </a>
+          {% endfor %}
+        </ul>
       </div>
     </section>
   {% endif %}
@@ -58,12 +58,12 @@
       <h2>{% trans "Be social" %}</h2>
 
       <div class="section-content clean-links">
-	{% for link in contact_links %}
-	  <a {{ link.attributes|safe }}
-	     href="{{ link.link }}">
-	    <img src="{{ link.image.url }}" alt="{{ link.name }}">
-	  </a>
-	{% endfor %}
+        {% for link in contact_links %}
+          <a {{ link.attributes|safe }}
+             href="{{ link.link }}">
+            <img src="{{ link.image.url }}" alt="{{ link.name }}">
+          </a>
+        {% endfor %}
       </div>
     </section>
   {% endif %}
