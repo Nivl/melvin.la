@@ -1078,12 +1078,6 @@ ul#left-menu {
 #navbar-main-list > li {
     width: 75px;
 
-    &.active {
-        &:hover {
-            color: white;
-        }
-    }
-
     & > a {
         position: relative;
         text-align: center;
@@ -1152,6 +1146,15 @@ ul#left-menu {
     width: 240px;
     padding: 10px;
     text-align: center;
+    font-size: 13px;
+
+    a {
+        &:hover {
+            background-color: white !important;
+            color: black !important;
+            #gradient > .vertical(@white, @white);
+        }
+    }
 
     form {
         margin-bottom: 0;

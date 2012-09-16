@@ -90,57 +90,113 @@
               </a>
 
               <ul class="dropdown-menu">
-                <li class="nav-header center-text">
-                  {{ user.username }}
-                </li>
+                {% if not user.is_authenticated %}
+                  <li>
+                    <a data-ajax="body-content"
+                       data-depth="0"
+                       title="{% trans "Sign up" %}"
+                       class="hide-navbar-img"
+                       href="{% url "sign-up" %}">
+                         {% trans "Sign up" %}
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a data-ajax="body-content"
+                       data-depth="0"
+                       title="{% trans "I lost my password" %}"
+                       class="hide-navbar-img"
+                       href="{% url 'reset-password' %}">
+                         {% trans "I lost my password" %}
+                    </a>
+                  </li>
 
-                <li class="divider"></li>
-                
-                <li>
-                  <a data-ajax="body-content"
-                     data-depth="0"
-                     class="hide-navbar-img"
-                     title="{% trans "My profile" %}"
-                     href="{{ user.get_absolute_url }}">
-                       <i class="icon-user"></i> {% trans "My profile" %}
-                  </a>
-                </li>
+                  <li class="divider"></li>
 
-                <li {% if not user.get_profile.has_password %} class="important"{% endif %}>
-                  <a data-ajax="body-content"
-                     data-depth="0"
-                     title="{% trans "Edit my account" %}"
-                     class="hide-navbar-img"
-                     href="{% url "edit-account" %}">
-                       <i class="icon-edit"></i> {% trans "Edit my account" %}
-                  </a>
-                </li>
+                  <li class="login-box">
 
-                <li>
-                  <a class="hide-navbar-img"
-                    data-ajax="body-content"
-                    data-depth="0"
-                    href="{% url "edit-picture" %}">
-                      <i class="icon-camera"></i> {% trans "Edit my profile picture" %}
-                  </a>
-                </li>
+                    <p>{% trans "Sign in" %}</p>
 
-                <li>
-                  <a data-ajax="body-content"
-                     data-depth="0"
-                     class="hide-navbar-img"
-                     title="{% trans "Social media accounts" %}"
-                     href="{% url "manage-social-account" %}">
-                       <i class="icon-tasks"></i> {% trans "Social media accounts" %}
-                  </a>
-                </li>
+                    <div class="social-media-box clearfix">
+                      <p class="login-sm pull-left">
+                        {% trans "Sign in with:" %}
+                      </p>
 
-                <li class="divider"></li>
+                      <ul class="nav nav-pills social-medias-icons">
+                        {{ social_auth.backends|social_sign_in_links:request }}
+                      </ul>
+                    </div>
 
-                <li>
-                  <a href="{% url "sign-out" %}?next={{ request.get_full_path }}">
-                    <i class="icon-off"></i> {% trans "Sign out" %}
-                  </a>
+                    <p>{% trans "Or sign in using your account:" %}</p>
+
+                    <form action="{% url "sign-in" %}" method="post">
+                      {% csrf_token %}
+                      <input placeholder="{% trans "Username" %}"
+                            id="id_username" name="username" type="text" />
+                      <input placeholder="{% trans "Password" %}"
+                             type="password"
+                             id="id_password"  name="password" />
+                      <input type="hidden"name="next"
+                             value="{{ request.get_full_path }}" />
+                      <input value="{% trans "Sign in" %}"
+                            class="btn btn-primary" type="submit" />
+                    </form>
+                  </li>
+
+                {% else %}
+                  <li class="nav-header center-text">
+                    {{ user.username }}
+                  </li>
+
+                  <li class="divider"></li>
+                  
+                  <li>
+                    <a data-ajax="body-content"
+                       data-depth="0"
+                       class="hide-navbar-img"
+                       title="{% trans "My profile" %}"
+                       href="{{ user.get_absolute_url }}">
+                         <i class="icon-user"></i> {% trans "My profile" %}
+                    </a>
+                  </li>
+
+                  <li {% if not user.get_profile.has_password %} class="important"{% endif %}>
+                    <a data-ajax="body-content"
+                       data-depth="0"
+                       title="{% trans "Edit my account" %}"
+                       class="hide-navbar-img"
+                       href="{% url "edit-account" %}">
+                         <i class="icon-edit"></i> {% trans "Edit my account" %}
+                    </a>
+                  </li>
+
+                  <li>
+                    <a class="hide-navbar-img"
+                      data-ajax="body-content"
+                      data-depth="0"
+                      href="{% url "edit-picture" %}">
+                        <i class="icon-camera"></i> {% trans "Edit my profile picture" %}
+                    </a>
+                  </li>
+
+                  <li>
+                    <a data-ajax="body-content"
+                       data-depth="0"
+                       class="hide-navbar-img"
+                       title="{% trans "Social media accounts" %}"
+                       href="{% url "manage-social-account" %}">
+                         <i class="icon-tasks"></i> {% trans "Social media accounts" %}
+                    </a>
+                  </li>
+
+                  <li class="divider"></li>
+
+                  <li>
+                    <a href="{% url "sign-out" %}?next={{ request.get_full_path }}">
+                      <i class="icon-off"></i> {% trans "Sign out" %}
+                    </a>
+                  </li>
+                {% endif %}
               </ul>
             </li>
           </ul>
@@ -175,60 +231,3 @@
     </div>
   </div>
 </header>
-
-
-
-
-{% comment %}
-
-    {% if not user.is_authenticated %}
-      <li><a data-ajax="body-content"
-       data-depth="0"
-       title="{% trans "Sign up" %}"
-       class="hide-navbar-img"
-       href="{% url "sign-up" %}">{% trans "Sign up" %}</a>
-      <li class="divider-vertical">
-      <li class="dropdown">
-        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-          {% trans "Sign in" %} <i class="caret"></i>
-        </a>
-        <div class="dropdown-menu login-box">
-
-          <div class="social-media-box clearfix">
-      <p class="login-sm pull-left">{% trans "Sign in with:" %}</p>
-
-      <ul class="nav nav-pills social-medias-icons">
-        {{ social_auth.backends|social_sign_in_links:request }}
-      </ul>
-          </div>
-          <p>{% trans "Or sign in using your account:" %}</p>
-          <form action="{% url "sign-in" %}" method="post">
-      {% csrf_token %}
-      <input placeholder="{% trans "Username" %}"
-             id="id_username" name="username" type="text" />
-      <input placeholder="{% trans "Password" %}"
-             type="password" id="id_password"  name="password" />
-      <input type="hidden" name="next"
-             value="{{ request.get_full_path }}" />
-      <input value="{% trans "Sign in" %}"
-             class="btn btn-primary" type="submit" />
-          </form>
-          <a data-ajax="body-content"
-       data-depth="0"
-       title="{% trans "I lost my password" %}"
-       class="hide-navbar-img"
-       href="{% url 'reset-password' %}">
-      {% trans "I lost my password" %}
-          </a>
-        </div>
-      {% else %}
-
-
-
----------------------------------------------
-
-
-
-
-
-{% endcomment %}
