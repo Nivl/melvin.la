@@ -2,12 +2,10 @@
 {% load i18n %}
 
 {% block "header" %}
-  {% with act_menu="contact" %}
+  {% with act_menu="contact" page_title="Contact" %}
     {{ block.super }}
   {% endwith %}
 {% endblock %}
-
-{% block "title" %}{% trans "Contact" %}{% endblock "title" %}
 
 {% block "position" %}span8 offset2{% endblock %}
 
