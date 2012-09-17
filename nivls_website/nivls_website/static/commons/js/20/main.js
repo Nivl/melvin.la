@@ -199,32 +199,11 @@ function navigationHTML5(){
     /***********
      * Nav bar
      **********/
-    var navbar_current = $('#navbar-main-list > li.active').offset();
-    var navbar_img = $('<div>');
-    navbar_img.attr('id', 'navbar_img');
-    navbar_img.css('top', '0px');
-    $('#navbar').prepend(navbar_img);
-
-    if (navbar_current !== null)
-        navbar_img.offset(navbar_current);
-
     function moveNavbar(target) {
-        var left;
         $('#navbar-main-list > li.active').removeClass('active');
-
-        if (target === null) {
-            left = '-200px';
-        } else {
-            left = $(target).offset()['left'];
+        if (target !== null) {
             $(target).addClass('active');
         }
-
-        navbar_img.animate({
-            left: left
-        }, {
-            duration: 'slow',
-            easing: 'easeOutBack'
-        });
     }
 
     $('#navbar-main-list > li a').click(function(e) {
@@ -236,12 +215,6 @@ function navigationHTML5(){
     $(document).on('click', 'a[data-navbar]', function(e) {
         if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
             moveNavbar($(this).data('navbar'));
-        }
-    });
-
-    $('.hide-navbar-img').click(function(e){
-        if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
-            moveNavbar(null);
         }
     });
 

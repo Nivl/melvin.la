@@ -138,12 +138,6 @@ h5 {
     line-height: 18px;
 }
 
-.navbar .nav .active > a,
-.navbar .nav .active > a:hover,
-.navbar .nav .active > a:focus {
-    .box-shadow(none);
-}
-
 .dropdown-menu .active > a {
    background-color: @white;
    background-image: none;
@@ -1057,21 +1051,6 @@ ul#left-menu {
 
     p {
         margin-bottom: 10px;
-    }
-}
-
-#navbar_img {
-    @width: 75px;
-    position: absolute;
-    top: 0px;
-    left: -@width;
-    background-image: url('../../img/navbar-active.png');
-    .size(@navbarHeight, @width);
-}
-
-@media (max-width: 979px) {
-    #navbar_img {
-        display: none;
     }
 }
 

@@ -95,7 +95,6 @@
                     <a data-ajax="body-content"
                        data-depth="0"
                        title="{% trans "Sign up" %}"
-                       class="hide-navbar-img"
                        href="{% url "sign-up" %}">
                          {% trans "Sign up" %}
                     </a>
@@ -105,7 +104,6 @@
                     <a data-ajax="body-content"
                        data-depth="0"
                        title="{% trans "I lost my password" %}"
-                       class="hide-navbar-img"
                        href="{% url 'reset-password' %}">
                          {% trans "I lost my password" %}
                     </a>
@@ -153,7 +151,6 @@
                   <li>
                     <a data-ajax="body-content"
                        data-depth="0"
-                       class="hide-navbar-img"
                        title="{% trans "My profile" %}"
                        href="{{ user.get_absolute_url }}">
                          <i class="icon-user"></i> {% trans "My profile" %}
@@ -164,26 +161,23 @@
                     <a data-ajax="body-content"
                        data-depth="0"
                        title="{% trans "Edit my account" %}"
-                       class="hide-navbar-img"
                        href="{% url "edit-account" %}">
                          <i class="icon-edit"></i> {% trans "Edit my account" %}
                     </a>
                   </li>
 
                   <li>
-                    <a class="hide-navbar-img"
-                      data-ajax="body-content"
-                      data-depth="0"
-                      title="{% trans "Edit my profile picture" %}"
-                      href="{% url "edit-picture" %}">
-                        <i class="icon-camera"></i> {% trans "Edit my profile picture" %}
+                    <a data-ajax="body-content"
+                       data-depth="0"
+                       title="{% trans "Edit my profile picture" %}"
+                       href="{% url "edit-picture" %}">
+                         <i class="icon-camera"></i> {% trans "Edit my profile picture" %}
                     </a>
                   </li>
 
                   <li>
                     <a data-ajax="body-content"
                        data-depth="0"
-                       class="hide-navbar-img"
                        title="{% trans "Social media accounts" %}"
                        href="{% url "manage-social-account" %}">
                          <i class="icon-tasks"></i> {% trans "Social media accounts" %}
