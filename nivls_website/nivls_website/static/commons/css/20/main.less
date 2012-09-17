@@ -98,19 +98,6 @@
  * BOOTSTRAP FIXES
  *****************************************************************************/
 
-.nav > .active > a > [class^="icon-"],
-.nav > .active > a > [class*=" icon-"],
-.dropdown-menu > li > a:hover > [class^="icon-"],
-.dropdown-menu > li > a:hover > [class*=" icon-"],
-.dropdown-menu > .active > a > [class^="icon-"],
-.dropdown-menu > .active > a > [class*=" icon-"] {
-
-    &:not([class^="icon-white"]),
-    &:not([class*=" icon-white"]) {
-        background-image: url("../img/glyphicons-halflings.png") !important;
-    }
-}
-
 #navbar {
     margin-bottom: 0px;
 }
@@ -155,6 +142,23 @@ h5 {
 .navbar .nav .active > a:hover,
 .navbar .nav .active > a:focus {
     .box-shadow(none);
+}
+
+.dropdown-menu .active > a {
+   background-color: @white !important;
+   background-image: none !important;
+   color: @textColor !important;
+}
+
+.dropdown-menu > li > a:hover > [class^="icon-"],
+.dropdown-menu > li > a:hover > [class*=" icon-"],
+.dropdown-menu > .active > a > [class^="icon-"],
+.dropdown-menu > .active > a > [class*=" icon-"] {
+
+    &:not([class^="icon-white"]),
+    &:not([class*=" icon-white"]) {
+        background-image: url("../img/glyphicons-halflings.png") !important;
+    }
 }
 
 .navbar .nav > li > a {
