@@ -200,9 +200,25 @@ function navigationHTML5(){
      * Nav bar
      **********/
     function moveNavbar(target) {
-        $('#navbar-main-list > li.active').removeClass('active');
+        var $current_active = $('#navbar-main-list > li.active');
+
+        if (target !== null && $(target)[0] == $current_active[0])
+            return ;
+
         if (target !== null) {
+            if ($current_active.hasClass('dropdown')) {
+                $('#navbar-main-list .dropdown li.active').removeClass('active');
+
+                if ($(target).parents('.dropdown').length === 0) {
+                    $current_active.removeClass('active');
+                }
+            } else {
+                $current_active.removeClass('active');
+            }
             $(target).addClass('active');
+        } else {
+            $current_active.removeClass('active');
+            $('#navbar-main-list .dropdown li.active').removeClass('active');
         }
     }
 
