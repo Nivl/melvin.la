@@ -1,6 +1,6 @@
 {% load humanize common_tags i18n tz %}
 
-<h1>{% trans "Progress" %}</h1>
+<h2>{% trans "Progress" %}</h2>
 
   <div class="progress progress-striped {% if project.overall_progress != 100%}active{% endif %}">
     <div class="bar" style="width:{{ project.overall_progress }}%;"></div>
@@ -24,7 +24,7 @@
 </div>
 {% if todo %}
   <div class="row">
-    <h2>{% trans "Todo" %}</h2>
+    <h3>{% trans "Todo" %}</h3>
     <div class="span8 offset1">
       <ul>
 	{% for task in todo %}
