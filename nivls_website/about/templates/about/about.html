@@ -51,14 +51,23 @@
 
     <section class="clean-section">
       <h2>{% trans "Be social" %}</h2>
+      <div class="section-content">
 
-      <div class="section-content clean-links">
         {% for link in contact_links %}
-          <a {{ link.attributes|safe }}
-             href="{{ link.link }}"
-             class="margin-right-8">
-               <img src="{{ link.image.url }}" alt="{{ link.name }}">
-          </a>
+          <div class="big-badge">
+            <div class="foreground"
+                 style="background-image:url('{{ link.image.url|safe }}');">
+                   <a {{ link.attributes|safe }}
+                      href="{{ link.link }}"
+                      style="background-image:url('{{ link.image.url|safe }}');">
+                    </a>
+             </div>
+
+             <div class="informations">
+              <h4>{{ link.name }}</h4>
+            </div>
+          </div>
+
         {% endfor %}
       </div>
     </section>
