@@ -11,18 +11,7 @@
 
 {% block "content" %}
   <section class="clean-section">
-    <div class="section-image-left">
-      <a href="{% url "cv" %}">
-        {% if profile.free_for_job %}
-          <img alt="{% trans "Free for job" %}"
-               src="{% static "commons/img/free_for_job.png" %}">
-        {% else %}
-          <img alt="{% trans "Not Free for job" %}"
-               src="{% static "commons/img/not_free_for_job.png" %}">
-        {% endif %}
-      </a>
-    </div>
-
+    <h2>{% trans "Welcome to my website" %}</h2>
     <div class="section-content">
       {{ profile.about_me|markdown }}
     </div>

@@ -67,10 +67,6 @@ class Profile(models.Model):
     about_me = models.TextField(
         verbose_name=_("about me"))
 
-    free_for_job = models.BooleanField(
-        default=True,
-        verbose_name=_("free for job"))
-
     def __unicode__(self):
         return self.site.language
 
