@@ -38,11 +38,12 @@
         <div id="body-content">
           {% block "body-content" %}{% endblock "body-content" %}
         </div>
-
-        {% block "footer" %}
-        {% include "inc/footer.html" %}
-        {% endblock "footer" %}
       </div>
     </div>
   </div>
+
+  {% block "footer" %}
+  {% include "inc/footer.html" %}
+  {% endblock "footer" %}
+
 {% endblock "body" %}
