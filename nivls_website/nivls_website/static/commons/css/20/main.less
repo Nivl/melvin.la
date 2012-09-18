@@ -64,7 +64,7 @@
         background-repeat: no-repeat;
         background-position: @padding -@size;
 
-        .transition(opacity 0.4s linear);
+        .transition(opacity 0.3s linear);
 
         &:hover {
             .opacity(0);
@@ -697,86 +697,26 @@ table {
     }
 }
 
+.big-badge {
+    float: left;g
+    width: 160px;
+    margin-right: 95px;
 
-.animated-thumbnails {
-    list-style: none;
+    .informations {
+        margin-top: 20px;
+        text-align:center;
 
-    li {
-        float: left;
-        position: relative;
-
-        margin: 5px;
-        padding: 8px;
-
-        background-color: @white;
-        .box-shadow(0 1px 3px rgba(0,0,0,0.1));
-
-        a, img {
-            display: block;
-            position: relative;
+        h4 {
+            font-size: 18px;
+            line-height: 20px;
         }
+    }
+
+    .foreground {
+        .display-icon(left, 160px);
 
         a {
-            overflow: hidden;
-
-            div {
-                position: absolute;
-                background-color: rgba(0, 0, 0, 0.7);
-                .square(100%);
-
-                h4 {
-                    color: @white;
-                    padding: 10px 0;
-                    margin: 40px 20px 0 20px;
-                    text-transform: uppercase;
-                    font-weight: normal;
-                    color: rgba(255, 255, 255, 0.9);
-                    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-                    box-shadow: 0 1px 0 rgba(0,0,0,0.1), 0 -10px 0 rgba(255,255,255,0.3);
-                }
-
-                p {
-                    font-size: 12px;
-                    display: block;
-                    color: @white;
-                    margin: 0 20px 20px 20px;
-                    padding-bottom: 10px;
-                    border-bottom: 1px solid rgba(255,255,255,0.5);
-                }
-
-
-                &.da-animate {
-                    .transition(all 0.3s ease-in-out);
-                }
-
-                &.da-slideFromTop {
-                    left: 0px;
-                    top: -100%;
-                }
-
-                &.da-slideFromBottom {
-                    left: 0px;
-                    top: 100%;
-                }
-
-                &.da-slideFromLeft {
-                    left: -100%;
-                    top: 0px;
-                }
-
-                &.da-slideFromRight {
-                    left: 100%;
-                    top: 0px;
-                }
-
-                &.da-slideTop {
-                    top: 0;
-                }
-
-                &.da-slideLeft {
-                    left: 0;
-                }
-            }
+            display: block;
         }
     }
 }
