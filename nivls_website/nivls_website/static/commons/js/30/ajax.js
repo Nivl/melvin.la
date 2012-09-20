@@ -260,7 +260,7 @@ $(document).on('submit', '#profile-picture-form', function(){
 
 $(document).on('hidden', '[id^=modal-edit-]', function() {
     var target = $(this).find('[id^=edit-][id$=-form]');
-    target.replaceWith('<div class="center-text" id="' + target.prop('id') + '"><img src="' + STATIC_URL + '/commons/img/loading-small.gif" alt="loading..."></div>');
+    target.replaceWith('<div class="loading" id="' + target.prop('id') + '"><img src="' + STATIC_URL + '/commons/img/loading-small.gif" alt="loading..."></div>');
 });
 
 

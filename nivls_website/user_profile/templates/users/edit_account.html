@@ -7,37 +7,37 @@
   <div class="row">
     <div class="span5">
       <a href="#modal-edit-profile" data-toggle="modal" class="well link-box">
-	<h3>{% trans "Edit my profile" %}</h3>
-	<div class="content">
-	  {% trans "Here you can change your name, hobbies, occupation, …" %}
-	</div>
+        <h3>{% trans "Edit my profile" %}</h3>
+        <div class="content">
+          {% trans "Here you can change your name, hobbies, occupation, …" %}
+        </div>
       </a>
       <div class="modal hide" id="modal-edit-profile">
-	<div class="modal-header">
-	  <button type="button" class="close" data-dismiss="modal">×</button>
-	  <h3>{% trans "Edit my profile" %}</h3>
-	</div>
-	<div id="edit-account-form" class="center-text" >
-	  <img src="{% static "commons/img/loading-small.gif" %}" alt="loading">
-	</div>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3>{% trans "Edit my profile" %}</h3>
+        </div>
+        <div id="edit-account-form" class="loading" >
+          <img src="{% static "commons/img/loading-small.gif" %}" alt="loading">
+        </div>
       </div>
     </div>
 
     <div class="span5 offset1">
       <a href="#modal-edit-settings" data-toggle="modal" class="well link-box">
-	<h3>{% trans "Edit my settings" %}</h3>
-	<div class="content">
-	  {% trans "If you want to enable/disable some features, it's the place." %}
-	</div>
+        <h3>{% trans "Edit my settings" %}</h3>
+        <div class="content">
+          {% trans "If you want to enable/disable some features, it's the place." %}
+        </div>
       </a>
       <div class="modal hide" id="modal-edit-settings">
-	<div class="modal-header">
-	  <button type="button" class="close" data-dismiss="modal">×</button>
-	  <h3>{% trans "Edit my settings" %}</h3>
-	</div>
-	<div id="edit-settings-form" class="center-text" >
-	  <img src="{% static "commons/img/loading-small.gif" %}" alt="loading">
-	</div>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3>{% trans "Edit my settings" %}</h3>
+        </div>
+        <div id="edit-settings-form" class="loading" >
+          <img src="{% static "commons/img/loading-small.gif" %}" alt="loading">
+        </div>
       </div>
     </div>
   </div>
@@ -45,37 +45,39 @@
   <div class="row">
     <div class="span5">
       <a href="#modal-edit-email" data-toggle="modal" class="well link-box">
-	<h3>{% trans "Edit my email address" %}</h3>
-	  <div class="content">
-	    {% trans "You must have set a password to change you email address." %}
-	  </div>
+        <h3>{% trans "Edit my email address" %}</h3>
+          <div class="content">
+            {% trans "You must have set a password to change you email address." %}
+          </div>
       </a>
       <div class="modal hide" id="modal-edit-email">
-	<div class="modal-header">
-	  <button type="button" class="close" data-dismiss="modal">×</button>
-	  <h3>{% trans "Edit my email address" %}</h3>
-	</div>
-	<div id="edit-email-form" class="center-text" >
-	  <img src="{% static "commons/img/loading-small.gif" %}" alt="loading">
-	</div>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3>{% trans "Edit my email address" %}</h3>
+        </div>
+        <div id="edit-email-form" class="loading" >
+          <img src="{% static "commons/img/loading-small.gif" %}" alt="loading">
+        </div>
       </div>
     </div>
 
     <div class="span5 offset1">
-      <a href="#modal-edit-password" data-toggle="modal" class="well link-box{% if not user.get_profile.has_password %} important{% endif %}">
-	<h3>{% trans "Edit my password" %}</h3>
-	<div class="content">
-	  {% trans "Here you can change or set your password." %}
-	</div>
+      <a href="#modal-edit-password"
+         data-toggle="modal"
+         class="well link-box{% if not user.get_profile.has_password %} important{% endif %}">
+        <h3>{% trans "Edit my password" %}</h3>
+        <div class="content">
+          {% trans "Here you can change or set your password." %}
+        </div>
       </a>
       <div class="modal hide" id="modal-edit-password">
-	<div class="modal-header">
-	  <button type="button" class="close" data-dismiss="modal">×</button>
-	  <h3>{% trans "Edit my password" %}</h3>
-	</div>
-	<div id="edit-password-form" class="center-text" >
-	  <img src="{% static "commons/img/loading-small.gif" %}" alt="loading">
-	</div>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3>{% trans "Edit my password" %}</h3>
+        </div>
+        <div id="edit-password-form" class="loading" >
+          <img src="{% static "commons/img/loading-small.gif" %}" alt="loading">
+        </div>
       </div>
     </div>
   </div>
