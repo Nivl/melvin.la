@@ -4,39 +4,39 @@
   {% for post in posts %}
     {% if forloop.counter0|divisibleby:4 %}
       <div class="row">
-	<ul class="thumbnails">
-      {% endif %}
+        <ul class="thumbnails">
+    {% endif %}
 
       <li class="span3">
-	<div class="thumbnail">
-	  <a data-depth="30"
-	     data-ajax="body-content-only"
-	     title="{{ post.title }}"
-	     href="{{ post.get_absolute_url }}">
-	    <img src="{{ post.thumbnail.url }}" alt="thumbnail" />
-	  </a>
-	  <div class="caption">
-	    <h5>{{ post.title }}</h5>
+        <div class="thumbnail">
+          <a data-depth="30"
+             data-ajax="body-content-only"
+             title="{{ post.title }}"
+             href="{{ post.get_absolute_url }}">
+            <img src="{{ post.thumbnail.url }}" alt="thumbnail" />
+          </a>
+          <div class="caption">
+            <h5>{{ post.title }}</h5>
 
-	    <section class="description">
-	      {{ post.long_description|markdown }}
-	    </section>
+            <section class="description">
+              {{ post.long_description|markdown }}
+            </section>
 
-	    <p>
-	      <a data-ajax="body-content-only"
-		 data-depth="30"
-		 title="{{ post.title }}"
-		 class="btn btn-info"
-		 href="{{ post.get_absolute_url }}">
-		<i class="icon-plus-sign icon-white"></i>
-		{% trans "Read more" %}
-	      </a>
-	    </p>
-	  </div>
-	</div>
+            <p>
+              <a data-ajax="body-content-only"
+                 data-depth="30"
+                 title="{{ post.title }}"
+                 class="dark-btn"
+                 href="{{ post.get_absolute_url }}">
+                <i class="icon-plus-sign icon-white"></i>
+                {% trans "Read more" %}
+              </a>
+            </p>
+          </div>
+        </div>
 
-	{% if forloop.counter|divisibleby:4 or forloop.last %}
-	  </ul>
+        {% if forloop.counter|divisibleby:4 or forloop.last %}
+          </ul>
       </div>
     {% endif %}
 

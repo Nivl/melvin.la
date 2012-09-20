@@ -66,7 +66,6 @@
 	{% endwith %}
       </div>
     </header>
-
     <section class="content clearfix">
       {{ post.parsed_content|markdown }}
     </section>
@@ -76,11 +75,11 @@
 	<div class="lab-button">
 	  <a data-depth="1"
 	     data-ajax="body-content"
-	     class="btn btn-info lab-project"
+	     class="dark-btn"
 	     data-navbar="#navbar-lab"
 	     title="{% trans "Lab" %}"
 	     href="{{ post.lab.get_absolute_url }}">
-	    <i class="icon-info-sign icon-white"></i>
+	    <i class="icon-info-sign icon-white"></i>&nbsp;
 	    {% trans "Know more" %}
 	  </a>
 	</div>

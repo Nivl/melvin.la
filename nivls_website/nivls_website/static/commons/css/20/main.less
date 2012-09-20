@@ -277,6 +277,25 @@ table {
  * CLASSES
  ****************************************************************************/
 
+.dark-btn {
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    font-weight: bold;
+    color: @white;
+    background-color: #444;
+    padding: 4px 14px;
+    margin-bottom: 0px;
+    display: inline-block;
+    border-radius: 4px;
+    .transition(background-color 0.2s ease-out);
+    font-size: 14px;
+
+    &:hover {
+        background-color: #2f96b4;
+        color: @white;
+        text-decoration: none;
+    }
+}
+
 .sub-header {
     background-color: @navbarBackground;
     #gradient > .radial(@lightBlue, @darkBlue);
@@ -706,6 +725,8 @@ ul.social-medias-icons {
 }
 
 .post-list {
+    font-size: 14px;
+
     h5 {
         height: 32px;
     }
@@ -714,8 +735,18 @@ ul.social-medias-icons {
         margin-left: 0px;
     }
 
-    section.description {
-        height: 115px;
+    .caption {
+        .clearfix();
+
+        section.description {
+            height: 115px;
+        }
+
+        p {
+            a {
+                float: right;
+            }
+        }
     }
 }
 
