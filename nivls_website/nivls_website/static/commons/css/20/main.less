@@ -97,6 +97,13 @@
 /******************************************************************************
  * BOOTSTRAP FIXES
  *****************************************************************************/
+
+a {
+    &:hover{
+        text-decoration: none;
+    }
+}
+
 .carousel-control {
     line-height: 40px;
 }
@@ -702,28 +709,19 @@ ul.social-medias-icons {
         @icon-size: 32px;
 
         &.facebook-icon {
-            .display-icon(left, @icon-size)
+            .display-icon(left, @icon-size);
         }
 
         &.twitter-icon {
-            .display-icon(-@icon-size, @icon-size)
+            .display-icon(-@icon-size, @icon-size);
         }
 
         &.github-icon {
-            .display-icon(-@icon-size * 2, @icon-size)
+            .display-icon(-@icon-size * 2, @icon-size);
         }
 
         &.google-oauth2-icon {
-            .display-icon(-@icon-size * 3, @icon-size)
-        }
-    }
-}
-
-.clean-links {
-    a {
-        text-decoration: none;
-        &:hover {
-            text-decoration: none;
+            .display-icon(-@icon-size * 3, @icon-size);
         }
     }
 }
