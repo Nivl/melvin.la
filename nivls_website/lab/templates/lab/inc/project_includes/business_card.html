@@ -4,14 +4,16 @@
    <div class="item">
      {{ item|square_thumbnail:"126" }}
      <div class="caption">
-       <a data-ajax="body-content-only"
-	  data-depth="40"
-	  title="{{ item.get_full_name }}"
-	  href="{{ item.get_absolute_url }}">
-	 <h5 class="center-text">{{ item.get_full_name }}</h5>
-       </a>
+      <h6>
+        <a data-ajax="body-content-only"
+           data-depth="40"
+           title="{{ item.get_full_name }}"
+           href="{{ item.get_absolute_url }}">
+           {{ item.get_full_name }}
+         </a>
+       </h6>
        <p>
-	 {{ item.get_profile.occupation }}
+         {{ item.get_profile.occupation }}
        </p>
      </div>
    </div>
@@ -19,16 +21,19 @@
   <div class="item">
     <div class="thumbnail">
       <img src="{{ item.image.url }}"
-	   alt="{{ item.name }}"
-	   title="{{ item.name }}"
-	   width="126" height="126">
+           alt="{{ item.name }}"
+           title="{{ item.name }}"
+           width="126" height="126">
     </div>
     <div class="caption">
-      <a href="{{ item.url }}">
-	<h5 class="center-text">{{ item.name }}</h5>
-      </a>
+      <h6>
+        <a href="{{ item.url }}">
+          {{ item.name }}
+        </a>
+      </h6>
+
       <p>
-	{{ item.description }}
+        {{ item.description }}
       </p>
     </div>
   </div>
