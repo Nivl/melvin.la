@@ -11,45 +11,72 @@
 
 {% block "content" %}
 
-  <section class="clean-section">
-    <div class="section-content">
-      <div class="images-box-3d">
-	{% for project in projects %}
-	  <div class="front">
-	    <div class="back">
-	      <h4>{{ project.lab.name }}</h4>
-	      {% for label in project.works.all %}
-		<span>{{ label }}</span>
-	      {% endfor %}
-	      <a data-depth="1"
-		 data-ajax="body-content"
-		 data-navbar="#navbar-lab"
-		 title="{% trans "Lab" %}"
-		 href="{{ project.lab.get_absolute_url }}">→</a>
-	    </div>
+  {% for project in projects %}
+    <section class="clean-section">
+      <h2>{{ project.lab.name }}</h2>
+      <div class="section-content">
+        <div class="section-image-left">
 
-	    <img src="{{ project.screenshot.url }}"
-		 alt="{{ project.lab.name }}" />
-	  </div>
-	{% empty %}
-	  There are no projects
-	{% endfor %}
+          <img src="{{ project.screenshot.url }}"
+               alt="{{ project.lab.name }}"
+               class="img-polaroid img-rounded" />
+        </div>
 
-	<div class="front">
-	  <div class="back">
-	    <h4>{% trans "See more projects" %}</h4>
-	    <span>{% trans "See more projects" %}</span>
-	    <a data-depth="1"
-	       data-ajax="body-content"
-	       data-navbar="#navbar-lab"
-	       title="{% trans "Lab" %}"
-	       href="{% url "lab" %}">→</a>
-	  </div>
+        <div>
+          <div class="info margin-bottom-3">
+            <strong>{% trans "Job(s):" %}</strong>
+            {% for label in project.works.all %}
+              {% if forloop.counter0 > 0 %}
+                -
+              {%endif%}
+              {{ label }}
+            {% endfor %}
+          </div>
 
-	  <img src="{% static "commons/img/portfolio_+.png" %}"
-	       alt="{% trans "See more projects" %}" />
-	</div>
+          <div>
+            {{ project.description|markdown }}
+
+            <a data-depth="1"
+               data-ajax="body-content"
+               data-navbar="#navbar-lab"
+               title="{% trans "Lab" %}"
+               href="{{ project.lab.get_absolute_url }}"
+               class="btn">
+               {% trans "Know more" %}
+             </a>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <hr />
+  {% endfor %}
+
+
+  <section class="clean-section">
+    <h2>{% trans "See more projects" %}</h2>
+    <div class="section-content">
+      <div class="section-image-left">
+
+        <img src="{% static "commons/img/portfolio_+.png" %}"
+             alt="{{ project.lab.name }}"
+             class="img-polaroid img-rounded" />
+      </div>
+
+      <div>
+        <div>
+          {{ project.lab.description|markdown }}
+
+          <a data-depth="1"
+             data-ajax="body-content"
+             data-navbar="#navbar-lab"
+             title="{% trans "Lab" %}"
+             href="{% url "lab" %}"
+             class="btn">
+             {% trans "See more projects" %}
+           </a>
+         </div>
+       </div>
+     </div>
+   </section>
 {% endblock "content" %}

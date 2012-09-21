@@ -162,6 +162,9 @@ class WorkProject(models.Model):
         help_text='350x214 px',
         verbose_name=_("screenshot"))
 
+    description = models.TextField(
+        verbose_name=_("description"))
+
     works = models.ManyToManyField(
         WorkType,
         limit_choices_to={'site': settings.SITE_ID},
