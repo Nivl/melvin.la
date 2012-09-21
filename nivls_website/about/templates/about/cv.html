@@ -33,7 +33,7 @@
 
 {% block "header" %}
   {% if not to_pdf %}
-    {% with act_menu="cv" %}
+    {% with act_menu="cv" page_title="C.V." %}
       {{ block.super }}
     {% endwith %}
   {% endif %}

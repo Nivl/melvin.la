@@ -3,7 +3,7 @@
 {% load tag_lab i18n %}
 
 {% block "header" %}
-  {% with act_menu="lab" %}
+  {% with act_menu="lab" page_title="Lab" %}
     {{ block.super }}
   {% endwith %}
 {% endblock %}
@@ -35,13 +35,14 @@
   <div class="container">
     <div class="row">
       <div id="body-content-only" class="span9">
-	{% block "content" %}{% endblock "content" %}
+        {% block "content" %}{% endblock "content" %}
       </div>
-  {% with act_menu="home" %}
-    {% block "menu" %}
-      {% include "lab/inc/menu.html" %}
-    {% endblock "menu" %}
-  {% endwith %}
+      
+      {% with act_menu="home" %}
+        {% block "menu" %}
+          {% include "lab/inc/menu.html" %}
+        {% endblock "menu" %}
+      {% endwith %}
 
     </div>
   </div>

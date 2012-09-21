@@ -1,12 +1,6 @@
 {% extends "blog/base.html" %}
 {% load blog_tags markup humanize common_tags i18n tz %}
 
-{% block "header" %}
-  {% with act_menu="blog" page_title="Blog" %}
-    {{ block.super }}
-  {% endwith %}
-{% endblock "header" %}
-
 {% block "app_js" %}
   <script>
     reloadShareButtons();

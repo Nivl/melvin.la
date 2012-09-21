@@ -1,12 +1,6 @@
 {% extends "blog/base.html" %}
 {% load blog_tags markup humanize common_tags i18n %}
 
-{% block "header" %}
-  {% with act_menu="blog" page_title="Blog" %}
-    {{ block.super }}
-  {% endwith %}
-{% endblock "header" %}
-
 {% block "sub_head_link" %}
   {% if obj_feed %}
     <link rel="alternate" type="application/atom+xml"

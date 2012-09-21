@@ -2,6 +2,12 @@
 {% load url from future %}
 {% load i18n %}
 
+{% block "header" %}
+  {% with act_menu="blog" page_title="Blog" %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock "header" %}
+
 {% block "head_link" %}
   <link rel="alternate" type="application/atom+xml"
 	title="ATOM Feed" href="{% url "atom-blog-latest" %}" />
