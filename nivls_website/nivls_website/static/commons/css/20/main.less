@@ -379,22 +379,33 @@ table {
 }
 
 .drop-area {
-    border: 10px dashed #BBB;
+    border: 10px dashed @linkColorHover;
+    .border-radius(10px);
     height: 200px;
     margin-bottom: 30px;
+    font-family: FontAwesome;
 
     .transition(background-color 200ms linear);
 
+
+    &:before {
+        content: "\f093";
+        font-size: 150px;
+        position: relative;
+        top: 100px;
+        left: 46%;
+    }
+
     &.valid-drop {
-        background-color: lighten(@green, 5%);
+        color: lighten(@green, 5%);
     }
 
     &.invalid-drop {
-        background-color: lighten(@red, 20%);
+        color: lighten(@red, 20%);
     }
 
     &.dragging {
-        background-color: #FFFF9C !important;
+        color: #FFFF9C !important;
     }
 }
 
