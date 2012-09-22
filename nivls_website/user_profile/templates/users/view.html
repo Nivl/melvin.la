@@ -6,7 +6,9 @@
 {% block body_classes %}span8 offset2{% endblock %}
 
 {% block "content" %}
-  <h1 class="center-text">{% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}</h1>
+  <h1 class="center-text">
+    {% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}
+  </h1>
 
   <div class="pull-left margin-right-2">
     {{ target_user|square_thumbnail:'160' }}
@@ -16,7 +18,9 @@
     <li><strong>{% trans "Name:" %}</strong> {{ target_user.last_name }} {{ target_user.first_name }}
 
     {% if profile.website %}
-      <li><strong>{% trans "Website:" %}</strong> <a href="{{ profile.website }}">{{ profile.website }}</a>
+      <li>
+        <strong>{% trans "Website:" %}</strong>
+        <a href="{{ profile.website }}">{{ profile.website }}</a>
     {% endif %}
 
     {% if profile.occupation %}
@@ -31,6 +35,4 @@
   <ul class="nav nav-pills social-medias-icons">
     {{ target_user|social_user_links }}
   </ul>
-
-</div>
 {% endblock %}
