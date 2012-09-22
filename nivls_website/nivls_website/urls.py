@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import patterns, include, url
-from django.views.generic.simple import direct_to_template
 from django.contrib import admin
+from django.views.generic.base import RedirectView
+from django.conf import settings
 from commons.views import TexplainView
 
 from blog.urls import sitemaps as smap_blog
@@ -34,6 +35,10 @@ urlpatterns += patterns(
 
     url(r'^robots.txt$', TexplainView.as_view(template_name='robots.txt')),
     url(r'^humans.txt$', TexplainView.as_view(template_name='humans.txt')),
+
+    url(r'^favicon.ico$', RedirectView.as_view(
+            url='%s/commons/img/favicon.ico' % settings.STATIC_URL
+            )),
 )
 
 js_info_dict = {
