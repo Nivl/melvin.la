@@ -136,8 +136,6 @@ function storageData() {
 function enableBootstrapEffects() {
     $('.carousel').carousel();
     $('[rel=tooltip]').tooltip();
-    $('.animated-thumbnails > li').hoverdir();
-    $('.images-box-3d').hoverfold();
     $('.form-search .search-query').typeahead({
         updated : function () {
             this.$element.trigger('submit');
