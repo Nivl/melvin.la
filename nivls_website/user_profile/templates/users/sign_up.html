@@ -5,9 +5,13 @@
 {% block "title" %}{% trans "Sign up" %}{% endblock "title" %}
 {% block body_classes %}span10 offset1{% endblock %}
 
-{% block "content" %}
-  <h1 class="centered-text">{% trans "Sign up" %}</h1>
+{% block "header" %}
+  {% with act_menu="user" page_title="Sign up" %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock %}
 
+{% block "content" %}
   <div class="accordion" id="sign-up-accordion">
     <div class="accordion-group">
       <div class="accordion-heading">

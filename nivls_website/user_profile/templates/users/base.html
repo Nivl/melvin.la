@@ -3,6 +3,12 @@
 
 {% block "breadcrumb-classes" %}hide{% endblock %}
 
+{% block "header" %}
+  {% with act_menu="user" %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock %}
+
 {% block "body-content" %}
   <div class="container">
     <div class="row">
