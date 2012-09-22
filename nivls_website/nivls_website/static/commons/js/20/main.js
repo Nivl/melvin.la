@@ -182,12 +182,7 @@ $(function() {
     dropFile();
 
     $(window).konami(function() {
-        $('#konami iframe')
-            .attr('src', 'http://www.youtube.com/embed/MytfhzcSF-Y');
-        $('#konami').modal('toggle');
-        $('#konami').on('hidden', function() {
-            $(this).find('iframe').attr('src', '');
-        });
+        $('body').toggleClass('konami');
     });
 });
 
