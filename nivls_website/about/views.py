@@ -38,7 +38,7 @@ def contact_form(request):
 @require_safe
 def home(request):
     profile = get_object_or_404(Profile, pk=Site.objects.get_current())
-    navigation_links = NavigationLink.objects.all()
+    navigation_links = NavigationLink.objects.filter(site=settings.SITE_ID)
     contact_links = ContactLink.objects.all()
     return render(request, "about/about.html",
                   {'profile': profile,

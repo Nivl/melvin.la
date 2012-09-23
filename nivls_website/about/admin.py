@@ -1,11 +1,18 @@
 from django.contrib import admin
+from django.conf import settings
 from django import forms
 from commons.admin import CommonAdmin, CommonAdminWithSlug
 from models import *
 
 admin.site.register(Profile)
 admin.site.register(ContactLink)
-admin.site.register(NavigationLink)
+
+class NavigationLinkAdmin(admin.ModelAdmin):
+    def queryset(self, request):
+        return super(NavigationLinkAdmin, self).queryset(request) \
+                                               .filter(site=settings.SITE_ID)
+                                               
+admin.site.register(NavigationLink, NavigationLinkAdmin)
 
 admin.site.register(WorkType, CommonAdminWithSlug)
 admin.site.register(WorkProject)
