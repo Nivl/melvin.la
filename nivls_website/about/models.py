@@ -33,7 +33,7 @@ class NavigationLink(models.Model):
 
     image = models.ImageField(
         upload_to="about/navigation_links",
-        help_text="220x165 px",
+        help_text="160x320 px",
         verbose_name=_("image"))
 
     order = models.PositiveSmallIntegerField(
@@ -91,7 +91,7 @@ class ContactLink(models.Model):
 
     image = models.ImageField(
         upload_to="about/contact",
-        help_text="128x128 px",
+        help_text="160x320 px",
         verbose_name=_("image"))
 
     order = models.PositiveSmallIntegerField(
