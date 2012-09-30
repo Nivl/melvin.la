@@ -115,7 +115,9 @@ function preview() {
         .on('input keydown', '[data-parse]', function() {
             var target = $(this).data('parse');
             $(target).html(markdownConverter.makeHtml($(this).val()));
-            $(target).html(prettyPrintOne($(target).html()));
+            $(target).find('code').parent().each(function(){
+                $(this).html(prettyPrintOne($(this).html()));
+            });
         });
 }
 
@@ -142,10 +144,10 @@ function enableBootstrapEffects() {
         }
     });
 }
-
+    
 function styleCode() {
     var a = false;
-
+    
     $("pre code").parent().each(function() {
         if (!$(this).hasClass("prettyprint")) {
             $(this).addClass("prettyprint");
