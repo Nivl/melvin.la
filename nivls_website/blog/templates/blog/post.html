@@ -10,6 +10,15 @@
 
 {% block "title" %}{{ post.title }}{% endblock "title" %}
 
+{% block "breadcrumb-subcontent" %}
+  <li>
+    <span class="divider">/</span>
+    <a data-depth="30" data-ajax="body-content-only" title="{{ post.title }}" href="{{ post.get_absolute_url }}">
+      {{ post.title }}
+    </a>
+  </li>
+{% endblock "breadcrumb-subcontent" %}
+
 {% block "content" %}
   <article class="post">
     <header>

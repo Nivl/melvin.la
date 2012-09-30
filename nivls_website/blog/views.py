@@ -209,11 +209,12 @@ def post_list_by_categories(request, slug):
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(
         request,
-        "blog/post_list.html",
-        {"posts": posts,
-         "obj_name": cat.name,
-         "obj_feed": cat.get_feed_url()
-         })
+        'blog/post_list.html',
+        {'posts': posts,
+         'obj': {'name': cat.name,
+                 'feed': cat.get_feed_url(),
+                 'url': cat.get_absolute_url()}
+          })
 
 
 @require_safe
@@ -226,10 +227,11 @@ def post_list_by_tags(request, slug):
 
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request,
-                  "blog/post_list.html",
-                  {"posts": posts,
-                   "obj_name": tag.name,
-                   "obj_feed": tag.get_feed_url()
+                  'blog/post_list.html',
+                  {'posts': posts,
+                  'obj': {'name': tag.name,
+                          'feed': tag.get_feed_url(),
+                          'url': tag.get_absolute_url()}
                    })
 
 
@@ -261,5 +263,10 @@ def post_list_by_archives(request, year, month=None, day=None):
         raise Http404
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     obj_name = _('Archives from %(date)s') % {'date': archive_date}
-    return render(request, "blog/post_list.html", {"posts": posts,
-                                                   "obj_name": obj_name})
+    return render(request,
+                  "blog/post_list.html",
+                  {"posts": posts,
+                   'obj': {'name': obj_name,
+                           'url': request.path,
+                           'date': archive_date}
+       })

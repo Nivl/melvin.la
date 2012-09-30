@@ -19,10 +19,13 @@
 
 {% block "breadcrumb-content" %}
   <li>
-    <a data-depth="1"
-       data-ajax="body-content-only"
-       title="{% trans "Blog" %}"
-       href="{% url "blog" %}">{% trans "Blog" %}</a>
+    <a data-depth="1" data-ajax="body-content-only" title="{% trans "Blog" %}" href="{% url "blog" %}">
+      {% trans "Blog" %}
+    </a>
+  </li>
+
+  {% block "breadcrumb-subcontent" %}
+  {% endblock "breadcrumb-subcontent" %}
 {% endblock "breadcrumb-content" %}
 
 {% block "body-content" %}
