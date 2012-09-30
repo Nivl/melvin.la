@@ -25,5 +25,5 @@ def tag(request, slug):
 
 @require_safe
 def project(request, slug):
-    p = get_object_or_404(Project, slug=slug)
+    p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
     return render(request, "lab/project.html", {'project': p})
