@@ -105,7 +105,6 @@ PIPELINE_CSS = {
                                   'commons/css/30/main-responsive.less',
                                   ),
              'output_filename': 'commons/compiled/styles.css',
-             'variant': 'datauri',
              },
 
     'error': {'source_filenames': ('commons/css/0/bootstrap.min.css',
@@ -113,7 +112,6 @@ PIPELINE_CSS = {
                                    'commons/css/30/bootstrap-responsive.min.css',
                                    ),
               'output_filename': 'commons/compiled/error.css',
-              'variant': 'datauri',
               },
 }
 
