@@ -2,7 +2,6 @@
 
 <div class="modal hide fade" id="browser-warning">
   <div class="modal-header">
-    <a href="#" class="close" data-dismiss="modal">×</a>
     <h3>{% trans "Browser compatibilities" %}</h3>
   </div>
   <div class="modal-body">
@@ -13,18 +12,18 @@
       {% trans "List of supported bowsers:" %}
       <div class="browser-list">
 
-	<div class="item">
-	  <a href="https://www.google.com/chrome">
-	    <div class="browser-icon-chrome"></div>
-	    <p>Google chrome</p>
-	  </a>
-	</div>
-	<div class="item">
-	  <a href="https://www.mozilla.org/firefox/new/">
-	    <div class="browser-icon-firefox"></div>
-	    <p>Firefox</p>
-	  </a>
-	</div>
+        <div class="item">
+          <a href="https://www.google.com/chrome">
+            <div class="browser-icon-chrome"></div>
+            <p>Google chrome</p>
+          </a>
+        </div>
+        <div class="item">
+          <a href="https://www.mozilla.org/firefox/new/">
+            <div class="browser-icon-firefox"></div>
+            <p>Firefox</p>
+          </a>
+        </div>
       </div>
     </p>
     <p>
@@ -33,10 +32,11 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" data-dismiss="modal">
-      Don't care, I'm a warrior
+      {% trans "Don't care, I'm a warrior" %}
     </button>
+
     <button type="button" class="btn btn-success" data-dismiss="modal">
-      My browser is good
+      {% trans "My browser is good" %}
     </button>
   </div>
 </div>
