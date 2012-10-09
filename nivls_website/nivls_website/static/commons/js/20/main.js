@@ -4,6 +4,7 @@ function replaceAll(txt, replace, with_this) {
     return txt.replace(new RegExp(replace, 'g'),with_this);
 }
 
+
 function reloadJsEffects() {
     styleCode();
     checkForLocalStorage();
@@ -188,9 +189,16 @@ $(function() {
     });
 });
 
+$(document).on('click', '.scroll', function(e) {
+    e.preventDefault();
+    console.log('in');
+    $('html,body').stop().animate({
+        scrollTop: $(this.hash).offset().top
+    }, 500);
+});
 
 function navigationHTML5(){
-
+    
     /***********
      * Nav bar
      **********/
