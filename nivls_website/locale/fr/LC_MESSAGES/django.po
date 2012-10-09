@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-05 11:30-0700\n"
-"PO-Revision-Date: 2012-10-05 20:35+0100\n"
+"POT-Creation-Date: 2012-10-09 11:13-0700\n"
+"PO-Revision-Date: 2012-10-09 20:14+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Laplanche Melvin <LL@li.org>\n"
 "Language: French\n"
@@ -217,7 +217,8 @@ msgstr "Bienvenue sur mon site"
 msgid "My website"
 msgstr "Mon site"
 
-#: about/templates/about/about.html:53
+#: about/templates/about/about.html:60
+#: nivls_website/templates/inc/footer.html:39
 msgid "Be social"
 msgstr ""
 
@@ -278,6 +279,7 @@ msgstr ""
 #: blog/templates/blog/post.html:83 lab/templates/lab/base.html:15
 #: lab/templates/lab/base.html.py:16
 #: lab/templates/lab/templatetags/tags.html:9
+#: nivls_website/templates/inc/footer.html:21
 #: nivls_website/templates/inc/header.html:34
 #: nivls_website/templates/inc/header.html:35
 #: search_engine/templates/search/search.html:43
@@ -439,6 +441,7 @@ msgid "Archives from %(date)s"
 msgstr "Archive de %(date)s"
 
 #: blog/templates/blog/base.html:22 blog/templates/blog/base.html.py:23
+#: nivls_website/templates/inc/footer.html:17
 #: nivls_website/templates/inc/header.html:28
 #: nivls_website/templates/inc/header.html:29
 #: search_engine/templates/search/search.html:41
@@ -761,25 +764,53 @@ msgstr "Je m'en fiche"
 msgid "My browser is good"
 msgstr "Je suis à jour"
 
+#: nivls_website/templates/inc/footer.html:14
+msgid "Navigation links"
+msgstr "Liens de navigation"
+
+#: nivls_website/templates/inc/footer.html:25
 #: nivls_website/templates/inc/header.html:40
 #: nivls_website/templates/inc/header.html:41
 msgid "About"
 msgstr "À propos"
 
+#: nivls_website/templates/inc/footer.html:29
 #: nivls_website/templates/inc/header.html:46
 #: nivls_website/templates/inc/header.html:47
 msgid "Portfolio"
 msgstr ""
 
+#: nivls_website/templates/inc/footer.html:33
 #: nivls_website/templates/inc/header.html:52
 #: nivls_website/templates/inc/header.html:53
 msgid "C.V."
 msgstr ""
 
+#: nivls_website/templates/inc/footer.html:58
 #: nivls_website/templates/inc/header.html:58
 #: nivls_website/templates/inc/header.html:59
 msgid "Contact"
 msgstr ""
+
+#: nivls_website/templates/inc/footer.html:64
+msgid "Actions"
+msgstr ""
+
+#: nivls_website/templates/inc/footer.html:67
+msgid "Go to the top"
+msgstr "Aller en haut de la page"
+
+#: nivls_website/templates/inc/footer.html:71
+msgid "Go to the search form"
+msgstr "Aller à la recherche"
+
+#: nivls_website/templates/inc/footer.html:75
+msgid "Go to the content"
+msgstr "Aller au contenu"
+
+#: nivls_website/templates/inc/footer.html:79
+msgid "Refresh the page"
+msgstr "Recharger la page"
 
 #: nivls_website/templates/inc/header.html:71
 #: nivls_website/templates/inc/header.html:72
@@ -850,7 +881,7 @@ msgstr "Déconnexion"
 #: search_engine/templates/search/search.html:19
 #: search_engine/templates/search/search.html:24
 msgid "Search"
-msgstr ""
+msgstr "Checher"
 
 #: nivls_website/templates/inc/header.html:180
 msgid "Welcome"
@@ -1307,6 +1338,10 @@ msgid "You can update your informations in the user menu."
 msgstr "Vous pouvez mettre à jour vos informations dans le menu utilisateur."
 
 #, fuzzy
+#~ msgid "Featured blog posts"
+#~ msgstr "Il n'y a aucun article."
+
+#, fuzzy
 #~ msgid "Documentation"
 #~ msgstr "emploi"
 
@@ -1321,6 +1356,10 @@ msgstr "Vous pouvez mettre à jour vos informations dans le menu utilisateur."
 #, fuzzy
 #~ msgid "%(name)s"
 #~ msgstr "Bonjour %(uname)s,"
+
+#, fuzzy
+#~ msgid "Recent Actions"
+#~ msgstr "C.V. Sections"
 
 #, fuzzy
 #~ msgid "My Actions"

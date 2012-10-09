@@ -1,34 +1,84 @@
-{% load staticfiles %}
+{% load staticfiles i18n %}
+{% load url from future %}
 
 <footer>
   <div class="container">
     <div class="row">
-      <div class="span12">
-        <p>
-          © 2012. All Right Reserved. Melvin Laplanche<br />
-        </p>
-        <p>
-          <a href="http://www.djangoproject.com/">
-            <img src="{% static "commons/img/django_powered.gif" %}"
-                 alt="A Django site"
-                 title="A Django site">
-          </a>
+      
+      <div class="span3 brand">
+        Laplanche-melv.in
+        <small>© 2012. All rights reserved.</small>
+      </div>
 
-          <a href="http://www.alwaysdata.com/">
-            <img src="{% static "commons/img/alwaysdata.png" %}"
-                 alt="Hosted by Alwaysdata"
-                 title="Hosted by Alwaysdata">
-          </a>
-        </p>
-        <p>
-          <a href="http://www.w3.org/html/logo/">
-            <img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-device-graphics-multimedia-performance-semantics.png"
-                 width="150"
-                 height="37"
-                 alt="HTML5 Powered with CSS3 / Styling, Device Access, Graphics, 3D &amp; Effects, Multimedia, Performance &amp; Integration, and Semantics"
-                 title="HTML5 Powered with CSS3 / Styling, Device Access, Graphics, 3D &amp; Effects, Multimedia, Performance &amp; Integration, and Semantics">
-          </a>
-        </p>
+      <div class="span3">
+        <h5>{% trans "Navigation links" %}</h5>
+        <ul class="unstyled">
+          <li><a href="{% url "blog" %}">
+            <i class="icon-book"></i> {% trans "Blog" %}
+          </a></li>
+
+          <li><a href="{% url "lab" %}">
+            <i class="icon-beaker"></i> {% trans "Lab" %}
+          </a></li>
+
+          <li><a href="{% url "home" %}">
+            <i class="icon-info-sign"></i> {% trans "About" %}
+          </a></li>
+
+          <li><a href="{% url "portfolio" %}">
+            <i class="icon-picture"></i> {% trans "Portfolio" %}
+          </a></li>
+
+          <li><a href="{% url "cv" %}">
+            <i class="icon-user"></i> {% trans "C.V." %}
+          </a></li>
+        </ul>
+      </div>
+
+      <div class="span3">
+        <h5>{% trans "Be social" %}</h5>
+        <ul class="unstyled">
+          <li><a href="https://plus.google.com/107029584179497153748">
+            <i class="icon-google-plus"></i> Google+
+          </a></li>
+
+          <li><a href="https://github.com/Nivl">
+            <i class="icon-github"></i> Github
+          </a></li>
+
+          <li><a href="https://twitter.com/Nivl_">
+            <i class="icon-twitter"></i> Twitter
+          </a></li>
+
+          <li><a href="https://www.facebook.com/melvin.laplanche">
+            <i class="icon-facebook"></i> Facebook
+          </a></li>
+
+          <li><a href="{% url "contact" %}">
+            <i class="icon-envelope"></i> {% trans "Contact" %}
+          </a></li>
+        </ul>
+      </div>
+
+      <div class="span3">
+        <h5>{% trans "Actions" %}</h5>
+        <ul class="unstyled">
+          <li><a href="#body">
+            <i class="icon-circle-arrow-up"></i> {% trans "Go to the top" %}
+          </a></li>
+
+          <li><a href="#sub-header">
+            <i class="icon-search"></i> {% trans "Go to the search form" %}
+          </a></li>
+
+          <li><a href="#body-content">
+            <i class="icon-th-large"></i> {% trans "Go to the content" %}
+          </a></li>
+
+          <li><a href="#" onClick="window.location.reload()">
+            <i class="icon-refresh"></i> {% trans "Refresh the page" %}
+          </a></li>
+        </ul>
       </div>
     </div>
   </div>
