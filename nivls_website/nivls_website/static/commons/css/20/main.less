@@ -736,7 +736,17 @@ article.post {
  * ID
  *****************************************************************************/
 
-#sub-header {
+#bottom-header {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+
+    h2 {
+        text-align: center;
+        color: #444;
+    }
+}
+
+#middle-header {
     background-color: @navbarBackground;
     #gradient > .radial(@lightBlue, @darkBlue);
     height: 160px;
@@ -1043,7 +1053,7 @@ ul#left-menu {
     #gradient > .vertical(@lightPink, @darkPink);
 }
 
-.konami #sub-header {
+.konami #middle-header {
     background-color: @navbarBackground;
     #gradient > .radial(@lightPink, @darkPink);
 

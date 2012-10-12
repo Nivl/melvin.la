@@ -156,7 +156,7 @@
     </div>
   </div>
 
-  <div id="sub-header">
+  <div id="middle-header">
 
     <div class="container">
       <div class="row">
@@ -173,14 +173,25 @@
               </div>
             </form>
 
-          <h1 id="page_title">
-            {% if page_title %}
-              {% trans page_title %}
-            {% else %}
-              {% trans "Welcome" %}
-            {% endif %}
-          </h1>
+            <h1 id="page_title">
+              {% if page_title %}
+                {% trans page_title %}
+              {% else %}
+                {% trans "Welcome" %}
+              {% endif %}
+            </h1>
 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bottom-header">
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <h2 id="page-subtitle">welcome to my website</h2>
         </div>
       </div>
     </div>
