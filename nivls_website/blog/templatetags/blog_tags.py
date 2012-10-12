@@ -12,6 +12,14 @@ def blog_carousel():
     return {'posts': posts}
 
 
+@register.inclusion_tag("blog/templatetags/latest_posts.html")
+def blog_latest_posts(n):
+    posts = Post.objects.filter(is_public=True,
+                                site=Site.objects.get_current()) \
+                        .order_by('-pub_date')[:n]
+    return {'posts': posts}
+
+
 @register.inclusion_tag("blog/templatetags/menus.html")
 def blog_menus():
     menus = Menu.objects.filter(hide=False,

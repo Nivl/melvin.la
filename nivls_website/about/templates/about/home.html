@@ -31,11 +31,18 @@
   </div>
 </section>
 
-<section class="clean-section">
+<hr />
+
+<section class="clean-section-full-length">
   <h2>{% trans "Featured blog posts" %}</h2>
-  <div class="section-content">
-    {% blog_carousel %}
-  </div>
+  {% blog_carousel %}
+</section>
+
+<hr />
+
+<section class="clean-section-full-length">
+  <h2>{% trans "Latest blog posts" %}</h2>
+  {% blog_latest_posts 4 %}
 </section>
 
 {% endblock "body-content" %}
