@@ -200,7 +200,7 @@ textarea::-webkit-input-placeholder{
 
 .navbar .brand {
     .remove-selection();
-    font-weight: 500;
+    font-weight: bold;
     font-size: 26px;
 }
 
@@ -217,9 +217,13 @@ blockquote p {
     margin-bottom: 30px;
 }
 
-.navbar .nav > li > a {
-    padding-right: 5px;
-    padding-left: 5px;
+.navbar .nav > li {
+    font-weight: bolder;
+    
+    & > a {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
 }
 
 .nav-collapse{
