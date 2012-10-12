@@ -6,6 +6,15 @@
  * MIXINS
  *****************************************************************************/
 
+.remove-selection() {
+    cursor: default;
+
+    &::selection {
+        background-color: transparent;
+        color: inherit;
+    }
+}
+
 .transition-delay(@value) {
     -webkit-transition-delay: @value;
     -moz-transition-delay: @value;
@@ -190,6 +199,7 @@ textarea::-webkit-input-placeholder{
 
 
 .navbar .brand {
+    .remove-selection();
     font-weight: 500;
     font-size: 26px;
 }
@@ -874,11 +884,14 @@ ul#left-menu {
         margin-top: 80px;
         text-shadow: 0px 1px 0px #3a3a3a, 0px -1px 0px black;
         color: #615e5e;
+        .remove-selection();
 
         small {
             font-size: @baseFontSize;
             display: block;
             margin-left: 27px;
+
+            .remove-selection();
         }
     }
 
