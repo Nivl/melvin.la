@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls.defaults import patterns, url
 from commons.sitemaps import StaticSitemap
 from sitemaps import MainSitemap
 
@@ -8,6 +8,10 @@ urlpatterns = patterns(
     url(r'^$',
         'home',
         name='home'),
+
+    url(r'^about$',
+        'about',
+        name='about'),
 
     url(r'^contact/form/$',
         'contact_form',
