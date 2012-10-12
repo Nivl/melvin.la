@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 3.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-09 11:13-0700\n"
-"PO-Revision-Date: 2012-10-09 20:14+0100\n"
+"PO-Revision-Date: 2012-10-12 16:58+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Laplanche Melvin <LL@li.org>\n"
 "Language: French\n"
@@ -881,7 +881,7 @@ msgstr "Déconnexion"
 #: search_engine/templates/search/search.html:19
 #: search_engine/templates/search/search.html:24
 msgid "Search"
-msgstr "Checher"
+msgstr "Chercher"
 
 #: nivls_website/templates/inc/header.html:180
 msgid "Welcome"
