@@ -12,37 +12,43 @@
 {% endblock %}
 
 {% block "body-content" %}
-  <div class="row">
-    {% for link in navigation_links %}
-      <div class="span{% widthratio 12 navigation_links|length 1 %}">
-        <div class="big-badge">
-          <div class="foreground" style="background-image:url('{{ link.image.url|safe }}');">
-            <a {{ link.attributes|safe }} href="{{ link.link }}" style="background-image:url('{{ link.image.url|safe }}');">
-            </a>
-          </div>
+  {% for link in navigation_links %}
 
-          <div class="informations">
-            <h4>{{ link.name }}</h4>
-            <p>{{ link.description }}</p>
-          </div>
+    {% if forloop.counter0|divisibleby:4 %}
+      <div class="row">
+    {% endif %}
+
+    <div class="span3">
+      <div class="big-badge">
+        <div class="foreground" style="background-image:url('{{ link.image.url|safe }}');">
+          <a {{ link.attributes|safe }} href="{{ link.link }}" style="background-image:url('{{ link.image.url|safe }}');">
+          </a>
+        </div>
+
+        <div class="informations">
+          <h4>{{ link.name }}</h4>
+          <p>{{ link.description }}</p>
         </div>
       </div>
-    {% endfor %}
-  </div>
-</section>
+    </div>
 
-<hr />
+    {% if forloop.counter|divisibleby:4 or forloop.last %}
+      </div>
+    {% endif %}
+  {% endfor %}
 
-<section class="clean-section-full-length">
-  <h2>{% trans "Featured blog posts" %}</h2>
-  {% blog_carousel %}
-</section>
+  <hr />
 
-<hr />
+  <section class="clean-section-full-length">
+    <h2>{% trans "Featured blog posts" %}</h2>
+    {% blog_carousel %}
+  </section>
 
-<section class="clean-section-full-length">
-  <h2>{% trans "Latest blog posts" %}</h2>
-  {% blog_latest_posts 4 %}
-</section>
+  <hr />
+
+  <section class="clean-section-full-length">
+    <h2>{% trans "Latest blog posts" %}</h2>
+    {% blog_latest_posts 4 %}
+  </section>
 
 {% endblock "body-content" %}
