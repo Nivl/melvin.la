@@ -2,7 +2,6 @@
 {% load blog_tags %}
 
 {% block "content" %}
-  {% blog_carousel %}
   {% include "blog/inc/listing.html" with posts=posts.object_list %}
   {% include "inc/pagination.html" with paginator=posts %}
 {% endblock %}
