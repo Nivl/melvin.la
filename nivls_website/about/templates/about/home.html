@@ -5,12 +5,6 @@
 
 {% block "breadcrumb-classes" %}hide{% endblock %}
 
-{% block "header" %}
-  {% with act_menu="home" %}
-    {{ block.super }}
-  {% endwith %}
-{% endblock %}
-
 {% block "body-content" %}
   {% for link in navigation_links %}
 

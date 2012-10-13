@@ -1,11 +1,8 @@
 {% extends "about/base.html" %}
 {% load i18n %}
 
-{% block "header" %}
-  {% with act_menu="contact" page_title="Contact" %}
-    {{ block.super }}
-  {% endwith %}
-{% endblock %}
+{% block "menu-contact" %} class="active"{% endblock %}
+{% block "page-title" %}{% trans "Contact" %}{% endblock %}
 
 {% block "position" %}span8 offset2{% endblock %}
 

@@ -4,12 +4,7 @@
 
 {% block "title" %}{% trans "Sign up" %}{% endblock "title" %}
 {% block body_classes %}span10 offset1{% endblock %}
-
-{% block "header" %}
-  {% with act_menu="user" page_title="Sign up" %}
-    {{ block.super }}
-  {% endwith %}
-{% endblock %}
+{% block "page-title" %}{% trans "Sign un" %}{% endblock %}
 
 {% block "content" %}
   <div class="accordion" id="sign-up-accordion">

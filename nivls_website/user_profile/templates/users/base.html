@@ -2,12 +2,7 @@
 {% load url from future  %}
 
 {% block "breadcrumb-classes" %}hide{% endblock %}
-
-{% block "header" %}
-  {% with act_menu="user" %}
-    {{ block.super }}
-  {% endwith %}
-{% endblock %}
+{% block "menu-user" %} active{% endblock %}
 
 {% block "body-content" %}
   <div class="container">

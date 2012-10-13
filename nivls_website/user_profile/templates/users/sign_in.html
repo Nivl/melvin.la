@@ -2,14 +2,9 @@
 {% load url from future %}
 {% load i18n %}
 
+{% block "page-title" %}{% trans "Sign in" %}{% endblock %}
 {% block "title" %}{% trans "Sign in" %}{% endblock "title" %}
 {% block body_classes %}span6 offset3{% endblock %}
-
-{% block "header" %}
-  {% with act_menu="user" page_title="Sign in" %}
-    {{ block.super }}
-  {% endwith %}
-{% endblock %}
 
 {% block "content" %}
 

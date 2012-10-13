@@ -4,38 +4,12 @@
 {% load url from future %}
 {% load markup i18n about_tags %}
 
+{% block "menu-cv" %} class="active"{% endblock %}
+{% block "page-title" %}{% trans "C.V." %}{% endblock %}
 
-{% block "local_css" %}
+{% block "header-attributes" %}
   {% if to_pdf %}
-    {% with bootstrap=STATIC_ROOT|add:"/commons/css/0/bootstrap.min.css" main=STATIC_ROOT|add:"/commons/css/20/main.css" compiled=STATIC_ROOT|add:"/commons/compiled/style.css" %}
-      <style>
-	{% ssi bootstrap %}
-	{% ssi main %}
-	{% ssi compiled %}
-
-        body{
-	  background-color: white;
-        }
-
-        #breadcrumb-container{
-          display: none;
-        }
-
-	#body-content{
-          padding-bottom: 0px;
-        }
-      </style>
-    {% endwith %}
-  {% else %}
-    {{ block.super }}
-  {% endif %}
-{% endblock "local_css" %}
-
-{% block "header" %}
-  {% if not to_pdf %}
-    {% with act_menu="cv" page_title="C.V." %}
-      {{ block.super }}
-    {% endwith %}
+    class="hide"
   {% endif %}
 {% endblock %}
 
@@ -45,54 +19,79 @@
   {% endif %}
 {% endblock %}
 
+{% block "local_css" %}
+  {% if to_pdf %}
+    {% with bootstrap=STATIC_ROOT|add:"/commons/css/0/bootstrap.min.css" main=STATIC_ROOT|add:"/commons/css/20/main.css" compiled=STATIC_ROOT|add:"/commons/compiled/style.css" %}
+      <style>
+        {% ssi bootstrap %}
+        {% ssi main %}
+        {% ssi compiled %}
+
+        body{
+          background-color: white;
+        }
+
+        #breadcrumb-container{
+          display: none;
+        }
+
+        #body-content{
+          padding-bottom: 0px;
+        }
+      </style>
+    {% endwith %}
+  {% else %}
+    {{ block.super }}
+  {% endif %}
+{% endblock "local_css" %}
+
 {% block "content" %}
 
   <article class="accordion clean-accordion main-accordion" id="resume">
 
     {% for section in sections %}
       <div class="accordion-group">
-	<h2>
+        <h2>
           <a class="accordion-toggle" data-toggle="collapse"
-	     data-parent="#resume" href="#{{ section.slug }}">
+             data-parent="#resume" href="#{{ section.slug }}">
             {{ section.name }}
           </a>
-	</h2>
+        </h2>
 
-	<section id="{{ section.slug }}" class="collapse{% if forloop.counter == 1 or to_pdf %} in{% endif %}">
+        <section id="{{ section.slug }}" class="collapse{% if forloop.counter == 1 or to_pdf %} in{% endif %}">
 
-	  <div class="block">
-	    <div class="container-fluid">
-	      <div class="row-fluid">
-		{% display_cat section.cvcategory_set.all.0 12 to_pdf %}
-	      </div>
-	    </div>
-	  </div>
-	</section>
+          <div class="block">
+            <div class="container-fluid">
+              <div class="row-fluid">
+                {% display_cat section.cvcategory_set.all.0 12 to_pdf %}
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     {% endfor %}
 
     {% if not to_pdf %}
       <div class="accordion-group">
-	<h2>
-	  <a class="accordion-toggle" data-toggle="collapse"
-	     data-parent="#resume" href="#downloads">{% trans "Downloads" %}</a>
-	</h2>
-	<section id="downloads" class="collapse">
-	  <div class="block">
-	    <div class="container-fluid">
-	      <div class="row-fluid">
-		<div class="span12">
-		  <h3>{% trans "Downloads" %}</h3>
-		  <ul>
-		    <li><a href="{% url "cv_pdf" %}">
-			{% trans "Download this C.V. as PDF" %}
-		      </a>
-		  </ul>
-		</div>
-	      </div>
-	    </div>
-	  </div>
-	</section>
+        <h2>
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#resume" href="#downloads">{% trans "Downloads" %}</a>
+        </h2>
+        <section id="downloads" class="collapse">
+          <div class="block">
+            <div class="container-fluid">
+              <div class="row-fluid">
+                <div class="span12">
+                  <h3>{% trans "Downloads" %}</h3>
+                  <ul>
+                    <li><a href="{% url "cv_pdf" %}">
+                        {% trans "Download this C.V. as PDF" %}
+                      </a>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     {% endif %}
   </article>

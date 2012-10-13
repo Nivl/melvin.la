@@ -2,18 +2,12 @@
 {% load url from future %}
 {% load tag_lab i18n %}
 
-{% block "header" %}
-  {% with act_menu="lab" page_title="Lab" %}
-    {{ block.super }}
-  {% endwith %}
-{% endblock %}
+{% block "menu-lab" %} class="active"{% endblock %}
+{% block "page-title" %}{% trans "Lab" %}{% endblock %}
 
 {% block "breadcrumb-content" %}
   <li>
-    <a data-depth="1"
-       data-ajax="body-content-only"
-       title="{% trans "Lab" %}"
-       href="{% url "lab" %}">{% trans "Lab" %}</a>
+    <a data-depth="1" data-ajax="body-content-only" title="{% trans "Lab" %}" href="{% url "lab" %}">{% trans "Lab" %}</a>
 {% endblock "breadcrumb-content" %}
 
 {% block "body-content" %}
