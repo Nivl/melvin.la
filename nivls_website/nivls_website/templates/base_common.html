@@ -7,7 +7,10 @@
 {% endblock %}
 
 {% block "body" %}
-  {% include "inc/browser_warning.html" %}
+
+  {% if not request.is_ajax %}
+    {% include "inc/browser_warning.html" %}
+  {% endif %}
 
   <header {% block "header-attributes" %}{% endblock %}>
     <div class="container">
@@ -32,37 +35,37 @@
                   <ul id="navbar-main-list" class="nav pull-right">
 
                     <li id="navbar-blog" {% block "menu-blog" %}{% endblock %}>
-                      <a data-depth="1" title="{% trans "Blog" %}" data-subtitle="{% trans "Where I tell my life story" %}" data-ajax="body-content" href="{% url "blog" %}">
+                      <a data-depth="1" title="{% trans "Blog" %}" data-ajax="body-content" href="{% url "blog" %}">
                         {% trans "Blog" %}
                       </a>
                     </li>
 
                     <li id="navbar-lab" {% block "menu-lab" %}{% endblock %}>
-                      <a data-depth="1" data-ajax="body-content" data-subtitle="{% trans "Where I present my projects" %}" href="{% url "lab" %}" title="{% trans "Lab" %}">
+                      <a data-depth="1" data-ajax="body-content" href="{% url "lab" %}" title="{% trans "Lab" %}">
                         {% trans "Lab" %}
                       </a>
                     </li>
 
                     <li id="navbar-about" {% block "menu-about" %}{% endblock %}>
-                      <a data-depth="0" rel="author" data-ajax="body-content" title="{% trans "About" %}" data-subtitle="{% trans "Where you learn more about me" %}" href="{% url "about" %}">
+                      <a data-depth="0" rel="author" data-ajax="body-content" title="{% trans "About" %}" href="{% url "about" %}">
                         {% trans "About" %}
                       </a>
                     </li>
 
                     <li id="navbar-portfolio" {% block "menu-portfolio" %}{% endblock %}>
-                      <a data-depth="0" data-ajax="body-content" title="{% trans "Portfolio" %}" data-subtitle="{% trans "Where my professional projects are" %}" href="{% url "portfolio" %}">
+                      <a data-depth="0" data-ajax="body-content" title="{% trans "Portfolio" %}" href="{% url "portfolio" %}">
                         {% trans "Portfolio" %}
                       </a>
                     </li>
 
                     <li id="navbar-cv" {% block "menu-cv" %}{% endblock %}>
-                      <a data-depth="0" data-ajax="body-content" title="{% trans "C.V." %}" data-subtitle="{% trans "Where I get hired" %}" href="{% url "cv" %}">
+                      <a data-depth="0" data-ajax="body-content" title="{% trans "C.V." %}" href="{% url "cv" %}">
                         {% trans "C.V." %}
                       </a>
                     </li>
 
                     <li id="navbar-contact" {% block "menu-contact" %}{% endblock %}>
-                      <a data-depth="0" data-ajax="body-content" title="{% trans "Contact" %}" data-subtitle="{% trans "Where we get in touch" %}" href="{% url "contact" %}">
+                      <a data-depth="0" data-ajax="body-content" title="{% trans "Contact" %}" href="{% url "contact" %}">
                         {% trans "Contact" %}
                       </a>
                     </li>
@@ -178,7 +181,7 @@
                 </div>
               </form>
 
-              <h1 id="page_title">
+              <h1 id="page-title">
                 {% block "page-title" %}{% trans "Welcome" %}{% endblock %}
               </h1>
 

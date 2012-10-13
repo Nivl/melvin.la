@@ -296,22 +296,21 @@ function navigationHTML5(){
             });
         }
 
-        if (State.data['page_title'] !== null) {
-            $('#page_title').html(State.data['page_title']);
-        }
-
-        if (State.data['page_subtitle'] !== undefined
-            && State.data['page_subtitle'] !== null
-            && State.data['page_subtitle'].length) {
-            $('#page-subtitle').html(State.data['page_subtitle']);
-        }
-
-
         $('#loading-msg').fadeIn();
         $.get(relativeURL, function(html){
+            var i;
             var response = $('<html />').html(html);
-            var to_change = ['#local_link', action];
-            for (var i=0; i<to_change.length; i++) {
+            var to_change = [];
+
+            // Replace without fade
+            to_change = ['#page-title', '#page-subtitle'];
+            for (i=0; i<to_change.length; i++) {
+                $(to_change[i]).html(response.find(to_change[i])
+                                             .html());
+            }
+            // Replace with fades
+            to_change = ['#local_link', action];
+            for (i=0; i<to_change.length; i++) {
                 $(to_change[i]).hide().html(response
                                             .find(to_change[i])
                                             .html()).fadeIn();
@@ -368,23 +367,16 @@ function navigationHTML5(){
         var breadcrumb = getNewBreadcrumb(that);
         var navbar_id = $('#navbar-main-list > li.active').prop('id');
         var lab_tag_id = $('#lab-nav-list .active').parents('a').prop('id');
-        var page_title = null;
         var page_subtitle = $(that).data('subtitle');
 
         if (typeof _gaq !== 'undefined') {
             _gaq.push(['_trackPageview', url]);
         }
 
-        if ($(that).data('depth') <= 1) {
-            page_title = title;
-        }
-
         options = {'url': window.location.pathname};
         window.History.pushState({'breadcrumb': breadcrumb.html(),
                                   'action': action,
                                   'navbar_id': navbar_id,
-                                  'page_title': page_title,
-                                  'page_subtitle': page_subtitle,
                                   'lab_tag_id': lab_tag_id},
                                   title,
                                   url);
