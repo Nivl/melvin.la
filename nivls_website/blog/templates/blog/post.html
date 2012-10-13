@@ -25,48 +25,46 @@
       <h2>{{ post.title }}</h2>
 
       <div class="pull-right share-btn">
-	<div class="g-plusone item" data-size="small"></div>
+        <div class="g-plusone item" data-size="small"></div>
       </div>
 
       <div class="info">
-	{% trans "By " %}
-	{% if post.author.get_profile.use_name %}
-	  {{ post.author.get_full_name }},
-	{% else %}
-	  {{ post.author }},
+        {% trans "By " %}
+        {% if post.author.get_profile.use_name %}
+          {{ post.author.get_full_name }},
+        {% else %}
+          {{ post.author }},
         {% endif %}
-	<time datetime="{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}">
-	  {{ post.pub_date|naturalday }}
-	</time>
-	{% trans "In: " %}<a data-ajax="body-content-only"
-			     data-depth="10"
-			     href="{{ post.category.get_absolute_url }}">
-	  {{ post.category }}
-	</a>
-	{% with post.tags.all as tags %}
-	  {% if tags %}
-	    <br />
-	    <i class="icon-tags"></i>
-	    {% for tag in tags %}
-	      <a data-ajax="body-content-only"
-	 	 data-depth="10"
-		 href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
-	    {% endfor %}
-	  {% endif %}
-	{% endwith %}
-	{% with post.i18n.all as rels %}
-	  {% if rels %}
-	    <br />
-	    {% trans "Available in: " %}
-	    {% for rel in rels %}
-	      <a href="http://{{ rel.site.site }}{{ rel.get_absolute_url }}">
-		<img class="flag" width="16" height="11"
-		     src="{{ rel.site.flag.url }}">
-	      </a>
-	      {% if not forloop.last %}&nbsp;{% endif %}
-	    {% endfor %}
-	  {% endif %}
-	{% endwith %}
+        <time datetime="{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}">
+          {{ post.pub_date|naturalday }}
+        </time>
+        {% trans "In: " %}<a data-ajax="body-content-only"
+                             data-depth="10"
+                             href="{{ post.category.get_absolute_url }}">
+          {{ post.category }}
+        </a>
+        {% with post.tags.all as tags %}
+          {% if tags %}
+            <br />
+            <i class="icon-tags"></i>
+            {% for tag in tags %}
+              <a data-ajax="body-content-only" data-depth="10" href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        {% with post.i18n.all as rels %}
+          {% if rels %}
+            <br />
+            {% trans "Available in: " %}
+            {% for rel in rels %}
+              <a href="http://{{ rel.site.site }}{{ rel.get_absolute_url }}">
+                <img class="flag" width="16" height="11"
+                     src="{{ rel.site.flag.url }}">
+              </a>
+              {% if not forloop.last %}&nbsp;{% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
       </div>
     </header>
     <section class="content clearfix">
@@ -75,20 +73,15 @@
 
     <footer id="post-footer">
       {% if post.lab %}
-	<div class="lab-button">
-	  <a data-depth="1"
-	     data-ajax="body-content"
-	     class="btn"
-	     data-navbar="#navbar-lab"
-	     title="{% trans "Lab" %}"
-	     href="{{ post.lab.get_absolute_url }}">
-	    <i class="icon-info-sign icon-white"></i>&nbsp;
-	    {% trans "Know more" %}
-	  </a>
-	</div>
-	{% endif %}
+        <div class="lab-button">
+          <a data-depth="1" data-ajax="body-content" class="btn" data-navbar="#navbar-lab" title="{% trans "Lab" %}" data-subtitle="{% trans "Where I present my projects" %}" href="{{ post.lab.get_absolute_url }}">
+            <i class="icon-info-sign icon-white"></i>&nbsp;
+            {% trans "Know more" %}
+          </a>
+        </div>
+        {% endif %}
 
-	{% include "blog/inc/comment.html" with post=post form=form %}
+        {% include "blog/inc/comment.html" with post=post form=form %}
     </footer>
   </article>
 {% endblock %}

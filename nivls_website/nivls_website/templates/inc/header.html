@@ -25,37 +25,37 @@
                 <ul id="navbar-main-list" class="nav pull-right">
 
                   <li id="navbar-blog" {% ifequal act_menu "blog" %} class="active"{% endifequal %}>
-                    <a data-depth="1" title="{% trans "Blog" %}" data-ajax="body-content" href="{% url "blog" %}">
+                    <a data-depth="1" title="{% trans "Blog" %}" data-subtitle="{% trans "Where I tell my life story" %}" data-ajax="body-content" href="{% url "blog" %}">
                       {% trans "Blog" %}
                     </a>
                   </li>
 
                   <li id="navbar-lab" {% ifequal act_menu "lab" %} class="active"{% endifequal %}>
-                    <a data-depth="1" data-ajax ="body-content" href="{% url "lab" %}" title="{% trans "Lab" %}">
+                    <a data-depth="1" data-ajax ="body-content" data-subtitle="{% trans "Where I present my projects" %}" href="{% url "lab" %}" title="{% trans "Lab" %}">
                       {% trans "Lab" %}
                     </a>
                   </li>
 
                   <li id="navbar-about" {% ifequal act_menu "home" %} class="active"{% endifequal %}>
-                    <a data-depth="0" rel="author" data-ajax="body-content" title="{% trans "About" %}" href="{% url "about" %}">
+                    <a data-depth="0" rel="author" data-ajax="body-content" title="{% trans "About" %}" data-subtitle="{% trans "Where you learn more about me" %}" href="{% url "about" %}">
                       {% trans "About" %}
                     </a>
                   </li>
 
                   <li id="navbar-portfolio" {% ifequal act_menu "portfolio" %} class="active"{% endifequal %}>
-                    <a data-depth="0" data-ajax="body-content" title="{% trans "Portfolio" %}" href="{% url "portfolio" %}">
+                    <a data-depth="0" data-ajax="body-content" title="{% trans "Portfolio" %}" data-subtitle="{% trans "Where my professional projects are" %}" href="{% url "portfolio" %}">
                       {% trans "Portfolio" %}
                     </a>
                   </li>
 
                   <li id="navbar-cv" {% ifequal act_menu "cv" %} class="active"{% endifequal %}>
-                    <a data-depth="0" data-ajax="body-content" title="{% trans "C.V." %}" href="{% url "cv" %}">
+                    <a data-depth="0" data-ajax="body-content" title="{% trans "C.V." %}" data-subtitle="{% trans "Where I get hired" %}" href="{% url "cv" %}">
                       {% trans "C.V." %}
                     </a>
                   </li>
 
                   <li id="navbar-contact" {% ifequal act_menu "contact" %} class="active"{% endifequal %}>
-                    <a data-depth="0" data-ajax="body-content" title="{% trans "Contact" %}" href="{% url "contact" %}">
+                    <a data-depth="0" data-ajax="body-content" title="{% trans "Contact" %}" data-subtitle="{% trans "Where you can contact me" %}" href="{% url "contact" %}">
                       {% trans "Contact" %}
                     </a>
                   </li>
@@ -175,7 +175,7 @@
 
             <h1 id="page_title">
               {% if page_title %}
-                {% trans page_title %}
+                {{ page_title }}
               {% else %}
                 {% trans "Welcome" %}
               {% endif %}
@@ -191,7 +191,13 @@
     <div class="container">
       <div class="row">
         <div class="span12">
-          <h2 id="page-subtitle">welcome to my website</h2>
+          <h2 id="page-subtitle">
+            {% if page_subtitle %}
+              {{ page_subtitle }}
+            {% else %}
+              {% trans "Welcome to my website" %}
+            {% endif %}
+          </h2>
         </div>
       </div>
     </div>
