@@ -4,6 +4,7 @@
 {% load markup i18n staticfiles blog_tags %}
 
 {% block "breadcrumb-classes" %}hide{% endblock %}
+{% block "page-subtitle" %}{% trans "Welcome to my website" %}{% endblock %}
 
 {% block "body-content" %}
   {% for link in navigation_links %}

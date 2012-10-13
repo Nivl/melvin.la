@@ -1,15 +1,16 @@
 {% extends "base_common.html" %}
-{% load url from future  %}
+{% load url from future %}
+{% load i18n %}
 
 {% block "breadcrumb-classes" %}hide{% endblock %}
 {% block "menu-user" %} active{% endblock %}
+{% block "page-subtitle" %}{% trans "Where you have access to your data" %}{% endblock %}
 
 {% block "body-content" %}
   <div class="container">
     <div class="row">
-      <div id="body-content-only"
-	   class="{% block body_classes %}span12{% endblock %}">
-	{% block "content" %}{% endblock "content" %}
+      <div id="body-content-only" class="{% block body_classes %}span12{% endblock %}">
+        {% block "content" %}{% endblock "content" %}
       </div>
     </div>
   </div>

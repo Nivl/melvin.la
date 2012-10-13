@@ -62,7 +62,7 @@
                     </li>
 
                     <li id="navbar-contact" {% block "menu-contact" %}{% endblock %}>
-                      <a data-depth="0" data-ajax="body-content" title="{% trans "Contact" %}" data-subtitle="{% trans "Where you can contact me" %}" href="{% url "contact" %}">
+                      <a data-depth="0" data-ajax="body-content" title="{% trans "Contact" %}" data-subtitle="{% trans "Where we get in touch" %}" href="{% url "contact" %}">
                         {% trans "Contact" %}
                       </a>
                     </li>
@@ -203,7 +203,7 @@
         <div class="row">
           <div class="span12">
             <h2 id="page-subtitle">
-              {% block page_subtitle %}{% trans "Welcome to my website" %}{% endblock %}
+              {% block "page-subtitle" %}{% trans "Where you have access to your data" %}{% endblock %}
             </h2>
           </div>
         </div>
