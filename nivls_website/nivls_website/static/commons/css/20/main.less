@@ -303,8 +303,14 @@ h2 {
 }
 
 .breadcrumb {
-    background-color: @white;
-    border: 1px solid @borderColor;
+    background-color: transparent;
+
+    li {
+        a {
+            color: @textColor;
+            text-shadow: 0px 1px 0px #0281C2;
+        }
+    }
 
     .divider {
         color: @textColor;
