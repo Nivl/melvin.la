@@ -7,8 +7,13 @@
 {% block "page-subtitle" %}{% trans "Where I present my projects" %}{% endblock %}
 
 {% block "breadcrumb-content" %}
+  <li><span class="divider">/</span>
   <li>
-    <a data-depth="1" data-ajax="body-content-only" title="{% trans "Lab" %}" href="{% url "lab" %}">{% trans "Lab" %}</a>
+    <a data-depth="1" data-ajax="body-content-only" title="{% trans "Lab" %}" href="{% url "lab" %}">
+      {% trans "Lab" %}
+    </a>
+
+    {% block "breadcrumb-subcontent" %}{% endblock "breadcrumb-subcontent" %}
 {% endblock "breadcrumb-content" %}
 
 {% block "body-content" %}
@@ -32,7 +37,7 @@
       <div id="body-content-only" class="span9">
         {% block "content" %}{% endblock "content" %}
       </div>
-      
+
       {% with act_menu="home" %}
         {% block "menu" %}
           {% include "lab/inc/menu.html" %}

@@ -47,25 +47,25 @@
                     </li>
 
                     <li id="navbar-about" {% block "menu-about" %}{% endblock %}>
-                      <a data-depth="0" rel="author" data-ajax="body-content" title="{% trans "About" %}" href="{% url "about" %}">
+                      <a data-depth="1" rel="author" data-ajax="body-content" title="{% trans "About" %}" href="{% url "about" %}">
                         {% trans "About" %}
                       </a>
                     </li>
 
                     <li id="navbar-portfolio" {% block "menu-portfolio" %}{% endblock %}>
-                      <a data-depth="0" data-ajax="body-content" title="{% trans "Portfolio" %}" href="{% url "portfolio" %}">
+                      <a data-depth="1" data-ajax="body-content" title="{% trans "Portfolio" %}" href="{% url "portfolio" %}">
                         {% trans "Portfolio" %}
                       </a>
                     </li>
 
                     <li id="navbar-cv" {% block "menu-cv" %}{% endblock %}>
-                      <a data-depth="0" data-ajax="body-content" title="{% trans "C.V." %}" href="{% url "cv" %}">
+                      <a data-depth="1" data-ajax="body-content" title="{% trans "C.V." %}" href="{% url "cv" %}">
                         {% trans "C.V." %}
                       </a>
                     </li>
 
                     <li id="navbar-contact" {% block "menu-contact" %}{% endblock %}>
-                      <a data-depth="0" data-ajax="body-content" title="{% trans "Contact" %}" href="{% url "contact" %}">
+                      <a data-depth="1" data-ajax="body-content" title="{% trans "Contact" %}" href="{% url "contact" %}">
                         {% trans "Contact" %}
                       </a>
                     </li>
@@ -77,83 +77,82 @@
 
                       <ul class="dropdown-menu">
                         {% if not user.is_authenticated %}
-                        <li>
-                          <a data-ajax="body-content" data-depth="0" title="{% trans "Sign up" %}" href="{% url "sign-up" %}">
-                            {% trans "Sign up" %}
-                          </a>
-                        </li>
+                          <li>
+                            <a data-ajax="body-content" data-depth="1" title="{% trans "Sign up" %}" href="{% url "sign-up" %}">
+                              {% trans "Sign up" %}
+                            </a>
+                          </li>
 
-                        <li>
-                          <a data-ajax="body-content" data-depth="0" title="{% trans "I lost my password" %}" href="{% url 'reset-password' %}">
-                            {% trans "I lost my password" %}
-                          </a>
-                        </li>
+                          <li>
+                            <a data-ajax="body-content" data-depth="1" title="{% trans "I lost my password" %}" href="{% url 'reset-password' %}">
+                              {% trans "I lost my password" %}
+                            </a>
+                          </li>
 
-                        <li class="divider"></li>
+                          <li class="divider"></li>
 
-                        <li class="login-box">
-                          <h5>{% trans "Sign in" %}</h5>
+                          <li class="login-box">
+                            <h5>{% trans "Sign in" %}</h5>
 
-                          <div class="social-media-box clearfix">
-                            <p class="login-sm pull-left">
-                              {% trans "Sign in with:" %}
-                            </p>
+                            <div class="social-media-box clearfix">
+                              <p class="login-sm pull-left">
+                                {% trans "Sign in with:" %}
+                              </p>
 
-                            <ul class="nav nav-pills social-medias-icons">
-                              {{ social_auth.backends|social_sign_in_links:request }}
-                            </ul>
-                          </div>
+                              <ul class="nav nav-pills social-medias-icons">
+                                {{ social_auth.backends|social_sign_in_links:request }}
+                              </ul>
+                            </div>
 
-                          <p>{% trans "Or sign in using your account:" %}</p>
+                            <p>{% trans "Or sign in using your account:" %}</p>
 
-                          <form action="{% url "sign-in" %}" method="post">
-                            {% csrf_token %}
-                            <input placeholder="{% trans "Username" %}" id="id_username" name="username" type="text" />
-                            <input placeholder="{% trans "Password" %}" type="password" id="id_password" name="password" />
-                            <input type="hidden"name="next" value="{{ request.get_full_path }}" />
-                            <input value="{% trans "Sign in" %}" class="btn btn-primary" type="submit" />
-                          </form>
-                        </li>
+                            <form action="{% url "sign-in" %}" method="post">
+                              {% csrf_token %}
+                              <input placeholder="{% trans "Username" %}" id="id_username" name="username" type="text" />
+                              <input placeholder="{% trans "Password" %}" type="password" id="id_password" name="password" />
+                              <input type="hidden"name="next" value="{{ request.get_full_path }}" />
+                              <input value="{% trans "Sign in" %}" class="btn btn-primary" type="submit" />
+                            </form>
+                          </li>
 
                         {% else %}
+                          <li class="nav-header center-text">
+                            {{ user.username }}
+                          </li>
 
-                        <li class="nav-header center-text">
-                          {{ user.username }}
-                        </li>
+                          <li class="divider"></li>
 
-                        <li class="divider"></li>
+                          <li>
+                            <a data-ajax="body-content" data-depth="1" title="{% trans "My profile" %}" href="{{ user.get_absolute_url }}">
+                              <i class="icon-user"></i> {% trans "My profile" %}
+                            </a>
+                          </li>
 
-                        <li>
-                          <a data-ajax="body-content" data-depth="0" title="{% trans "My profile" %}" href="{{ user.get_absolute_url }}">
-                            <i class="icon-user"></i> {% trans "My profile" %}
-                          </a>
-                        </li>
+                          <li {% if not user.get_profile.has_password %} class="important"{% endif %}>
+                            <a data-ajax="body-content" data-depth="1" title="{% trans "Edit my account" %}" href="{% url "edit-account" %}">
+                              <i class="icon-edit"></i> {% trans "Edit my account" %}
+                            </a>
+                          </li>
 
-                        <li {% if not user.get_profile.has_password %} class="important"{% endif %}>
-                          <a data-ajax="body-content" data-depth="0" title="{% trans "Edit my account" %}" href="{% url "edit-account" %}">
-                            <i class="icon-edit"></i> {% trans "Edit my account" %}
-                          </a>
-                        </li>
+                          <li>
+                            <a data-ajax="body-content" data-depth="1" title="{% trans "Edit my profile picture" %}" href="{% url "edit-picture" %}">
+                              <i class="icon-camera"></i> {% trans "Edit my profile picture" %}
+                            </a>
+                          </li>
 
-                        <li>
-                          <a data-ajax="body-content" data-depth="0" title="{% trans "Edit my profile picture" %}" href="{% url "edit-picture" %}">
-                            <i class="icon-camera"></i> {% trans "Edit my profile picture" %}
-                          </a>
-                        </li>
+                          <li>
+                            <a data-ajax="body-content" data-depth="1" title="{% trans "Social media accounts" %}" href="{% url "manage-social-account" %}">
+                              <i class="icon-tasks"></i> {% trans "Social media accounts" %}
+                            </a>
+                          </li>
 
-                        <li>
-                          <a data-ajax="body-content" data-depth="0" title="{% trans "Social media accounts" %}" href="{% url "manage-social-account" %}">
-                            <i class="icon-tasks"></i> {% trans "Social media accounts" %}
-                          </a>
-                        </li>
+                          <li class="divider"></li>
 
-                        <li class="divider"></li>
-
-                        <li>
-                          <a href="{% url "sign-out" %}?next={{ request.get_full_path }}">
-                            <i class="icon-off"></i> {% trans "Sign out" %}
-                          </a>
-                        </li>
+                          <li>
+                            <a href="{% url "sign-out" %}?next={{ request.get_full_path }}">
+                              <i class="icon-off"></i> {% trans "Sign out" %}
+                            </a>
+                          </li>
                         {% endif %}
                       </ul>
                     </li>
@@ -172,7 +171,7 @@
           <div class="span12">
             <div class="wrapper">
 
-              <form method="get" action="{% url "haystack_search" %}" data-ajax="body-content" class="form-search navbar-search pull-right" data-depth="0" title="{% trans "Search" %}">
+              <form method="get" action="{% url "haystack_search" %}" data-ajax="body-content" class="form-search navbar-search pull-right" data-depth="1" title="{% trans "Search" %}">
                 <div class="input-append">
                   <input type="text" class="search-query" placeholder="Search" name="q" data-provide="typeahead" data-items="6">
                   <button type="submit" class="btn">
@@ -190,9 +189,12 @@
         </div>
 
         <div class="row margin-top-1">
-          <div class="span12">
+          <div class="span12 clearfix">
             {% block "breadcrumb" %}
-              <ul id="breadcrumb" class="breadcrumb {% block "breadcrumb-classes" %}{% endblock %}">
+              <ul id="breadcrumb" class="breadcrumb">
+                <li> {% trans "You are here" %}
+                <li><span class="divider">→</span>
+                <li><a href="{% url "home" %}">{% trans "Home" %}</a>
                 {% block "breadcrumb-content" %}{% endblock %}
               </ul>
             {% endblock "breadcrumb" %}

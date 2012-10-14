@@ -1,7 +1,17 @@
 {% extends "users/base.html" %}
 {% load i18n staticfiles %}
+{% load url from future %}
 
 {% block "title" %}{% trans "Edit my profile picture" %}{% endblock "title" %}
+
+{% block "breadcrumb-content" %}
+  <li><span class="divider">/</span>
+  <li>
+    <a data-depth="1" data-ajax="body-content" title="{% trans "Edit my profile picture" %}" href="{% url "edit-picture" %}">
+     {% trans "Edit my profile picture" %}
+    </a>
+  </li>
+{% endblock "breadcrumb-content" %}
 
 {% block "content" %}
   <h2 class="center-text">

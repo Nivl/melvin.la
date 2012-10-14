@@ -6,6 +6,15 @@
 {% block "title" %}{% trans "Sign in" %}{% endblock "title" %}
 {% block body_classes %}span6 offset3{% endblock %}
 
+{% block "breadcrumb-content" %}
+  <li><span class="divider">/</span>
+  <li>
+    <a data-depth="1" data-ajax="body-content" title="{% trans "Sign in" %}" href="{% url 'sign-in' %}">
+      {% trans "Sign in" %}
+    </a>
+  </li>
+{% endblock "breadcrumb-content" %}
+
 {% block "content" %}
 
   {% if success %}

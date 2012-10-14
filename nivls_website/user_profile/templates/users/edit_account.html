@@ -1,8 +1,18 @@
 {% extends "users/base.html" %}
 {% load i18n bootstrap staticfiles %}
+{% load url from future %}
 
 {% block "title" %}{% trans "Edit my account" %}{% endblock "title" %}
-{
+
+{% block "breadcrumb-content" %}
+  <li><span class="divider">/</span>
+  <li>
+    <a data-depth="1" data-ajax="body-content" title="{% trans "Edit my account" %}" href="{% url 'edit-account' %}">
+      {% trans "Edit my account" %}
+    </a>
+  </li>
+{% endblock "breadcrumb-content" %}
+
 {% block "content" %}
   <div class="row">
     <div class="span5">

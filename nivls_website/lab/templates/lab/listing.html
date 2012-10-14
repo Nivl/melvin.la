@@ -3,6 +3,17 @@
 {% load tag_lab %}
 {% load url from future %}
 
+{% block "breadcrumb-subcontent" %}
+  {% if tag %}
+    <li><span class="divider">/</span>
+    <li>
+      <a data-depth="20" data-ajax="body-content" title="{{ tag.name }}" href="{{ tag.get_absolute_url }}">
+        {{ tag.name }}
+      </a>
+    </li>
+  {% endif %}
+{% endblock "breadcrumb-subcontent" %}
+
 {% if tag %}
   {% block "menu" %}
     {% with act_menu=menu_name %}

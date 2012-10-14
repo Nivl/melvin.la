@@ -3,13 +3,19 @@
 {% load i18n bootstrap user_tags %}
 
 {% block "title" %}{% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}{% endblock "title" %}
+{% block "page-subtitle" %}{% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}{% endblock %}
 {% block body_classes %}span8 offset2{% endblock %}
 
-{% block "content" %}
-  <h1 class="center-text">
-    {% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}
-  </h1>
+{% block "breadcrumb-content" %}
+  <li><span class="divider">/</span>
+  <li>
+    <a data-depth="1" data-ajax="body-content" title="{% trans "View profile" %}" href="{{ target_user.get_absolute_url }}">
+     {% trans "View profile" %}
+    </a>
+  </li>
+{% endblock "breadcrumb-content" %}
 
+{% block "content" %}
   <div class="pull-left margin-right-2">
     {{ target_user|square_thumbnail:'160' }}
   </div>

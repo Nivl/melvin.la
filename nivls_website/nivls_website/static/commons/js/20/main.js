@@ -145,10 +145,10 @@ function enableBootstrapEffects() {
         }
     });
 }
-    
+
 function styleCode() {
     var a = false;
-    
+
     $("pre code").parent().each(function() {
         if (!$(this).hasClass("prettyprint")) {
             $(this).addClass("prettyprint");
@@ -198,7 +198,7 @@ $(document).on('click', '.scroll', function(e) {
 });
 
 function navigationHTML5(){
-    
+
     /***********
      * Nav bar
      **********/
@@ -323,18 +323,21 @@ function navigationHTML5(){
     function getNewBreadcrumb(that) {
         var breadcrumb = $('#breadcrumb').clone();
 
-        if ($(that).data('depth') === 0) {
-            breadcrumb.empty();
+        if ($(that).data('depth') === undefined){
             return breadcrumb;
         }
 
         breadcrumb.children('li').each(function() {
             var prev = $(this).prev();
-            if ($(this).children('a').data('depth') >= $(that).data('depth')) {
-                $(this).nextAll().remove();
-                $(this).remove();
-                if (prev.length) {
-                    prev.children('span').remove();
+            var children = $(this).children('a');
+            if (children.data('depth') !== undefined) {
+                if (children.data('depth') >= $(that).data('depth')) {
+                    $(this).nextAll().remove();
+                    $(this).remove();
+                    if (prev.length) {
+                        prev.children('span').remove();
+                    }
+
                 }
             }
         });

@@ -152,7 +152,7 @@ dd > p {
 
 .btn-success {
     background-color: lighten(@btnSuccessBackgroundHighlight, 5%);
-    
+
     &:hover,
     &:active {
         background-color: darken(@btnSuccessBackgroundHighlight, 5%);
@@ -220,7 +220,7 @@ blockquote p {
 
 .navbar .nav > li {
     font-weight: bolder;
-    
+
     & > a {
         padding-right: 5px;
         padding-left: 5px;
@@ -304,16 +304,26 @@ h2 {
 
 .breadcrumb {
     background-color: transparent;
+    color: @grayDarker;
+    text-shadow: 0px 0px 8px #009BEB;
 
     li {
-        a {
-            color: @textColor;
-            text-shadow: 0px 1px 0px #0281C2;
-        }
-    }
+        color: inherit;
+        text-shadow: inherit;
 
-    .divider {
-        color: @textColor;
+        .divider {
+            color: inherit;
+            text-shadow: inherit;
+        }
+
+        a {
+            color: inherit;
+            text-shadow: inherit;
+
+            &:hover {
+                text-shadow: 0px 0px 8px #0281C2;
+            }
+        }
     }
 }
 
@@ -774,7 +784,6 @@ article.post {
 #middle-header {
     background-color: @navbarBackground;
     #gradient > .radial(@lightBlue, @darkBlue);
-    height: 160px;
     min-height: 160px;
 
     color: #003d5d;
@@ -989,7 +998,7 @@ ul#left-menu {
     padding: 10px;
     text-align: center;
     font-size: 13px;
-    
+
     form {
         margin-bottom: 0;
     }
@@ -1025,7 +1034,7 @@ ul#left-menu {
 /******************************************************************************
  * KONAMI
  *****************************************************************************/
- 
+
 .konami a {
     color: #aa008f;
 
@@ -1038,7 +1047,7 @@ ul#left-menu {
 .konami .btn,
 .konami .label a {
     color: @white;
-    
+
     &:hover {
         color: @white;
     }

@@ -2,8 +2,18 @@
 {% load bootstrap i18n common_tags %}
 {% load url from future %}
 
-{% block "breadcrumb" %}
-{% endblock "breadcrumb" %}
+{% block "page-title" %}{% trans "Search" %}{% endblock %}
+{% block "page-subtitle" %}{% trans "Where you can search things" %}{% endblock %}
+{% block "title" %}{% trans "Search" %}{% endblock "title" %}
+
+{% block "breadcrumb-content" %}
+  <li><span class="divider">/</span>
+  <li>
+    <a data-depth="1" data-ajax="body-content" title="{% trans "Search" %}" href="{% url 'haystack_search' %}">
+      {% trans "Search" %}
+    </a>
+  </li>
+{% endblock "breadcrumb-content" %}
 
 {% block "body-content" %}
   <div class="container">

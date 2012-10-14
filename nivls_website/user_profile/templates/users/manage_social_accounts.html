@@ -4,8 +4,17 @@
 
 {% block "title" %}{% trans "Manage social media accounts" %}{% endblock "title" %}
 
+{% block "breadcrumb-content" %}
+  <li><span class="divider">/</span>
+  <li>
+    <a data-depth="1" data-ajax="body-content" title="{% trans "Manage social media accounts" %}" href="{% url "manage-social-account" %}">
+     {% trans "Manage social media accounts" %}
+    </a>
+  </li>
+{% endblock "breadcrumb-content" %}
+
 {% block "content" %}
-  <h1 class="centered-text">{% trans "Manage social media accounts" %}</h1>
+  <h1 class="center-text">{% trans "Manage social media accounts" %}</h1>
 
   <p class="alert alert-info">
     {% blocktrans %}Here you can link/unlink your social media accounts to this website.<br/>Linking your accounts will help you to sign in here in an easier way: You will only have to click on a linked account on the sign in menu to be logged.{% endblocktrans %}
@@ -42,7 +51,7 @@
     </div>
   {% endif %}
 
-  <p class="centered-text">
+  <p class="center-text">
     {% trans "List of linkable social media (click to link, you can link multiple accounts from the same social media):" %}
   </p>
 

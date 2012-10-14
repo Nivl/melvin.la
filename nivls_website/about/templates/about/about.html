@@ -7,6 +7,15 @@
 {% block "page-title" %}{% trans "About" %}{% endblock %}
 {% block "page-subtitle" %}{% trans "Where you learn more about me" %}{% endblock %}
 
+{% block "breadcrumb-content" %}
+  <li><span class="divider">/</span>
+  <li>
+    <a data-depth="1" data-ajax="body-content" title="{% trans "About" %}" href="{% url "about" %}">
+      {% trans "About" %}
+    </a>
+  </li>
+{% endblock "breadcrumb-content" %}
+
 {% block "content" %}
   <section class="clean-section">
     <h2>{% trans "Welcome to my website" %}</h2>

@@ -8,6 +8,15 @@
 {% block "page-title" %}{% trans "C.V." %}{% endblock %}
 {% block "page-subtitle" %}{% trans "Where I get hired" %}{% endblock %}
 
+{% block "breadcrumb-content" %}
+  <li><span class="divider">/</span>
+  <li>
+    <a data-depth="1" data-ajax="body-content" title="{% trans "C.V." %}" href="{% url "cv" %}">
+      {% trans "C.V." %}
+    </a>
+  </li>
+{% endblock "breadcrumb-content" %}
+
 {% block "header-attributes" %}
   {% if to_pdf %}
     class="hide"
