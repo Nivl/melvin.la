@@ -9,10 +9,11 @@
 
       <li class="span3">
         <div class="thumbnail">
-          <a data-depth="30"
-             data-ajax="body-content-only"
-             title="{{ post.title }}"
-             href="{{ post.get_absolute_url }}">
+          {% if outside %}
+            <a data-depth="30" data-navbar="#navbar-blog" data-ajax="body-content" title="{{ post.title }}" href="{{ post.get_absolute_url }}">
+          {% else %}
+            <a data-depth="30" data-ajax="body-content-only" title="{{ post.title }}" href="{{ post.get_absolute_url }}">
+          {% endif %}
             <img src="{{ post.thumbnail.url }}" alt="thumbnail" />
           </a>
           <div class="caption">
@@ -23,11 +24,11 @@
             </section>
 
             <p>
-              <a data-ajax="body-content-only"
-                 data-depth="30"
-                 title="{{ post.title }}"
-                 class="btn"
-                 href="{{ post.get_absolute_url }}">
+              {% if outside %}
+                <a data-ajax="body-content" data-navbar="#navbar-blog" data-depth="30" title="{{ post.title }}" class="btn" href="{{ post.get_absolute_url }}">
+              {% else %}
+                <a data-ajax="body-content-only" data-depth="30" title="{{ post.title }}" class="btn" href="{{ post.get_absolute_url }}">
+              {% endif %}
                 <i class="icon-plus-sign icon-white"></i>
                 {% trans "Read more" %}
               </a>

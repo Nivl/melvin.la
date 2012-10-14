@@ -2,17 +2,16 @@
   <div class="carousel-inner">
     {% for item in posts %}
       <div class="item{% if forloop.counter == 1 %} active{% endif %}">
-	<a data-depth="30"
-	   data-ajax="body-content-only"
-	   title="{{ item.post.title }}"
-	   href="{{ item.post.get_absolute_url }}">
-
-	  <img src="{{ item.post.main_image.url }}"
-	       alt="{{ item.post.title }}">
-	</a>
-	<div class="carousel-caption">
-	  <p>{{ item.post.short_description }}</p>
-	</div>
+        {% if outside %}
+          <a data-depth="30" data-navbar="#navbar-blog" data-ajax="body-content" title="{{ item.post.title }}" href="{{ item.post.get_absolute_url }}">
+        {% else %}
+          <a data-depth="30" data-ajax="body-content-only" title="{{ item.post.title }}" href="{{ item.post.get_absolute_url }}">
+        {% endif %}
+          <img src="{{ item.post.main_image.url }}" alt="{{ item.post.title }}">
+        </a>
+        <div class="carousel-caption">
+          <p>{{ item.post.short_description }}</p>
+        </div>
       </div>
     {% endfor %}
   </div>

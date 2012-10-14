@@ -35,14 +35,14 @@
 
   <section class="clean-section-full-length">
     <h2>{% trans "Featured blog posts" %}</h2>
-    {% blog_carousel %}
+    {% blog_carousel 1 %}
   </section>
 
   <hr />
 
   <section class="clean-section-full-length">
     <h2>{% trans "Latest blog posts" %}</h2>
-    {% blog_latest_posts 4 %}
+    {% blog_latest_posts 4 1 %}
   </section>
 
 {% endblock "body-content" %}

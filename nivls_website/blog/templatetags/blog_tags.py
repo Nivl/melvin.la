@@ -7,17 +7,19 @@ register = template.Library()
 
 
 @register.inclusion_tag("blog/templatetags/carousel.html")
-def blog_carousel():
+def blog_carousel(outside=False):
     posts = Carousel.objects.filter(site=Site.objects.get_current())
-    return {'posts': posts}
+    return {'posts': posts,
+            'outside': outside}
 
 
 @register.inclusion_tag("blog/templatetags/latest_posts.html")
-def blog_latest_posts(n):
+def blog_latest_posts(n, outside=False):
     posts = Post.objects.filter(is_public=True,
                                 site=Site.objects.get_current()) \
                         .order_by('-pub_date')[:n]
-    return {'posts': posts}
+    return {'posts': posts,
+            'outside': outside}
 
 
 @register.inclusion_tag("blog/templatetags/menus.html")
