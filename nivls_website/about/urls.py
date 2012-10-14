@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, url
+from django.views.generic.base import RedirectView
 from commons.sitemaps import StaticSitemap
 from sitemaps import MainSitemap
 
@@ -9,9 +10,9 @@ urlpatterns = patterns(
         'home',
         name='home'),
 
-    url(r'^about$',
-        'about',
-        name='about'),
+    url(r'^cv/$',
+        RedirectView.as_view(url='/about/#resume', permanent=True),
+        name='cv'),
 
     url(r'^contact/form/$',
         'contact_form',
@@ -21,9 +22,9 @@ urlpatterns = patterns(
 static_urlpatterns = patterns(
     'about.views',
 
-    url(r'^cv/$',
-        'cv',
-        name='cv'),
+    url(r'^about/$',  # Hardcoded in cv (see above)
+        'about',
+        name='about'),
 
     url(r'^cv_pdf/$',
         'cv_pdf',

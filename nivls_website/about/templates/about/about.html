@@ -1,7 +1,8 @@
 {% extends "about/base.html" %}
 
+{% load ssi from future %}
 {% load url from future %}
-{% load markup i18n staticfiles %}
+{% load markup i18n staticfiles about_tags %}
 
 {% block "menu-about" %} class="active"{% endblock %}
 {% block "page-title" %}{% trans "About" %}{% endblock %}
@@ -16,18 +17,48 @@
   </li>
 {% endblock "breadcrumb-content" %}
 
+
+{% block "header-attributes" %}
+  {% if to_pdf %}
+    class="hide"
+  {% endif %}
+{% endblock %}
+
+{% block "footer" %}
+  {% if not to_pdf %}
+    {{ block.super }}
+  {% endif %}
+{% endblock %}
+
+{% block "local_css" %}
+  {% if to_pdf %}
+    <style>
+      {% ssi STATIC_ROOT|add:"/commons/css/0/bootstrap.min.css" %}
+      {% ssi STATIC_ROOT|add:"/commons/css/20/main.css" %}
+
+        #body-content{
+          margin-top: 0px;
+        }
+    </style>
+  {% else %}
+    {{ block.super }}
+  {% endif %}
+{% endblock "local_css" %}
+
+
 {% block "content" %}
-  <section class="clean-section">
-    <h2>{% trans "Welcome to my website" %}</h2>
-    <div class="section-content">
-      {{ profile.about_me|markdown }}
-    </div>
-  </section>
+  {% if not to_pdf %}
+    <section class="clean-section">
+      <h2>{% trans "Welcome to my website" %}</h2>
+      <div class="section-content">
+        {{ profile.about_me|markdown }}
+      </div>
+    </section>
 
-  <hr>
+    <hr>
 
-  <section class="clean-section-full-size">
-    <h2>{% trans "Be social" %}</h2>
+    <section class="clean-section-full-size">
+      <h2>{% trans "Be social" %}</h2>
 
       {% for link in contact_links %}
         {% if forloop.counter0|divisibleby:4 %}
@@ -53,4 +84,57 @@
 
       {% endfor %}
     </section>
+    <hr />
+    <h2>{% trans "C.V." %}</h2>
+  {% endif %}
+
+  <article class="accordion clean-accordion main-accordion" id="resume">
+
+    {% for section in cv_sections %}
+      <div class="accordion-group">
+        <h2>
+          <a class="accordion-toggle" data-toggle="collapse"
+             data-parent="#resume" href="#{{ section.slug }}">
+            {{ section.name }}
+          </a>
+        </h2>
+
+        <section id="{{ section.slug }}" class="collapse{% if to_pdf %} in{% endif %}">
+
+          <div class="block">
+            <div class="container-fluid">
+              <div class="row-fluid">
+                {% display_cat section.cvcategory_set.all.0 12 to_pdf %}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    {% endfor %}
+
+    {% if not to_pdf %}
+      <div class="accordion-group">
+        <h2>
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#resume" href="#downloads">{% trans "Downloads" %}</a>
+        </h2>
+        <section id="downloads" class="collapse">
+          <div class="block">
+            <div class="container-fluid">
+              <div class="row-fluid">
+                <div class="span12">
+                  <h3>{% trans "Downloads" %}</h3>
+                  <ul>
+                    <li><a href="{% url "cv_pdf" %}">
+                        {% trans "Download this C.V. as PDF" %}
+                      </a>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    {% endif %}
+  </article>
+
 {% endblock "content" %}

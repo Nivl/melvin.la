@@ -52,25 +52,21 @@ def about(request):
     profile = get_object_or_404(Profile, pk=Site.objects.get_current())
     navigation_links = NavigationLink.objects.filter(site=settings.SITE_ID)
     contact_links = ContactLink.objects.all()
+    cv_sections = CVSection.objects.filter(site=settings.SITE_ID)
     return render(request, "about/about.html",
                   {'profile': profile,
                    'contact_links': contact_links,
-                   'navigation_links': navigation_links
+                   'navigation_links': navigation_links,
+                   'cv_sections': cv_sections,
+                   'to_pdf': False
                    })
 
 
 @require_safe
-def cv(request):
-    sections = CVSection.objects.filter(site=settings.SITE_ID)
-    return render(request, "about/cv.html", {'sections': sections,
-                                             'to_pdf': False})
-
-
-@require_safe
 def cv_pdf(request):
-    sections = CVSection.objects.filter(site=settings.SITE_ID)
-    c = RequestContext(request, {'sections': sections, 'to_pdf': True})
-    return write_pdf("about/cv.html", c, "cv_laplanche_melvin.pdf")
+    cv_sections = CVSection.objects.filter(site=settings.SITE_ID)
+    c = RequestContext(request, {'cv_sections': cv_sections, 'to_pdf': True})
+    return write_pdf("about/about.html", c, "cv_laplanche_melvin.pdf")
 
 
 @require_safe
