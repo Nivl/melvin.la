@@ -226,8 +226,8 @@ class CVSection(models.Model):
 class CVCategory(models.Model):
     DISPLAY_TYPES = (
         ('L', 'List'),
-        ('T', 'Table'),
-        ('D', 'Description List'),)
+        ('D', 'Description List'),
+        ('B', 'Block'),)
 
     site = models.ForeignKey(
         I18nSite,

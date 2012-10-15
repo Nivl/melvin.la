@@ -1,5 +1,4 @@
 from django import template
-from django.db.models import Count
 
 register = template.Library()
 
@@ -23,7 +22,7 @@ def cat_as_description_list(cat, is_downloadable):
             'is_downloadable': is_downloadable}
 
 
-@register.inclusion_tag("about/templatetags/cat_as_table.html")
-def cat_as_table(cat, is_downloadable):
+@register.inclusion_tag("about/templatetags/cat_as_block.html")
+def cat_as_block(cat, is_downloadable):
     return {'cat': cat,
             'is_downloadable': is_downloadable}

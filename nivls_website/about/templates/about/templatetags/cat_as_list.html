@@ -1,6 +1,6 @@
 {% load markup i18n %}
 
-<ul class="unstyled">
+<ul class="element unstyled">
   {% for content in cat.cvcontent_set.all %}
     {% if content.key %}
       <li><strong>{{ content.key }}</strong>{% trans ": " %}{% if is_downloadable and content.value_for_download.strip %}{{ content.value_for_download|markdown }}{% else %}{{ content.value|markdown }}{% endif %}
