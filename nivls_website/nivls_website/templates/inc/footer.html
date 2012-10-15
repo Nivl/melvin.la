@@ -4,7 +4,7 @@
 <footer>
   <div class="container">
     <div class="row">
-      
+
       <div class="span3 brand">
         Laplanche-melv.in
         <small>© 2012. All rights reserved.</small>
@@ -13,6 +13,10 @@
       <div class="span3">
         <h5>{% trans "Navigation links" %}</h5>
         <ul class="unstyled">
+          <li><a href="{% url "home" %}">
+            <i class="icon-home"></i> {% trans "Home" %}
+          </a></li>
+
           <li><a href="{% url "blog" %}">
             <i class="icon-book"></i> {% trans "Blog" %}
           </a></li>
@@ -22,15 +26,11 @@
           </a></li>
 
           <li><a href="{% url "about" %}">
-            <i class="icon-info-sign"></i> {% trans "About" %}
+            <i class="icon-user"></i> {% trans "About" %}
           </a></li>
 
           <li><a href="{% url "portfolio" %}">
             <i class="icon-picture"></i> {% trans "Portfolio" %}
-          </a></li>
-
-          <li><a href="{% url "cv" %}">
-            <i class="icon-user"></i> {% trans "C.V." %}
           </a></li>
         </ul>
       </div>
