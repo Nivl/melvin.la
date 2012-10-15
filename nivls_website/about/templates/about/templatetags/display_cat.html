@@ -1,4 +1,32 @@
-{% load about_tags %}
+{% load about_tags markup %}
+
+<div class="span3">
+  <h3>{{ cat.name }}</h3>
+</div>
+
+<div class="span9">
+  {% for content in cat.cvcontent_set.all %}
+    <div class="element">
+      {% if content.key %}
+        <h4>{{ content.key|safe }}</h4>
+        <div class="content">
+          {{ content.value|markdown }}
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+</div>
+<hr />
+<div class="row-fluid">
+  {% with sibling=cat.get_next_sibling %}
+    {% if sibling %}
+      {% display_cat sibling.0 collumn is_downloadable %}
+    {% endif %}
+  {% endwith %}
+
+{% comment %}
 
 <div class="span{{ collumn }}">
   <h3{% if collumn != 12 %} class="child"{% endif %}>{{ cat.name }}</h3>
@@ -30,3 +58,5 @@
       {% display_cat sibling.0 collumn is_downloadable %}
     {% endif %}
   {% endwith %}
+
+{% endcomment %}

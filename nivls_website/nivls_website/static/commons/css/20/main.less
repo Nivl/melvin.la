@@ -479,14 +479,6 @@ table {
     h2 {
         text-align: center;
     }
-
-    h3 {
-        background-color: #444;
-        border: 1px solid @borderColor;
-        color: @white;
-        padding: 2px 10px;
-        margin: 15px 0;
-    }
 }
 
 .business-card {
@@ -770,6 +762,41 @@ article.post {
 /******************************************************************************
  * ID
  *****************************************************************************/
+
+#resume {
+    .element {
+        border-left: 2px solid @linkColorHover;
+        padding: 5px 20px;
+        margin: 20px;
+
+        .content {
+            padding-left: 25px;
+
+            li {
+                h5, p {
+                    margin-top: 10px;
+                    margin-bottom: 0px;
+                }
+
+                h5 {
+                    color: @linkColorHover;
+
+                    strong {
+                        color: #666;
+                    }
+                }
+
+                p {
+                    display: block;
+                }
+            }
+        }
+
+        ul {
+            margin-bottom: 0;
+        }
+    }
+}
 
 #bottom-header {
     background-color: #f5f5f5;

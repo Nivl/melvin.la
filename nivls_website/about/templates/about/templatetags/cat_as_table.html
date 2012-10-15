@@ -4,10 +4,10 @@
   {% for content in cat.cvcontent_set.all %}
     {% if content.key %}
       <tr>
-	<th>
-	  <strong>{{ content.key }}</strong>
-	<td>
-	  {{ content.value|markdown }}
+        <th>
+          <strong>{{ content.key }}</strong>
+        <td>
+          {{ content.value|markdown }}
       </tr>
     {% endif %}
   {% endfor %}
