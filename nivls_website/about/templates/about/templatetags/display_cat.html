@@ -1,27 +1,26 @@
 {% load about_tags markup %}
 
-<div class="span4">
-  <h3>{{ cat.name }}</h3>
-</div>
+{% for cat in cats %}
 
-<div class="span8">
-  {% if cat.display_type == "L" %}
-    {% cat_as_list cat is_downloadable %}
-  {% elif cat.display_type == "D" %}
-    {% cat_as_description_list cat is_downloadable %}
-  {% else %}
-    {% cat_as_block cat is_downloadable %}
-  {% endif %}
-</div>
+<div class="row-fluid">
 
-</div>
+  <div class="span4">
+    <h3>{{ cat.name }}</h3>
+  </div>
 
-{% with sibling=cat.get_next_sibling %}
-  {% if sibling %}
+  <div class="span8">
+    {% if cat.display_type == "L" %}
+      {% cat_as_list cat is_downloadable %}
+    {% elif cat.display_type == "D" %}
+      {% cat_as_description_list cat is_downloadable %}
+    {% else %}
+      {% cat_as_block cat is_downloadable %}
+    {% endif %}
+  </div>
+
+  {% if not forloop.last %}
     <hr />
-    <div class="row-fluid">
-      {% display_cat sibling.0 collumn is_downloadable %}
-  {% else %}
-    <div class="row-fluid">
   {% endif %}
-{% endwith %}
+
+</div>
+{% endfor %}

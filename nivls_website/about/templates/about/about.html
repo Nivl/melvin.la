@@ -103,9 +103,7 @@
 
           <div class="block">
             <div class="container-fluid">
-              <div class="row-fluid">
-                {% display_cat section.cvcategory_set.all.0 12 to_pdf %}
-              </div>
+              {% display_cat section.cvcategory_set.all to_pdf %}
             </div>
           </div>
         </section>

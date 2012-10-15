@@ -243,11 +243,8 @@ class CVCategory(models.Model):
         max_length=255,
         verbose_name=_("name"))
 
-    left = models.PositiveSmallIntegerField(
-        verbose_name=_("left"))
-
-    right = models.PositiveSmallIntegerField(
-        verbose_name=_("right"))
+    order = models.PositiveIntegerField(
+        verbose_name=_("order"))
 
     display_type = models.CharField(
         max_length=1,
@@ -258,20 +255,9 @@ class CVCategory(models.Model):
     def __unicode__(self):
         return self.name
 
-    def has_child(self):
-        return self.right - self.left > 1
-
-    def get_first_child(self):
-        return CVCategory.objects.filter(left=(self.left + 1),
-                                         section=self.section)
-
-    def get_next_sibling(self):
-        return CVCategory.objects.filter(left=(self.right + 1),
-                                         section=self.section)
-
     class Meta:
-        ordering = ['section', 'left']
-        unique_together = (('right', 'section'), ('left', 'section'))
+        ordering = ['section', 'order']
+        unique_together = (('order', 'section'))
         verbose_name = _("C.V. Category")
         verbose_name_plural = _("C.V. Categories")
 

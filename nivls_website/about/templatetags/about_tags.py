@@ -4,9 +4,8 @@ register = template.Library()
 
 
 @register.inclusion_tag("about/templatetags/display_cat.html")
-def display_cat(cat, collumn, is_downloadable):
-    return {'cat': cat,
-            'collumn': collumn,
+def display_cat(cats, is_downloadable):
+    return {'cats': cats,
             'is_downloadable': is_downloadable}
 
 
