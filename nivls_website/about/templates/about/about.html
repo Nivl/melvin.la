@@ -54,37 +54,7 @@
         {{ profile.about_me|markdown }}
       </div>
     </section>
-
     <hr>
-
-    <section class="clean-section-full-size">
-      <h2>{% trans "Be social" %}</h2>
-
-      {% for link in contact_links %}
-        {% if forloop.counter0|divisibleby:4 %}
-          <div class="row">
-        {% endif %}
-
-        <div class="span3">
-          <div class="big-badge">
-            <div class="foreground" style="background-image:url('{{ link.image.url|safe }}');">
-              <a {{ link.attributes|safe }} href="{{ link.link }}" style="background-image:url('{{ link.image.url|safe }}');">
-              </a>
-            </div>
-
-            <div class="informations">
-              <h4>{{ link.name }}</h4>
-            </div>
-          </div>
-        </div>
-
-        {% if forloop.counter|divisibleby:4 or forloop.last %}
-          </div>
-        {% endif %}
-
-      {% endfor %}
-    </section>
-    <hr />
     <h2>{% trans "C.V." %}</h2>
   {% endif %}
 
@@ -136,5 +106,37 @@
       </div>
     {% endif %}
   </article>
+
+ {% if not to_pdf %}
+    <hr>
+
+    <section class="clean-section-full-size">
+      <h2>{% trans "Be social" %}</h2>
+
+      {% for link in contact_links %}
+        {% if forloop.counter0|divisibleby:4 %}
+          <div class="row">
+        {% endif %}
+
+        <div class="span3">
+          <div class="big-badge">
+            <div class="foreground" style="background-image:url('{{ link.image.url|safe }}');">
+              <a {{ link.attributes|safe }} href="{{ link.link }}" style="background-image:url('{{ link.image.url|safe }}');">
+              </a>
+            </div>
+
+            <div class="informations">
+              <h4>{{ link.name }}</h4>
+            </div>
+          </div>
+        </div>
+
+        {% if forloop.counter|divisibleby:4 or forloop.last %}
+          </div>
+        {% endif %}
+
+      {% endfor %}
+    </section>
+ {% endif %}
 
 {% endblock "content" %}
