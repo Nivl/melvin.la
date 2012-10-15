@@ -4,11 +4,11 @@
 
 <div class="row-fluid">
 
-  <div class="span4">
+  <div class="span3">
     <h3>{{ cat.name }}</h3>
   </div>
 
-  <div class="span8">
+  <div class="span9">
     {% if cat.display_type == "L" %}
       {% cat_as_list cat is_downloadable %}
     {% elif cat.display_type == "D" %}
