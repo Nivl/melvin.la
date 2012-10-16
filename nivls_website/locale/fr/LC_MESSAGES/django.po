@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-09 11:13-0700\n"
-"PO-Revision-Date: 2012-10-12 16:58+0100\n"
+"POT-Creation-Date: 2012-10-16 13:11-0700\n"
+"PO-Revision-Date: 2012-10-16 22:10+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Laplanche Melvin <LL@li.org>\n"
 "Language: French\n"
@@ -30,10 +30,10 @@ msgid "Message"
 msgstr "Message"
 
 #: about/models.py:14 about/models.py:65 about/models.py:128
-#: about/models.py:203 about/models.py:235 about/models.py:283
-#: about/models.py:326 blog/models.py:17 blog/models.py:57 blog/models.py:92
-#: blog/models.py:155 blog/models.py:377 commons/models.py:11 lab/models.py:76
-#: lab/models.py:115 lab/models.py:157 lab/models.py:199 seo/models.py:12
+#: about/models.py:203 about/models.py:235 about/models.py:269
+#: blog/models.py:17 blog/models.py:57 blog/models.py:92 blog/models.py:155
+#: blog/models.py:377 commons/models.py:11 lab/models.py:76 lab/models.py:115
+#: lab/models.py:157 lab/models.py:199 seo/models.py:12
 msgid "site"
 msgstr "site"
 
@@ -66,7 +66,7 @@ msgid "image"
 msgstr "image"
 
 #: about/models.py:41 about/models.py:99 about/models.py:158
-#: about/models.py:214 about/models.py:292 about/models.py:335
+#: about/models.py:214 about/models.py:247 about/models.py:278
 #: blog/models.py:24 blog/models.py:381
 msgid "order"
 msgstr "ordre"
@@ -149,78 +149,87 @@ msgstr "C.V. Sections"
 msgid "Section"
 msgstr "Section"
 
-#: about/models.py:247 blog/models.py:111
-msgid "left"
-msgstr "gauche"
-
-#: about/models.py:250 blog/models.py:114
-msgid "right"
-msgstr "droite"
-
-#: about/models.py:256
+#: about/models.py:253
 msgid "display type"
 msgstr "type d'affichage"
 
-#: about/models.py:275
+#: about/models.py:261
 msgid "C.V. Category"
 msgstr "C.V. Categorie"
 
-#: about/models.py:276
+#: about/models.py:262
 msgid "C.V. Categories"
 msgstr "C.V. Categories"
 
-#: about/models.py:288 blog/models.py:171
+#: about/models.py:274 blog/models.py:171
 msgid "category"
 msgstr "categorie"
 
-#: about/models.py:298
+#: about/models.py:284
 msgid "key"
 msgstr "clef"
 
-#: about/models.py:301 about/models.py:339
+#: about/models.py:287
 msgid "value"
 msgstr "valeur"
 
-#: about/models.py:307
+#: about/models.py:293
 msgid "value for download"
 msgstr "valeur pour téléchargement"
 
-#: about/models.py:311
-msgid "has subcontent"
-msgstr "A du sous-contenu"
-
-#: about/models.py:318
+#: about/models.py:300
 msgid "C.V. Content"
 msgstr "C.V. Contenu"
 
-#: about/models.py:319
+#: about/models.py:301
 msgid "C.V. Contents"
 msgstr "C.V. Contenus"
 
-#: about/models.py:331 blog/models.py:208 search_engine/models.py:8
-msgid "content"
-msgstr "contenu"
+#: about/templates/about/about.html:8 about/templates/about/about.html:14
+#: about/templates/about/about.html:15
+#: nivls_website/templates/base_common.html:50
+#: nivls_website/templates/base_common.html:51
+#: nivls_website/templates/inc/footer.html:29
+msgid "About"
+msgstr "À propos"
 
-#: about/models.py:346
-msgid "C.V. Sub-content"
-msgstr "C.V. Sous-contenu"
+#: about/templates/about/about.html:9
+msgid "Where you learn more about me"
+msgstr "Là où on en apprend plus sur moi"
 
-#: about/models.py:347
-msgid "C.V. Sub-contents"
-msgstr "C.V. Sous-contenus"
-
-#: about/templates/about/about.html:14
+#: about/templates/about/about.html:52 about/templates/about/home.html:6
 msgid "Welcome to my website"
 msgstr "Bienvenue sur mon site"
 
-#: about/templates/about/about.html:24
-msgid "My website"
-msgstr "Mon site"
+#: about/templates/about/about.html:58
+msgid "C.V."
+msgstr ""
 
-#: about/templates/about/about.html:60
+#: about/templates/about/about.html:86 about/templates/about/about.html:93
+#: lab/templates/lab/project.html:35
+#: lab/templates/lab/inc/project_includes/downloads.html:3
+msgid "Downloads"
+msgstr "Téléchargements"
+
+#: about/templates/about/about.html:98
+msgid "Download this C.V. as PDF"
+msgstr "Télécharger ce C.V. au format PDF"
+
+#: about/templates/about/about.html:114
 #: nivls_website/templates/inc/footer.html:39
 msgid "Be social"
 msgstr ""
+
+#: about/templates/about/contact.html:5
+#: nivls_website/templates/base_common.html:62
+#: nivls_website/templates/base_common.html:63
+#: nivls_website/templates/inc/footer.html:58
+msgid "Contact"
+msgstr ""
+
+#: about/templates/about/contact.html:6
+msgid "Where we can get in touch"
+msgstr "Là où on peut être en contact"
 
 #: about/templates/about/contact_form.html:15
 #: blog/templates/blog/ajax/comment_form.html:13
@@ -237,7 +246,7 @@ msgstr "Envoyer"
 #: about/templates/about/contact_form.html:19
 #: blog/templates/blog/ajax/comment_form.html:21
 #: blog/templates/blog/ajax/comment_single_form.html:19
-#: user_profile/templates/users/sign_in.html:36
+#: user_profile/templates/users/sign_in.html:40
 #: user_profile/templates/users/ajax/edit_account_form.html:21
 #: user_profile/templates/users/ajax/edit_email_form.html:26
 #: user_profile/templates/users/ajax/edit_password_form.html:26
@@ -260,39 +269,50 @@ msgstr ""
 "Le message a bien été envoyé, vous devriez recevoir une réponse d'ici "
 "quelques heures."
 
-#: about/templates/about/cv.html:78 about/templates/about/cv.html.py:85
-#: lab/templates/lab/project.html:26
-#: lab/templates/lab/inc/project_includes/downloads.html:3
-msgid "Downloads"
-msgstr "Téléchargements"
+#: about/templates/about/home.html:37
+msgid "Featured blog posts"
+msgstr "Articles mis en avant"
 
-#: about/templates/about/cv.html:88
-msgid "Download this C.V. as PDF"
-msgstr "Télécharger ce C.V. au format PDF"
+#: about/templates/about/home.html:44
+msgid "Latest blog posts"
+msgstr "Derniers articles"
 
-#: about/templates/about/portfolio.html:27
+#: about/templates/about/portfolio.html:7
+#: about/templates/about/portfolio.html:13
+#: about/templates/about/portfolio.html:14
+#: nivls_website/templates/base_common.html:56
+#: nivls_website/templates/base_common.html:57
+#: nivls_website/templates/inc/footer.html:33
+msgid "Portfolio"
+msgstr ""
+
+#: about/templates/about/portfolio.html:8
+msgid "Where my professional projects are"
+msgstr "Là où il y a mes projets professionnels"
+
+#: about/templates/about/portfolio.html:34
 msgid "Job(s):"
 msgstr ""
 
-#: about/templates/about/portfolio.html:42
-#: about/templates/about/portfolio.html:73 blog/models.py:178
-#: blog/templates/blog/post.html:83 lab/templates/lab/base.html:15
-#: lab/templates/lab/base.html.py:16
+#: about/templates/about/portfolio.html:49
+#: about/templates/about/portfolio.html:80 blog/models.py:178
+#: blog/templates/blog/post.html:77 lab/templates/lab/base.html:6
+#: lab/templates/lab/base.html.py:12 lab/templates/lab/base.html:13
 #: lab/templates/lab/templatetags/tags.html:9
-#: nivls_website/templates/inc/footer.html:21
-#: nivls_website/templates/inc/header.html:34
-#: nivls_website/templates/inc/header.html:35
-#: search_engine/templates/search/search.html:43
+#: nivls_website/templates/base_common.html:44
+#: nivls_website/templates/base_common.html:45
+#: nivls_website/templates/inc/footer.html:25
+#: search_engine/templates/search/search.html:53
 msgid "Lab"
 msgstr ""
 
-#: about/templates/about/portfolio.html:45 blog/templates/blog/post.html:86
+#: about/templates/about/portfolio.html:52 blog/templates/blog/post.html:79
 #: lab/templates/lab/inc/project_list.html:15
 msgid "Know more"
 msgstr "En savoir plus"
 
-#: about/templates/about/portfolio.html:57
-#: about/templates/about/portfolio.html:76
+#: about/templates/about/portfolio.html:64
+#: about/templates/about/portfolio.html:83
 msgid "See more projects"
 msgstr "Voir plus de projets"
 
@@ -354,6 +374,14 @@ msgstr ""
 msgid "is root"
 msgstr "Est une racine"
 
+#: blog/models.py:111
+msgid "left"
+msgstr "gauche"
+
+#: blog/models.py:114
+msgid "right"
+msgstr "droite"
+
 #: blog/models.py:121 blog/models.py:200
 msgid "thumbnail"
 msgstr "miniature"
@@ -381,6 +409,10 @@ msgstr "description rapide"
 #: blog/models.py:205
 msgid "long description"
 msgstr "longue description"
+
+#: blog/models.py:208 search_engine/models.py:8
+msgid "content"
+msgstr "contenu"
 
 #: blog/models.py:215
 msgid "Tags"
@@ -440,13 +472,18 @@ msgstr "Nouveau commentaire pour \"%s\""
 msgid "Archives from %(date)s"
 msgstr "Archive de %(date)s"
 
-#: blog/templates/blog/base.html:22 blog/templates/blog/base.html.py:23
-#: nivls_website/templates/inc/footer.html:17
-#: nivls_website/templates/inc/header.html:28
-#: nivls_website/templates/inc/header.html:29
-#: search_engine/templates/search/search.html:41
+#: blog/templates/blog/base.html:6 blog/templates/blog/base.html.py:21
+#: blog/templates/blog/base.html:22
+#: nivls_website/templates/base_common.html:38
+#: nivls_website/templates/base_common.html:39
+#: nivls_website/templates/inc/footer.html:21
+#: search_engine/templates/search/search.html:51
 msgid "Blog"
 msgstr ""
+
+#: blog/templates/blog/base.html:7
+msgid "Where I tell my life story"
+msgstr "Là où je raconte ma vie"
 
 #: blog/templates/blog/post.html:32
 #: blog/templates/blog/ajax/comment_list.html:6
@@ -457,9 +494,13 @@ msgstr "Par "
 msgid "In: "
 msgstr "Dans : "
 
-#: blog/templates/blog/post.html:60
+#: blog/templates/blog/post.html:58
 msgid "Available in: "
 msgstr "Diponible en : "
+
+#: blog/templates/blog/post.html:77 lab/templates/lab/base.html:7
+msgid "Where I present my projects"
+msgstr "Là où je présente mes projets"
 
 #: blog/templates/blog/ajax/comment_count.html:4
 msgid "There are no comments"
@@ -540,11 +581,11 @@ msgstr "Commentaire : "
 msgid "Go to the administration"
 msgstr "Aller à l'administration"
 
-#: blog/templates/blog/inc/listing.html:32
+#: blog/templates/blog/inc/listing.html:33
 msgid "Read more"
 msgstr "Lire l'article"
 
-#: blog/templates/blog/inc/listing.html:44
+#: blog/templates/blog/inc/listing.html:45
 msgid "There are no posts."
 msgstr "Il n'y a aucun article."
 
@@ -645,26 +686,26 @@ msgstr "fichier uploadé"
 msgid "icon"
 msgstr "icône"
 
-#: lab/templates/lab/project.html:15
+#: lab/templates/lab/project.html:24
 msgid "Informations"
 msgstr ""
 
-#: lab/templates/lab/project.html:17
+#: lab/templates/lab/project.html:26
 #: lab/templates/lab/inc/project_includes/progress.html:3
 msgid "Progress"
 msgstr "Progression"
 
-#: lab/templates/lab/project.html:20
+#: lab/templates/lab/project.html:29
 #: lab/templates/lab/inc/project_includes/images.html:3
 msgid "Images"
 msgstr ""
 
-#: lab/templates/lab/project.html:23
+#: lab/templates/lab/project.html:32
 #: lab/templates/lab/inc/project_includes/videos.html:3
 msgid "Videos"
 msgstr "Vidéos"
 
-#: lab/templates/lab/project.html:29
+#: lab/templates/lab/project.html:38
 msgid "Demos"
 msgstr "Démos"
 
@@ -694,6 +735,8 @@ msgid "Todo"
 msgstr "À faire"
 
 #: lab/templates/lab/templatetags/tags.html:35
+#: nivls_website/templates/base_common.html:191
+#: nivls_website/templates/inc/footer.html:17
 msgid "Home"
 msgstr "Accueil"
 
@@ -728,6 +771,106 @@ msgstr "méthode"
 #: nivls_website/templates/base.html:7
 msgid "en"
 msgstr "fr"
+
+#: nivls_website/templates/base_common.html:75
+#: nivls_website/templates/base_common.html:76
+#: user_profile/templates/users/sign_up.html:5
+#: user_profile/templates/users/sign_up.html:7
+#: user_profile/templates/users/sign_up.html:12
+#: user_profile/templates/users/sign_up.html:13
+#: user_profile/templates/users/ajax/sign_up_form.html:15
+msgid "Sign up"
+msgstr "Inscription"
+
+#: nivls_website/templates/base_common.html:81
+#: nivls_website/templates/base_common.html:82
+#: user_profile/templates/users/password_reset.html:11
+#: user_profile/templates/users/password_reset.html:12
+#: user_profile/templates/users/ajax/edit_password_form.html:31
+msgid "I lost my password"
+msgstr "Mot de passe perdu"
+
+#: nivls_website/templates/base_common.html:89
+#: nivls_website/templates/base_common.html:108
+#: user_profile/templates/users/sign_in.html:5
+#: user_profile/templates/users/sign_in.html:6
+#: user_profile/templates/users/sign_in.html:12
+#: user_profile/templates/users/sign_in.html:13
+#: user_profile/templates/users/sign_in.html:39
+msgid "Sign in"
+msgstr "Connexion"
+
+#: nivls_website/templates/base_common.html:93
+msgid "Sign in with:"
+msgstr "Passer par :"
+
+#: nivls_website/templates/base_common.html:101
+msgid "Or sign in using your account:"
+msgstr "Ou se connecter via votre compte :"
+
+#: nivls_website/templates/base_common.html:105 user_profile/forms.py:39
+#: user_profile/forms.py:84
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: nivls_website/templates/base_common.html:106 user_profile/forms.py:21
+#: user_profile/forms.py:126
+msgid "Password"
+msgstr "Mot de passe"
+
+#: nivls_website/templates/base_common.html:120
+#: nivls_website/templates/base_common.html:121
+msgid "My profile"
+msgstr "Mon profil"
+
+#: nivls_website/templates/base_common.html:126
+#: nivls_website/templates/base_common.html:127
+#: user_profile/templates/users/edit_account.html:5
+#: user_profile/templates/users/edit_account.html:10
+#: user_profile/templates/users/edit_account.html:11
+msgid "Edit my account"
+msgstr "Modifier mon compte"
+
+#: nivls_website/templates/base_common.html:132
+#: nivls_website/templates/base_common.html:133
+#: user_profile/templates/users/edit_picture.html:5
+#: user_profile/templates/users/edit_picture.html:10
+#: user_profile/templates/users/edit_picture.html:11
+msgid "Edit my profile picture"
+msgstr "Modifier ma photo de profil"
+
+#: nivls_website/templates/base_common.html:138
+#: nivls_website/templates/base_common.html:139
+msgid "Social media accounts"
+msgstr "Comptes liés"
+
+#: nivls_website/templates/base_common.html:147
+msgid "Sign out"
+msgstr "Déconnexion"
+
+#: nivls_website/templates/base_common.html:168
+#: search_engine/templates/search/search.html:5
+#: search_engine/templates/search/search.html:7
+#: search_engine/templates/search/search.html:12
+#: search_engine/templates/search/search.html:13
+#: search_engine/templates/search/search.html:23
+#: search_engine/templates/search/search.html:29
+#: search_engine/templates/search/search.html:34
+msgid "Search"
+msgstr "Chercher"
+
+#: nivls_website/templates/base_common.html:178
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: nivls_website/templates/base_common.html:189
+msgid "You are here"
+msgstr "Vous êtes ici"
+
+#: nivls_website/templates/base_common.html:205
+#: user_profile/templates/users/base.html:7
+msgid "Where you have access to your data"
+msgstr "Là où vous avez accès à vos données"
 
 #: nivls_website/templates/inc/browser_warning.html:5
 msgid "Browser compatibilities"
@@ -768,30 +911,6 @@ msgstr "Je suis à jour"
 msgid "Navigation links"
 msgstr "Liens de navigation"
 
-#: nivls_website/templates/inc/footer.html:25
-#: nivls_website/templates/inc/header.html:40
-#: nivls_website/templates/inc/header.html:41
-msgid "About"
-msgstr "À propos"
-
-#: nivls_website/templates/inc/footer.html:29
-#: nivls_website/templates/inc/header.html:46
-#: nivls_website/templates/inc/header.html:47
-msgid "Portfolio"
-msgstr ""
-
-#: nivls_website/templates/inc/footer.html:33
-#: nivls_website/templates/inc/header.html:52
-#: nivls_website/templates/inc/header.html:53
-msgid "C.V."
-msgstr ""
-
-#: nivls_website/templates/inc/footer.html:58
-#: nivls_website/templates/inc/header.html:58
-#: nivls_website/templates/inc/header.html:59
-msgid "Contact"
-msgstr ""
-
 #: nivls_website/templates/inc/footer.html:64
 msgid "Actions"
 msgstr ""
@@ -811,81 +930,6 @@ msgstr "Aller au contenu"
 #: nivls_website/templates/inc/footer.html:79
 msgid "Refresh the page"
 msgstr "Recharger la page"
-
-#: nivls_website/templates/inc/header.html:71
-#: nivls_website/templates/inc/header.html:72
-#: user_profile/templates/users/sign_up.html:5
-#: user_profile/templates/users/ajax/sign_up_form.html:15
-msgid "Sign up"
-msgstr "Inscription"
-
-#: nivls_website/templates/inc/header.html:77
-#: nivls_website/templates/inc/header.html:78
-#: user_profile/templates/users/ajax/edit_password_form.html:31
-msgid "I lost my password"
-msgstr "Mot de passe perdu"
-
-#: nivls_website/templates/inc/header.html:85
-#: nivls_website/templates/inc/header.html:104
-#: user_profile/templates/users/sign_in.html:5
-#: user_profile/templates/users/sign_in.html:35
-msgid "Sign in"
-msgstr "Connexion"
-
-#: nivls_website/templates/inc/header.html:89
-msgid "Sign in with:"
-msgstr "Passer par :"
-
-#: nivls_website/templates/inc/header.html:97
-msgid "Or sign in using your account:"
-msgstr "Ou se connecter via votre compte :"
-
-#: nivls_website/templates/inc/header.html:101 user_profile/forms.py:39
-#: user_profile/forms.py:84
-msgid "Username"
-msgstr "Nom d'utilisateur"
-
-#: nivls_website/templates/inc/header.html:102 user_profile/forms.py:21
-#: user_profile/forms.py:126
-msgid "Password"
-msgstr "Mot de passe"
-
-#: nivls_website/templates/inc/header.html:117
-#: nivls_website/templates/inc/header.html:118
-msgid "My profile"
-msgstr "Mon profil"
-
-#: nivls_website/templates/inc/header.html:123
-#: nivls_website/templates/inc/header.html:124
-#: user_profile/templates/users/edit_account.html:4
-msgid "Edit my account"
-msgstr "Modifier mon compte"
-
-#: nivls_website/templates/inc/header.html:129
-#: nivls_website/templates/inc/header.html:130
-#: user_profile/templates/users/edit_picture.html:4
-msgid "Edit my profile picture"
-msgstr "Modifier ma photo de profil"
-
-#: nivls_website/templates/inc/header.html:135
-#: nivls_website/templates/inc/header.html:136
-msgid "Social media accounts"
-msgstr "Comptes liés"
-
-#: nivls_website/templates/inc/header.html:144
-msgid "Sign out"
-msgstr "Déconnexion"
-
-#: nivls_website/templates/inc/header.html:167
-#: search_engine/templates/search/search.html:13
-#: search_engine/templates/search/search.html:19
-#: search_engine/templates/search/search.html:24
-msgid "Search"
-msgstr "Chercher"
-
-#: nivls_website/templates/inc/header.html:180
-msgid "Welcome"
-msgstr ""
 
 #: nivls_website/templates/inc/pagination.html:8
 #: nivls_website/templates/inc/pagination.html:19
@@ -922,17 +966,23 @@ msgstr ""
 msgid "blacklisted words"
 msgstr ""
 
-#: search_engine/templates/search/search.html:28
-msgid "Effacer"
-msgstr ""
+#: search_engine/templates/search/search.html:6
+msgid "Where you can search things"
+msgstr "Là où vous pouvez chercher des choses"
 
-#: search_engine/templates/search/search.html:35
+#: search_engine/templates/search/search.html:38
+#: user_profile/templates/users/ajax/password_confirm_form.html:18
+#: user_profile/templates/users/ajax/password_reset_form.html:18
+msgid "Clear"
+msgstr "Effacer"
+
+#: search_engine/templates/search/search.html:45
 msgid "Results"
-msgstr ""
+msgstr "Résultats"
 
-#: search_engine/templates/search/search.html:50
+#: search_engine/templates/search/search.html:60
 msgid "No results found."
-msgstr ""
+msgstr "Aucun résultat"
 
 #: seo/models.py:28
 msgid "keywords"
@@ -1064,41 +1114,45 @@ msgstr ""
 "Ce lien d'activation n'existe pas. Si vous avez des problèmes d'activation, "
 "vous pouvez nous contacter via le formulaire de contact."
 
-#: user_profile/templates/users/edit_account.html:10
-#: user_profile/templates/users/edit_account.html:18
+#: user_profile/templates/users/base.html:8
+msgid "User panel"
+msgstr "Zone membre"
+
+#: user_profile/templates/users/edit_account.html:20
+#: user_profile/templates/users/edit_account.html:28
 msgid "Edit my profile"
 msgstr "Modifier mon profil"
 
-#: user_profile/templates/users/edit_account.html:12
+#: user_profile/templates/users/edit_account.html:22
 msgid "Here you can change your name, hobbies, occupation, …"
 msgstr "Ici vous pouvez changer votre nom, hobbies, emploi, …"
 
-#: user_profile/templates/users/edit_account.html:28
-#: user_profile/templates/users/edit_account.html:36
+#: user_profile/templates/users/edit_account.html:38
+#: user_profile/templates/users/edit_account.html:46
 msgid "Edit my settings"
 msgstr "Modifier mes options"
 
-#: user_profile/templates/users/edit_account.html:30
+#: user_profile/templates/users/edit_account.html:40
 msgid "If you want to enable/disable some features, it's the place."
 msgstr "Si vous voulez activer/désactiver certaines options, c'est ici."
 
-#: user_profile/templates/users/edit_account.html:48
-#: user_profile/templates/users/edit_account.html:56
+#: user_profile/templates/users/edit_account.html:58
+#: user_profile/templates/users/edit_account.html:66
 msgid "Edit my email address"
 msgstr "Modifier mon adresse email"
 
-#: user_profile/templates/users/edit_account.html:50
+#: user_profile/templates/users/edit_account.html:60
 msgid "You must have set a password to change you email address."
 msgstr ""
 "Vous devez avoir défini un mot de passe pour pouvoir changer votre adresse "
 "email."
 
-#: user_profile/templates/users/edit_account.html:68
-#: user_profile/templates/users/edit_account.html:76
+#: user_profile/templates/users/edit_account.html:78
+#: user_profile/templates/users/edit_account.html:86
 msgid "Edit my password"
 msgstr "Modifier mon mot de passe"
 
-#: user_profile/templates/users/edit_account.html:70
+#: user_profile/templates/users/edit_account.html:80
 msgid "Here you can change or set your password."
 msgstr "Ici vous pouvez changer ou définir votre mot de passe."
 
@@ -1107,20 +1161,22 @@ msgstr "Ici vous pouvez changer ou définir votre mot de passe."
 msgid "Edit thumbnail"
 msgstr "Modifier ma miniature"
 
-#: user_profile/templates/users/edit_picture.html:8
+#: user_profile/templates/users/edit_picture.html:18
 msgid "You can drop your new picture in this box: "
 msgstr "Vous pouvez glisser votre image ici : "
 
-#: user_profile/templates/users/edit_picture.html:17
+#: user_profile/templates/users/edit_picture.html:27
 msgid "Or you can use this form: "
 msgstr "Ou vous pouvez utiliser ce formuaire : "
 
 #: user_profile/templates/users/manage_social_accounts.html:5
-#: user_profile/templates/users/manage_social_accounts.html:8
+#: user_profile/templates/users/manage_social_accounts.html:10
+#: user_profile/templates/users/manage_social_accounts.html:11
+#: user_profile/templates/users/manage_social_accounts.html:17
 msgid "Manage social media accounts"
 msgstr "Gérer mes réseaux sociaux"
 
-#: user_profile/templates/users/manage_social_accounts.html:11
+#: user_profile/templates/users/manage_social_accounts.html:20
 msgid ""
 "Here you can link/unlink your social media accounts to this website.<br/"
 ">Linking your accounts will help you to sign in here in an easier way: You "
@@ -1131,11 +1187,11 @@ msgstr ""
 "juste à cliquer sur un compte lié dans le menu de connexion pour être "
 "connecté."
 
-#: user_profile/templates/users/manage_social_accounts.html:15
+#: user_profile/templates/users/manage_social_accounts.html:24
 msgid "Warning!"
 msgstr "Attention !"
 
-#: user_profile/templates/users/manage_social_accounts.html:16
+#: user_profile/templates/users/manage_social_accounts.html:25
 msgid ""
 "If you want to completely revoke an access, you have to do it on your "
 "provider's website."
@@ -1143,23 +1199,23 @@ msgstr ""
 "Si vous voulez complètement revoquer un accès, vous devrez le faire "
 "directement sur le site du compte lié."
 
-#: user_profile/templates/users/manage_social_accounts.html:19
+#: user_profile/templates/users/manage_social_accounts.html:28
 msgid "List of your linked accounts:"
 msgstr "Liste des comptes liés :"
 
-#: user_profile/templates/users/manage_social_accounts.html:25
+#: user_profile/templates/users/manage_social_accounts.html:34
 msgid "Delete"
 msgstr "Supprimer"
 
-#: user_profile/templates/users/manage_social_accounts.html:29
+#: user_profile/templates/users/manage_social_accounts.html:38
 msgid "with the account"
 msgstr "avec le compte"
 
-#: user_profile/templates/users/manage_social_accounts.html:31
+#: user_profile/templates/users/manage_social_accounts.html:40
 msgid "No account linked"
 msgstr "Aucun compte de lié"
 
-#: user_profile/templates/users/manage_social_accounts.html:41
+#: user_profile/templates/users/manage_social_accounts.html:50
 msgid ""
 "The link has failed. If you think the problem comes from us, feel free to "
 "contact us."
@@ -1167,7 +1223,7 @@ msgstr ""
 "La liaison a échouée. Si vous pensez que le problème viens de nous, "
 "n'hésitez pas à nous contacter."
 
-#: user_profile/templates/users/manage_social_accounts.html:46
+#: user_profile/templates/users/manage_social_accounts.html:55
 msgid ""
 "List of linkable social media (click to link, you can link multiple accounts "
 "from the same social media):"
@@ -1177,22 +1233,22 @@ msgstr ""
 
 #: user_profile/templates/users/password_confirm.html:8
 #: user_profile/templates/users/password_confirm.html:12
-#: user_profile/templates/users/password_reset.html:4
-#: user_profile/templates/users/password_reset.html:8
+#: user_profile/templates/users/password_reset.html:5
+#: user_profile/templates/users/password_reset.html:18
 #: user_profile/templates/users/ajax/password_confirm_form.html:14
 #: user_profile/templates/users/ajax/password_reset_form.html:14
 msgid "Reset my password"
 msgstr "Réinitialiser mon mot de passe"
 
-#: user_profile/templates/users/sign_up.html:23
+#: user_profile/templates/users/sign_up.html:24
 msgid "Sign up using a social media account"
 msgstr "S'inscrire via un réseau social"
 
-#: user_profile/templates/users/sign_up.html:24
+#: user_profile/templates/users/sign_up.html:25
 msgid "(faster)"
 msgstr "(Rapide)"
 
-#: user_profile/templates/users/sign_up.html:31
+#: user_profile/templates/users/sign_up.html:32
 msgid ""
 "Signing up using one of your social medias accounts is the simplest and "
 "fastest way to sign up. You won't have to fill any forms or validate your "
@@ -1202,19 +1258,19 @@ msgstr ""
 "la plus simple et la plus rapide de s'inscrire. Vous n'avez pas besoin de "
 "remplir de formulaire, ni de valider votre compte."
 
-#: user_profile/templates/users/sign_up.html:34
+#: user_profile/templates/users/sign_up.html:35
 msgid "Click on the provider you want to use:"
 msgstr "Cliquez sur le fournisseur que vous voulez utiliser :"
 
-#: user_profile/templates/users/sign_up.html:50
+#: user_profile/templates/users/sign_up.html:48
 msgid "Sign up manually"
 msgstr "Inscription manuelle"
 
-#: user_profile/templates/users/sign_up.html:51
+#: user_profile/templates/users/sign_up.html:49
 msgid "(painful)"
 msgstr "(long)"
 
-#: user_profile/templates/users/sign_up.html:58
+#: user_profile/templates/users/sign_up.html:56
 msgid ""
 "If you choose to sign up this way, we will send you an e-mail to validate "
 "your account."
@@ -1223,24 +1279,29 @@ msgstr ""
 "un email pour valider votre compte."
 
 #: user_profile/templates/users/view.html:5
-#: user_profile/templates/users/view.html:10
+#: user_profile/templates/users/view.html:6
 #, python-format
 msgid "Profile of %(username)s"
 msgstr "Profil de %(username)s"
 
-#: user_profile/templates/users/view.html:18
+#: user_profile/templates/users/view.html:12
+#: user_profile/templates/users/view.html:13
+msgid "View profile"
+msgstr "Voir un profile"
+
+#: user_profile/templates/users/view.html:24
 msgid "Name:"
 msgstr "Nom : "
 
-#: user_profile/templates/users/view.html:22
+#: user_profile/templates/users/view.html:28
 msgid "Website:"
 msgstr "Site web :"
 
-#: user_profile/templates/users/view.html:27
+#: user_profile/templates/users/view.html:33
 msgid "Occupation:"
 msgstr "Emploi :"
 
-#: user_profile/templates/users/view.html:31
+#: user_profile/templates/users/view.html:37
 msgid "Hobbies:"
 msgstr "Hobbies :"
 
@@ -1288,11 +1349,6 @@ msgstr "Votre photo a correctement été mis à jour."
 msgid "Your password has been successfully changed."
 msgstr "Votre mot de passe a bien été change."
 
-#: user_profile/templates/users/ajax/password_confirm_form.html:18
-#: user_profile/templates/users/ajax/password_reset_form.html:18
-msgid "Clear"
-msgstr "Effacer"
-
 #: user_profile/templates/users/ajax/password_reset_done.html:6
 msgid "Email sent!"
 msgstr "Email envoyé !"
@@ -1337,9 +1393,17 @@ msgstr ""
 msgid "You can update your informations in the user menu."
 msgstr "Vous pouvez mettre à jour vos informations dans le menu utilisateur."
 
-#, fuzzy
-#~ msgid "Featured blog posts"
-#~ msgstr "Il n'y a aucun article."
+#~ msgid "has subcontent"
+#~ msgstr "A du sous-contenu"
+
+#~ msgid "C.V. Sub-content"
+#~ msgstr "C.V. Sous-contenu"
+
+#~ msgid "C.V. Sub-contents"
+#~ msgstr "C.V. Sous-contenus"
+
+#~ msgid "My website"
+#~ msgstr "Mon site"
 
 #, fuzzy
 #~ msgid "Documentation"
