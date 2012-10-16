@@ -5,27 +5,16 @@
     {% for content in cat.cvcontent_set.all %}
       {% if content.key %}
         <dt>{{ content.key }}
-  	{% if is_downloadable and content.value_for_download.strip %}
-  	  <dd>{{ content.value_for_download|markdown }}
-  	{% else %}
-  	  <dd>{{ content.value|markdown }}
-  	{% endif %}
-      {% else %}
-        {% if content.has_subcontent %}
-  	{% if is_downloadable and content.value_for_download.strip %}
-  	  <dt><strong>{{ content.value_for_download }}</strong>
-  	{% else %}
-  	  <dt><strong>{{ content.value }}</strong>
-  	{% endif %}
-  	{% for subc in content.cvsubcontent_set.all %}
-  	  <dd>{{ subc.value|markdown }}
-  	{% endfor %}
+        {% if is_downloadable and content.value_for_download.strip %}
+          <dd>{{ content.value_for_download|markdown }}
         {% else %}
-  	{% if is_downloadable and content.value_for_download.strip %}
-  	  <dd>{{ content.value_for_download }}
-  	{% else %}
-  	  <dd>{{ content.value|markdown }}
-  	{% endif %}
+          <dd>{{ content.value|markdown }}
+        {% endif %}
+      {% else %}
+        {% if is_downloadable and content.value_for_download.strip %}
+          <dd>{{ content.value_for_download }}
+        {% else %}
+          <dd>{{ content.value|markdown }}
         {% endif %}
       {% endif %}
     {% endfor %}

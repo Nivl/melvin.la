@@ -292,10 +292,6 @@ class CVContent(models.Model):
         null=True,
         verbose_name=_("value for download"))
 
-    has_subcontent = models.BooleanField(
-        default=False,
-        verbose_name=_("has subcontent"))
-
     def __unicode__(self):
         return "%s - %s" % (self.key, self.value)
 
@@ -303,31 +299,3 @@ class CVContent(models.Model):
         ordering = ['order']
         verbose_name = _("C.V. Content")
         verbose_name_plural = _("C.V. Contents")
-
-
-class CVSubContent(models.Model):
-    site = models.ForeignKey(
-        I18nSite,
-        default=settings.SITE_ID,
-        verbose_name=_("site"))
-
-    content = models.ForeignKey(
-        CVContent,
-        limit_choices_to={'site': settings.SITE_ID},
-        verbose_name=_("content"))
-
-    order = models.PositiveSmallIntegerField(
-        default=0,
-        verbose_name=_("order"))
-
-    value = models.CharField(
-        max_length=255,
-        verbose_name=_("value"))
-
-    def __unicode__(self):
-        return self.value
-
-    class Meta:
-        ordering = ['order']
-        verbose_name = _("C.V. Sub-content")
-        verbose_name_plural = _("C.V. Sub-contents")

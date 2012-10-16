@@ -5,23 +5,10 @@
     {% if content.key %}
       <li><strong>{{ content.key }}</strong>{% trans ": " %}{% if is_downloadable and content.value_for_download.strip %}{{ content.value_for_download|markdown }}{% else %}{{ content.value|markdown }}{% endif %}
     {% else %}
-      {% if content.has_subcontent %}
-	{% if is_downloadable and content.value_for_download.strip %}
-	  <li><strong>{{ content.value_for_download }}</strong>
-	{% else %}
-	  <li><strong>{{ content.value }}</strong>
-	{% endif %}
-	  <ul>
-	    {% for subc in content.cvsubcontent_set.all %}
-	      <li>{{ subc.value|markdown }}
-	    {% endfor %}
-	  </ul>
+      {% if is_downloadable and content.value_for_download.strip %}
+        <li>{{ content.value_for_download }}
       {% else %}
-	{% if is_downloadable and content.value_for_download.strip %}
-	  <li>{{ content.value_for_download }}
-	{% else %}
-	  <li>{{ content.value|markdown }}
-	{% endif %}
+        <li>{{ content.value|markdown }}
       {% endif %}
     {% endif %}
   {% endfor %}
