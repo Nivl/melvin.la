@@ -191,7 +191,6 @@ $(function() {
 
 $(document).on('click', '.scroll', function(e) {
     e.preventDefault();
-    console.log('in');
     $('html,body').stop().animate({
         scrollTop: $(this.hash).offset().top
     }, 500);
@@ -310,7 +309,7 @@ function navigationHTML5() {
                                              .html());
             }
             // Replace with fades
-            to_change = ['#local_link', action];
+            to_change = [action];
             for (i=0; i<to_change.length; i++) {
                 $(to_change[i]).hide().html(response
                                             .find(to_change[i])
