@@ -1,9 +1,8 @@
 var resolve_urls = django_js_utils.urls.resolve;
 
 function replaceAll(txt, replace, with_this) {
-    return txt.replace(new RegExp(replace, 'g'),with_this);
+    return txt.replace(new RegExp(replace, 'g'), with_this);
 }
-
 
 function reloadJsEffects() {
     styleCode();
@@ -13,7 +12,7 @@ function reloadJsEffects() {
     startLabDiagram();
 
     $('#left-menu > li').off('hover').hover(
-        function () {
+        function() {
             if (!($(this).hasClass('animate'))) {
                 var that = this;
                 var height = $(this).find('.content').innerHeight();
@@ -25,7 +24,7 @@ function reloadJsEffects() {
                     var diff = height - $(this).innerHeight();
 
                     $(this).next().animate({'marginTop': diff}, 50, 'linear',
-                                           function(){
+                                           function() {
                                                $(that).toggleClass('animate');
                                            });
                 } else {
@@ -33,7 +32,7 @@ function reloadJsEffects() {
                 }
             }
         },
-        function () {
+        function() {
             if ($(this).hasClass('animate')) {
                 $(this).toggleClass('animate');
 
@@ -50,17 +49,17 @@ function reloadJsEffects() {
 function dropFile() {
     if (Modernizr.draganddrop) {
         $(document).on({
-            dragenter: function(){
+            dragenter: function() {
                 $(this).addClass('dragging');
                 return false;
             },
 
-            dragleave: function(){
+            dragleave: function() {
                 $(this).removeClass('dragging');
                 return false;
             },
 
-            drop: function(e){
+            drop: function(e) {
                 var $that = $(this);
 
                 $(this).removeClass('dragging');
@@ -75,7 +74,7 @@ function dropFile() {
                         resolve_urls('handle_dropped_picture'),
                         data,
                         null,
-                        function (html){
+                        function(html) {
                             if (html == '200') {
                                 $that.removeClass('invalid-drop');
                                 $that.addClass('valid-drop');
@@ -97,7 +96,7 @@ function dropFile() {
 
 function checkForLocalStorage() {
     $.jStorage.reInit();
-    $('[data-storage]').each(function (){
+    $('[data-storage]').each(function() {
         var key = $(this).data('storage');
         $(this).val($.jStorage.get(key, ''));
     });
@@ -116,7 +115,7 @@ function preview() {
         .on('input keydown', '[data-parse]', function() {
             var target = $(this).data('parse');
             $(target).html(markdownConverter.makeHtml($(this).val()));
-            $(target).find('code').parent().each(function(){
+            $(target).find('code').parent().each(function() {
                 $(this).html(prettyPrintOne($(this).html()));
             });
         });
@@ -140,7 +139,7 @@ function enableBootstrapEffects() {
     $('.carousel').carousel();
     $('[rel=tooltip]').tooltip();
     $('.form-search .search-query').typeahead({
-        updated : function () {
+        updated: function() {
             this.$element.trigger('submit');
         }
     });
@@ -149,9 +148,9 @@ function enableBootstrapEffects() {
 function styleCode() {
     var a = false;
 
-    $("pre code").parent().each(function() {
-        if (!$(this).hasClass("prettyprint")) {
-            $(this).addClass("prettyprint");
+    $('pre code').parent().each(function() {
+        if (!$(this).hasClass('prettyprint')) {
+            $(this).addClass('prettyprint');
             a = true;
         }
     });
@@ -170,10 +169,11 @@ $(function() {
      * animateHighlight
      **********/
     $.fn.animateHighlight = function(highlightColor, duration) {
-        var highlightBg = highlightColor || "#FFFF9C";
+        var highlightBg = highlightColor || '#FFFF9C';
         var animateMs = duration || 1500;
-        var originalBg = this.css("backgroundColor");
-        this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
+        var originalBg = this.css('backgroundColor');
+        this.stop().css('background-color', highlightBg)
+                   .animate({backgroundColor: originalBg}, animateMs);
     };
 
     /***********
@@ -197,7 +197,7 @@ $(document).on('click', '.scroll', function(e) {
     }, 500);
 });
 
-function navigationHTML5(){
+function navigationHTML5() {
 
     /***********
      * Nav bar
@@ -206,11 +206,12 @@ function navigationHTML5(){
         var $current_active = $('#navbar-main-list > li.active');
 
         if (target !== null && $(target)[0] == $current_active[0])
-            return ;
+            return;
 
         if (target !== null) {
             if ($current_active.hasClass('dropdown')) {
-                $('#navbar-main-list .dropdown li.active').removeClass('active');
+                $('#navbar-main-list .dropdown li.active')
+                    .removeClass('active');
 
                 if ($(target).parents('.dropdown').length === 0) {
                     $current_active.removeClass('active');
@@ -291,13 +292,13 @@ function navigationHTML5(){
             && State.data['breadcrumb'].length) {
             $('#breadcrumb').html(State.data['breadcrumb']).show();
         } else {
-            $('#breadcrumb').fadeOut(function(){
+            $('#breadcrumb').fadeOut(function() {
                 $(this).empty();
             });
         }
 
         $('#loading-msg').fadeIn();
-        $.get(relativeURL, function(html){
+        $.get(relativeURL, function(html) {
             var i;
             var response = $('<html />').html(html);
             var to_change = [];
@@ -323,7 +324,7 @@ function navigationHTML5(){
     function getNewBreadcrumb(that) {
         var breadcrumb = $('#breadcrumb').clone();
 
-        if ($(that).data('depth') === undefined){
+        if ($(that).data('depth') === undefined) {
             return breadcrumb;
         }
 
@@ -365,7 +366,7 @@ function navigationHTML5(){
         return breadcrumb;
     }
 
-    function changePage(url, title, that){
+    function changePage(url, title, that) {
         var action = '#' + $(that).data('ajax');
         var breadcrumb = getNewBreadcrumb(that);
         var navbar_id = $('#navbar-main-list > li.active').prop('id');
@@ -385,7 +386,7 @@ function navigationHTML5(){
                                   url);
     }
 
-    $(document).on('click', 'a[data-ajax]', function(event){
+    $(document).on('click', 'a[data-ajax]', function(event) {
         if (!event.shiftKey && !event.ctrlKey) {
             changePage($(this).attr('href'), $(this).attr('title'), this);
             return false;
@@ -396,7 +397,7 @@ function navigationHTML5(){
      * Search Form
      **************/
 
-    $(document).on('submit', '.form-search', function(){
+    $(document).on('submit', '.form-search', function() {
         var search_query = $(this).find('.search-query');
         var query;
         var url;
@@ -416,8 +417,8 @@ function navigationHTML5(){
     });
 
     $(document).on('input', '.form-search .search-query', function(e) {
-        if ($.inArray(e.keyCode,[40,38,9,13,27]) === -1
-            && $(this).val().length > 0){
+        if ($.inArray(e.keyCode, [40, 38, 9, 13, 27]) === -1
+            && $(this).val().length > 0) {
             var that = this;
             var query = replaceAll(
                 encodeURIComponent(
@@ -427,11 +428,11 @@ function navigationHTML5(){
             var url = resolve_urls('autocomplete');
             url += '?search=' + query;
 
-            $.getJSON(url, function(data){
+            $.getJSON(url, function(data) {
                 var items = [];
 
                 if (data) {
-                    $.each(data, function(i, val){
+                    $.each(data, function(i, val) {
                         items.push(val);
                     });
                 }
