@@ -33,6 +33,17 @@
 {% block "local_css" %}
   {% if to_pdf %}
     <style>
+
+      @font-face {
+        font-family: 'PT Sans';
+        src: url('{% static "commons/fonts/PTS55F-webfont.eot" %}');
+        src: url('{% static "commons/fonts/PTS55F-webfont.eot" %}?#iefix' format('embedded-opentype')),
+             url('{% static "commons/fonts/PTS55F-webfont.woff" %}' format('woff')),
+             url('{% static "commons/fonts/PTS55F-webfont.ttf" %}' format('truetype'));
+        font-weight: normal;
+        font-style: normal;
+      }
+
       {% ssi STATIC_ROOT|add:"/commons/css/0/bootstrap.min.css" %}
       {% ssi STATIC_ROOT|add:"/commons/css/20/main.css" %}
 
