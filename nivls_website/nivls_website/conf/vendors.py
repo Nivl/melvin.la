@@ -1,4 +1,3 @@
-from django.core.urlresolvers import reverse_lazy
 from nivls_website.conf.commons import *
 
 #
@@ -106,6 +105,13 @@ PIPELINE_CSS = {
                                   ),
              'output_filename': 'commons/compiled/styles.css',
              },
+
+    'wkhtml2pdf': {'source_filenames': ('commons/css/0/*.css',
+                                        'commons/css/10/*.css',
+                                        'commons/css/20/main.less',
+                                        ),
+                   'output_filename': 'commons/compiled/wkhtml2pdf.css',
+                   },
 
     'error': {'source_filenames': ('commons/css/0/bootstrap.min.css',
                                    'commons/css/20/error.less',

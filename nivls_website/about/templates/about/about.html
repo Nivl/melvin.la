@@ -1,8 +1,7 @@
 {% extends "about/base.html" %}
 
-{% load ssi from future %}
 {% load url from future %}
-{% load markup i18n staticfiles about_tags %}
+{% load markup i18n compressed about_tags %}
 
 {% block "menu-about" %} class="active"{% endblock %}
 {% block "page-title" %}{% trans "About" %}{% endblock %}
@@ -32,25 +31,12 @@
 
 {% block "local_css" %}
   {% if to_pdf %}
-    <style>
-
-      @font-face {
-        font-family: 'PT Sans';
-        src: url('{% static "commons/fonts/PTS55F-webfont.eot" %}');
-        src: url('{% static "commons/fonts/PTS55F-webfont.eot" %}?#iefix' format('embedded-opentype')),
-             url('{% static "commons/fonts/PTS55F-webfont.woff" %}' format('woff')),
-             url('{% static "commons/fonts/PTS55F-webfont.ttf" %}' format('truetype'));
-        font-weight: normal;
-        font-style: normal;
-      }
-
-      {% ssi STATIC_ROOT|add:"/commons/css/0/bootstrap.min.css" %}
-      {% ssi STATIC_ROOT|add:"/commons/css/20/main.css" %}
-
-      #body-content{
-        margin-top: 0px;
-      }
-    </style>
+    {% compressed_css 'wkhtml2pdf' %}
+      <style>
+        #body-content{
+          margin-top: 0px;
+        }
+      </style>
   {% else %}
     {{ block.super }}
   {% endif %}
