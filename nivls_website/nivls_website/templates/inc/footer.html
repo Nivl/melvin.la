@@ -2,11 +2,36 @@
 {% load url from future %}
 
 <footer>
-  <div id="html-logo">
-    <a href="http://www.w3.org/html/logo/">
-      <img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics-storage.png" width="229" height="64" alt="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage" title="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage">
-    </a>
-  </div>
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <ul class="unstyled nav nav-pills">
+            <li>
+              <a a href="http://www.python.org/">
+                <img src="{% static "commons/img/footer/python.png" %}">
+              </a>
+            </li>
+            <li>
+              <a href="http://www.w3.org/html/logo/">
+                <img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics-storage.png" width="229" height="64" alt="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage" title="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage">
+              </a>
+            </li>
+            <li>
+              <a href="http://www.jquery.org">
+                <img src="{% static "commons/img/footer/jquery.png" %}">
+              </a>
+            </li>
+            <li>
+              <a href="https://www.djangoproject.com/">
+                <img src="{% static "commons/img/footer/django.png" %}">
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
 
   <div class="container">
     <div class="row">

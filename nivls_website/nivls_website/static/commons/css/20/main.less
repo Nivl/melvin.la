@@ -969,20 +969,25 @@ ul#left-menu {
     font-size: 0.85em;
 
 
-    border-top: 42px solid #D9D9D9;
+    header {
+        background-color: #d9d9d9;
+        margin-top: -20px;
+        margin-bottom: 20px;
+        height: 42px;
 
-    #html-logo {
-        display: inline;
-        position: relative;
-        top: -73px;
-        left: 80%;
+        ul {
+            margin-top: -21px;
+
+            li {
+                a {
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+
     }
-
-
-    .container {
-        margin-top: -42px;
-    }
-
 
     .brand {
         font-size: 30px;
