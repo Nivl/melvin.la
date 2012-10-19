@@ -378,10 +378,6 @@ h2 {
  * HTML
  *****************************************************************************/
 
-body, html {
-    height: 100%
-}
-
 h1 {
     margin-bottom: 10px;
 }
@@ -945,23 +941,16 @@ ul#left-menu {
 }
 
 #body {
-    min-height: 100%;
-    position: relative;
     .clearfix();
 }
 
-@footer-size: 230px; // paddings and borders not counted
-@body-margin-top: 70px;
 #body-content {
-    margin-top: @body-margin-top;
-    padding-bottom: @footer-size + @body-margin-top;
+    margin-top: 70px;
+    padding-bottom: 50px;
 }
 
 #body > footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    min-height: @footer-size;
+    min-height: 230px;
     padding-top: 20px;
 
     background-color: @grayDark;
