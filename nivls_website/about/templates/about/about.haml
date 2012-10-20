@@ -1,0 +1,113 @@
+- extends "about/base.haml"
+
+- load url from future
+- load markup i18n compressed about_tags
+
+- block "menu-about"
+   active
+- block "page-title"
+  - trans "About"
+- block "page-subtitle"
+  - trans "Where you learn more about me"
+
+- block "breadcrumb-content"
+  %li
+    %span.divider /
+  %li
+    %a{'data-depth' : '1',
+       'data-ajax'  : 'body-content',
+       'title'      : '{% trans "About" %}',
+       'href'       : '{% url "about" %}'}
+      - trans "About"
+
+- block "header-classes"
+  - if to_pdf
+    hide
+
+- block "footer"
+  - if not to_pdf
+    {{ block.super }}
+
+- block "local_css"
+  - if to_pdf
+    - compressed_css 'wkhtml2pdf'
+    :css
+      #body-content{
+        margin-top: 0px;
+      }
+  - else
+    {{ block.super }}
+
+- block "content"
+  - if not to_pdf
+    %section.clean-section
+      %h2<
+        {% trans "Welcome to my website" %}
+      .section-content
+        {{ profile.about_me|markdown }}
+
+    %hr
+    %h2<
+      {% trans "C.V." %}
+
+  %article#resume.accordion.clean-accordion.main-accordion
+    - for section in cv_sections
+      .accordion-group
+        %h2
+          %a.accordion-toggle{'data-toggle' : 'collapse',
+                              'data-parent' : '#resume',
+                              'href'        : '#{{ section.slug }}'}
+            {{ section.name }}
+
+        %section{'id'   : '{{ section.slug }}',
+                 'class': 'collapse{% if to_pdf %} in{% endif %}'}
+
+          .block
+            .container-fluid
+              {% display_cat section.cvcategory_set.all to_pdf %}
+
+    - if not to_pdf
+      .accordion-group
+        %h2
+          %a.accordion-toggle{'data-toggle' : 'collapse',
+                              'data-parent' : '#resume',
+                              'href'        : '#downloads'}
+            - trans "Downloads"
+
+        %section#downloads.collapse
+          .block
+            .container-fluid
+              .row-fluid
+                .span4
+                  %h3<
+                    - trans "Downloads"
+
+                .span8
+                  %ul.element.unstyled
+                    %li
+                      %a{'href': '{% url "cv_pdf" %}'}
+                        - trans "Download this C.V. as PDF"
+ - if not to_pdf
+    %hr
+
+    %section.clean-section-full-size
+      %h2<
+        - trans "Be social"
+
+      - for link in contact_links
+        - if forloop.counter0|divisibleby:4
+          <div class="row">
+
+        .span3
+          .big-badge
+            .foreground{'style': 'background-image:url({{ link.image.url }});'}
+              %a{'{{ link.attributes|safe }}' : None,
+                 'href'                       : '{{ link.link }}',
+                 'style'                      : 'background-image:url({{ link.image.url|safe }});'}
+
+            .informations
+              %h4<
+                {{ link.name }}
+
+        - if forloop.counter|divisibleby:4 or forloop.last
+          </div>
