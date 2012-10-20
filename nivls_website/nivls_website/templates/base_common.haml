@@ -31,14 +31,14 @@
                       %a{'data-depth' : '1',
                          'title'      : '{% trans "Blog" %}',
                          'data-ajax'  : 'body-content',
-                         'href'       : '{% url "blog" %}'}
+                         'href'       : '{% url "blog" %}'}<
                         - trans "Blog"
 
                     %li#navbar-lab{'class': '{% block "menu-lab" %}{% endblock %}'}
                       %a{'data-depth' : '1',
                          'data-ajax'  : 'body-content',
                          'href'       : '{% url "lab" %}',
-                         'title'      : '{% trans "Lab" %}'}
+                         'title'      : '{% trans "Lab" %}'}<
                         - trans "Lab"
 
                     %li#navbar-about{'class': '{% block "menu-about" %}{% endblock %}'}
@@ -46,26 +46,26 @@
                          'rel'        : 'author',
                          'data-ajax'  : 'body-content',
                          'title'      : '{% trans "About" %}',
-                         'href'       : '{% url "about" %}'}
+                         'href'       : '{% url "about" %}'}<
                         - trans "About"
 
                     %li#navbar-portfoilio{'class': '{% block "menu-portfolio" %}{% endblock %}'}
                       %a{'data-depth' : '1',
                          'data-ajax'  : 'body-content',
                          'title'      : '{% trans "Portfolio" %}',
-                         'href'       : '{% url "portfolio" %}'}
+                         'href'       : '{% url "portfolio" %}'}<
                         - trans "Portfolio"
 
                     %li#navbar-contact{'class': '{% block "menu-contact" %}{% endblock %}'}
                       %a{'data-depth' : '1',
                          'data-ajax'  : 'body-content',
                          'title'      : '{% trans "Contact" %}',
-                         'href'       : '{% url "contact" %}'}
+                         'href'       : '{% url "contact" %}'}<
                         - trans "Contact"
 
                     %li.dropdown{'class': '{% block "menu-user" %}{% endblock %}'}
                       %a.dropdown-toggle{'href': '#',
-                                         'data-toggle': 'dropdown'}
+                                         'data-toggle': 'dropdown'}<
                         %i.icon-cog
 
                       %ul.dropdown-menu
@@ -74,34 +74,34 @@
                             %a{'data-ajax'  : 'body-content',
                                'data-depth' : '1',
                                'title'      : '{% trans "Sign up" %}',
-                               'href'       : '{% url "sign-up" %}'}
+                               'href'       : '{% url "sign-up" %}'}<
                               - trans "Sign up"
 
                           %li
                             %a{'data-ajax'  : 'body-content',
                                'data-depth'  : '1',
                                'title'       : '{% trans "I lost my password" %}',
-                               'href'        : '{% url "reset-password" %}'}
+                               'href'        : '{% url "reset-password" %}'}<
                               - trans "I lost my password"
 
                           %li.divider
 
-                          %li.login-box
+                          %li.login-box<
                             %h5 {% trans "Sign in" %}
 
                             .social-media-box.clearfix
-                              %p.login-sm.pull-left
+                              %p.login-sm.pull-left<
                                 - trans "Sign in with:"
 
-                              %ul.nav.nav-pills.social-medias-icons
+                              %ul.nav.nav-pills.social-medias-icons<
                                 {{ social_auth.backends|social_sign_in_links:request }}
 
-                            %p
+                            %p<
                               - trans "Or sign in using your account:"
 
                             %form{'action': '{% url "sign-in" %}', 'method': 'post'}
                               {% csrf_token %}
-                              %input{'placeholder': '{% trans "Username" %}',
+                                %input{'placeholder': '{{ _("Username")|force_escape }}',
                                      'id'         : 'id_username',
                                      'name'       : 'username',
                                      'type'       : 'text'}
@@ -140,8 +140,8 @@
                                'data-depth' : '1',
                                'title'      : '{% trans "Edit my profile picture" %}',
                                'href'       : '{% url "edit-picture" %}'}
-                            %i.icon-camera
-                            - trans "Edit my profile picture"
+                              %i.icon-camera
+                              - trans "Edit my profile picture"
 
                           %li
                             %a{'data-ajax'  : 'body-content',
@@ -178,7 +178,7 @@
                   %button.btn{'type': 'submit'}
                     %i.icon-search
 
-              %h1#page-title
+              %h1#page-title<
                 - block "page-title"
                   - trans "Welcome"
 
@@ -186,9 +186,9 @@
           .span12.clearfix
             - block "breadcrumb"
               %ul#breadcrumb.breadcrumb
-                %li
+                %li<
                   - trans "You are here"
-                %li
+                %li<
                   %span.divider →
                 %li
                   %a{'href': '{% url "home" %}'}
@@ -199,7 +199,7 @@
       .container
         .row
           .span12
-            %h2#page-subtitle
+            %h2#page-subtitle<
               - block "page-subtitle"
                 - trans "Where you have access to your data"
 
