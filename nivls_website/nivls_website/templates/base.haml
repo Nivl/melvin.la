@@ -8,7 +8,7 @@
         %head
             %meta{'charset': 'utf-8'}
             %title
-                - block 'title'
+                - block "title"
                     {{ seo.title }}
             %meta{'name': 'viewport', 'content': 'width=device-width, initial-scale=1.0'}
             %meta{'name': 'keywords', 'content': '={seo.keywords}'}
@@ -16,8 +16,8 @@
             %link{'rel': 'shortcut icon', 'href': '{% static "commons/img/favicon.ico" %}'}
             {{ seo.free_head_block|safe }}
 
-            - block 'local_css'
-            - block 'head_link'
+            - block "local_css"
+            - block "head_link"
 
             %script{'src': "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"}
             /[if lt IE 9]>
@@ -26,7 +26,7 @@
             %body
                 {% endif %}
                 #body
-                    - block body
+                    - block "body"
                 - if not request.is_ajax
                     %script
                         var STATIC_URL="{% static "" %}";
