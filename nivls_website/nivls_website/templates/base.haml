@@ -1,0 +1,42 @@
+- load url from future
+- load seo_tags i18n staticfiles compressed
+- get_seo as _
+
+{% if not request.is_ajax %}
+    !!! 5
+    %html{'lang': '{% trans "en" %}'}
+        %head
+            %meta{'charset': 'utf-8'}
+            %title
+                - block 'title'
+                    {{ seo.title }}
+            %meta{'name': 'viewport', 'content': 'width=device-width, initial-scale=1.0'}
+            %meta{'name': 'keywords', 'content': '={seo.keywords}'}
+            %meta{'name': 'description', 'content': '{% block "meta-description" %}seo.description{% endblock %}'}
+            %link{'rel': 'shortcut icon', 'href': '{% static "commons/img/favicon.ico" %}'}
+            {{ seo.free_head_block|safe }}
+
+            - block 'local_css'
+            - block 'head_link'
+
+            %script{'src': "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"}
+            /[if lt IE 9]>
+                %script{'src': '{% static "commons/js/html5shiv.js" %}'}
+
+            %body
+                {% endif %}
+                #body
+                    - block body
+                - if not request.is_ajax
+                    %script
+                        var STATIC_URL="{% static "" %}";
+                    %script{'src': 'https://apis.google.com/js/plusone.js'}
+                        {parsetags: 'explicit'}
+                    %script{'src': '{% url "django.views.i18n.javascript_catalog" %}'}
+                    %script{'src': '{% url "jsurls" %}'}
+
+                    - compressed_js 'main'
+                -block "app_js"
+
+                - if not request.is_ajax
+                    {{ seo.free_javascript_block }}
