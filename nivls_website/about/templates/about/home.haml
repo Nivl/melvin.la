@@ -1,0 +1,42 @@
+- extends 'base_common.haml'
+
+- load url from future
+- load markup i18n staticfiles blog_tags
+
+- block "page-subtitle"
+  - trans "Welcome to my website"
+
+- block "body-content"
+  - for link in navigation_links
+
+    - if forloop.counter0|divisibleby:4
+      <div class="row">
+    .span3
+      .big-badge
+        .foreground{'style': 'background-image:url({{ link.image.url|safe }});'}
+          %a{'{{ link.attributes|safe }}' : None,
+             'href'                       : '{{ link.link }}',
+             'style'                      : 'background-image:url({{ link.image.url }});'}
+
+        .informations
+          %h4
+            {{ link.name }}
+          %p
+            {{ link.description }}
+
+    - if forloop.counter|divisibleby:4 or forloop.last
+      </div>
+
+  %hr
+
+  %section.clean-section-full-length
+    %h2
+      {% trans "Featured blog posts" %}
+    {% blog_carousel 1 %}
+
+  %hr
+
+  %section.clean-section-full-length
+    %h2
+      {% trans "Latest blog posts" %}
+    {% blog_latest_posts 4 1 %}

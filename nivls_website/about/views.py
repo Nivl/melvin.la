@@ -15,7 +15,7 @@ def home(request):
     profile = get_object_or_404(Profile, pk=Site.objects.get_current())
     navigation_links = NavigationLink.objects.filter(site=settings.SITE_ID)
     contact_links = ContactLink.objects.all()
-    return render(request, "about/home.html",
+    return render(request, "about/home.haml",
                   {'profile': profile,
                    'contact_links': contact_links,
                    'navigation_links': navigation_links
