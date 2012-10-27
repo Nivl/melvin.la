@@ -1,0 +1,97 @@
+- extends "base_common.haml"
+- load bootstrap i18n common_tags
+- load url from future
+
+- block "page-title"
+    - trans "Search"
+- block "page-subtitle"
+    - trans "Where you can search things"
+
+- block "title"
+    - trans "Search"
+
+- block "breadcrumb-content"
+  %li<
+    %span.divider<
+        \/
+  %li
+    %a{'data-depth' : '1',
+       'data-ajax'  : 'body-content',
+       'title'      : '{% trans "Search" %}',
+       'href'       : '{% url "haystack_search" %}'}<
+        - trans "Search"
+
+
+- block "body-content"
+    .container
+        .row
+            #body-content-only.span8.offset2
+                %h2
+                    - trans "Search"
+                %form.form-search.form-horizontal{'method'      : 'get',
+                                                  'action'      : '{% url "haystack_search" %}',
+                                                  'data-ajax'   : 'search-result',
+                                                  'data-depth'  : '0',
+                                                  'title'       : '{% trans "Search" %}'}
+                    {{ form|bootstrap }}
+
+                    .form-actions
+                        %button.btn.btn-primary{'type': 'submit'}<
+                            - trans "Search"
+
+                        %button.btn.btn-danger<
+                            - trans "Clear"
+
+                #search-result
+                    - if query
+                        %h2<
+                            - trans "Results"
+
+                        %ul.unstyled
+                            - for result in page.object_list
+                                %li
+                                    - if result.object|app_name == "blog"
+                                        %span.label.label-info
+                                            - trans "Blog"
+                                    - elif result.object|app_name == "lab"
+                                        %span.label.label-success
+                                            - trans "Lab"
+
+                                    %a {'href': '{{ result.object.get_absolute_url }}'}<
+                                        {{ result.object }}
+                            - empty
+                                %li<
+                                    - trans "No results found." %}
+
+
+
+                        - if page.has_previous or page.has_next
+                            %section.pagination.pagination-centered
+                                %ul
+                                    - if page.has_previous
+                                        %li
+                                            %a{'href': '?q={{ query }}&amp;page={{ page.previous_page_number }}'}<
+                                                «
+                                    - else
+                                        %li
+                                            %a{'href': '#', 'onClick': 'return false;'}<
+                                                «
+
+                                    - for i in page.paginator.page_range
+                                        %li{'class': '{% ifequal i page.number %}active{% endifequal %}'}
+                                            - ifequal i paginator.number
+                                                %a{'onClick'    :   'return false;',
+                                                   'href'       :   '#'}<
+                                                    {{ i }}
+                                            - else
+                                                %a{'onClick'    :   '?q={{ query }}&amp;page={{ i }}'}<
+                                                    {{ i }}
+
+                                    - if page.has_previous
+                                        %li
+                                           %a{'href': '?q={{ query }}&amp;page={{ page.next_page_number }}'}<
+                                                »
+                                    - else
+                                        %li
+                                            %a{'href': '#', 'onClick': 'return false;'}<
+                                                »
