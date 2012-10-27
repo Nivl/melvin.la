@@ -1,0 +1,9 @@
+- load markup
+
+- for content in cat.cvcontent_set.all
+    .element
+        - if content.key
+            %h4<
+                {{ content.key|safe }}
+            .content
+                {{ content.value|markdown:"def_list" }}

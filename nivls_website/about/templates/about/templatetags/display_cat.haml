@@ -1,0 +1,20 @@
+- load about_tags markup
+
+- for cat in cats
+
+    .row-fluid
+
+        .span3
+            %h3<
+                {{ cat.name }}
+
+        .span9
+            - if cat.display_type == "L"
+              - cat_as_list cat is_downloadable
+            - elif cat.display_type == "D"
+              - cat_as_description_list cat is_downloadable
+            - else
+              - cat_as_block cat is_downloadable
+
+        - if not forloop.last
+            %hr

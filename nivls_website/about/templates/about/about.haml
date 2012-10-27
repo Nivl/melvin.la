@@ -11,7 +11,7 @@
   - trans "Where you learn more about me"
 
 - block "breadcrumb-content"
-  %li
+  %li<
     %span.divider /
   %li
     %a{'data-depth' : '1',
@@ -26,7 +26,7 @@
 
 - block "footer"
   - if not to_pdf
-    {{ block.super }}
+    ={ block.super }
 
 - block "local_css"
   - if to_pdf
@@ -36,7 +36,7 @@
         margin-top: 0px;
       }
   - else
-    {{ block.super }}
+    ={ block.super }
 
 - block "content"
   - if not to_pdf

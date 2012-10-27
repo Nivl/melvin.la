@@ -25,7 +25,7 @@ def home(request):
 @require_safe
 def contact(request):
     form = ContactForm(request=request)
-    return render(request, "about/contact.html", {'form': form})
+    return render(request, "about/contact.haml", {'form': form})
 
 
 @ajax_only
@@ -40,11 +40,11 @@ def contact_form(request):
                       form.cleaned_data['email'],
                       [row[1] for row in settings.ADMINS],
                       fail_silently=True)
-            return render(request, 'about/contact_ok.html')
+            return render(request, 'about/contact_ok.haml')
     else:
         form = ContactForm(request=request)
 
-    return render(request, "about/contact_form.html", {'form': form})
+    return render(request, "about/contact_form.haml", {'form': form})
 
 
 @require_safe
@@ -53,7 +53,7 @@ def about(request):
     navigation_links = NavigationLink.objects.filter(site=settings.SITE_ID)
     contact_links = ContactLink.objects.all()
     cv_sections = CVSection.objects.filter(site=settings.SITE_ID)
-    return render(request, "about/about.html",
+    return render(request, "about/about.haml",
                   {'profile': profile,
                    'contact_links': contact_links,
                    'navigation_links': navigation_links,
@@ -65,15 +65,11 @@ def about(request):
 @require_safe
 def cv_pdf(request):
     cv_sections = CVSection.objects.filter(site=settings.SITE_ID)
-    # return render(request, "about/about.html",
-    #               {'cv_sections': cv_sections,
-    #                'to_pdf': True
-    #                })
     c = RequestContext(request, {'cv_sections': cv_sections, 'to_pdf': True})
-    return write_pdf("about/about.html", c, "cv_laplanche_melvin.pdf")
+    return write_pdf("about/about.haml", c, "cv_laplanche_melvin.pdf")
 
 
 @require_safe
 def portfolio(request):
     projects = WorkProject.objects.filter(lab__site=settings.SITE_ID)
-    return render(request, "about/portfolio.html", {'projects': projects})
+    return render(request, "about/portfolio.haml", {'projects': projects})

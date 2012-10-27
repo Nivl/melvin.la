@@ -1,0 +1,15 @@
+- extends "about/base.haml"
+- load i18n
+
+- block "menu-contact"
+    active
+- block "page-title"
+    - trans "Contact"
+- block "page-subtitle"
+    - trans "Where we can get in touch"
+
+- block "position"
+    span8 offset2
+
+- block "content"
+    - include "about/contact_form.html" with form=form
