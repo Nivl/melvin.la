@@ -1,0 +1,7 @@
+- extends "blog/base.haml"
+- load blog_tags
+
+- block "content"
+    - include "blog/inc/listing.haml" with posts=posts.object_list
+    - include "inc/pagination.haml" with paginator=posts
+

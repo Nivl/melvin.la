@@ -24,7 +24,7 @@ def home(request):
         .filter(is_public=1,
                 site=Site.objects.get_current())
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
-    return render(request, "blog/home.html", {"posts": posts})
+    return render(request, "blog/home.haml", {"posts": posts})
 
 
 @require_safe
@@ -38,7 +38,7 @@ def display_post(request, year, month, day, slug):
                              site=Site.objects.get_current())
     storage_key = slugify(post.get_absolute_url())
     form = CommentForm(storage_key, request=request, user=request.user)
-    return render(request, "blog/post.html", {"post": post,
+    return render(request, "blog/post.haml", {"post": post,
                                               "form": form,
                                               'storage_key': storage_key})
 

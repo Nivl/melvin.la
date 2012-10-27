@@ -1,0 +1,98 @@
+- extends "blog/base.haml"
+- load blog_tags markup humanize common_tags i18n tz
+
+- block "app_js"
+    :javascript
+        reloadShareButtons();
+
+   - include "blog/inc/comment_ajax.html" with post=post user=user
+
+- block "title"
+    {{ post.title }}
+
+- block "breadcrumb-subcontent"
+    %li
+        %span.divider
+            \/
+        %a{'data-depth' : '30',
+           'data-ajax'  : 'body-content-only',
+           'title'      : '{{ post.title }}',
+           'href'       : '{{ post.get_absolute_url }}'}
+            {{ post.title }}
+
+- block "content"
+    %article.post
+        %header
+            %h2<
+                {{ post.title }}
+
+            .pull-right.share-btn
+                .g-plusone.item{'data-size': 'small'}
+
+            .info
+                - trans "By "
+
+                - if post.author.get_profile.use_name
+                    {{ post.author.get_full_name }},
+                - else
+                    {{ post.author }},
+
+                %time{'datetime'    :   '{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}'}
+                    {{ post.pub_date|naturalday }}
+
+                - trans "In: "
+                %a{'data-ajax'  : 'body-content-only',
+                   'data-depth' : '10',
+                   'href'       : '{{ post.category.get_absolute_url }}'}
+
+                    {{ post.category }}
+
+                - spaceless
+                    - with post.tags.all as tags
+                        - if tags
+                            %br
+                            %i.icon-tags
+
+                            - for tag in tags
+                                %a{'data-ajax'  : 'body-content-only',
+                                   'data-depth' : '10',
+                                   'href'       : '{{ tag.get_absolute_url }}'}
+                                    {{ tag.name }}
+
+                                - if not forloop.last
+                                    ,
+
+                    - with post.i18n.all as rels
+                        - if rels
+                            %br
+                            - trans "Available in: "
+
+                            - for rel in rels
+                                %a{'href' : 'http://{{ rel.site.site }}{{ rel.get_absolute_url }}'}
+
+                                    %img.flag{'width'   : '16',
+                                              'height'  : '11',
+                                              'src'     : '{{ rel.site.flag.url }}'}
+
+                                - if not forloop.last
+                                    &nbsp;
+
+        %section.content.clearfix
+            {{ post.parsed_content|markdown }}
+
+        %footer#post-footer
+            - if post.lab
+                .lab-button
+                    %a.btn{'data-depth'      : '1',
+                           'data-ajax'       : 'body-content',
+                           'data-navbar'     : '#navbar-lab',
+                           'title'           : '{% trans "Lab" %}',
+                           'data-subtitle'   : '{% trans "Where I present my projects" %}',
+                           'href'            : '{{ post.lab.get_absolute_url }}'}
+
+                %i.icon-info-sign.icon-white
+                &nbsp;
+                - trans "Know more"
+
+            - include "blog/inc/comment.html" with post=post form=form
+

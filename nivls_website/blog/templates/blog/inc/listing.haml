@@ -1,0 +1,60 @@
+- load markup humanize common_tags i18n
+
+%section.post-list
+    - for post in posts
+        - if forloop.counter0|divisibleby:4
+            <div class="row">
+                <ul class="thumbnails">
+
+        %li.span3
+            .thumbnail<
+                - if outside
+                    %a{'data-depth'    : '30',
+                       'data-navbar'   : '#navbar-blog',
+                       'data-ajax'     : 'body-content',
+                       'title'         : '{{ post.title }}',
+                       'href'          : '{{ post.get_absolute_url }}'}
+
+                        %img{'src'  : '{{ post.thumbnail.url }}',
+                             'alt'  : 'thumbnail'}
+                - else
+                    %a{'data-depth' : '30',
+                       'data-ajax'  : 'body-content-only',
+                       'title'      : '{{ post.title }}',
+                       'href'       : '{{ post.get_absolute_url }}'}
+
+                        %img{'src' : '{{ post.thumbnail.url }}',
+                             'alt' : 'thumbnail'}
+
+
+                .caption
+                    %h4<
+                        {{ post|title }}
+
+                    %section.description
+                        {{ post.long_description|markdown }}
+
+                    %p
+                        - if outside
+                            %a.btn{'data-ajax'     : 'body-content',
+                                   'data-navbar'   : '#navbar-blog',
+                                   'data-depth'    : '30',
+                                   'title'         : '{{ post.title }}',
+                                   'href'          : '{{ post.get_absolute_url }}'}
+                                    %i.icon-plus-sign.icon-white
+                                    - trans "Read more"
+                        - else
+                            %a.btn{'data-ajax'  : 'body-content-only',
+                                   'data-depth' : '30',
+                                   'title'      : '{{ post.title }}',
+                                   'href'       : '{{ post.get_absolute_url }}'}
+                                    %i.icon-plus-sign.icon-white
+                                    - trans "Read more"
+            {% if forloop.counter|divisibleby:4 or forloop.last %}
+                </ul>
+                </div>
+            {% endif %}
+
+    - empty
+        %p
+            - trans "There are no posts."
