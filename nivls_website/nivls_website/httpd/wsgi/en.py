@@ -1,6 +1,6 @@
 import os, sys
 
-sys.path.append("/home/laplan_m/Src/repo/python")
+sys.path.append('/home/laplan_m/.virtualenvs/nivls_website/lib/python2.7/site-packages/')
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 
