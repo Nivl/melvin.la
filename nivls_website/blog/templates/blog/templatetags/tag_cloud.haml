@@ -1,0 +1,13 @@
+- load i18n
+
+- if tags
+    %li.tags
+        %span.menu-icon
+            %i.icon-tag
+        .content.center-text
+            - for tag in tags
+                %a{'data-depth' : '10',
+                   'data-ajax'  : 'body-content-only',
+                   'href'       : '{{ tag.obj.get_absolute_url }}',
+                   'style'      : 'font-size: {{tag.size}}px;'}
+                    {{ tag.obj.name }}

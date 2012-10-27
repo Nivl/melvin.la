@@ -1,0 +1,20 @@
+- load i18n
+
+- if menus
+    %li.links
+        %span.menu-icon
+            %i.icon-link
+        %ul.content.unstyled.space-li-clean-first
+            - for menu in menus
+                %li.nav-header.margin-top-1
+                    {{ menu.name }}
+
+                    - with menu.link_set.all as links
+                        - for link in links
+                            %li.margin-left-1
+                                %a{'title'  : '{{ link.title }}',
+                                   'href'   : '{{ link.url }}'}
+                                {{ link.name }}
+                        - empty
+                            %li
+                                - trans "There are no links."

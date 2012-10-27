@@ -6,14 +6,14 @@ from blog.models import *
 register = template.Library()
 
 
-@register.inclusion_tag("blog/templatetags/carousel.html")
+@register.inclusion_tag("blog/templatetags/carousel.haml")
 def blog_carousel(outside=False):
     posts = Carousel.objects.filter(site=Site.objects.get_current())
     return {'posts': posts,
             'outside': outside}
 
 
-@register.inclusion_tag("blog/templatetags/latest_posts.html")
+@register.inclusion_tag("blog/templatetags/latest_posts.haml")
 def blog_latest_posts(n, outside=False):
     posts = Post.objects.filter(is_public=True,
                                 site=Site.objects.get_current()) \
@@ -22,7 +22,7 @@ def blog_latest_posts(n, outside=False):
             'outside': outside}
 
 
-@register.inclusion_tag("blog/templatetags/menus.html")
+@register.inclusion_tag("blog/templatetags/menus.haml")
 def blog_menus():
     menus = Menu.objects.filter(hide=False,
                                 site=Site.objects.get_current()) \
@@ -30,7 +30,7 @@ def blog_menus():
     return {'menus': menus}
 
 
-@register.inclusion_tag("blog/templatetags/archives.html")
+@register.inclusion_tag("blog/templatetags/archives.haml")
 def blog_archives():
     dates = Post.objects.filter(is_public=1,
                                 site=Site.objects.get_current()) \
@@ -38,7 +38,7 @@ def blog_archives():
     return {'dates': dates}
 
 
-@register.inclusion_tag("blog/templatetags/tag_cloud.html")
+@register.inclusion_tag("blog/templatetags/tag_cloud.haml")
 def blog_tagcloud():
     tags = Tag.objects.filter(site=Site.objects.get_current()) \
                       .order_by("name") \
@@ -72,7 +72,7 @@ def blog_tagcloud():
     return {'tags': tag_list}
 
 
-@register.inclusion_tag("blog/templatetags/categories.html")
+@register.inclusion_tag("blog/templatetags/categories.haml")
 def blog_categories():
     categories = Category.objects.filter(site=Site.objects.get_current()) \
         .order_by('left')
