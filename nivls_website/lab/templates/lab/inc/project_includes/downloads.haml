@@ -1,0 +1,17 @@
+- load humanize common_tags i18n
+
+%h2
+    - trans "Downloads"
+
+- for dl in downloads
+    %a{'href' : '{% if dl.uploaded_file %}{{ dl.uploaded_file.url }}{% else %}{{ dl.url }}{% endif %}'}
+
+    %figure.pull-left.highlight-medium-figure
+        %img{'src'      : '{{ dl.icon.image.url }}',
+             'title'    : '{{ dl.name }}',
+             'alt'      : '{{ dl.name }}',
+             'width'    : '100',
+             'height'   : '100'}
+
+        %figcaption<
+            {{ dl.name }}

@@ -1,0 +1,29 @@
+- load user_tags
+
+- if is_user
+    .item
+        {{ item|square_thumbnail:"126" }}
+
+        .caption
+            %h6
+                %a{'data-ajax'  : 'body-content-only',
+                   'data-depth' : '40',
+                   'title'      : '{{ item.get_full_name }}',
+                   'href'       : '{{ item.get_absolute_url }}'}
+                    {{ item.get_full_name }}
+            %p
+                {{ item.get_profile.occupation }}
+- else
+    .item
+        .thumbnail
+            %img{'src'    : '{{ item.image.url }}',
+                 'alt'    : '{{ item.name }}',
+                 'title'  : '{{ item.name }}',
+                 'width'  : '126',
+                 'height' : '126'}
+        .caption
+            %h6
+                %a{'href'   :   '{{ item.url }}'}
+                    {{ item.name }}
+            %p
+                {{ item.description }}

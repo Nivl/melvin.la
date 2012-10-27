@@ -1,0 +1,15 @@
+- load humanize common_tags i18n
+
+%h2<
+    - trans "Videos"
+
+- for video in videos
+    .video
+        %h3
+            {{ video.name }}
+        %p
+            {{ video.description }}
+        %iframe{'src'           : '{{ video.url }}',
+                'frameborder'   : '0',
+                'width'         : '480',
+                'height'        : '270'}

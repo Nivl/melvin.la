@@ -1,0 +1,87 @@
+- extends "lab/base.haml"
+
+- load url from future
+- load i18n
+
+- block "breadcrumb-subcontent"
+    %li<
+        %span.divider<
+            \/
+    %li
+        %a{'data-depth' : '30',
+           'data-ajax'  : 'body-content',
+           'title': '{{ project.name }',
+           'href': '{{ project.get_absolute_url }}'}
+            {{ project.name }}
+
+- block "content"
+      - with progress=project.progress_set.all todo=project.todo_set.all images=project.image_set.all videos=project.video_set.all downloads=project.download_set.all
+            %h1<
+                {{ project.name }}
+
+            %p.lead<
+                {{ project.catchphrase }}
+
+                %ul.nav.nav-tabs
+                    %li.active
+                        %a{'href'          : "#informations",
+                           'data-toggle'   : 'tab'}
+                            - trans "Informations"
+
+                    - if progress
+                        %li
+                            %a{'href'        : '#progress',
+                               'data-toggle' : 'tab'}
+                               - trans "Progress"
+
+                    - if images
+                        %li
+                            %a{'href'           :   '#images',
+                               'data-toggle'    :   'tab'}
+                               - trans "Images"
+
+                    - if videos
+                        %li
+                            %a{'href'           : "#videos",
+                               'data-toggle'    : 'tab'}
+                                - trans "Videos"
+
+                    - if downloads
+                        %li
+                            %a{'href'       : '#downloads',
+                               'data-toggle': 'tab'}
+                                - trans "Downloads"
+
+                    - if project.demo_codebox
+                        %li
+                            %a{'href': '#demos', 'data-toggle': 'tab'}
+                                %span
+                                    - trans "Demos"
+
+
+                .tab-content
+                    #informations.tab-pane.fade.active.in
+                        - include "lab/inc/project_includes/infos.html"
+
+                    - if progress
+                        #progress.tab-pane.fade
+                            - include "lab/inc/project_includes/progress.haml"
+
+                    - if images
+                        #images.tab-pane.fade
+                            - include "lab/inc/project_includes/images.haml"
+
+                    - if videos
+                        #videos.tab-pane.fade
+                            - include "lab/inc/project_includes/videos.haml"
+
+                    - if downloads
+                        #downloads.tab-pane.fade
+                            - include "lab/inc/project_includes/downloads.haml"
+
+                    - if project.demo_codebox
+                        #demo.tab-pane.fade
+                        :javascript
+                          {{ project.demo_codebox|safe }}
+
+                        %canvas#demo_canvas

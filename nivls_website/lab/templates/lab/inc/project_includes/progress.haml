@@ -1,0 +1,31 @@
+- load humanize common_tags i18n tz
+
+%h2<
+    - trans "Progress"
+
+.progress.progress-striped{'class': '{% if project.overall_progress != 100%} active{% endif %}'}
+    .bar{'style': 'width:{{ project.overall_progress }}%;'}
+
+
+.row
+    .span8.offset1
+        %dl.dl-horizontal
+            - for event in progress
+                %dt
+                    %time{'datetime': '{{ event.pub_date|utc|date:"Y-m-d H:i\Z" }}'}
+                       {{ event.pub_date|naturalday }}
+                %dd
+                    %span
+                      {{ event.description }}
+
+- if todo
+    %div.row
+        %h3
+            - trans "Todo"
+
+        .span8.offset1
+            %ul
+                - for task in todo
+                    %li.dl-horizontal
+                        {{ task.task }}
+

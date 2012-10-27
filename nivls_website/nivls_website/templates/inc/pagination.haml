@@ -16,7 +16,7 @@
                    'onClick'    : 'return false;'}<
                     «
 
-        - for i in paginator.paginator.page_rangenivls_website/templates/inc/pagination.haml
+        - for i in paginator.paginator.page_range
             %li{'class': '{% ifequal i paginator.number %}active{% endifequal %}'}
                 - ifequal i paginator.number
                     %a{'onClick'    : 'return false;',

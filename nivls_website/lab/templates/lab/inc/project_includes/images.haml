@@ -1,0 +1,23 @@
+{% load i18n %}
+
+%h2
+    - trans "Images"
+
+#gallery{'data-toggle'  : 'modal-gallery',
+         'data-target'  : '#modal-gallery'}
+
+    - for image in images
+        - if forloop.counter0|divisibleby:3
+            <ul class="thumbnails">
+
+        %li.span3
+            %a.thumbnail{'rel'    : 'gallery',
+                         'title'  : '{{ image.description }}',
+                         'href'   : '{{ image.image.url }}'}
+
+        	%img{'src'   :   '{{ image.image.url }}',
+                 'alt'   :    '{{ image.name }}',
+                 'title' :  '{{ image.name }}'}
+
+        - if forloop.counter|divisibleby:3 or forloop.last
+            </ul>

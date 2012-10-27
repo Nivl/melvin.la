@@ -1,0 +1,82 @@
+- load i18n markup user_tags
+
+%h2<
+    {% blocktrans with project_name=project.name %}Informations about {{ project_name }}{% endblocktrans %}
+
+%ul.unstyled
+    %li
+        %strong<
+            - trans "Project License: "
+
+        - if project.license.url
+            %a{'href' : '{{ project.license.url }}'}
+                - if project.license.image %}
+                    %img{'src'    : '{{ project.license.image.url }}',
+                         'alt'    : '{{ project.license.name }}'}
+                - else
+                    {{ project.license.name }}
+
+        - elif project.license.image
+            %img{'src'    : '{{ project.license.image.url }}',
+                 'alt'    : '{{ project.license.name }}'}
+        - else
+            {{ project.license.name }}
+
+        - if project.sources_url
+            %li
+                %a{'class'  : 'btn',
+                   'href'   : '{{ project.sources_url }}'}
+                    %i.icon-share
+                    - trans "Browse the sources"
+
+
+.clearfix
+    .rounded-diagram-wrapper.pull-right
+        #rounded-diagram
+
+        .get
+            - with project.projectlanguagerate_set.all as languages
+                - for lang in languages
+                    .arc
+                        %span.text<
+                            {{ lang.language.name }}
+
+                        %input{'type'     : 'hidden',
+                               'class'    : 'percent',
+                               'value'    : '{{ lang.rate }}'}
+
+                        %input{'type'     : 'hidden',
+                               'class'    : 'color',
+                               'value'    : '#{{ lang.language.color }}'}
+
+    {{ project.description|markdown }}
+
+
+- with project.clients_user.all as clients_user
+    - with project.clients.all as clients
+        - if clients or clients_user
+            #clients.clearfix
+                %h3<
+                    - trans "Client(s)"
+
+                .business-card
+                    - for client in clients_user
+                        - include "lab/inc/project_includes/business_card.haml" with item=client is_user=1
+
+                    - for client in clients
+                        - include "lab/inc/project_includes/business_card.haml" with item=client is_user=0
+
+
+- with project.coworkers_user.all as coworkers_user
+    - with project.coworkers.all as coworkers
+        - if coworkers or coworkers_user
+            #coworkers.clearfix
+                %h3<
+                    - trans "Team"
+
+                .business-card
+                    - for coworker in coworkers_user
+                        - include "lab/inc/project_includes/business_card.haml" with item=coworker is_user=1
+
+                    - for coworker in coworkers
+                        - include "lab/inc/project_includes/business_card.haml" with item=coworker is_user=0
