@@ -1,0 +1,57 @@
+- extends "base_common.haml"
+- load url from future
+- load tag_lab i18n
+
+- block "menu-lab"
+    active
+- block "page-title"
+    - trans "Lab"
+- block "page-subtitle"
+    - trans "Where I present my projects"
+
+- block "breadcrumb-content"
+    %li<
+        %span.divider<
+            \/
+    %li<
+        %a{'data-depth' : '1',
+           'data-ajax'  : 'body-content-only',
+           'title'      : '{% trans "Lab" %}',
+           'href'       : '{% url "lab" %}'}
+        - trans "Lab"
+
+    - block "breadcrumb-subcontent"
+
+
+- block "body-content"
+    #modal-gallery.modal.modal-gallery.hide.fade
+        .modal-header
+            %a.close{'data-dismiss':"modal"}<
+                &times;
+            %h3.modal-title
+
+        .modal-body
+            .modal-image
+
+        .modal-footer
+            %a.btn.btn-info.modal-prev
+                %i.icon-arrow-left.icon-white
+                - trans "Previous"
+            %a.btn.btn-primary.modal-next
+                - trans "Next"
+                %i.icon-arrow-right.icon-white
+            %a.btn.btn-success.modal-play.modal-slideshow{'data-slideshow' : '5000'}
+                %i.icon-play.icon-white
+                - trans "Slideshow"
+            %a.btn.modal-download{'target' : '_blank'}
+                %i.icon-download
+                - trans "Download"
+
+    .container
+        .row
+            #body-content-only.span9
+                - block "content"
+
+            - with act_menu="home"
+                - block "menu"
+                    - include "lab/inc/menu.haml"

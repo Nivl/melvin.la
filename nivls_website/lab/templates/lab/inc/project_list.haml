@@ -1,0 +1,16 @@
+- load i18n markup
+- load url from future
+
+- for project in projects
+    %section.clean-section
+        %h2
+            {{ project.name }}
+
+        .section-content.margin-top-1
+            {{ project.description|markdown }}
+            %a.btn{'data-depth' : '30',
+                   'data-ajax'  : 'body-content-only',
+                   'title'      : '{{ project.name }}',
+                   'href'       : '{% url "lab-project" project.slug %}'}
+                {% trans "Know more" %}
+    %hr

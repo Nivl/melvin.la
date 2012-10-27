@@ -1,0 +1,24 @@
+- extends "lab/base.html"
+- load tag_lab
+- load url from future
+
+- block "breadcrumb-subcontent"
+    - if tag
+        %li
+            %span.divider<
+                \/
+        %li
+            %a{'data-depth' : '20',
+               'data-ajax'  : 'body-content',
+               'title'      : '{{ tag.name }}',
+               'href'       : '{{ tag.get_absolute_url }}'}
+                {{ tag.name }}
+
+- if tag
+    - block "menu"
+        - with act_menu=menu_name
+            {{ block.super }}
+
+- block "content"
+  - include "lab/inc/project_list.haml" with projects=projects
+  - include "inc/pagination.haml" with paginator=projects

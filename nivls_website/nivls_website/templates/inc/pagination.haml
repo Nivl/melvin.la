@@ -1,0 +1,44 @@
+- load i18n
+
+%section.pagination.pagination-centered
+    %ul
+        - if paginator.has_previous
+            %li
+                %a{'data-ajax'     :   'body-content-only',
+                   'title'         :   '{% blocktrans with i=paginator.previous_page_number %}Page {{ i }}{% endblocktrans %}',
+                   'data-depth'    :   '20',
+                   'href'          :   "?page={{ paginator.previous_page_number }}"}<
+                    «
+
+        - else
+            %li.disabled
+                %a{'href'       : '#',
+                   'onClick'    : 'return false;'}<
+                    «
+
+        - for i in paginator.paginator.page_rangenivls_website/templates/inc/pagination.haml
+            %li{'class': '{% ifequal i paginator.number %}active{% endifequal %}'}
+                - ifequal i paginator.number
+                    %a{'onClick'    : 'return false;',
+                       'href'       : '#'}
+                        {{ i }}
+                - else
+                    %a{'title'         : '{% blocktrans %}Page {{ i }}{% endblocktrans %}',
+                       'data-depth'    : '20',
+                       'data-ajax'     : 'body-content-only',
+                       'href'          : '?page={{ i }}'}
+                        {{ i }}
+
+
+        - if paginator.has_next
+            %li
+                %a{'data-depth' : '20',
+                   'title'      : '{% blocktrans with i=paginator.next_page_number %}Page {{ i }}{% endblocktrans %}',
+                   'data-ajax'  : 'body-content-only',
+                   'href'       : '?page={{ paginator.next_page_number }}'}
+                    »
+        - else
+            %li.disabled
+                %a{'onClick'    :   'return false;',
+                   'href'       :   '#'}
+                    »

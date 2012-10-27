@@ -1,0 +1,58 @@
+- load staticfiles i18n
+- load url from future
+
+.row.center-text
+    %li.span1
+        %figure.inline-figure
+            %a#lab-tag-home{'data-ajax'    : 'body-content-only',
+                            'data-depth'   : '1',
+                            'title'        : '{% trans "Lab" %}',
+                            'class'        : 'generated-icon',
+                            'href'         : '{% url "lab" %}'}
+
+                .main-icon{'style'  : 'background-image: url({% static "commons/img/home.png" %});'}
+                    - ifequal act_menu "home"
+                        %img.enabled.active{'alt'   : 'home',
+                                            'src'   : '{% static "commons/img/home.png" %}'}
+
+                        %img.disabled.hide{'alt'   : 'home',
+                                           'src'   : '{% static "commons/img/home-grey.png" %}'}
+                    - else
+                        %img.enabled.hide{'alt'   : 'home',
+                                          'src'   : '{% static "commons/img/home.png" %}'}
+
+                        %img.disabled{'alt'   : 'home',
+                                      'src'   : '{% static "commons/img/home-grey.png" %}'}
+                %figcaption<
+                    - trans "Home"
+
+    - for tag in tags
+        %li.span1
+            %figure.inline-figure
+                %a.generated-icon{'data-ajax'    : 'body-content-only',
+                                  'data-depth'   : '10,',
+                                  'title'        : '{{ tag.name }}',
+                                  'id'           : 'lab-tag-{{ tag.slug }}',
+                                  'href': '{% url "lab-tag" tag.slug %}'}
+
+                    .main-icon{'style': 'background-image: url({{ tag.icon_enabled.url }});'}
+
+                        - ifequal act_menu tag.slug
+                            %img.enabled.active{'alt' : '{{ tag.slug }}',
+                                                'src': '{{ tag.icon_enabled.url }}'}
+
+                            %img.disabled.hide{'alt'    : '{{ tag.slug }}',
+                                               'src'    : '{{ tag.icon_disabled.url }}'}
+                        - else
+                            %img.enabled.hide{'alt' : '{{ tag.slug }}',
+                                              'src' : '{{ tag.icon_enabled.url }}'}
+
+                            %img.disabled{'alt' :   '{{ tag.slug }}',
+                                          'src' :   '{{ tag.icon_disabled.url }}'}
+
+                    %figcaption<
+                        {{ tag.name }}
+
+        - if not forloop.counter|divisibleby:'2' and not forloop.last
+            </div>
+            <div class="row margin-top-2 center-text">
