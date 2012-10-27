@@ -1,5 +1,4 @@
 from django import template
-from django.db.models import Count
 from django.utils.safestring import mark_safe
 from django.contrib.contenttypes.models import ContentType
 import string as python_string
@@ -30,6 +29,7 @@ def replace(string, args):
     replace = args.split(args[0])[2]
 
     return python_string.replace(string, search, replace)
+
 
 @register.filter
 def app_name(obj):
