@@ -4,10 +4,10 @@ import subprocess
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.template import Context
-from django.shortcuts import render_to_response
 from django.views.generic.base import TemplateView
 from django.contrib.sites.models import Site
 from django.conf import settings
+
 
 class TexplainView(TemplateView):
     def get_context_data(self, **kwargs):
@@ -33,7 +33,7 @@ def write_pdf(template_src, context_dict, output):
     file.close()
 
     command_args = '%s --page-size Letter --disable-javascript %s -' % (
-        settings.WKHTMLTOPDF_PATH ,
+        settings.WKHTMLTOPDF_PATH,
         temp_html_file_name)
 
     popen = subprocess.Popen(command_args,
