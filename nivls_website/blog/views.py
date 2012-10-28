@@ -54,7 +54,7 @@ def comment_list(request, year, month, day, slug):
                              is_public=1,
                              site=Site.objects.get_current())
     comments = post.get_public_comments()
-    return render(request, "blog/ajax/comment_list.html",
+    return render(request, "blog/ajax/comment_list.haml",
                   {"comments": comments})
 
 
@@ -62,7 +62,7 @@ def comment_list(request, year, month, day, slug):
 @ajax_only
 def comment_single(request, year, month, day, slug, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    return render(request, "blog/ajax/comment_single.html",
+    return render(request, "blog/ajax/comment_single.haml",
                   {'comment': comment.comment
                    })
 
@@ -91,7 +91,7 @@ def comment_single_form(request, year, month, day, slug, pk):
     else:
         form = SingleCommentForm(initial={'comment': comment.comment},
                                  prefix="single")
-    return render(request, "blog/ajax/comment_single_form.html",
+    return render(request, "blog/ajax/comment_single_form.haml",
                   {"form": form,
                    "pk": pk,
                    'url': reverse('post-comment-single-form',
@@ -110,7 +110,7 @@ def comment_count(request, year, month, day, slug):
                              is_public=1,
                              site=Site.objects.get_current())
     count = post.count_public_comments()
-    return render(request, "blog/ajax/comment_count.html", {"count": count})
+    return render(request, "blog/ajax/comment_count.haml", {"count": count})
 
 
 @ajax_only
@@ -144,7 +144,7 @@ def comment_form(request, year, month, day, slug):
                 RequestContext(request))
 
             html_content = render_to_string(
-                'blog/inc/comment_mail.html',
+                'blog/inc/comment_mail.haml',
                 {'user': request.user,
                  'comment': c,
                  'post': post},
@@ -162,10 +162,10 @@ def comment_form(request, year, month, day, slug):
             if request.user.is_authenticated():
                 return HttpResponse()
             else:
-                return render(request, "blog/ajax/comment_ok.html")
+                return render(request, "blog/ajax/comment_ok.haml")
     else:
         form = CommentForm(storage_key, user=request.user, request=request)
-    return render(request, "blog/ajax/comment_form.html",
+    return render(request, "blog/ajax/comment_form.haml",
                   {'url': post.get_form_url(),
                    'form': form,
                    'storage_key': storage_key,
@@ -191,7 +191,7 @@ def preview_post(request, year, month, day, slug):
                                  author=request.user,
                                  site=Site.objects.get_current())
     post.allow_comment = False
-    return render(request, "blog/post.html", {"post": post})
+    return render(request, "blog/post.haml", {"post": post})
 
 
 @require_safe
@@ -209,7 +209,7 @@ def post_list_by_categories(request, slug):
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(
         request,
-        'blog/post_list.html',
+        'blog/post_list.haml',
         {'posts': posts,
          'obj': {'name': cat.name,
                  'feed': cat.get_feed_url(),
@@ -227,7 +227,7 @@ def post_list_by_tags(request, slug):
 
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request,
-                  'blog/post_list.html',
+                  'blog/post_list.haml',
                   {'posts': posts,
                   'obj': {'name': tag.name,
                           'feed': tag.get_feed_url(),
@@ -264,7 +264,7 @@ def post_list_by_archives(request, year, month=None, day=None):
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     obj_name = _('Archives from %(date)s') % {'date': archive_date}
     return render(request,
-                  "blog/post_list.html",
+                  "blog/post_list.haml",
                   {"posts": posts,
                    'obj': {'name': obj_name,
                            'url': request.path,

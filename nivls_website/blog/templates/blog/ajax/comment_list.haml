@@ -1,0 +1,41 @@
+- load markup humanize common_tags user_tags i18n tz
+
+- for comment in comments
+    %section.comment.clearfix
+        %span.info
+            - trans "By "
+
+            - if comment.user
+                %a{'data-ajax'  : 'body-content-only',
+                   'data-depth' : '40',
+                   'href'       : '{{ comment.user.get_absolute_url }}'}
+
+                    - if comment.user.get_profile.use_name
+                        {{ comment.user.get_full_name }},
+                    - else
+                        {{ comment.user.username }},
+
+            - elif comment.website
+                %a{'href': '{{ comment.website }}'}
+                    {{ comment.name }},
+            - else
+                {{ comment.name }},
+
+            %time{'datetime': '{{ comment.pub_date|utc|date:"Y-m-d H:i\Z" }}'}
+                {{ comment.pub_date|naturalday }}
+                - trans "at "
+                {{ comment.pub_date|time }}
+
+            - if user.is_authenticated and user == comment.user or perms.blog.change_comment
+                %a.edit-comment-link{'href' : '#',
+                                     'style': 'display:none;'}
+                  %i.icon-edit
+
+        .comment_avatar{'id': 'comment_{{ comment.pk }}_avatar'}
+            - if comment.user
+                {{ comment.user|square_thumbnail }}
+            - else
+                {{ comment.email|gravatar_from_email }}
+
+        .content.editable_area{'id' : 'comment_{{ comment.pk }}'}
+            - include "blog/ajax/comment_single.haml" with comment=comment.comment

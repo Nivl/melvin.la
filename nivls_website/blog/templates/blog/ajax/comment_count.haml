@@ -1,0 +1,6 @@
+- load i18n
+
+- ifequal count 0
+    - trans "There are no comments"
+- else
+    {% blocktrans count counter=count %}1 comment{% plural %}{{ counter }} comments{% endblocktrans %}

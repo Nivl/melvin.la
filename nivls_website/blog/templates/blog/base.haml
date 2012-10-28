@@ -24,17 +24,17 @@
 
 
 - block "breadcrumb-content"
-  %li
-    %span.divider
-        \/
-  %li
-    %a{'data-depth' : '1',
-       'data-ajax'  : 'body-content-only',
-       'title'      : '{% trans "Blog" %}',
-       'href'       : '{% url "blog" %}'}
-        {% trans "Blog" %}
+    %li
+        %span.divider
+            \/
+    %li
+        %a{'data-depth' : '1',
+           'data-ajax'  : 'body-content-only',
+           'title'      : '{% trans "Blog" %}',
+           'href'       : '{% url "blog" %}'}
+            {% trans "Blog" %}
 
-  - block "breadcrumb-subcontent"
+    - block "breadcrumb-subcontent"
 
 - block "body-content"
     .container

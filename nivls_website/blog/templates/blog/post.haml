@@ -5,7 +5,7 @@
     :javascript
         reloadShareButtons();
 
-   - include "blog/inc/comment_ajax.html" with post=post user=user
+   - include "blog/inc/comment_ajax.haml" with post=post user=user
 
 - block "title"
     {{ post.title }}
@@ -94,5 +94,5 @@
                 &nbsp;
                 - trans "Know more"
 
-            - include "blog/inc/comment.html" with post=post form=form
+            - include "blog/inc/comment.haml" with post=post form=form
 

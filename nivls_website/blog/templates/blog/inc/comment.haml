@@ -1,0 +1,27 @@
+- load i18n blog_tags
+
+%h2<
+    - trans "Comments"
+
+- with comments=post.get_public_comments
+    #comments-count
+        - include "blog/ajax/comment_count.haml" with count=comments|length
+
+    %section#comments
+        #comment-list
+          - include "blog/ajax/comment_list.haml" with comments=comments
+
+        - if post.allow_comment
+            %section.comment
+                %span.info
+                    - trans "Preview of your comment"
+                    \-
+                    %a{'href': 'http://daringfireball.net/projects/markdown/'}
+                        - trans "help"
+
+                #form-preview.content
+
+- if post.allow_comment
+    - include "blog/ajax/comment_form.haml" with url=post.get_form_url form=form
+- else
+    - trans "Comments has been disabled for this post."

@@ -1,7 +1,0 @@
-{% extends "blog/base.html" %}
-{% load blog_tags %}
-
-{% block "content" %}
-  {% include "blog/inc/listing.html" with posts=posts.object_list %}
-  {% include "inc/pagination.html" with paginator=posts %}
-{% endblock %}

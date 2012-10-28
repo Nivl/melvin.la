@@ -1,0 +1,16 @@
+- load i18n
+
+%form{'id': 'comment-single-form-{{ pk }}',
+      'method': 'post',
+      'action': '{{ url }}'}
+    - csrf_token
+
+    {{ form }}
+
+    .form-actions
+        %button.btn.btn-primary{'type'              : 'submit',
+                                'data-loading-text' : '{% trans "Sending..." %}'}<
+            - trans "Send"
+
+        %button.btn.btn-danger{'type': 'reset'}<
+            - trans "Reset"

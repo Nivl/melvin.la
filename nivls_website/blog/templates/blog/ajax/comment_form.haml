@@ -1,0 +1,18 @@
+- load i18n
+
+%form.form-horizontal.bigger-fields{'id'        : 'comment-form',
+                                    'method'    : 'post',
+                                    'action'    : '{{ url }}'}
+    - csrf_token
+
+    {{ form }}
+
+    .form-actions
+        %button.btn.btn-primary{'type'              : 'submit',
+                                'data-loading-text' : '{% trans "Sending..." %}'}
+
+            - trans "Send"
+
+        %button.btn.btn-danger{'type'               : 'reset',
+                               'data-storage-reset' : '{{ storage_key }}'}
+            - trans "Reset"

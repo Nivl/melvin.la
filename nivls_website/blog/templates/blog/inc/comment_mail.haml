@@ -1,0 +1,30 @@
+- load url from future
+- load i18n
+
+%p
+    - trans "Hi,"
+  %br
+  {% blocktrans with post_title=post.title %}A new comment has been posted on the post "{{ post_title }}"{% endblocktrans %}
+
+%p
+    - trans "Comment informations:"
+
+    - trans "By: "
+
+    - if user.is_authenticated
+        %a{'href': 'http://{{ DOMAIN_NAME }}{{ user.get_absolute_url }}'}
+            {{ user.get_full_name }} ({{ user.username }})
+    - else
+        {{ comment.name }}
+        - trans "(Unregistered user)"
+
+    - trans "IP: "
+        {{ comment.ip_address }}
+
+    - trans "Comment: "
+    %br
+    « {{ comment.comment }} »
+
+%p
+    %a{'href': 'http://{{ DOMAIN_NAME }}{% url "admin:blog_comment_changelist" %}'}
+        - trans "Go to the administration"

@@ -50,10 +50,9 @@
                                    'href'       : '{{ post.get_absolute_url }}'}
                                     %i.icon-plus-sign.icon-white
                                     - trans "Read more"
-            {% if forloop.counter|divisibleby:4 or forloop.last %}
+            - if forloop.counter|divisibleby:4 or forloop.last
                 </ul>
                 </div>
-            {% endif %}
 
     - empty
         %p
