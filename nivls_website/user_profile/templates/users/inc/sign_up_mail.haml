@@ -1,0 +1,17 @@
+- load url from future
+- load i18n
+
+- url "activate-account" code as activation_link
+
+%p
+    {% blocktrans with uname=user.first_name %}Hi {{ uname }},{% endblocktrans %}
+    %br
+    %br
+    - trans "You have successfully created your account, now it's time to activate it by clicking on the following link: "
+
+    %a{'href': 'http://{{ DOMAIN_NAME }}{{ activation_link }}'}
+        http://{{ DOMAIN_NAME }}{{ activation_link }}
+
+    %br
+    - trans "You can update your informations in the user menu."
+

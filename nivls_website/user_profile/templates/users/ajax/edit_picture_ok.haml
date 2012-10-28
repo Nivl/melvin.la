@@ -1,0 +1,13 @@
+- load i18n
+- load url from future
+
+.alert.alert-success.alert-block.fade.in
+    %a.close{'data-dismiss': 'alert'}
+        ×
+    %h4.alert-heading
+        - trans "Updated!"
+    - trans "Your picture has been successfully updated."
+
+    - if has_file
+        :javascript
+            window.location = '{% url "edit-avatar" %}';

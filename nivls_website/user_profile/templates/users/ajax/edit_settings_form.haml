@@ -1,0 +1,15 @@
+- load url from future
+- load i18n bootstrap
+
+%form#edit-settings-form.form-horizontal{'method'   : 'post',
+                                         'action'   : '{% url "edit-settings-form" %}'}
+    .modal-body
+        - csrf_token
+        {{ form|bootstrap }}
+
+    .modal-footer
+        %button{'type' : 'submit'}
+            - trans "Edit"
+
+        %button.btn.btn-danger{'type': 'reset'}
+            - trans "Reset"

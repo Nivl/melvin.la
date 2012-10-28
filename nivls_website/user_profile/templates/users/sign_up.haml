@@ -1,0 +1,63 @@
+- extends "users/base.haml"
+- load url from future
+- load i18n user_tags
+
+- block "title"
+    - trans "Sign up"
+- block "body_classes"
+    span10 offset1
+- block "page-title"
+    - trans "Sign up"
+
+- block "breadcrumb-content"
+    %li<
+        %span.divider<
+            \/
+    %li
+        %a{'data-depth' : '1',
+           'data-ajax'  : 'body-content',
+           'title'      : '{% trans "Sign up" %}',
+           'href'       : '{% url "sign-up" %}'}
+            {% trans "Sign up" %}
+
+- block "content"
+    #sign-up-accordion.accordion
+        .accordion-group
+            .accordion-heading
+                %h2
+                    %a.accordion-toggle{'data-toggle' : 'collapse',
+                                        'data-parent' : '#sign-up-accordion',
+                                        'href'        : '#sign-up-social'}
+                        - trans "Sign up using a social media account"
+
+                        %small
+                            - trans "(faster)"
+            #sign-up-social.accordion-body.collapse.in
+                .accordion-inner
+                    %p.alert.alert-info<
+                        - trans "Signing up using one of your social medias accounts is the simplest and fastest way to sign up. You won't have to fill any forms or validate your account."
+
+                    %p<
+                        - trans "Click on the provider you want to use:"
+
+                    %ul.nav.nav-pills.social-medias-icons
+                        {{ social_auth.backends|social_sign_in_links:request }}
+
+
+        .accordion-group
+            .accordion-heading
+                %h2
+                    %a.accordion-toggle{'data-toggle' : 'collapse',
+                                        'data-parent' : '#sign-up-accordion',
+                                        'href'        : '#sign-up-manually'}
+
+                        - trans "Sign up manually"
+                        %small
+                            - trans "(painful)"
+
+        #sign-up-manually.accordion-body.collapse
+            .accordion-inner
+                %p.alert.alert-info
+                    - trans "If you choose to sign up this way, we will send you an e-mail to validate your account."
+
+                - include "users/ajax/sign_up_form.haml" with form=form

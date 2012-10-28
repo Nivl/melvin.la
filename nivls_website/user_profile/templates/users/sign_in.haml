@@ -1,0 +1,47 @@
+- extends "users/base.haml"
+- load url from future
+- load i18n
+
+- block "page-title"
+    - trans "Sign in"
+- block "title"
+   - trans "Sign in"
+- block "body_classes"
+    span6 offset3
+
+- block "breadcrumb-content"
+    %li<
+        %span.divider<
+            \/
+    %li
+        %a{'data-depth' : '1',
+           'data-ajax': 'body-content',
+           'title': '{% trans "Sign in" %}',
+           'href': '{% url "sign-in" %}'}
+            - trans "Sign in"
+
+- block "content"
+    - if success
+        #p.alert.alert-success
+            {{ success }}
+
+    - if error
+        %p.alert.alert-error
+            {{ error }}
+
+    %form.form-horizontal{'method'    : 'post',
+                          'action'    : '{% url "sign-in" %}'}
+        - csrf_token
+
+        {{ form }}
+
+        %input{'type'   : 'hidden',
+               'name'   : 'next',
+               'value'  : '{{ next }}'}
+
+        .form-actions
+            %button.btn.btn-primary{'type': 'submit'}<
+                - trans "Sign in"
+
+            %button.btn.btn-danger{'type' : 'reset'}<
+                - trans "Reset"

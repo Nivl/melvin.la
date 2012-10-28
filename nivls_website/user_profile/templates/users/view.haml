@@ -1,0 +1,55 @@
+- extends "users/base.haml"
+- load url from future
+- load i18n bootstrap user_tags
+
+- block "title"
+    {% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}
+- block "page-subtitle"
+    {% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}
+- block "body_classes"
+    span8 offset2
+
+- block "breadcrumb-content"
+    %li<
+        %span.divider<
+            \/
+    %li
+        %a{'data-depth' : '1',
+           'data-ajax'  : 'body-content',
+           'title'      : '{% trans "View profile" %}',
+           'href'       : '{{ target_user.get_absolute_url }}'}
+            - trans "View profile"
+
+
+- block "content"
+    .pull-left.margin-right-2
+        {{ target_user|square_thumbnail:'160' }}
+
+    %ul.unstyled.space-li-10..space-li-clean-first
+        %li
+            %strong
+                - trans "Name:"
+            {{ target_user.last_name }} {{ target_user.first_name }}
+
+        - if profile.website
+            %li
+                %strong
+                    - trans "Website:"
+
+                %a{'href': '{{ profile.website }}'}
+                    {{ profile.website }}
+
+        - if profile.occupation
+            %li
+                %strong
+                    - trans "Occupation:"
+                {{ profile.occupation }}
+
+        - if profile.hobbies
+          %li
+            %strong
+                - trans "Hobbies:"
+            {{ profile.hobbies }}
+
+    %ul.nav.nav-pills.social-medias-icons
+        {{ target_user|social_user_links }}

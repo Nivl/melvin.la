@@ -1,0 +1,30 @@
+- extends "users/base.haml"
+- load i18n staticfiles
+- load url from future
+
+- block "title"
+    - trans "Edit my profile picture"
+
+- block "breadcrumb-content"
+    %li
+        %span.divider
+            \/
+    %li
+        %a{'data-depth' : '1',
+           'data-ajax'  : 'body-content',
+           'title'      : '{% trans "Edit my profile picture" %}',
+           'href'       : '{% url "edit-picture" %}'}
+            - trans "Edit my profile picture"
+
+- block "content"
+    %h2.center-text
+        - trans "You can drop your new picture in this box: "
+
+    #drop-profil-picture.drop-area
+    - include "users/ajax/edit_picture_drop_form.haml"
+
+    .span8.offset2
+        %h2.center-text
+            - trans "Or you can use this form: "
+
+        - include "users/ajax/edit_picture_form.haml"

@@ -1,0 +1,13 @@
+- load i18n
+- load url from future
+
+%form#profile-picture-form.form-horizontal{'enctype': 'multipart/form-data',
+                                           'action': '{% url "edit-picture-form" %}'}
+    - csrf_token
+    {{ form }}
+
+    .form-actions
+        %button.btn.btn-primary{'type' : 'submit'}
+            - trans "Upload"
+        %button.btn.btn-danger{'type' : 'reset'}
+            - trans "Reset"

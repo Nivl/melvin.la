@@ -1,0 +1,99 @@
+- extends "users/base.html"
+- load i18n bootstrap staticfiles
+- load url from future
+
+- block "title"
+    - trans "Edit my account"
+
+- block "breadcrumb-content"
+    %li<
+        %span.divider<
+            \/
+    %li
+        %a{'data-depth' : '1',
+           'data-ajax'  : 'body-content',
+           'title'      : '{% trans "Edit my account" %}',
+           'href'       : '{% url "edit-account" %}'}
+           - trans "Edit my account"
+
+- block "content"
+    .row
+        .span5
+            %a.well.link-box{'href': '#modal-edit-profile', 'data-toggle': 'modal'}
+                %h3
+                    - trans "Edit my profile"
+
+                .content
+                    - trans "Here you can change your name, hobbies, occupation, …"
+
+            #modal-edit-profile.modal.hide
+                .modal-header
+                    %button.close{'type': 'button', 'data-dismiss': 'modal'}
+                        ×
+                    %h3
+                        - trans "Edit my profile"
+
+                #edit-account-form.loading
+                    %img{'src': '{% static "commons/img/loading-small.gif" %}', 'alt': 'loading'}
+
+        .span5.offset1
+            %a.well.link-box{'href': '#modal-edit-settings', 'data-toggle': 'modal'}
+                %h3
+                    - trans "Edit my settings"
+                .content
+                    - trans "If you want to enable/disable some features, it's the place."
+
+            #modal-edit-settings.modal.hide
+                .modal-header
+                    %button.close{'type': 'button', 'data-dismiss': 'modal'}
+                        ×
+                    %h3<
+                        - trans "Edit my settings"
+
+                #edit-settings-form.loading
+                    %img{'src'    : '{% static "commons/img/loading-small.gif" %}',
+                         'alt'    : 'loading'}
+
+    .row
+        .span5
+            %a.well.link-box{'href'           : '#modal-edit-email',
+                             'data-toggle'    : 'modal'}
+
+                %h3<
+                    - trans "Edit my email address"
+                .content
+                    - trans "You must have set a password to change you email address."
+
+            #modal-edit-email.modal.hide
+                .modal-header<
+                    %button.close{'type': 'button', 'data-dismiss': 'modal'}<
+                        ×
+
+                    %h3
+                        - trans "Edit my email address"
+
+                #edit-email-form.loading
+                      %img{'src'    : '{% static "commons/img/loading-small.gif" %}',
+                           'alt'    : 'loading'}
+
+        .span5.offset1
+            %a.well.link-box{'href'           : '#modal-edit-password',
+                             'data-toggle'    : 'modal',
+                             'class'          : "{% if not user.get_profile.has_password %}important{% endif %}"}
+                %h3<
+                    - trans "Edit my password"
+                .content
+                    - trans "Here you can change or set your password."
+
+            #modal-edit-password.modal.hide
+                .modal-header
+                    %button.close{'type'           : 'button',
+                                 'data-dismiss'    : 'modal'}
+                                 ×
+
+                    %h3<
+                        - trans "Edit my password"
+
+                #edit-password-form.loading
+                    %img{'src'    : '{% static "commons/img/loading-small.gif" %}',
+                         'alt'    : 'loading'}

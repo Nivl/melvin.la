@@ -1,0 +1,15 @@
+- load url from future
+- load i18n
+
+%form#sign-up-form.form-horizontal{'method'     : 'post',
+                                   'action'     : '{% url "sign-up-form" %}'}
+    - csrf_token
+    {{ form }}
+
+    .form-actions
+        %button.btn.btn-primary{'type'              : 'submit',
+                                'data-loading-text' : '{% trans "Signing up..." %}'}
+            - trans "Sign up"
+
+        %button.btn.btn-danger{'type': 'reset'}
+            - trans "Reset"

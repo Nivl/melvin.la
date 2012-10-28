@@ -1,4 +1,3 @@
-import json
 from hashlib import md5
 from django import template
 from django.utils.safestring import mark_safe
@@ -7,6 +6,7 @@ from django.template.defaultfilters import title
 from social_auth.models import UserSocialAuth
 
 register = template.Library()
+
 
 @register.filter(is_safe=True)
 def social_link(user_social):

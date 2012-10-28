@@ -1,0 +1,24 @@
+- extends "users/base.haml"
+- load l10n i18n
+- block "title"
+    - trans "Edit thumbnail"
+
+- block "content"
+    %h1.center-text
+        - trans "Edit thumbnail"
+
+    - include "users/ajax/edit_avatar_form.haml" with form=form
+
+    .row
+        .span10
+            %img#image-id-picture{'src'               : '{{ picture.url }}',
+                                  'data-real-width'   : '{{ picture.width }}'};
+
+        .span2
+            %h2<
+                Preview
+
+            .avatar-preview
+                %img.jcrop-preview{'src'    : '{{ picture.url }}',
+                                   'id'     : 'preview_id_avatar',
+                                   'alt'    : 'Preview'}

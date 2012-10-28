@@ -1,0 +1,19 @@
+- load url from future
+- load i18n
+
+%form#edit-email-form.form-horizontal{'method'  : 'post',
+                                      'action'  : '{% url "edit-email-form" %}'}
+    .modal-body
+        - if not user.get_profile.has_password
+            .alert.alert-error
+                - trans "You didn't set a password, you cannot change your email address"
+
+        - csrf_token
+        {{ form }}
+
+    .modal-footer
+        %button.btn.btn-primary{'type': 'submit'}
+            - trans "Edit"
+
+        %button.btn.btn-danger{'type': 'reset'}
+            - trans "Reset"

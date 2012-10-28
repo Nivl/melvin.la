@@ -13,8 +13,7 @@ from django.core.urlresolvers import resolve, Resolver404, reverse
 from django.views.decorators.http import require_safe
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from social_auth.models import UserSocialAuth
-from commons.forms import BootstrapLoginForm, CroppedImageForm
+from commons.forms import BootstrapLoginForm
 from commons.decorators import ajax_only, login_forbidden
 from forms import *
 
@@ -23,7 +22,7 @@ from forms import *
 def my_password_reset_confirm_form(request, uidb36, token):
     return password_reset_confirm(
         request,
-        template_name='users/ajax/password_confirm_form.html',
+        template_name='users/ajax/password_confirm_form.haml',
         uidb36=uidb36,
         token=token,
         extra_context={'e_uidb36': uidb36,
@@ -34,7 +33,7 @@ def my_password_reset_confirm_form(request, uidb36, token):
 def my_password_reset_confirm(request, uidb36, token):
     return password_reset_confirm(
         request,
-        template_name='users/password_confirm.html',
+        template_name='users/password_confirm.haml',
         uidb36=uidb36,
         token=token,
         extra_context={'e_uidb36': uidb36,
@@ -49,7 +48,7 @@ def sign_in_failed(request):
     else:
         return login(
             request,
-            template_name='users/sign_in.html',
+            template_name='users/sign_in.haml',
             authentication_form=BootstrapLoginForm,
             extra_context={'error': _('The sign in has failed. If you '
                                       'think the problem comes from us, '
@@ -70,7 +69,7 @@ def edit_password_form(request):
             return HttpResponse('200')
     else:
         form = EditPasswordForm(request=request)
-    return render(request, "users/ajax/edit_password_form.html", {'form': form})
+    return render(request, "users/ajax/edit_password_form.haml", {'form': form})
 
 
 @ajax_only
@@ -85,14 +84,14 @@ def edit_email_form(request):
     else:
         form = EditEmailForm(initial={'email': request.user.email},
                              request=request)
-    return render(request, "users/ajax/edit_email_form.html", {'form': form})
+    return render(request, "users/ajax/edit_email_form.haml", {'form': form})
 
 
 @require_safe
 @login_forbidden()
 def sign_up(request):
     form = UserForm()
-    return render(request, "users/sign_up.html", {'form': form})
+    return render(request, "users/sign_up.haml", {'form': form})
 
 
 @login_forbidden()
@@ -121,7 +120,7 @@ def sign_up_form(request):
                 context_instance=RequestContext(request))
 
             html_content = render_to_string(
-                'users/inc/sign_up_mail.html',
+                'users/inc/sign_up_mail.haml',
                 {'user': u,
                  'code': profile.activation_code},
                 context_instance=RequestContext(request))
@@ -134,10 +133,10 @@ def sign_up_form(request):
 
             msg.attach_alternative(html_content, 'text/html')
             msg.send(fail_silently=True)
-            return render(request, 'users/ajax/sign_up_ok.html')
+            return render(request, 'users/ajax/sign_up_ok.haml')
     else:
         form = UserForm()
-    return render(request, "users/ajax/sign_up_form.html", {'form': form})
+    return render(request, "users/ajax/sign_up_form.haml", {'form': form})
 
 
 @require_safe
@@ -152,7 +151,7 @@ def activate_account(request, code):
         profile.save()
         return login(
             request,
-            template_name='users/sign_in.html',
+            template_name='users/sign_in.haml',
             authentication_form=BootstrapLoginForm,
             extra_context={
                 'success': _('Your account has been '
@@ -162,7 +161,7 @@ def activate_account(request, code):
     except UserProfile.DoesNotExist:
         return login(
             request,
-            template_name='users/sign_in.html',
+            template_name='users/sign_in.haml',
             authentication_form=BootstrapLoginForm,
             extra_context={
                 'error': _('This activation link does not exists. '
@@ -175,7 +174,7 @@ def activate_account(request, code):
 @login_required
 def view_account(request, name):
     u = get_object_or_404(User, username=name)
-    return render(request, "users/view.html", {'target_user': u,
+    return render(request, "users/view.haml", {'target_user': u,
                                                'profile': u.get_profile()})
 
 
@@ -183,7 +182,7 @@ def view_account(request, name):
 @login_required
 def edit_picture(request):
     form = UserPictureForm(instance=request.user.get_profile())
-    return render(request, "users/edit_picture.html",
+    return render(request, "users/edit_picture.haml",
                   {'form': form})
 
 
@@ -199,7 +198,7 @@ def handle_dropped_picture(request):
             return HttpResponse("200")
     else:
         form = UserPictureForm(instance=profile)
-    return render(request, "users/ajax/edit_picture_drop_form.html",
+    return render(request, "users/ajax/edit_picture_drop_form.haml",
                   {'form': form})
 
 
@@ -212,11 +211,11 @@ def edit_picture_form(request):
                                instance=profile)
         if form.is_valid():
             form.save()
-            return render(request, "users/ajax/edit_picture_ok.html",
+            return render(request, "users/ajax/edit_picture_ok.haml",
                           {'has_file': len(request.FILES)})
     else:
         form = UserPictureForm(instance=profile)
-    return render(request, "users/ajax/edit_picture_form.html",
+    return render(request, "users/ajax/edit_picture_form.haml",
                   {'form': form})
 
 
@@ -226,7 +225,7 @@ def edit_avatar(request):
     profile = request.user.get_profile()
     if not profile.picture:
         return permission_denied(request)
-    return render(request, "users/edit_avatar.html",
+    return render(request, "users/edit_avatar.haml",
                   {'picture': profile.picture,
                    'form': UserAvatarForm(instance=profile),
                    })
@@ -243,10 +242,10 @@ def edit_avatar_form(request):
         form = UserAvatarForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            return render(request, 'users/ajax/edit_avatar_ok.html')
+            return render(request, 'users/ajax/edit_avatar_ok.haml')
     else:
         form = UserAvatarForm(instance=profile)
-    return render(request, "users/ajax/edit_avatar_form.html", {'form': form})
+    return render(request, "users/ajax/edit_avatar_form.haml", {'form': form})
 
 
 @require_safe
@@ -261,7 +260,7 @@ def edit_account(request):
                                initial={'email': request.user.email})
     psw_form = EditPasswordForm(request=request)
 
-    return render(request, "users/edit_account.html",
+    return render(request, "users/edit_account.haml",
                   {'account_form': account_form,
                    'account_profile_form': account_profile_form,
                    'settings_form': settings_form,
@@ -286,20 +285,21 @@ def edit_account_form(request):
             instance=profile)
 
         if account_form.is_valid() and profile_form.is_valid():
-            u = account_form.save()
+            account_form.save()
             p = profile_form.save(commit=False)
             if account_form.cleaned_data['username'] != username:
                 p.lock_username = True
             p.save()
-            return HttpResponse("200");
+            return HttpResponse("200")
     else:
         account_form = UserEditForm(edit_username=(not profile.lock_username),
                                     instance=request.user)
         profile_form = UserProfileInfoForm(instance=profile)
-    return render(request, "users/ajax/edit_account_form.html",
+    return render(request, "users/ajax/edit_account_form.haml",
                   {'account_form': account_form,
                    'profile_form': profile_form,
                    })
+
 
 @ajax_only
 @login_required
@@ -312,16 +312,16 @@ def edit_settings_form(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponse("200");
+            return HttpResponse("200")
     else:
         form = UserProfileSettingsForm(instance=profile)
-    return render(request, "users/ajax/edit_settings_form.html", {'form': form})
+    return render(request, "users/ajax/edit_settings_form.haml", {'form': form})
 
 
 @require_safe
 @login_required
 def manage_social_account(request):
-    return render(request, "users/manage_social_accounts.html")
+    return render(request, "users/manage_social_accounts.haml")
 
 
 def sign_in(request):
@@ -332,5 +332,5 @@ def sign_in(request):
         except Resolver404:
             return HttpResponseRedirect(reverse('home'))
     else:
-        return login(request, template_name='users/sign_in.html',
+        return login(request, template_name='users/sign_in.haml',
                      authentication_form=BootstrapLoginForm)

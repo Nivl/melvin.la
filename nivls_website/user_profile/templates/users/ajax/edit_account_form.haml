@@ -1,0 +1,18 @@
+- load url from future
+- load i18n bootstrap
+
+%form#edit-account-form.form-horizontal{'method'    : 'post',
+                                        'action'    : '{% url "edit-account-form" %}'}
+
+    .modal-body
+        {% csrf_token %}
+        {{ account_form }}
+        {{ profile_form|bootstrap }}
+
+
+    .modal-footer
+        %button.btn.btn-primary{'type': 'submit'}
+            - trans "Edit"
+
+        %button.btn.btn-danger{'type': 'reset'}
+            - trans "Reset"
