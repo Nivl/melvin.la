@@ -8,7 +8,7 @@
 - block "body"
 
   - if not request.is_ajax
-    - include "inc/browser_warning.html"
+    - include "inc/browser_warning.haml"
 
   %header{'class': '{% block "header-classes" %}{% endblock %}'}
     .container

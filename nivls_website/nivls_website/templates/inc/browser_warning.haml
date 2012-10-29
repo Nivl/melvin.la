@@ -1,0 +1,34 @@
+- load i18n
+
+#browser-warning.modal.hide.fade
+    .modal-header
+        %h3
+            - trans "Browser compatibilities"
+    .modal-body
+        %p
+            - trans "This website use some experimental features. To get the best experience using it, you will need the newest version of your browser or change to another one."
+
+        %p
+            - trans "List of supported bowsers:"
+            .browser-list
+                .item
+                  %a{'href': 'https://www.google.com/chrome'}
+                    .browser-icon-chrome
+                    %p<
+                        Google chrome
+                .item
+                    %a{'href': 'https://www.mozilla.org/firefox/new/'}
+                        .browser-icon-firefox
+                        %p<
+                            Firefox
+        %p<
+          - trans "The other browsers have not been tested, some like Safari should work fine, others like Opera or Internet Explorer will miss several features."
+
+    .modal-footer
+        %button.btn.btn-danger{'type'           : 'button',
+                               'data-dismiss'   : 'modal'}
+            - trans "Don't care, I'm a warrior"
+
+        %button.btn.btn-success{'type'          : 'button',
+                                'data-dismiss'  : 'modal'}
+            - trans "My browser is good"

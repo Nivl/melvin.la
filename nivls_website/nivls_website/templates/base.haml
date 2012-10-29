@@ -36,7 +36,7 @@
                     %script{'src': '{% url "jsurls" %}'}
 
                     - compressed_js 'main'
-                -block "app_js"
+                - block "app_js"
 
                 - if not request.is_ajax
                     {{ seo.free_javascript_block }}
