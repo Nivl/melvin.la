@@ -6,6 +6,7 @@ import akismet
 def akismet_is_valid(request, data):
     akismet.USERAGENT = "David Lynch's Python library/1.0"
     current_site = Site.objects.get_current()
+    data = data.encode('ascii', 'ignore')
 
     domain = "http://" + current_site.domain + settings.DOMAIN_NAME
 
