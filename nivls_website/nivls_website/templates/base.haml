@@ -23,20 +23,20 @@
             /[if lt IE 9]>
                 %script{'src': '{% static "commons/js/html5shiv.js" %}'}
 
-            %body
-                {% endif %}
-                #body
-                    - block "body"
-                - if not request.is_ajax
-                    %script
-                        var STATIC_URL="{% static "" %}";
-                    %script{'src': 'https://apis.google.com/js/plusone.js'}
-                        {parsetags: 'explicit'}
-                    %script{'src': '{% url "django.views.i18n.javascript_catalog" %}'}
-                    %script{'src': '{% url "jsurls" %}'}
+        %body
+            {% endif %}
+            #body
+                - block "body"
+            - if not request.is_ajax
+                %script
+                    var STATIC_URL="{% static "" %}";
+                %script{'src': 'https://apis.google.com/js/plusone.js'}
+                    \{parsetags: 'explicit'}
+                %script{'src': '{% url "django.views.i18n.javascript_catalog" %}'}
+                %script{'src': '{% url "jsurls" %}'}
 
-                    - compressed_js 'main'
-                - block "app_js"
+                - compressed_js 'main'
+            - block "app_js"
 
-                - if not request.is_ajax
-                    {{ seo.free_javascript_block }}
+            - if not request.is_ajax
+                {{ seo.free_javascript_block }}

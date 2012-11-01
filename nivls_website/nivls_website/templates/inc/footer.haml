@@ -2,114 +2,117 @@
 - load url from future
 
 %footer
-  %header
+    .header
+        .container
+            .row
+                .span3
+                    %a{'href': 'http://www.python.org'}
+                        %img{'src': '{% static "commons/img/footer/python.png" %}',
+                             'alt': 'Python'}
+
+                .span3
+                    %a{'href': 'http://www.w3.org/html/logo/'}
+                        %img{'src'    : 'http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics-storage.png',
+                             'width'  : '229',
+                             'height' : '64',
+                             'alt'    : 'HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage'}
+
+                .span3
+                    %a{'href' : 'http://www.jquery.org'}
+                        %img{'src'  : '{% static "commons/img/footer/jquery.png" %}',
+                             'alt'  : 'jQuery'}
+
+                .span3
+                    %a{'href': 'https://www.djangoproject.com'}
+                        %img{'src': '{% static "commons/img/footer/django.png" %}',
+                             'alt': 'Django'}
+
     .container
-      .row
-        .span3
-          %a{'href': 'http://www.python.org'}
-            %img{'src': '{% static "commons/img/footer/python.png" %}'}
+        .row
+            .span3.brand Laplanche-melv.in
+                %small © 2012. All rights reserved.
 
-        .span3
-          %a{'href': 'http://www.w3.org/html/logo/'}
-            %img{'src'    : 'http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics-storage.png',
-                 'width'  : '229',
-                 'height' : '64',
-                 'alt'    : 'HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage'}
+            .span3
+                %h5<
+                    - trans "Navigation links"
 
-        .span3
-          %a{'href' : 'http://www.jquery.org'}
-            %img{'src': '{% static "commons/img/footer/jquery.png" %}'}
+                %ul.unstyled
+                    %li
+                        %a{'href': '{% url "home" %}'}
+                            %i.icon-home
+                            - trans "Home"
 
-        .span3
-          %a{'href': 'https://www.djangoproject.com'}
-            %img{'src': '{% static "commons/img/footer/django.png" %}'}
+                    %li
+                        %a{'href': '{% url "blog" %}'}
+                            %i.icon-book
+                            - trans "Blog"
 
-  .container
-    .row
-      .span3.brand Laplanche-melv.in
-        %small © 2012. All rights reserved.
+                    %li
+                        %a{'href': '{% url "lab" %}'}
+                            %i.icon-beaker
+                            - trans "Lab"
 
-      .span3
-        %h5<
-          - trans "Navigation links"
+                    %li
+                          %a{'href': '{% url "about" %}'}
+                                %i.icon-user
+                                - trans "About"
 
-        %ul.unstyled
-          %li
-            %a{'href': '{% url "home" %}'}
-              %i.icon-home
-              - trans "Home"
+                    %li
+                          %a{'href': '{% url "portfolio" %}'}
+                                %i.icon-picture
+                                - trans "Portfolio"
 
-          %li
-            %a{'href': '{% url "blog" %}'}
-              %i.icon-book
-              - trans "Blog"
+            .span3
+                %h5<
+                    - trans "Be social"
 
-          %li
-            %a{'href': '{% url "lab" %}'}
-              %i.icon-beaker
-              - trans "Lab"
+                %ul.unstyled
+                    %li
+                        %a.{'href': 'https://plus.google.com/107029584179497153748'}
+                            %i.icon-google-plus
+                            Google+
 
-          %li
-            %a{'href': '{% url "about" %}'}
-              %i.icon-user
-              - trans "About"
+                    %li
+                        %a.{'href': 'https://github.com/Nivl'}
+                            %i.icon-github
+                            Github
 
-          %li
-            %a{'href': '{% url "portfolio" %}'}
-              %i.icon-picture
-              - trans "Portfolio"
+                    %li
+                        %a.{'href': 'https://twitter.com/Nivl_'}
+                            %i.icon-twitter
+                            Twitter
 
-      .span3
-        %h5<
-          - trans "Be social"
+                    %li
+                        %a.{'href': 'https://www.facebook.com/melvin.laplanche'}
+                            %i.icon-facebook
+                            Facebook
 
-        %ul.unstyled
-          %li
-            %a.{'href': 'https://plus.google.com/107029584179497153748'}
-              %i.icon-google-plus
-              Google+
+                    %li
+                        %a.{'href': '{% url "contact" %}'}
+                            %i.icon-envelope
+                            - trans "Contact"
 
-          %li
-            %a.{'href': 'https://github.com/Nivl'}
-              %i.icon-github
-              Github
+            .span3
+                %h5<
+                    - trans "Actions"
 
-          %li
-            %a.{'href': 'https://twitter.com/Nivl_'}
-              %i.icon-twitter
-              Twitter
+                %ul.unstyled
+                    %li
+                        %a.scroll{'href': '#body'}
+                            %i.icon-circle-arrow-up
+                            - trans "Go to the top"
 
-          %li
-            %a.{'href': 'https://www.facebook.com/melvin.laplanche'}
-              %i.icon-facebook
-              Facebook
+                    %li
+                        %a.scroll{'href': "#middle-header"}
+                            %i.icon-search
+                            - trans "Go to the search form"
 
-          %li
-            %a.{'href': '{% url "contact" %}'}
-              %i.icon-envelope
-              - trans "Contact"
+                    %li
+                        %a.scroll{'href': '#body-content'}
+                            %i.icon-th-large
+                            - trans "Go to the content"
 
-      .span3
-        %h5<
-          - trans "Actions"
-
-        %ul.unstyled
-          %li
-            %a.scroll{'href': '#body'}
-              %i.icon-circle-arrow-up
-              - trans "Go to the top"
-
-          %li
-            %a.scroll{'href': "#middle-header"}
-              %i.icon-search
-              - trans "Go to the search form"
-
-          %li
-            %a.scroll{'href': '#body-content'}
-              %i.icon-th-large
-              - trans "Go to the content"
-
-          %li
-            %a{'href': '#', 'onClick': 'window.location.reload()'}
-              %i.icon-refresh
-              - trans "Refresh the page"
+                    %li
+                        %a{'href': '#', 'onClick': 'window.location.reload()'}
+                            %i.icon-refresh
+                            - trans "Refresh the page"
