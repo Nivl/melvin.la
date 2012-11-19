@@ -1,7 +1,7 @@
 - load staticfiles i18n
 - load url from future
 
-.row.center-text
+<div class="row center-text">
     %li.span1
         %figure.inline-figure
             %a#lab-tag-home{'data-ajax'    : 'body-content-only',
@@ -33,7 +33,7 @@
                                   'data-depth'   : '10,',
                                   'title'        : '{{ tag.name }}',
                                   'id'           : 'lab-tag-{{ tag.slug }}',
-                                  'href': '{% url "lab-tag" tag.slug %}'}
+                                  'href'        : '{% url "lab-tag" tag.slug %}'}
 
                     .main-icon{'style': 'background-image: url({{ tag.icon_enabled.url }});'}
 
@@ -56,3 +56,5 @@
         - if not forloop.counter|divisibleby:'2' and not forloop.last
             </div>
             <div class="row margin-top-2 center-text">
+
+</div>
