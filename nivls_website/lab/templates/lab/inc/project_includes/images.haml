@@ -15,9 +15,9 @@
                          'title'  : '{{ image.description }}',
                          'href'   : '{{ image.image.url }}'}
 
-        	%img{'src'   :   '{{ image.image.url }}',
-                 'alt'   :    '{{ image.name }}',
-                 'title' :  '{{ image.name }}'}
+                %img{'src'   :   '{{ image.image.url }}',
+                     'alt'   :    '{{ image.name }}',
+                     'title' :  '{{ image.name }}'}
 
         - if forloop.counter|divisibleby:3 or forloop.last
             </ul>
