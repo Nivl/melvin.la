@@ -31,7 +31,7 @@
                                      'style': 'display:none;'}
                   %i.icon-edit
 
-        .comment_avatar{'id': 'comment_{{ comment.pk }}_avatar'}
+        .comment-avatar{'id': 'comment_{{ comment.pk }}_avatar'}
             - if comment.user
                 {{ comment.user|square_thumbnail }}
             - else

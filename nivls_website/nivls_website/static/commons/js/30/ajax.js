@@ -8,20 +8,20 @@ $(document).on('submit', '#contact-form', function(){
     var that = this;
 
     Ajaxion_post(
-	resolve_urls('contact-form'), '#contact-form', function(data, proceed){
-	    if (proceed){
-		$(that).before(data);
-		$.jStorage.deleteKey('contact-message');
+        resolve_urls('contact-form'), '#contact-form', function(data, proceed){
+            if (proceed){
+                $(that).before(data);
+                $.jStorage.deleteKey('contact-message');
 
-		Ajaxion_switch_elem(
-		    resolve_urls('contact-form'),
-		    '#contact-form',
-		    '*');
-	    }
-	},
-	function(){
-	    Ajaxion_cb_error_push_before(that);
-	});
+                Ajaxion_switch_elem(
+                    resolve_urls('contact-form'),
+                    '#contact-form',
+                    '*');
+            }
+        },
+        function(){
+            Ajaxion_cb_error_push_before(that);
+        });
     return false;
 });
 
@@ -43,22 +43,22 @@ $(document).on('submit', '#reset-password-form', function(){
     var that = this;
 
     Ajaxion_post(
-	resolve_urls('reset-password-form'),
-	'#reset-password-form',
-	function(data, proceed){
-	    if (proceed){
-		$(that).before(data);
+        resolve_urls('reset-password-form'),
+        '#reset-password-form',
+        function(data, proceed){
+            if (proceed){
+                $(that).before(data);
 
-		Ajaxion_switch_elem(
-		    resolve_urls('reset-password-form'),
-		    '#reset-password-form',
-		    '*'
-		);
-	    }
-	},
-	function(){
-	    Ajaxion_cb_error_push_before(that);
-	});
+                Ajaxion_switch_elem(
+                    resolve_urls('reset-password-form'),
+                    '#reset-password-form',
+                    '*'
+                );
+            }
+        },
+        function(){
+            Ajaxion_cb_error_push_before(that);
+        });
     return false;
 });
 
@@ -67,14 +67,14 @@ $(document).on('submit', '#edit-account-form', function(){
     var that = this;
 
     Ajaxion_post(resolve_urls('edit-account-form'), '#edit-account-form',
-		 function(data, proceed){
-		     if (proceed){
-			 hideOnSuccess(that);
-		     }
-		 },
-		 function(){
-		     colorOnError(that);
-		 });
+                 function(data, proceed){
+                     if (proceed){
+                         hideOnSuccess(that);
+                     }
+                 },
+                 function(){
+                     colorOnError(that);
+                 });
     return false;
 });
 
@@ -83,8 +83,8 @@ $(document).on('shown', '#modal-edit-profile', function(){
     var that = this;
 
     $.get(resolve_urls('edit-account-form'), function(data){
-	$('#edit-account-form').replaceWith(data);
-	clearError(that);
+        $('#edit-account-form').replaceWith(data);
+        clearError(that);
     });
 });
 
@@ -93,14 +93,14 @@ $(document).on('submit', '#edit-settings-form', function(){
     var that = this;
 
     Ajaxion_post(resolve_urls('edit-settings-form'), '#edit-settings-form',
-		 function(data, proceed){
-		     if (proceed){
-			 hideOnSuccess(that);
-		     }
-		 },
-		 function(){
-		     colorOnError(that);
-		 });
+                 function(data, proceed){
+                     if (proceed){
+                         hideOnSuccess(that);
+                     }
+                 },
+                 function(){
+                     colorOnError(that);
+                 });
     return false;
 });
 
@@ -109,8 +109,8 @@ $(document).on('shown', '#modal-edit-settings', function(){
     var that = this;
 
     $.get(resolve_urls('edit-settings-form'), function(data){
-	$('#edit-settings-form').replaceWith(data);
-	clearError(that);
+        $('#edit-settings-form').replaceWith(data);
+        clearError(that);
     });
 });
 
@@ -119,30 +119,30 @@ $(document).on('submit', '#edit-password-form', function(){
     var that = this;
 
     Ajaxion_post(
-	resolve_urls('edit-password-form'),
-	'#edit-password-form',
-	function(data, proceed){
-	    if (proceed){
-		hideOnSuccess(that);
+        resolve_urls('edit-password-form'),
+        '#edit-password-form',
+        function(data, proceed){
+            if (proceed){
+                hideOnSuccess(that);
 
-		$('a[href="#' + $('#edit-password-form')
-		  .parents('.modal').prop('id')  + '"]')
-		    .removeClass('important');
+                $('a[href="#' + $('#edit-password-form')
+                  .parents('.modal').prop('id')  + '"]')
+                    .removeClass('important');
 
-		Ajaxion_switch_elem(
-		    resolve_urls('get-common-header'),
-		    '#header-menu-user'
-		);
-		Ajaxion_switch_elem(
-		    resolve_urls('edit-email-form'),
-		    '#header-menu-user',
-		    '*'
-		);
-	    }
-	},
-	function(){
-	    colorOnError(that);
-	});
+                Ajaxion_switch_elem(
+                    resolve_urls('get-common-header'),
+                    '#header-menu-user'
+                );
+                Ajaxion_switch_elem(
+                    resolve_urls('edit-email-form'),
+                    '#header-menu-user',
+                    '*'
+                );
+            }
+        },
+        function(){
+            colorOnError(that);
+        });
     return false;
 });
 
@@ -151,8 +151,8 @@ $(document).on('shown', '#modal-edit-password', function(){
     var that = this;
 
     $.get(resolve_urls('edit-password-form'), function(data){
-	$('#edit-password-form').replaceWith(data);
-	clearError(that);
+        $('#edit-password-form').replaceWith(data);
+        clearError(that);
     });
 });
 
@@ -160,16 +160,16 @@ $(document).on('submit', '#edit-email-form', function(){
     var that = this;
 
     Ajaxion_post(
-	resolve_urls('edit-email-form'),
-	'#edit-email-form',
-	function(data, proceed){
-	    if (proceed){
-		hideOnSuccess(that);
-	    }
-	},
-	function(){
-	    colorOnError(that);
-	});
+        resolve_urls('edit-email-form'),
+        '#edit-email-form',
+        function(data, proceed){
+            if (proceed){
+                hideOnSuccess(that);
+            }
+        },
+        function(){
+            colorOnError(that);
+        });
     return false;
 });
 
@@ -178,8 +178,8 @@ $(document).on('shown', '#modal-edit-email', function(){
     var that = this;
 
     $.get(resolve_urls('edit-email-form'), function(data){
-	$('#edit-email-form').replaceWith(data);
-	clearError(that);
+        $('#edit-email-form').replaceWith(data);
+        clearError(that);
     });
 });
 
@@ -188,22 +188,22 @@ $(document).on('submit', '#edit-avatar-form', function(){
     var that = this;
 
     Ajaxion_post(
-	resolve_urls('edit-avatar-form'),
-	'#edit-avatar-form',
-	function(data, proceed){
-	    if (proceed){
-		$(that).before(data);
+        resolve_urls('edit-avatar-form'),
+        '#edit-avatar-form',
+        function(data, proceed){
+            if (proceed){
+                $(that).before(data);
 
-		Ajaxion_switch_elem(
-		    resolve_urls('edit-avatar-form'),
-		    '#edit-avatar-form',
-		    '*'
-		);
-	    }
-	},
-	function(){
-	    Ajaxion_cb_error_push_before(that)
-	});
+                Ajaxion_switch_elem(
+                    resolve_urls('edit-avatar-form'),
+                    '#edit-avatar-form',
+                    '*'
+                );
+            }
+        },
+        function(){
+            Ajaxion_cb_error_push_before(that)
+        });
     return false;
 });
 
@@ -212,22 +212,22 @@ $(document).on('submit', '#sign-up-form', function(){
     var that = this;
 
     Ajaxion_post(
-	resolve_urls('sign-up-form'),
-	'#sign-up-form',
-	function(data, proceed){
-	    if (proceed){
-		$(that).before(data);
+        resolve_urls('sign-up-form'),
+        '#sign-up-form',
+        function(data, proceed){
+            if (proceed){
+                $(that).before(data);
 
-		Ajaxion_switch_elem(
-		    resolve_urls('sign-up-form'),
-		    '#sign-up-form',
-		    '*'
-		);
-	    }
-	},
-	function(){
-	    Ajaxion_cb_error_push_before(that)
-	});
+                Ajaxion_switch_elem(
+                    resolve_urls('sign-up-form'),
+                    '#sign-up-form',
+                    '*'
+                );
+            }
+        },
+        function(){
+            Ajaxion_cb_error_push_before(that)
+        });
     return false;
 });
 
@@ -236,22 +236,22 @@ $(document).on('submit', '#profile-picture-form', function(){
     var that = this;
 
     Ajaxion_formUpload(
-	resolve_urls('edit-picture-form'), null,
-	'#profile-picture-form',
-	function(data, proceed){
-	    if (proceed){
-		$(that).before(data);
+        resolve_urls('edit-picture-form'), null,
+        '#profile-picture-form',
+        function(data, proceed){
+            if (proceed){
+                $(that).before(data);
 
-		Ajaxion_switch_elem(
-		    resolve_urls('edit-picture-form'),
-		    '#profile-picture-form',
-		    '*'
-		);
-	    }
-	},
-	function(){
-	    Ajaxion_cb_error_push_before(that)
-	});
+                Ajaxion_switch_elem(
+                    resolve_urls('edit-picture-form'),
+                    '#profile-picture-form',
+                    '*'
+                );
+            }
+        },
+        function(){
+            Ajaxion_cb_error_push_before(that)
+        });
     return false;
 });
 

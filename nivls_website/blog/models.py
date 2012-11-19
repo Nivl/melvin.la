@@ -268,7 +268,7 @@ class Post(models.Model):
                 })
 
     @models.permalink
-    def get_comments_url(self):
+    def get_comment_url(self):
         return ('post-comment-list', (), {
                 'year': self.pub_date.year,
                 'month': self.pub_date.strftime("%m"),

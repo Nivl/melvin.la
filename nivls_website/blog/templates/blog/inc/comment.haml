@@ -4,7 +4,7 @@
     - trans "Comments"
 
 - with comments=post.get_public_comments
-    #comments-count
+    #comment-count
         - include "blog/ajax/comment_count.haml" with count=comments|length
 
     %section#comments

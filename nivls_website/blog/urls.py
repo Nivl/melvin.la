@@ -1,5 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url
-from django.views.generic.simple import redirect_to
+from django.conf.urls.defaults import patterns, url
 from feeds import *
 from sitemaps import *
 from commons.sitemaps import StaticSitemap
