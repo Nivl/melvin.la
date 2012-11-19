@@ -10,7 +10,7 @@ $(document).on('submit', '#contact-form', function(){
     Ajaxion_post(
 	resolve_urls('contact-form'), '#contact-form', function(data, proceed){
 	    if (proceed){
-		$(this).before(data);
+		$(that).before(data);
 		$.jStorage.deleteKey('contact-message');
 
 		Ajaxion_switch_elem(
