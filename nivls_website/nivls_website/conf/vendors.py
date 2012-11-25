@@ -130,6 +130,8 @@ PIPELINE_DISABLE_WRAPPER = True
 # Haystack
 #
 
+INSTALLED_APPS += ('haystack',)
+
 HAYSTACK_SITECONF = 'nivls_website.search_sites'
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
 
@@ -138,6 +140,19 @@ HAYSTACK_WHOOSH_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                                     '..',
                                                     '..',
                                                     'whoosh_index'))
+
+#
+# Hamlpy
+#
+
+HAMLPY_ATTR_WRAPPER = '"'
+
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'hamlpy.template.loaders.HamlPyFilesystemLoader',
+        'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
+        )),
+) + TEMPLATE_LOADERS
 
 #
 # Others
