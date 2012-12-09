@@ -1,11 +1,10 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from bootstrap.forms import BootstrapForm, BootstrapModelForm
 from commons import happyforms
 from commons.protection import akismet_is_valid
 
 
-class ContactForm(BootstrapForm, happyforms.Form):
+class ContactForm(happyforms.Form):
     subject = forms.CharField(
         max_length=100,
         label=_('Subject'))
@@ -19,7 +18,7 @@ class ContactForm(BootstrapForm, happyforms.Form):
 
     honeypot = forms.CharField(
         required=False,
-        label="<!-- honeypot -->",
+        label="",
         widget=forms.TextInput(attrs={'class': 'hidden'}))
 
     def __init__(self, data=None, files=None, request=None, *args, **kwargs):
