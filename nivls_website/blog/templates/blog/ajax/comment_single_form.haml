@@ -1,11 +1,11 @@
-- load i18n
+- load i18n bootstrap
 
 %form{'id': 'comment-single-form-{{ pk }}',
       'method': 'post',
       'action': '{{ url }}'}
     - csrf_token
 
-    {{ form }}
+    {{ form|bootstrap }}
 
     .form-actions
         %button.btn.btn-primary{'type'              : 'submit',

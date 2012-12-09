@@ -1,11 +1,11 @@
-- load i18n
+- load i18n bootstrap
 
 %form.form-horizontal.bigger-fields{'id'        : 'comment-form',
                                     'method'    : 'post',
                                     'action'    : '{{ url }}'}
     - csrf_token
 
-    {{ form }}
+    {{ form|bootstrap }}
 
     .form-actions
         %button.btn.btn-primary{'type'              : 'submit',

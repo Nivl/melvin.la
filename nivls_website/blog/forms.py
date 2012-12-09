@@ -1,19 +1,18 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from bootstrap.forms import BootstrapForm, BootstrapModelForm
 from commons import happyforms
 from models import Comment
 from commons.protection import akismet_is_valid
 
 
-class CommentForm(BootstrapModelForm, happyforms.ModelForm):
+class CommentForm(happyforms.ModelForm):
     class Meta:
         model = Comment
         fields = ('name', 'email', 'website', 'comment')
 
     honeypot = forms.CharField(
         required=False,
-        label='<!-- honeypot -->',
+        label='',
         widget=forms.TextInput(attrs={'class': 'hidden'}))
 
     def __init__(self, storage_key='comment-content',
@@ -47,7 +46,7 @@ class CommentForm(BootstrapModelForm, happyforms.ModelForm):
             raise forms.ValidationError('Spam attempt detected!')
 
 
-class SingleCommentForm(BootstrapForm, happyforms.Form):
+class SingleCommentForm(happyforms.Form):
     comment = forms.CharField(
         widget=forms.Textarea(attrs={'style': 'width: 100%;'}),
-        label=_('<!-- Comment -->'))
+        label=_(''))
