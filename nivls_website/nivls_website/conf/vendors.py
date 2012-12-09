@@ -159,7 +159,6 @@ TEMPLATE_LOADERS = (
 #
 
 INSTALLED_APPS += (
-    'bootstrap',
     'bootstrapform',
     'captcha',
     'django_js_utils',
