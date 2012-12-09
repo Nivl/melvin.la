@@ -7,25 +7,27 @@
   - trans "Welcome to my website"
 
 - block "body-content"
-  - for link in navigation_links
 
-    - if forloop.counter0|divisibleby:4
-      <div class="row">
-    .span3
-      .big-badge
-        .foreground{'style': 'background-image:url({{ link.image.url|safe }});'}
-          %a{'{{ link.attributes|safe }}' : None,
-             'href'                       : '{{ link.link }}',
-             'style'                      : 'background-image:url({{ link.image.url }});'}
+    - for link in navigation_links
 
-        .informations
-          %h4
-            {{ link.name }}
-          %p
-            {{ link.description }}
+        - if forloop.counter0|divisibleby:4
+          <div class="row">
+        .span3
+            .big-badge
+                %a{'{{ link.attributes|safe }}' : None,
+                   'href'                       : '{{ link.link }}'}
 
-    - if forloop.counter|divisibleby:4 or forloop.last
-      </div>
+                    .informations
+                        %h4
+                            {{ link.name }}
+
+                        %i{'class': '{{ link.icon }}'}
+
+                        %p
+                            {{ link.description }}
+
+        - if forloop.counter|divisibleby:4 or forloop.last
+          </div>
 
   %hr
 

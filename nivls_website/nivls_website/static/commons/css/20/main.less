@@ -11,7 +11,7 @@
   font-style: normal;
 }
 
-// Uncomment this when it will be working in qt-webkit
+// Uncomment this when it will be working in qt-webkit (qt5)
 // issues : https://code.google.com/p/wkhtmltopdf/issues/detail?id=783
 
 /*
@@ -625,21 +625,31 @@ table {
 }
 
 .big-badge {
-    //float: left;
     margin: 0 auto;
-    width: 160px;
-    //margin-right: 95px;
+    padding: 20px 0;
+    width: 100%;
 
-    .informations {
-        margin-top: 20px;
-        text-align:center;
+    .transition(all 0.1s linear);
+
+    &:hover{
+        a {
+            color: @linkColorHover;
+        }
     }
 
-    .foreground {
-        .display-icon(left, 160px);
+    a {
+        color: @grayDark;
+        width: 100%;
 
-        a {
-            display: block;
+        .informations {
+            margin-top: 20px;
+            padding: 0 10px;
+            text-align: center;
+
+            i {
+                font-size: 110px;
+                line-height: 1;
+            }
         }
     }
 }
