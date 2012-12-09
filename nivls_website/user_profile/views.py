@@ -13,7 +13,6 @@ from django.core.urlresolvers import resolve, Resolver404, reverse
 from django.views.decorators.http import require_safe
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from commons.forms import BootstrapLoginForm
 from commons.decorators import ajax_only, login_forbidden
 from forms import *
 
@@ -49,7 +48,6 @@ def sign_in_failed(request):
         return login(
             request,
             template_name='users/sign_in.haml',
-            authentication_form=BootstrapLoginForm,
             extra_context={'error': _('The sign in has failed. If you '
                                       'think the problem comes from us, '
                                       'feel free to contact us.')})
@@ -152,7 +150,6 @@ def activate_account(request, code):
         return login(
             request,
             template_name='users/sign_in.haml',
-            authentication_form=BootstrapLoginForm,
             extra_context={
                 'success': _('Your account has been '
                              'successfully activated, you can now sign in.'
@@ -162,7 +159,6 @@ def activate_account(request, code):
         return login(
             request,
             template_name='users/sign_in.haml',
-            authentication_form=BootstrapLoginForm,
             extra_context={
                 'error': _('This activation link does not exists. '
                            'If you are experiencing activation issues, '
@@ -332,5 +328,4 @@ def sign_in(request):
         except Resolver404:
             return HttpResponseRedirect(reverse('home'))
     else:
-        return login(request, template_name='users/sign_in.haml',
-                     authentication_form=BootstrapLoginForm)
+        return login(request, template_name='users/sign_in.haml')

@@ -1,6 +1,6 @@
 - extends "users/base.haml"
 - load url from future
-- load i18n
+- load i18n bootstrap
 
 - block "page-title"
     - trans "Sign in"
@@ -33,7 +33,7 @@
                           'action'    : '{% url "sign-in" %}'}
         - csrf_token
 
-        {{ form }}
+        {{ form|bootstrap }}
 
         %input{'type'   : 'hidden',
                'name'   : 'next',

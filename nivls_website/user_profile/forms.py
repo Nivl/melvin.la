@@ -1,17 +1,12 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.template.defaultfilters import filesizeformat
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User
-from django.core.files.images import get_image_dimensions
-from bootstrap.forms import BootstrapForm, BootstrapModelForm
 from captcha.fields import CaptchaField
 from commons import happyforms
 from models import UserProfile
 
 
-class UserForm(BootstrapModelForm, happyforms.ModelForm):
+class UserForm(happyforms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email')
@@ -68,7 +63,7 @@ class UserForm(BootstrapModelForm, happyforms.ModelForm):
         return cleaned_data
 
 
-class UserEditForm(BootstrapModelForm, happyforms.ModelForm):
+class UserEditForm(happyforms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name')
@@ -106,20 +101,20 @@ class UserEditForm(BootstrapModelForm, happyforms.ModelForm):
         return data
 
 
-class UserProfileInfoForm(BootstrapModelForm, happyforms.ModelForm):
+class UserProfileInfoForm(happyforms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('occupation', 'hobbies', 'website')
 
 
-class UserProfileSettingsForm(BootstrapModelForm, happyforms.ModelForm):
+class UserProfileSettingsForm(happyforms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('show_twitter', 'show_google_plus', 'show_facebook',
                   'use_name', 'show_github')
 
 
-class EditEmailForm(BootstrapForm, happyforms.Form):
+class EditEmailForm(happyforms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(render_value=False),
         required=True,
@@ -151,7 +146,7 @@ class EditEmailForm(BootstrapForm, happyforms.Form):
         return data
 
 
-class EditPasswordForm(BootstrapForm, happyforms.Form):
+class EditPasswordForm(happyforms.Form):
     old_password = forms.CharField(
         widget=forms.PasswordInput(),
         required=True,
@@ -192,13 +187,13 @@ class EditPasswordForm(BootstrapForm, happyforms.Form):
         return data
 
 
-class UserAvatarForm(BootstrapModelForm, happyforms.ModelForm):
+class UserAvatarForm(happyforms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('avatar', )
 
 
-class UserPictureForm(BootstrapModelForm, happyforms.ModelForm):
+class UserPictureForm(happyforms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('picture', )
