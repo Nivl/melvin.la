@@ -147,12 +147,18 @@ HAYSTACK_WHOOSH_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),
 
 HAMLPY_ATTR_WRAPPER = '"'
 
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
+if not DEBUG:
+    TEMPLATE_LOADERS = (
+        ('django.template.loaders.cached.Loader', (
+            'hamlpy.template.loaders.HamlPyFilesystemLoader',
+            'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
+            )),
+        ) + TEMPLATE_LOADERS
+else:
+    TEMPLATE_LOADERS = (
         'hamlpy.template.loaders.HamlPyFilesystemLoader',
         'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
-        )),
-) + TEMPLATE_LOADERS
+        ) + TEMPLATE_LOADERS
 
 #
 # Others
