@@ -425,6 +425,83 @@ table {
     text-align: center;
 }
 
+/*
+.post-list {
+    h4 {
+        height: 40px;
+    }
+
+    .row {
+        margin-left: 0px;
+    }
+
+    .caption {
+        .clearfix();
+
+        section.description {
+            height: 150px;
+        }
+
+        p {
+            a {
+                float: right;
+            }
+        }
+    }
+}
+*/
+
+.post-list {
+    /*border-left: 1px solid #eaeadd;
+    border-bottom: 1px solid #eaeadd;*/
+
+    .row {
+        .post {
+            border-top: 1px solid #eaeadd;
+            border-right: 1px solid #eaeadd;
+            margin-left: 0;
+            min-height: 300px;
+            position: relative;
+
+            .content {
+                padding: 44px 45px 41px 78px;
+
+                span.date {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+
+                    .square(50px);
+
+                    background-color: #f5f5ec;
+                    border-right: #eaeadd;
+                    border-bottom:1px solid #eaeadd;
+
+                    text-align: center;
+                    font-size: 11px;
+                    color: #676761;
+
+                    strong{
+                        display: block;
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+
+        .post:first-child {
+            border-left: 1px solid #eaeadd;
+            margin-left: 30px;
+        }
+    }
+
+    .row:last-child{
+        .post {
+            border-bottom: 1px solid #eaeadd;
+        }
+    }
+}
+
 .drop-area {
     border: 10px dashed @linkColorHover;
     .border-radius(10px);
@@ -679,30 +756,6 @@ ul.social-medias-icons {
 
         &.google-oauth2-icon {
             .display-icon(-@icon-size * 3, @icon-size);
-        }
-    }
-}
-
-.post-list {
-    h4 {
-        height: 40px;
-    }
-
-    .row {
-        margin-left: 0px;
-    }
-
-    .caption {
-        .clearfix();
-
-        section.description {
-            height: 150px;
-        }
-
-        p {
-            a {
-                float: right;
-            }
         }
     }
 }

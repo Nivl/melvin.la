@@ -2,57 +2,35 @@
 
 %section.post-list
     - for post in posts
-        - if forloop.counter0|divisibleby:4
+        - if forloop.counter0|divisibleby:3
             <div class="row">
-                <ul class="thumbnails">
 
-        <li class="span3">
-            .thumbnail<
+        .span4.post
+            .content
+                %span.date<
+                    SEP <strong>05</strong>
+
                 - if outside
-                    %a{'data-depth'    : '30',
-                       'data-navbar'   : '#navbar-blog',
-                       'data-ajax'     : 'body-content',
-                       'title'         : '{{ post.title }}',
-                       'href'          : '{{ post.get_absolute_url }}'}
-
-                        %img{'src'  : '{{ post.thumbnail.url }}',
-                             'alt'  : 'thumbnail'}
+                    %a{'data-ajax'      : 'body-content',
+                       'data-navbar'    : '#navbar-blog',
+                       'data-depth'     : '30',
+                       'title'          : '{{ post.title }}',
+                       'href'           : '{{ post.get_absolute_url }}'}
+                        %h4<
+                           {{ post|title }}
                 - else
-                    %a{'data-depth' : '30',
-                       'data-ajax'  : 'body-content-only',
+                    %a{'data-ajax'  : 'body-content-only',
+                       'data-depth' : '30',
                        'title'      : '{{ post.title }}',
                        'href'       : '{{ post.get_absolute_url }}'}
+                        %h4<
+                           {{ post|title }}
 
-                        %img{'src' : '{{ post.thumbnail.url }}',
-                             'alt' : 'thumbnail'}
+                %section.description
+                    {{ post.long_description|markdown }}
 
-
-                .caption
-                    %h4<
-                        {{ post|title }}
-
-                    %section.description
-                        {{ post.long_description|markdown }}
-
-                    %p
-                        - if outside
-                            %a.btn{'data-ajax'     : 'body-content',
-                                   'data-navbar'   : '#navbar-blog',
-                                   'data-depth'    : '30',
-                                   'title'         : '{{ post.title }}',
-                                   'href'          : '{{ post.get_absolute_url }}'}
-                                    %i.icon-plus-sign.icon-white
-                                    - trans "Read more"
-                        - else
-                            %a.btn{'data-ajax'  : 'body-content-only',
-                                   'data-depth' : '30',
-                                   'title'      : '{{ post.title }}',
-                                   'href'       : '{{ post.get_absolute_url }}'}
-                                    %i.icon-plus-sign.icon-white
-                                    - trans "Read more"
-            - if forloop.counter|divisibleby:4 or forloop.last
-                </ul>
-                </div>
+        - if forloop.counter|divisibleby:3 or forloop.last
+            </div>
 
     - empty
         %p
