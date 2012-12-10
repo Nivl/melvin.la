@@ -68,7 +68,7 @@
                             - trans "Available in: "
 
                             - for rel in rels
-                                %a{'href' : 'http://{{ rel.site.site }}{{ rel.get_absolute_url }}'}
+                                %a{'href' : 'http://{{ rel.site.site }}{{ rel.get_absolute_url }}#'}
 
                                     %img.flag{'width'   : '16',
                                               'height'  : '11',
@@ -90,9 +90,9 @@
                            'data-subtitle'   : '{% trans "Where I present my projects" %}',
                            'href'            : '{{ post.lab.get_absolute_url }}'}
 
-                %i.icon-info-sign.icon-white
-                &nbsp;
-                - trans "Know more"
+                            %i.icon-info-sign.icon-white
+                            &nbsp;
+                            - trans "Know more"
 
             - include "blog/inc/comment.haml" with post=post form=form
 
