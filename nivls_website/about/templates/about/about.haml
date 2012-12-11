@@ -94,20 +94,23 @@
       %h2<
         - trans "Be social"
 
-      - for link in contact_links
-        - if forloop.counter0|divisibleby:4
-          <div class="row">
+        - for link in contact_links
 
-        .span3
-          .big-badge
-            .foreground{'style': 'background-image:url({{ link.image.url }});'}
-              %a{'{{ link.attributes|safe }}' : None,
-                 'href'                       : '{{ link.link }}',
-                 'style'                      : 'background-image:url({{ link.image.url|safe }});'}
+            - if forloop.counter0|divisibleby:4
+              <div class="row">
+            .span3
+                .big-badge
+                    %a{'{{ link.attributes|safe }}' : None,
+                       'href'                       : '{{ link.link }}'}
 
-            .informations
-              %h4<
-                {{ link.name }}
+                        .informations
+                            %h4
+                                {{ link.name }}
 
-        - if forloop.counter|divisibleby:4 or forloop.last
-          </div>
+                            %i{'class': '{{ link.icon }}'}
+
+                            %p
+                                {{ link.description }}
+
+            - if forloop.counter|divisibleby:4 or forloop.last
+              </div>

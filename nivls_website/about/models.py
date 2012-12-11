@@ -80,10 +80,9 @@ class ContactLink(models.Model):
         null=True,
         verbose_name=_("attributes"))
 
-    image = models.ImageField(
-        upload_to="about/contact",
-        help_text="160x320 px",
-        verbose_name=_("image"))
+    icon = models.CharField(
+        max_length=30,
+        verbose_name=_("icon"))
 
     order = models.PositiveSmallIntegerField(
         default=0,
@@ -91,14 +90,6 @@ class ContactLink(models.Model):
 
     def __unicode__(self):
         return self.name
-
-    def save(self, *arg, **kwargs):
-        if self.pk is not None:
-            origin = ContactLink.objects.get(pk=self.pk)
-            if origin.image != self.image:
-                if os.path.exists(origin.image.path):
-                    os.remove(origin.image.path)
-        super(ContactLink, self).save(*arg, **kwargs)
 
     class Meta:
         ordering = ["order"]
@@ -173,7 +164,6 @@ class WorkProject(models.Model):
         except WorkProject.DoesNotExist:
             pass
         super(WorkProject, self).save(*arg, **kwargs)
-
 
     class Meta:
         ordering = ["order"]
