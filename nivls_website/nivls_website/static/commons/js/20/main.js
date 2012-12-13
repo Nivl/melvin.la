@@ -11,6 +11,10 @@ function reloadJsEffects() {
     reloadShareButtons();
     startLabDiagram();
 
+    $('#homeCarousel').nivoSlider({
+        effect: 'fade',
+    });
+
     $('#left-menu > li').off('hover').hover(
         function() {
             if (!($(this).hasClass('animate'))) {
@@ -136,7 +140,6 @@ function storageData() {
 }
 
 function enableBootstrapEffects() {
-    $('.carousel').carousel();
     $('[rel=tooltip]').tooltip();
     $('.form-search .search-query').typeahead({
         updated: function() {

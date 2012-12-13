@@ -1,31 +1,20 @@
-#homeCarousel.carousel.slide
-    .carousel-inner
+.carousel-wrapper
+    #homeCarousel.nivoSlider
         - for item in posts
-            .item{'class': '{% if forloop.counter == 1 %}active{% endif %}'}
-                - if outside
-                    %a{'data-depth'     : '30',
-                       'data-navbar'    : '#navbar-blog',
-                       'data-ajax'      : 'body-content',
-                       'title'          : '{{ item.post.title }}',
-                       'href'           : '{{ item.post.get_absolute_url }}'}
-                        %img{'src'  : '{{ item.post.main_image.url }}',
-                             'alt'  : '{{ item.post.title }}'}
-                - else
-                    %a{'data-depth' : '30',
-                       'data-ajax'  : 'body-content-only',
-                       'title'      : '{{ item.post.title }}',
-                       'href'       : '{{ item.post.get_absolute_url }}'}
-                        %img{'src'  : '{{ item.post.main_image.url }}',
-                             'alt'  : '{{ item.post.title }}'}
-
-                .carousel-caption<
-                    %p<
-                        {{ item.post.short_description }}
-
-    %a.carousel-control.left{'href'         : '#homeCarousel',
-                             'data-slide'   : 'prev'}
-        &lsaquo;
-    %a.carousel-control.right{'href'        : '#homeCarousel',
-                              'data-slide'  : "next"}
-        &rsaquo;
-
+            - if outside
+                %a{'data-depth'     : '30',
+                   'data-navbar'    : '#navbar-blog',
+                   'data-ajax'      : 'body-content',
+                   'title'          : '{{ item.post.title }}',
+                   'href'           : '{{ item.post.get_absolute_url }}'}
+                    %img{'src'  : '{{ item.post.main_image.url }}',
+                         'alt'  : '{{ item.post.title }}',
+                         'title': '{{ item.post.short_description }}'}
+            - else
+                %a{'data-depth' : '30',
+                   'data-ajax'  : 'body-content-only',
+                   'title'      : '{{ item.post.title }}',
+                   'href'       : '{{ item.post.get_absolute_url }}'}
+                    %img{'src'  : '{{ item.post.main_image.url }}',
+                         'alt'  : '{{ item.post.title }}',
+                         'title': '{{ item.post.short_description }}'}
