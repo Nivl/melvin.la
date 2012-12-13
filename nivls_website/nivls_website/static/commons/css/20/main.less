@@ -431,14 +431,25 @@ table {
             border-top: 1px solid #eaeadd;
             border-right: 1px solid #eaeadd;
             margin-left: 0;
-            min-height: 300px;
+            min-height: 320px;
             position: relative;
+            .transition(all 0.1s linear);
+
+            &:hover{
+                background-color: @lightenBlue;
+                color: white;
+
+                h4 {
+                    color: white !important;
+                }
+            }
 
             .content {
                 padding: 44px 45px 41px 78px;
 
                 h4 {
                     color: #676761;
+                    font-weight: 600;
                 }
 
                 span.date {
@@ -450,14 +461,29 @@ table {
 
                     background-color: #f5f5ec;
                     border-right: #eaeadd;
-                    border-bottom:1px solid #eaeadd;
+                    border-bottom: 1px solid #eaeadd;
 
+                    color: @textColor;
+                    text-transform: uppercase;
                     text-align: center;
                     font-size: 11px;
 
-                    strong{
+                    strong {
                         display: block;
                         font-size: 20px;
+                    }
+                }
+
+                span.readmore {
+                    color: white;
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    font-size: 42px;
+                    padding: 15px;
+
+                    a {
+                        color: inherit;
                     }
                 }
             }
@@ -896,7 +922,7 @@ article.post {
 }
 
 #middle-header {
-    background-color: #339fdf;
+    background-color: @lightenBlue;
     min-height: 160px;
 
     color: #003d5d;

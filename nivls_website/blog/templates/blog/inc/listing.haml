@@ -8,23 +8,27 @@
         .span4.post
             .content
                 %span.date<
-                    SEP <strong>05</strong>
+                    {{ post.pub_date|date:"b" }}
+                    %strong<
+                        {{ post.pub_date|date:"d" }}
 
-                - if outside
-                    %a{'data-ajax'      : 'body-content',
-                       'data-navbar'    : '#navbar-blog',
-                       'data-depth'     : '30',
-                       'title'          : '{{ post.title }}',
-                       'href'           : '{{ post.get_absolute_url }}'}
-                        %h4<
-                           {{ post|title }}
-                - else
-                    %a{'data-ajax'  : 'body-content-only',
-                       'data-depth' : '30',
-                       'title'      : '{{ post.title }}',
-                       'href'       : '{{ post.get_absolute_url }}'}
-                        %h4<
-                           {{ post|title }}
+
+                %span.readmore<
+                    - if outside
+                        %a{'data-ajax'      : 'body-content',
+                           'data-navbar'    : '#navbar-blog',
+                           'data-depth'     : '30',
+                           'title'          : '{{ post.title }}',
+                           'href'           : '{{ post.get_absolute_url }}'}
+                            %i.icon-plus-sign
+                    - else
+                        %a{'data-ajax'  : 'body-content-only',
+                           'data-depth' : '30',
+                           'title'      : '{{ post.title }}',
+                           'href'       : '{{ post.get_absolute_url }}'}
+                            %i.icon-plus-sign
+                %h4<
+                   {{ post|title }}
 
                 %section.description
                     {{ post.long_description|markdown }}
