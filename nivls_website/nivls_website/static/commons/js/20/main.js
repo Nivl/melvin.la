@@ -15,6 +15,15 @@ function reloadJsEffects() {
         effect: 'fade',
     });
 
+    $('article.post img').parent('a').addClass('highslide');
+
+    $('.highslide').each(function (){
+        var $that = $(this)
+        this.onclick = function() {
+            return hs.expand(this);
+       };
+    });
+
     $('#left-menu > li').off('hover').hover(
         function() {
             if (!($(this).hasClass('animate'))) {
