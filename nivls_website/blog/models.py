@@ -5,8 +5,10 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sitemaps import ping_google
 from django.utils.translation import gettext_lazy as _
+from django.contrib.contenttypes import generic
 from commons.models import I18nSite
 from commons.renders import image_name_to_link
+from seo.models import SeoEverywhere
 from lab.models import Project
 
 
@@ -228,6 +230,8 @@ class Post(models.Model):
     edit_date = models.DateTimeField(
         auto_now=True,
         verbose_name=_("edit date"))
+
+    seo = generic.GenericRelation(SeoEverywhere)
 
     def parsed_content(self):
         return image_name_to_link(self.content, self.image_set.all())

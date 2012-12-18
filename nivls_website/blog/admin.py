@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.conf import settings
 from blog.models import *
+from seo.admin import InlineSeo
 
 # Post
+
 
 class InlineComment(admin.TabularInline):
     model = Comment
@@ -20,7 +22,7 @@ class AdminPost(admin.ModelAdmin):
     actions = ['make_public', 'make_private', 'allow_comment', 'lock_comment']
     date_hierarchy = 'pub_date'
     list_display = ('title', 'pub_date', 'is_public', 'allow_comment')
-    inlines = [InlineImage, InlineComment]
+    inlines = [InlineImage, InlineComment, InlineSeo]
 
     def queryset(self, request):
         return super(AdminPost, self).queryset(request) \

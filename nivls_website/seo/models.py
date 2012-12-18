@@ -1,7 +1,9 @@
 from django.db import models
 from django.conf import settings
-from commons.models import I18nSite
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
+from commons.models import I18nSite
 
 
 class SEO(models.Model):
@@ -14,7 +16,7 @@ class SEO(models.Model):
     title = models.CharField(
         null=True,
         blank=True,
-        max_length=255,
+        max_length=60,
         verbose_name=_("title"))
 
     description = models.TextField(
@@ -43,3 +45,29 @@ class SEO(models.Model):
     class Meta:
         verbose_name = 'SEO'
         verbose_name_plural = 'SEO'
+
+
+class SeoEverywhere(models.Model):
+    description = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True,
+        verbose_name=_("description"))
+
+    keywords = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_("keywords"))
+
+    content_type = models.ForeignKey(
+        ContentType,
+        null=True,
+        blank=True)
+
+    object_id = models.PositiveIntegerField(
+        null=True,
+        blank=True)
+
+    content_object = generic.GenericForeignKey(
+        'content_type',
+        'object_id')

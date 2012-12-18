@@ -10,6 +10,19 @@
 - block "title"
     {{ post.title }}
 
+- block "meta-description"
+    - if post.seo.all.0
+        {{ post.seo.all.0 }}
+    - else
+        {{ block.super }}
+
+- block "meta-keywords"
+    - if post.seo.all.0.keywords
+        {{ post.seo.all.0.keywords }}
+    - else
+        {{ block.super }}
+
+
 - block "breadcrumb-subcontent"
     %li
         %span.divider
