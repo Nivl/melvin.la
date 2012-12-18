@@ -8,3 +8,7 @@ def static_root(context):
 
 def domain_name(context):
     return {'DOMAIN_NAME': Site.objects.get_current().domain}
+
+
+def debug(context):
+    return {'DEBUG': str(settings.DEBUG).lower()}

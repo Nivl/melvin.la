@@ -30,6 +30,7 @@
             - if not request.is_ajax
                 %script
                     var STATIC_URL="{% static "" %}";
+                    var DEBUG={{ DEBUG }};
                 %script{'src': 'https://apis.google.com/js/plusone.js'}
                     \{parsetags: 'explicit'}
                 %script{'src': '{% url "django.views.i18n.javascript_catalog" %}'}
