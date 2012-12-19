@@ -2,6 +2,21 @@
 - load tag_lab
 - load url from future
 
+- block "title"
+    {{ tag.name }}
+
+- block "meta-description"
+    - if tag.seo.all.0
+        {{ tag.seo.all.0 }}
+    - else
+        {{ block.super }}
+
+- block "meta-keywords"
+    - if tag.seo.all.0.keywords
+        {{ tag.seo.all.0.keywords }}
+    - else
+        {{ block.super }}
+
 - block "breadcrumb-subcontent"
     - if tag
         %li

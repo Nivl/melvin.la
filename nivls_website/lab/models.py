@@ -1,13 +1,14 @@
 #-*- coding: utf-8 -*-
+import os
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db import models
-from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.contrib.contenttypes import generic
 from commons.fields import ColorField
 from commons.models import I18nSite
-import os
+from seo.models import SeoEverywhere
 
 
 class Tag(models.Model):
@@ -28,6 +29,8 @@ class Tag(models.Model):
         upload_to='lab/icons/',
         help_text='32x32',
         verbose_name=_("icon 'disabled'"))
+
+    seo = generic.GenericRelation(SeoEverywhere)
 
     def admin_thumbnail(self):
         return u'<img src="%s" />' % (self.icon_enabled.url)
@@ -279,6 +282,8 @@ class Project(models.Model):
         null=True,
         blank=True,
         verbose_name=_("tags"))
+
+    seo = generic.GenericRelation(SeoEverywhere)
 
     def __unicode__(self):
         return self.name

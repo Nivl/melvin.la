@@ -3,6 +3,21 @@
 - load url from future
 - load i18n
 
+- block "title"
+    {{ project.name }}
+
+- block "meta-description"
+    - if project.seo.all.0
+        {{ project.seo.all.0 }}
+    - else
+        {{ block.super }}
+
+- block "meta-keywords"
+    - if project.seo.all.0.keywords
+        {{ project.seo.all.0.keywords }}
+    - else
+        {{ block.super }}
+
 - block "breadcrumb-subcontent"
     %li<
         %span.divider<

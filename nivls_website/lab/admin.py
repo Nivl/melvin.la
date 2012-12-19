@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.conf import settings
 from lab.models import *
 from commons.admin import CommonAdminWithSlug, PrepoSlugAdmin
+from seo.admin import InlineSeo
 
 # Project
 
@@ -39,7 +40,7 @@ class DownloadInline(admin.TabularInline):
 class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['name']}
     inlines = [ProjectLanguageRateInline, ProgressInline, TodoInline,
-               ImageInline, VideoInline, DownloadInline]
+               ImageInline, VideoInline, DownloadInline, InlineSeo]
 
     def queryset(self, request):
         return super(ProjectAdmin, self).queryset(request) \
