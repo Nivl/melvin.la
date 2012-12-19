@@ -65,6 +65,8 @@ class Tag(models.Model):
     slug = models.SlugField(
         verbose_name=_("slug"))
 
+    seo = generic.GenericRelation(SeoEverywhere)
+
     def __unicode__(self):
         return self.name
 
@@ -121,6 +123,8 @@ class Category(models.Model):
         blank=True,
         null=True,
         verbose_name=_("thumbnail"))
+
+    seo = generic.GenericRelation(SeoEverywhere)
 
     def has_child(self):
         return self.right - self.left > 1

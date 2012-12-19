@@ -4,6 +4,18 @@
 - block "title"
     {{ obj.name }}
 
+- block "meta-description"
+    - if obj.seo.all.0
+        {{ obj.seo.all.0 }}
+    - else
+        {{ block.super }}
+
+- block "meta-keywords"
+    - if obj.seo.all.0.keywords
+        {{ obj.seo.all.0.keywords }}
+    - else
+        {{ block.super }}
+
 - block "sub_head_link"
     - if obj.feed
         %link{'rel'     : 'alternate',
