@@ -3,22 +3,28 @@ from django.contrib.sites.models import Site
 import akismet
 
 
-def akismet_is_valid(request, data):
+def akismet_is_valid(request, data, user_email='', user_url=''):
     current_site = Site.objects.get_current()
     data = data.encode('ascii', 'ignore')
+    user_data = {'user_ip': request.META.get('REMOTE_ADDR'),
+                 'user_agent':  request.META.get('HTTP_USER_AGENT'),
+                 'referrer':  request.META.get('HTTP_REFERER', 'unknown'),
+                 'user_agent':  request.META.get('HTTP_USER_AGENT'),
+                 'comment_author_url':  user_url,
+                 'comment_author_email':  user_email, }
 
-    uagent = "David Lynch's Python library/1.0"
     domain = "http://" + current_site.domain + settings.DOMAIN_NAME
     key = settings.AKISMET_API_KEY
 
     try:
-        api = akismet.Akismet(key, domain, uagent)
+        api = akismet.Akismet(key, domain)
 
         if api.verify_key():
-            is_spam = api.comment_check(data)
+            is_spam = api.comment_check(data, user_data)
             if is_spam:
                 return False
     except (akismet.AkismetError, akismet.APIKeyError) as e:
-        print 'Something went wrong, allowing comment'
-        print e.response, e.statuscode
+        with open('/home/nivl/python/log/nivl_website/akismet.txt', 'wb') as f:
+            f.write('Something went wrong, allowing comment: ')
+            f.write(str(e))
     return True
