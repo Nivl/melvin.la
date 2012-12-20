@@ -39,7 +39,9 @@ class ContactForm(happyforms.Form):
         return value
 
     def clean_message(self):
-        if akismet_is_valid(self.request, self.cleaned_data['message']):
+        if akismet_is_valid(self.request,
+                            self.cleaned_data['message'],
+                            self.cleaned_data['email']):
             return self.cleaned_data['message']
         else:
             raise forms.ValidationError('Spam attempt detected!')

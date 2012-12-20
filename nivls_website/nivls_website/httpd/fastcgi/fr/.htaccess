@@ -1,4 +1,23 @@
 AddHandler fcgid-script .fcgi
 RewriteEngine On
+
+# Redirects
+Redirect 301 /blog/contact/ /contact/
+Redirect 301 /c-v/ /about/#resume
+Redirect 301 /blog/c-v/ /about/#resume
+Redirect 301 /2011/03/25/wolf3d/ /blog/2011/03/25/wolf3d/
+Redirect 301 /2011/07/ /blog/2011/07/
+Redirect 301 /2011/03/24/epitech-kesako/ /blog/2011/03/24/epitech-kesako/
+Redirect 301 /2011/03/23/nouveau-blog/ /blog/2011/03/23/nouveau-blog/
+Redirect 301 /blog/2011/03/03/nouveau-blog/ /blog/2011/03/23/nouveau-blog/
+Redirect 301 /media/oth/cv.pdf /cv_pdf/
+
+RewriteRule ^articles/(.*)$ /blog/$1 [R=301,L]
+RewriteRule ^tag/(.*)$ /blog/tag/$1 [R=301,L]
+RewriteRule ^feed/$ /blog/feed/latest/rss [R=301,L]
+RewriteRule ^blog/feed/$ /blog/feed/latest/rss [R=301,L]
+RewriteRule ^blog/feed/rss/$ /blog/feed/latest/rss [R=301,L]
+RewriteRule ^blog/rss/$ /blog/feed/latest/rss [R=301,L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ django.fcgi/$1 [QSA,L]
