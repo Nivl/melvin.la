@@ -12,8 +12,7 @@
         %dl.dl-horizontal
             - for event in progress
                 %dt
-                    %time{'datetime': '{{ event.pub_date|utc|date:"Y-m-d H:i\Z" }}'}
-                       {{ event.pub_date|naturalday }}
+                    {{ event.pub_date|naturalday }}
                 %dd
                     %span
                       {{ event.description }}
