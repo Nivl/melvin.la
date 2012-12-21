@@ -5,11 +5,12 @@
         - if forloop.counter0|divisibleby:3
             <div class="row">
 
-        %meta{'itemprop': 'creator', 'content': '{{ post.author.get_full_name }}'}
+        .span4.post{'itemprop': 'blogPosts',
+                    'itemscope': None,
+                    'itemtype': 'http://schema.org/BlogPosting'}
 
-        %article.span4.post{'itemprop': 'blogPosts',
-                            'itemscope': None,
-                            'itemtype': 'http://schema.org/BlogPosting'}
+            %meta{'itemprop': 'creator', 'content': '{{ post.author.get_full_name }}'}
+
             .content
                 %time{'itemprop': 'datePublished',
                       'datetime'    :   '{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}'

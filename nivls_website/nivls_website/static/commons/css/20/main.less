@@ -427,7 +427,7 @@ table {
 .post-list {
     .row {
         .post {
-            border-top: 1px solid #eaeadd;
+            border-bottom: 1px solid #eaeadd;
             border-right: 1px solid #eaeadd;
             margin-left: 0;
             min-height: 320px;
@@ -459,7 +459,7 @@ table {
                     .square(50px);
 
                     background-color: #f5f5ec;
-                    border-right: #eaeadd;
+                    border-right: 1px solid #eaeadd;
                     border-bottom: 1px solid #eaeadd;
 
                     color: @textColor;
@@ -494,9 +494,9 @@ table {
         }
     }
 
-    .row:last-child{
+    .row:first-child{
         .post {
-            border-bottom: 1px solid #eaeadd;
+            border-top: 1px solid #eaeadd;
         }
     }
 }
