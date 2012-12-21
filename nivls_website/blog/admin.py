@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.conf import settings
 from blog.models import *
-from seo.admin import InlineSeo
+from seo.admin import InlineSeo, InlineMicroData
 
 # Post
 
@@ -22,7 +22,7 @@ class AdminPost(admin.ModelAdmin):
     actions = ['make_public', 'make_private', 'allow_comment', 'lock_comment']
     date_hierarchy = 'pub_date'
     list_display = ('title', 'pub_date', 'is_public', 'allow_comment')
-    inlines = [InlineImage, InlineComment, InlineSeo]
+    inlines = [InlineImage, InlineComment, InlineMicroData, InlineSeo]
 
     def queryset(self, request):
         return super(AdminPost, self).queryset(request) \
@@ -73,6 +73,7 @@ admin.site.register(Post, AdminPost)
 
 class AdminCategory(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
+    inlines = [InlineMicroData, InlineSeo]
 
     def queryset(self, request):
         return super(AdminCategory, self).queryset(request) \
@@ -84,6 +85,7 @@ class AdminCategory(admin.ModelAdmin):
 
 class AdminTag(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
+    inlines = [InlineMicroData, InlineSeo]
 
     def queryset(self, request):
         return super(AdminTag, self).queryset(request) \

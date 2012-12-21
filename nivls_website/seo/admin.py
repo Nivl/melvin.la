@@ -8,4 +8,9 @@ class InlineSeo(generic.GenericTabularInline):
     max_num = 1
     extra = 0
 
+
+class InlineMicroData(generic.GenericTabularInline):
+    model = SeoMicroData
+    extra = 1
+
 admin.site.register(SEO)

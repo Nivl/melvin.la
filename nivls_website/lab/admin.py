@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.conf import settings
 from lab.models import *
 from commons.admin import CommonAdminWithSlug, PrepoSlugAdmin
-from seo.admin import InlineSeo
+from seo.admin import InlineSeo, InlineMicroData
 
 # Project
 
@@ -40,7 +40,8 @@ class DownloadInline(admin.TabularInline):
 class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ['name']}
     inlines = [ProjectLanguageRateInline, ProgressInline, TodoInline,
-               ImageInline, VideoInline, DownloadInline, InlineSeo]
+               ImageInline, VideoInline, DownloadInline, InlineMicroData,
+               InlineSeo]
 
     def queryset(self, request):
         return super(ProjectAdmin, self).queryset(request) \
@@ -56,6 +57,7 @@ class DLIconAdmin(admin.ModelAdmin):
 
 class TagAdmin(PrepoSlugAdmin):
     list_display = ['admin_thumbnail', 'name']
+    inlines = [InlineMicroData, InlineSeo]
 
 
 admin.site.register(Language, PrepoSlugAdmin)

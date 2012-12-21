@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib.contenttypes import generic
 from commons.fields import ColorField
 from commons.models import I18nSite
-from seo.models import SeoEverywhere
+from seo.models import SeoEverywhere, SeoMicroData
 
 
 class Tag(models.Model):
@@ -30,7 +30,13 @@ class Tag(models.Model):
         help_text='32x32',
         verbose_name=_("icon 'disabled'"))
 
-    seo = generic.GenericRelation(SeoEverywhere, related_name='lab_tag_seo')
+    seo = generic.GenericRelation(
+        SeoEverywhere,
+        related_name='lab_tag_seo')
+
+    micro_data = generic.GenericRelation(
+        SeoMicroData,
+        related_name='lab_tag_md')
 
     def admin_thumbnail(self):
         return u'<img src="%s" />' % (self.icon_enabled.url)
@@ -283,7 +289,13 @@ class Project(models.Model):
         blank=True,
         verbose_name=_("tags"))
 
-    seo = generic.GenericRelation(SeoEverywhere, related_name='lab_project_seo')
+    seo = generic.GenericRelation(
+        SeoEverywhere,
+        related_name='lab_project_seo')
+
+    micro_data = generic.GenericRelation(
+        SeoMicroData,
+        related_name='lab_project_md')
 
     def __unicode__(self):
         return self.name
