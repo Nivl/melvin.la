@@ -57,7 +57,7 @@ class DLIconAdmin(admin.ModelAdmin):
 
 class TagAdmin(PrepoSlugAdmin):
     list_display = ['admin_thumbnail', 'name']
-    inlines = [InlineMicroData, InlineSeo]
+    inlines = [InlineSeo]
 
 
 admin.site.register(Language, PrepoSlugAdmin)

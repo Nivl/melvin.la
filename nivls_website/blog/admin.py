@@ -73,7 +73,7 @@ admin.site.register(Post, AdminPost)
 
 class AdminCategory(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    inlines = [InlineMicroData, InlineSeo]
+    inlines = [InlineSeo]
 
     def queryset(self, request):
         return super(AdminCategory, self).queryset(request) \
@@ -85,7 +85,7 @@ class AdminCategory(admin.ModelAdmin):
 
 class AdminTag(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    inlines = [InlineMicroData, InlineSeo]
+    inlines = [InlineSeo]
 
     def queryset(self, request):
         return super(AdminTag, self).queryset(request) \

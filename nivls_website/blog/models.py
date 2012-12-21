@@ -69,10 +69,6 @@ class Tag(models.Model):
         SeoEverywhere,
         related_name='blog_tag_seo')
 
-    micro_data = generic.GenericRelation(
-        SeoMicroData,
-        related_name='blog_tag_md')
-
     def __unicode__(self):
         return self.name
 
@@ -133,10 +129,6 @@ class Category(models.Model):
     seo = generic.GenericRelation(
         SeoEverywhere,
         related_name='blog_cat_seo')
-
-    micro_data = generic.GenericRelation(
-        SeoMicroData,
-        related_name='blog_cat_md')
 
     def has_child(self):
         return self.right - self.left > 1

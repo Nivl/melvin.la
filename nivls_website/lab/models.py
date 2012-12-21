@@ -34,10 +34,6 @@ class Tag(models.Model):
         SeoEverywhere,
         related_name='lab_tag_seo')
 
-    micro_data = generic.GenericRelation(
-        SeoMicroData,
-        related_name='lab_tag_md')
-
     def admin_thumbnail(self):
         return u'<img src="%s" />' % (self.icon_enabled.url)
     admin_thumbnail.short_description = 'Thumbnail'
