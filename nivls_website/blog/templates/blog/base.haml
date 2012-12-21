@@ -33,7 +33,8 @@
            'data-ajax'  : 'body-content-only',
            'title'      : '{% trans "Blog" %}',
            'href'       : '{% url "blog" %}'}
-            {% trans "Blog" %}
+            %span{'itemprop': 'title'}
+                {% trans "Blog" %}
 
     - block "breadcrumb-subcontent"
 
