@@ -30,7 +30,7 @@ class Tag(models.Model):
         help_text='32x32',
         verbose_name=_("icon 'disabled'"))
 
-    seo = generic.GenericRelation(SeoEverywhere)
+    seo = generic.GenericRelation(SeoEverywhere, related_name='lab_tag_seo')
 
     def admin_thumbnail(self):
         return u'<img src="%s" />' % (self.icon_enabled.url)
@@ -283,7 +283,7 @@ class Project(models.Model):
         blank=True,
         verbose_name=_("tags"))
 
-    seo = generic.GenericRelation(SeoEverywhere)
+    seo = generic.GenericRelation(SeoEverywhere, related_name='lab_project_seo')
 
     def __unicode__(self):
         return self.name

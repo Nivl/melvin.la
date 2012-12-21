@@ -65,7 +65,7 @@ class Tag(models.Model):
     slug = models.SlugField(
         verbose_name=_("slug"))
 
-    seo = generic.GenericRelation(SeoEverywhere)
+    seo = generic.GenericRelation(SeoEverywhere, related_name='blog_tag_seo')
 
     def __unicode__(self):
         return self.name
@@ -124,7 +124,7 @@ class Category(models.Model):
         null=True,
         verbose_name=_("thumbnail"))
 
-    seo = generic.GenericRelation(SeoEverywhere)
+    seo = generic.GenericRelation(SeoEverywhere, related_name='blog_cat_seo')
 
     def has_child(self):
         return self.right - self.left > 1
@@ -235,7 +235,7 @@ class Post(models.Model):
         auto_now=True,
         verbose_name=_("edit date"))
 
-    seo = generic.GenericRelation(SeoEverywhere)
+    seo = generic.GenericRelation(SeoEverywhere, related_name='blog_post_seo')
 
     def parsed_content(self):
         return image_name_to_link(self.content, self.image_set.all())
