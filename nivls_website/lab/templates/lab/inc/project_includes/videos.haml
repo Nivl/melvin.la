@@ -4,11 +4,15 @@
     - trans "Videos"
 
 - for video in videos
-    .video
-        %h3
+    .video{'itemprop' : 'screenshot',
+           'itemscope': None,
+           'itemtype' : 'http://schema.org/ImageObject'}
+
+        %h3{'itemprop' : 'name'}
             {{ video.name }}
-        %p
+        %p{'itemprop' : 'description'}
             {{ video.description }}
+
         %iframe{'src'           : '{{ video.url }}',
                 'frameborder'   : '0',
                 'width'         : '480',

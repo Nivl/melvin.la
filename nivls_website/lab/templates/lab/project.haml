@@ -33,8 +33,9 @@
                 {{ project.name }}
 
 - block "content"
+    %div{'itemscope': None, 'itemtype': 'http://schema.org/SoftwareApplication'}
       - with progress=project.progress_set.all todo=project.todo_set.all images=project.image_set.all videos=project.video_set.all downloads=project.download_set.all
-            %h1<
+            %h1{'itemprop': 'name'}<
                 {{ project.name }}
 
             %p.lead<
