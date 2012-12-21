@@ -28,7 +28,7 @@
         %span.divider
             \/
     %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
-        %a{'itemprop': 'url',
+        %a{'itemprop'   : 'url',
            'data-depth' : '10',
            'data-ajax'  : 'body-content-only',
            'title'      : '{{ post.category.name }}',
@@ -39,7 +39,7 @@
         %span.divider
             \/
     %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
-        %a{'itemprop': 'url',
+        %a{'itemprop'   : 'url',
            'data-depth' : '30',
            'data-ajax'  : 'body-content-only',
            'title'      : '{{ post.title }}',
@@ -48,9 +48,13 @@
                 {{ post.title }}
 
 - block "content"
-    %article.post
+    %article.post{'itemscope': None, 'itemtype': 'http://schema.org/BlogPosting'}
+
+        %meta{'itemprop': 'wordCount', 'content': '{{ post.parsed_content|markdown|wordcount }}'}
+        %meta{'itemprop': 'description', 'content': '{{ post.description|markdown }}'}
+
         %header
-            %h2<
+            %h2{'itemprop' : 'name'}<
                 {{ post.title }}
 
             .pull-right.share-btn
@@ -59,12 +63,14 @@
             .info
                 - trans "By "
 
-                - if post.author.get_profile.use_name
-                    {{ post.author.get_full_name }},
-                - else
-                    {{ post.author }},
-
-                %time{'datetime'    :   '{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}'}
+                %span{'itemprop': 'creator'}<
+                    - if post.author.get_profile.use_name
+                        {{ post.author.get_full_name }}
+                    - else
+                        {{ post.author }}
+                \-
+                %time{'itemprop'    : 'datePublished',
+                      'datetime'    : '{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}'}
                     {{ post.pub_date|naturalday }}
 
                 - trans "In: "
@@ -104,7 +110,7 @@
                                 - if not forloop.last
                                     &nbsp;
 
-        %section.content.clearfix
+        %section.content.clearfix{'itemprop': 'articleBody'}
             {{ post.parsed_content|markdown }}
 
         %footer#post-footer
