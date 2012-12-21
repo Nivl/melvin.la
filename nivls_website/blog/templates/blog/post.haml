@@ -53,6 +53,9 @@
         %meta{'itemprop': 'wordCount', 'content': '{{ post.parsed_content|markdown|wordcount }}'}
         %meta{'itemprop': 'description', 'content': '{{ post.description|markdown }}'}
 
+        - for data in post.micro_data.all
+            %meta{'itemprop': '{{ data.name }}', 'content': '{{ data.content }}'}
+
         %header
             %h2{'itemprop' : 'name'}<
                 {{ post.title }}

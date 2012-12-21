@@ -9,12 +9,14 @@
                     'itemscope': None,
                     'itemtype': 'http://schema.org/BlogPosting'}
 
-            %meta{'itemprop': 'creator', 'content': '{{ post.author.get_full_name }}'}
+            - for data in post.micro_data.all
+                %meta{'itemprop': '{{ data.name }}', 'content': '{{ data.content }}'}/
+
+            %meta{'itemprop': 'creator', 'content': '{{ post.author.get_full_name }}'}/
 
             .content
                 %time{'itemprop': 'datePublished',
-                      'datetime'    :   '{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}'
-                    }<
+                      'datetime'    :   '{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}'}<
                     {{ post.pub_date|date:"b" }}
                     %strong<
                         {{ post.pub_date|date:"d" }}
