@@ -10,9 +10,9 @@
                     'itemtype': 'http://schema.org/BlogPosting'}
 
             - for data in post.micro_data.all
-                %meta{'itemprop': '{{ data.name }}', 'content': '{{ data.content }}'}/
+                %meta{'itemprop': '{{ data.name }}', 'content': '{{ data.content }}'}
 
-            %meta{'itemprop': 'creator', 'content': '{{ post.author.get_full_name }}'}/
+            %meta{'itemprop': 'creator', 'content': '{{ post.author.get_full_name }}'}
 
             .content
                 %time{'itemprop': 'datePublished',
