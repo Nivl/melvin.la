@@ -27,8 +27,9 @@
     %li
         %span.divider
             \/
-    %li
-        %a{'data-depth' : '1',
+    %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+        %a{'itemprop': 'url',
+           'data-depth' : '1',
            'data-ajax'  : 'body-content-only',
            'title'      : '{% trans "Blog" %}',
            'href'       : '{% url "blog" %}'}

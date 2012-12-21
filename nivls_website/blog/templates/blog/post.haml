@@ -27,11 +27,25 @@
     %li
         %span.divider
             \/
-        %a{'data-depth' : '30',
+    %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+        %a{'itemprop': 'url',
+           'data-depth' : '10',
+           'data-ajax'  : 'body-content-only',
+           'title'      : '{{ post.category.name }}',
+           'href'       : '{{ post.category.get_absolute_url }}'}
+            %span{'itemprop': 'title'}
+                {{ post.category.name }}
+    %li
+        %span.divider
+            \/
+    %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+        %a{'itemprop': 'url',
+           'data-depth' : '30',
            'data-ajax'  : 'body-content-only',
            'title'      : '{{ post.title }}',
            'href'       : '{{ post.get_absolute_url }}'}
-            {{ post.title }}
+            %span{'itemprop': 'title'}
+                {{ post.title }}
 
 - block "content"
     %article.post

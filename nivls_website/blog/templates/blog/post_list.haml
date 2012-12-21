@@ -32,11 +32,14 @@
     %li
         %span.divider
             \/
-        %a{'data-depth' : '10',
+    %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+        %a{'itemprop': 'url',
+           'data-depth' : '10',
            'data-ajax'  : 'body-content-only',
            'title'      : '{{ obj.name }}',
            'href'       : '{{ obj.url }}'}
-            {{ obj.name }}
+            %span{'itemprop': 'title'}
+                {{ obj.name }}
 
 
 - block "content"
