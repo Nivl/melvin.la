@@ -32,5 +32,13 @@ def replace(string, args):
 
 
 @register.filter
+def no_follow(string):
+    r_nofollow = re.compile('<a (?![^>]*nofollow)')
+    s_nofollow = '<a rel="nofollow" '
+
+    return r_nofollow.sub(s_nofollow, string)
+
+
+@register.filter
 def app_name(obj):
     return ContentType.objects.get_for_model(obj.__class__).app_label

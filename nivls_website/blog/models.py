@@ -5,8 +5,10 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sitemaps import ping_google
 from django.utils.translation import gettext_lazy as _
+from django.contrib.contenttypes import generic
 from commons.models import I18nSite
 from commons.renders import image_name_to_link
+from seo.models import SeoEverywhere, SeoMicroData
 from lab.models import Project
 
 
@@ -62,6 +64,10 @@ class Tag(models.Model):
 
     slug = models.SlugField(
         verbose_name=_("slug"))
+
+    seo = generic.GenericRelation(
+        SeoEverywhere,
+        related_name='blog_tag_seo')
 
     def __unicode__(self):
         return self.name
@@ -119,6 +125,10 @@ class Category(models.Model):
         blank=True,
         null=True,
         verbose_name=_("thumbnail"))
+
+    seo = generic.GenericRelation(
+        SeoEverywhere,
+        related_name='blog_cat_seo')
 
     def has_child(self):
         return self.right - self.left > 1
@@ -228,6 +238,14 @@ class Post(models.Model):
     edit_date = models.DateTimeField(
         auto_now=True,
         verbose_name=_("edit date"))
+
+    seo = generic.GenericRelation(
+        SeoEverywhere,
+        related_name='blog_post_seo')
+
+    micro_data = generic.GenericRelation(
+        SeoMicroData,
+        related_name='blog_post_md')
 
     def parsed_content(self):
         return image_name_to_link(self.content, self.image_set.all())

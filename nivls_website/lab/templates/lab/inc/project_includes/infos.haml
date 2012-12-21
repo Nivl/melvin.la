@@ -47,9 +47,10 @@
 
                         %input{'type'     : 'hidden',
                                'class'    : 'color',
-                               'value'    : '#{{ lang.language.color }}'}
+                               'value'    : '#{{ lang.language.color }} '}
 
-    {{ project.description|markdown }}
+    %span{'itemprop': 'description'}
+        {{ project.description|markdown }}
 
 
 - with project.clients_user.all as clients_user

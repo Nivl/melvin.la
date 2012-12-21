@@ -3,20 +3,26 @@
 %h2
     - trans "Images"
 
+    - for image in images
+        - if forloop.counter0|divisibleby:3
+            <ul class="thumbnails">
 
-- for image in images
-    - if forloop.counter0|divisibleby:3
-        <ul class="thumbnails">
+        %li.span3{'itemprop' : 'screenshot',
+                  'itemscope': None,
+                  'itemtype' : 'http://schema.org/ImageObject'}
 
-    %li.span3
-        %a.thumbnail.highslide{'title'        : '{{ image.description }}',
-                               'href'         : '{{ image.image.url }}'}
+            %meta{'itemprop': 'title',
+                  'content' : '{{ image.description }}'}
 
-            %img{'src'   :   '{{ image.image.url }}',
-                 'alt'   :   '{{ image.name }}'}
+            %a.thumbnail.highslide{'title'        : '{{ image.description }}',
+                                   'href'         : '{{ image.image.url }}'}
 
-            .highslide-caption
-                {{ image.name }}
+                %img{'src'      :   '{{ image.image.url }}',
+                     'alt'      :   '{{ image.name }}',
+                     'itemprop' :   'contentURL'}
 
-    - if forloop.counter|divisibleby:3 or forloop.last
-        </ul>
+                .highslide-caption{'itemprop': 'caption'}
+                    {{ image.name }}
+
+        - if forloop.counter|divisibleby:3 or forloop.last
+            </ul>

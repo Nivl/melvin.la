@@ -4,7 +4,8 @@
     - trans "Downloads"
 
 - for dl in downloads
-    %a{'href' : '{% if dl.uploaded_file %}{{ dl.uploaded_file.url }}{% else %}{{ dl.url }}{% endif %}'}
+    %a{'itemprop'   : 'downloadUrl',
+       'href'       : '{% if dl.uploaded_file %}{{ dl.uploaded_file.url }}{% else %}{{ dl.url }}{% endif %}'}
 
     %figure.pull-left.highlight-medium-figure
         %img{'src'      : '{{ dl.icon.image.url }}',

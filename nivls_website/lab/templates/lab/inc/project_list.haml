@@ -2,13 +2,15 @@
 - load url from future
 
 - for project in projects
-    %section.clean-section
-        %h2
+    %section.clean-section{'itemscope': None, 'itemtype': 'http://schema.org/SoftwareApplication'}
+        %h2{'itemprop': 'name'}<
             {{ project.name }}
 
         .section-content.margin-top-1
-            {{ project.description|markdown }}
-            %a.btn{'data-depth' : '30',
+            %span{'itemprop': 'description'}
+                {{ project.description|markdown }}
+            %a.btn{'itemprop': 'url',
+                   'data-depth' : '30',
                    'data-ajax'  : 'body-content-only',
                    'title'      : '{{ project.name }}',
                    'href'       : '{% url "lab-project" project.slug %}'}

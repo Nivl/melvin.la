@@ -2,17 +2,34 @@
 - load tag_lab
 - load url from future
 
+- block "title"
+    {{ tag.name }}
+
+- block "meta-description"
+    - if tag.seo.all.0
+        {{ tag.seo.all.0 }}
+    - else
+        {{ block.super }}
+
+- block "meta-keywords"
+    - if tag.seo.all.0.keywords
+        {{ tag.seo.all.0.keywords }}
+    - else
+        {{ block.super }}
+
 - block "breadcrumb-subcontent"
     - if tag
         %li
             %span.divider<
                 \/
-        %li
-            %a{'data-depth' : '20',
+        %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+            %a{'itemprop'   : 'url',
+               'data-depth' : '20',
                'data-ajax'  : 'body-content',
                'title'      : '{{ tag.name }}',
                'href'       : '{{ tag.get_absolute_url }}'}
-                {{ tag.name }}
+                %span{'itemprop': 'title'}<
+                    {{ tag.name }}
 
 - if tag
     - block "menu"

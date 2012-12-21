@@ -10,10 +10,14 @@
             %title<
                 - block "title"
                     {{ seo.title }}
-            %meta{'name': 'viewport', 'content': 'width=device-width, initial-scale=1.0'}
-            %meta{'name': 'keywords', 'content': '={seo.keywords}'}
-            %meta{'name': 'description', 'content': '{% block "meta-description" %}seo.description{% endblock %}'}
-            %link{'rel': 'shortcut icon', 'href': '{% static "commons/img/favicon.ico" %}'}
+            %meta{'name'    : 'viewport',
+                  'content' : 'width=device-width, initial-scale=1.0'}
+            %meta{'name'    : 'keywords',
+                  'content' : '{% block "meta-keywords" %}{{ seo.keywords }}{% endblock %}'}
+            %meta{'name'    : 'description',
+                  'content' : '{% block "meta-description" %}{{ seo.description }}{% endblock %}'}
+            %link{'rel'     : 'shortcut icon',
+                  'href'    : '{% static "commons/img/favicon.ico" %}'}
             {{ seo.free_head_block|safe }}
 
             - block "local_css"
@@ -23,7 +27,7 @@
             /[if lt IE 9]>
                 %script{'src': '{% static "commons/js/html5shiv.js" %}'}
 
-        %body
+        %body{'itemscope': None, 'itemtype': 'http://schema.org/WebPage'}
             {% endif %}
             #body
                 - block "body"

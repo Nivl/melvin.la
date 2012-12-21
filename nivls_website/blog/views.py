@@ -69,13 +69,13 @@ def comment_single(request, year, month, day, slug, pk):
 
 @ajax_only
 def comment_single_form(request, year, month, day, slug, pk):
-    post = get_object_or_404(Post,
-                             pub_date__year=year,
-                             pub_date__month=month,
-                             pub_date__day=day,
-                             slug=slug,
-                             is_public=1,
-                             site=Site.objects.get_current())
+    get_object_or_404(Post,
+                      pub_date__year=year,
+                      pub_date__month=month,
+                      pub_date__day=day,
+                      slug=slug,
+                      is_public=1,
+                      site=Site.objects.get_current())
 
     comment = get_object_or_404(Comment, pk=pk)
     if not request.user.is_authenticated() \
@@ -213,7 +213,8 @@ def post_list_by_categories(request, slug):
         {'posts': posts,
          'obj': {'name': cat.name,
                  'feed': cat.get_feed_url(),
-                 'url': cat.get_absolute_url()}
+                 'url': cat.get_absolute_url(),
+                 'seo': cat.seo}
           })
 
 
@@ -231,7 +232,8 @@ def post_list_by_tags(request, slug):
                   {'posts': posts,
                   'obj': {'name': tag.name,
                           'feed': tag.get_feed_url(),
-                          'url': tag.get_absolute_url()}
+                          'url': tag.get_absolute_url(),
+                          'seo': tag.seo}
                    })
 
 

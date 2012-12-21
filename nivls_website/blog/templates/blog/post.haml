@@ -10,20 +10,54 @@
 - block "title"
     {{ post.title }}
 
+- block "meta-description"
+    - if post.seo.all.0
+        {{ post.seo.all.0 }}
+    - else
+        {{ block.super }}
+
+- block "meta-keywords"
+    - if post.seo.all.0.keywords
+        {{ post.seo.all.0.keywords }}
+    - else
+        {{ block.super }}
+
+
 - block "breadcrumb-subcontent"
     %li
         %span.divider
             \/
-        %a{'data-depth' : '30',
+    %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+        %a{'itemprop'   : 'url',
+           'data-depth' : '10',
+           'data-ajax'  : 'body-content-only',
+           'title'      : '{{ post.category.name }}',
+           'href'       : '{{ post.category.get_absolute_url }}'}
+            %span{'itemprop': 'title'}
+                {{ post.category.name }}
+    %li
+        %span.divider
+            \/
+    %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+        %a{'itemprop'   : 'url',
+           'data-depth' : '30',
            'data-ajax'  : 'body-content-only',
            'title'      : '{{ post.title }}',
            'href'       : '{{ post.get_absolute_url }}'}
-            {{ post.title }}
+            %span{'itemprop': 'title'}
+                {{ post.title }}
 
 - block "content"
-    %article.post
+    %article.post{'itemscope': None, 'itemtype': 'http://schema.org/BlogPosting'}
+
+        %meta{'itemprop': 'wordCount', 'content': '{{ post.parsed_content|markdown|wordcount }}'}
+        %meta{'itemprop': 'description', 'content': '{{ post.description|markdown }}'}
+
+        - for data in post.micro_data.all
+            %meta{'itemprop': '{{ data.name }}', 'content': '{{ data.content }}'}
+
         %header
-            %h2<
+            %h2{'itemprop' : 'name'}<
                 {{ post.title }}
 
             .pull-right.share-btn
@@ -32,12 +66,14 @@
             .info
                 - trans "By "
 
-                - if post.author.get_profile.use_name
-                    {{ post.author.get_full_name }},
-                - else
-                    {{ post.author }},
-
-                %time{'datetime'    :   '{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}'}
+                %span{'itemprop': 'creator'}<
+                    - if post.author.get_profile.use_name
+                        {{ post.author.get_full_name }}
+                    - else
+                        {{ post.author }}
+                \-
+                %time{'itemprop'    : 'datePublished',
+                      'datetime'    : '{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}'}
                     {{ post.pub_date|naturalday }}
 
                 - trans "In: "
@@ -77,7 +113,7 @@
                                 - if not forloop.last
                                     &nbsp;
 
-        %section.content.clearfix
+        %section.content.clearfix{'itemprop': 'articleBody'}
             {{ post.parsed_content|markdown }}
 
         %footer#post-footer
