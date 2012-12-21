@@ -27,7 +27,7 @@
             /[if lt IE 9]>
                 %script{'src': '{% static "commons/js/html5shiv.js" %}'}
 
-        %body
+        %body{'itemscope': None, 'itemtype': 'http://schema.org/WebPage'}
             {% endif %}
             #body
                 - block "body"
