@@ -22,12 +22,15 @@
     %li<
         %span.divider<
             \/
-    %li
-        %a{'data-depth' : '30',
+
+    %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+        %a{'itemprop'   : 'url',
+           'data-depth' : '30',
            'data-ajax'  : 'body-content',
            'title': '{{ project.name }',
            'href': '{{ project.get_absolute_url }}'}
-            {{ project.name }}
+            %span{'itemprop': 'title'}<
+                {{ project.name }}
 
 - block "content"
       - with progress=project.progress_set.all todo=project.todo_set.all images=project.image_set.all videos=project.video_set.all downloads=project.download_set.all

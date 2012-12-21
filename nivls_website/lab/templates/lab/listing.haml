@@ -22,12 +22,14 @@
         %li
             %span.divider<
                 \/
-        %li
-            %a{'data-depth' : '20',
+        %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+            %a{'itemprop'   : 'url',
+               'data-depth' : '20',
                'data-ajax'  : 'body-content',
                'title'      : '{{ tag.name }}',
                'href'       : '{{ tag.get_absolute_url }}'}
-                {{ tag.name }}
+                %span{'itemprop': 'title'}<
+                    {{ tag.name }}
 
 - if tag
     - block "menu"
