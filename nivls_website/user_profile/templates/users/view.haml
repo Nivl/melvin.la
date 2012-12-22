@@ -25,34 +25,42 @@
 
 
 - block "content"
-    .pull-left.margin-right-2
-        {{ target_user|square_thumbnail:'160' }}
+    %div{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Person'}
+        .pull-left.margin-right-2
+            {{ target_user|square_thumbnail:'160,True' }}
 
-    %ul.unstyled.space-li-10..space-li-clean-first
-        %li
-            %strong
-                - trans "Name:"
-            {{ target_user.last_name }} {{ target_user.first_name }}
-
-        - if profile.website
+        %ul.unstyled.space-li-10..space-li-clean-first
             %li
                 %strong
-                    - trans "Website:"
+                    - trans "Name:"
 
-                %a{'href': '{{ profile.website }}'}
-                    {{ profile.website }}
+                %span{'itemprop': 'familyName'}
+                {{ target_user.last_name }}
 
-        - if profile.occupation
-            %li
+                %span{'itemprop': 'givenName'}
+                {{ target_user.first_name }}
+
+            - if profile.website
+                %li
+                    %strong
+                        - trans "Website:"
+
+                    %a{'href'       : '{{ profile.website }}',
+                       'itemprop'   : 'url'}
+                        {{ profile.website }}
+
+            - if profile.occupation
+                %li
+                    %strong
+                        - trans "Occupation:"
+                    %span{'itemprop': 'jobTitle'}
+                        {{ profile.occupation }}
+
+            - if profile.hobbies
+              %li
                 %strong
-                    - trans "Occupation:"
-                {{ profile.occupation }}
+                    - trans "Hobbies:"
+                {{ profile.hobbies }}
 
-        - if profile.hobbies
-          %li
-            %strong
-                - trans "Hobbies:"
-            {{ profile.hobbies }}
-
-    %ul.nav.nav-pills.social-medias-icons
-        {{ target_user|social_user_links }}
+        %ul.nav.nav-pills.social-medias-icons
+            {{ target_user|social_user_links }}

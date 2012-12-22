@@ -79,9 +79,11 @@ def social_sign_in_links(providers, request):
 
 
 @register.filter(is_safe=True)
-def square_thumbnail(user, size=80):
+def square_thumbnail(user, arg="80,False"):
     profile = user.get_profile()
     if profile.picture:
+        size, itemprop = arg.split(',')
+
         pos, dim = profile.avatar.split(' ')
         pos = pos.split('x')
         dim = dim.split('x')
@@ -91,6 +93,8 @@ def square_thumbnail(user, size=80):
         y = -(int(int(pos[1]) * coeff))
         w = (int(profile.picture.width * coeff))
         h = (int(profile.picture.height * coeff))
+
+        microdata = 'itemprop="image"' if (bool(itemprop)) else ''
 
         return mark_safe(
             '''
@@ -107,7 +111,8 @@ def square_thumbnail(user, size=80):
             top: %(pos_y)spx;
             width: %(resize_w)spx;
             height: %(resize_h)spx;"
-            src="%(image_url)s" />
+            src="%(image_url)s"
+            %(microdata)s />
 </div></div>
 '''
             % {'needed_size': size,
@@ -116,23 +121,32 @@ def square_thumbnail(user, size=80):
                'resize_w': w,
                'resize_h': h,
                'image_url': profile.picture.url,
+               'microdata': microdata,
                })
 
     else:
-        return gravatar(user, size)
+        return gravatar(user, arg)
 
 
 @register.filter(is_safe=True)
-def gravatar(user, size=80):
-    return gravatar_from_email(user.email, user.username, size)
+def gravatar(user, arg="80,False"):
+    return gravatar_from_email(user.email, user.username, arg)
 
 
 @register.filter(is_safe=True)
-def gravatar_from_email(email, alt="gravatar", size=80):
+def gravatar_from_email(email, alt="gravatar", arg="80,False"):
     g_hash = md5(email.lower()).hexdigest()
     link = 'http://www.gravatar.com/avatar/'
+    size, itemprop = arg.split(',')
+    microdata = 'itemprop="image"' if (bool(itemprop)) else ''
     return mark_safe(
-        '<img class="thumbnail" alt="%(alt)s" src="%(src)s?s=%(size)s" />'
+        '''
+<img class="thumbnail"
+     alt="%(alt)s"
+     src="%(src)s?s=%(size)s"
+     %(microdata)s/>
+'''
         % {'alt': alt,
            'src': link + g_hash,
+           'microdata': microdata,
            'size': size, })
