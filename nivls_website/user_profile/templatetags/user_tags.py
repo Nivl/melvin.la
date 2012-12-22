@@ -82,7 +82,11 @@ def social_sign_in_links(providers, request):
 def square_thumbnail(user, arg="80,False"):
     profile = user.get_profile()
     if profile.picture:
-        size, itemprop = arg.split(',')
+        try:
+            size, itemprop = arg.split(',')
+        except:
+            size = arg
+            itemprop = False
 
         pos, dim = profile.avatar.split(' ')
         pos = pos.split('x')
@@ -137,7 +141,11 @@ def gravatar(user, arg="80,False"):
 def gravatar_from_email(email, alt="gravatar", arg="80,False"):
     g_hash = md5(email.lower()).hexdigest()
     link = 'http://www.gravatar.com/avatar/'
-    size, itemprop = arg.split(',')
+    try:
+        size, itemprop = arg.split(',')
+    except:
+        size = arg
+        itemprop = False
     microdata = 'itemprop="image"' if (bool(itemprop)) else ''
     return mark_safe(
         '''
