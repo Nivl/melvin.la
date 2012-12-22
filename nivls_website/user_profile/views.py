@@ -167,7 +167,6 @@ def activate_account(request, code):
 
 
 @require_safe
-@login_required
 def view_account(request, name):
     u = get_object_or_404(User, username=name)
     return render(request, "users/view.haml", {'target_user': u,
