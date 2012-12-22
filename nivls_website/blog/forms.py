@@ -12,7 +12,7 @@ class CommentForm(happyforms.ModelForm):
 
     honeypot = forms.CharField(
         required=False,
-        label='',
+        label=' ',
         widget=forms.TextInput(attrs={'class': 'hidden'}))
 
     def __init__(self, storage_key='comment-content',
@@ -58,4 +58,4 @@ class CommentForm(happyforms.ModelForm):
 class SingleCommentForm(happyforms.Form):
     comment = forms.CharField(
         widget=forms.Textarea(attrs={'style': 'width: 100%;'}),
-        label=_(''))
+        label=_(' '))
