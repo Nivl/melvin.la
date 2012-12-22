@@ -9,12 +9,15 @@
     %li
         %span.divider
             \/
-    %li
-        %a{'data-depth' : '1',
+
+    %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+        %a{'itemprop': 'url',
+           'data-depth' : '1',
            'data-ajax'  : 'body-content',
            'title'      : '{% trans "Edit my profile picture" %}',
            'href'       : '{% url "edit-picture" %}'}
-            - trans "Edit my profile picture"
+            %span{'itemprop': 'title'}
+                - trans "Edit my profile picture"
 
 - block "content"
     %h2.center-text

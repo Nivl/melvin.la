@@ -13,12 +13,15 @@
     %li<
         %span.divider<
             \/
-    %li
-        %a{'data-depth' : '1',
+
+    %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+        %a{'itemprop': 'url',
+           'data-depth' : '1',
            'data-ajax': 'body-content',
            'title': '{% trans "Sign in" %}',
            'href': '{% url "sign-in" %}'}
-            - trans "Sign in"
+            %span{'itemprop': 'title'}
+                - trans "Sign in"
 
 - block "content"
     - if success

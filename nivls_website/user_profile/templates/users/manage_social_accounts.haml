@@ -9,12 +9,15 @@
     %li<
         %span.divider<
             \/
-    %li
-        %a{'data-depth' : '1',
+
+    %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+        %a{'itemprop': 'url',
+           'data-depth' : '1',
            'data-ajax'  : 'body-content',
            'title'      : '{% trans "Manage social media accounts" %}',
            'href'       : '{% url "manage-social-account" %}'}
-            - trans "Manage social media accounts"
+            %span{'itemprop': 'title'}
+                - trans "Manage social media accounts"
 
 
 - block "content"
