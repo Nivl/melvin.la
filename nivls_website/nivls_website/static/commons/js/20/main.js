@@ -216,6 +216,7 @@ $(document).on('click', '.scroll', function(e) {
 });
 
 function navigationHTML5() {
+    $.ajaxSetup({ cache: false });
 
     /***********
      * Nav bar
