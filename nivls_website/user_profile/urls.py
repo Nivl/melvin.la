@@ -1,7 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib.auth.views import password_reset, password_reset_done
 from django.contrib.auth.views import password_reset_complete
-from forms import UserProfile
 
 reset_password_opt = {
     'email_template_name': 'users/inc/password_reset_email.html',
