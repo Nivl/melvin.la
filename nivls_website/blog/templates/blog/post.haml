@@ -83,35 +83,34 @@
 
                     {{ post.category }}
 
-                - spaceless
-                    - with post.tags.all as tags
-                        - if tags
-                            %br
-                            %i.icon-tags
 
-                            - for tag in tags
-                                %a{'data-ajax'  : 'body-content-only',
-                                   'data-depth' : '10',
-                                   'href'       : '{{ tag.get_absolute_url }}'}
-                                    {{ tag.name }}
+                - with post.tags.all as tags
+                    - if tags
+                        %br
+                        %i.icon-tags
 
-                                - if not forloop.last
-                                    ,
+                        - for tag in tags
+                            %a{'data-ajax'  : 'body-content-only',
+                               'data-depth' : '10',
+                               'href'       : '{{ tag.get_absolute_url }}'}
+                                {{ tag.name }}
 
-                    - with post.i18n.all as rels
-                        - if rels
-                            %br
-                            - trans "Available in: "
+                            - if not forloop.last
+                                \-
 
-                            - for rel in rels
-                                %a{'href' : 'http://{{ rel.site.site }}{{ rel.get_absolute_url }}#'}
+                - with post.i18n.all as rels
+                    - if rels
+                        %br
+                        %i.icon-globe
 
-                                    %img.flag{'width'   : '16',
-                                              'height'  : '11',
-                                              'src'     : '{{ rel.site.flag.url }}'}
+                        - for rel in rels
+                            %a{'href' : 'http://{{ rel.site.site }}{{ rel.get_absolute_url }}#'}
 
-                                - if not forloop.last
-                                    &nbsp;
+                                %img.flag.valign-inherit{'width'   : '12',
+                                                         'src'     : '{{ rel.site.flag.url }}'}
+
+                            - if not forloop.last
+                                &nbsp;
 
         %section.content.clearfix{'itemprop': 'articleBody'}
             {{ post.parsed_content|markdown }}
