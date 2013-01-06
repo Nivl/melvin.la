@@ -1,11 +1,5 @@
 var resolve_urls = django_js_utils.urls.resolve;
 
-function debugMsg(msg) {
-    if (DEBUG) {
-        console.log(msg);
-    }
-}
-
 function replaceAll(txt, replace, with_this) {
     return txt.replace(new RegExp(replace, 'g'), with_this);
 }
@@ -21,7 +15,7 @@ function reloadJsEffects() {
         effect: 'fade',
     });
 
-    $('article.post img').parent('a').addClass('highslide');
+    $('article.post section img').parent('a').addClass('highslide');
 
     $('.highslide').each(function (){
         var $that = $(this)
@@ -280,18 +274,11 @@ function navigationHTML5() {
      * Ajax
      **********/
     $(window).bind('statechange', function() {
-        debugMsg("StateChange");
         var navbar_id = $('#navbar-main-list > li.active').prop('id');
         var lab_tag_id = $('#lab-nav-list .active').parents('a').prop('id');
         var State = window.History.getState();
         var relativeURL = State.url.replace(window.History.getRootUrl(), '');
         relativeURL = '/' + relativeURL;
-
-        debugMsg("navbar_id : " + navbar_id);
-        debugMsg("lab_tag_id : " + lab_tag_id);
-        debugMsg("relativeURL : " + relativeURL);
-        debugMsg("State.action : " + State.data['action']);
-        debugMsg(State);
 
         var action = State.data['action'];
         if (action === undefined || $(action).length <= 0) {
