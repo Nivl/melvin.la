@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-16 13:11-0700\n"
-"PO-Revision-Date: 2012-12-22 16:29+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-01-06 23:47+0100\n"
+"PO-Revision-Date: 2013-01-06 23:55+0100\n"
+"Last-Translator: Melvin laplanche <melvin.laplanche+dev@gmail.com>\n"
 "Language-Team: Laplanche Melvin <LL@li.org>\n"
 "Language: French\n"
 "MIME-Version: 1.0\n"
@@ -17,251 +17,251 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: about/forms.py:11
+#: about/forms.py:10
 msgid "Subject"
 msgstr "Sujet"
 
-#: about/forms.py:14
+#: about/forms.py:13
 msgid "Email address"
 msgstr "Adresse email"
 
-#: about/forms.py:18
+#: about/forms.py:17
 msgid "Message"
 msgstr "Message"
 
-#: about/models.py:14 about/models.py:65 about/models.py:128
-#: about/models.py:203 about/models.py:235 about/models.py:269
-#: blog/models.py:17 blog/models.py:57 blog/models.py:92 blog/models.py:155
-#: blog/models.py:377 commons/models.py:11 lab/models.py:76 lab/models.py:115
-#: lab/models.py:157 lab/models.py:199 seo/models.py:12
+#: about/models.py:14 about/models.py:56 about/models.py:110
+#: about/models.py:184 about/models.py:216 about/models.py:250
+#: blog/models.py:19 blog/models.py:59 blog/models.py:98 blog/models.py:165
+#: blog/models.py:395 commons/models.py:11 lab/models.py:81 lab/models.py:120
+#: lab/models.py:162 lab/models.py:204 seo/models.py:14
 msgid "site"
 msgstr "site"
 
-#: about/models.py:18 about/models.py:81 about/models.py:132
-#: about/models.py:207 about/models.py:244 blog/models.py:21 blog/models.py:36
-#: blog/models.py:61 blog/models.py:96 blog/models.py:302 blog/models.py:347
-#: lab/models.py:16 lab/models.py:59 lab/models.py:80 lab/models.py:119
-#: lab/models.py:161 lab/models.py:203 lab/models.py:347 lab/models.py:375
-#: lab/models.py:402 lab/models.py:436
+#: about/models.py:18 about/models.py:72 about/models.py:114
+#: about/models.py:188 about/models.py:225 blog/models.py:23 blog/models.py:38
+#: blog/models.py:63 blog/models.py:102 blog/models.py:320 blog/models.py:365
+#: lab/models.py:17 lab/models.py:64 lab/models.py:85 lab/models.py:124
+#: lab/models.py:166 lab/models.py:208 lab/models.py:360 lab/models.py:388
+#: lab/models.py:415 lab/models.py:449 seo/models.py:79
 msgid "name"
 msgstr "nom"
 
-#: about/models.py:22 about/models.py:166 blog/models.py:105 lab/models.py:126
-#: lab/models.py:168 lab/models.py:233 lab/models.py:314 lab/models.py:350
-#: lab/models.py:408 lab/models.py:439 seo/models.py:23
+#: about/models.py:22 about/models.py:148 blog/models.py:111 lab/models.py:131
+#: lab/models.py:173 lab/models.py:238 lab/models.py:327 lab/models.py:363
+#: lab/models.py:421 lab/models.py:452 seo/models.py:25 seo/models.py:55
 msgid "description"
 msgstr "description"
 
-#: about/models.py:26 about/models.py:84
+#: about/models.py:26 about/models.py:75
 msgid "link"
 msgstr "lien"
 
-#: about/models.py:32 about/models.py:90
+#: about/models.py:32 about/models.py:81
 msgid "attributes"
 msgstr "attributs"
 
-#: about/models.py:37 about/models.py:95 blog/models.py:306 lab/models.py:94
-#: lab/models.py:136 lab/models.py:178 lab/models.py:354 lab/models.py:380
-msgid "image"
-msgstr "image"
+#: about/models.py:36 about/models.py:85 lab/models.py:436
+msgid "icon"
+msgstr "icône"
 
-#: about/models.py:41 about/models.py:99 about/models.py:158
-#: about/models.py:214 about/models.py:247 about/models.py:278
-#: blog/models.py:24 blog/models.py:381
+#: about/models.py:40 about/models.py:89 about/models.py:140
+#: about/models.py:195 about/models.py:228 about/models.py:259
+#: blog/models.py:26 blog/models.py:399
 msgid "order"
 msgstr "ordre"
 
-#: about/models.py:56
+#: about/models.py:47
 msgid "navigation link"
 msgstr "lien de navigation"
 
-#: about/models.py:57
+#: about/models.py:48
 msgid "navigation links"
 msgstr "liens de navigation"
 
-#: about/models.py:68
+#: about/models.py:59
 msgid "about me"
 msgstr "À propos de moi"
 
-#: about/models.py:74
+#: about/models.py:65
 msgid "profile"
 msgstr "profil"
 
-#: about/models.py:75
+#: about/models.py:66
 msgid "profiles"
 msgstr "profils"
 
-#: about/models.py:114
+#: about/models.py:96
 msgid "contact link"
 msgstr "lien de contact"
 
-#: about/models.py:115
+#: about/models.py:97
 msgid "contact links"
 msgstr "liens de contact"
 
-#: about/models.py:135 about/models.py:210 blog/models.py:64 blog/models.py:99
-#: blog/models.py:185 lab/models.py:20 lab/models.py:63 lab/models.py:83
-#: lab/models.py:122 lab/models.py:164 lab/models.py:206
+#: about/models.py:117 about/models.py:191 blog/models.py:66
+#: blog/models.py:105 blog/models.py:195 lab/models.py:21 lab/models.py:68
+#: lab/models.py:88 lab/models.py:127 lab/models.py:169 lab/models.py:211
 msgid "slug"
 msgstr "slug"
 
-#: about/models.py:138 lab/models.py:66
+#: about/models.py:120 lab/models.py:71
 msgid "color"
 msgstr "couleur"
 
-#: about/models.py:145
+#: about/models.py:127
 msgid "work Type"
 msgstr "type de travail"
 
-#: about/models.py:146
+#: about/models.py:128
 msgid "work Types"
 msgstr "types de travail"
 
-#: about/models.py:154
+#: about/models.py:136
 msgid "lab"
 msgstr ""
 
-#: about/models.py:163
+#: about/models.py:145
 msgid "screenshot"
 msgstr ""
 
-#: about/models.py:171
+#: about/models.py:153
 msgid "work"
 msgstr "travail"
 
-#: about/models.py:189
+#: about/models.py:170
 msgid "work Project"
 msgstr "Projet"
 
-#: about/models.py:190
+#: about/models.py:171
 msgid "work Projects"
 msgstr "Projets"
 
-#: about/models.py:222
+#: about/models.py:203
 msgid "C.V. Section"
 msgstr "C.V. Section"
 
-#: about/models.py:223
+#: about/models.py:204
 msgid "C.V. Sections"
 msgstr "C.V. Sections"
 
-#: about/models.py:240
+#: about/models.py:221
 msgid "Section"
 msgstr "Section"
 
-#: about/models.py:253
+#: about/models.py:234
 msgid "display type"
 msgstr "type d'affichage"
 
-#: about/models.py:261
+#: about/models.py:242
 msgid "C.V. Category"
 msgstr "C.V. Categorie"
 
-#: about/models.py:262
+#: about/models.py:243
 msgid "C.V. Categories"
 msgstr "C.V. Categories"
 
-#: about/models.py:274 blog/models.py:171
+#: about/models.py:255 blog/models.py:181
 msgid "category"
 msgstr "categorie"
 
-#: about/models.py:284
+#: about/models.py:265
 msgid "key"
 msgstr "clef"
 
-#: about/models.py:287
+#: about/models.py:268
 msgid "value"
 msgstr "valeur"
 
-#: about/models.py:293
+#: about/models.py:274
 msgid "value for download"
 msgstr "valeur pour téléchargement"
 
-#: about/models.py:300
+#: about/models.py:281
 msgid "C.V. Content"
 msgstr "C.V. Contenu"
 
-#: about/models.py:301
+#: about/models.py:282
 msgid "C.V. Contents"
 msgstr "C.V. Contenus"
 
-#: about/templates/about/about.html:8 about/templates/about/about.html:14
-#: about/templates/about/about.html:15
-#: nivls_website/templates/base_common.html:50
-#: nivls_website/templates/base_common.html:51
-#: nivls_website/templates/inc/footer.html:29
+#: about/templates/about/about.haml_parsed:10
+#: about/templates/about/about.haml_parsed:19
+#: about/templates/about/about.haml_parsed:20
+#: nivls_website/templates/base_common.haml_parsed:39
+#: nivls_website/templates/inc/footer.haml_parsed:67
 msgid "About"
 msgstr "À propos"
 
-#: about/templates/about/about.html:9
+#: about/templates/about/about.haml_parsed:13
 msgid "Where you learn more about me"
 msgstr "Là où on en apprend plus sur moi"
 
-#: about/templates/about/about.html:52 about/templates/about/home.html:6
+#: about/templates/about/about.haml_parsed:55
+#: about/templates/about/home.haml_parsed:7
 msgid "Welcome to my website"
 msgstr "Bienvenue sur mon site"
 
-#: about/templates/about/about.html:58
+#: about/templates/about/about.haml_parsed:62
 msgid "C.V."
 msgstr ""
 
-#: about/templates/about/about.html:86 about/templates/about/about.html:93
-#: lab/templates/lab/project.html:35
-#: lab/templates/lab/inc/project_includes/downloads.html:3
+#: about/templates/about/about.haml_parsed:88
+#: about/templates/about/about.haml_parsed:97
+#: lab/templates/lab/project.haml_parsed:79
+#: lab/templates/lab/inc/project_includes/downloads.haml_parsed:4
 msgid "Downloads"
 msgstr "Téléchargements"
 
-#: about/templates/about/about.html:98
+#: about/templates/about/about.haml_parsed:103
 msgid "Download this C.V. as PDF"
 msgstr "Télécharger ce C.V. au format PDF"
 
-#: about/templates/about/about.html:114
-#: nivls_website/templates/inc/footer.html:39
+#: about/templates/about/about.haml_parsed:119
+#: nivls_website/templates/inc/footer.haml_parsed:81
 msgid "Be social"
 msgstr ""
 
-#: about/templates/about/contact.html:5
-#: nivls_website/templates/base_common.html:62
-#: nivls_website/templates/base_common.html:63
-#: nivls_website/templates/inc/footer.html:58
+#: about/templates/about/contact.haml_parsed:8
+#: nivls_website/templates/base_common.haml_parsed:45
+#: nivls_website/templates/inc/footer.haml_parsed:114
 msgid "Contact"
 msgstr ""
 
-#: about/templates/about/contact.html:6
+#: about/templates/about/contact.haml_parsed:11
 msgid "Where we can get in touch"
 msgstr "Là où on peut être en contact"
 
-#: about/templates/about/contact_form.html:15
-#: blog/templates/blog/ajax/comment_form.html:13
-#: blog/templates/blog/ajax/comment_single_form.html:12
+#: about/templates/about/contact_form.haml_parsed:11
+#: blog/templates/blog/ajax/comment_form.haml_parsed:9
+#: blog/templates/blog/ajax/comment_single_form.haml_parsed:9
 msgid "Sending..."
 msgstr "Envoi…"
 
-#: about/templates/about/contact_form.html:16
-#: blog/templates/blog/ajax/comment_form.html:15
-#: blog/templates/blog/ajax/comment_single_form.html:14
+#: about/templates/about/contact_form.haml_parsed:12
+#: blog/templates/blog/ajax/comment_form.haml_parsed:11
+#: blog/templates/blog/ajax/comment_single_form.haml_parsed:9
 msgid "Send"
 msgstr "Envoyer"
 
-#: about/templates/about/contact_form.html:19
-#: blog/templates/blog/ajax/comment_form.html:21
-#: blog/templates/blog/ajax/comment_single_form.html:19
-#: user_profile/templates/users/sign_in.html:40
-#: user_profile/templates/users/ajax/edit_account_form.html:21
-#: user_profile/templates/users/ajax/edit_email_form.html:26
-#: user_profile/templates/users/ajax/edit_password_form.html:26
-#: user_profile/templates/users/ajax/edit_picture_form.html:13
-#: user_profile/templates/users/ajax/edit_settings_form.html:20
-#: user_profile/templates/users/ajax/sign_up_form.html:18
+#: about/templates/about/contact_form.haml_parsed:15
+#: blog/templates/blog/ajax/comment_form.haml_parsed:15
+#: blog/templates/blog/ajax/comment_single_form.haml_parsed:10
+#: user_profile/templates/users/sign_in.haml_parsed:48
+#: user_profile/templates/users/ajax/edit_account_form.haml_parsed:19
+#: user_profile/templates/users/ajax/edit_email_form.haml_parsed:22
+#: user_profile/templates/users/ajax/edit_password_form.haml_parsed:22
+#: user_profile/templates/users/ajax/edit_picture_form.haml_parsed:13
+#: user_profile/templates/users/ajax/edit_settings_form.haml_parsed:16
+#: user_profile/templates/users/ajax/sign_up_form.haml_parsed:14
 msgid "Reset"
 msgstr "Effacer"
 
-#: about/templates/about/contact_ok.html:5
-#: blog/templates/blog/ajax/comment_ok.html:5
+#: about/templates/about/contact_ok.haml_parsed:5
+#: blog/templates/blog/ajax/comment_ok.haml_parsed:5
 msgid "Sent!"
 msgstr "Envoyé !"
 
-#: about/templates/about/contact_ok.html:6
+#: about/templates/about/contact_ok.haml_parsed:6
 msgid ""
 "The message has been successfully sent, you should receive an answer in a "
 "few hours."
@@ -269,54 +269,54 @@ msgstr ""
 "Le message a bien été envoyé, vous devriez recevoir une réponse d'ici "
 "quelques heures."
 
-#: about/templates/about/home.html:37
+#: about/templates/about/home.haml_parsed:45
 msgid "Featured blog posts"
 msgstr "Articles mis en avant"
 
-#: about/templates/about/home.html:44
+#: about/templates/about/home.haml_parsed:54
 msgid "Latest blog posts"
 msgstr "Derniers articles"
 
-#: about/templates/about/portfolio.html:7
-#: about/templates/about/portfolio.html:13
-#: about/templates/about/portfolio.html:14
-#: nivls_website/templates/base_common.html:56
-#: nivls_website/templates/base_common.html:57
-#: nivls_website/templates/inc/footer.html:33
+#: about/templates/about/portfolio.haml_parsed:11
+#: about/templates/about/portfolio.haml_parsed:23
+#: nivls_website/templates/base_common.haml_parsed:42
+#: nivls_website/templates/inc/footer.haml_parsed:74
 msgid "Portfolio"
 msgstr ""
 
-#: about/templates/about/portfolio.html:8
+#: about/templates/about/portfolio.haml_parsed:15
 msgid "Where my professional projects are"
 msgstr "Là où il y a mes projets professionnels"
 
-#: about/templates/about/portfolio.html:34
+#: about/templates/about/portfolio.haml_parsed:38
 msgid "Job(s):"
 msgstr ""
 
-#: about/templates/about/portfolio.html:49
-#: about/templates/about/portfolio.html:80 blog/models.py:178
-#: blog/templates/blog/post.html:77 lab/templates/lab/base.html:6
-#: lab/templates/lab/base.html.py:12 lab/templates/lab/base.html:13
-#: lab/templates/lab/templatetags/tags.html:9
-#: nivls_website/templates/base_common.html:44
-#: nivls_website/templates/base_common.html:45
-#: nivls_website/templates/inc/footer.html:25
-#: search_engine/templates/search/search.html:53
+#: about/templates/about/portfolio.haml_parsed:50
+#: about/templates/about/portfolio.haml_parsed:74 blog/models.py:188
+#: blog/templates/blog/post.haml_parsed:140
+#: lab/templates/lab/base.haml_parsed:9 lab/templates/lab/base.haml_parsed:18
+#: lab/templates/lab/base.haml_parsed:19
+#: lab/templates/lab/templatetags/tags.haml_parsed:7
+#: nivls_website/templates/base_common.haml_parsed:36
+#: nivls_website/templates/inc/footer.haml_parsed:60
+#: search_engine/templates/search/search.haml_parsed:49
 msgid "Lab"
 msgstr ""
 
-#: about/templates/about/portfolio.html:52 blog/templates/blog/post.html:79
-#: lab/templates/lab/inc/project_list.html:15
+#: about/templates/about/portfolio.haml_parsed:51
+#: blog/templates/blog/post.haml_parsed:144
+#: lab/templates/lab/inc/project_list.haml_parsed:12
 msgid "Know more"
 msgstr "En savoir plus"
 
-#: about/templates/about/portfolio.html:64
-#: about/templates/about/portfolio.html:83
+#: about/templates/about/portfolio.haml_parsed:62
+#: about/templates/about/portfolio.haml_parsed:75
 msgid "See more projects"
 msgstr "Voir plus de projets"
 
-#: about/templates/about/templatetags/cat_as_list.html:6
+#: about/templates/about/templatetags/cat_as_list.haml_parsed:8
+#, fuzzy
 msgid ": "
 msgstr " : "
 
@@ -349,116 +349,121 @@ msgstr "%(sitename)s - Categorie : %(name)s"
 msgid "Latest posts for the category '%(name)s'"
 msgstr "Derniers articles de la catégorie '%(name)s'"
 
-#: blog/forms.py:53
-msgid "<!-- Comment -->"
+#: blog/forms.py:61
+msgid " "
 msgstr ""
 
-#: blog/models.py:27
+#: blog/models.py:29
 msgid "hide"
 msgstr "cacher"
 
-#: blog/models.py:40 blog/models.py:182 seo/models.py:18
+#: blog/models.py:42 blog/models.py:192 seo/models.py:20
 msgid "title"
 msgstr "titre"
 
-#: blog/models.py:43 lab/models.py:88 lab/models.py:131 lab/models.py:173
-#: lab/models.py:419 lab/models.py:442 logger/models.py:7
+#: blog/models.py:45 lab/models.py:93 lab/models.py:136 lab/models.py:178
+#: lab/models.py:432 lab/models.py:455 logger/models.py:7
 msgid "URL"
 msgstr ""
 
-#: blog/models.py:47
+#: blog/models.py:49
 msgid "menu"
 msgstr ""
 
-#: blog/models.py:108
+#: blog/models.py:114
 msgid "is root"
 msgstr "Est une racine"
 
-#: blog/models.py:111
+#: blog/models.py:117
 msgid "left"
 msgstr "gauche"
 
-#: blog/models.py:114
+#: blog/models.py:120
 msgid "right"
 msgstr "droite"
 
-#: blog/models.py:121 blog/models.py:200
+#: blog/models.py:127 blog/models.py:210
 msgid "thumbnail"
 msgstr "miniature"
 
-#: blog/models.py:158 blog/models.py:336
+#: blog/models.py:168 blog/models.py:354
 msgid "is public"
 msgstr "est public"
 
-#: blog/models.py:162 blog/models.py:344 lab/models.py:318
+#: blog/models.py:172 blog/models.py:362 lab/models.py:331
 msgid "publication date"
 msgstr "date de publication"
 
-#: blog/models.py:166
+#: blog/models.py:176
 msgid "author"
 msgstr "auteur"
 
-#: blog/models.py:190
+#: blog/models.py:200
 msgid "main image"
 msgstr "image principale"
 
-#: blog/models.py:195
+#: blog/models.py:205
 msgid "short description"
 msgstr "description rapide"
 
-#: blog/models.py:205
+#: blog/models.py:215
 msgid "long description"
 msgstr "longue description"
 
-#: blog/models.py:208 search_engine/models.py:8
+#: blog/models.py:218 search_engine/models.py:8 seo/models.py:82
 msgid "content"
 msgstr "contenu"
 
-#: blog/models.py:215
+#: blog/models.py:225
 msgid "Tags"
 msgstr ""
 
-#: blog/models.py:222
+#: blog/models.py:232
 msgid "i18n"
 msgstr ""
 
-#: blog/models.py:226
+#: blog/models.py:236
 msgid "allow comment"
 msgstr "autoriser les commentaires"
 
-#: blog/models.py:230 lab/models.py:237
+#: blog/models.py:240 lab/models.py:242
 msgid "edit date"
 msgstr "date de modification"
 
-#: blog/models.py:310 blog/models.py:333 blog/models.py:387
+#: blog/models.py:324 lab/models.py:99 lab/models.py:141 lab/models.py:183
+#: lab/models.py:367 lab/models.py:393
+msgid "image"
+msgstr "image"
+
+#: blog/models.py:328 blog/models.py:351 blog/models.py:405
 msgid "post"
 msgstr "article"
 
-#: blog/models.py:329 user_profile/models.py:12
+#: blog/models.py:347 user_profile/models.py:12
 msgid "user"
 msgstr "utilisateur"
 
-#: blog/models.py:340
+#: blog/models.py:358
 msgid "IP address"
 msgstr "adresse IP"
 
-#: blog/models.py:353
+#: blog/models.py:371
 msgid "email address"
 msgstr "adresse email"
 
-#: blog/models.py:358 user_profile/models.py:35
+#: blog/models.py:376 user_profile/models.py:35
 msgid "website"
 msgstr "site web"
 
-#: blog/models.py:363 blog/models.py:369
+#: blog/models.py:381 blog/models.py:387
 msgid "comment"
 msgstr "commentaire"
 
-#: blog/models.py:370
+#: blog/models.py:388
 msgid "comments"
 msgstr "Commentaires"
 
-#: blog/models.py:394 blog/models.py:395
+#: blog/models.py:412 blog/models.py:413
 msgid "Carousel"
 msgstr "Carrousel"
 
@@ -467,57 +472,54 @@ msgstr "Carrousel"
 msgid "new comment for \"%s\""
 msgstr "Nouveau commentaire pour \"%s\""
 
-#: blog/views.py:265 blog/templates/blog/templatetags/archives.html:10
+#: blog/views.py:266 blog/templates/blog/templatetags/archives.haml_parsed:12
 #, python-format
 msgid "Archives from %(date)s"
 msgstr "Archive de %(date)s"
 
-#: blog/templates/blog/base.html:6 blog/templates/blog/base.html.py:21
-#: blog/templates/blog/base.html:22
-#: nivls_website/templates/base_common.html:38
-#: nivls_website/templates/base_common.html:39
-#: nivls_website/templates/inc/footer.html:21
-#: search_engine/templates/search/search.html:51
+#: blog/templates/blog/base.haml_parsed:9
+#: blog/templates/blog/base.haml_parsed:34
+#: blog/templates/blog/base.haml_parsed:36
+#: nivls_website/templates/base_common.haml_parsed:33
+#: nivls_website/templates/inc/footer.haml_parsed:53
+#: search_engine/templates/search/search.haml_parsed:45
 msgid "Blog"
 msgstr ""
 
-#: blog/templates/blog/base.html:7
+#: blog/templates/blog/base.haml_parsed:12
 msgid "Where I tell my life story"
 msgstr "Là où je raconte ma vie"
 
-#: blog/templates/blog/post.html:32
-#: blog/templates/blog/ajax/comment_list.html:6
+#: blog/templates/blog/post.haml_parsed:78
+#: blog/templates/blog/ajax/comment_list.haml_parsed:6
 msgid "By "
 msgstr "Par "
 
-#: blog/templates/blog/post.html:41
-msgid "In: "
-msgstr "Dans : "
+#: blog/templates/blog/post.haml_parsed:91
+msgid "In "
+msgstr "Dans"
 
-#: blog/templates/blog/post.html:58
-msgid "Available in: "
-msgstr "Diponible en : "
-
-#: blog/templates/blog/post.html:77 lab/templates/lab/base.html:7
+#: blog/templates/blog/post.haml_parsed:140
+#: lab/templates/lab/base.haml_parsed:12
 msgid "Where I present my projects"
 msgstr "Là où je présente mes projets"
 
-#: blog/templates/blog/ajax/comment_count.html:4
+#: blog/templates/blog/ajax/comment_count.haml_parsed:4
 msgid "There are no comments"
 msgstr "Il n'y a aucun commentaire"
 
-#: blog/templates/blog/ajax/comment_count.html:6
+#: blog/templates/blog/ajax/comment_count.haml_parsed:6
 #, python-format
 msgid "1 comment"
 msgid_plural "%(counter)s comments"
 msgstr[0] "1 commentaire"
 msgstr[1] "%(counter)s commentaires"
 
-#: blog/templates/blog/ajax/comment_list.html:24
+#: blog/templates/blog/ajax/comment_list.haml_parsed:28
 msgid "at "
 msgstr "à "
 
-#: blog/templates/blog/ajax/comment_ok.html:6
+#: blog/templates/blog/ajax/comment_ok.haml_parsed:6
 msgid ""
 "Your comment has been successfully saved, it will soon be validated by an "
 "administrator."
@@ -525,79 +527,75 @@ msgstr ""
 "Votre commentaire a été enregistré, il sera très vite validé par un "
 "administrateur."
 
-#: blog/templates/blog/inc/comment.html:3
+#: blog/templates/blog/inc/comment.haml_parsed:3
 msgid "Comments"
 msgstr "Commentaires"
 
-#: blog/templates/blog/inc/comment.html:18
+#: blog/templates/blog/inc/comment.haml_parsed:17
 msgid "Preview of your comment"
 msgstr "Prévisualisation de votre commentaire"
 
-#: blog/templates/blog/inc/comment.html:20
+#: blog/templates/blog/inc/comment.haml_parsed:20
 msgid "help"
 msgstr "aide"
 
-#: blog/templates/blog/inc/comment.html:32
+#: blog/templates/blog/inc/comment.haml_parsed:32
 msgid "Comments has been disabled for this post."
 msgstr "Les commentaires ont été désactivé pour cet article."
 
-#: blog/templates/blog/inc/comment_mail.html:4
+#: blog/templates/blog/inc/comment_mail.haml_parsed:5
 #: blog/templates/blog/inc/comment_mail.txt:3
 msgid "Hi,"
 msgstr "Bonjour,"
 
-#: blog/templates/blog/inc/comment_mail.html:6
+#: blog/templates/blog/inc/comment_mail.haml_parsed:7
 #: blog/templates/blog/inc/comment_mail.txt:5
 #, python-format
 msgid "A new comment has been posted on the post \"%(post_title)s\""
 msgstr "Un nouveau commentaire a été posté sur le post \"%(post_title)s\""
 
-#: blog/templates/blog/inc/comment_mail.html:10
+#: blog/templates/blog/inc/comment_mail.haml_parsed:11
 #: blog/templates/blog/inc/comment_mail.txt:8
 msgid "Comment informations:"
 msgstr "Information sur le commentaire"
 
-#: blog/templates/blog/inc/comment_mail.html:12
+#: blog/templates/blog/inc/comment_mail.haml_parsed:13
 #: blog/templates/blog/inc/comment_mail.txt:9
 msgid "By: "
 msgstr "Par : "
 
-#: blog/templates/blog/inc/comment_mail.html:16
+#: blog/templates/blog/inc/comment_mail.haml_parsed:21
 #: blog/templates/blog/inc/comment_mail.txt:9
 msgid "(Unregistered user)"
 msgstr "(utilisateur non-enregistré)"
 
-#: blog/templates/blog/inc/comment_mail.html:19
+#: blog/templates/blog/inc/comment_mail.haml_parsed:24
 #: blog/templates/blog/inc/comment_mail.txt:10
 msgid "IP: "
 msgstr "IP : "
 
-#: blog/templates/blog/inc/comment_mail.html:21
+#: blog/templates/blog/inc/comment_mail.haml_parsed:27
 #: blog/templates/blog/inc/comment_mail.txt:11
 msgid "Comment: "
 msgstr "Commentaire : "
 
-#: blog/templates/blog/inc/comment_mail.html:26
+#: blog/templates/blog/inc/comment_mail.haml_parsed:34
 msgid "Go to the administration"
 msgstr "Aller à l'administration"
 
-#: blog/templates/blog/inc/listing.html:33
-msgid "Read more"
-msgstr "Lire l'article"
-
-#: blog/templates/blog/inc/listing.html:45
+#: blog/templates/blog/inc/listing.haml_parsed:55
 msgid "There are no posts."
 msgstr "Il n'y a aucun article."
 
-#: blog/templates/blog/templatetags/menus.html:17
+#: blog/templates/blog/templatetags/menus.haml_parsed:21
 msgid "There are no links."
 msgstr "Il n'y a aucun lien."
 
-#: commons/fields.py:62 commons/forms.py:16 commons/forms.py:52
+#: commons/fields.py:62 commons/forms.py:10 commons/forms.py:46
 msgid "Invalid coordinates."
 msgstr "Coordonnées invalides"
 
-#: commons/models.py:15 lab/models.py:298
+#: commons/models.py:15 lab/models.py:311
 msgid "language"
 msgstr "langage"
 
@@ -605,138 +603,134 @@ msgstr "langage"
 msgid "flag"
 msgstr "drapeau"
 
-#: lab/models.py:25
+#: lab/models.py:26
 msgid "icon 'enabled'"
 msgstr "icône 'activé'"
 
-#: lab/models.py:30
+#: lab/models.py:31
 msgid "icon 'disabled'"
 msgstr "icône 'désactivé'"
 
-#: lab/models.py:212
+#: lab/models.py:217
 msgid "catchphrase"
 msgstr "phrase d'accroche"
 
-#: lab/models.py:216
+#: lab/models.py:221
 msgid "overall progress"
 msgstr "progression globale"
 
-#: lab/models.py:220
+#: lab/models.py:225
 msgid "start date"
 msgstr "date de commencement"
 
-#: lab/models.py:225
+#: lab/models.py:230
 msgid "license"
 msgstr "licence"
 
-#: lab/models.py:230
+#: lab/models.py:235
 msgid "sources URL"
 msgstr "URL des sources"
 
-#: lab/models.py:242
+#: lab/models.py:247
 msgid "demo codebox"
 msgstr "codebox de démo"
 
-#: lab/models.py:247
+#: lab/models.py:252
 msgid "languages"
 msgstr "langages"
 
-#: lab/models.py:254
+#: lab/models.py:259
 msgid "coworkers (real users)"
 msgstr "équipe (vrais utilisateurs)"
 
-#: lab/models.py:261
+#: lab/models.py:266
 msgid "coworkers"
 msgstr "équipe"
 
-#: lab/models.py:268
+#: lab/models.py:273
 msgid "client (real users)"
 msgstr "client (vrais utilisateurs)"
 
-#: lab/models.py:275
+#: lab/models.py:280
 msgid "clients"
 msgstr "clients"
 
-#: lab/models.py:281
+#: lab/models.py:286
 msgid "tags"
 msgstr "tags"
 
-#: lab/models.py:302
+#: lab/models.py:315
 msgid "Project"
 msgstr "Projet"
 
-#: lab/models.py:305
+#: lab/models.py:318
 msgid "rate"
 msgstr "taux"
 
-#: lab/models.py:322 lab/models.py:338 lab/models.py:358 lab/models.py:427
-#: lab/models.py:446
+#: lab/models.py:335 lab/models.py:351 lab/models.py:371 lab/models.py:440
+#: lab/models.py:459
 msgid "project"
 msgstr "projet"
 
-#: lab/models.py:334
+#: lab/models.py:347
 msgid "task"
 msgstr "tâche"
 
-#: lab/models.py:414
+#: lab/models.py:427
 msgid "uploaded file"
 msgstr "fichier uploadé"
 
-#: lab/models.py:423
-msgid "icon"
-msgstr "icône"
-
-#: lab/templates/lab/project.html:24
+#: lab/templates/lab/project.haml_parsed:48
 msgid "Informations"
-msgstr ""
+msgstr "Information"
 
-#: lab/templates/lab/project.html:26
-#: lab/templates/lab/inc/project_includes/progress.html:3
+#: lab/templates/lab/project.haml_parsed:55
+#: lab/templates/lab/inc/project_includes/progress.haml_parsed:3
 msgid "Progress"
 msgstr "Progression"
 
-#: lab/templates/lab/project.html:29
-#: lab/templates/lab/inc/project_includes/images.html:3
+#: lab/templates/lab/project.haml_parsed:63
+#: lab/templates/lab/inc/project_includes/images.haml_parsed:4
 msgid "Images"
-msgstr ""
+msgstr "Images"
 
-#: lab/templates/lab/project.html:32
-#: lab/templates/lab/inc/project_includes/videos.html:3
+#: lab/templates/lab/project.haml_parsed:71
+#: lab/templates/lab/inc/project_includes/videos.haml_parsed:3
 msgid "Videos"
 msgstr "Vidéos"
 
-#: lab/templates/lab/project.html:38
+#: lab/templates/lab/project.haml_parsed:88
 msgid "Demos"
 msgstr "Démos"
 
-#: lab/templates/lab/inc/project_includes/infos.html:3
+#: lab/templates/lab/inc/project_includes/infos.haml_parsed:3
 #, python-format
 msgid "Informations about %(project_name)s"
 msgstr "Informations sur %(project_name)s"
 
-#: lab/templates/lab/inc/project_includes/infos.html:6
+#: lab/templates/lab/inc/project_includes/infos.haml_parsed:6
 msgid "Project License: "
 msgstr "Licence du projet : "
 
-#: lab/templates/lab/inc/project_includes/infos.html:26
+#: lab/templates/lab/inc/project_includes/infos.haml_parsed:26
 msgid "Browse the sources"
 msgstr "Voir les sources du projet"
 
-#: lab/templates/lab/inc/project_includes/infos.html:60
+#: lab/templates/lab/inc/project_includes/infos.haml_parsed:61
 msgid "Client(s)"
 msgstr "Client(s)"
 
-#: lab/templates/lab/inc/project_includes/infos.html:80
+#: lab/templates/lab/inc/project_includes/infos.haml_parsed:80
 msgid "Team"
 msgstr "Équipe"
 
-#: lab/templates/lab/inc/project_includes/progress.html:27
+#: lab/templates/lab/inc/project_includes/progress.haml_parsed:27
 msgid "Todo"
 msgstr "À faire"
 
-#: lab/templates/lab/templatetags/tags.html:35
-#: nivls_website/templates/base_common.html:191
-#: nivls_website/templates/inc/footer.html:17
+#: lab/templates/lab/templatetags/tags.haml_parsed:20
+#: nivls_website/templates/base_common.haml_parsed:153
+#: nivls_website/templates/inc/footer.haml_parsed:46
 msgid "Home"
 msgstr "Accueil"
 
@@ -768,115 +762,113 @@ msgstr ""
 msgid "method"
 msgstr "méthode"
 
-#: nivls_website/templates/base.html:7
+#: nivls_website/templates/base.haml_parsed:7
 msgid "en"
 msgstr "fr"
 
-#: nivls_website/templates/base_common.html:75
-#: nivls_website/templates/base_common.html:76
-#: user_profile/templates/users/sign_up.html:5
-#: user_profile/templates/users/sign_up.html:7
-#: user_profile/templates/users/sign_up.html:12
-#: user_profile/templates/users/sign_up.html:13
-#: user_profile/templates/users/ajax/sign_up_form.html:15
+#: nivls_website/templates/base_common.haml_parsed:52
+#: user_profile/templates/users/sign_up.haml_parsed:6
+#: user_profile/templates/users/sign_up.haml_parsed:12
+#: user_profile/templates/users/sign_up.haml_parsed:18
+#: user_profile/templates/users/sign_up.haml_parsed:20
+#: user_profile/templates/users/ajax/sign_up_form.haml_parsed:10
 msgid "Sign up"
 msgstr "Inscription"
 
-#: nivls_website/templates/base_common.html:81
-#: nivls_website/templates/base_common.html:82
-#: user_profile/templates/users/password_reset.html:11
-#: user_profile/templates/users/password_reset.html:12
-#: user_profile/templates/users/ajax/edit_password_form.html:31
+#: nivls_website/templates/base_common.haml_parsed:55
+#: user_profile/templates/users/password_reset.haml_parsed:15
+#: user_profile/templates/users/password_reset.haml_parsed:17
+#: user_profile/templates/users/ajax/edit_password_form.haml_parsed:26
 msgid "I lost my password"
 msgstr "Mot de passe perdu"
 
-#: nivls_website/templates/base_common.html:89
-#: nivls_website/templates/base_common.html:108
-#: user_profile/templates/users/sign_in.html:5
-#: user_profile/templates/users/sign_in.html:6
-#: user_profile/templates/users/sign_in.html:12
-#: user_profile/templates/users/sign_in.html:13
-#: user_profile/templates/users/sign_in.html:39
+#: nivls_website/templates/base_common.haml_parsed:58
+#: nivls_website/templates/base_common.haml_parsed:70
+#: user_profile/templates/users/sign_in.haml_parsed:6
+#: user_profile/templates/users/sign_in.haml_parsed:9
+#: user_profile/templates/users/sign_in.haml_parsed:18
+#: user_profile/templates/users/sign_in.haml_parsed:20
+#: user_profile/templates/users/sign_in.haml_parsed:47
 msgid "Sign in"
 msgstr "Connexion"
 
-#: nivls_website/templates/base_common.html:93
+#: nivls_website/templates/base_common.haml_parsed:61
 msgid "Sign in with:"
 msgstr "Passer par :"
 
-#: nivls_website/templates/base_common.html:101
+#: nivls_website/templates/base_common.haml_parsed:64
 msgid "Or sign in using your account:"
 msgstr "Ou se connecter via votre compte :"
 
-#: nivls_website/templates/base_common.html:105 user_profile/forms.py:39
-#: user_profile/forms.py:84
+#: nivls_website/templates/base_common.haml_parsed:67 user_profile/forms.py:34
+#: user_profile/forms.py:79
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: nivls_website/templates/base_common.html:106 user_profile/forms.py:21
-#: user_profile/forms.py:126
+#: nivls_website/templates/base_common.haml_parsed:68 user_profile/forms.py:16
+#: user_profile/forms.py:121
 msgid "Password"
 msgstr "Mot de passe"
 
-#: nivls_website/templates/base_common.html:120
-#: nivls_website/templates/base_common.html:121
+#: nivls_website/templates/base_common.haml_parsed:77
+#: nivls_website/templates/base_common.haml_parsed:79
 msgid "My profile"
 msgstr "Mon profil"
 
-#: nivls_website/templates/base_common.html:126
-#: nivls_website/templates/base_common.html:127
-#: user_profile/templates/users/edit_account.html:5
-#: user_profile/templates/users/edit_account.html:10
-#: user_profile/templates/users/edit_account.html:11
+#: nivls_website/templates/base_common.haml_parsed:84
+#: nivls_website/templates/base_common.haml_parsed:86
+#: user_profile/templates/users/edit_account.haml_parsed:6
+#: user_profile/templates/users/edit_account.haml_parsed:12
+#: user_profile/templates/users/edit_account.haml_parsed:14
 msgid "Edit my account"
 msgstr "Modifier mon compte"
 
-#: nivls_website/templates/base_common.html:132
-#: nivls_website/templates/base_common.html:133
-#: user_profile/templates/users/edit_picture.html:5
-#: user_profile/templates/users/edit_picture.html:10
-#: user_profile/templates/users/edit_picture.html:11
+#: nivls_website/templates/base_common.haml_parsed:91
+#: nivls_website/templates/base_common.haml_parsed:93
+#: user_profile/templates/users/edit_picture.haml_parsed:6
+#: user_profile/templates/users/edit_picture.haml_parsed:17
+#: user_profile/templates/users/edit_picture.haml_parsed:19
 msgid "Edit my profile picture"
 msgstr "Modifier ma photo de profil"
 
-#: nivls_website/templates/base_common.html:138
-#: nivls_website/templates/base_common.html:139
+#: nivls_website/templates/base_common.haml_parsed:98
+#: nivls_website/templates/base_common.haml_parsed:100
 msgid "Social media accounts"
 msgstr "Comptes liés"
 
-#: nivls_website/templates/base_common.html:147
+#: nivls_website/templates/base_common.haml_parsed:108
 msgid "Sign out"
 msgstr "Déconnexion"
 
-#: nivls_website/templates/base_common.html:168
-#: search_engine/templates/search/search.html:5
-#: search_engine/templates/search/search.html:7
-#: search_engine/templates/search/search.html:12
-#: search_engine/templates/search/search.html:13
-#: search_engine/templates/search/search.html:23
-#: search_engine/templates/search/search.html:29
-#: search_engine/templates/search/search.html:34
+#: nivls_website/templates/base_common.haml_parsed:129
+#: search_engine/templates/search/search.haml_parsed:6
+#: search_engine/templates/search/search.haml_parsed:13
+#: search_engine/templates/search/search.haml_parsed:19
+#: search_engine/templates/search/search.haml_parsed:27
+#: search_engine/templates/search/search.haml_parsed:29
+#: search_engine/templates/search/search.haml_parsed:33
 msgid "Search"
 msgstr "Chercher"
 
-#: nivls_website/templates/base_common.html:178
+#: nivls_website/templates/base_common.haml_parsed:138
+#, fuzzy
 msgid "Welcome"
 msgstr "Bienvenue"
 
-#: nivls_website/templates/base_common.html:189
+#: nivls_website/templates/base_common.haml_parsed:148
 msgid "You are here"
 msgstr "Vous êtes ici"
 
-#: nivls_website/templates/base_common.html:205
-#: user_profile/templates/users/base.html:7
+#: nivls_website/templates/base_common.haml_parsed:172
+#: user_profile/templates/users/base.haml_parsed:9
 msgid "Where you have access to your data"
 msgstr "Là où vous avez accès à vos données"
 
-#: nivls_website/templates/inc/browser_warning.html:5
+#: nivls_website/templates/inc/browser_warning.haml_parsed:6
 msgid "Browser compatibilities"
 msgstr "Compatibilité des navigateurs"
 
-#: nivls_website/templates/inc/browser_warning.html:9
+#: nivls_website/templates/inc/browser_warning.haml_parsed:11
 msgid ""
 "This website use some experimental features. To get the best experience "
 "using it, you will need the newest version of your browser or change to "
@@ -886,11 +878,11 @@ msgstr ""
 "expérience possible, vous aurez besoin de la toute dernière version de votre "
 "navigateur, ou de changer pour un plus à jour."
 
-#: nivls_website/templates/inc/browser_warning.html:12
+#: nivls_website/templates/inc/browser_warning.haml_parsed:15
 msgid "List of supported bowsers:"
 msgstr "Liste des navigateurs supportés :"
 
-#: nivls_website/templates/inc/browser_warning.html:30
+#: nivls_website/templates/inc/browser_warning.haml_parsed:31
 msgid ""
 "The other browsers have not been tested, some like Safari should work fine, "
 "others like Opera or Internet Explorer will miss several features."
@@ -899,41 +891,41 @@ msgstr ""
 "devraient fonctionner sans problème, d'autres, comme Opera où Internet "
 "Explorer, auront des fonctionalités en moins."
 
-#: nivls_website/templates/inc/browser_warning.html:35
+#: nivls_website/templates/inc/browser_warning.haml_parsed:35
 msgid "Don't care, I'm a warrior"
 msgstr "Je m'en fiche"
 
-#: nivls_website/templates/inc/browser_warning.html:39
+#: nivls_website/templates/inc/browser_warning.haml_parsed:39
 msgid "My browser is good"
 msgstr "Je suis à jour"
 
-#: nivls_website/templates/inc/footer.html:14
+#: nivls_website/templates/inc/footer.haml_parsed:41
 msgid "Navigation links"
 msgstr "Liens de navigation"
 
-#: nivls_website/templates/inc/footer.html:64
+#: nivls_website/templates/inc/footer.haml_parsed:121
 msgid "Actions"
-msgstr ""
+msgstr "Actions"
 
-#: nivls_website/templates/inc/footer.html:67
+#: nivls_website/templates/inc/footer.haml_parsed:126
 msgid "Go to the top"
 msgstr "Aller en haut de la page"
 
-#: nivls_website/templates/inc/footer.html:71
+#: nivls_website/templates/inc/footer.haml_parsed:133
 msgid "Go to the search form"
 msgstr "Aller à la recherche"
 
-#: nivls_website/templates/inc/footer.html:75
+#: nivls_website/templates/inc/footer.haml_parsed:140
 msgid "Go to the content"
 msgstr "Aller au contenu"
 
-#: nivls_website/templates/inc/footer.html:79
+#: nivls_website/templates/inc/footer.haml_parsed:147
 msgid "Refresh the page"
 msgstr "Recharger la page"
 
-#: nivls_website/templates/inc/pagination.html:8
-#: nivls_website/templates/inc/pagination.html:19
-#: nivls_website/templates/inc/pagination.html:35
+#: nivls_website/templates/inc/pagination.haml_parsed:7
+#: nivls_website/templates/inc/pagination.haml_parsed:21
+#: nivls_website/templates/inc/pagination.haml_parsed:31
 #, python-format
 msgid "Page %(i)s"
 msgstr ""
@@ -966,79 +958,79 @@ msgstr ""
 msgid "blacklisted words"
 msgstr ""
 
-#: search_engine/templates/search/search.html:6
+#: search_engine/templates/search/search.haml_parsed:9
 msgid "Where you can search things"
 msgstr "Là où vous pouvez chercher des choses"
 
-#: search_engine/templates/search/search.html:38
-#: user_profile/templates/users/ajax/password_confirm_form.html:18
-#: user_profile/templates/users/ajax/password_reset_form.html:18
+#: search_engine/templates/search/search.haml_parsed:34
+#: user_profile/templates/users/ajax/password_confirm_form.haml_parsed:15
+#: user_profile/templates/users/ajax/password_reset_form.haml_parsed:14
 msgid "Clear"
 msgstr "Effacer"
 
-#: search_engine/templates/search/search.html:45
+#: search_engine/templates/search/search.haml_parsed:39
 msgid "Results"
 msgstr "Résultats"
 
-#: search_engine/templates/search/search.html:60
+#: search_engine/templates/search/search.haml_parsed:56
 msgid "No results found."
 msgstr "Aucun résultat"
 
-#: seo/models.py:28
+#: seo/models.py:30 seo/models.py:60
 msgid "keywords"
 msgstr "mots clefs"
 
-#: seo/models.py:33
+#: seo/models.py:35
 msgid "free javascript block"
 msgstr "Bloc javascript libre"
 
-#: seo/models.py:38
+#: seo/models.py:40
 msgid "free head block"
 msgstr "Bloc 'head' libre"
 
-#: user_profile/forms.py:25
+#: user_profile/forms.py:20
 msgid "Password (again)"
 msgstr "Mot de passe (encore)"
 
-#: user_profile/forms.py:40 user_profile/forms.py:85
+#: user_profile/forms.py:35 user_profile/forms.py:80
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 "Ce champ ne peut contenir seulement des lettres, nombres ainsi que les "
 "caractères @/./+/-/_"
 
-#: user_profile/forms.py:48 user_profile/forms.py:104
+#: user_profile/forms.py:43 user_profile/forms.py:99
 msgid "Sorry, this username has already been taken."
 msgstr "Désolé, ce nom d'utilisateur a déjà été pris."
 
-#: user_profile/forms.py:56 user_profile/forms.py:143
+#: user_profile/forms.py:51 user_profile/forms.py:138
 msgid "This email address is already in use."
 msgstr "Cette adresse email est déjà utilisé."
 
-#: user_profile/forms.py:66 user_profile/forms.py:184
+#: user_profile/forms.py:61 user_profile/forms.py:179
 msgid "The passwords did not matched."
 msgstr "Les mots de passe sont différent"
 
-#: user_profile/forms.py:93
+#: user_profile/forms.py:88
 msgid "This is a one shot field, you can only edit your username once."
 msgstr "Attention, vous ne pouvez éditer ce champ qu'une seule fois."
 
-#: user_profile/forms.py:130
+#: user_profile/forms.py:125
 msgid "E-mail address"
 msgstr "Adresse e-mail"
 
-#: user_profile/forms.py:150 user_profile/forms.py:191
+#: user_profile/forms.py:145 user_profile/forms.py:186
 msgid "Wrong password."
 msgstr "Mauvais mot de passe"
 
-#: user_profile/forms.py:158
+#: user_profile/forms.py:153
 msgid "Old password"
 msgstr "Ancien mot de passe"
 
-#: user_profile/forms.py:163
+#: user_profile/forms.py:158
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: user_profile/forms.py:168
+#: user_profile/forms.py:163
 msgid "New password again"
 msgstr "Nouveau mot de passe (encore)"
 
@@ -1090,7 +1082,7 @@ msgstr "afficher mon compte twitter"
 msgid "show my github account"
 msgstr "afficher mon compte github"
 
-#: user_profile/views.py:54
+#: user_profile/views.py:51
 msgid ""
 "The sign in has failed. If you think the problem comes from us, feel free to "
 "contact us."
@@ -1098,15 +1090,15 @@ msgstr ""
 "La connexion à échouée. Si vous pensez que le problème vient de nous, vous "
 "pouvez sans problème nous contater."
 
-#: user_profile/views.py:116
+#: user_profile/views.py:113
 msgid "Your validation link"
 msgstr "Votre lien de validation"
 
-#: user_profile/views.py:158
+#: user_profile/views.py:154
 msgid "Your account has been successfully activated, you can now sign in."
 msgstr "Votre compte a bien été activé, vous pouvez maintenant vous connecter."
 
-#: user_profile/views.py:168
+#: user_profile/views.py:163
 msgid ""
 "This activation link does not exists. If you are experiencing activation "
 "issues, you can contact us using the contact form."
@@ -1114,69 +1106,69 @@ msgstr ""
 "Ce lien d'activation n'existe pas. Si vous avez des problèmes d'activation, "
 "vous pouvez nous contacter via le formulaire de contact."
 
-#: user_profile/templates/users/base.html:8
+#: user_profile/templates/users/base.haml_parsed:12
 msgid "User panel"
 msgstr "Zone membre"
 
-#: user_profile/templates/users/edit_account.html:20
-#: user_profile/templates/users/edit_account.html:28
+#: user_profile/templates/users/edit_account.haml_parsed:25
+#: user_profile/templates/users/edit_account.haml_parsed:39
 msgid "Edit my profile"
 msgstr "Modifier mon profil"
 
-#: user_profile/templates/users/edit_account.html:22
+#: user_profile/templates/users/edit_account.haml_parsed:29
 msgid "Here you can change your name, hobbies, occupation, …"
 msgstr "Ici vous pouvez changer votre nom, hobbies, emploi, …"
 
-#: user_profile/templates/users/edit_account.html:38
-#: user_profile/templates/users/edit_account.html:46
+#: user_profile/templates/users/edit_account.haml_parsed:52
+#: user_profile/templates/users/edit_account.haml_parsed:64
 msgid "Edit my settings"
 msgstr "Modifier mes options"
 
-#: user_profile/templates/users/edit_account.html:40
+#: user_profile/templates/users/edit_account.haml_parsed:55
 msgid "If you want to enable/disable some features, it's the place."
 msgstr "Si vous voulez activer/désactiver certaines options, c'est ici."
 
-#: user_profile/templates/users/edit_account.html:58
-#: user_profile/templates/users/edit_account.html:66
+#: user_profile/templates/users/edit_account.haml_parsed:77
+#: user_profile/templates/users/edit_account.haml_parsed:86
 msgid "Edit my email address"
 msgstr "Modifier mon adresse email"
 
-#: user_profile/templates/users/edit_account.html:60
+#: user_profile/templates/users/edit_account.haml_parsed:79
 msgid "You must have set a password to change you email address."
 msgstr ""
 "Vous devez avoir défini un mot de passe pour pouvoir changer votre adresse "
 "email."
 
-#: user_profile/templates/users/edit_account.html:78
-#: user_profile/templates/users/edit_account.html:86
+#: user_profile/templates/users/edit_account.haml_parsed:97
+#: user_profile/templates/users/edit_account.haml_parsed:109
 msgid "Edit my password"
 msgstr "Modifier mon mot de passe"
 
-#: user_profile/templates/users/edit_account.html:80
+#: user_profile/templates/users/edit_account.haml_parsed:99
 msgid "Here you can change or set your password."
 msgstr "Ici vous pouvez changer ou définir votre mot de passe."
 
-#: user_profile/templates/users/edit_avatar.html:3
-#: user_profile/templates/users/edit_avatar.html:6
+#: user_profile/templates/users/edit_avatar.haml_parsed:4
+#: user_profile/templates/users/edit_avatar.haml_parsed:9
 msgid "Edit thumbnail"
 msgstr "Modifier ma miniature"
 
-#: user_profile/templates/users/edit_picture.html:18
+#: user_profile/templates/users/edit_picture.haml_parsed:27
 msgid "You can drop your new picture in this box: "
 msgstr "Vous pouvez glisser votre image ici : "
 
-#: user_profile/templates/users/edit_picture.html:27
+#: user_profile/templates/users/edit_picture.haml_parsed:35
 msgid "Or you can use this form: "
 msgstr "Ou vous pouvez utiliser ce formuaire : "
 
-#: user_profile/templates/users/manage_social_accounts.html:5
-#: user_profile/templates/users/manage_social_accounts.html:10
-#: user_profile/templates/users/manage_social_accounts.html:11
-#: user_profile/templates/users/manage_social_accounts.html:17
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:6
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:12
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:14
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:23
 msgid "Manage social media accounts"
 msgstr "Gérer mes réseaux sociaux"
 
-#: user_profile/templates/users/manage_social_accounts.html:20
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:27
 msgid ""
 "Here you can link/unlink your social media accounts to this website.<br/"
 ">Linking your accounts will help you to sign in here in an easier way: You "
@@ -1187,11 +1179,11 @@ msgstr ""
 "juste à cliquer sur un compte lié dans le menu de connexion pour être "
 "connecté."
 
-#: user_profile/templates/users/manage_social_accounts.html:24
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:32
 msgid "Warning!"
 msgstr "Attention !"
 
-#: user_profile/templates/users/manage_social_accounts.html:25
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:34
 msgid ""
 "If you want to completely revoke an access, you have to do it on your "
 "provider's website."
@@ -1199,23 +1191,27 @@ msgstr ""
 "Si vous voulez complètement revoquer un accès, vous devrez le faire "
 "directement sur le site du compte lié."
 
-#: user_profile/templates/users/manage_social_accounts.html:28
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:37
 msgid "List of your linked accounts:"
 msgstr "Liste des comptes liés :"
 
-#: user_profile/templates/users/manage_social_accounts.html:34
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:43
 msgid "Delete"
 msgstr "Supprimer"
 
-#: user_profile/templates/users/manage_social_accounts.html:38
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:49
 msgid "with the account"
 msgstr "avec le compte"
 
-#: user_profile/templates/users/manage_social_accounts.html:40
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:56
 msgid "No account linked"
 msgstr "Aucun compte de lié"
 
-#: user_profile/templates/users/manage_social_accounts.html:50
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:70
+msgid "Error!"
+msgstr ""
+
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:73
 msgid ""
 "The link has failed. If you think the problem comes from us, feel free to "
 "contact us."
@@ -1223,7 +1219,7 @@ msgstr ""
 "La liaison a échouée. Si vous pensez que le problème viens de nous, "
 "n'hésitez pas à nous contacter."
 
-#: user_profile/templates/users/manage_social_accounts.html:55
+#: user_profile/templates/users/manage_social_accounts.haml_parsed:78
 msgid ""
 "List of linkable social media (click to link, you can link multiple accounts "
 "from the same social media):"
@@ -1231,24 +1227,24 @@ msgstr ""
 "Liste des réseaux sociaux liable (cliquez pour lier, vous pouvez lier "
 "plusieurs comptes d'un même réseau social):"
 
-#: user_profile/templates/users/password_confirm.html:8
-#: user_profile/templates/users/password_confirm.html:12
-#: user_profile/templates/users/password_reset.html:5
-#: user_profile/templates/users/password_reset.html:18
-#: user_profile/templates/users/ajax/password_confirm_form.html:14
-#: user_profile/templates/users/ajax/password_reset_form.html:14
+#: user_profile/templates/users/password_confirm.haml_parsed:9
+#: user_profile/templates/users/password_confirm.haml_parsed:17
+#: user_profile/templates/users/password_reset.haml_parsed:6
+#: user_profile/templates/users/password_reset.haml_parsed:25
+#: user_profile/templates/users/ajax/password_confirm_form.haml_parsed:11
+#: user_profile/templates/users/ajax/password_reset_form.haml_parsed:10
 msgid "Reset my password"
 msgstr "Réinitialiser mon mot de passe"
 
-#: user_profile/templates/users/sign_up.html:24
+#: user_profile/templates/users/sign_up.haml_parsed:32
 msgid "Sign up using a social media account"
 msgstr "S'inscrire via un réseau social"
 
-#: user_profile/templates/users/sign_up.html:25
+#: user_profile/templates/users/sign_up.haml_parsed:35
 msgid "(faster)"
 msgstr "(Rapide)"
 
-#: user_profile/templates/users/sign_up.html:32
+#: user_profile/templates/users/sign_up.haml_parsed:42
 msgid ""
 "Signing up using one of your social medias accounts is the simplest and "
 "fastest way to sign up. You won't have to fill any forms or validate your "
@@ -1258,19 +1254,19 @@ msgstr ""
 "la plus simple et la plus rapide de s'inscrire. Vous n'avez pas besoin de "
 "remplir de formulaire, ni de valider votre compte."
 
-#: user_profile/templates/users/sign_up.html:35
+#: user_profile/templates/users/sign_up.haml_parsed:43
 msgid "Click on the provider you want to use:"
 msgstr "Cliquez sur le fournisseur que vous voulez utiliser :"
 
-#: user_profile/templates/users/sign_up.html:48
+#: user_profile/templates/users/sign_up.haml_parsed:57
 msgid "Sign up manually"
 msgstr "Inscription manuelle"
 
-#: user_profile/templates/users/sign_up.html:49
+#: user_profile/templates/users/sign_up.haml_parsed:59
 msgid "(painful)"
 msgstr "(long)"
 
-#: user_profile/templates/users/sign_up.html:56
+#: user_profile/templates/users/sign_up.haml_parsed:69
 msgid ""
 "If you choose to sign up this way, we will send you an e-mail to validate "
 "your account."
@@ -1278,94 +1274,94 @@ msgstr ""
 "Si vous choisissez de vous enregistrer de cette façon, nous vous enverrons "
 "un email pour valider votre compte."
 
-#: user_profile/templates/users/view.html:5
-#: user_profile/templates/users/view.html:6
+#: user_profile/templates/users/view.haml_parsed:6
+#: user_profile/templates/users/view.haml_parsed:9
 #, python-format
 msgid "Profile of %(username)s"
 msgstr "Profil de %(username)s"
 
-#: user_profile/templates/users/view.html:12
-#: user_profile/templates/users/view.html:13
+#: user_profile/templates/users/view.haml_parsed:18
+#: user_profile/templates/users/view.haml_parsed:20
 msgid "View profile"
 msgstr "Voir un profil"
 
-#: user_profile/templates/users/view.html:24
+#: user_profile/templates/users/view.haml_parsed:36
 msgid "Name:"
 msgstr "Nom : "
 
-#: user_profile/templates/users/view.html:28
+#: user_profile/templates/users/view.haml_parsed:53
 msgid "Website:"
 msgstr "Site web :"
 
-#: user_profile/templates/users/view.html:33
+#: user_profile/templates/users/view.haml_parsed:65
 msgid "Occupation:"
 msgstr "Emploi :"
 
-#: user_profile/templates/users/view.html:37
+#: user_profile/templates/users/view.haml_parsed:76
 msgid "Hobbies:"
 msgstr "Hobbies :"
 
-#: user_profile/templates/users/ajax/edit_account_form.html:17
-#: user_profile/templates/users/ajax/edit_email_form.html:22
-#: user_profile/templates/users/ajax/edit_password_form.html:22
-#: user_profile/templates/users/ajax/edit_settings_form.html:16
+#: user_profile/templates/users/ajax/edit_account_form.haml_parsed:15
+#: user_profile/templates/users/ajax/edit_email_form.haml_parsed:18
+#: user_profile/templates/users/ajax/edit_password_form.haml_parsed:18
+#: user_profile/templates/users/ajax/edit_settings_form.haml_parsed:12
 msgid "Edit"
 msgstr "Modifier"
 
-#: user_profile/templates/users/ajax/edit_avatar_form.html:11
+#: user_profile/templates/users/ajax/edit_avatar_form.haml_parsed:9
 msgid "Update"
 msgstr "Mettre à jour"
 
-#: user_profile/templates/users/ajax/edit_avatar_ok.html:6
-#: user_profile/templates/users/ajax/edit_picture_ok.html:6
-#: user_profile/templates/users/ajax/password_confirm_done.html:5
+#: user_profile/templates/users/ajax/edit_avatar_ok.haml_parsed:6
+#: user_profile/templates/users/ajax/edit_picture_ok.haml_parsed:9
+#: user_profile/templates/users/ajax/password_confirm_done.haml_parsed:6
 msgid "Updated!"
 msgstr "Mis à jour !"
 
-#: user_profile/templates/users/ajax/edit_avatar_ok.html:7
+#: user_profile/templates/users/ajax/edit_avatar_ok.haml_parsed:7
 msgid "Your thumbnail has been successfully updated."
 msgstr "Votre miniature a correctement mis à jour"
 
-#: user_profile/templates/users/ajax/edit_email_form.html:12
+#: user_profile/templates/users/ajax/edit_email_form.haml_parsed:8
 msgid "You didn't set a password, you cannot change your email address"
 msgstr ""
 "Vous n'avez pas définie de mot de passe. Vous ne pouvez pas changer votre "
 "adresse email."
 
-#: user_profile/templates/users/ajax/edit_password_form.html:12
+#: user_profile/templates/users/ajax/edit_password_form.haml_parsed:9
 msgid "You didn't set a password. You should set one quickly"
 msgstr ""
 "Vous n'avez pas définie de mot de passe. Vous devriez le faire rapidement"
 
-#: user_profile/templates/users/ajax/edit_picture_form.html:12
+#: user_profile/templates/users/ajax/edit_picture_form.haml_parsed:10
 msgid "Upload"
 msgstr ""
 
-#: user_profile/templates/users/ajax/edit_picture_ok.html:7
+#: user_profile/templates/users/ajax/edit_picture_ok.haml_parsed:11
 msgid "Your picture has been successfully updated."
 msgstr "Votre photo a correctement été mis à jour."
 
-#: user_profile/templates/users/ajax/password_confirm_done.html:6
+#: user_profile/templates/users/ajax/password_confirm_done.haml_parsed:8
 msgid "Your password has been successfully changed."
 msgstr "Votre mot de passe a bien été change."
 
-#: user_profile/templates/users/ajax/password_reset_done.html:6
+#: user_profile/templates/users/ajax/password_reset_done.haml_parsed:6
 msgid "Email sent!"
 msgstr "Email envoyé !"
 
-#: user_profile/templates/users/ajax/password_reset_done.html:7
+#: user_profile/templates/users/ajax/password_reset_done.haml_parsed:7
 msgid "An email with an acivation link has been sent your email address."
 msgstr "Un email contenant un lien d'activation vous a été envoyé."
 
-#: user_profile/templates/users/ajax/sign_up_form.html:13
+#: user_profile/templates/users/ajax/sign_up_form.haml_parsed:9
 msgid "Signing up..."
 msgstr "Inscription…"
 
-#: user_profile/templates/users/ajax/sign_up_ok.html:4
+#: user_profile/templates/users/ajax/sign_up_ok.haml_parsed:5
 msgid "Check your emails!"
 msgstr "Vérifiez vos mails !"
 
-#: user_profile/templates/users/ajax/sign_up_ok.html:5
+#: user_profile/templates/users/ajax/sign_up_ok.haml_parsed:7
 msgid ""
 "Your account has been successfully created, but it still need to be "
 "activated. You will soon receive an email with the activation link."
@@ -1373,13 +1369,13 @@ msgstr ""
 "Votre compte a correctement été crée, mais il a besoin d'être activé. Vous "
 "allez très rapidement recevoir un email contenant un lien d'activation."
 
-#: user_profile/templates/users/inc/sign_up_mail.html:6
+#: user_profile/templates/users/inc/sign_up_mail.haml_parsed:7
 #: user_profile/templates/users/inc/sign_up_mail.txt:5
 #, python-format
 msgid "Hi %(uname)s,"
 msgstr "Bonjour %(uname)s,"
 
-#: user_profile/templates/users/inc/sign_up_mail.html:9
+#: user_profile/templates/users/inc/sign_up_mail.haml_parsed:10
 #: user_profile/templates/users/inc/sign_up_mail.txt:8
 msgid ""
 "You have successfully created your account, now it's time to activate it by "
@@ -1388,22 +1384,14 @@ msgstr ""
 "Vous avez crée votre compte, c'est maintenant le moment de l'activer en "
 "cliquant sur le lien suivant : "
 
-#: user_profile/templates/users/inc/sign_up_mail.html:11
+#: user_profile/templates/users/inc/sign_up_mail.haml_parsed:17
 #: user_profile/templates/users/inc/sign_up_mail.txt:10
 msgid "You can update your informations in the user menu."
 msgstr "Vous pouvez mettre à jour vos informations dans le menu utilisateur."
 
-#~ msgid "has subcontent"
-#~ msgstr "A du sous-contenu"
-
-#~ msgid "C.V. Sub-content"
-#~ msgstr "C.V. Sous-contenu"
-
-#~ msgid "C.V. Sub-contents"
-#~ msgstr "C.V. Sous-contenus"
-
-#~ msgid "My website"
-#~ msgstr "Mon site"
+#, fuzzy
+#~ msgid "Welcome,"
+#~ msgstr "Bienvenue"
 
 #, fuzzy
 #~ msgid "Documentation"
@@ -1432,6 +1420,24 @@ msgstr "Vous pouvez mettre à jour vos informations dans le menu utilisateur."
 #, fuzzy
 #~ msgid "Unknown content"
 #~ msgstr "contenu"
+
+#~ msgid "Available in: "
+#~ msgstr "Diponible en : "
+
+#~ msgid "Read more"
+#~ msgstr "Lire l'article"
+
+#~ msgid "has subcontent"
+#~ msgstr "A du sous-contenu"
+
+#~ msgid "C.V. Sub-content"
+#~ msgstr "C.V. Sous-contenu"
+
+#~ msgid "C.V. Sub-contents"
+#~ msgstr "C.V. Sous-contenus"
+
+#~ msgid "My website"
+#~ msgstr "Mon site"
 
 #~ msgid "Please keep filesize under %(max)s. Current filesize %(current)s"
 #~ msgstr ""

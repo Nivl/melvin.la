@@ -76,7 +76,8 @@
                       'datetime'    : '{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}'}
                     {{ post.pub_date|naturalday }}
 
-                - trans "In: "
+                \-
+                - trans "In "
                 %a{'data-ajax'  : 'body-content-only',
                    'data-depth' : '10',
                    'href'       : '{{ post.category.get_absolute_url }}'}
