@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.conf import settings
 from blog.models import *
+from commons.admin import CommonAdmin
 from seo.admin import InlineSeo, InlineMicroData
 
 # Post
@@ -129,4 +130,4 @@ admin.site.register(Tag, AdminTag)
 admin.site.register(Menu, AdminMenu)
 admin.site.register(Category, AdminCategory)
 admin.site.register(Comment, AdminComment)
-admin.site.register(Carousel)
+admin.site.register(Carousel, CommonAdmin)
