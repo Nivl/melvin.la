@@ -21,8 +21,8 @@
                      'alt'      :   '{{ image.name }}',
                      'itemprop' :   'contentURL'}
 
-                .highslide-caption{'itemprop': 'caption'}
-                    {{ image.name }}
+            .highslide-caption{'itemprop': 'caption'}
+                {{ image.description }}
 
         - if forloop.counter|divisibleby:3 or forloop.last
             </ul>
