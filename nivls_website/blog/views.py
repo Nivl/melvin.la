@@ -196,7 +196,7 @@ def preview_post(request, year, month, day, slug):
 
 @require_safe
 def post_list_by_categories(request, slug):
-    cat = get_object_or_404(Category, slug=slug)
+    cat = get_object_or_404(Category, slug=slug, site=Site.objects.get_current())
     cat_list = Category.objects.filter(left__gte=cat.left,
                                        left__lte=cat.right,
                                        site=Site.objects.get_current())
@@ -220,11 +220,10 @@ def post_list_by_categories(request, slug):
 
 @require_safe
 def post_list_by_tags(request, slug):
-    tag = get_object_or_404(Tag, slug=slug)
+    tag = get_object_or_404(Tag, slug=slug, site=Site.objects.get_current())
     post_list = Post.objects.select_related() \
         .filter(tags=tag,
-                is_public=1,
-                site=Site.objects.get_current())
+                is_public=1)
 
     posts = simple_paginator(post_list, 10, request.GET.get('page'))
     return render(request,
