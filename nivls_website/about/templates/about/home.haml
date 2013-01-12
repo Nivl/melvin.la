@@ -1,4 +1,4 @@
-- extends 'base_common.haml'
+- extends 'about/base.haml'
 
 - load url from future
 - load markup i18n staticfiles blog_tags
@@ -6,7 +6,7 @@
 - block "page-subtitle"
   - trans "Welcome to my website"
 
-- block "body-content"
+- block "content"
 
     - for link in navigation_links
 

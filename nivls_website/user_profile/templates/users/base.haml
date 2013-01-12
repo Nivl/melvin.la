@@ -10,7 +10,7 @@
     - trans "User panel"
 
 - block "body-content"
-    .container
+    .container{'role': 'main'}
         .row
             #body-content-only{'class': '{% block "body_classes" %}span12{% endblock %}'}
                 - block "content"
