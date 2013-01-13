@@ -3,7 +3,7 @@ from django import forms
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from widgets import ColorPickerWidget, CroppedImageWidget
-from django.core.exceptions import ValidationError
+from south.modelsinspector import add_introspection_rules
 
 
 class ColorField(models.CharField):
@@ -14,6 +14,7 @@ class ColorField(models.CharField):
     def formfield(self, **kwargs):
         kwargs['widget'] = ColorPickerWidget
         return super(ColorField, self).formfield(**kwargs)
+add_introspection_rules([], ["^commons\.fields\.ColorField"])
 
 
 class CroppedImageField(models.CharField):
@@ -50,7 +51,7 @@ class CroppedImageField(models.CharField):
         pic_ratio = round(int(pic_ratio_l[0]) / int(pic_ratio_l[1]), 2)
         ratio = abs(pic_ratio - avatar_ratio)
 
-        image = getattr(model_instance, self.image_field_name);
+        image = getattr(model_instance, self.image_field_name)
 
         if (w < min_size[0] and min_size[0] != 0) \
                 or (w > max_size[0] and max_size[0] != 0) \
@@ -61,3 +62,4 @@ class CroppedImageField(models.CharField):
                 or int(y) + int(h) > image.height:
             raise forms.ValidationError(_("Invalid coordinates."))
         return value
+add_introspection_rules([], ["^commons\.fields\.CroppedImageField"])

@@ -168,6 +168,6 @@ INSTALLED_APPS += (
     'bootstrapform',
     'captcha',
     'django_js_utils',
-    'django_evolution',
+    'south',
     'haystack',
 )
