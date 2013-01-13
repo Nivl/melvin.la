@@ -34,17 +34,11 @@ USE_L10N = True
 
 
 MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                          "..",
-                                          "..",
-                                          "..",
-                                          "media"))
+    '..', '..', '..', 'public', 'media'))
 MEDIA_URL = 'http://media.' + DOMAIN_NAME + '/'
 
 STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                           "..",
-                                           "..",
-                                           "..",
-                                           "static"))
+    '..', '..', '..', 'public', 'static'))
 STATIC_URL = 'http://static.' + DOMAIN_NAME + '/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"  # rm when 1.4
 
