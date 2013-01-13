@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ http://fr.laplanche-melv.in/$1 [R=301,QSA,L]
