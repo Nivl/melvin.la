@@ -1,4 +1,3 @@
-// Mobile, portrait
 @media(max-width:320px) {
     .navbar {
         .brand {
@@ -16,20 +15,66 @@
     }
 }
 
-// Mobile, landscape
 @media(max-width : 480px) {
     ul#left-menu {
         top: 0px;
     }
 }
 
-// Small screen
-@media(max-width:920px) {
-    #middle-header {
-        .wrapper {
-            h1 {
-                display: none;
+@media(max-width: 767px) {
+    body {
+        padding: 0 !important;
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    #body > footer {
+        text-align: center;
+
+        .header {
+            display: none;
+        }
+
+        .brand {
+            margin-top: 0px;
+        }
+    }
+
+    #body {
+        .post-list .row .post:first-child {
+            margin-left: 0px;
+        }
+    }
+}
+
+@media(max-width: 979px) and (min-width: 768px) {
+    #body > footer {
+        .brand {
+            font-size: 20px;
+
+            small {
+                font-size: 10px;
             }
+        }
+    }
+
+    #body {
+        .post-list .row .post {
+            min-height: 530px;
+        }
+    }
+}
+
+@media(max-width:1199px) and (min-width: 980px) {
+    #body {
+        .post-list .row .post {
+            min-height: 370px;
+        }
+    }
+
+    #body > footer {
+        .brand {
+            font-size: 28px;
         }
     }
 }
