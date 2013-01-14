@@ -2,7 +2,6 @@ import os
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from commons.fields import ColorField
 from lab.models import Project as LabProject
 from commons.models import I18nSite
 
@@ -229,6 +228,12 @@ class CVCategory(models.Model):
         default='L',
         choices=DISPLAY_TYPES,
         verbose_name=_("display type"))
+
+    image = models.ImageField(
+        upload_to='about/cv/category/',
+        null=True,
+        blank=True,
+        verbose_name=_("image"))
 
     def __unicode__(self):
         return self.name

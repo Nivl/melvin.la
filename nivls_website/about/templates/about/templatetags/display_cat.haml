@@ -9,6 +9,9 @@
                 {{ cat.name }}
 
         .span9
+            - if cat.image
+                %img.pull-right.img-rounded{'src': '{{ cat.image.url }}'}
+
             - if cat.display_type == "L"
               - cat_as_list cat is_downloadable
             - elif cat.display_type == "D"
