@@ -29,7 +29,7 @@ class LatestPostFeed(Feed):
 
 class TagFeed(LatestPostFeed):
     def get_object(self, request, slug):
-        return get_object_or_404(Tag, slug=slug)
+        return get_object_or_404(Tag, slug=slug, site=settings.SITE_ID)
 
     def title(self, obj):
         return _("%(sitename)s - Tag: %(name)s") \
@@ -50,7 +50,7 @@ class TagFeed(LatestPostFeed):
 
 class CatFeed(LatestPostFeed):
     def get_object(self, request, slug):
-        return get_object_or_404(Category, slug=slug)
+        return get_object_or_404(Category, slug=slug, site=settings.SITE_ID)
 
     def title(self, obj):
         return _("%(sitename)s - Category: %(name)s") \
