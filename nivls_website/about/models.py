@@ -196,8 +196,8 @@ class CVSection(models.Model):
     class Meta:
         ordering = ["order"]
         unique_together = ('site', 'slug')
-        verbose_name = _("C.V. Section")
-        verbose_name_plural = _("C.V. Sections")
+        verbose_name = _("Section")
+        verbose_name_plural = _("Sections")
 
 
 class CVCategory(models.Model):
@@ -241,8 +241,8 @@ class CVCategory(models.Model):
     class Meta:
         ordering = ['section', 'order']
         unique_together = (('order', 'section'))
-        verbose_name = _("C.V. Category")
-        verbose_name_plural = _("C.V. Categories")
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
 
 
 class CVContent(models.Model):
@@ -280,5 +280,33 @@ class CVContent(models.Model):
 
     class Meta:
         ordering = ['order']
-        verbose_name = _("C.V. Content")
-        verbose_name_plural = _("C.V. Contents")
+        verbose_name = _("Content")
+        verbose_name_plural = _("Contents")
+
+
+class CVDocument(models.Model):
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID,
+        verbose_name=_("site"))
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_("name"))
+
+    order = models.PositiveSmallIntegerField(
+        default=0,
+        verbose_name=_("order"))
+
+    document = models.FileField(
+        upload_to='about/cv/documents/',
+        verbose_name=_("document"))
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["order"]
+        unique_together = ('site', 'name')
+        verbose_name = _("Document")
+        verbose_name_plural = _("Documents")

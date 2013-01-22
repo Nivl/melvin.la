@@ -87,6 +87,10 @@
                     %li
                       %a{'href': '{% url "cv_pdf" %}'}
                         - trans "Download this C.V. as PDF"
+                    - for file in cv_documents
+                      %li
+                        %a{'href': '{{ file.document.url }}'}
+                          {{ file.name }}
  - if not to_pdf
     %hr
 

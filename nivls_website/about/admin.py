@@ -44,3 +44,4 @@ class CVCategoryAdmin(CommonAdmin):
 
 admin.site.register(CVSection, CVSectionAdmin)
 admin.site.register(CVCategory, CVCategoryAdmin)
+admin.site.register(CVDocument, CommonAdmin)

@@ -53,11 +53,13 @@ def about(request):
     navigation_links = NavigationLink.objects.filter(site=settings.SITE_ID)
     contact_links = ContactLink.objects.all()
     cv_sections = CVSection.objects.filter(site=settings.SITE_ID)
+    cv_documents = CVDocument.objects.filter(site=settings.SITE_ID)
     return render(request, "about/about.haml",
                   {'profile': profile,
                    'contact_links': contact_links,
                    'navigation_links': navigation_links,
                    'cv_sections': cv_sections,
+                   'cv_documents': cv_documents,
                    'to_pdf': False
                    })
 
