@@ -5,7 +5,7 @@
 {% blocktrans with post_title=post.title %}A new comment has been posted on the post "{{ post_title }}"{% endblocktrans %}
 
 
-{% trans "Comment informations:" %}
+{% trans "Comment information:" %}
 {% trans "By: " %}{% if user.is_authenticated %}{{ user.get_full_name }} ({{ user.username }}) {% else %}{{ comment.name }} {% trans "(Unregistered user)" %}{% endif %}
 {% trans "IP: " %}{{ comment.ip_address }}
 {% trans "Comment: " %}

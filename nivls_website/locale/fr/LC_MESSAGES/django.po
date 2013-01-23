@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-23 01:18+0100\n"
-"PO-Revision-Date: 2013-01-23 01:22+0100\n"
+"POT-Creation-Date: 2013-01-23 01:35+0100\n"
+"PO-Revision-Date: 2013-01-23 01:36+0100\n"
 "Last-Translator: Melvin laplanche <melvin.laplanche+dev@gmail.com>\n"
 "Language-Team: Laplanche Melvin <LL@li.org>\n"
 "Language: French\n"
@@ -570,8 +570,8 @@ msgstr "Un nouveau commentaire a été posté sur le post \"%(post_title)s\""
 
 #: blog/templates/blog/inc/comment_mail.haml_parsed:11
 #: blog/templates/blog/inc/comment_mail.txt:8
-msgid "Comment informations:"
-msgstr "Information sur le commentaire"
+msgid "Comment information:"
+msgstr "Informations sur le commentaire"
 
 #: blog/templates/blog/inc/comment_mail.haml_parsed:13
 #: blog/templates/blog/inc/comment_mail.txt:9
@@ -699,8 +699,8 @@ msgid "uploaded file"
 msgstr "fichier uploadé"
 
 #: lab/templates/lab/project.haml_parsed:48
-msgid "Informations"
-msgstr "Information"
+msgid "Information"
+msgstr "Informations"
 
 #: lab/templates/lab/project.haml_parsed:55
 #: lab/templates/lab/inc/project_includes/progress.haml_parsed:3
@@ -723,7 +723,7 @@ msgstr "Démos"
 
 #: lab/templates/lab/inc/project_includes/infos.haml_parsed:3
 #, python-format
-msgid "Informations about %(project_name)s"
+msgid "Information about %(project_name)s"
 msgstr "Informations sur %(project_name)s"
 
 #: lab/templates/lab/inc/project_includes/infos.haml_parsed:6
@@ -869,7 +869,6 @@ msgid "Search"
 msgstr "Chercher"
 
 #: nivls_website/templates/base_common.haml_parsed:138
-#, fuzzy
 msgid "Welcome"
 msgstr "Bienvenue"
 
@@ -1404,7 +1403,7 @@ msgstr ""
 
 #: user_profile/templates/users/inc/sign_up_mail.haml_parsed:17
 #: user_profile/templates/users/inc/sign_up_mail.txt:10
-msgid "You can update your informations in the user menu."
+msgid "You can update your information in the user menu."
 msgstr "Vous pouvez mettre à jour vos informations dans le menu utilisateur."
 
 #~ msgid "C.V. Section"

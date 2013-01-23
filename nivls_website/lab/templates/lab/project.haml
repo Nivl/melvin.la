@@ -47,9 +47,9 @@
 
                 %ul.nav.nav-tabs
                     %li.active
-                        %a{'href'          : "#informations",
+                        %a{'href'          : "#information",
                            'data-toggle'   : 'tab'}
-                            - trans "Informations"
+                            - trans "Information"
 
                     - if progress
                         %li
@@ -83,7 +83,7 @@
 
 
                 .tab-content
-                    #informations.tab-pane.fade.active.in
+                    #information.tab-pane.fade.active.in
                         - include "lab/inc/project_includes/infos.html"
 
                     - if progress
