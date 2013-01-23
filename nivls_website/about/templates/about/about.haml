@@ -6,115 +6,114 @@
 - block "menu-about"
    active
 - block "page-title"
-  - trans "About"
+    - trans "About"
 - block "page-subtitle"
-  - trans "Where you learn more about me"
+    - trans "Where you learn more about me"
 
 - block "breadcrumb-content"
-  %li<
-    %span.divider /
-  %li
-    %a{'data-depth' : '1',
-       'data-ajax'  : 'body-content',
-       'title'      : '{% trans "About" %}',
-       'href'       : '{% url "about" %}'}
-      - trans "About"
+    %li<
+        %span.divider /
+    %li
+        %a{'data-depth' : '1',
+           'data-ajax'  : 'body-content',
+           'title'      : '{% trans "About" %}',
+           'href'       : '{% url "about" %}'}
+            - trans "About"
 
 - block "header-classes"
-  - if to_pdf
-    hide
+    - if to_pdf
+        hide
 
 - block "footer"
-  - if not to_pdf
-    ={ block.super }
+    - if not to_pdf
+        {{ block.super }}
 
 - block "local_css"
-  - if to_pdf
-    - compressed_css 'wkhtml2pdf'
-    :css
-      #body-content{
-        margin-top: 0px;
-      }
-  - else
-    ={ block.super }
+    - if to_pdf
+        - compressed_css 'wkhtml2pdf'
+        :css
+            #body-content{
+                margin-top: 0px;
+            }
+    - else
+        {{ block.super }}
 
 - block "content"
-  - if not to_pdf
-    %section.clean-section
-      %h2<
-        {% trans "Welcome to my website" %}
-      .section-content
-        {{ profile.about_me|markdown }}
-
-    %hr
-    %h2<
-      {% trans "C.V." %}
-
-  %article#resume.accordion.clean-accordion.main-accordion
-    - for section in cv_sections
-      .accordion-group
-        %h2
-          %a.accordion-toggle{'data-toggle' : 'collapse',
-                              'data-parent' : '#resume',
-                              'href'        : '#{{ section.slug }}'}
-            {{ section.name }}
-
-        %section{'id'   : '{{ section.slug }}',
-                 'class': 'collapse{% if to_pdf %} in{% endif %}'}
-
-          .block
-            .container-fluid
-              {% display_cat section.cvcategory_set.all to_pdf %}
-
     - if not to_pdf
-      .accordion-group
-        %h2
-          %a.accordion-toggle{'data-toggle' : 'collapse',
-                              'data-parent' : '#resume',
-                              'href'        : '#downloads'}
-            - trans "Downloads"
+        %section.clean-section
+            %h2<
+                {% trans "Welcome to my website" %}
+            .section-content
+                {{ profile.about_me|markdown }}
 
-        %section#downloads.collapse
-          .block
-            .container-fluid
-              .row-fluid
-                .span4
-                  %h3<
-                    - trans "Downloads"
+        %hr
+        %h2<
+            {% trans "C.V." %}
 
-                .span8
-                  %ul.element.unstyled
-                    %li
-                      %a{'href': '{% url "cv_pdf" %}'}
-                        - trans "Download this C.V. as PDF"
-                    - for file in cv_documents
-                      %li
-                        %a{'href': '{{ file.document.url }}'}
-                          {{ file.name }}
- - if not to_pdf
-    %hr
+    %article#resume.accordion.clean-accordion.main-accordion
+        - for section in cv_sections
+            .accordion-group
+                %h2
+                    %a.accordion-toggle{'data-toggle' : 'collapse',
+                                        'data-parent' : '#resume',
+                                        'href'        : '#{{ section.slug }}'}
+                        {{ section.name }}
 
-    %section.clean-section-full-size
-      %h2<
-        - trans "Be social"
+                %section{'id'   : '{{ section.slug }}',
+                         'class': 'collapse{% if to_pdf %} in{% endif %}'}
 
-        - for link in contact_links
+                    .block
+                        .container-fluid
+                            {% display_cat section.cvcategory_set.all to_pdf %}
 
-            - if forloop.counter0|divisibleby:4
-              <div class="row">
-            .span3
-                .big-badge
-                    %a{'{{ link.attributes|safe }}' : None,
-                       'href'                       : '{{ link.link }}'}
+        - if not to_pdf
+            .accordion-group
+                %h2
+                    %a.accordion-toggle{'data-toggle' : 'collapse',
+                                        'data-parent' : '#resume',
+                                        'href'        : '#downloads'}
+                        - trans "Downloads"
 
-                        .informations
-                            %h4
-                                {{ link.name }}
+                %section#downloads.collapse
+                    .block
+                        .container-fluid
+                            .row-fluid
+                                .span4
+                                    %h3<
+                                        - trans "Downloads"
 
-                            %i{'class': '{{ link.icon }}'}
+                                .span8
+                                    %ul.element.unstyled
+                                        %li
+                                            %a{'href': '{% url "cv_pdf" %}'}
+                                                - trans "Download this C.V. as PDF"
+                                        - for file in cv_documents
+                                            %li
+                                                %a{'href': '{{ file.document.url }}'}
+                                                    {{ file.name }}
+        - if not to_pdf
+            %hr
 
-                            %p
-                                {{ link.description }}
+            %section.clean-section-full-size
+                %h2<
+                    - trans "Be social"
 
-            - if forloop.counter|divisibleby:4 or forloop.last
-              </div>
+                - for link in contact_links
+                    - if forloop.counter0|divisibleby:4
+                        <div class="row">
+                    .span3
+                        .big-badge
+                            %a{'{{ link.attributes|safe }}' : None,
+                               'href'                       : '{{ link.link }}'}
+
+                                .informations
+                                    %h4
+                                        {{ link.name }}
+
+                                    %i{'class': '{{ link.icon }}'}
+
+                                    %p
+                                        {{ link.description }}
+
+                    - if forloop.counter|divisibleby:4 or forloop.last
+                        </div>
