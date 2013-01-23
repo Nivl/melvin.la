@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-06 23:47+0100\n"
-"PO-Revision-Date: 2013-01-06 23:55+0100\n"
+"POT-Creation-Date: 2013-01-23 01:18+0100\n"
+"PO-Revision-Date: 2013-01-23 01:22+0100\n"
 "Last-Translator: Melvin laplanche <melvin.laplanche+dev@gmail.com>\n"
 "Language-Team: Laplanche Melvin <LL@li.org>\n"
 "Language: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: about/forms.py:10
 msgid "Subject"
@@ -29,160 +30,170 @@ msgstr "Adresse email"
 msgid "Message"
 msgstr "Message"
 
-#: about/models.py:14 about/models.py:56 about/models.py:110
-#: about/models.py:184 about/models.py:216 about/models.py:250
-#: blog/models.py:19 blog/models.py:59 blog/models.py:98 blog/models.py:165
-#: blog/models.py:395 commons/models.py:11 lab/models.py:81 lab/models.py:120
-#: lab/models.py:162 lab/models.py:204 seo/models.py:14
+#: about/models.py:13 about/models.py:55 about/models.py:109
+#: about/models.py:180 about/models.py:212 about/models.py:252
+#: about/models.py:291 blog/models.py:19 blog/models.py:59 blog/models.py:98
+#: blog/models.py:165 blog/models.py:395 commons/models.py:11 lab/models.py:81
+#: lab/models.py:120 lab/models.py:162 lab/models.py:204 seo/models.py:14
 msgid "site"
 msgstr "site"
 
-#: about/models.py:18 about/models.py:72 about/models.py:114
-#: about/models.py:188 about/models.py:225 blog/models.py:23 blog/models.py:38
-#: blog/models.py:63 blog/models.py:102 blog/models.py:320 blog/models.py:365
-#: lab/models.py:17 lab/models.py:64 lab/models.py:85 lab/models.py:124
-#: lab/models.py:166 lab/models.py:208 lab/models.py:360 lab/models.py:388
-#: lab/models.py:415 lab/models.py:449 seo/models.py:79
+#: about/models.py:17 about/models.py:71 about/models.py:113
+#: about/models.py:184 about/models.py:221 about/models.py:295
+#: blog/models.py:23 blog/models.py:38 blog/models.py:63 blog/models.py:102
+#: blog/models.py:320 blog/models.py:365 lab/models.py:17 lab/models.py:64
+#: lab/models.py:85 lab/models.py:124 lab/models.py:166 lab/models.py:208
+#: lab/models.py:360 lab/models.py:388 lab/models.py:415 lab/models.py:449
+#: seo/models.py:79
 msgid "name"
 msgstr "nom"
 
-#: about/models.py:22 about/models.py:148 blog/models.py:111 lab/models.py:131
+#: about/models.py:21 about/models.py:144 blog/models.py:111 lab/models.py:131
 #: lab/models.py:173 lab/models.py:238 lab/models.py:327 lab/models.py:363
 #: lab/models.py:421 lab/models.py:452 seo/models.py:25 seo/models.py:55
 msgid "description"
 msgstr "description"
 
-#: about/models.py:26 about/models.py:75
+#: about/models.py:25 about/models.py:74
 msgid "link"
 msgstr "lien"
 
-#: about/models.py:32 about/models.py:81
+#: about/models.py:31 about/models.py:80
 msgid "attributes"
 msgstr "attributs"
 
-#: about/models.py:36 about/models.py:85 lab/models.py:436
+#: about/models.py:35 about/models.py:84 lab/models.py:436
 msgid "icon"
 msgstr "icône"
 
-#: about/models.py:40 about/models.py:89 about/models.py:140
-#: about/models.py:195 about/models.py:228 about/models.py:259
-#: blog/models.py:26 blog/models.py:399
+#: about/models.py:39 about/models.py:88 about/models.py:136
+#: about/models.py:191 about/models.py:224 about/models.py:261
+#: about/models.py:299 blog/models.py:26 blog/models.py:399
 msgid "order"
 msgstr "ordre"
 
-#: about/models.py:47
+#: about/models.py:46
 msgid "navigation link"
 msgstr "lien de navigation"
 
-#: about/models.py:48
+#: about/models.py:47
 msgid "navigation links"
 msgstr "liens de navigation"
 
-#: about/models.py:59
+#: about/models.py:58
 msgid "about me"
 msgstr "À propos de moi"
 
-#: about/models.py:65
+#: about/models.py:64
 msgid "profile"
 msgstr "profil"
 
-#: about/models.py:66
+#: about/models.py:65
 msgid "profiles"
 msgstr "profils"
 
-#: about/models.py:96
+#: about/models.py:95
 msgid "contact link"
 msgstr "lien de contact"
 
-#: about/models.py:97
+#: about/models.py:96
 msgid "contact links"
 msgstr "liens de contact"
 
-#: about/models.py:117 about/models.py:191 blog/models.py:66
+#: about/models.py:116 about/models.py:187 blog/models.py:66
 #: blog/models.py:105 blog/models.py:195 lab/models.py:21 lab/models.py:68
 #: lab/models.py:88 lab/models.py:127 lab/models.py:169 lab/models.py:211
 msgid "slug"
 msgstr "slug"
 
-#: about/models.py:120 lab/models.py:71
-msgid "color"
-msgstr "couleur"
-
-#: about/models.py:127
+#: about/models.py:123
 msgid "work Type"
 msgstr "type de travail"
 
-#: about/models.py:128
+#: about/models.py:124
 msgid "work Types"
 msgstr "types de travail"
 
-#: about/models.py:136
+#: about/models.py:132
 msgid "lab"
 msgstr ""
 
-#: about/models.py:145
+#: about/models.py:141
 msgid "screenshot"
 msgstr ""
 
-#: about/models.py:153
+#: about/models.py:149
 msgid "work"
 msgstr "travail"
 
-#: about/models.py:170
+#: about/models.py:166
 msgid "work Project"
 msgstr "Projet"
 
-#: about/models.py:171
+#: about/models.py:167
 msgid "work Projects"
 msgstr "Projets"
 
-#: about/models.py:203
-msgid "C.V. Section"
-msgstr "C.V. Section"
-
-#: about/models.py:204
-msgid "C.V. Sections"
-msgstr "C.V. Sections"
-
-#: about/models.py:221
+#: about/models.py:199 about/models.py:217
 msgid "Section"
 msgstr "Section"
 
-#: about/models.py:234
+#: about/models.py:200
+msgid "Sections"
+msgstr "Sections"
+
+#: about/models.py:230
 msgid "display type"
 msgstr "type d'affichage"
 
-#: about/models.py:242
-msgid "C.V. Category"
-msgstr "C.V. Categorie"
+#: about/models.py:236 blog/models.py:324 lab/models.py:99 lab/models.py:141
+#: lab/models.py:183 lab/models.py:367 lab/models.py:393
+msgid "image"
+msgstr "image"
 
-#: about/models.py:243
-msgid "C.V. Categories"
-msgstr "C.V. Categories"
+#: about/models.py:244
+msgid "Category"
+msgstr "Categorie"
 
-#: about/models.py:255 blog/models.py:181
+#: about/models.py:245
+msgid "Categories"
+msgstr "Categories"
+
+#: about/models.py:257 blog/models.py:181
 msgid "category"
 msgstr "categorie"
 
-#: about/models.py:265
+#: about/models.py:267
 msgid "key"
 msgstr "clef"
 
-#: about/models.py:268
+#: about/models.py:270
 msgid "value"
 msgstr "valeur"
 
-#: about/models.py:274
+#: about/models.py:276
 msgid "value for download"
 msgstr "valeur pour téléchargement"
 
-#: about/models.py:281
-msgid "C.V. Content"
-msgstr "C.V. Contenu"
+#: about/models.py:283
+msgid "Content"
+msgstr "Contenu"
 
-#: about/models.py:282
-msgid "C.V. Contents"
-msgstr "C.V. Contenus"
+#: about/models.py:284
+msgid "Contents"
+msgstr "Contenus"
+
+#: about/models.py:303
+msgid "document"
+msgstr "document"
+
+#: about/models.py:311
+msgid "Document"
+msgstr "Document"
+
+#: about/models.py:312
+msgid "Documents"
+msgstr "Documents"
 
 #: about/templates/about/about.haml_parsed:10
 #: about/templates/about/about.haml_parsed:19
@@ -205,8 +216,8 @@ msgstr "Bienvenue sur mon site"
 msgid "C.V."
 msgstr ""
 
-#: about/templates/about/about.haml_parsed:88
-#: about/templates/about/about.haml_parsed:97
+#: about/templates/about/about.haml_parsed:87
+#: about/templates/about/about.haml_parsed:96
 #: lab/templates/lab/project.haml_parsed:79
 #: lab/templates/lab/inc/project_includes/downloads.haml_parsed:4
 msgid "Downloads"
@@ -216,7 +227,15 @@ msgstr "Téléchargements"
 msgid "Download this C.V. as PDF"
 msgstr "Télécharger ce C.V. au format PDF"
 
-#: about/templates/about/about.haml_parsed:119
+#: about/templates/about/about.haml_parsed:115
+msgid ""
+"You can download several documents such as academic degrees, tests results, "
+"etc., on my website: "
+msgstr ""
+"Vous pouvez télécharger plusieurs documents comme mes diplômes, résultats "
+"d'examens, etc., sur mon site web : "
+
+#: about/templates/about/about.haml_parsed:130
 #: nivls_website/templates/inc/footer.haml_parsed:81
 msgid "Be social"
 msgstr ""
@@ -229,7 +248,7 @@ msgstr ""
 
 #: about/templates/about/contact.haml_parsed:11
 msgid "Where we can get in touch"
-msgstr "Là où on peut être en contact"
+msgstr "Là où vous pouvez me contacter"
 
 #: about/templates/about/contact_form.haml_parsed:11
 #: blog/templates/blog/ajax/comment_form.haml_parsed:9
@@ -430,11 +449,6 @@ msgstr "autoriser les commentaires"
 msgid "edit date"
 msgstr "date de modification"
 
-#: blog/models.py:324 lab/models.py:99 lab/models.py:141 lab/models.py:183
-#: lab/models.py:367 lab/models.py:393
-msgid "image"
-msgstr "image"
-
 #: blog/models.py:328 blog/models.py:351 blog/models.py:405
 msgid "post"
 msgstr "article"
@@ -591,7 +605,7 @@ msgstr "Il n'y a aucun article."
 msgid "There are no links."
 msgstr "Il n'y a aucun lien."
 
-#: commons/fields.py:62 commons/forms.py:10 commons/forms.py:46
+#: commons/fields.py:63 commons/forms.py:10 commons/forms.py:46
 msgid "Invalid coordinates."
 msgstr "Coordonnées invalides"
 
@@ -610,6 +624,10 @@ msgstr "icône 'activé'"
 #: lab/models.py:31
 msgid "icon 'disabled'"
 msgstr "icône 'désactivé'"
+
+#: lab/models.py:71
+msgid "color"
+msgstr "couleur"
 
 #: lab/models.py:217
 msgid "catchphrase"
@@ -1389,13 +1407,24 @@ msgstr ""
 msgid "You can update your informations in the user menu."
 msgstr "Vous pouvez mettre à jour vos informations dans le menu utilisateur."
 
+#~ msgid "C.V. Section"
+#~ msgstr "C.V. Section"
+
+#~ msgid "C.V. Sections"
+#~ msgstr "C.V. Sections"
+
+#~ msgid "C.V. Category"
+#~ msgstr "C.V. Categorie"
+
+#~ msgid "C.V. Content"
+#~ msgstr "C.V. Contenu"
+
+#~ msgid "C.V. Contents"
+#~ msgstr "C.V. Contenus"
+
 #, fuzzy
 #~ msgid "Welcome,"
 #~ msgstr "Bienvenue"
-
-#, fuzzy
-#~ msgid "Documentation"
-#~ msgstr "emploi"
 
 #, fuzzy
 #~ msgid "Change password"

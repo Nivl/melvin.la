@@ -66,24 +66,24 @@
                         .container-fluid
                             {% display_cat section.cvcategory_set.all to_pdf %}
 
-        - if not to_pdf
-            .accordion-group
-                %h2
-                    %a.accordion-toggle{'data-toggle' : 'collapse',
-                                        'data-parent' : '#resume',
-                                        'href'        : '#downloads'}
-                        - trans "Downloads"
+        .accordion-group
+            %h2
+                %a.accordion-toggle{'data-toggle' : 'collapse',
+                                    'data-parent' : '#resume',
+                                    'href'        : '#downloads'}
+                    - trans "Downloads"
 
-                %section#downloads.collapse
-                    .block
-                        .container-fluid
-                            .row-fluid
-                                .span4
-                                    %h3<
-                                        - trans "Downloads"
+            %section#downloads{'class': 'collapse{% if to_pdf %} in{% endif %}'}
+                .block
+                    .container-fluid
+                        .row-fluid
+                            .span3
+                                %h3<
+                                    - trans "Downloads"
 
-                                .span8
-                                    %ul.element.unstyled
+                            .span9
+                                %ul.element.unstyled
+                                    - if not to_pdf
                                         %li
                                             %a{'href': '{% url "cv_pdf" %}'}
                                                 - trans "Download this C.V. as PDF"
@@ -91,6 +91,10 @@
                                             %li
                                                 %a{'href': '{{ file.document.url }}'}
                                                     {{ file.name }}
+                                    - else
+                                        %li
+                                            - trans "You can download several documents such as academic degrees, tests results, etc., on my website: "
+                                            <a href="http://{{ DOMAIN_NAME }}{% url "cv" %}">{{ DOMAIN_NAME }}{% url "cv" %}</a>
         - if not to_pdf
             %hr
 
