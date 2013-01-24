@@ -41,8 +41,15 @@ class CVCategoryAdmin(CommonAdmin):
     list_filter = ['section']
 
 
+class InlineDocument(admin.TabularInline):
+    model = CVDocument
+    extra = 1
+
+
+class CVDocumentCategoryAdmin(CommonAdminWithSlug):
+    inlines = [InlineDocument]
+
 admin.site.register(CVSection, CVSectionAdmin)
 admin.site.register(CVCategory, CVCategoryAdmin)
 
-admin.site.register(CVDocument, CommonAdmin)
-admin.site.register(CVDocumentCategory, CommonAdminWithSlug)
+admin.site.register(CVDocumentCategory, CVDocumentCategoryAdmin)
