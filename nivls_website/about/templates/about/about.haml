@@ -1,7 +1,7 @@
 - extends "about/base.haml"
 
 - load url from future
-- load markup i18n compressed about_tags
+- load markup i18n compressed
 
 - block "menu-about"
    active
@@ -47,81 +47,32 @@
                 {{ profile.about_me|markdown }}
 
         %hr
-        %h2<
-            {% trans "C.V." %}
 
-    %article#resume.accordion.clean-accordion.main-accordion
-        - for section in cv_sections
-            .accordion-group
-                %h2
-                    %a.accordion-toggle{'data-toggle' : 'collapse',
-                                        'data-parent' : '#resume',
-                                        'href'        : '#{{ section.slug }}'}
-                        {{ section.name }}
+    {% include "resumes/inc/resume.haml" %}
 
-                %section{'id'   : '{{ section.slug }}',
-                         'class': 'collapse{% if to_pdf %} in{% endif %}'}
+    - if not to_pdf
+        %hr
 
-                    .block
-                        .container-fluid
-                            {% display_cat section.cvcategory_set.all to_pdf %}
+        %section.clean-section-full-size
+            %h2<
+                - trans "Be social"
 
-        .accordion-group
-            %h2
-                %a.accordion-toggle{'data-toggle' : 'collapse',
-                                    'data-parent' : '#resume',
-                                    'href'        : '#downloads'}
-                    - trans "Downloads"
+            - for link in contact_links
+                - if forloop.counter0|divisibleby:4
+                    <div class="row">
+                .span3
+                    .big-badge
+                        %a{'{{ link.attributes|safe }}' : None,
+                           'href'                       : '{{ link.link }}'}
 
-            %section#downloads{'class': 'collapse{% if to_pdf %} in{% endif %}'}
-                .block
-                    .container-fluid
-                        .row-fluid
-                            .span3
-                                %h3<
-                                    - trans "Downloads"
+                            .informations
+                                %h4
+                                    {{ link.name }}
 
-                            .span9
-                                %ul.element.unstyled
-                                    - if not to_pdf
-                                        %li
-                                            %a{'href': '{% url "cv_pdf" %}'}
-                                                - trans "Download this C.V. as PDF"
-                                        - for cat in cv_document_cats
-                                            %li
-                                                {{ cat.name }}
-                                                %ul
-                                                    - for file in cat.cvdocument_set.all
-                                                        %li
-                                                            %a{'href': '{{ file.document.url }}'}
-                                                                {{ file.name }}
-                                    - else
-                                        %li
-                                            - trans "You can download several documents such as academic degrees, tests results, etc., on my website: "
-                                            <a href="http://{{ DOMAIN_NAME }}{% url "cv" %}">{{ DOMAIN_NAME }}{% url "cv" %}</a>
-        - if not to_pdf
-            %hr
+                                %i{'class': '{{ link.icon }}'}
 
-            %section.clean-section-full-size
-                %h2<
-                    - trans "Be social"
+                                %p
+                                    {{ link.description }}
 
-                - for link in contact_links
-                    - if forloop.counter0|divisibleby:4
-                        <div class="row">
-                    .span3
-                        .big-badge
-                            %a{'{{ link.attributes|safe }}' : None,
-                               'href'                       : '{{ link.link }}'}
-
-                                .informations
-                                    %h4
-                                        {{ link.name }}
-
-                                    %i{'class': '{{ link.icon }}'}
-
-                                    %p
-                                        {{ link.description }}
-
-                    - if forloop.counter|divisibleby:4 or forloop.last
-                        </div>
+                - if forloop.counter|divisibleby:4 or forloop.last
+                    </div>

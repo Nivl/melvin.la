@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.conf import settings
-from commons.admin import CommonAdmin, CommonAdminWithSlug
+from commons.admin import CommonAdminWithSlug
 from models import *
 
 admin.site.register(Profile)
@@ -20,36 +20,3 @@ class WorkProjectAdmin(admin.ModelAdmin):
         return super(WorkProjectAdmin, self).queryset(request) \
                                             .filter(lab__site=settings.SITE_ID)
 admin.site.register(WorkProject, WorkProjectAdmin)
-
-
-class InlineCategory(admin.TabularInline):
-    model = CVCategory
-    extra = 1
-
-
-class CVSectionAdmin(CommonAdminWithSlug):
-    inlines = [InlineCategory]
-
-
-class InlineContent(admin.TabularInline):
-    model = CVContent
-    extra = 1
-
-
-class CVCategoryAdmin(CommonAdmin):
-    inlines = [InlineContent]
-    list_filter = ['section']
-
-
-class InlineDocument(admin.TabularInline):
-    model = CVDocument
-    extra = 1
-
-
-class CVDocumentCategoryAdmin(CommonAdminWithSlug):
-    inlines = [InlineDocument]
-
-admin.site.register(CVSection, CVSectionAdmin)
-admin.site.register(CVCategory, CVCategoryAdmin)
-
-admin.site.register(CVDocumentCategory, CVDocumentCategoryAdmin)

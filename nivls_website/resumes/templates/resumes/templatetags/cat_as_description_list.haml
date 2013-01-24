@@ -2,7 +2,7 @@
 
 .element
     %dl.dl-horizontal
-        - for content in cat.cvcontent_set.all
+        - for content in cat.content_set.all
             - if content.key
                 %dt<
                     {{ content.key }}

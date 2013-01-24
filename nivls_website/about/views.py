@@ -6,6 +6,7 @@ from django.views.decorators.http import require_safe
 from django.core.mail import send_mail
 from commons.views import write_pdf
 from commons.decorators import ajax_only
+from resumes.models import *
 from models import *
 from forms import *
 
@@ -52,8 +53,8 @@ def about(request):
     profile = get_object_or_404(Profile, pk=Site.objects.get_current())
     navigation_links = NavigationLink.objects.filter(site=settings.SITE_ID)
     contact_links = ContactLink.objects.all()
-    cv_sections = CVSection.objects.filter(site=settings.SITE_ID)
-    cv_document_cats = CVDocumentCategory.objects.filter(site=settings.SITE_ID)
+    cv_sections = Section.objects.filter(site=settings.SITE_ID)
+    cv_document_cats = DocumentCategory.objects.filter(site=settings.SITE_ID)
     return render(request, "about/about.haml",
                   {'profile': profile,
                    'contact_links': contact_links,
@@ -66,7 +67,7 @@ def about(request):
 
 @require_safe
 def cv_pdf(request):
-    cv_sections = CVSection.objects.filter(site=settings.SITE_ID)
+    cv_sections = Section.objects.filter(site=settings.SITE_ID)
     c = RequestContext(request, {'cv_sections': cv_sections, 'to_pdf': True})
     return write_pdf("about/about.haml", c, "cv_laplanche_melvin.pdf")
 
