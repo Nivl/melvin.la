@@ -284,11 +284,43 @@ class CVContent(models.Model):
         verbose_name_plural = _("Contents")
 
 
+class CVDocumentCategory(models.Model):
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID,
+        verbose_name=_("site"))
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_("name"))
+
+    slug = models.SlugField(
+        verbose_name=_("slug"))
+
+    order = models.PositiveSmallIntegerField(
+        default=0,
+        verbose_name=_("order"))
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["order"]
+        unique_together = ('site', 'name')
+        verbose_name = _("Document category")
+        verbose_name_plural = _("Documents category")
+
+
 class CVDocument(models.Model):
     site = models.ForeignKey(
         I18nSite,
         default=settings.SITE_ID,
         verbose_name=_("site"))
+
+    category = models.ForeignKey(
+        CVDocumentCategory,
+        limit_choices_to={'site': settings.SITE_ID},
+        verbose_name=_("category"))
 
     name = models.CharField(
         max_length=255,

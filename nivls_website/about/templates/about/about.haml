@@ -87,10 +87,14 @@
                                         %li
                                             %a{'href': '{% url "cv_pdf" %}'}
                                                 - trans "Download this C.V. as PDF"
-                                        - for file in cv_documents
+                                        - for cat in cv_document_cats
                                             %li
-                                                %a{'href': '{{ file.document.url }}'}
-                                                    {{ file.name }}
+                                                {{ cat.name }}
+                                                %ul
+                                                    - for file in cat.cvdocument_set.all
+                                                        %li
+                                                            %a{'href': '{{ file.document.url }}'}
+                                                                {{ file.name }}
                                     - else
                                         %li
                                             - trans "You can download several documents such as academic degrees, tests results, etc., on my website: "

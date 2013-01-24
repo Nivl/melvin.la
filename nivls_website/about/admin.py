@@ -12,7 +12,6 @@ class NavigationLinkAdmin(admin.ModelAdmin):
     def queryset(self, request):
         return super(NavigationLinkAdmin, self).queryset(request) \
                                                .filter(site=settings.SITE_ID)
-
 admin.site.register(NavigationLink, NavigationLinkAdmin)
 
 
@@ -44,4 +43,6 @@ class CVCategoryAdmin(CommonAdmin):
 
 admin.site.register(CVSection, CVSectionAdmin)
 admin.site.register(CVCategory, CVCategoryAdmin)
+
 admin.site.register(CVDocument, CommonAdmin)
+admin.site.register(CVDocumentCategory, CommonAdminWithSlug)
