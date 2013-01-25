@@ -288,7 +288,7 @@ class Post(models.Model):
         if self.pk is not None:
             origin = Post.objects.get(pk=self.pk)
             if origin.main_image != self.main_image:
-                if os.path.exists(origin.main_image.path):
+                if origin.main_image and os.path.exists(origin.main_image.path):
                     os.remove(origin.main_image.path)
         super(Post, self).save(*arg, **kwargs)
         try:
