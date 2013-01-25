@@ -197,17 +197,14 @@ class Post(models.Model):
     main_image = models.ImageField(
         upload_to="articles/originals/",
         help_text="1170x400",
+        blank=True,
+        null=True,
         verbose_name=_("main image"))
 
     short_description = models.CharField(
         max_length=80,
         help_text="80 chars maximum",
         verbose_name=_("short description"))
-
-    thumbnail = models.ImageField(
-        upload_to="articles/thumbnails/",
-        help_text="260x180",
-        verbose_name=_("thumbnail"))
 
     long_description = models.CharField(
         max_length=175,
