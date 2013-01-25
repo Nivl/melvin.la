@@ -1,4 +1,4 @@
-{% load i18n %}
+- load i18n markup
 
 %h2
     - trans "Images"
@@ -22,7 +22,7 @@
                      'itemprop' :   'contentURL'}
 
             .highslide-caption{'itemprop': 'caption'}
-                {{ image.description }}
+                {{ image.description|markdown }}
 
         - if forloop.counter|divisibleby:3 or forloop.last
             </ul>
