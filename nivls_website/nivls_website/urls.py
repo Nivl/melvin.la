@@ -39,6 +39,12 @@ urlpatterns += patterns(
     url(r'^favicon.ico$', RedirectView.as_view(
             url='%s/commons/img/favicon.ico' % settings.STATIC_URL
             )),
+    url(r'^apple-touch-icon-precomposed.png$', RedirectView.as_view(
+            url='%s/commons/img/apple-touch-icon-precomposed.png' % settings.STATIC_URL
+            )),
+    url(r'^apple-touch-icon.png$', RedirectView.as_view(
+            url='%s/commons/img/apple-touch-icon.png' % settings.STATIC_URL
+            )),
 )
 
 js_info_dict = {

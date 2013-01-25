@@ -18,6 +18,10 @@
                   'content' : '{% block "meta-description" %}{{ seo.description }}{% endblock %}'}
             %link{'rel'     : 'shortcut icon',
                   'href'    : '{% static "commons/img/favicon.ico" %}'}
+            %link{'rel'     : 'apple-touch-icon',
+                  'href'    : '{% static "commons/img/apple-touch-icon.png" %}'}
+            %link{'rel'     : 'apple-touch-icon-precomposed',
+                  'href'    : '{% static "commons/img/apple-touch-icon-precomposed.png" %}'}
             {{ seo.free_head_block|safe }}
 
             - block "local_css"
