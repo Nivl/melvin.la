@@ -297,9 +297,6 @@ class Post(models.Model):
             if origin.main_image != self.main_image:
                 if os.path.exists(origin.main_image.path):
                     os.remove(origin.main_image.path)
-            if origin.thumbnail != self.thumbnail:
-                if os.path.exists(origin.thumbnail.path):
-                    os.remove(origin.thumbnail.path)
         super(Post, self).save(*arg, **kwargs)
         try:
             ping_google()
