@@ -119,13 +119,6 @@ class Category(models.Model):
     right = models.PositiveIntegerField(
         verbose_name=_("right"))
 
-    thumbnail = models.ImageField(
-        upload_to="categories/",
-        help_text="115x115",
-        blank=True,
-        null=True,
-        verbose_name=_("thumbnail"))
-
     seo = generic.GenericRelation(
         SeoEverywhere,
         related_name='blog_cat_seo')
