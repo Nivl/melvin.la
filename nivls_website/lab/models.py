@@ -23,7 +23,6 @@ class Tag(models.Model):
         verbose_name=_("name"))
 
     slug = models.SlugField(
-        unique=True,
         verbose_name=_("slug"))
 
     icon_enabled = models.ImageField(
