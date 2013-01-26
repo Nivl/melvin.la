@@ -360,6 +360,8 @@ class Image(models.Model):
         verbose_name=_("name"))
 
     description = models.TextField(
+        null=True,
+        blank=True,
         verbose_name=_("description"))
 
     image = models.ImageField(

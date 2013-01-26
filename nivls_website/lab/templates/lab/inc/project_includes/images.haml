@@ -14,15 +14,16 @@
             %meta{'itemprop': 'title',
                   'content' : '{{ image.description }}'}
 
-            %a.thumbnail.highslide{'title'        : '{{ image.description }}',
+            %a.thumbnail.highslide{'title'        : '{{ image.name }}',
                                    'href'         : '{{ image.image.url }}'}
 
                 %img{'src'      :   '{{ image.image.url }}',
                      'alt'      :   '{{ image.name }}',
                      'itemprop' :   'contentURL'}
 
-            .highslide-caption{'itemprop': 'caption'}
-                {{ image.description|markdown }}
+            - if image.description
+                .highslide-caption{'itemprop': 'caption'}
+                    {{ image.description|markdown }}
 
         - if forloop.counter|divisibleby:3 or forloop.last
             </ul>
