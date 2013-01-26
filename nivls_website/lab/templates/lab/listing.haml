@@ -3,7 +3,10 @@
 - load url from future
 
 - block "title"
-    {{ tag.name }}
+    - if tag
+        {{ tag.name }}
+    - else
+        {{ block.super }}
 
 - block "meta-description"
     - if tag.seo.all.0
