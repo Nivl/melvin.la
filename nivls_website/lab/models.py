@@ -12,6 +12,12 @@ from seo.models import SeoEverywhere, SeoMicroData
 
 
 class Tag(models.Model):
+    site = models.ForeignKey(
+        I18nSite,
+        default=settings.SITE_ID,
+        related_name='labtag_set',
+        verbose_name=_("site"))
+
     name = models.CharField(
         max_length=255,
         verbose_name=_("name"))
@@ -56,6 +62,9 @@ class Tag(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        unique_together = ('site', 'slug')
 
 
 class Language(models.Model):
@@ -283,6 +292,7 @@ class Project(models.Model):
         Tag,
         null=True,
         blank=True,
+        limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("tags"))
 
     seo = generic.GenericRelation(
