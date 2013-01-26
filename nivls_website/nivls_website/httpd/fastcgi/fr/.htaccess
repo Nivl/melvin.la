@@ -2,6 +2,7 @@ AddHandler fcgid-script .fcgi
 RewriteEngine On
 
 # Redirects
+Redirect 301 /lab/tag/robotic/ /lab/tag/robotique/
 Redirect 301 /blog/contact/ /contact/
 Redirect 301 /c-v/ /about/#resume
 Redirect 301 /blog/c-v/ /about/#resume

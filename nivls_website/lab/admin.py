@@ -55,7 +55,7 @@ class DLIconAdmin(admin.ModelAdmin):
     list_display = ['admin_thumbnail']
 
 
-class TagAdmin(PrepoSlugAdmin):
+class TagAdmin(CommonAdminWithSlug):
     list_display = ['admin_thumbnail', 'name']
     inlines = [InlineSeo]
 
