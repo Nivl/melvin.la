@@ -15,6 +15,7 @@ from lab.models import Project
 class Menu(models.Model):
     site = models.ForeignKey(
         I18nSite,
+        related_name='site_menu_blog',
         default=settings.SITE_ID,
         verbose_name=_("site"))
 
@@ -46,6 +47,7 @@ class Link(models.Model):
 
     menu = models.ForeignKey(
         Menu,
+        related_name='menu_link',
         verbose_name=_("menu"))
 
     def __unicode__(self):
@@ -55,6 +57,7 @@ class Link(models.Model):
 class Tag(models.Model):
     site = models.ForeignKey(
         I18nSite,
+        related_name='site_tag_blog',
         default=settings.SITE_ID,
         verbose_name=_("site"))
 
@@ -67,7 +70,7 @@ class Tag(models.Model):
 
     seo = generic.GenericRelation(
         SeoEverywhere,
-        related_name='blog_tag_seo')
+        related_name='seo_tag_blog')
 
     def __unicode__(self):
         return self.name
@@ -94,6 +97,7 @@ class Tag(models.Model):
 class Category(models.Model):
     site = models.ForeignKey(
         I18nSite,
+        related_name='site_category_blog',
         default=settings.SITE_ID,
         verbose_name=_("site"))
 
@@ -121,7 +125,7 @@ class Category(models.Model):
 
     seo = generic.GenericRelation(
         SeoEverywhere,
-        related_name='blog_cat_seo')
+        related_name='seo_category_blog')
 
     def has_child(self):
         return self.right - self.left > 1
@@ -154,6 +158,7 @@ class Category(models.Model):
 class Post(models.Model):
     site = models.ForeignKey(
         I18nSite,
+        related_name='site_post_blog',
         default=settings.SITE_ID,
         verbose_name=_("site"))
 
@@ -166,10 +171,12 @@ class Post(models.Model):
 
     author = models.ForeignKey(
         User,
+        related_name='author_post_blog',
         verbose_name=_("author"))
 
     category = models.ForeignKey(
         Category,
+        related_name='category_post',
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("category"))
 
@@ -177,6 +184,7 @@ class Post(models.Model):
         Project,
         blank=True,
         null=True,
+        related_name='lab_post',
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("Lab"))
 
@@ -211,6 +219,7 @@ class Post(models.Model):
         Tag,
         blank=True,
         null=True,
+        related_name='tags_post',
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("Tags"))
 
@@ -218,6 +227,7 @@ class Post(models.Model):
         "self",
         blank=True,
         null=True,
+        related_name='i18n_post',
         limit_choices_to=~models.Q(site=settings.SITE_ID),
         verbose_name=_("i18n"))
 
@@ -231,23 +241,23 @@ class Post(models.Model):
 
     seo = generic.GenericRelation(
         SeoEverywhere,
-        related_name='blog_post_seo')
+        related_name='seo_post_blog')
 
     micro_data = generic.GenericRelation(
         SeoMicroData,
-        related_name='blog_post_md')
+        related_name='microdata_post_blog')
 
     def parsed_content(self):
-        return image_name_to_link(self.content, self.image_set.all())
+        return image_name_to_link(self.content, self.post_image.all())
 
     def __unicode__(self):
         return self.title
 
     def get_public_comments(self):
-        return self.comment_set.filter(is_public=True)
+        return self.post_comment.filter(is_public=True)
 
     def count_public_comments(self):
-        return self.comment_set.filter(is_public=True).count()
+        return self.post_comment.filter(is_public=True).count()
 
     @models.permalink
     def get_absolute_url(self):
@@ -312,6 +322,7 @@ class Image(models.Model):
 
     post = models.ForeignKey(
         Post,
+        related_name='post_image',
         verbose_name=_("post"))
 
     def __unicode__(self):
@@ -331,10 +342,12 @@ class Comment(models.Model):
         User,
         null=True,
         blank=True,
+        related_name='user_comment_blog',
         verbose_name=_('user'))
 
     post = models.ForeignKey(
         Post,
+        related_name='post_comment',
         verbose_name=_('post'))
 
     is_public = models.BooleanField(
@@ -379,6 +392,7 @@ class Carousel(models.Model):
     site = models.ForeignKey(
         I18nSite,
         default=settings.SITE_ID,
+        related_name='site_carousel_blog',
         verbose_name=_("site"))
 
     order = models.PositiveSmallIntegerField(
@@ -387,6 +401,7 @@ class Carousel(models.Model):
 
     post = models.ForeignKey(
         Post,
+        related_name='post_carousel',
         limit_choices_to={'site': settings.SITE_ID,
                           'is_public': 1},
         verbose_name=_("post"))

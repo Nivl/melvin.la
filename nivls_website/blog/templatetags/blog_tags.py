@@ -42,7 +42,7 @@ def blog_archives():
 def blog_tagcloud():
     tags = Tag.objects.filter(site=Site.objects.get_current()) \
                       .order_by("name") \
-                      .annotate(num_post=Count('post__id'))
+                      .annotate(num_post=Count('tags_post__id'))
     tag_list = list()
 
     largest = 24

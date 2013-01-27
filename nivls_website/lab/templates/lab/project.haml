@@ -38,7 +38,7 @@
         - for data in post.micro_data.all
             %meta{'itemprop': '{{ data.name }}', 'content': '{{ data.content }}'}
 
-        - with progress=project.progress_set.all todo=project.todo_set.all images=project.image_set.all videos=project.video_set.all downloads=project.download_set.all
+        - with progress=project.progress_project.all todo=project.todo_project.all images=project.image_project.all videos=project.video_project.all downloads=project.download_project.all
             %h1{'itemprop': 'name'}<
                 {{ project.name }}
 

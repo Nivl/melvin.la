@@ -9,6 +9,7 @@ from commons.fields import CroppedImageField
 class UserProfile(models.Model):
     user = models.OneToOneField(
         User,
+        related_name='user_userprofile_user_profile',
         verbose_name=_("user"))
 
     activation_code = models.CharField(

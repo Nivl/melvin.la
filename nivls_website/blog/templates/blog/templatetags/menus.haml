@@ -9,7 +9,7 @@
                 %li.nav-header.margin-top-1
                     {{ menu.name }}
 
-                    - with menu.link_set.all as links
+                    - with menu.link_menu.all as links
                         - for link in links
                             %li.margin-left-1
                                 %a{'title'  : '{{ link.title }}',

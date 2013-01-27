@@ -8,6 +8,7 @@ class I18nSite(models.Model):
     site = models.OneToOneField(
         Site,
         primary_key=True,
+        related_name='site_i18nsite_commons',
         verbose_name=_("site"))
 
     language = models.CharField(

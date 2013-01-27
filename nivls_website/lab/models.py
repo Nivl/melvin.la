@@ -15,7 +15,7 @@ class Tag(models.Model):
     site = models.ForeignKey(
         I18nSite,
         default=settings.SITE_ID,
-        related_name='labtag_set',
+        related_name='lab_tag_site',
         verbose_name=_("site"))
 
     name = models.CharField(
@@ -85,6 +85,7 @@ class Language(models.Model):
 class License(models.Model):
     site = models.ForeignKey(
         I18nSite,
+        related_name='lab_license_site',
         default=settings.SITE_ID,
         verbose_name=_("site"))
 
@@ -124,6 +125,7 @@ class License(models.Model):
 class Coworker(models.Model):
     site = models.ForeignKey(
         I18nSite,
+        related_name='lab_coworker_site',
         default=settings.SITE_ID,
         verbose_name=_("site"))
 
@@ -166,6 +168,7 @@ class Coworker(models.Model):
 class Client(models.Model):
     site = models.ForeignKey(
         I18nSite,
+        related_name='lab_client_site',
         default=settings.SITE_ID,
         verbose_name=_("site"))
 
@@ -208,6 +211,7 @@ class Client(models.Model):
 class Project(models.Model):
     site = models.ForeignKey(
         I18nSite,
+        related_name='lab_project_site',
         default=settings.SITE_ID,
         verbose_name=_("site"))
 
@@ -234,6 +238,7 @@ class Project(models.Model):
 
     license = models.ForeignKey(
         License,
+        related_name='lab_project_license',
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("license"))
 
@@ -256,6 +261,7 @@ class Project(models.Model):
 
     languages = models.ManyToManyField(
         Language,
+        related_name='lab_project_languages',
         through='ProjectLanguageRate',
         verbose_name=_("languages"))
 
@@ -263,13 +269,14 @@ class Project(models.Model):
         User,
         null=True,
         blank=True,
-        related_name="coworker_user",
+        related_name="lab_project_coworkers_user",
         verbose_name=_("coworkers (real users)"))
 
     coworkers = models.ManyToManyField(
         Coworker,
         null=True,
         blank=True,
+        related_name="project_coworkers",
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("coworkers"))
 
@@ -277,13 +284,14 @@ class Project(models.Model):
         User,
         null=True,
         blank=True,
-        related_name="clients_user",
+        related_name="lab_project_clients_user",
         verbose_name=_("client (real users)"))
 
     clients = models.ManyToManyField(
         Client,
         null=True,
         blank=True,
+        related_name="project_clients",
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("clients"))
 
@@ -291,6 +299,7 @@ class Project(models.Model):
         Tag,
         null=True,
         blank=True,
+        related_name="project_tags",
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("tags"))
 
@@ -317,10 +326,12 @@ class Project(models.Model):
 class ProjectLanguageRate(models.Model):
     language = models.ForeignKey(
         Language,
+        related_name="projectlanguagerate_language",
         verbose_name=_("language"))
 
     project = models.ForeignKey(
         Project,
+        related_name="projectlanguagerate_project",
         verbose_name=_("Project"))
 
     rate = models.PositiveIntegerField(
@@ -341,6 +352,7 @@ class Progress(models.Model):
 
     project = models.ForeignKey(
         Project,
+        related_name="progress_project",
         verbose_name=_("project"))
 
     def __unicode__(self):
@@ -357,6 +369,7 @@ class Todo(models.Model):
 
     project = models.ForeignKey(
         Project,
+        related_name="todo_project",
         verbose_name=_("project"))
 
     def __unicode__(self):
@@ -379,6 +392,7 @@ class Image(models.Model):
 
     project = models.ForeignKey(
         Project,
+        related_name="image_project",
         verbose_name=_("project"))
 
     def __unicode__(self):
@@ -444,10 +458,12 @@ class Download(models.Model):
 
     icon = models.ForeignKey(
         DownloadIcon,
+        related_name="download_icon",
         verbose_name=_("icon"))
 
     project = models.ForeignKey(
         Project,
+        related_name="download_project",
         verbose_name=_("project"))
 
     def __unicode__(self):
@@ -467,6 +483,7 @@ class Video(models.Model):
 
     project = models.ForeignKey(
         Project,
+        related_name="video_project",
         verbose_name=_("project"))
 
     def __unicode__(self):

@@ -11,6 +11,7 @@ class SEO(models.Model):
         I18nSite,
         primary_key=True,
         default=settings.SITE_ID,
+        related_name='site_seo_seo',
         verbose_name=_("site"))
 
     title = models.CharField(

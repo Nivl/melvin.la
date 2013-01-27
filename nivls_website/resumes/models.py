@@ -8,6 +8,7 @@ class Section(models.Model):
     site = models.ForeignKey(
         I18nSite,
         default=settings.SITE_ID,
+        related_name='site_section_resumes',
         verbose_name=_("site"))
 
     name = models.CharField(
@@ -39,6 +40,7 @@ class Category(models.Model):
 
     section = models.ForeignKey(
         Section,
+        related_name='section_category',
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("Section"))
 
@@ -74,6 +76,7 @@ class Category(models.Model):
 class Content(models.Model):
     category = models.ForeignKey(
         Category,
+        related_name='category_content',
         limit_choices_to={'section__site': settings.SITE_ID},
         verbose_name=_("category"))
 
@@ -108,6 +111,7 @@ class Content(models.Model):
 class DocumentCategory(models.Model):
     site = models.ForeignKey(
         I18nSite,
+        related_name='site_documentcategory_resumes',
         default=settings.SITE_ID,
         verbose_name=_("site"))
 
@@ -135,6 +139,7 @@ class DocumentCategory(models.Model):
 class Document(models.Model):
     category = models.ForeignKey(
         DocumentCategory,
+        related_name='category_document',
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("category"))
 

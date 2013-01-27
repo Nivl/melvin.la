@@ -9,6 +9,7 @@ from commons.models import I18nSite
 class NavigationLink(models.Model):
     site = models.ForeignKey(
         I18nSite,
+        related_name='site_navigationlink_about',
         default=settings.SITE_ID,
         verbose_name=_("site"))
 
@@ -105,6 +106,7 @@ class ContactLink(models.Model):
 class WorkType(models.Model):
     site = models.ForeignKey(
         I18nSite,
+        related_name='site_worktype_about',
         default=settings.SITE_ID,
         verbose_name=_("site"))
 
@@ -128,6 +130,7 @@ class WorkProject(models.Model):
     lab = models.ForeignKey(
         LabProject,
         primary_key=True,
+        related_name='lab_workproject_about',
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("lab"))
 
@@ -145,6 +148,7 @@ class WorkProject(models.Model):
 
     works = models.ManyToManyField(
         WorkType,
+        related_name='works_workpoject',
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("work"))
 

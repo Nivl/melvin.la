@@ -20,7 +20,7 @@
 
                 .block
                     .container-fluid
-                        {% display_cat section.category_set.all to_pdf %}
+                        {% display_cat section.section_category.all to_pdf %}
 
     .accordion-group
         %h2
@@ -47,7 +47,7 @@
                                         %li
                                             {{ cat.name }}
                                             %ul
-                                                - for file in cat.document_set.all
+                                                - for file in cat.category_document.all
                                                     %li
                                                         %a{'href': '{{ file.document.url }}'}
                                                             {{ file.name }}
