@@ -49,9 +49,18 @@
                                'class'    : 'color',
                                'value'    : '#{{ lang.language.color }} '}
 
-    %span{'itemprop': 'description'}
+    %div{'itemprop': 'description'}
         {{ project.description|markdown }}
 
+
+- with project.lab_post_blog.all as entries
+    - if entries
+        %h3
+            - trans "Blog entries related to this project"
+        %p
+            - for entry in entries
+                %a.btn{'href' : '{{ entry.get_absolute_url }}'}
+                    {{ entry }}
 
 - with project.clients_user.all as clients_user
     - with project.clients.all as clients

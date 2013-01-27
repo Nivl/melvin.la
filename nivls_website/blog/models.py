@@ -184,7 +184,7 @@ class Post(models.Model):
         Project,
         blank=True,
         null=True,
-        related_name='lab_post',
+        related_name='lab_post_blog',
         limit_choices_to={'site': settings.SITE_ID},
         verbose_name=_("Lab"))
 
