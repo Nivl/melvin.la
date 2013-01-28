@@ -6,7 +6,7 @@
 
     .modal-body
         {% csrf_token %}
-        {{ account_form }}
+        {{ account_form|bootstrap }}
         {{ profile_form|bootstrap }}
 
 
