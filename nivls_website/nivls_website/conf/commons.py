@@ -15,9 +15,7 @@ ABSOLUTE_URL_OVERRIDES = {
 
 LOCALE_PATHS = (
     os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                 "..",
-                                 "..",
-                                 "locale")),
+       '..', '..', 'locale')),
 )
 
 SESSION_COOKIE_DOMAIN = '.' + DOMAIN_NAME
