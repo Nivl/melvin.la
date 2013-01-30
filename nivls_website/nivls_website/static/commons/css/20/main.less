@@ -190,12 +190,12 @@ dd > p {
     }
 }
 
-.btn-danger {
-    background-color: lighten(@btnDangerBackgroundHighlight, 5%);
+.btn-info {
+    background-color: @btnInfoBackgroundHighlight;
 
     &:hover,
     &:active {
-        background-color: darken(@btnDangerBackgroundHighlight, 5%);
+        background-color: darken(@btnInfoBackgroundHighlight, 5%);
     }
 }
 
@@ -214,6 +214,17 @@ dd > p {
     &:hover,
     &:active {
         background-color: darken(@btnPrimaryBackgroundHighlight, 5%);
+    }
+}
+
+.btn-danger,
+.btn.disabled,
+.btn[disabled] {
+    background-color: lighten(@btnDangerBackgroundHighlight, 5%);
+
+    &:hover,
+    &:active {
+        background-color: darken(@btnDangerBackgroundHighlight, 5%);
     }
 }
 
@@ -567,8 +578,12 @@ table {
 }
 
 .bigger-fields {
-    input, textarea, select, .uneditable-input {
+    input, select, .uneditable-input {
         width: 320px;
+    }
+
+    textarea {
+        width: 510px;
     }
 }
 
