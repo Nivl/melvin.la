@@ -16,10 +16,6 @@ $(function() {
     storeData();
     preview();
     dropFile();
-
-    $(window).konami(function() {
-        $('body').toggleClass('konami');
-    });
 });
 
 

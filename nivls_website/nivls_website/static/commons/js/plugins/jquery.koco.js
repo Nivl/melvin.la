@@ -1,1 +1,0 @@
-;(function(a){a.fn.konami=function(c,b){if(b==undefined){b="38,38,40,40,37,39,37,39,66,65"}return this.each(function(){var d=[];a(this).keydown(function(f){d.push(f.keyCode);while(d.length>b.split(",").length){d.shift()}if(d.toString().indexOf(b)>=0){c(f)}})})}})(jQuery);
