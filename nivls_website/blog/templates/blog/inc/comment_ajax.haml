@@ -21,7 +21,9 @@
 
                         Ajaxion_switch_elem('{{ post.get_form_url }}',
                                         '#comment-form',
-                                        '*');
+                                        '*',
+                                        [markdownEditor]);
+
                     {% if user.is_authenticated %}
                         Ajaxion_switch_elem_content('{{ post.get_comment_url }}',
                                             '#comment-list',
@@ -32,6 +34,8 @@
                                             '#comment-count',
                                             '*');
                     {% endif %}
+                } else {
+                    markdownEditor();
                 }
             },
             function(){

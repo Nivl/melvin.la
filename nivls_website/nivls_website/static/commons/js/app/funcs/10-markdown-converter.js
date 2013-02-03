@@ -7,12 +7,15 @@ function markdownToHtml(elem) {
 function markdownEditor() {
     $('[data-parse]').each(function () {
         var target = $(this).data('parse');
-        $(this).before('<div id="markup-bar"></div>');
 
-        // ugly leak
-        var markdown_converter = new Markdown.getSanitizingConverter();
-        var markdown_editor = new Markdown.Editor(markdown_converter,
-            {'bar': 'markup-bar', 'preview': $(target).prop('id'), 'input': $(this).prop('id')});
-        markdown_editor.run();
+        if ($(this).prev().prop('id') != 'markup-bar') {
+            $(this).before('<div id="markup-bar"></div>');
+
+            // ugly leak
+            var markdown_converter = new Markdown.getSanitizingConverter();
+            var markdown_editor = new Markdown.Editor(markdown_converter,
+                {'bar': 'markup-bar', 'preview': $(target).prop('id'), 'input': $(this).prop('id')});
+            markdown_editor.run();
+        }
     });
 }
