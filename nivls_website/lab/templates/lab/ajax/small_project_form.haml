@@ -1,0 +1,16 @@
+- load i18n bootstrap
+
+%form{'id': 'small-project-form-{{ slug }}',
+      'method': 'post',
+      'action': '{{ url }}'}
+    - csrf_token
+
+    {{ form|bootstrap }}
+
+    .form-actions
+        %button.btn.btn-primary{'type'              : 'submit',
+                                'data-loading-text' : '{% trans "Sending..." %}'}<
+            - trans "Send"
+
+        %button.btn.btn-danger{'type': 'reset'}<
+            - trans "Reset"

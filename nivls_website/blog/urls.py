@@ -30,26 +30,6 @@ urlpatterns = patterns(
         'display_post',
         name='post'),
 
-    url(r"^%s/comments/list/$" % post_r,
-        'comment_list',
-        name='post-comment-list'),
-
-    url(r"^%s/comments/form/$" % post_r,
-        'comment_form',
-        name='post-comment-form'),
-
-    url(r"^%s/comments/count/$" % post_r,
-        'comment_count',
-        name='post-comment-count'),
-
-    url(r"^%s/comments/get/(?P<pk>\d+)/$" % post_r,
-        'comment_single',
-        name='post-comment-single'),
-
-    url(r"^%s/comments/get/(?P<pk>\d+)/form/$" % post_r,
-        'comment_single_form',
-        name='post-comment-single-form'),
-
     url(r'^preview/'
         '(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
         'preview_post',
@@ -62,6 +42,30 @@ urlpatterns = patterns(
     url(r'^tag/(?P<slug>[-\w]+)/$',
         'post_list_by_tags',
         name='tag'),
+)
+
+urlpatterns += patterns(
+    'blog.views',
+
+    url(r"^get/%s/comment/list/$" % post_r,
+        'comment_list',
+        name='post-comment-list'),
+
+    url(r"^get/%s/comment/form/$" % post_r,
+        'comment_form',
+        name='post-comment-form'),
+
+    url(r"^get/%s/comment/count/$" % post_r,
+        'comment_count',
+        name='post-comment-count'),
+
+    url(r"^get/%s/comment/get/(?P<pk>\d+)/$" % post_r,
+        'comment_single',
+        name='post-comment-single'),
+
+    url(r"^get/%s/comment/get/(?P<pk>\d+)/form/$" % post_r,
+        'comment_single_form',
+        name='post-comment-single-form'),
 )
 
 feeds_urlpatterns = patterns(

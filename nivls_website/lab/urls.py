@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls.defaults import patterns, url
 from sitemaps import *
 from commons.sitemaps import StaticSitemap
 
@@ -19,8 +19,21 @@ urlpatterns = patterns(
 
     url(r'^project/(?P<slug>[-\w]+)/$',
         'project',
-        name='lab-project'), )
+        name='lab-project'),
+)
 
+
+urlpatterns += patterns(
+    'lab.views',
+
+    url(r'^get/project/(?P<slug>[-\w]+)/small/$',
+        'get_project_small',
+        name='lab-get-project-small'),
+
+    url(r'^get/project/(?P<slug>[-\w]+)/small/form/$',
+        'get_project_small_form',
+        name='lab-get-project-small-form'),
+)
 
 urlpatterns += static_urlpatterns
 

@@ -1,0 +1,46 @@
+{% load i18n tz %}
+
+:javascript
+
+    $(document).off('click', '.edit-link')
+        .on('click', '.edit-link', function (e) {
+            var that = this;
+            var area = $(this).parents('.live-edit').find('.editable_area');
+            var pk = $(area).prop('id').replace('lab_project_', '');
+
+            var url_values = {
+                slug: pk
+            }
+
+            var selector = '#' + $(area).prop('id');
+            if ($(area).find(">:first-child").prop("tagName") == 'P') {
+                var url = resolve_urls('lab-get-project-small-form', url_values);
+
+                $.get(url, function(data){
+                    $(selector).html(data);
+
+                    var post_selector = '#small-project-form-' + pk;
+
+                    $(post_selector).on('submit', function(){
+                        Ajaxion_post(
+                            url, post_selector,
+                            function(data, proceed){
+                                if (proceed) {
+                                    $(that).trigger('click');
+                                }
+                            });
+                        return false;
+                    });
+                });
+            } else {
+                var url = resolve_urls('lab-get-project-small', url_values);
+
+                $.get(url, function(data){
+                    $(selector).html(data);
+
+                    $(that).parents('.live-edit').animateHighlight();
+                });
+            }
+
+            return false;
+        });

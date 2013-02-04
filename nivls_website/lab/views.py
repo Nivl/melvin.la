@@ -2,8 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.views.decorators.http import require_safe
 from django.contrib.sites.models import Site
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse
+from commons.decorators import ajax_only
 from commons.paginator import simple_paginator
 from models import *
+from forms import *
 
 
 @require_safe
@@ -29,3 +33,35 @@ def tag(request, slug):
 def project(request, slug):
     p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
     return render(request, "lab/project.haml", {'project': p})
+
+
+@require_safe
+def get_project_small(request, slug):
+    p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
+    return render(request, "lab/inc/project_description.haml", {'project': p})
+
+
+@ajax_only
+def get_project_small_form(request, slug):
+    project = get_object_or_404(Project,
+      slug=slug,
+      site=Site.objects.get_current())
+
+    if not request.user.has_perm('lab.change_project'):
+        return HttpResponseForbidden()
+
+    if request.method == 'POST':
+        form = SmallProjectForm(request.POST, prefix="single")
+        if form.is_valid():
+            project.description = form.cleaned_data['description']
+            project.save()
+            return HttpResponse()
+    else:
+        form = SmallProjectForm(initial={'description': project.description},
+                                 prefix="single")
+
+    return render(request, "lab/ajax/small_project_form.haml",
+                  {"form": form,
+                   "slug": slug,
+                   'url': reverse('lab-get-project-small-form', args=[slug])
+                   })

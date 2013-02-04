@@ -44,67 +44,56 @@
 
     }
 
-
     /* Comments ajax */
     var boundAction = {};
 
-    $(document).off('mouseenter mouseleave', '.comment')
-        .on({
-        mouseenter: function() {
-            $(this).find('.edit-comment-link').show()
-        },
-        mouseleave: function() {
-            $(this).find('.edit-comment-link').hide()
-        },
-        }, '.comment');
+    $(document).off('click', '.edit-link')
+        .on('click', '.edit-link', function (e) {
+            var that = this;
+            var area = $(this).parents('.comment').find('.editable_area');
+            var pk = $(area).prop('id').replace('comment_', '');
 
-    $(document).off('click', '.edit-comment-link')
-        .on('click', '.edit-comment-link', function (e) {
-        var that = this;
-        var area = $(this).parents('.comment').find('.editable_area');
-        var pk = $(area).prop('id').replace('comment_', '');
+            {% localtime off %}
+              var url_values = {
+                      year:'{{ post.pub_date.year }}',
+                      month:'{{ post.pub_date|date:'m' }}',
+                      day:'{{ post.pub_date|date:'d' }}',
+                      slug:'{{ post.slug }}',
+                      pk:pk
+              }
+            {% endlocaltime %}
 
-        {% localtime off %}
-          var url_values = {
-                  year:'{{ post.pub_date.year }}',
-                  month:'{{ post.pub_date|date:'m' }}',
-                  day:'{{ post.pub_date|date:'d' }}',
-                  slug:'{{ post.slug }}',
-                  pk:pk
-          }
-        {% endlocaltime %}
+            var selector = '#' + $(area).prop('id');
+            if ($(area).find(">:first-child").prop("tagName") == 'P') {
+                var url = resolve_urls('post-comment-single-form', url_values);
 
-        var selector = '#' + $(area).prop('id');
-        if ($(area).find(">:first-child").prop("tagName") == 'P') {
-            var url = resolve_urls('post-comment-single-form', url_values);
+                $.get(url, function(data){
+                    $(selector).html(data);
+                    $("#comment_" + pk + "_avatar").toggle();
 
-            $.get(url, function(data){
-                $(selector).html(data);
-                $("#comment_" + pk + "_avatar").toggle();
+                    var post_selector = '#comment-single-form-' + pk;
 
-                var post_selector = '#comment-single-form-' + pk;
-
-                $(post_selector).on('submit', function(){
-                    Ajaxion_post(
-                        url, post_selector,
-                        function(data, proceed){
-                            if (proceed) {
-                                $(that).trigger('click');
-                            }
-                        });
-                    return false;
+                    $(post_selector).on('submit', function(){
+                        Ajaxion_post(
+                            url, post_selector,
+                            function(data, proceed){
+                                if (proceed) {
+                                    $(that).trigger('click');
+                                }
+                            });
+                        return false;
+                    });
                 });
-            });
-        } else {
-            var url = resolve_urls('post-comment-single', url_values);
+            } else {
+                var url = resolve_urls('post-comment-single', url_values);
 
-            $.get(url, function(data){
-                $(selector).html(data);
-                $("#comment_" + pk + "_avatar").toggle();
+                $.get(url, function(data){
+                    $(selector).html(data);
+                    $("#comment_" + pk + "_avatar").toggle();
 
-                $(that).parents('.comment').animateHighlight();
-            });
-        }
+                    $(that).parents('.comment').animateHighlight();
+                });
+            }
 
-        return false;
+            return false;
         });

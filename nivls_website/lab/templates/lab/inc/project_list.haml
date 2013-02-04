@@ -1,15 +1,25 @@
 - load i18n markup
 - load url from future
 
+- block "app_js"
+   - include "lab/inc/list_edit_ajax.haml"
+
 - for project in projects
-    %section.clean-section{'itemscope': None, 'itemtype': 'http://schema.org/SoftwareApplication'}
+    %section.clean-section.live-edit{'itemscope': None, 'itemtype': 'http://schema.org/SoftwareApplication'}
         %h2{'itemprop': 'name'}<
             {{ project.name }}
 
+            - if perms.lab.change_project
+                %small
+                    %a.edit-link{'href' : '#',
+                                 'style': 'display:none;'}
+                        %i.icon-edit
+
         .section-content.margin-top-1
-            %span{'itemprop': 'description'}
-                {{ project.description|markdown }}
-            %a.btn{'itemprop': 'url',
+            %span.editable_area{'itemprop': 'description',
+                                'id'      : 'lab_project_{{ project.slug }}'}
+                - include 'lab/inc/project_description.haml'
+            %a.btn{'itemprop'   : 'url',
                    'data-depth' : '30',
                    'data-ajax'  : 'body-content-only',
                    'title'      : '{{ project.name }}',

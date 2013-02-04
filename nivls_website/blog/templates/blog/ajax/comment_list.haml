@@ -1,7 +1,7 @@
 - load markup humanize common_tags user_tags i18n tz
 
 - for comment in comments
-    %section.comment.clearfix{'itemscope'   : None,
+    %section.comment.live-edit.clearfix{'itemscope'   : None,
                               'itemtype'    : 'http://schema.org/UserComments',
                               'itemprop'    : 'comment'}
         %span.info
@@ -30,7 +30,7 @@
                 {{ comment.pub_date|time }}
 
             - if user.is_authenticated and user == comment.user or perms.blog.change_comment
-                %a.edit-comment-link{'href' : '#',
+                %a.edit-link{'href' : '#',
                                      'style': 'display:none;'}
                   %i.icon-edit
 
