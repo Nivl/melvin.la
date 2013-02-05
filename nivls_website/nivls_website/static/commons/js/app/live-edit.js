@@ -16,8 +16,8 @@ function liveEdit(prefix, url_values, unit_url, form_url, lookup_elem, unique_fi
     lookup_elem = (lookup_elem === undefined) ? ('.edit-link') : (lookup_elem);
     unique_field = (unique_field === undefined) ? ('slug') : (unique_field);
     first_tag = (first_tag === undefined) ? ('P') : (first_tag.toUpperCase());
-    to_form = (to_form === undefined) ? (function(){}) : (to_form);
-    to_text = (to_form === undefined) ? (function(){}) : (to_text);
+    to_form = (to_form === undefined) ? ($.noop) : (to_form);
+    to_text = (to_text === undefined) ? ($.noop) : (to_text);
 
 
     $(document).off('mouseenter mouseleave', '.live-edit')
