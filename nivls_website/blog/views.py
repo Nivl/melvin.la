@@ -92,11 +92,11 @@ def comment_single_form(request, year, month, day, slug, pk):
             return HttpResponse()
     else:
         form = SingleTextareaForm(initial={'single': comment.comment}, size=97)
-    return render(request, "blog/ajax/comment_single_form.haml",
+    return render(request, "ajax/single_field_form.haml",
                   {"form": form,
-                   "pk": pk,
+                   "id": 'comment-single-form-' + str(pk),
                    'url': reverse('post-comment-single-form',
-                                  args=[year, month, day, slug, pk])
+                                   args=[year, month, day, slug, pk])
                    })
 
 

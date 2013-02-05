@@ -60,8 +60,8 @@ def get_project_small_form(request, slug):
     else:
         form = SingleTextareaForm(initial={'single': project.description})
 
-    return render(request, "lab/ajax/small_project_form.haml",
+    return render(request, "ajax/single_field_form.haml",
                   {"form": form,
-                   "slug": slug,
+                   "id": 'small-project-form-' + slug,
                    'url': reverse('lab-get-project-small-form', args=[slug])
                    })
