@@ -42,4 +42,4 @@
 
         .content.editable_area{'id'         : 'comment-single-{{ comment.pk }}',
                                'itemprop'   : 'commentText'}
-            - include "blog/ajax/comment_single.haml" with comment=comment.comment
+            - include 'ajax/single_field_value_external.haml' with value=comment.comment

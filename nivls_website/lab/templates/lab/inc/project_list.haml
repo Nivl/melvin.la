@@ -15,7 +15,7 @@
         .section-content.margin-top-1
             %span.editable_area{'itemprop': 'description',
                                 'id'      : 'small-project-{{ project.slug }}'}
-                - include 'lab/inc/project_description.haml'
+                - include 'ajax/single_field_value_md.haml' with value=project.description
             %a.btn{'itemprop'   : 'url',
                    'data-depth' : '30',
                    'data-ajax'  : 'body-content-only',

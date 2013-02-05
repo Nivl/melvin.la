@@ -39,7 +39,7 @@ def project(request, slug):
 @require_safe
 def get_project_small(request, slug):
     p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
-    return render(request, "lab/inc/project_description.haml", {'project': p})
+    return render(request, "ajax/single_field_value_md.haml", {'value': p.description})
 
 
 @ajax_only

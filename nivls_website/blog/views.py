@@ -64,8 +64,8 @@ def comment_list(request, year, month, day, slug):
 @ajax_only
 def comment_single(request, year, month, day, slug, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    return render(request, "blog/ajax/comment_single.haml",
-                  {'comment': comment.comment
+    return render(request, "ajax/single_field_value_external.haml",
+                  {'value': comment.comment
                    })
 
 
