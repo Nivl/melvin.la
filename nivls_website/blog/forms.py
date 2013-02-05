@@ -57,5 +57,5 @@ class CommentForm(happyforms.ModelForm):
 
 class SingleCommentForm(happyforms.Form):
     comment = forms.CharField(
-        widget=forms.Textarea(attrs={'style': 'width: 100%;'}),
+        widget=forms.Textarea(attrs={'style': 'width: 97%;'}),
         label=_(' '))
