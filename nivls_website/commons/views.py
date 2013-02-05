@@ -7,6 +7,7 @@ from django.template import Context
 from django.views.generic.base import TemplateView
 from django.contrib.sites.models import Site
 from django.conf import settings
+from django.shortcuts import render
 
 
 class TexplainView(TemplateView):
@@ -45,3 +46,17 @@ def write_pdf(template_src, context_dict, output):
     response = HttpResponse(pdf_contents, mimetype='application/pdf')
     response['Content-Disposition'] = 'filename=' + output
     return response
+
+
+def validate_single_ajax_form(request, obj, attr_name, render_args, cb_form, form_args={}):
+    if request.method == 'POST':
+        form = cb_form(request.POST, **form_args)
+        if form.is_valid():
+            setattr(obj, attr_name, form.cleaned_data['single'])
+            obj.save()
+            return HttpResponse()
+    else:
+        form = cb_form(initial={'single': getattr(obj, attr_name)}, **form_args)
+
+        render_args['dictionary']['form'] = form
+    return render(request, **render_args)

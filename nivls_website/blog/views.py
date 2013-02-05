@@ -15,6 +15,7 @@ from django.template.defaultfilters import slugify, date as _date
 from commons.paginator import simple_paginator
 from commons.decorators import ajax_only
 from commons.forms import SingleTextareaForm
+from commons.views import validate_single_ajax_form
 from models import Post, Category, Tag
 from forms import *
 
@@ -70,34 +71,20 @@ def comment_single(request, year, month, day, slug, pk):
 
 @ajax_only
 def comment_single_form(request, year, month, day, slug, pk):
-    get_object_or_404(Post,
-                      pub_date__year=year,
-                      pub_date__month=month,
-                      pub_date__day=day,
-                      slug=slug,
-                      is_public=1,
-                      site=Site.objects.get_current())
-
     comment = get_object_or_404(Comment, pk=pk)
+
     if not request.user.is_authenticated() \
             or not (request.user == comment.user
                     or request.user.has_perm('blog.change_comment')):
         return HttpResponseForbidden()
 
-    if request.method == 'POST':
-        form = SingleTextareaForm(request.POST, size=97)
-        if form.is_valid():
-            comment.comment = form.cleaned_data['single']
-            comment.save()
-            return HttpResponse()
-    else:
-        form = SingleTextareaForm(initial={'single': comment.comment}, size=97)
-    return render(request, "ajax/single_field_form.haml",
-                  {"form": form,
-                   "id": 'comment-single-form-' + str(pk),
-                   'url': reverse('post-comment-single-form',
-                                   args=[year, month, day, slug, pk])
-                   })
+    render_args = {'template_name': "ajax/single_field_form.haml",
+               'dictionary': {'id': 'comment-single-form-' + str(pk),
+                              'url': reverse('post-comment-single-form', args=[year, month, day, slug, pk])
+                              }
+                }
+
+    return validate_single_ajax_form(request, comment, 'comment', render_args, SingleTextareaForm, {'size': 97})
 
 
 @require_safe

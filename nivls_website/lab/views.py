@@ -3,10 +3,10 @@ from django.conf import settings
 from django.views.decorators.http import require_safe
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse
 from commons.decorators import ajax_only
 from commons.paginator import simple_paginator
 from commons.forms import SingleTextareaForm
+from commons.views import validate_single_ajax_form
 from models import *
 from forms import *
 
@@ -51,17 +51,10 @@ def get_project_small_form(request, slug):
     if not request.user.has_perm('lab.change_project'):
         return HttpResponseForbidden()
 
-    if request.method == 'POST':
-        form = SingleTextareaForm(request.POST)
-        if form.is_valid():
-            project.description = form.cleaned_data['single']
-            project.save()
-            return HttpResponse()
-    else:
-        form = SingleTextareaForm(initial={'single': project.description})
+    render_args = {'template_name': "ajax/single_field_form.haml",
+                   'dictionary': {'id': 'small-project-form-' + slug,
+                                  'url': reverse('lab-get-project-small-form', args=[slug])
+                                  }
+                    }
 
-    return render(request, "ajax/single_field_form.haml",
-                  {"form": form,
-                   "id": 'small-project-form-' + slug,
-                   'url': reverse('lab-get-project-small-form', args=[slug])
-                   })
+    return validate_single_ajax_form(request, project, 'description', render_args, SingleTextareaForm)
