@@ -1,6 +1,16 @@
 {% load i18n tz %}
 
 :javascript
+    {% localtime off %}
+        var url_values = {year: '{{ post.pub_date.year }}',
+                          month: '{{ post.pub_date|date:'m' }}',
+                          day: '{{ post.pub_date|date:'d' }}',
+                          slug: '{{ post.slug }}'
+                          }
+    {% endlocaltime %}
+
+    liveEdit('comment-single-', url_values, 'post-comment-single', 'post-comment-single-form', '.edit-link', 'pk');
+
 
     function clearPreview() {
         $('#form-preview').empty();
@@ -44,8 +54,7 @@
 
     }
 
-    /* Comments ajax */
-    var boundAction = {};
+{% comment %}
 
     $(document).off('click', '.edit-link')
         .on('click', '.edit-link', function (e) {
@@ -97,3 +106,5 @@
 
             return false;
         });
+
+{% endcomment %}

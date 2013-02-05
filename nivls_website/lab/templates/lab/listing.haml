@@ -20,6 +20,11 @@
     - else
         {{ block.super }}
 
+
+- block "app_js"
+    :javascript
+        liveEdit('small-project-', {}, 'lab-get-project-small', 'lab-get-project-small-form');
+
 - block "breadcrumb-subcontent"
     - if tag
         %li

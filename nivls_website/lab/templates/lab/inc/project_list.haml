@@ -1,9 +1,6 @@
 - load i18n markup
 - load url from future
 
-- block "app_js"
-   - include "lab/inc/list_edit_ajax.haml"
-
 - for project in projects
     %section.clean-section.live-edit{'itemscope': None, 'itemtype': 'http://schema.org/SoftwareApplication'}
         %h2{'itemprop': 'name'}<
@@ -17,7 +14,7 @@
 
         .section-content.margin-top-1
             %span.editable_area{'itemprop': 'description',
-                                'id'      : 'lab_project_{{ project.slug }}'}
+                                'id'      : 'small-project-{{ project.slug }}'}
                 - include 'lab/inc/project_description.haml'
             %a.btn{'itemprop'   : 'url',
                    'data-depth' : '30',

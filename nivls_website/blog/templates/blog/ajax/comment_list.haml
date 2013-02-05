@@ -31,7 +31,7 @@
 
             - if user.is_authenticated and user == comment.user or perms.blog.change_comment
                 %a.edit-link{'href' : '#',
-                                     'style': 'display:none;'}
+                             'style': 'display:none;'}
                   %i.icon-edit
 
         .comment-avatar{'id': 'comment_{{ comment.pk }}_avatar'}
@@ -40,6 +40,6 @@
             - else
                 {{ comment.email|gravatar_from_email }}
 
-        .content.editable_area{'id'         : 'comment_{{ comment.pk }}',
+        .content.editable_area{'id'         : 'comment-single-{{ comment.pk }}',
                                'itemprop'   : 'commentText'}
             - include "blog/ajax/comment_single.haml" with comment=comment.comment
