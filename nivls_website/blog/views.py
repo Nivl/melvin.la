@@ -14,6 +14,7 @@ from django.contrib.sites.models import Site
 from django.template.defaultfilters import slugify, date as _date
 from commons.paginator import simple_paginator
 from commons.decorators import ajax_only
+from commons.forms import SingleTextareaForm
 from models import Post, Category, Tag
 from forms import *
 
@@ -82,15 +83,15 @@ def comment_single_form(request, year, month, day, slug, pk):
             or not (request.user == comment.user
                     or request.user.has_perm('blog.change_comment')):
         return HttpResponseForbidden()
+
     if request.method == 'POST':
-        form = SingleCommentForm(request.POST, prefix="single")
+        form = SingleTextareaForm(request.POST, size=97)
         if form.is_valid():
-            comment.comment = form.cleaned_data['comment']
+            comment.comment = form.cleaned_data['single']
             comment.save()
             return HttpResponse()
     else:
-        form = SingleCommentForm(initial={'comment': comment.comment},
-                                 prefix="single")
+        form = SingleTextareaForm(initial={'single': comment.comment}, size=97)
     return render(request, "blog/ajax/comment_single_form.haml",
                   {"form": form,
                    "pk": pk,

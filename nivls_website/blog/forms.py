@@ -1,5 +1,4 @@
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 from commons import happyforms
 from models import Comment
 from commons.protection import akismet_is_valid
@@ -53,9 +52,3 @@ class CommentForm(happyforms.ModelForm):
             return self.cleaned_data['comment']
         else:
             raise forms.ValidationError('Spam attempt detected!')
-
-
-class SingleCommentForm(happyforms.Form):
-    comment = forms.CharField(
-        widget=forms.Textarea(attrs={'style': 'width: 97%;'}),
-        label=_(' '))

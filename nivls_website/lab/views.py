@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from commons.decorators import ajax_only
 from commons.paginator import simple_paginator
+from commons.forms import SingleTextareaForm
 from models import *
 from forms import *
 
@@ -51,14 +52,13 @@ def get_project_small_form(request, slug):
         return HttpResponseForbidden()
 
     if request.method == 'POST':
-        form = SmallProjectForm(request.POST, prefix="single")
+        form = SingleTextareaForm(request.POST)
         if form.is_valid():
-            project.description = form.cleaned_data['description']
+            project.description = form.cleaned_data['single']
             project.save()
             return HttpResponse()
     else:
-        form = SmallProjectForm(initial={'description': project.description},
-                                 prefix="single")
+        form = SingleTextareaForm(initial={'single': project.description})
 
     return render(request, "lab/ajax/small_project_form.haml",
                   {"form": form,
