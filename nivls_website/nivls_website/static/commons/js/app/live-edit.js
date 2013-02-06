@@ -14,8 +14,16 @@ uneditElement = function (e) {
     }
 };
 
-$(document).bind('keydown', 'e', function(){
-    uneditElement();
+$(document).bind('keydown', 'e', function() {
+    if (live_edit_enabled) {
+        uneditElement();
+        $('#editing-mode-box').animate({'top': '-40'});
+        $('#body > header').animate({'margin-top': '0'});
+
+    } else {
+        $('#editing-mode-box').animate({'top': '0'});
+        $('#body > header').animate({'margin-top': '40px'});
+    }
     live_edit_enabled = !live_edit_enabled;
 });
 

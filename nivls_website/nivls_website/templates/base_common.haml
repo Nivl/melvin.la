@@ -7,8 +7,12 @@
 
 - block "body"
 
-  - if not request.is_ajax
-    - include "inc/browser_warning.haml"
+    - if not request.is_ajax
+        - include "inc/browser_warning.haml"
+
+    #editing-mode-box
+        %p
+            Live editing mode activated
 
   %header{'class': '{% block "header-classes" %}{% endblock %}'}
     .container
