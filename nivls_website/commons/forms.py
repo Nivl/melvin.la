@@ -7,18 +7,16 @@ class SingleCharFieldForm(happyforms.Form):
     single = forms.CharField(
         label=_(' '))
 
-    def __init__(self, data=None, files=None, size=100, prefix='single_', is_textarea=False, *args, **kwargs):
-        super(SingleCharFieldForm, self).__init__(data=data, files=files, prefix=prefix, *args, **kwargs)
 
-        if is_textarea:
-            self.fields['single'].widget = forms.Textarea(attrs={'style': 'width: ' + str(size) + '%;'})
-        else:
-            self.fields['single'].widget.attrs['style'] = 'width: ' + str(size) + '%;'
+class SingleTextareaForm(happyforms.Form):
+    single = forms.CharField(
+        widget=forms.Textarea(),
+        label=_(' '))
 
-
-class SingleTextareaForm(SingleCharFieldForm):
     def __init__(self, data=None, files=None, size=100, prefix='single_', *args, **kwargs):
-        super(SingleTextareaForm, self).__init__(data=data, files=files, size=size, is_textarea=True, prefix=prefix, *args, **kwargs)
+        super(SingleTextareaForm, self).__init__(data=data, files=files, prefix=prefix, *args, **kwargs)
+
+        self.fields['single'].widget.attrs['style'] = 'width: ' + str(size) + '%;'
 
 
 class CroppedImageForm(forms.Form):

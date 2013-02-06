@@ -5,7 +5,7 @@ from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from commons.decorators import ajax_only
 from commons.paginator import simple_paginator
-from commons.forms import SingleTextareaForm
+from commons.forms import *
 from commons.views import validate_single_ajax_form
 from models import *
 from forms import *
@@ -52,9 +52,33 @@ def get_project_small_form(request, slug):
         return HttpResponseForbidden()
 
     render_args = {'template_name': "ajax/single_field_form.haml",
-                   'dictionary': {'id': 'small-project-form-' + slug,
-                                  'url': reverse('lab-get-project-small-form', args=[slug])
+                   'dictionary': {'id': 'lab-project-description-form-' + slug,
+                                  'url': reverse('lab-get-project-descr-form', args=[slug])
                                   }
                     }
 
     return validate_single_ajax_form(request, project, 'description', render_args, SingleTextareaForm)
+
+
+@require_safe
+def get_project_name(request, slug):
+    p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
+    return render(request, "ajax/single_field_value.haml", {'value': p.name})
+
+
+@ajax_only
+def get_project_name_form(request, slug):
+    project = get_object_or_404(Project,
+      slug=slug,
+      site=Site.objects.get_current())
+
+    if not request.user.has_perm('lab.change_project'):
+        return HttpResponseForbidden()
+
+    render_args = {'template_name': "ajax/single_field_form_inline.haml",
+                   'dictionary': {'id': 'lab-project-name-form-' + slug,
+                                  'url': reverse('lab-get-project-name-form', args=[slug])
+                                  }
+                    }
+
+    return validate_single_ajax_form(request, project, 'name', render_args, SingleCharFieldForm)

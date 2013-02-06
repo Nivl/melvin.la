@@ -28,11 +28,19 @@ urlpatterns += patterns(
 
     url(r'^get/project/(?P<slug>[-\w]+)/small/$',
         'get_project_small',
-        name='lab-get-project-small'),
+        name='lab-get-project-descr'),
 
     url(r'^get/project/(?P<slug>[-\w]+)/small/form/$',
         'get_project_small_form',
-        name='lab-get-project-small-form'),
+        name='lab-get-project-descr-form'),
+
+    url(r'^get/project/(?P<slug>[-\w]+)/name/$',
+        'get_project_name',
+        name='lab-get-project-name'),
+
+    url(r'^get/project/(?P<slug>[-\w]+)/name/form/$',
+        'get_project_name_form',
+        name='lab-get-project-name-form'),
 )
 
 urlpatterns += static_urlpatterns
