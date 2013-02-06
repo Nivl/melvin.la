@@ -1,0 +1,16 @@
+- load i18n bootstrap
+
+%form.form-inline{'id': '{{ id }}',
+                  'method': 'post',
+                  'action': '{{ url }}'}
+    - csrf_token
+
+    - for field in form.visible_fields
+        {{ field }}
+
+    %button.btn.btn-primary{'type'             : 'submit',
+                           'data-loading-text' : '{% trans "Sending..." %}'}<
+        - trans "Send"
+
+    %button.btn.btn-danger{'type': 'reset'}<
+        - trans "Reset"
