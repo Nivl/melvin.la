@@ -1,3 +1,26 @@
+
+var current_live_editing_element = null;
+var live_edit_enabled = false;
+
+uneditElement = function (e) {
+    if (current_live_editing_element != null) {
+        var $container = $('#' + current_live_editing_element['id']);
+        if (e === undefined
+            || ($container.is(e.target) == false
+                && $container.has(e.target).length === 0)) {
+            $container.toggleClass(current_live_editing_element['class']);
+            $container.trigger('click');
+        }
+    }
+};
+
+$(document).bind('keydown', 'e', function(){
+    uneditElement();
+    live_edit_enabled = !live_edit_enabled;
+});
+
+$(document).off('click').on('click', uneditElement);
+
 /*
     make an element editable on the fly
 
@@ -5,39 +28,37 @@
     url_values: dict - Extra values needed by the URL
     unit_url: string - URL name to fetch the parsed data
     form_url: string - URL name to fetch the form
-    lookup_elem: string - Element to bind to the action (default .edit-link)
+    lookup_class: string - Class to bind to the action (default edit-link)
     unique_field: string - Field name used to differentiate entries in the DB (default slug)
     first_tag: string - Name of the first tag inside the .editable_area (default P)
     to_form: callback - Function to call before the form appears
     to_text: callback - Function to call after the form disappeared
 */
-
-function liveEdit(prefix, url_values, unit_url, form_url, lookup_elem, unique_field, first_tag, to_form, to_text) {
-    lookup_elem = (lookup_elem === undefined) ? ('.edit-link') : (lookup_elem);
+function liveEdit(prefix, url_values, unit_url, form_url, lookup_class, unique_field, first_tag, to_form, to_text) {
+    lookup_class = (lookup_class === undefined) ? ('edit-link') : (lookup_class);
     unique_field = (unique_field === undefined) ? ('slug') : (unique_field);
     first_tag = (first_tag === undefined) ? ('P') : (first_tag.toUpperCase());
     to_form = (to_form === undefined) ? ($.noop) : (to_form);
     to_text = (to_text === undefined) ? ($.noop) : (to_text);
 
 
-    $(document).off('mouseenter mouseleave', '.live-edit')
-        .on({
-            mouseenter: function() {
-                $(this).find(lookup_elem).show()
-            },
+    $(document).off('click', '.'+lookup_class)
+        .on('click', '.'+lookup_class, function (e) {
+            if (live_edit_enabled == false)
+                return;
 
-            mouseleave: function() {
-                $(this).find(lookup_elem).hide()
-            },
-        }, '.live-edit');
+            $(this).toggleClass(lookup_class);
 
+            uneditElement(e);
+            current_live_editing_element = {
+                'id'    : $(this).prop('id'),
+                'class' : lookup_class
+            };
 
-
-    $(document).off('click', lookup_elem)
-        .on('click', lookup_elem, function (e) {
             var that = this;
-            var area = $(this).parents('.live-edit').find('.editable_area');
+            var area = this;
             var pk = $(area).prop('id').replace(prefix, '');
+
             url_values[unique_field] = pk;
 
             var selector = '#' + $(area).prop('id');
@@ -55,19 +76,22 @@ function liveEdit(prefix, url_values, unit_url, form_url, lookup_elem, unique_fi
                             url, post_selector,
                             function(data, proceed){
                                 if (proceed) {
-                                    $(that).trigger('click');
+                                    // The class is directly removed by the click event
+                                    $(that).toggleClass(lookup_class).trigger('click');
                                 }
                             });
                         return false;
                     });
                 });
             } else {
+                $(that).toggleClass(lookup_class);
+                current_live_editing_element = null;
                 var url = resolve_urls(unit_url, url_values);
 
                 $.get(url, function(data){
                     $(selector).html(data);
                     to_text(pk, data);
-                    $(that).parents('.live-edit').animateHighlight();
+                    $(that).animateHighlight();
                 });
             }
 

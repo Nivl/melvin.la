@@ -2,19 +2,14 @@
 - load url from future
 
 - for project in projects
-    %section.clean-section.live-edit{'itemscope': None, 'itemtype': 'http://schema.org/SoftwareApplication'}
+    %section.clean-section{'itemscope': None, 'itemtype': 'http://schema.org/SoftwareApplication'}
         %h2{'itemprop': 'name'}<
             {{ project.name }}
 
-            - if perms.lab.change_project
-                %small
-                    %a.edit-link{'href' : '#',
-                                 'style': 'display:none;'}
-                        %i.icon-edit
-
         .section-content.margin-top-1
-            %span.editable_area{'itemprop': 'description',
-                                'id'      : 'small-project-{{ project.slug }}'}
+            %span{'itemprop': 'description',
+                  'class'   : '{% if perms.lab.change_project %}edit-link{% endif %}',
+                  'id'      : 'small-project-{{ project.slug }}'}
                 - include 'ajax/single_field_value_md.haml' with value=project.description
             %a.btn{'itemprop'   : 'url',
                    'data-depth' : '30',
