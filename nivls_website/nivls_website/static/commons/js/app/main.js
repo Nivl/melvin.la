@@ -16,6 +16,16 @@ $(function() {
     storeData();
     preview();
     dropFile();
+
+    // Lab
+    liveEdit('lab-project-description-', {}, 'lab-get-project-descr', 'lab-get-project-descr-form', 'lab-project-description-live-edit');
+    liveEdit('lab-project-name-', {}, 'lab-get-project-name', 'lab-get-project-name-form', 'lab-project-name-live-edit', [null]);
+    liveEdit('lab-project-catchphrase-', {}, 'lab-get-project-catchphrase', 'lab-get-project-catchphrase-form', 'lab-project-catchphrase-live-edit', [null]);
+    liveEdit('lab-project-license-', {}, 'lab-get-project-license', 'lab-get-project-license-form', 'lab-project-license-live-edit', [null, 'A']);
+
+    // Blog
+    // comment_ajax.haml
+
 });
 
 

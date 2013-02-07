@@ -20,12 +20,6 @@
     - else
         {{ block.super }}
 
-
-- block "app_js"
-    :javascript
-        liveEdit('lab-project-description-', {}, 'lab-get-project-descr', 'lab-get-project-descr-form', 'lab-project-description-live-edit');
-        liveEdit('lab-project-name-', {}, 'lab-get-project-name', 'lab-get-project-name-form', 'lab-project-name-live-edit', [null]);
-
 - block "breadcrumb-subcontent"
     - if tag
         %li
