@@ -26,12 +26,12 @@ urlpatterns = patterns(
 urlpatterns += patterns(
     'lab.views',
 
-    url(r'^get/project/(?P<slug>[-\w]+)/small/$',
-        'get_project_small',
+    url(r'^get/project/(?P<slug>[-\w]+)/description/$',
+        'get_project_description',
         name='lab-get-project-descr'),
 
-    url(r'^get/project/(?P<slug>[-\w]+)/small/form/$',
-        'get_project_small_form',
+    url(r'^get/project/(?P<slug>[-\w]+)/description/form/$',
+        'get_project_description_form',
         name='lab-get-project-descr-form'),
 
 
