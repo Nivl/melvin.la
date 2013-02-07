@@ -41,6 +41,14 @@ urlpatterns += patterns(
     url(r'^get/project/(?P<slug>[-\w]+)/name/form/$',
         'get_project_name_form',
         name='lab-get-project-name-form'),
+
+    url(r'^get/project/(?P<slug>[-\w]+)/catchphrase/$',
+        'get_project_catchphrase',
+        name='lab-get-project-catchphrase'),
+
+    url(r'^get/project/(?P<slug>[-\w]+)/catchphrase/form/$',
+        'get_project_catchphrase_form',
+        name='lab-get-project-catchphrase-form'),
 )
 
 urlpatterns += static_urlpatterns

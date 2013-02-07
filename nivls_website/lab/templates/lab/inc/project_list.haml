@@ -12,7 +12,7 @@
             %div{'id'      : 'lab-project-description-{{ project.slug }}',
                  'class'   : '{% if perms.lab.change_project %}lab-project-description-live-edit{% endif %}',
                  'itemprop': 'description'}
-                - include 'ajax/single_field_value_md.haml' with value=project.description
+                {{ project.description|markdown }}
 
             %a.btn{'itemprop'   : 'url',
                    'data-depth' : '30',

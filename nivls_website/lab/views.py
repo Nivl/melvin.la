@@ -36,6 +36,11 @@ def project(request, slug):
     return render(request, "lab/project.haml", {'project': p})
 
 
+#
+# Ajax
+#
+
+
 @require_safe
 def get_project_small(request, slug):
     p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
@@ -82,3 +87,27 @@ def get_project_name_form(request, slug):
                     }
 
     return validate_single_ajax_form(request, project, 'name', render_args, SingleCharFieldForm)
+
+
+@require_safe
+def get_project_catchphrase(request, slug):
+    p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
+    return render(request, "ajax/single_field_value.haml", {'value': p.catchphrase})
+
+
+@ajax_only
+def get_project_catchphrase_form(request, slug):
+    project = get_object_or_404(Project,
+      slug=slug,
+      site=Site.objects.get_current())
+
+    if not request.user.has_perm('lab.change_project'):
+        return HttpResponseForbidden()
+
+    render_args = {'template_name': "ajax/single_field_form_inline.haml",
+                   'dictionary': {'id': 'lab-project-catchphrase-form-' + slug,
+                                  'url': reverse('lab-get-project-catchphrase-form', args=[slug])
+                                  }
+                    }
+
+    return validate_single_ajax_form(request, project, 'catchphrase', render_args, SingleCharFieldForm)

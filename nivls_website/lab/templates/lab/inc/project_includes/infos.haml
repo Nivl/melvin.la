@@ -49,7 +49,9 @@
                                'class'    : 'color',
                                'value'    : '#{{ lang.language.color }} '}
 
-    %div{'itemprop': 'description'}
+    %div{'id'      : 'lab-project-description-{{ project.slug }}',
+         'class'   : '{% if perms.lab.change_project %}lab-project-description-live-edit{% endif %}',
+         'itemprop': 'description'}
         {{ project.description|markdown }}
 
 
