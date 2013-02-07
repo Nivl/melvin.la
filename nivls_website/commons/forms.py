@@ -28,6 +28,18 @@ class SingleChoiceFieldForm(happyforms.Form):
         self.fields['single'].choices = choices
 
 
+class SingleMultipleChoiceFieldForm(happyforms.Form):
+    single = forms.ModelMultipleChoiceField(
+        queryset=None,
+        label=_(' '))
+
+    def __init__(self, data=None, files=None, queryset=None, *args, **kwargs):
+        super(SingleMultipleChoiceFieldForm, self).__init__(data=data, files=files, *args, **kwargs)
+        self.fields['single'].queryset = queryset
+#        if 'initial' in kwargs:
+#            self.fields['single'].initial = kwargs['initial']
+
+
 class CroppedImageForm(forms.Form):
     coordinates = forms.RegexField(
         regex=r'^\d+x\d+ \d+x\d+$',

@@ -50,7 +50,7 @@ def write_pdf(template_src, context_dict, output):
     return response
 
 
-def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj, form_args={}, inital_fix=()):
+def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj, form_args={}, inital_fix=(), has_many=False):
     """
     obj : Object to update
     attr_name : attribute of $obj to update
@@ -75,7 +75,8 @@ def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj, fo
         initial_value = getattr(obj, attr_name)
         if len(inital_fix) > 0:
             initial_value = getattr(initial_value, inital_fix[1])
-
+        if (has_many):
+            initial_value = initial_value.values_list('pk', flat=True)
         form = form_obj(initial={'single': initial_value}, **form_args)
 
         render_args['dictionary']['form'] = form
