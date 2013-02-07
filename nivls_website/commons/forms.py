@@ -19,6 +19,15 @@ class SingleTextareaForm(happyforms.Form):
         self.fields['single'].widget.attrs['style'] = 'width: ' + str(size) + '%;'
 
 
+class SingleChoiceFieldForm(happyforms.Form):
+    single = forms.ChoiceField(
+        label=_(' '))
+
+    def __init__(self, data=None, files=None, choices=[], *args, **kwargs):
+        super(SingleChoiceFieldForm, self).__init__(data=data, files=files, *args, **kwargs)
+        self.fields['single'].choices = choices
+
+
 class CroppedImageForm(forms.Form):
     coordinates = forms.RegexField(
         regex=r'^\d+x\d+ \d+x\d+$',

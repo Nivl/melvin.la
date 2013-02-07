@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import subprocess
 from django.http import HttpResponse
 from django.template.loader import get_template
@@ -8,6 +9,7 @@ from django.views.generic.base import TemplateView
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.shortcuts import render
+from lab.models import *
 
 
 class TexplainView(TemplateView):
@@ -48,15 +50,33 @@ def write_pdf(template_src, context_dict, output):
     return response
 
 
-def validate_single_ajax_form(request, obj, attr_name, render_args, cb_form, form_args={}):
+def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj, form_args={}, inital_fix=()):
+    """
+    obj : Object to update
+    attr_name : attribute of $obj to update
+    render_arg : render() arguments
+    form_obj : form object needed to validate/render the form
+    form_obj : Arguments to give to the form object
+    initial_fix : (Object, attr) used when the new value to store is a foreign key.
+    """
+
     if request.method == 'POST':
-        form = cb_form(request.POST, **form_args)
+        form = form_obj(request.POST, **form_args)
         if form.is_valid():
-            setattr(obj, attr_name, form.cleaned_data['single'])
+            if len(inital_fix) > 0:
+                intermediate_obj = getattr(sys.modules[__name__], inital_fix[0])
+                new_value = intermediate_obj.objects.get(pk=form.cleaned_data['single'])
+            else:
+                new_value = form.cleaned_data['single']
+            setattr(obj, attr_name, new_value)
             obj.save()
             return HttpResponse()
     else:
-        form = cb_form(initial={'single': getattr(obj, attr_name)}, **form_args)
+        initial_value = getattr(obj, attr_name)
+        if len(inital_fix) > 0:
+            initial_value = getattr(initial_value, inital_fix[1])
+
+        form = form_obj(initial={'single': initial_value}, **form_args)
 
         render_args['dictionary']['form'] = form
     return render(request, **render_args)

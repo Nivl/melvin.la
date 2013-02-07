@@ -8,19 +8,9 @@
         %strong<
             - trans "Project License: "
 
-        - if project.license.url
-            %a{'href' : '{{ project.license.url }}'}
-                - if project.license.image %}
-                    %img{'src'    : '{{ project.license.image.url }}',
-                         'alt'    : '{{ project.license.name }}'}
-                - else
-                    {{ project.license.name }}
-
-        - elif project.license.image
-            %img{'src'    : '{{ project.license.image.url }}',
-                 'alt'    : '{{ project.license.name }}'}
-        - else
-            {{ project.license.name }}
+        %span{'class'   : '{% if perms.lab.change_project %}lab-project-license-live-edit{% endif %}',
+              'id'      : 'lab-project-license-{{ project.slug }}'}
+            - include 'ajax/single_field_link_value.haml' with value=project.license.name value_url=project.license.url
 
         - if project.sources_url
             %li
@@ -52,7 +42,7 @@
     %div{'id'      : 'lab-project-description-{{ project.slug }}',
          'class'   : '{% if perms.lab.change_project %}lab-project-description-live-edit{% endif %}',
          'itemprop': 'description'}
-        {{ project.description|markdown }}
+        - include 'ajax/single_field_value_md.haml' with value=project.description
 
 
 - with project.lab_post_blog.all as entries

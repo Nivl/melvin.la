@@ -2,7 +2,8 @@
 
 %form.form-inline{'id': '{{ id }}',
                   'method': 'post',
-                  'action': '{{ url }}'}
+                  'action': '{{ url }}',
+                  'style': 'display: inline'}
     - csrf_token
 
     - for field in form.visible_fields

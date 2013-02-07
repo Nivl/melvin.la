@@ -34,6 +34,7 @@ urlpatterns += patterns(
         'get_project_small_form',
         name='lab-get-project-descr-form'),
 
+
     url(r'^get/project/(?P<slug>[-\w]+)/name/$',
         'get_project_name',
         name='lab-get-project-name'),
@@ -42,6 +43,7 @@ urlpatterns += patterns(
         'get_project_name_form',
         name='lab-get-project-name-form'),
 
+
     url(r'^get/project/(?P<slug>[-\w]+)/catchphrase/$',
         'get_project_catchphrase',
         name='lab-get-project-catchphrase'),
@@ -49,6 +51,15 @@ urlpatterns += patterns(
     url(r'^get/project/(?P<slug>[-\w]+)/catchphrase/form/$',
         'get_project_catchphrase_form',
         name='lab-get-project-catchphrase-form'),
+
+
+    url(r'^get/project/(?P<slug>[-\w]+)/license/$',
+        'get_project_license',
+        name='lab-get-project-license'),
+
+    url(r'^get/project/(?P<slug>[-\w]+)/license/form/$',
+        'get_project_license_form',
+        name='lab-get-project-license-form'),
 )
 
 urlpatterns += static_urlpatterns

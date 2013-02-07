@@ -37,7 +37,7 @@ $(document).off('click').on('click', uneditElement);
     unit_url: string - URL name to fetch the parsed data
     form_url: string - URL name to fetch the form
     lookup_class: string - Class to bind to the action (default edit-link)
-    first_tag: string - Name of the first tag inside the .editable_area (default P)
+    first_tag: list - Name UPPERCASE of the first tag inside the .editable_area (default P)
     unique_field: string - Field name used to differentiate entries in the DB (default slug)
     to_form: callback - Function to call before the form appears
     to_text: callback - Function to call after the form disappeared
@@ -45,10 +45,10 @@ $(document).off('click').on('click', uneditElement);
 function liveEdit(prefix, url_values, unit_url, form_url, lookup_class, first_tag, unique_field, to_form, to_text) {
     lookup_class = (lookup_class === undefined) ? ('edit-link') : (lookup_class);
     unique_field = (unique_field === undefined) ? ('slug') : (unique_field);
-    first_tag = (first_tag === undefined) ? ('P') : (first_tag);
-    first_tag = (first_tag === null) ? (null) : (first_tag.toUpperCase());
+    first_tag = (first_tag === undefined) ? (['P']) : (first_tag);
     to_form = (to_form === undefined) ? ($.noop) : (to_form);
     to_text = (to_text === undefined) ? ($.noop) : (to_text);
+    var was_a_link = false;
 
     $(document).off('click', '.'+lookup_class)
         .on('click', '.'+lookup_class, function (e) {
@@ -56,8 +56,9 @@ function liveEdit(prefix, url_values, unit_url, form_url, lookup_class, first_ta
                 return;
 
             $(this).toggleClass(lookup_class);
-
             uneditElement(e);
+            e.preventDefault();
+
             current_live_editing_element = {
                 'id'    : $(this).prop('id'),
                 'class' : lookup_class
@@ -71,8 +72,8 @@ function liveEdit(prefix, url_values, unit_url, form_url, lookup_class, first_ta
             var selector = '#' + $(this).prop('id');
             var tag_name = $(this).find(">:first-child").prop("tagName");
 
-            if (tag_name == first_tag
-                || (tag_name === undefined && first_tag == null)) {
+            if (first_tag.indexOf(tag_name) >= 0
+                || (tag_name === undefined && first_tag.indexOf(null) >= 0)) {
                 var url = resolve_urls(form_url, url_values);
 
                 $.get(url, function(data) {
@@ -86,8 +87,7 @@ function liveEdit(prefix, url_values, unit_url, form_url, lookup_class, first_ta
                             url, post_selector,
                             function(data, proceed){
                                 if (proceed) {
-                                    // The class is directly removed by the click event
-                                    $(that).toggleClass(lookup_class).trigger('click');
+                                    uneditElement();
                                 }
                             });
                         return false;
