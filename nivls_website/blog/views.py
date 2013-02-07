@@ -84,7 +84,7 @@ def comment_single_form(request, year, month, day, slug, pk):
                               }
                 }
 
-    return validate_single_ajax_form(request, comment, 'comment', render_args, SingleTextareaForm, {'size': 97})
+    return validate_single_ajax_form(request, comment, 'comment', render_args, SingleTextareaForm)
 
 
 @require_safe

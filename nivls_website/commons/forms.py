@@ -13,7 +13,7 @@ class SingleTextareaForm(happyforms.Form):
         widget=forms.Textarea(),
         label=_(' '))
 
-    def __init__(self, data=None, files=None, size=100, prefix='single_', *args, **kwargs):
+    def __init__(self, data=None, files=None, size=97, prefix='single_', *args, **kwargs):
         super(SingleTextareaForm, self).__init__(data=data, files=files, prefix=prefix, *args, **kwargs)
 
         self.fields['single'].widget.attrs['style'] = 'width: ' + str(size) + '%;'
