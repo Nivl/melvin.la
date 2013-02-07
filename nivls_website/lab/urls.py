@@ -60,6 +60,42 @@ urlpatterns += patterns(
     url(r'^get/project/(?P<slug>[-\w]+)/license/form/$',
         'get_project_license_form',
         name='lab-get-project-license-form'),
+
+
+    url(r'^get/project/(?P<slug>[-\w]+)/real_clients/$',
+        'get_project_realclients',
+        name='lab-get-project-realclients'),
+
+    url(r'^get/project/(?P<slug>[-\w]+)/real_clients/form/$',
+        'get_project_realclients_form',
+        name='lab-get-project-realclients-form'),
+
+
+    url(r'^get/project/(?P<slug>[-\w]+)/clients/$',
+        'get_project_clients',
+        name='lab-get-project-clients'),
+
+    url(r'^get/project/(?P<slug>[-\w]+)/clients/form/$',
+        'get_project_clients_form',
+        name='lab-get-project-clients-form'),
+
+
+    url(r'^get/project/(?P<slug>[-\w]+)/real_coworkers/$',
+        'get_project_realcoworkers',
+        name='lab-get-project-realcoworkers'),
+
+    url(r'^get/project/(?P<slug>[-\w]+)/real_coworkers/form/$',
+        'get_project_realcoworkers_form',
+        name='lab-get-project-realcoworkers-form'),
+
+
+    url(r'^get/project/(?P<slug>[-\w]+)/coworkers/$',
+        'get_project_coworkers',
+        name='lab-get-project-coworkers'),
+
+    url(r'^get/project/(?P<slug>[-\w]+)/coworkers/form/$',
+        'get_project_coworkers_form',
+        name='lab-get-project-coworkers-form'),
 )
 
 urlpatterns += static_urlpatterns
