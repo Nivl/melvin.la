@@ -276,3 +276,63 @@ def get_project_progress_description_form(request, pk):
     }
 
     return validate_single_ajax_form(request, progress, **kwargs)
+
+
+# video name
+@require_safe
+@ajax_only
+def get_project_video_name(request, pk):
+    v = get_object_or_404(Video, pk=pk)
+    return render(request, 'ajax/single_field_value.haml', {'value': v.name})
+
+
+@ajax_only
+def get_project_video_name_form(request, pk):
+    if not request.user.has_perm('lab.change_video'):
+        return HttpResponseForbidden()
+
+    video = get_object_or_404(Video, pk=pk)
+
+    kwargs = {
+    'render_args': {
+        'template_name': 'ajax/single_field_form_inline.haml',
+        'dictionary': {'id': 'lab-project-video-name-form-%s' % pk,
+                       'url': reverse('lab-get-project-video-name-form', args=[pk])
+                      },
+    },
+    'attr_name': 'name',
+    'form_obj': SingleCharFieldForm,
+
+    }
+
+    return validate_single_ajax_form(request, video, **kwargs)
+
+
+# video description
+@require_safe
+@ajax_only
+def get_project_video_description(request, pk):
+    v = get_object_or_404(Video, pk=pk)
+    return render(request, 'ajax/single_field_value_md.haml', {'value': v.description})
+
+
+@ajax_only
+def get_project_video_description_form(request, pk):
+    if not request.user.has_perm('lab.change_video'):
+        return HttpResponseForbidden()
+
+    video = get_object_or_404(Video, pk=pk)
+
+    kwargs = {
+    'render_args': {
+        'template_name': 'ajax/single_field_form.haml',
+        'dictionary': {'id': 'lab-project-video-description-form-%s' % pk,
+                       'url': reverse('lab-get-project-video-description-form', args=[pk])
+                      },
+    },
+    'attr_name': 'description',
+    'form_obj': SingleTextareaForm,
+
+    }
+
+    return validate_single_ajax_form(request, video, **kwargs)

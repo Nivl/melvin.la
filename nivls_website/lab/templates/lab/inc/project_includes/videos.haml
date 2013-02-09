@@ -8,10 +8,15 @@
            'itemscope': None,
            'itemtype' : 'http://schema.org/ImageObject'}
 
-        %h3{'itemprop' : 'name'}
-            {{ video.name }}
-        %p{'itemprop' : 'description'}
-            {{ video.description }}
+        %h3{'id'       : 'lab-project-video-name-{{ video.pk }}',
+            'class'    : '{% if perms.lab.change_video %}lab-project-video-name-live-edit{% endif %}',
+            'itemprop' : 'name'}
+            - include 'ajax/single_field_value.haml' with value=video.name
+
+        %div{'id'       : 'lab-project-video-description-{{ video.pk }}',
+           'class'    : '{% if perms.lab.change_video %}lab-project-video-description-live-edit{% endif %}',
+           'itemprop' : 'description'}
+            - include 'ajax/single_field_value_md.haml' with value=video.description
 
         %iframe{'src'           : '{{ video.url }}',
                 'frameborder'   : '0',

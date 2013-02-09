@@ -123,6 +123,24 @@ urlpatterns += patterns(
     url(r'^get/project/(?P<pk>\d+)/progress/description/form/$',
         'get_project_progress_description_form',
         name='lab-get-project-progress-description-form'),
+
+
+    url(r'^get/project/(?P<pk>\d+)/video/name/$',
+        'get_project_video_name',
+        name='lab-get-project-video-name'),
+
+    url(r'^get/project/(?P<pk>\d+)/video/name/form/$',
+        'get_project_video_name_form',
+        name='lab-get-project-video-name-form'),
+
+
+    url(r'^get/project/(?P<pk>\d+)/video/description/$',
+        'get_project_video_description',
+        name='lab-get-project-video-description'),
+
+    url(r'^get/project/(?P<pk>\d+)/video/description/form/$',
+        'get_project_video_description_form',
+        name='lab-get-project-video-description-form'),
 )
 
 urlpatterns += static_urlpatterns
