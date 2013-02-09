@@ -3,6 +3,11 @@ from django.utils.translation import ugettext_lazy as _
 import happyforms
 
 
+class SingleDateFieldForm(happyforms.Form):
+    single = forms.DateField(
+        label=_(' '))
+
+
 class SingleCharFieldForm(happyforms.Form):
     single = forms.CharField(
         label=_(' '))
@@ -36,8 +41,6 @@ class SingleMultipleChoiceFieldForm(happyforms.Form):
     def __init__(self, data=None, files=None, queryset=None, *args, **kwargs):
         super(SingleMultipleChoiceFieldForm, self).__init__(data=data, files=files, *args, **kwargs)
         self.fields['single'].queryset = queryset
-#        if 'initial' in kwargs:
-#            self.fields['single'].initial = kwargs['initial']
 
 
 class CroppedImageForm(forms.Form):
