@@ -62,11 +62,11 @@ urlpatterns += patterns(
         name='lab-get-project-license-form'),
 
 
-    url(r'^get/project/(?P<slug>[-\w]+)/real_clients/$',
+    url(r'^get/project/(?P<slug>[-\w]+)/real-clients/$',
         'get_project_realclients',
         name='lab-get-project-realclients'),
 
-    url(r'^get/project/(?P<slug>[-\w]+)/real_clients/form/$',
+    url(r'^get/project/(?P<slug>[-\w]+)/real-clients/form/$',
         'get_project_realclients_form',
         name='lab-get-project-realclients-form'),
 
@@ -80,11 +80,11 @@ urlpatterns += patterns(
         name='lab-get-project-clients-form'),
 
 
-    url(r'^get/project/(?P<slug>[-\w]+)/real_coworkers/$',
+    url(r'^get/project/(?P<slug>[-\w]+)/real-coworkers/$',
         'get_project_realcoworkers',
         name='lab-get-project-realcoworkers'),
 
-    url(r'^get/project/(?P<slug>[-\w]+)/real_coworkers/form/$',
+    url(r'^get/project/(?P<slug>[-\w]+)/real-coworkers/form/$',
         'get_project_realcoworkers_form',
         name='lab-get-project-realcoworkers-form'),
 
@@ -96,6 +96,33 @@ urlpatterns += patterns(
     url(r'^get/project/(?P<slug>[-\w]+)/coworkers/form/$',
         'get_project_coworkers_form',
         name='lab-get-project-coworkers-form'),
+
+
+    url(r'^get/project/(?P<slug>[-\w]+)/progress/rate/$',
+        'get_project_progress_rate',
+        name='lab-get-project-progress-rate'),
+
+    url(r'^get/project/(?P<slug>[-\w]+)/progress/rate/form/$',
+        'get_project_progress_rate_form',
+        name='lab-get-project-progress-rate-form'),
+
+
+    url(r'^get/project/(?P<pk>\d+)/progress/date/$',
+        'get_project_progress_date',
+        name='lab-get-project-progress-date'),
+
+    url(r'^get/project/(?P<pk>\d+)/progress/date/form/$',
+        'get_project_progress_date_form',
+        name='lab-get-project-progress-date-form'),
+
+
+    url(r'^get/project/(?P<pk>\d+)/progress/description/$',
+        'get_project_progress_description',
+        name='lab-get-project-progress-description'),
+
+    url(r'^get/project/(?P<pk>\d+)/progress/description/form/$',
+        'get_project_progress_description_form',
+        name='lab-get-project-progress-description-form'),
 )
 
 urlpatterns += static_urlpatterns

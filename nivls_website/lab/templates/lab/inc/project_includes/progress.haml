@@ -3,18 +3,21 @@
 %h2<
     - trans "Progress"
 
-.progress.progress-striped{'class': '{% if project.overall_progress != 100%} active{% endif %}'}
-    .bar{'style': 'width:{{ project.overall_progress }}%;'}
+
+%div{'id'      : 'lab-project-progress-rate-{{ project.slug }}',
+     'class'   : '{% if perms.lab.change_project %}lab-project-progress-rate-live-edit{% endif %}'}
+    - include 'lab/ajax/overall_progress.haml' with value=project.overall_progress
 
 
 .row
     .span8.offset1
         %dl.dl-horizontal
             - for event in progress
-                %dt
+                %dt{'id'      : 'lab-project-progress-date-{{ event.pk }}',
+                    'class'   : '{% if perms.lab.change_progress %}lab-project-progress-date-live-edit{% endif %}'}
                     {{ event.pub_date|naturalday }}
-                %dd
-                    %span
+                %dd{'id'      : 'lab-project-progress-description-{{ event.pk }}',
+                    'class'   : '{% if perms.lab.change_progress %}lab-project-progress-description-live-edit{% endif %}'}
                       {{ event.description }}
 
 - if todo

@@ -202,3 +202,77 @@ def get_project_coworkers_form(request, slug):
             }
 
     return get_single_form(request, slug, **args)
+
+
+# Progress rate
+def get_project_progress_rate(request, slug):
+    return get_single_data(request, slug, 'overall_progress', template_name='lab/ajax/overall_progress.haml')
+
+
+def get_project_progress_rate_form(request, slug):
+    args = {'attr_name': 'overall_progress',
+            'form_obj': SingleCharFieldForm
+            }
+
+    return get_single_form(request, slug, path_name='progress-rate', **args)
+
+
+# progress date
+@require_safe
+@ajax_only
+def get_project_progress_date(request, pk):
+    p = get_object_or_404(Progress, pk=pk)
+    return render(request, 'ajax/single_field_value.haml', {'value': p.pub_date})
+
+
+@ajax_only
+def get_project_progress_date_form(request, pk):
+    if not request.user.has_perm('lab.change_progress'):
+        return HttpResponseForbidden()
+
+    progress = get_object_or_404(Progress, pk=pk)
+
+    kwargs = {
+    'render_args': {
+        'template_name': 'ajax/single_field_form_inline.haml',
+        'dictionary': {'id': 'lab-project-progress-date-form-%s' % pk,
+                       'url': reverse('lab-get-project-progress-date-form', args=[pk])
+                      },
+    },
+    'attr_name': 'pub_date',
+    'form_obj': SingleDateFieldForm,
+
+    }
+
+    return validate_single_ajax_form(request, progress, **kwargs)
+
+
+
+# progress description
+@require_safe
+@ajax_only
+def get_project_progress_description(request, pk):
+    p = get_object_or_404(Progress, pk=pk)
+    return render(request, 'ajax/single_field_value.haml', {'value': p.description})
+
+
+@ajax_only
+def get_project_progress_description_form(request, pk):
+    if not request.user.has_perm('lab.change_progress'):
+        return HttpResponseForbidden()
+
+    progress = get_object_or_404(Progress, pk=pk)
+
+    kwargs = {
+    'render_args': {
+        'template_name': 'ajax/single_field_form_inline.haml',
+        'dictionary': {'id': 'lab-project-progress-description-form-%s' % pk,
+                       'url': reverse('lab-get-project-progress-description-form', args=[pk])
+                      },
+    },
+    'attr_name': 'description',
+    'form_obj': SingleCharFieldForm,
+
+    }
+
+    return validate_single_ajax_form(request, progress, **kwargs)
