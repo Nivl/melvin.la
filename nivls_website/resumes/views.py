@@ -36,6 +36,20 @@ def get_single_form(request, pk, Obj, path_name, perm, template_name='ajax/singl
     return validate_single_ajax_form(request, obj, **kwargs)
 
 
+# Category
+def get_category(request, pk):
+    return get_single_data(request, pk, Category, 'name', template_name='ajax/single_field_value.haml')
+
+
+@ajax_only
+def get_category_form(request, pk):
+    args = {'attr_name': 'name',
+            'form_obj': SingleCharFieldForm,
+            }
+
+    return get_single_form(request, pk, Category, 'category', 'resumes.change_category', **args)
+
+
 # Content key
 def get_content_key(request, pk):
     return get_single_data(request, pk, Content, 'key', template_name='ajax/single_field_value_md.haml')
