@@ -27,6 +27,12 @@ $(document).bind('keydown', 'e', function() {
     live_edit_enabled = !live_edit_enabled;
 });
 
+$('a').click(function(e){
+    if (live_edit_enabled) {
+        e.preventDefault();
+    }
+});
+
 $(document).off('click').on('click', uneditElement);
 
 /*
@@ -59,10 +65,9 @@ function liveEdit(prefix, url_values, unit_url, unique_field) {
 
             var that = this;
             var pk = $(this).prop('id').replace(prefix, '');
+            var selector = '#' + $(this).prop('id');
 
             url_values[unique_field] = pk;
-
-            var selector = '#' + $(this).prop('id');
 
             if ($(this).find(">:first-child").prop("tagName") != 'FORM') {
                 var url = resolve_urls(form_url, url_values);
