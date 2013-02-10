@@ -36,13 +36,9 @@ $(document).off('click').on('click', uneditElement);
     url_values: dict - Extra values needed by the URL
     unit_url: string - URL name to fetch the parsed data
     unique_field: string - Field name used to differentiate entries in the DB (default slug)
-    to_form: callback - Function to call before the form appears
-    to_text: callback - Function to call after the form disappeared
 */
-function liveEdit(prefix, url_values, unit_url, unique_field, to_form, to_text) {
+function liveEdit(prefix, url_values, unit_url, unique_field) {
     unique_field = (unique_field === undefined) ? ('slug') : (unique_field);
-    to_form = (to_form === undefined) ? ($.noop) : (to_form);
-    to_text = (to_text === undefined) ? ($.noop) : (to_text);
 
     var lookup_class = prefix + 'live-edit';
     var form_url = unit_url + '-form';
@@ -74,7 +70,6 @@ function liveEdit(prefix, url_values, unit_url, unique_field, to_form, to_text) 
 
                 $.get(url, function(data) {
                     $(selector).html(data);
-                    to_form(pk, data);
 
                     var post_selector = '#' + prefix + 'form-' + pk;
 
@@ -96,7 +91,6 @@ function liveEdit(prefix, url_values, unit_url, unique_field, to_form, to_text) 
 
                 $.get(url, function(data){
                     $(selector).html(data);
-                    to_text(pk, data);
                     $(that).animateHighlight();
                 });
             }
