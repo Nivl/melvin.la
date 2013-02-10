@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import patterns, url
 from django.views.generic.base import RedirectView
 from commons.sitemaps import StaticSitemap
+from commons.urls import live_edit_url
 from sitemaps import MainSitemap
 
 urlpatterns = patterns(
@@ -39,25 +40,8 @@ static_urlpatterns = patterns(
         name='contact'),
 )
 
-urlpatterns += patterns(
-    'about.views',
-
-    url(r'^get/about/profile/(?P<pk>\d+)/$',
-        'get_profile_about_me',
-        name='about-get-profile-about-me'),
-
-    url(r'^get/about/profile/(?P<pk>\d+)/form/$',
-        'get_profile_about_me_form',
-        name='about-get-profile-about-me-form'),
-
-    url(r'^get/project/description/(?P<pk>\d+)/$',
-        'get_project_description',
-        name='about-get-project-description'),
-
-    url(r'^get/project/description/(?P<pk>\d+)/form/$',
-        'get_project_description_form',
-        name='about-get-project-description-form'),
-)
+urlpatterns += live_edit_url('about', 'profile', 'about_me')
+urlpatterns += live_edit_url('about', 'project', 'description')
 
 sitemaps = {
     'about_root': MainSitemap(),
