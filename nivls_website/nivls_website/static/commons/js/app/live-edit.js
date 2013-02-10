@@ -42,7 +42,6 @@ function liveEdit(prefix, url_values, unit_url, unique_field) {
 
     var lookup_class = prefix + 'live-edit';
     var form_url = unit_url + '-form';
-    var was_a_link = false;
 
     $(document).off('click', '.'+lookup_class)
         .on('click', '.'+lookup_class, function (e) {
