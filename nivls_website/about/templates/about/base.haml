@@ -5,14 +5,14 @@
 
 - block "app_js"
     :javascript
-        liveEdit('about-profile-about-me-', {}, 'about-get-profile-about-me', 'pk');
+        liveEdit('about-profile-about-me-', {}, 'about-get-profile-about-me');
 
-        liveEdit('lab-project-name-', {}, 'lab-get-project-name');
-        liveEdit('about-project-description-', {}, 'about-get-project-description', 'pk');
+        liveEdit('lab-project-name-', {}, 'lab-get-project-name', 'slug');
+        liveEdit('about-project-description-', {}, 'about-get-project-description');
 
-        liveEdit('resume-category-', {}, 'resume-get-category', 'pk');
-        liveEdit('resume-content-key-', {}, 'resume-get-content-key', 'pk');
-        liveEdit('resume-content-value-', {}, 'resume-get-content-value', 'pk');
+        liveEdit('resume-category-', {}, 'resume-get-category');
+        liveEdit('resume-content-key-', {}, 'resume-get-content-key');
+        liveEdit('resume-content-value-', {}, 'resume-get-content-value');
 
 - block "body-content"
   .container{'role': 'main'}

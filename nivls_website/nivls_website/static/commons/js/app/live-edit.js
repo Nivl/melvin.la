@@ -44,7 +44,7 @@ $(document).off('click').on('click', uneditElement);
     unique_field: string - Field name used to differentiate entries in the DB (default slug)
 */
 function liveEdit(prefix, url_values, unit_url, unique_field) {
-    unique_field = (unique_field === undefined) ? ('slug') : (unique_field);
+    unique_field = (unique_field === undefined) ? ('pk') : (unique_field);
 
     var lookup_class = prefix + 'live-edit';
     var form_url = unit_url + '-form';
