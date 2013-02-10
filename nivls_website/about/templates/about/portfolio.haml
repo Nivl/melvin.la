@@ -31,8 +31,10 @@
 
     - for project in projects
         %section.clean-section
-            %h2<
-                ={ project.lab.name }
+            %h2.section-content{'class'   : '{% if perms.lab.change_project %}lab-project-name-live-edit{% endif %}',
+                                'id'      : 'lab-project-name-{{ project.lab.slug }}'}<
+                - include 'ajax/single_field_value.haml' with value=project.lab.name
+
             .section-content
                 .section-image-left
 
@@ -49,8 +51,10 @@
                           \-
                         ={ label }
 
-                %div
-                  {{ project.description|markdown }}
+                %div{'class'   : '{% if perms.about.change_project %}about-project-description-live-edit{% endif %}',
+                     'id'      : 'about-project-description-{{ project.pk }}'}
+                    - include 'ajax/single_field_value_md.haml' with value=project.description
+
 
                   %a.btn{'data-depth'   :   '1',
                          'data-ajax'    :   'body-content',
