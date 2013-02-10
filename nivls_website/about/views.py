@@ -4,12 +4,11 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.sites.models import Site
 from django.views.decorators.http import require_safe
 from django.core.mail import send_mail
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseForbidden
-from commons.views import write_pdf, validate_single_ajax_form
+from commons.views import write_pdf
 from commons.forms import SingleTextareaForm
 from commons.decorators import ajax_only
 from resumes.models import *
+from commons.views import *
 from models import *
 from forms import *
 
@@ -85,60 +84,29 @@ def portfolio(request):
 # Ajax
 #
 
-@require_safe
-@ajax_only
 def get_profile_about_me(request, pk):
-    p = get_object_or_404(Profile, pk=pk)
-    return render(request, 'ajax/single_field_value_md.haml', {'value': p.about_me})
+    return ajax_get_single_data(request, pk, Profile, 'about_me')
 
 
-@ajax_only
 def get_profile_about_me_form(request, pk):
-    if not request.user.has_perm('about.change_profile'):
-        return HttpResponseForbidden()
+    kwargs = {'attr_name': 'about_me',
+              'form_obj': SingleTextareaForm,
+              }
 
-    profile = get_object_or_404(Profile, pk=pk)
-
-    kwargs = {
-    'render_args': {
-        'template_name': 'ajax/single_field_form.haml',
-        'dictionary': {'id': 'about-profile-about-me-form-%s' % pk,
-                       'url': reverse('about-get-profile-about-me-form', args=[pk])
-                      },
-    },
-    'attr_name': 'about_me',
-    'form_obj': SingleTextareaForm,
-
-    }
-
-    return validate_single_ajax_form(request, profile, **kwargs)
+    return ajax_get_single_form(request, pk, Profile, 'about', 'profile-about-me', 'about.change_profile', **kwargs)
 
 
 # Lab descrition
 @require_safe
 @ajax_only
 def get_project_description(request, pk):
-    p = get_object_or_404(WorkProject, pk=pk)
-    return render(request, 'ajax/single_field_value_md.haml', {'value': p.description})
+    return ajax_get_single_data(request, pk, WorkProject, 'description')
 
 
 @ajax_only
 def get_project_description_form(request, pk):
-    if not request.user.has_perm('about.change_project'):
-        return HttpResponseForbidden()
+    kwargs = {'attr_name': 'description',
+              'form_obj': SingleTextareaForm,
+              }
 
-    project = get_object_or_404(WorkProject, pk=pk)
-
-    kwargs = {
-    'render_args': {
-        'template_name': 'ajax/single_field_form.haml',
-        'dictionary': {'id': 'about-project-description-form-%s' % pk,
-                       'url': reverse('about-get-project-description-form', args=[pk])
-                      },
-    },
-    'attr_name': 'description',
-    'form_obj': SingleTextareaForm,
-
-    }
-
-    return validate_single_ajax_form(request, project, **kwargs)
+    return ajax_get_single_form(request, pk, WorkProject, 'about', 'project-description', 'about.change_project', **kwargs)

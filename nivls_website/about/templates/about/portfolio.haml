@@ -32,7 +32,7 @@
     - for project in projects
         %section.clean-section
             %h2.section-content{'class'   : '{% if perms.lab.change_project %}lab-project-name-live-edit{% endif %}',
-                                'id'      : 'lab-project-name-{{ project.lab.slug }}'}<
+                                'id'      : 'lab-project-name-{{ project.lab.pk }}'}<
                 - include 'ajax/single_field_value.haml' with value=project.lab.name
 
             .section-content
