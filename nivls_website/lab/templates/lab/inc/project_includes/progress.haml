@@ -4,7 +4,7 @@
     - trans "Progress"
 
 
-%div{'id'      : 'lab-project-progress-rate-{{ project.slug }}',
+%div{'id'      : 'lab-project-progress-rate-{{ project.pk }}',
      'class'   : '{% if perms.lab.change_project %}lab-project-progress-rate-live-edit{% endif %}'}
     - include 'lab/ajax/overall_progress.haml' with value=project.overall_progress
 

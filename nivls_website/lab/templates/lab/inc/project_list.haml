@@ -5,11 +5,11 @@
     %section.clean-section{'itemscope': None, 'itemtype': 'http://schema.org/SoftwareApplication'}
         %h2{'itemprop': 'name',
             'class'   : '{% if perms.lab.change_project %}lab-project-name-live-edit{% endif %}',
-            'id'      : 'lab-project-name-{{ project.slug }}'}<
+            'id'      : 'lab-project-name-{{ project.pk }}'}<
             - include 'ajax/single_field_value.haml' with value=project.name
 
         .section-content.margin-top-1
-            %div{'id'      : 'lab-project-description-{{ project.slug }}',
+            %div{'id'      : 'lab-project-description-{{ project.pk }}',
                  'class'   : '{% if perms.lab.change_project %}lab-project-description-live-edit{% endif %}',
                  'itemprop': 'description'}
                 - include 'ajax/single_field_value_md.haml' with value=project.description

@@ -4,11 +4,10 @@ from django.views.decorators.http import require_safe
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.http import HttpResponseForbidden
 from commons.decorators import ajax_only
 from commons.paginator import simple_paginator
 from commons.forms import *
-from commons.views import validate_single_ajax_form
+from commons.views import *
 from models import *
 from forms import *
 
@@ -41,86 +40,62 @@ def project(request, slug):
 #
 # Ajax
 #
-
-@require_safe
-@ajax_only
-def get_single_data(request, slug, field, template_name='ajax/single_field_value.haml'):
-    p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
-    return render(request, template_name, {'value': getattr(p, field)})
-
-
-@ajax_only
-def get_single_form(request, slug, path_name='', template_name='ajax/single_field_form.haml', **kwargs):
-    project = get_object_or_404(Project,
-      slug=slug,
-      site=Site.objects.get_current())
-
+def get_single_form(request, pk, Obj=Project, path_name='', perm='lab.change_project', template_name='ajax/single_field_form.haml', **kwargs):
     if len(path_name) == 0:
-        path_name = kwargs['attr_name']
-
-    kwargs['render_args'] = {
-    'template_name': template_name,
-    'dictionary': {'id': 'lab-project-%s-form-%s' % (path_name, slug),
-                   'url': reverse('lab-get-project-%s-form' % path_name, args=[slug])
-                   }
-    }
-
-    if not request.user.has_perm('lab.change_project'):
-        return HttpResponseForbidden()
-
-    return validate_single_ajax_form(request, project, **kwargs)
+        path_name = 'project-%s' % kwargs['attr_name']
+    return ajax_get_single_form(request, pk, Obj, 'lab', path_name, perm, template_name, **kwargs)
 
 
 # Description
-def get_project_description(request, slug):
-    return get_single_data(request, slug, 'description', template_name='ajax/single_field_value_md.haml')
+def get_project_description(request, pk):
+    return ajax_get_single_data(request, pk, Project, 'description', template_name='ajax/single_field_value_md.haml')
 
 
 @ajax_only
-def get_project_description_form(request, slug):
+def get_project_description_form(request, pk):
     args = {'attr_name': 'description',
             'form_obj': SingleTextareaForm,
             }
 
-    return get_single_form(request, slug, **args)
+    return get_single_form(request, pk, **args)
 
 
 # Name
-def get_project_name(request, slug):
-    return get_single_data(request, slug, 'name')
+def get_project_name(request, pk):
+    return ajax_get_single_data(request, pk, Project, 'name')
 
 
-def get_project_name_form(request, slug):
+def get_project_name_form(request, pk):
     args = {'attr_name': 'name',
             'form_obj': SingleCharFieldForm
             }
 
-    return get_single_form(request, slug, template_name='ajax/single_field_form_inline.haml', **args)
+    return get_single_form(request, pk, template_name='ajax/single_field_form_inline.haml', **args)
 
 
 # Catchphrase
-def get_project_catchphrase(request, slug):
-    return get_single_data(request, slug, 'catchphrase')
+def get_project_catchphrase(request, pk):
+    return ajax_get_single_data(request, pk, Project, 'catchphrase')
 
 
-def get_project_catchphrase_form(request, slug):
+def get_project_catchphrase_form(request, pk):
     args = {'attr_name': 'catchphrase',
             'form_obj': SingleCharFieldForm
             }
 
-    return get_single_form(request, slug, template_name='ajax/single_field_form_inline.haml', **args)
+    return get_single_form(request, pk, template_name='ajax/single_field_form_inline.haml', **args)
 
 
 # License
 @require_safe
 @ajax_only
-def get_project_license(request, slug):
-    p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
+def get_project_license(request, pk):
+    p = get_object_or_404(Project, pk=pk)
     return render(request, "ajax/single_field_link_value.haml",
                  {'value': p.license.name, 'value_url': p.license.url})
 
 
-def get_project_license_form(request, slug):
+def get_project_license_form(request, pk):
     licenses = License.objects.filter(site=Site.objects.get_current()) \
                               .values_list('pk', 'name')
     args = {'attr_name': 'license',
@@ -129,36 +104,36 @@ def get_project_license_form(request, slug):
             'inital_fix': ('License', 'pk'),
             }
 
-    return get_single_form(request, slug, template_name='ajax/single_field_form_inline.haml', **args)
+    return get_single_form(request, pk, template_name='ajax/single_field_form_inline.haml', **args)
 
 
 # real Clients
 @require_safe
-def get_project_realclients(request, slug):
-    p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
+def get_project_realclients(request, pk):
+    p = get_object_or_404(Project, pk=pk)
     return render(request, "lab/ajax/business_card.haml", {'items': p.clients_user.all(),
                                                            'is_user': True})
 
 
-def get_project_realclients_form(request, slug):
+def get_project_realclients_form(request, pk):
     args = {'attr_name': 'clients_user',
             'form_obj': SingleMultipleChoiceFieldForm,
             'form_args': {'queryset': User.objects.all()},
             'has_many': True,
             }
 
-    return get_single_form(request, slug, path_name='realclients', **args)
+    return get_single_form(request, pk, path_name='project-realclients', **args)
 
 
 # Client
 @require_safe
-def get_project_clients(request, slug):
-    p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
+def get_project_clients(request, pk):
+    p = get_object_or_404(Project, pk=pk)
     return render(request, "lab/ajax/business_card.haml", {'items': p.clients.all(),
                                                            'is_user': False})
 
 
-def get_project_clients_form(request, slug):
+def get_project_clients_form(request, pk):
     queryset = Client.objects.filter(site=Site.objects.get_current())
     args = {'attr_name': 'clients',
             'form_obj': SingleMultipleChoiceFieldForm,
@@ -166,174 +141,118 @@ def get_project_clients_form(request, slug):
             'has_many': True,
             }
 
-    return get_single_form(request, slug, **args)
+    return get_single_form(request, pk, **args)
 
 
 # real Coworker
 @require_safe
-def get_project_realcoworkers(request, slug):
-    p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
+def get_project_realcoworkers(request, pk):
+    p = get_object_or_404(Project, pk=pk)
     return render(request, "lab/ajax/business_card.haml", {'items': p.coworkers_user.all(),
                                                            'is_user': True})
 
 
-def get_project_realcoworkers_form(request, slug):
+def get_project_realcoworkers_form(request, pk):
     args = {'attr_name': 'coworkers_user',
             'form_obj': SingleMultipleChoiceFieldForm,
             'form_args': {'queryset': User.objects.all()},
             'has_many': True,
             }
 
-    return get_single_form(request, slug, path_name='realcoworkers', **args)
+    return get_single_form(request, pk, path_name='project-realcoworkers', **args)
 
 
 # Coworker
 @require_safe
-def get_project_coworkers(request, slug):
-    p = get_object_or_404(Project, slug=slug, site=settings.SITE_ID)
+def get_project_coworkers(request, pk):
+    p = get_object_or_404(Project, pk=pk)
     return render(request, "lab/ajax/business_card.haml", {'items': p.coworkers.all(),
                                                            'is_user': False})
 
 
-def get_project_coworkers_form(request, slug):
+def get_project_coworkers_form(request, pk):
     args = {'attr_name': 'coworkers',
             'form_obj': SingleMultipleChoiceFieldForm,
             'form_args': {'queryset': Coworker.objects.filter(site=Site.objects.get_current())},
             'has_many': True,
             }
 
-    return get_single_form(request, slug, **args)
+    return get_single_form(request, pk, **args)
 
 
 # Progress rate
-def get_project_progress_rate(request, slug):
-    return get_single_data(request, slug, 'overall_progress', template_name='lab/ajax/overall_progress.haml')
+def get_project_progress_rate(request, pk):
+    return ajax_get_single_data(request, pk, Project, 'overall_progress', template_name='lab/ajax/overall_progress.haml')
 
 
-def get_project_progress_rate_form(request, slug):
+def get_project_progress_rate_form(request, pk):
     args = {'attr_name': 'overall_progress',
             'form_obj': SingleCharFieldForm
             }
 
-    return get_single_form(request, slug, path_name='progress-rate', **args)
+    return get_single_form(request, pk, path_name='project-progress-rate', **args)
 
 
 # progress date
 @require_safe
 @ajax_only
 def get_project_progress_date(request, pk):
-    p = get_object_or_404(Progress, pk=pk)
-    return render(request, 'ajax/single_field_value.haml', {'value': p.pub_date})
+    return ajax_get_single_data(request, pk, Progress, 'pub_date', template_name='ajax/single_field_value.haml')
 
 
 @ajax_only
 def get_project_progress_date_form(request, pk):
-    if not request.user.has_perm('lab.change_progress'):
-        return HttpResponseForbidden()
+    kwargs = {'attr_name': 'pub_date',
+              'form_obj': SingleDateFieldForm,
+              }
 
-    progress = get_object_or_404(Progress, pk=pk)
-
-    kwargs = {
-    'render_args': {
-        'template_name': 'ajax/single_field_form_inline.haml',
-        'dictionary': {'id': 'lab-project-progress-date-form-%s' % pk,
-                       'url': reverse('lab-get-project-progress-date-form', args=[pk])
-                      },
-    },
-    'attr_name': 'pub_date',
-    'form_obj': SingleDateFieldForm,
-
-    }
-
-    return validate_single_ajax_form(request, progress, **kwargs)
-
+    return get_single_form(request, pk, Obj=Progress, path_name='project-progress-date', perm='lab.change_progress', **kwargs)
 
 
 # progress description
 @require_safe
 @ajax_only
 def get_project_progress_description(request, pk):
-    p = get_object_or_404(Progress, pk=pk)
-    return render(request, 'ajax/single_field_value.haml', {'value': p.description})
+    return ajax_get_single_data(request, pk, Progress, 'description', template_name='ajax/single_field_value.haml')
 
 
 @ajax_only
 def get_project_progress_description_form(request, pk):
-    if not request.user.has_perm('lab.change_progress'):
-        return HttpResponseForbidden()
+    kwargs = {'attr_name': 'description',
+              'form_obj': SingleCharFieldForm
+              }
 
-    progress = get_object_or_404(Progress, pk=pk)
-
-    kwargs = {
-    'render_args': {
-        'template_name': 'ajax/single_field_form_inline.haml',
-        'dictionary': {'id': 'lab-project-progress-description-form-%s' % pk,
-                       'url': reverse('lab-get-project-progress-description-form', args=[pk])
-                      },
-    },
-    'attr_name': 'description',
-    'form_obj': SingleCharFieldForm,
-
-    }
-
-    return validate_single_ajax_form(request, progress, **kwargs)
+    return get_single_form(request, pk, Obj=Progress, path_name='project-progress-description', perm='lab.change_progress', **kwargs)
 
 
 # video name
 @require_safe
 @ajax_only
 def get_project_video_name(request, pk):
-    v = get_object_or_404(Video, pk=pk)
-    return render(request, 'ajax/single_field_value.haml', {'value': v.name})
+    return ajax_get_single_data(request, pk, Video, 'name', template_name='ajax/single_field_value.haml')
 
 
 @ajax_only
 def get_project_video_name_form(request, pk):
-    if not request.user.has_perm('lab.change_video'):
-        return HttpResponseForbidden()
-
-    video = get_object_or_404(Video, pk=pk)
-
     kwargs = {
-    'render_args': {
-        'template_name': 'ajax/single_field_form_inline.haml',
-        'dictionary': {'id': 'lab-project-video-name-form-%s' % pk,
-                       'url': reverse('lab-get-project-video-name-form', args=[pk])
-                      },
-    },
     'attr_name': 'name',
     'form_obj': SingleCharFieldForm,
-
     }
 
-    return validate_single_ajax_form(request, video, **kwargs)
+    return get_single_form(request, pk, Obj=Video, path_name='project-video-name', perm='lab.change_video', **kwargs)
 
 
 # video description
 @require_safe
 @ajax_only
 def get_project_video_description(request, pk):
-    v = get_object_or_404(Video, pk=pk)
-    return render(request, 'ajax/single_field_value_md.haml', {'value': v.description})
+    return ajax_get_single_data(request, pk, Video, 'description')
 
 
 @ajax_only
 def get_project_video_description_form(request, pk):
-    if not request.user.has_perm('lab.change_video'):
-        return HttpResponseForbidden()
+    kwargs = {'attr_name': 'description',
+              'form_obj': SingleTextareaForm,
+              }
 
-    video = get_object_or_404(Video, pk=pk)
-
-    kwargs = {
-    'render_args': {
-        'template_name': 'ajax/single_field_form.haml',
-        'dictionary': {'id': 'lab-project-video-description-form-%s' % pk,
-                       'url': reverse('lab-get-project-video-description-form', args=[pk])
-                      },
-    },
-    'attr_name': 'description',
-    'form_obj': SingleTextareaForm,
-
-    }
-
-    return validate_single_ajax_form(request, video, **kwargs)
+    return get_single_form(request, pk, Obj=Video, path_name='project-video-description', perm='lab.change_video', **kwargs)

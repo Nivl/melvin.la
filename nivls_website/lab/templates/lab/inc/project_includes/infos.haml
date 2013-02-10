@@ -9,7 +9,7 @@
             - trans "Project License: "
 
         %span{'class'   : '{% if perms.lab.change_project %}lab-project-license-live-edit{% endif %}',
-              'id'      : 'lab-project-license-{{ project.slug }}'}
+              'id'      : 'lab-project-license-{{ project.pk }}'}
             - include 'ajax/single_field_link_value.haml' with value=project.license.name value_url=project.license.url
 
         - if project.sources_url
@@ -39,7 +39,7 @@
                                'class'    : 'color',
                                'value'    : '#{{ lang.language.color }} '}
 
-    %div{'id'      : 'lab-project-description-{{ project.slug }}',
+    %div{'id'      : 'lab-project-description-{{ project.pk }}',
          'class'   : '{% if perms.lab.change_project %}lab-project-description-live-edit{% endif %}',
          'itemprop': 'description'}
         - include 'ajax/single_field_value_md.haml' with value=project.description
@@ -62,11 +62,11 @@
                     - trans "Client(s)"
 
                 .business-card
-                    .real_user.pull-left{'id'      : 'lab-project-realclients-{{ project.slug }}',
+                    .real_user.pull-left{'id'      : 'lab-project-realclients-{{ project.pk }}',
                                          'class'   : '{% if perms.lab.change_project %}lab-project-realclients-live-edit{% endif %}'}
                         - include "lab/ajax/business_card.haml" with items=client_user is_user=1
 
-                    .fake_user{'id'      : 'lab-project-clients-{{ project.slug }}',
+                    .fake_user{'id'      : 'lab-project-clients-{{ project.pk }}',
                                'class'   : '{% if perms.lab.change_project %}lab-project-clients-live-edit{% endif %}'}
                         - include "lab/ajax/business_card.haml" with items=clients is_user=0
 
@@ -79,11 +79,11 @@
                     - trans "Team"
 
                 .business-card
-                    .real_user.pull-left{'id'      : 'lab-project-realcoworkers-{{ project.slug }}',
+                    .real_user.pull-left{'id'      : 'lab-project-realcoworkers-{{ project.pk }}',
                                          'class'   : '{% if perms.lab.change_project %}lab-project-realcoworkers-live-edit{% endif %}'}
                         - include "lab/ajax/business_card.haml" with items=coworkers_user is_user=1
 
 
-                    .fake_user{'id'      : 'lab-project-coworkers-{{ project.slug }}',
+                    .fake_user{'id'      : 'lab-project-coworkers-{{ project.pk }}',
                                'class'   : '{% if perms.lab.change_project %}lab-project-coworkers-live-edit{% endif %}'}
                         - include "lab/ajax/business_card.haml" with items=coworkers is_user=0
