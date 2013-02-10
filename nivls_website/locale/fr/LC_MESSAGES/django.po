@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-03 16:53+0100\n"
+"POT-Creation-Date: 2013-02-10 23:21+0100\n"
 "PO-Revision-Date: 2013-02-03 16:54+0100\n"
 "Last-Translator: Melvin laplanche <melvin.laplanche+dev@gmail.com>\n"
 "Language-Team: Laplanche Melvin <LL@li.org>\n"
@@ -33,8 +33,8 @@ msgstr "Message"
 #: about/models.py:14 about/models.py:56 about/models.py:111 blog/models.py:20
 #: blog/models.py:62 blog/models.py:102 blog/models.py:163 blog/models.py:396
 #: commons/models.py:12 lab/models.py:19 lab/models.py:90 lab/models.py:130
-#: lab/models.py:173 lab/models.py:216 resumes/models.py:12
-#: resumes/models.py:116 seo/models.py:15
+#: lab/models.py:173 lab/models.py:216 resume/models.py:12
+#: resume/models.py:116 seo/models.py:15
 msgid "site"
 msgstr "site"
 
@@ -42,8 +42,8 @@ msgstr "site"
 #: blog/models.py:39 blog/models.py:66 blog/models.py:106 blog/models.py:317
 #: blog/models.py:365 lab/models.py:23 lab/models.py:72 lab/models.py:94
 #: lab/models.py:134 lab/models.py:177 lab/models.py:220 lab/models.py:382
-#: lab/models.py:413 lab/models.py:440 lab/models.py:476 resumes/models.py:16
-#: resumes/models.py:49 resumes/models.py:120 resumes/models.py:148
+#: lab/models.py:413 lab/models.py:440 lab/models.py:476 resume/models.py:16
+#: resume/models.py:49 resume/models.py:120 resume/models.py:148
 #: seo/models.py:80
 msgid "name"
 msgstr "nom"
@@ -67,8 +67,8 @@ msgid "icon"
 msgstr "icône"
 
 #: about/models.py:40 about/models.py:89 about/models.py:139 blog/models.py:27
-#: blog/models.py:400 resumes/models.py:23 resumes/models.py:52
-#: resumes/models.py:85 resumes/models.py:127 resumes/models.py:152
+#: blog/models.py:400 resume/models.py:23 resume/models.py:52
+#: resume/models.py:85 resume/models.py:127 resume/models.py:152
 msgid "order"
 msgstr "ordre"
 
@@ -102,8 +102,8 @@ msgstr "liens de contact"
 
 #: about/models.py:118 blog/models.py:69 blog/models.py:109 blog/models.py:196
 #: lab/models.py:26 lab/models.py:76 lab/models.py:97 lab/models.py:137
-#: lab/models.py:180 lab/models.py:223 resumes/models.py:19
-#: resumes/models.py:123
+#: lab/models.py:180 lab/models.py:223 resume/models.py:19
+#: resume/models.py:123
 msgid "slug"
 msgstr "slug"
 
@@ -139,7 +139,7 @@ msgstr "Projets"
 #: about/templates/about/about.haml_parsed:13
 #: about/templates/about/about.haml_parsed:22
 #: about/templates/about/about.haml_parsed:23
-#: nivls_website/templates/base_common.haml_parsed:39
+#: nivls_website/templates/base_common.haml_parsed:45
 #: nivls_website/templates/inc/footer.haml_parsed:67
 msgid "About"
 msgstr "À propos"
@@ -160,7 +160,7 @@ msgstr ""
 
 #: about/templates/about/contact.haml_parsed:8
 #: about/templates/about/contact.haml_parsed:11
-#: nivls_website/templates/base_common.haml_parsed:45
+#: nivls_website/templates/base_common.haml_parsed:51
 #: nivls_website/templates/inc/footer.haml_parsed:114
 msgid "Contact"
 msgstr ""
@@ -171,19 +171,22 @@ msgstr "Là où vous pouvez me contacter"
 
 #: about/templates/about/contact_form.haml_parsed:11
 #: blog/templates/blog/ajax/comment_form.haml_parsed:9
-#: blog/templates/blog/ajax/comment_single_form.haml_parsed:9
+#: nivls_website/templates/ajax/single_field_form.haml_parsed:9
+#: nivls_website/templates/ajax/single_field_form_inline.haml_parsed:10
 msgid "Sending..."
 msgstr "Envoi…"
 
 #: about/templates/about/contact_form.haml_parsed:12
 #: blog/templates/blog/ajax/comment_form.haml_parsed:11
-#: blog/templates/blog/ajax/comment_single_form.haml_parsed:9
+#: nivls_website/templates/ajax/single_field_form.haml_parsed:9
+#: nivls_website/templates/ajax/single_field_form_inline.haml_parsed:10
 msgid "Send"
 msgstr "Envoyer"
 
 #: about/templates/about/contact_form.haml_parsed:15
 #: blog/templates/blog/ajax/comment_form.haml_parsed:15
-#: blog/templates/blog/ajax/comment_single_form.haml_parsed:10
+#: nivls_website/templates/ajax/single_field_form.haml_parsed:10
+#: nivls_website/templates/ajax/single_field_form_inline.haml_parsed:11
 #: user_profile/templates/users/sign_in.haml_parsed:48
 #: user_profile/templates/users/ajax/edit_account_form.haml_parsed:19
 #: user_profile/templates/users/ajax/edit_email_form.haml_parsed:22
@@ -218,7 +221,7 @@ msgstr "Derniers articles"
 #: about/templates/about/portfolio.haml_parsed:11
 #: about/templates/about/portfolio.haml_parsed:15
 #: about/templates/about/portfolio.haml_parsed:27
-#: nivls_website/templates/base_common.haml_parsed:42
+#: nivls_website/templates/base_common.haml_parsed:48
 #: nivls_website/templates/inc/footer.haml_parsed:74
 msgid "Portfolio"
 msgstr ""
@@ -231,26 +234,26 @@ msgstr "Là où il y a mes projets professionnels"
 msgid "Job(s):"
 msgstr ""
 
-#: about/templates/about/portfolio.haml_parsed:54
-#: about/templates/about/portfolio.haml_parsed:78 blog/models.py:189
+#: about/templates/about/portfolio.haml_parsed:55
+#: about/templates/about/portfolio.haml_parsed:79 blog/models.py:189
 #: blog/templates/blog/post.haml_parsed:140
 #: lab/templates/lab/base.haml_parsed:9 lab/templates/lab/base.haml_parsed:12
 #: lab/templates/lab/base.haml_parsed:21 lab/templates/lab/base.haml_parsed:22
 #: lab/templates/lab/templatetags/tags.haml_parsed:7
-#: nivls_website/templates/base_common.haml_parsed:36
+#: nivls_website/templates/base_common.haml_parsed:42
 #: nivls_website/templates/inc/footer.haml_parsed:60
 #: search_engine/templates/search/search.haml_parsed:49
 msgid "Lab"
 msgstr ""
 
-#: about/templates/about/portfolio.haml_parsed:55
+#: about/templates/about/portfolio.haml_parsed:56
 #: blog/templates/blog/post.haml_parsed:144
-#: lab/templates/lab/inc/project_list.haml_parsed:12
+#: lab/templates/lab/inc/project_list.haml_parsed:13
 msgid "Know more"
 msgstr "En savoir plus"
 
-#: about/templates/about/portfolio.haml_parsed:66
-#: about/templates/about/portfolio.haml_parsed:79
+#: about/templates/about/portfolio.haml_parsed:67
+#: about/templates/about/portfolio.haml_parsed:80
 msgid "See more projects"
 msgstr "Voir plus de projets"
 
@@ -282,10 +285,6 @@ msgstr "%(sitename)s - Categorie : %(name)s"
 #, python-format
 msgid "Latest posts for the category '%(name)s'"
 msgstr "Derniers articles de la catégorie '%(name)s'"
-
-#: blog/forms.py:61
-msgid " "
-msgstr ""
 
 #: blog/models.py:30
 msgid "hide"
@@ -328,7 +327,7 @@ msgstr "date de publication"
 msgid "author"
 msgstr "auteur"
 
-#: blog/models.py:181 resumes/models.py:81 resumes/models.py:144
+#: blog/models.py:181 resume/models.py:81 resume/models.py:144
 msgid "category"
 msgstr "categorie"
 
@@ -365,7 +364,7 @@ msgid "edit date"
 msgstr "date de modification"
 
 #: blog/models.py:321 lab/models.py:108 lab/models.py:151 lab/models.py:194
-#: lab/models.py:391 lab/models.py:418 resumes/models.py:64
+#: lab/models.py:391 lab/models.py:418 resume/models.py:64
 msgid "image"
 msgstr "image"
 
@@ -401,12 +400,12 @@ msgstr "Commentaires"
 msgid "Carousel"
 msgstr "Carrousel"
 
-#: blog/views.py:138
+#: blog/views.py:126
 #, python-format
 msgid "new comment for \"%s\""
 msgstr "Nouveau commentaire pour \"%s\""
 
-#: blog/views.py:266 blog/templates/blog/templatetags/archives.haml_parsed:12
+#: blog/views.py:254 blog/templates/blog/templatetags/archives.haml_parsed:12
 #, python-format
 msgid "Archives from %(date)s"
 msgstr "Archive de %(date)s"
@@ -415,7 +414,7 @@ msgstr "Archive de %(date)s"
 #: blog/templates/blog/base.haml_parsed:12
 #: blog/templates/blog/base.haml_parsed:37
 #: blog/templates/blog/base.haml_parsed:39
-#: nivls_website/templates/base_common.haml_parsed:33
+#: nivls_website/templates/base_common.haml_parsed:39
 #: nivls_website/templates/inc/footer.haml_parsed:53
 #: search_engine/templates/search/search.haml_parsed:45
 msgid "Blog"
@@ -526,9 +525,14 @@ msgstr "Il n'y a aucun article."
 msgid "There are no links."
 msgstr "Il n'y a aucun lien."
 
-#: commons/fields.py:63 commons/forms.py:10 commons/forms.py:46
+#: commons/fields.py:63 commons/forms.py:51 commons/forms.py:87
 msgid "Invalid coordinates."
 msgstr "Coordonnées invalides"
+
+#: commons/forms.py:8 commons/forms.py:13 commons/forms.py:19
+#: commons/forms.py:29 commons/forms.py:39
+msgid " "
+msgstr ""
 
 #: commons/models.py:16 lab/models.py:330
 msgid "language"
@@ -640,8 +644,8 @@ msgstr "Vidéos"
 
 #: lab/templates/lab/project.haml_parsed:79
 #: lab/templates/lab/inc/project_includes/downloads.haml_parsed:4
-#: resumes/templates/resumes/inc/resume.haml_parsed:31
-#: resumes/templates/resumes/inc/resume.haml_parsed:40
+#: resume/templates/resumes/inc/resume.haml_parsed:31
+#: resume/templates/resumes/inc/resume.haml_parsed:40
 msgid "Downloads"
 msgstr "Téléchargements"
 
@@ -658,19 +662,19 @@ msgstr "Informations sur %(project_name)s"
 msgid "Project License: "
 msgstr "Licence du projet : "
 
-#: lab/templates/lab/inc/project_includes/infos.haml_parsed:26
+#: lab/templates/lab/inc/project_includes/infos.haml_parsed:15
 msgid "Browse the sources"
 msgstr "Voir les sources du projet"
 
-#: lab/templates/lab/inc/project_includes/infos.haml_parsed:60
+#: lab/templates/lab/inc/project_includes/infos.haml_parsed:49
 msgid "Blog entries related to this project"
 msgstr "Articles liés à ce projet"
 
-#: lab/templates/lab/inc/project_includes/infos.haml_parsed:75
+#: lab/templates/lab/inc/project_includes/infos.haml_parsed:64
 msgid "Client(s)"
 msgstr "Client(s)"
 
-#: lab/templates/lab/inc/project_includes/infos.haml_parsed:94
+#: lab/templates/lab/inc/project_includes/infos.haml_parsed:83
 msgid "Team"
 msgstr "Équipe"
 
@@ -679,7 +683,7 @@ msgid "Todo"
 msgstr "À faire"
 
 #: lab/templates/lab/templatetags/tags.haml_parsed:20
-#: nivls_website/templates/base_common.haml_parsed:153
+#: nivls_website/templates/base_common.haml_parsed:159
 #: nivls_website/templates/inc/footer.haml_parsed:46
 msgid "Home"
 msgstr "Accueil"
@@ -716,7 +720,7 @@ msgstr "méthode"
 msgid "en"
 msgstr "fr"
 
-#: nivls_website/templates/base_common.haml_parsed:52
+#: nivls_website/templates/base_common.haml_parsed:58
 #: user_profile/templates/users/sign_up.haml_parsed:6
 #: user_profile/templates/users/sign_up.haml_parsed:12
 #: user_profile/templates/users/sign_up.haml_parsed:18
@@ -725,15 +729,15 @@ msgstr "fr"
 msgid "Sign up"
 msgstr "Inscription"
 
-#: nivls_website/templates/base_common.haml_parsed:55
+#: nivls_website/templates/base_common.haml_parsed:61
 #: user_profile/templates/users/password_reset.haml_parsed:15
 #: user_profile/templates/users/password_reset.haml_parsed:17
 #: user_profile/templates/users/ajax/edit_password_form.haml_parsed:26
 msgid "I lost my password"
 msgstr "Mot de passe perdu"
 
-#: nivls_website/templates/base_common.haml_parsed:58
-#: nivls_website/templates/base_common.haml_parsed:70
+#: nivls_website/templates/base_common.haml_parsed:64
+#: nivls_website/templates/base_common.haml_parsed:76
 #: user_profile/templates/users/sign_in.haml_parsed:6
 #: user_profile/templates/users/sign_in.haml_parsed:9
 #: user_profile/templates/users/sign_in.haml_parsed:18
@@ -742,55 +746,55 @@ msgstr "Mot de passe perdu"
 msgid "Sign in"
 msgstr "Connexion"
 
-#: nivls_website/templates/base_common.haml_parsed:61
+#: nivls_website/templates/base_common.haml_parsed:67
 msgid "Sign in with:"
 msgstr "Passer par :"
 
-#: nivls_website/templates/base_common.haml_parsed:64
+#: nivls_website/templates/base_common.haml_parsed:70
 msgid "Or sign in using your account:"
 msgstr "Ou se connecter via votre compte :"
 
-#: nivls_website/templates/base_common.haml_parsed:67 user_profile/forms.py:34
+#: nivls_website/templates/base_common.haml_parsed:73 user_profile/forms.py:34
 #: user_profile/forms.py:79
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: nivls_website/templates/base_common.haml_parsed:68 user_profile/forms.py:16
+#: nivls_website/templates/base_common.haml_parsed:74 user_profile/forms.py:16
 #: user_profile/forms.py:121
 msgid "Password"
 msgstr "Mot de passe"
 
-#: nivls_website/templates/base_common.haml_parsed:77
-#: nivls_website/templates/base_common.haml_parsed:79
+#: nivls_website/templates/base_common.haml_parsed:83
+#: nivls_website/templates/base_common.haml_parsed:85
 msgid "My profile"
 msgstr "Mon profil"
 
-#: nivls_website/templates/base_common.haml_parsed:84
-#: nivls_website/templates/base_common.haml_parsed:86
+#: nivls_website/templates/base_common.haml_parsed:90
+#: nivls_website/templates/base_common.haml_parsed:92
 #: user_profile/templates/users/edit_account.haml_parsed:6
 #: user_profile/templates/users/edit_account.haml_parsed:12
 #: user_profile/templates/users/edit_account.haml_parsed:14
 msgid "Edit my account"
 msgstr "Modifier mon compte"
 
-#: nivls_website/templates/base_common.haml_parsed:91
-#: nivls_website/templates/base_common.haml_parsed:93
+#: nivls_website/templates/base_common.haml_parsed:97
+#: nivls_website/templates/base_common.haml_parsed:99
 #: user_profile/templates/users/edit_picture.haml_parsed:6
 #: user_profile/templates/users/edit_picture.haml_parsed:17
 #: user_profile/templates/users/edit_picture.haml_parsed:19
 msgid "Edit my profile picture"
 msgstr "Modifier ma photo de profil"
 
-#: nivls_website/templates/base_common.haml_parsed:98
-#: nivls_website/templates/base_common.haml_parsed:100
+#: nivls_website/templates/base_common.haml_parsed:104
+#: nivls_website/templates/base_common.haml_parsed:106
 msgid "Social media accounts"
 msgstr "Comptes liés"
 
-#: nivls_website/templates/base_common.haml_parsed:108
+#: nivls_website/templates/base_common.haml_parsed:114
 msgid "Sign out"
 msgstr "Déconnexion"
 
-#: nivls_website/templates/base_common.haml_parsed:129
+#: nivls_website/templates/base_common.haml_parsed:135
 #: search_engine/templates/search/search.haml_parsed:6
 #: search_engine/templates/search/search.haml_parsed:13
 #: search_engine/templates/search/search.haml_parsed:19
@@ -800,15 +804,15 @@ msgstr "Déconnexion"
 msgid "Search"
 msgstr "Chercher"
 
-#: nivls_website/templates/base_common.haml_parsed:138
+#: nivls_website/templates/base_common.haml_parsed:144
 msgid "Welcome"
 msgstr "Bienvenue"
 
-#: nivls_website/templates/base_common.haml_parsed:148
+#: nivls_website/templates/base_common.haml_parsed:154
 msgid "You are here"
 msgstr "Vous êtes ici"
 
-#: nivls_website/templates/base_common.haml_parsed:172
+#: nivls_website/templates/base_common.haml_parsed:178
 #: user_profile/templates/users/base.haml_parsed:9
 msgid "Where you have access to your data"
 msgstr "Là où vous avez accès à vos données"
@@ -879,75 +883,75 @@ msgstr "Recharger la page"
 msgid "Page %(i)s"
 msgstr ""
 
-#: resumes/models.py:31 resumes/models.py:45
+#: resume/models.py:31 resume/models.py:45
 msgid "Section"
 msgstr "Section"
 
-#: resumes/models.py:32
+#: resume/models.py:32
 msgid "Sections"
 msgstr "Sections"
 
-#: resumes/models.py:58
+#: resume/models.py:58
 msgid "display type"
 msgstr "type d'affichage"
 
-#: resumes/models.py:72
+#: resume/models.py:72
 msgid "Category"
 msgstr "Categorie"
 
-#: resumes/models.py:73
+#: resume/models.py:73
 msgid "Categories"
 msgstr "Categories"
 
-#: resumes/models.py:91
+#: resume/models.py:91
 msgid "key"
 msgstr "clef"
 
-#: resumes/models.py:94
+#: resume/models.py:94
 msgid "value"
 msgstr "valeur"
 
-#: resumes/models.py:100
+#: resume/models.py:100
 msgid "value for download"
 msgstr "valeur pour téléchargement"
 
-#: resumes/models.py:107
+#: resume/models.py:107
 msgid "Content"
 msgstr "Contenu"
 
-#: resumes/models.py:108
+#: resume/models.py:108
 msgid "Contents"
 msgstr "Contenus"
 
-#: resumes/models.py:135
+#: resume/models.py:135
 msgid "Document category"
 msgstr "Categorie de document"
 
-#: resumes/models.py:136
+#: resume/models.py:136
 msgid "Documents category"
 msgstr "Categories de document"
 
-#: resumes/models.py:156
+#: resume/models.py:156
 msgid "document"
 msgstr "document"
 
-#: resumes/models.py:164
+#: resume/models.py:164
 msgid "Document"
 msgstr "Document"
 
-#: resumes/models.py:165
+#: resume/models.py:165
 msgid "Documents"
 msgstr "Documents"
 
-#: resumes/templates/resumes/inc/resume.haml_parsed:6
+#: resume/templates/resumes/inc/resume.haml_parsed:6
 msgid "C.V."
 msgstr ""
 
-#: resumes/templates/resumes/inc/resume.haml_parsed:47
+#: resume/templates/resumes/inc/resume.haml_parsed:47
 msgid "Download this C.V. as PDF"
 msgstr "Télécharger ce C.V. au format PDF"
 
-#: resumes/templates/resumes/inc/resume.haml_parsed:66
+#: resume/templates/resumes/inc/resume.haml_parsed:66
 msgid ""
 "You can download several documents such as academic degrees, tests results, "
 "etc., on my website: "
@@ -955,7 +959,7 @@ msgstr ""
 "Vous pouvez télécharger plusieurs documents comme mes diplômes, résultats "
 "d'examens, etc., sur mon site web : "
 
-#: resumes/templates/resumes/templatetags/cat_as_list.haml_parsed:8
+#: resume/templates/resumes/templatetags/cat_as_list.haml_parsed:8
 #, fuzzy
 msgid ": "
 msgstr " : "

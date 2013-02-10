@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 from commons.views import write_pdf
 from commons.forms import SingleTextareaForm
 from commons.decorators import ajax_only
-from resumes.models import *
+from resume.models import *
 from commons.views import *
 from models import *
 from forms import *

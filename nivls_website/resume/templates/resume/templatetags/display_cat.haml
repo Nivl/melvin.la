@@ -1,12 +1,12 @@
-- load resumes_tags markup
+- load resume_tags markup
 
 - for cat in cats
 
     .row-fluid
 
         .span3
-            %h3{'id'      : 'resume-category-{{ cat.pk }}',
-                'class'   : '{% if perms.resume.change_category %}resume-category-live-edit{% endif %}'}<
+            %h3{'id'      : 'resume-category-name-{{ cat.pk }}',
+                'class'   : '{% if perms.resume.change_category %}resume-category-name-live-edit{% endif %}'}<
                 - include 'ajax/single_field_value.haml' with value=cat.name
 
         .span9

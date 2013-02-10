@@ -14,7 +14,7 @@ urlpatterns = patterns(
     '',
     url(r'^lab/', include('lab.urls')),
     url(r'^blog/', include('blog.urls')),
-    url(r'^resume/', include('resumes.urls')),
+    url(r'^resume/', include('resume.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('user_profile.urls')),
     url(r'^search_engine/', include('search_engine.urls')),

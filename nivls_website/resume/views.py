@@ -11,16 +11,16 @@ def get_single_form(request, pk, Obj, path_name, perm, template_name='ajax/singl
 
 
 # Category
-def get_category(request, pk):
+def get_category_name(request, pk):
     return ajax_get_single_data(request, pk, Category, 'name', template_name='ajax/single_field_value.haml')
 
 
-def get_category_form(request, pk):
+def get_category_name_form(request, pk):
     args = {'attr_name': 'name',
             'form_obj': SingleCharFieldForm,
             }
 
-    return get_single_form(request, pk, Category, 'category', 'resumes.change_category', **args)
+    return get_single_form(request, pk, Category, 'category-name', 'resume.change_category', **args)
 
 
 # Content key
@@ -33,7 +33,7 @@ def get_content_key_form(request, pk):
             'form_obj': SingleCharFieldForm,
             }
 
-    return get_single_form(request, pk, Content, 'content-key', 'resumes.change_content', template_name='ajax/single_field_form_inline.haml', **args)
+    return get_single_form(request, pk, Content, 'content-key', 'resume.change_content', template_name='ajax/single_field_form_inline.haml', **args)
 
 
 # Content value
@@ -46,4 +46,4 @@ def get_content_value_form(request, pk):
             'form_obj': SingleTextareaForm,
             }
 
-    return get_single_form(request, pk, Content, 'content-value', 'resumes.change_content', **args)
+    return get_single_form(request, pk, Content, 'content-value', 'resume.change_content', **args)

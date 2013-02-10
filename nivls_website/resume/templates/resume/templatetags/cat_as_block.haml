@@ -8,5 +8,5 @@
                 - include 'ajax/single_field_value_md.haml' with value=content.key
 
             .content{'id'      : 'resume-content-value-{{ content.pk }}',
-                     'class'   : '{% if perms.resumes.change_content %}resume-content-value-live-edit{% endif %}'}
+                     'class'   : '{% if perms.resume.change_content %}resume-content-value-live-edit{% endif %}'}
                 - include 'ajax/single_field_value_md.haml' with value=content.value
