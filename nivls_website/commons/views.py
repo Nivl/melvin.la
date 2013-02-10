@@ -7,8 +7,11 @@ from django.template.loader import get_template
 from django.template import Context
 from django.views.generic.base import TemplateView
 from django.contrib.sites.models import Site
+from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_safe
+from commons.decorators import ajax_only
 from lab.models import *
 
 
@@ -81,3 +84,27 @@ def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj, fo
 
         render_args['dictionary']['form'] = form
     return render(request, **render_args)
+
+
+@require_safe
+@ajax_only
+def ajax_get_single_data(request, pk, Obj, field, template_name='ajax/single_field_value.haml'):
+    obj = get_object_or_404(Obj, pk=pk)
+    return render(request, template_name, {'value': getattr(obj, field)})
+
+
+@ajax_only
+def ajax_get_single_form(request, pk, Obj, app_name, path_name, perm, template_name='ajax/single_field_form.haml', **kwargs):
+    obj = get_object_or_404(Obj, pk=pk)
+
+    kwargs['render_args'] = {
+    'template_name': template_name,
+    'dictionary': {'id': '%s-%s-form-%s' % (app_name, path_name, pk),
+                   'url': reverse('%s-get-%s-form' % (app_name, path_name), args=[pk])
+                   }
+    }
+
+    if not request.user.has_perm(perm):
+        return HttpResponseForbidden()
+
+    return validate_single_ajax_form(request, obj, **kwargs)
