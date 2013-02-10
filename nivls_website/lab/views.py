@@ -50,7 +50,6 @@ def get_project_description(request, pk):
     return ajax_get_single_data(request, pk, Project, 'description', template_name='ajax/single_field_value_md.haml')
 
 
-@ajax_only
 def get_project_description_form(request, pk):
     args = {'attr_name': 'description',
             'form_obj': SingleTextareaForm,
@@ -108,6 +107,7 @@ def get_project_license_form(request, pk):
 
 # real Clients
 @require_safe
+@ajax_only
 def get_project_realclients(request, pk):
     p = get_object_or_404(Project, pk=pk)
     return render(request, "lab/ajax/business_card.haml", {'items': p.clients_user.all(),
@@ -126,6 +126,7 @@ def get_project_realclients_form(request, pk):
 
 # Client
 @require_safe
+@ajax_only
 def get_project_clients(request, pk):
     p = get_object_or_404(Project, pk=pk)
     return render(request, "lab/ajax/business_card.haml", {'items': p.clients.all(),
@@ -145,6 +146,7 @@ def get_project_clients_form(request, pk):
 
 # real Coworker
 @require_safe
+@ajax_only
 def get_project_realcoworkers(request, pk):
     p = get_object_or_404(Project, pk=pk)
     return render(request, "lab/ajax/business_card.haml", {'items': p.coworkers_user.all(),
@@ -163,6 +165,7 @@ def get_project_realcoworkers_form(request, pk):
 
 # Coworker
 @require_safe
+@ajax_only
 def get_project_coworkers(request, pk):
     p = get_object_or_404(Project, pk=pk)
     return render(request, "lab/ajax/business_card.haml", {'items': p.coworkers.all(),
@@ -193,13 +196,10 @@ def get_project_progress_rate_form(request, pk):
 
 
 # progress date
-@require_safe
-@ajax_only
 def get_project_progress_date(request, pk):
     return ajax_get_single_data(request, pk, Progress, 'pub_date', template_name='ajax/single_field_value.haml')
 
 
-@ajax_only
 def get_project_progress_date_form(request, pk):
     kwargs = {'attr_name': 'pub_date',
               'form_obj': SingleDateFieldForm,
@@ -209,13 +209,10 @@ def get_project_progress_date_form(request, pk):
 
 
 # progress description
-@require_safe
-@ajax_only
 def get_project_progress_description(request, pk):
     return ajax_get_single_data(request, pk, Progress, 'description', template_name='ajax/single_field_value.haml')
 
 
-@ajax_only
 def get_project_progress_description_form(request, pk):
     kwargs = {'attr_name': 'description',
               'form_obj': SingleCharFieldForm
@@ -225,13 +222,10 @@ def get_project_progress_description_form(request, pk):
 
 
 # video name
-@require_safe
-@ajax_only
 def get_project_video_name(request, pk):
     return ajax_get_single_data(request, pk, Video, 'name', template_name='ajax/single_field_value.haml')
 
 
-@ajax_only
 def get_project_video_name_form(request, pk):
     kwargs = {
     'attr_name': 'name',
@@ -242,13 +236,10 @@ def get_project_video_name_form(request, pk):
 
 
 # video description
-@require_safe
-@ajax_only
 def get_project_video_description(request, pk):
     return ajax_get_single_data(request, pk, Video, 'description')
 
 
-@ajax_only
 def get_project_video_description_form(request, pk):
     kwargs = {'attr_name': 'description',
               'form_obj': SingleTextareaForm,
