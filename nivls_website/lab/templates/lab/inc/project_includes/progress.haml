@@ -4,8 +4,8 @@
     - trans "Progress"
 
 
-%div{'id'      : 'lab-project-progress-rate-{{ project.pk }}',
-     'class'   : '{% if perms.lab.change_project %}lab-project-progress-rate-live-edit{% endif %}'}
+%div{'id'      : 'lab-project-progress-{{ project.pk }}',
+     'class'   : '{% if perms.lab.change_project %}lab-project-progress-live-edit{% endif %}'}
     - include 'lab/ajax/overall_progress.haml' with value=project.overall_progress
 
 
@@ -13,11 +13,11 @@
     .span8.offset1
         %dl.dl-horizontal
             - for event in progress
-                %dt{'id'      : 'lab-project-progress-date-{{ event.pk }}',
-                    'class'   : '{% if perms.lab.change_progress %}lab-project-progress-date-live-edit{% endif %}'}
+                %dt{'id'      : 'lab-progress-date-{{ event.pk }}',
+                    'class'   : '{% if perms.lab.change_progress %}lab-progress-date-live-edit{% endif %}'}
                     {{ event.pub_date|naturalday }}
-                %dd{'id'      : 'lab-project-progress-description-{{ event.pk }}',
-                    'class'   : '{% if perms.lab.change_progress %}lab-project-progress-description-live-edit{% endif %}'}
+                %dd{'id'      : 'lab-progress-description-{{ event.pk }}',
+                    'class'   : '{% if perms.lab.change_progress %}lab-progress-description-live-edit{% endif %}'}
                       {{ event.description }}
 
 - if todo

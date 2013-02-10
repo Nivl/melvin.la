@@ -183,66 +183,66 @@ def get_project_coworkers_form(request, pk):
 
 
 # Progress rate
-def get_project_progress_rate(request, pk):
+def get_project_progress(request, pk):
     return ajax_get_single_data(request, pk, Project, 'overall_progress', template_name='lab/ajax/overall_progress.haml')
 
 
-def get_project_progress_rate_form(request, pk):
+def get_project_progress_form(request, pk):
     args = {'attr_name': 'overall_progress',
             'form_obj': SingleCharFieldForm
             }
 
-    return get_single_form(request, pk, path_name='project-progress-rate', **args)
+    return get_single_form(request, pk, path_name='project-progress', **args)
 
 
 # progress date
-def get_project_progress_date(request, pk):
+def get_progress_date(request, pk):
     return ajax_get_single_data(request, pk, Progress, 'pub_date', template_name='ajax/single_field_value.haml')
 
 
-def get_project_progress_date_form(request, pk):
+def get_progress_date_form(request, pk):
     kwargs = {'attr_name': 'pub_date',
               'form_obj': SingleDateFieldForm,
               }
 
-    return get_single_form(request, pk, Obj=Progress, path_name='project-progress-date', perm='lab.change_progress', **kwargs)
+    return get_single_form(request, pk, Obj=Progress, path_name='progress-date', perm='lab.change_progress', **kwargs)
 
 
 # progress description
-def get_project_progress_description(request, pk):
+def get_progress_description(request, pk):
     return ajax_get_single_data(request, pk, Progress, 'description', template_name='ajax/single_field_value.haml')
 
 
-def get_project_progress_description_form(request, pk):
+def get_progress_description_form(request, pk):
     kwargs = {'attr_name': 'description',
               'form_obj': SingleCharFieldForm
               }
 
-    return get_single_form(request, pk, Obj=Progress, path_name='project-progress-description', perm='lab.change_progress', **kwargs)
+    return get_single_form(request, pk, Obj=Progress, path_name='progress-description', perm='lab.change_progress', **kwargs)
 
 
 # video name
-def get_project_video_name(request, pk):
+def get_video_name(request, pk):
     return ajax_get_single_data(request, pk, Video, 'name', template_name='ajax/single_field_value.haml')
 
 
-def get_project_video_name_form(request, pk):
+def get_video_name_form(request, pk):
     kwargs = {
     'attr_name': 'name',
     'form_obj': SingleCharFieldForm,
     }
 
-    return get_single_form(request, pk, Obj=Video, path_name='project-video-name', perm='lab.change_video', **kwargs)
+    return get_single_form(request, pk, Obj=Video, path_name='video-name', perm='lab.change_video', **kwargs)
 
 
 # video description
-def get_project_video_description(request, pk):
-    return ajax_get_single_data(request, pk, Video, 'description')
+def get_video_description(request, pk):
+    return ajax_get_single_data(request, pk, Video, 'description', template_name='ajax/single_field_value_md.haml')
 
 
-def get_project_video_description_form(request, pk):
+def get_video_description_form(request, pk):
     kwargs = {'attr_name': 'description',
               'form_obj': SingleTextareaForm,
               }
 
-    return get_single_form(request, pk, Obj=Video, path_name='project-video-description', perm='lab.change_video', **kwargs)
+    return get_single_form(request, pk, Obj=Video, path_name='video-description', perm='lab.change_video', **kwargs)
