@@ -39,6 +39,17 @@ static_urlpatterns = patterns(
         name='contact'),
 )
 
+urlpatterns += patterns(
+    'about.views',
+
+    url(r'^get/about/profile/(?P<pk>\d+)/$',
+        'get_profile_about_me',
+        name='about-get-profile-about-me'),
+
+    url(r'^get/about/profile/(?P<pk>\d+)/form/$',
+        'get_profile_about_me_form',
+        name='about-get-profile-about-me-form'),
+)
 
 sitemaps = {
     'about_root': MainSitemap(),

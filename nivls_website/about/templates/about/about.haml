@@ -45,8 +45,9 @@
         %section.clean-section
             %h2<
                 {% trans "Welcome to my website" %}
-            .section-content
-                {{ profile.about_me|markdown }}
+            .section-content{'id'      : 'about-profile-about-me-{{ profile.pk }}',
+                             'class'   : '{% if perms.about.change_profile %}about-profile-about-me-live-edit{% endif %}'}
+                - include 'ajax/single_field_value_md.haml' with value=profile.about_me
 
         %hr
 
@@ -72,9 +73,6 @@
                                     {{ link.name }}
 
                                 %i{'class': '{{ link.icon }}'}
-
-                                %p
-                                    {{ link.description }}
 
                 - if forloop.counter|divisibleby:4 or forloop.last
                     </div>

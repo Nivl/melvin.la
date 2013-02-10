@@ -4,6 +4,7 @@ from django.views.decorators.http import require_safe
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.http import HttpResponseForbidden
 from commons.decorators import ajax_only
 from commons.paginator import simple_paginator
 from commons.forms import *
