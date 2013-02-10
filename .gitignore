@@ -1,9 +1,14 @@
 *.pyc
-/media/
-/static/
+/public/media/
+/public/static/
 .directory
 private.py
 /nivls_website/nivls_website/static/commons/css/20/error.css
 /nivls_website/nivls_website/static/commons/css/20/main.css
+/nivls_website/nivls_website/static/commons/css/20/Markdown.Editor.css
 /nivls_website/nivls_website/static/commons/css/30/main-responsive.css
 /whoosh_index/
+/fixtures/
+*.json
+TODO
+nivlsWebsite.sublime-*
