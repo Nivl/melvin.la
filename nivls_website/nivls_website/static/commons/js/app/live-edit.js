@@ -35,16 +35,16 @@ $(document).off('click').on('click', uneditElement);
     prefix: string - Prefix of the element (ex. single-comment-)
     url_values: dict - Extra values needed by the URL
     unit_url: string - URL name to fetch the parsed data
-    lookup_class: string - Class to bind to the action (default edit-link)
     unique_field: string - Field name used to differentiate entries in the DB (default slug)
     to_form: callback - Function to call before the form appears
     to_text: callback - Function to call after the form disappeared
 */
-function liveEdit(prefix, url_values, unit_url, lookup_class, unique_field, to_form, to_text) {
-    lookup_class = (lookup_class === undefined) ? ('edit-link') : (lookup_class);
+function liveEdit(prefix, url_values, unit_url, unique_field, to_form, to_text) {
     unique_field = (unique_field === undefined) ? ('slug') : (unique_field);
     to_form = (to_form === undefined) ? ($.noop) : (to_form);
     to_text = (to_text === undefined) ? ($.noop) : (to_text);
+
+    var lookup_class = prefix + 'live-edit';
     var form_url = unit_url + '-form';
     var was_a_link = false;
 
