@@ -101,12 +101,6 @@ class License(models.Model):
         blank=True,
         verbose_name=_("URL"))
 
-    image = models.ImageField(
-        upload_to="lab/licenses/",
-        null=True,
-        blank=True,
-        verbose_name=_("image"))
-
     def __unicode__(self):
         return self.name
 
