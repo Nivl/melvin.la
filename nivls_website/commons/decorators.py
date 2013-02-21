@@ -1,5 +1,4 @@
 from functools import wraps
-import inspect
 from django.http import HttpResponseNotAllowed, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
