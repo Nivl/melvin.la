@@ -82,6 +82,8 @@ PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
 )
 
+PIPELINE_LESS_ARGUMENTS = '-x'
+
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 PIPELINE_JS = {
