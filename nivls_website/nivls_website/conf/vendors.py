@@ -6,6 +6,10 @@ from nivls_website.conf.commons import *
 
 INSTALLED_APPS += ('social_auth',)
 
+MIDDLEWARE_CLASSES += (
+    'social_auth.middleware.SocialAuthExceptionMiddleware',
+)
+
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 TEMPLATE_CONTEXT_PROCESSORS += (
     'social_auth.context_processors.social_auth_backends',
