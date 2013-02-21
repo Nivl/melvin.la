@@ -24,7 +24,10 @@
                      'height' : '126'}
             .caption
                 %h6
-                    %a{'href'   :   '{{ item.url }}'}
+                    - if item.url
+                        %a{'href'   :   '{{ item.url }}'}
+                            {{ item.name }}
+                    - else
                         {{ item.name }}
                 %p
                     {{ item.description }}
