@@ -14,7 +14,7 @@ uneditElement = function (e) {
     }
 };
 
-$(document).bind('keydown', 'e', function() {
+$(document).bind('keydown.e', function() {
     if (live_edit_enabled) {
         uneditElement();
         $('#editing-mode-box').animate({'top': '-40'});
