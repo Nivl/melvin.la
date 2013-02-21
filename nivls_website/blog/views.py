@@ -25,7 +25,7 @@ def home(request):
     post_list = Post.objects.select_related() \
         .filter(is_public=1,
                 site=Site.objects.get_current())
-    posts = simple_paginator(post_list, 10, request.GET.get('page'))
+    posts = simple_paginator(post_list, 12, request.GET.get('page'))
     return render(request, "blog/home.haml", {"posts": posts})
 
 
@@ -194,7 +194,7 @@ def post_list_by_categories(request, slug):
                 is_public=1,
                 site=Site.objects.get_current())
 
-    posts = simple_paginator(post_list, 10, request.GET.get('page'))
+    posts = simple_paginator(post_list, 12, request.GET.get('page'))
     return render(
         request,
         'blog/post_list.haml',
@@ -213,7 +213,7 @@ def post_list_by_tags(request, slug):
         .filter(tags=tag,
                 is_public=1)
 
-    posts = simple_paginator(post_list, 10, request.GET.get('page'))
+    posts = simple_paginator(post_list, 12, request.GET.get('page'))
     return render(request,
                   'blog/post_list.haml',
                   {'posts': posts,
@@ -250,7 +250,7 @@ def post_list_by_archives(request, year, month=None, day=None):
 
     if not post_list:
         raise Http404
-    posts = simple_paginator(post_list, 10, request.GET.get('page'))
+    posts = simple_paginator(post_list, 12, request.GET.get('page'))
     obj_name = _('Archives from %(date)s') % {'date': archive_date}
     return render(request,
                   "blog/post_list.haml",
