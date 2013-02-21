@@ -3,10 +3,10 @@
 /public/static/
 .directory
 private.py
-/nivls_website/nivls_website/static/commons/css/20/error.css
-/nivls_website/nivls_website/static/commons/css/20/main.css
-/nivls_website/nivls_website/static/commons/css/20/Markdown.Editor.css
-/nivls_website/nivls_website/static/commons/css/30/main-responsive.css
+/nivls_website/nivls_website/static/commons/css/app/error.css
+/nivls_website/nivls_website/static/commons/css/app/main.css
+/nivls_website/nivls_website/static/commons/css/app/Markdown.Editor.css
+/nivls_website/nivls_website/static/commons/css/responsive/main-responsive.css
 /whoosh_index/
 /fixtures/
 *.json
