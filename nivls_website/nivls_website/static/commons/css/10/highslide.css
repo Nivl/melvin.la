@@ -13,12 +13,6 @@
 	outline: none;
 	text-decoration: none;
 }
-.highslide img {
-	border: 2px solid silver;
-}
-.highslide:hover img {
-	border-color: gray;
-}
 .highslide-active-anchor img {
 	visibility: hidden;
 }
