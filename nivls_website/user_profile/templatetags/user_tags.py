@@ -149,10 +149,11 @@ def gravatar_from_email(email, alt="gravatar", arg="80,False"):
     microdata = 'itemprop="image"' if (bool(itemprop)) else ''
     return mark_safe(
         '''
-<img class="thumbnail"
-     alt="%(alt)s"
-     src="%(src)s?s=%(size)s"
-     %(microdata)s/>
+<div class="thumbnail">
+    <img alt="%(alt)s"
+         src="%(src)s?s=%(size)s"
+         %(microdata)s/>
+</div>
 '''
         % {'alt': alt,
            'src': link + g_hash,
