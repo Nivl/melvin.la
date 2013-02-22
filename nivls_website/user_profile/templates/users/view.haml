@@ -27,7 +27,7 @@
 - block "content"
     %div{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Person'}
         .pull-left.margin-right-2
-            {{ target_user|square_thumbnail:'160,True' }}
+            {% square_thumbnail target_user 160 'True' %}
 
         %ul.unstyled.space-li-10..space-li-clean-first
             %li

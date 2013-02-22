@@ -31,9 +31,9 @@
 
         .comment-avatar
             - if comment.user
-                {{ comment.user|square_thumbnail }}
+                {% square_thumbnail comment.user %}
             - else
-                {{ comment.email|gravatar_from_email }}
+                {% gravatar_from_email comment.email %}
 
         .content{'id'         : 'comment-single-{{ comment.pk }}',
                  'class'      : '{% if user.is_authenticated and user == comment.user or perms.blog.change_comment %}comment-single-live-edit{%  endif %}',

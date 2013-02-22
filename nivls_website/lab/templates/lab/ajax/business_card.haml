@@ -3,7 +3,7 @@
 - for item in items
     - if is_user
         .item
-            {{ item|square_thumbnail:"126" }}
+            {% square_thumbnail item '126' %}
 
             .caption
                 %h6
