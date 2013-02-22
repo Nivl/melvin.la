@@ -7,7 +7,7 @@ from models import *
 # Ajax
 #
 def get_single_form(request, pk, Obj, path_name, perm, template_name='ajax/single_field_form.haml', **kwargs):
-    return ajax_get_single_form(request, pk, Obj, 'resume', path_name, perm, template_name, **kwargs)
+    return ajax_get_form(request, pk, Obj, 'resume', path_name, perm, template_name, **kwargs)
 
 
 # Category

@@ -53,13 +53,36 @@ def write_pdf(template_src, context_dict, output):
     return response
 
 
+#
+# Ajax
+#
+
+def validate_model_ajax_form(request, obj, render_args, form_obj):
+    """
+    obj : Object to update
+    render_arg : render() arguments
+    form_obj : form object needed to validate/render the form
+    """
+
+    if request.method == 'POST':
+        form = form_obj(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            return HttpResponse()
+    else:
+        form = form_obj(instance=obj)
+
+    render_args['dictionary']['form'] = form
+    return render(request, **render_args)
+
+
 def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj, form_args={}, inital_fix=(), has_many=False):
     """
     obj : Object to update
     attr_name : attribute of $obj to update
     render_arg : render() arguments
     form_obj : form object needed to validate/render the form
-    form_obj : Arguments to give to the form object
+    form_args : Arguments to give to the form object
     initial_fix : (Object, attr) used when the new value to store is a foreign key.
     """
 
@@ -86,15 +109,11 @@ def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj, fo
     return render(request, **render_args)
 
 
-@require_safe
 @ajax_only
-def ajax_get_single_data(request, pk, Obj, field, template_name='ajax/single_field_value.haml'):
-    obj = get_object_or_404(Obj, pk=pk)
-    return render(request, template_name, {'value': getattr(obj, field)})
+def ajax_get_form(request, pk, Obj, app_name, path_name, perm, template_name='ajax/single_field_form.haml', is_single=True, **kwargs):
+    if not request.user.has_perm(perm):
+        return HttpResponseForbidden()
 
-
-@ajax_only
-def ajax_get_single_form(request, pk, Obj, app_name, path_name, perm, template_name='ajax/single_field_form.haml', **kwargs):
     obj = get_object_or_404(Obj, pk=pk)
 
     kwargs['render_args'] = {
@@ -104,7 +123,21 @@ def ajax_get_single_form(request, pk, Obj, app_name, path_name, perm, template_n
                    }
     }
 
-    if not request.user.has_perm(perm):
-        return HttpResponseForbidden()
+    if is_single:
+        return validate_single_ajax_form(request, obj, **kwargs)
+    else:
+        return validate_model_ajax_form(request, obj, **kwargs)
 
-    return validate_single_ajax_form(request, obj, **kwargs)
+
+@require_safe
+@ajax_only
+def ajax_get_single_data(request, pk, Obj, field, template_name='ajax/single_field_value.haml'):
+    obj = get_object_or_404(Obj, pk=pk)
+    return render(request, template_name, {'value': getattr(obj, field)})
+
+
+@require_safe
+@ajax_only
+def ajax_get_model_data(request, pk, Obj, template_name):
+    obj = get_object_or_404(Obj, pk=pk)
+    return render(request, template_name, {'object': obj})

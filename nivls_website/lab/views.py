@@ -42,7 +42,7 @@ def project(request, slug):
 def get_single_form(request, pk, Obj=Project, path_name='', perm='lab.change_project', template_name='ajax/single_field_form.haml', **kwargs):
     if len(path_name) == 0:
         path_name = 'project-%s' % kwargs['attr_name']
-    return ajax_get_single_form(request, pk, Obj, 'lab', path_name, perm, template_name, **kwargs)
+    return ajax_get_form(request, pk, Obj, 'lab', path_name, perm, template_name, **kwargs)
 
 
 # Description

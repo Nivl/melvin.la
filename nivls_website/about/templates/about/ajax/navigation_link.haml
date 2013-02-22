@@ -1,0 +1,11 @@
+%a{'{{ object.attributes|safe }}' : None,
+   'href'                         : '{{ object.link }}'}
+
+    .informations
+        %h4
+            {{ object.name }}
+
+        %i{'class': '{{ object.icon }}'}
+
+        %p
+            {{ object.description }}
