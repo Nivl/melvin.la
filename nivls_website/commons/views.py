@@ -82,7 +82,7 @@ def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj, fo
             initial_value = initial_value.values_list('pk', flat=True)
         form = form_obj(initial={'single': initial_value}, **form_args)
 
-        render_args['dictionary']['form'] = form
+    render_args['dictionary']['form'] = form
     return render(request, **render_args)
 
 

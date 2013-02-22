@@ -77,7 +77,7 @@ function liveEdit(prefix, url_values, unit_url, unique_field) {
 
                     var post_selector = '#' + prefix + 'form-' + pk;
 
-                    $(post_selector).on('submit', function(){
+                    $(document).on('submit', post_selector, function(){
                         Ajaxion_post(
                             url, post_selector,
                             function(data, proceed){
