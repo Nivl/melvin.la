@@ -13,18 +13,9 @@
         - if forloop.counter0|divisibleby:4
           <div class="row">
         .span3
-            .big-badge
-                %a{'{{ link.attributes|safe }}' : None,
-                   'href'                       : '{{ link.link }}'}
-
-                    .informations
-                        %h4
-                            {{ link.name }}
-
-                        %i{'class': '{{ link.icon }}'}
-
-                        %p
-                            {{ link.description }}
+            .big-badge{'class'   : '{% if perms.lab.change_navigationlink %}about-navigationLink-model-live-edit{% endif %}',
+                       'id'      : 'about-navigationLink-model-{{ link.pk }}'}
+                - include "about/ajax/navigation_link.haml" with object=link
 
         - if forloop.counter|divisibleby:4 or forloop.last
           </div>

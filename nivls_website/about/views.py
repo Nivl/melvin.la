@@ -84,6 +84,7 @@ def portfolio(request):
 # Ajax
 #
 
+# About me
 def get_profile_about_me(request, pk):
     return ajax_get_single_data(request, pk, Profile, 'about_me')
 
@@ -93,20 +94,29 @@ def get_profile_about_me_form(request, pk):
               'form_obj': SingleTextareaForm,
               }
 
-    return ajax_get_single_form(request, pk, Profile, 'about', 'profile-about-me', 'about.change_profile', **kwargs)
+    return ajax_get_form(request, pk, Profile, 'about', 'profile-about-me', 'about.change_profile', **kwargs)
 
 
 # Lab descrition
-@require_safe
-@ajax_only
 def get_project_description(request, pk):
     return ajax_get_single_data(request, pk, WorkProject, 'description')
 
 
-@ajax_only
 def get_project_description_form(request, pk):
     kwargs = {'attr_name': 'description',
               'form_obj': SingleTextareaForm,
               }
 
-    return ajax_get_single_form(request, pk, WorkProject, 'about', 'project-description', 'about.change_project', **kwargs)
+    return ajax_get_form(request, pk, WorkProject, 'about', 'project-description', 'about.change_project', **kwargs)
+
+
+# NavigationLink
+def get_navigationLink_model(request, pk):
+    return ajax_get_model_data(request, pk, NavigationLink, template_name="about/ajax/navigation_link.haml")
+
+
+def get_navigationLink_model_form(request, pk):
+    kwargs = {'form_obj': NavigationForm,
+              }
+
+    return ajax_get_form(request, pk, NavigationLink, 'about', 'navigationLink-model', 'about.change_navigationlink', is_single=False, **kwargs)

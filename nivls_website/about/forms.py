@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from commons import happyforms
 from commons.protection import akismet_is_valid
+from models import NavigationLink
 
 
 class ContactForm(happyforms.Form):
@@ -45,3 +46,9 @@ class ContactForm(happyforms.Form):
             return self.cleaned_data['message']
         else:
             raise forms.ValidationError('Spam attempt detected!')
+
+
+class NavigationForm(happyforms.ModelForm):
+    class Meta:
+        model = NavigationLink
+        exclude = ('site', 'order',)

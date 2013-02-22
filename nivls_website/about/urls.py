@@ -42,6 +42,7 @@ static_urlpatterns = patterns(
 
 urlpatterns += live_edit_url('about', 'profile', 'about_me')
 urlpatterns += live_edit_url('about', 'project', 'description')
+urlpatterns += live_edit_url('about', 'navigationLink', 'model')
 
 sitemaps = {
     'about_root': MainSitemap(),

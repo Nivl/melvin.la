@@ -25,11 +25,11 @@ class NavigationLink(models.Model):
         max_length=255,
         verbose_name=_("link"))
 
-    attributes = models.CharField(
+    link_attributes = models.CharField(
         max_length=255,
         blank=True,
         null=True,
-        verbose_name=_("attributes"))
+        verbose_name=_("link attributes"))
 
     icon = models.CharField(
         max_length=30,
@@ -74,11 +74,11 @@ class ContactLink(models.Model):
     link = models.URLField(
         verbose_name=_("link"))
 
-    attributes = models.CharField(
+    link_attributes = models.CharField(
         max_length=255,
         blank=True,
         null=True,
-        verbose_name=_("attributes"))
+        verbose_name=_("link attributes"))
 
     icon = models.CharField(
         max_length=30,
