@@ -20,9 +20,11 @@ if (Modernizr.history) {
     }
 
     $(document).on('click', 'a[data-ajax]', function(event) {
-        if (!event.shiftKey && !event.ctrlKey) {
-            changePage($(this).attr('href'), $(this).attr('title'), this);
-            return false;
+        if (live_edit_enabled === false) {
+            if (!event.shiftKey && !event.ctrlKey) {
+                changePage($(this).attr('href'), $(this).attr('title'), this);
+                return false;
+            }
         }
     });
 }

@@ -24,14 +24,18 @@ if (Modernizr.history) {
     }
 
     $('#navbar-main-list > li a').click(function(e) {
-        if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
-            moveNavbar($(this).parent('li'));
+        if (live_edit_enabled === false) {
+            if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
+                moveNavbar($(this).parent('li'));
+            }
         }
     });
 
     $(document).on('click', 'a[data-navbar]', function(e) {
-        if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
-            moveNavbar($(this).data('navbar'));
+        if (live_edit_enabled === false) {
+            if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
+                moveNavbar($(this).data('navbar'));
+            }
         }
     });
 }
