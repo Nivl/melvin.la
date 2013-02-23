@@ -34,7 +34,7 @@ def contact_form(request):
 
 # About me
 def get_profile_about_me(request, pk):
-    return ajax_get_single_data(request, pk, Profile, 'about_me')
+    return ajax_get_single_data(request, pk, Profile, 'about_me', template_name='ajax/single_field_value_md.haml')
 
 
 def get_profile_about_me_form(request, pk):
