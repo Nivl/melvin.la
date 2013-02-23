@@ -24,6 +24,8 @@ if (Modernizr.history) {
     }
 
     $('#navbar-main-list > li a').click(function(e) {
+        e.preventDefault();
+
         if (live_edit_enabled === false) {
             if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
                 moveNavbar($(this).parent('li'));
@@ -32,6 +34,8 @@ if (Modernizr.history) {
     });
 
     $(document).on('click', 'a[data-navbar]', function(e) {
+        e.preventDefault();
+
         if (live_edit_enabled === false) {
             if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
                 moveNavbar($(this).data('navbar'));

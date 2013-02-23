@@ -9,8 +9,10 @@ if (Modernizr.history) {
         current.next().addClass('hide');
     }
 
-    $(document).on('click', '#lab-nav-list a', function() {
-        if (live_edit_enabled === false) {
+    $(document).on('click', '#lab-nav-list a', function(e) {
+        e.preventDefault();
+
+        if (live_edit_enabled == false) {
             labChangeMenu($(this).prop('id'));
         }
     });
