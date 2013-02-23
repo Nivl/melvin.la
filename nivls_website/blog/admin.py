@@ -62,9 +62,6 @@ class AdminPost(admin.ModelAdmin):
             message = "%s posts were " % nb_row
         self.message_user(request, "% successfully locked" % message)
 
-    class Media:
-        js = (settings.STATIC_URL + 'admin/js/admin_post_preview.js',)
-
 
 admin.site.register(Post, AdminPost)
 

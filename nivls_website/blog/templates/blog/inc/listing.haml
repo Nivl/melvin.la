@@ -5,9 +5,10 @@
         - if forloop.counter0|divisibleby:3
             <div class="row">
 
-        .span4.post{'itemprop': 'blogPosts',
+        .span4.post{'itemprop' : 'blogPosts',
                     'itemscope': None,
-                    'itemtype': 'http://schema.org/BlogPosting'}
+                    'itemtype' : 'http://schema.org/BlogPosting',
+                    'class'    : '{% if not post.is_public %}private{% endif %}'}
 
             - for data in post.micro_data.all
                 %meta{'itemprop': '{{ data.name }}', 'content': '{{ data.content }}'}

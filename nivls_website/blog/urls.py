@@ -30,11 +30,6 @@ urlpatterns = patterns(
         'display_post',
         name='post'),
 
-    url(r'^preview/'
-        '(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
-        'preview_post',
-        name='preview-post'),
-
     url(r'^category/(?P<slug>[-\w]+)/$',
         'post_list_by_categories',
         name='category'),

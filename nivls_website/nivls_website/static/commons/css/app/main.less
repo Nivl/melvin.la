@@ -468,12 +468,16 @@ table {
             .transition(all 0.1s linear);
 
             &:hover{
-                background-color: @lightenBlue;
+                background-color: @lightBlue;
                 color: white;
 
                 h4 {
                     color: white !important;
                 }
+            }
+
+            &.private:hover{
+                background-color: @lightRed;
             }
 
             .content {
@@ -987,7 +991,7 @@ article.post {
 }
 
 #middle-header {
-    background-color: @lightenBlue;
+    background-color: @lightBlue;
     min-height: 160px;
 
     color: #003d5d;
