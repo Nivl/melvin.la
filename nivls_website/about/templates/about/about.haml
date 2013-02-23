@@ -51,7 +51,7 @@
 
         %hr
 
-    {% include "resume/inc/resume.haml" %}
+    - include "resume/inc/resume.haml"
 
     - if not to_pdf
         %hr
@@ -64,15 +64,9 @@
                 - if forloop.counter0|divisibleby:4
                     <div class="row">
                 .span3
-                    .big-badge
-                        %a{'{{ link.attributes|safe }}' : None,
-                           'href'                       : '{{ link.link }}'}
-
-                            .informations
-                                %h4
-                                    {{ link.name }}
-
-                                %i{'class': '{{ link.icon }}'}
+                    .big-badge{'id'      : 'about-contactLink-model-{{ link.pk }}',
+                               'class'   : '{% if perms.about.change_contactlink %}about-contactLink-model-live-edit{% endif %}'}
+                        - include 'about/ajax/big_badge.haml' with object=link
 
                 - if forloop.counter|divisibleby:4 or forloop.last
                     </div>

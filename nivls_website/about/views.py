@@ -112,7 +112,7 @@ def get_project_description_form(request, pk):
 
 # NavigationLink
 def get_navigationLink_model(request, pk):
-    return ajax_get_model_data(request, pk, NavigationLink, template_name="about/ajax/navigation_link.haml")
+    return ajax_get_model_data(request, pk, NavigationLink, template_name="about/ajax/big_badge.haml")
 
 
 def get_navigationLink_model_form(request, pk):
@@ -120,3 +120,15 @@ def get_navigationLink_model_form(request, pk):
               }
 
     return ajax_get_form(request, pk, NavigationLink, 'about', 'navigationLink-model', 'about.change_navigationlink', is_single=False, **kwargs)
+
+
+# ContactLink
+def get_contactLink_model(request, pk):
+    return ajax_get_model_data(request, pk, ContactLink, template_name="about/ajax/big_badge.haml")
+
+
+def get_contactLink_model_form(request, pk):
+    kwargs = {'form_obj': ContactLinkForm,
+              }
+
+    return ajax_get_form(request, pk, ContactLink, 'about', 'contactLink-model', 'about.change_contactlink', is_single=False, **kwargs)

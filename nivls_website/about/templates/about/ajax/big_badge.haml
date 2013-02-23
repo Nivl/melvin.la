@@ -7,5 +7,6 @@
 
         %i{'class': '{{ object.icon }}'}
 
-        %p
-            {{ object.description }}
+        - if object.description
+            %p
+                {{ object.description }}

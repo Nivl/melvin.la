@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from commons import happyforms
 from commons.protection import akismet_is_valid
-from models import NavigationLink
+from models import NavigationLink, ContactLink
 
 
 class ContactForm(happyforms.Form):
@@ -51,4 +51,10 @@ class ContactForm(happyforms.Form):
 class NavigationForm(happyforms.ModelForm):
     class Meta:
         model = NavigationLink
+        exclude = ('site', 'order',)
+
+
+class ContactLinkForm(happyforms.ModelForm):
+    class Meta:
+        model = ContactLink
         exclude = ('site', 'order',)
