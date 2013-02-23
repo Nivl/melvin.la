@@ -40,7 +40,7 @@ urlpatterns = patterns(
 )
 
 urlpatterns += patterns(
-    'blog.views',
+    'blog.views.ajax',
 
     url(r"^get/%s/comment/list/$" % post_r,
         'comment_list',
