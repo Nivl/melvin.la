@@ -84,7 +84,6 @@
 
                     {{ post.category }}
 
-
                 - with post.tags.all as tags
                     - if tags
                         %br
@@ -112,6 +111,18 @@
 
                             - if not forloop.last
                                 &nbsp;
+
+
+                - if perms.blog.change_post
+                    %br
+
+                    - if post.is_public
+                        %i.icon-eye-open
+                        - trans "Public"
+                    - else
+                        %i.icon-eye-close
+                        - trans "Private"
+
 
         %section.content.clearfix{'itemprop': 'articleBody'}
             {{ post.parsed_content|markdown }}
