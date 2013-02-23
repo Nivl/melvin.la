@@ -10,6 +10,8 @@ if (Modernizr.history) {
     }
 
     $(document).on('click', '#lab-nav-list a', function() {
-        labChangeMenu($(this).prop('id'));
+        if (live_edit_enabled === false) {
+            labChangeMenu($(this).prop('id'));
+        }
     });
 }
