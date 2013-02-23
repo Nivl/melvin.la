@@ -14,6 +14,10 @@ urlpatterns = patterns(
     url(r'^cv/$',
         RedirectView.as_view(url='/about/#resume', permanent=True),
         name='cv'),
+)
+
+urlpatterns += patterns(
+    'about.views.ajax',
 
     url(r'^contact/form/$',
         'contact_form',

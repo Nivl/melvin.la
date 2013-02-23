@@ -1,6 +1,6 @@
 from commons.forms import *
 from commons.views import *
-from models import *
+from resume.models import *
 
 
 #
