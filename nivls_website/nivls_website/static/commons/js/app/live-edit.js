@@ -39,13 +39,13 @@ $(document).off('click').on('click', uneditElement);
     make an element editable on the fly
 
     prefix: string - Prefix of the element (ex. single-comment-)
-    unit_url: string - URL name to fetch the parsed data
     unique_field: string - Field name used to differentiate entries in the DB (default slug)
 */
-function liveEdit(prefix, unit_url, unique_field) {
+function liveEdit(prefix, unique_field) {
     unique_field = (unique_field === undefined) ? ('pk') : (unique_field);
 
-    var lookup_class = prefix + 'live-edit';
+    var lookup_class = prefix + '-live-edit';
+    var unit_url = 'get-' + prefix
     var form_url = unit_url + '-form';
 
     $(document).off('click', '.'+lookup_class)
@@ -63,7 +63,7 @@ function liveEdit(prefix, unit_url, unique_field) {
             };
 
             var that = this;
-            var pk = $(this).prop('id').replace(prefix, '');
+            var pk = $(this).prop('id').replace(prefix + '-', '');
             var selector = '#' + $(this).prop('id');
             var url_values = {};
             url_values[unique_field] = pk;
@@ -74,7 +74,7 @@ function liveEdit(prefix, unit_url, unique_field) {
                 $.get(url, function(data) {
                     $(selector).html(data);
 
-                    var post_selector = '#' + prefix + 'form-' + pk;
+                    var post_selector = '#' + prefix + '-form-' + pk;
 
                     $(document).on('submit', post_selector, function(){
                         Ajaxion_post(

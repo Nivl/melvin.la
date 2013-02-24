@@ -34,7 +34,8 @@ def contact_form(request):
 
 # About me
 def get_profile_about_me(request, pk):
-    return ajax_get_single_data(request, pk, Profile, 'about_me', template_name='ajax/single_field_value_md.haml')
+    return ajax_get_single_data(request, pk, Profile, 'about_me',
+                                template_name='ajax/single_field_value_md.haml')
 
 
 def get_profile_about_me_form(request, pk):
@@ -42,7 +43,10 @@ def get_profile_about_me_form(request, pk):
               'form_obj': SingleTextareaForm,
               }
 
-    return ajax_get_form(request, pk, Profile, 'about', 'profile-about-me', 'about.change_profile', **kwargs)
+    return ajax_get_form(request, Profile, 'about-profile-about-me',
+                         pk=pk,
+                         perm='about.change_profile',
+                         **kwargs)
 
 
 # Lab descrition
@@ -55,28 +59,41 @@ def get_project_description_form(request, pk):
               'form_obj': SingleTextareaForm,
               }
 
-    return ajax_get_form(request, pk, WorkProject, 'about', 'project-description', 'about.change_project', **kwargs)
+    return ajax_get_form(request, WorkProject, 'about-project-description',
+                         pk=pk,
+                         perm='about.change_project',
+                         **kwargs)
 
 
 # NavigationLink
 def get_navigationLink_model(request, pk):
-    return ajax_get_model_data(request, pk, NavigationLink, template_name="about/ajax/big_badge.haml")
+    return ajax_get_model_data(request, pk, NavigationLink,
+                               template_name="about/ajax/big_badge.haml")
 
 
 def get_navigationLink_model_form(request, pk):
     kwargs = {'form_obj': NavigationForm,
               }
 
-    return ajax_get_form(request, pk, NavigationLink, 'about', 'navigationLink-model', 'about.change_navigationlink', is_single=False, **kwargs)
+    return ajax_get_form(request, NavigationLink, 'about-navigationLink-model',
+                         pk=pk,
+                         perm='about.change_navigationlink',
+                         is_single=False,
+                         **kwargs)
 
 
 # ContactLink
 def get_contactLink_model(request, pk):
-    return ajax_get_model_data(request, pk, ContactLink, template_name="about/ajax/big_badge.haml")
+    return ajax_get_model_data(request, pk, ContactLink,
+                               template_name="about/ajax/big_badge.haml")
 
 
 def get_contactLink_model_form(request, pk):
     kwargs = {'form_obj': ContactLinkForm,
               }
 
-    return ajax_get_form(request, pk, ContactLink, 'about', 'contactLink-model', 'about.change_contactlink', is_single=False, **kwargs)
+    return ajax_get_form(request, ContactLink, 'about-contactLink-model',
+                         pk=pk,
+                         perm='about.change_contactlink',
+                         is_single=False,
+                         **kwargs)

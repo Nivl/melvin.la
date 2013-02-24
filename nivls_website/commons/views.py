@@ -79,7 +79,8 @@ def validate_model_ajax_form(request, obj, render_args, form_obj):
     return render(request, **render_args)
 
 
-def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj, form_args={}, inital_fix=(), has_many=False):
+def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj,
+                              form_args={}, inital_fix=(), has_many=False):
     """
     obj : Object to update
     attr_name : attribute of $obj to update
@@ -113,12 +114,13 @@ def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj, fo
 
 
 @ajax_only
-def ajax_get_form(request, pk, Obj, app_name, path_name, perm, template_name='ajax/single_field_form.haml', is_single=True, **kwargs):
+def ajax_get_form(request, model, path_name,
+                  pk=None, perm=None, is_single=True,
+                  template_name='ajax/single_field_form.haml', **kwargs):
     """
     pk: Value of the primary key. None means that Obj is already an instance
     Obj: Model to fetch, or instance to the object (if pk is None)
-    app_name: Name of the application
-    path_name: Name of the "path". Usualy 'model-attribute'
+    path_name: Name of the "path". Usualy 'app-model-attribute'
     perm: Pemission needed to access the data
     template_name: Path to the template
     is_single: True if we want a single field, False if we want a model
@@ -128,15 +130,15 @@ def ajax_get_form(request, pk, Obj, app_name, path_name, perm, template_name='aj
         return HttpResponseForbidden()
 
     if pk is not None:
-        obj = get_object_or_404(Obj, pk=pk)
+        obj = get_object_or_404(model, pk=pk)
     else:
-        obj = Obj
+        obj = model
         pk = obj.pk
 
     kwargs['render_args'] = {
     'template_name': template_name,
-    'dictionary': {'id': '%s-%s-form-%s' % (app_name, path_name, pk),
-                   'url': reverse('%s-get-%s-form' % (app_name, path_name), args=[pk])
+    'dictionary': {'id': '%s-form-%s' % (path_name, pk),
+                   'url': reverse('get-%s-form' % path_name, args=[pk])
                    }
     }
 
@@ -148,7 +150,8 @@ def ajax_get_form(request, pk, Obj, app_name, path_name, perm, template_name='aj
 
 @require_safe
 @ajax_only
-def ajax_get_single_data(request, pk, Obj, field, template_name='ajax/single_field_value.haml'):
+def ajax_get_single_data(request, pk, Obj, field,
+                         template_name='ajax/single_field_value.haml'):
     obj = get_object_or_404(Obj, pk=pk)
     return render(request, template_name, {'value': getattr(obj, field)})
 

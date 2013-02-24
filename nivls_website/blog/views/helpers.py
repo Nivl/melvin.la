@@ -40,7 +40,12 @@ def get_post(request, year, month, day, slug, **kwargs):
     return post
 
 
-def get_single_form(request, pk, Obj=Post, path_name='', perm='blog.change_post', template_name='ajax/single_field_form.haml', **kwargs):
+def get_single_form(request, pk, Obj=Post, path_name='',
+                    perm='blog.change_post',
+                    template_name='ajax/single_field_form.haml', **kwargs):
     if len(path_name) == 0:
         path_name = 'post-%s' % kwargs['attr_name']
-    return ajax_get_form(request, pk, Obj, 'blog', path_name, perm, template_name, **kwargs)
+    path_name = 'blog-' + path_name
+
+    return ajax_get_form(request, Obj, path_name, pk=pk, perm=perm,
+                         template_name=template_name, **kwargs)

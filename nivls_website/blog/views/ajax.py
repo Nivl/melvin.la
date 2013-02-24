@@ -5,13 +5,12 @@ from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseForbidden
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_safe
 from django.utils.translation import ugettext as _
 from django.template.defaultfilters import slugify
 from commons.decorators import ajax_only
 from commons.forms import SingleTextareaForm
-from commons.views import validate_single_ajax_form, ajax_get_single_data
+from commons.views import ajax_get_single_data
 from commons.forms import *
 from blog.models import *
 from blog.forms import *
@@ -102,12 +101,15 @@ def get_post_title_form(request, pk):
             'form_obj': SingleCharFieldForm,
             }
 
-    return get_single_form(request, pk, template_name='ajax/single_field_form_inline.haml', **args)
+    return get_single_form(request, pk,
+                           template_name='ajax/single_field_form_inline.haml',
+                           **args)
 
 
 # is_public
 def get_post_is_public(request, pk):
-    return ajax_get_single_data(request, pk, Post, 'is_public', template_name='blog/ajax/is_public.haml')
+    return ajax_get_single_data(request, pk, Post, 'is_public',
+                                template_name='blog/ajax/is_public.haml')
 
 
 def get_post_is_public_form(request, pk):
@@ -115,12 +117,16 @@ def get_post_is_public_form(request, pk):
             'form_obj': SingleBooleanFieldForm,
             }
 
-    return get_single_form(request, pk, path_name='post-is-public', template_name='ajax/single_field_form_inline.haml', **args)
+    return get_single_form(request, pk,
+                           path_name='post-is-public',
+                           template_name='ajax/single_field_form_inline.haml',
+                           **args)
 
 
 # parsed_content
 def get_post_parsed_content(request, pk):
-    return ajax_get_single_data(request, pk, Post, 'parsed_content', template_name='ajax/single_field_value_md.haml')
+    return ajax_get_single_data(request, pk, Post, 'parsed_content',
+                                template_name='ajax/single_field_value_md.haml')
 
 
 def get_post_parsed_content_form(request, pk):
@@ -128,7 +134,10 @@ def get_post_parsed_content_form(request, pk):
             'form_obj': SingleTextareaForm,
             }
 
-    return get_single_form(request, pk, path_name='post-parsed-content', template_name='ajax/single_field_form_inline.haml', **args)
+    return get_single_form(request, pk,
+                           path_name='post-parsed-content',
+                           template_name='ajax/single_field_form_inline.haml',
+                           **args)
 
 
 # Category
@@ -137,7 +146,8 @@ def get_post_parsed_content_form(request, pk):
 def get_post_category(request, pk):
     p = get_object_or_404(Post, pk=pk)
     return render(request, "ajax/single_field_value.haml",
-                 {'value': p.category.name, 'value_url': p.category.get_absolute_url,
+                 {'value': p.category.name,
+                  'value_url': p.category.get_absolute_url,
                   'extra': 'data-ajax="body-content-only"'
                            ' data-depth="10"'})
 
@@ -151,12 +161,15 @@ def get_post_category_form(request, pk):
             'inital_fix': ('Category', 'pk'),
             }
 
-    return get_single_form(request, pk, template_name='ajax/single_field_form_inline.haml', **args)
+    return get_single_form(request, pk,
+                           template_name='ajax/single_field_form_inline.haml',
+                           **args)
 
 
 # Comment
 def get_comment_comment(request, pk):
-    return ajax_get_single_data(request, pk, Comment, 'comment', template_name='ajax/single_field_value_external.haml')
+    return ajax_get_single_data(request, pk, Comment, 'comment',
+       template_name='ajax/single_field_value_external.haml')
 
 
 def get_comment_comment_form(request, pk):
@@ -171,4 +184,5 @@ def get_comment_comment_form(request, pk):
             'form_obj': SingleTextareaForm,
             }
 
-    return ajax_get_form(request, None, comment, 'blog', 'comment-comment', None, **args)
+    return ajax_get_form(request, comment, 'blog-comment-comment',
+                         perm=None, pk=None, **args)
