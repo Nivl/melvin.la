@@ -12,3 +12,7 @@ $.fn.animateHighlight = function(highlightColor, duration) {
     this.stop().css('background-color', highlightBg)
     .animate({backgroundColor: originalBg}, animateMs);
 };
+
+function resizeTextarea() {
+    $('textarea').autosize({append: "\n"});
+}

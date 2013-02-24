@@ -74,6 +74,7 @@ function liveEdit(prefix, unique_field) {
                 $.get(url, function(data) {
                     $(selector).html(data);
 
+                    resizeTextarea();
                     var post_selector = '#' + prefix + '-form-' + pk;
 
                     $(document).on('submit', post_selector, function(){
