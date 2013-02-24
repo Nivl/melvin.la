@@ -5,7 +5,7 @@ sys.path.insert(0, "/home/nivl/python/modules/")
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".."))
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..", ".."))
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'nivls_website.conf.fr'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'nivls_website.settings.fr'
 os.environ['PATH'] = os.environ['PATH'] + ':/home/nivl/root/bin'
 
 

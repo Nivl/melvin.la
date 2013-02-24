@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from nivls_website.conf.private import *
+from private import *
 
 AUTH_PROFILE_MODULE = 'user_profile.UserProfile'
 DEFAULT_FILE_STORAGE = "commons.storage.UniqueFileSystemStorage"

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from conf.vendors import *
+from vendors import *
 
 SITE_ID = 1
 

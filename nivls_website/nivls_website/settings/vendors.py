@@ -1,4 +1,4 @@
-from nivls_website.conf.commons import *
+from commons import *
 
 #
 # Social Auth
