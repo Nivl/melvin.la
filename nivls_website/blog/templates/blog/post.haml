@@ -80,10 +80,13 @@
 
                 \-
                 - trans "In "
-                %a{'data-ajax'  : 'body-content-only',
-                   'data-depth' : '10',
-                   'href'       : '{{ post.category.get_absolute_url }}'}
-                    {{ post.category }}
+                %span{'id'    : 'blog-post-category-{{ post.pk }}',
+                     'class' : '{% if perms.blog.change_post %}blog-post-category-live-edit{% endif %}'}
+
+                    %a{'data-ajax'  : 'body-content-only',
+                       'data-depth' : '10',
+                       'href'       : '{{ post.category.get_absolute_url }}'}
+                        {{ post.category }}
 
                 - with post.tags.all as tags
                     - if tags
@@ -121,8 +124,10 @@
                         - include 'blog/ajax/is_public.haml' with value=post.is_public
 
 
-        %section.content.clearfix{'itemprop': 'articleBody'}
-            {{ post.parsed_content|markdown }}
+        %section.content.clearfix{'itemprop': 'articleBody',
+                                  'id'    : 'blog-post-parsed-content-{{ post.pk }}',
+                                  'class' : '{% if perms.blog.change_post %}blog-post-parsed-content-live-edit{% endif %}'}
+            - include 'ajax/single_field_value_md.haml' with value=post.parsed_content
 
         %footer#post-footer
             - if post.lab

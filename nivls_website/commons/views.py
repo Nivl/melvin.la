@@ -12,7 +12,9 @@ from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_safe
 from commons.decorators import ajax_only
-from lab.models import *
+# Needed to deal with manyToMany with getattr on sys.modules[__name__]
+from lab.models import License
+from blog.models import Category
 
 
 class TexplainView(TemplateView):

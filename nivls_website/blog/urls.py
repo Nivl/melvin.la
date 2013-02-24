@@ -67,6 +67,8 @@ urlpatterns += patterns(
 
 urlpatterns += live_edit_url('blog', 'post', 'title')
 urlpatterns += live_edit_url('blog', 'post', 'is_public')
+urlpatterns += live_edit_url('blog', 'post', 'parsed_content')
+urlpatterns += live_edit_url('blog', 'post', 'category')
 
 feeds_urlpatterns = patterns(
     '',

@@ -13,7 +13,7 @@ from commons.decorators import ajax_only
 from commons.forms import SingleTextareaForm
 from commons.views import validate_single_ajax_form, ajax_get_single_data
 from commons.forms import *
-from blog.models import Comment
+from blog.models import *
 from blog.forms import *
 from helpers import *
 
@@ -105,7 +105,7 @@ def get_post_title_form(request, pk):
     return get_single_form(request, pk, template_name='ajax/single_field_form_inline.haml', **args)
 
 
-# title
+# is_public
 def get_post_is_public(request, pk):
     return ajax_get_single_data(request, pk, Post, 'is_public', template_name='blog/ajax/is_public.haml')
 
@@ -116,6 +116,42 @@ def get_post_is_public_form(request, pk):
             }
 
     return get_single_form(request, pk, path_name='post-is-public', template_name='ajax/single_field_form_inline.haml', **args)
+
+
+# parsed_content
+def get_post_parsed_content(request, pk):
+    return ajax_get_single_data(request, pk, Post, 'parsed_content', template_name='ajax/single_field_value_md.haml')
+
+
+def get_post_parsed_content_form(request, pk):
+    args = {'attr_name': 'parsed_content',
+            'form_obj': SingleTextareaForm,
+            }
+
+    return get_single_form(request, pk, path_name='post-parsed-content', template_name='ajax/single_field_form_inline.haml', **args)
+
+
+# Category
+@require_safe
+@ajax_only
+def get_post_category(request, pk):
+    p = get_object_or_404(Post, pk=pk)
+    return render(request, "ajax/single_field_link_value.haml",
+                 {'value': p.category.name, 'value_url': p.category.get_absolute_url,
+                  'extra': 'data-ajax="body-content-only"'
+                           ' data-depth="10"'})
+
+
+def get_post_category_form(request, pk):
+    categories = Category.objects.filter(site=Site.objects.get_current()) \
+                                 .values_list('pk', 'name')
+    args = {'attr_name': 'category',
+            'form_obj': SingleChoiceFieldForm,
+            'form_args': {'choices': categories},
+            'inital_fix': ('Category', 'pk'),
+            }
+
+    return get_single_form(request, pk, template_name='ajax/single_field_form_inline.haml', **args)
 
 
 # Comment
