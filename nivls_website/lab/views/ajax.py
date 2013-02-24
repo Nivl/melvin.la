@@ -59,7 +59,7 @@ def get_project_catchphrase_form(request, pk):
 @ajax_only
 def get_project_license(request, pk):
     p = get_object_or_404(Project, pk=pk)
-    return render(request, "ajax/single_field_link_value.haml",
+    return render(request, "ajax/single_field_value.haml",
                  {'value': p.license.name, 'value_url': p.license.url})
 
 

@@ -10,7 +10,7 @@
 
         %span{'class'   : '{% if perms.lab.change_project %}lab-project-license-live-edit{% endif %}',
               'id'      : 'lab-project-license-{{ project.pk }}'}
-            - include 'ajax/single_field_link_value.haml' with value=project.license.name value_url=project.license.url
+            - include 'ajax/single_field_value.haml' with value=project.license.name value_url=project.license.url
 
         - if project.sources_url
             %li

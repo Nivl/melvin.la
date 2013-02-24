@@ -136,7 +136,7 @@ def get_post_parsed_content_form(request, pk):
 @ajax_only
 def get_post_category(request, pk):
     p = get_object_or_404(Post, pk=pk)
-    return render(request, "ajax/single_field_link_value.haml",
+    return render(request, "ajax/single_field_value.haml",
                  {'value': p.category.name, 'value_url': p.category.get_absolute_url,
                   'extra': 'data-ajax="body-content-only"'
                            ' data-depth="10"'})
