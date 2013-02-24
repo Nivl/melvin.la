@@ -11,7 +11,8 @@ from django.utils.translation import ugettext as _
 from django.template.defaultfilters import slugify
 from commons.decorators import ajax_only
 from commons.forms import SingleTextareaForm
-from commons.views import validate_single_ajax_form
+from commons.views import validate_single_ajax_form, ajax_get_single_data
+from commons.forms import *
 from blog.models import Comment
 from blog.forms import *
 from helpers import *
@@ -24,33 +25,6 @@ def comment_list(request, year, month, day, slug):
     comments = post.get_public_comments()
     return render(request, "blog/ajax/comment_list.haml",
                   {"comments": comments})
-
-
-@require_safe
-@ajax_only
-def comment_single(request, year, month, day, slug, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    return render(request, "ajax/single_field_value_external.haml",
-                  {'value': comment.comment
-                   })
-
-
-@ajax_only
-def comment_single_form(request, year, month, day, slug, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-
-    if not request.user.is_authenticated() \
-            or not (request.user == comment.user
-                    or request.user.has_perm('blog.change_comment')):
-        return HttpResponseForbidden()
-
-    render_args = {'template_name': "ajax/single_field_form.haml",
-               'dictionary': {'id': 'comment-single-form-' + str(pk),
-                              'url': reverse('post-comment-single-form', args=[year, month, day, slug, pk])
-                              }
-                }
-
-    return validate_single_ajax_form(request, comment, 'comment', render_args, SingleTextareaForm)
 
 
 @require_safe
@@ -112,3 +86,61 @@ def comment_form(request, year, month, day, slug):
                    'form': form,
                    'storage_key': storage_key,
                    })
+
+
+#
+# Live Edit
+#
+
+# title
+def get_post_title(request, pk):
+    return ajax_get_single_data(request, pk, Post, 'title')
+
+
+def get_post_title_form(request, pk):
+    args = {'attr_name': 'title',
+            'form_obj': SingleCharFieldForm,
+            }
+
+    return get_single_form(request, pk, template_name='ajax/single_field_form_inline.haml', **args)
+
+
+# title
+def get_post_is_public(request, pk):
+    return ajax_get_single_data(request, pk, Post, 'is_public', template_name='blog/ajax/is_public.haml')
+
+
+def get_post_is_public_form(request, pk):
+    args = {'attr_name': 'is_public',
+            'form_obj': SingleBooleanFieldForm,
+            }
+
+    return get_single_form(request, pk, path_name='post-is-public', template_name='ajax/single_field_form_inline.haml', **args)
+
+
+# Comment
+@require_safe
+@ajax_only
+def comment_single(request, year, month, day, slug, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    return render(request, "ajax/single_field_value_external.haml",
+                  {'value': comment.comment
+                   })
+
+
+@ajax_only
+def comment_single_form(request, year, month, day, slug, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+
+    if not request.user.is_authenticated() \
+            or not (request.user == comment.user
+                    or request.user.has_perm('blog.change_comment')):
+        return HttpResponseForbidden()
+
+    render_args = {'template_name': "ajax/single_field_form.haml",
+               'dictionary': {'id': 'comment-single-form-' + str(pk),
+                              'url': reverse('post-comment-single-form', args=[year, month, day, slug, pk])
+                              }
+                }
+
+    return validate_single_ajax_form(request, comment, 'comment', render_args, SingleTextareaForm)

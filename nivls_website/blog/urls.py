@@ -2,6 +2,7 @@ from django.conf.urls.defaults import patterns, url
 from feeds import *
 from sitemaps import *
 from commons.sitemaps import StaticSitemap
+from commons.urls import live_edit_url
 
 post_r = '(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)'
 
@@ -62,6 +63,10 @@ urlpatterns += patterns(
         'comment_single_form',
         name='post-comment-single-form'),
 )
+
+
+urlpatterns += live_edit_url('blog', 'post', 'title')
+urlpatterns += live_edit_url('blog', 'post', 'is_public')
 
 feeds_urlpatterns = patterns(
     '',

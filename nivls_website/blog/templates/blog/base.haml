@@ -11,6 +11,13 @@
 - block "page-subtitle"
     - trans "Where I tell my life story"
 
+- block "app_js"
+    :javascript
+        liveEdit('blog-post-title-', {}, 'blog-get-post-title');
+        liveEdit('blog-post-is-public-', {}, 'blog-get-post-is-public');
+
+    - block "app_sub_js"
+
 - block "head_link"
     %link{'rel'     : 'alternate',
           'type'    : 'application/atom+xml',

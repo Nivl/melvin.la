@@ -4,12 +4,10 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.contrib.sites.models import Site
 from commons.paginator import simple_paginator
+from commons.views import ajax_get_form
 from blog.models import Post
 
 
-#
-# Helpers
-#
 def get_post_list(request, **kwargs):
     if request.user.is_superuser:
         post_list = Post.objects.select_related() \
@@ -34,10 +32,15 @@ def get_post(request, year, month, day, slug, **kwargs):
     kwargs['site'] = Site.objects.get_current()
 
     if request.user.is_superuser:
-        post = get_object_or_404(Post,
-                                 **kwargs)
+        post = get_object_or_404(Post, **kwargs)
     else:
         post = get_object_or_404(Post,
                                  Q(is_public=1) | Q(author=request.user),
                                  **kwargs)
     return post
+
+
+def get_single_form(request, pk, Obj=Post, path_name='', perm='blog.change_post', template_name='ajax/single_field_form.haml', **kwargs):
+    if len(path_name) == 0:
+        path_name = 'post-%s' % kwargs['attr_name']
+    return ajax_get_form(request, pk, Obj, 'blog', path_name, perm, template_name, **kwargs)

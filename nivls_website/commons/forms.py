@@ -13,6 +13,12 @@ class SingleCharFieldForm(happyforms.Form):
         label=_(' '))
 
 
+class SingleBooleanFieldForm(forms.Form):
+    single = forms.BooleanField(
+        required=False,
+        label=_(' '))
+
+
 class SingleTextareaForm(happyforms.Form):
     single = forms.CharField(
         widget=forms.Textarea(),

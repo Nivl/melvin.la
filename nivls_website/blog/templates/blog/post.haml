@@ -1,7 +1,7 @@
 - extends "blog/base.haml"
 - load blog_tags markup humanize common_tags i18n tz
 
-- block "app_js"
+- block "app_sub_js"
     :javascript
         reloadShareButtons();
 
@@ -57,7 +57,9 @@
             %meta{'itemprop': '{{ data.name }}', 'content': '{{ data.content }}'}
 
         %header
-            %h2{'itemprop' : 'name'}<
+            %h2{'itemprop'  : 'name',
+                'id'        : 'blog-post-title-{{ post.pk }}',
+                'class'     : '{% if perms.blog.change_post %}blog-post-title-live-edit{% endif %}'}<
                 {{ post.title }}
 
             .pull-right.share-btn
@@ -81,7 +83,6 @@
                 %a{'data-ajax'  : 'body-content-only',
                    'data-depth' : '10',
                    'href'       : '{{ post.category.get_absolute_url }}'}
-
                     {{ post.category }}
 
                 - with post.tags.all as tags
@@ -112,16 +113,12 @@
                             - if not forloop.last
                                 &nbsp;
 
-
                 - if perms.blog.change_post
                     %br
 
-                    - if post.is_public
-                        %i.icon-eye-open
-                        - trans "Public"
-                    - else
-                        %i.icon-eye-close
-                        - trans "Private"
+                    %div{'id'    : 'blog-post-is-public-{{ post.pk }}',
+                         'class' : '{% if perms.blog.change_post %}blog-post-is-public-live-edit{% endif %}'}
+                        - include 'blog/ajax/is_public.haml' with value=post.is_public
 
 
         %section.content.clearfix{'itemprop': 'articleBody'}
