@@ -54,14 +54,6 @@ urlpatterns += patterns(
     url(r"^get/%s/comment/count/$" % post_r,
         'comment_count',
         name='post-comment-count'),
-
-    url(r"^get/%s/comment/get/(?P<pk>\d+)/$" % post_r,
-        'comment_single',
-        name='post-comment-single'),
-
-    url(r"^get/%s/comment/get/(?P<pk>\d+)/form/$" % post_r,
-        'comment_single_form',
-        name='post-comment-single-form'),
 )
 
 
@@ -69,6 +61,7 @@ urlpatterns += live_edit_url('blog', 'post', 'title')
 urlpatterns += live_edit_url('blog', 'post', 'is_public')
 urlpatterns += live_edit_url('blog', 'post', 'parsed_content')
 urlpatterns += live_edit_url('blog', 'post', 'category')
+urlpatterns += live_edit_url('blog', 'comment', 'comment')
 
 feeds_urlpatterns = patterns(
     '',

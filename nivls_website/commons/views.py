@@ -11,8 +11,9 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_safe
+from django.http import HttpResponseForbidden
 from commons.decorators import ajax_only
-# Needed to deal with manyToMany with getattr on sys.modules[__name__]
+# Needed to deal with manyToMany through getattr on sys.modules[__name__]
 from lab.models import License
 from blog.models import Category
 
@@ -113,10 +114,24 @@ def validate_single_ajax_form(request, obj, attr_name, render_args, form_obj, fo
 
 @ajax_only
 def ajax_get_form(request, pk, Obj, app_name, path_name, perm, template_name='ajax/single_field_form.haml', is_single=True, **kwargs):
-    if not request.user.has_perm(perm):
+    """
+    pk: Value of the primary key. None means that Obj is already an instance
+    Obj: Model to fetch, or instance to the object (if pk is None)
+    app_name: Name of the application
+    path_name: Name of the "path". Usualy 'model-attribute'
+    perm: Pemission needed to access the data
+    template_name: Path to the template
+    is_single: True if we want a single field, False if we want a model
+    """
+
+    if perm and not request.user.has_perm(perm):
         return HttpResponseForbidden()
 
-    obj = get_object_or_404(Obj, pk=pk)
+    if pk is not None:
+        obj = get_object_or_404(Obj, pk=pk)
+    else:
+        obj = Obj
+        pk = obj.pk
 
     kwargs['render_args'] = {
     'template_name': template_name,

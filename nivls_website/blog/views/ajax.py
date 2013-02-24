@@ -155,17 +155,11 @@ def get_post_category_form(request, pk):
 
 
 # Comment
-@require_safe
-@ajax_only
-def comment_single(request, year, month, day, slug, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    return render(request, "ajax/single_field_value_external.haml",
-                  {'value': comment.comment
-                   })
+def get_comment_comment(request, pk):
+    return ajax_get_single_data(request, pk, Comment, 'comment', template_name='ajax/single_field_value_external.haml')
 
 
-@ajax_only
-def comment_single_form(request, year, month, day, slug, pk):
+def get_comment_comment_form(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
 
     if not request.user.is_authenticated() \
@@ -173,10 +167,8 @@ def comment_single_form(request, year, month, day, slug, pk):
                     or request.user.has_perm('blog.change_comment')):
         return HttpResponseForbidden()
 
-    render_args = {'template_name': "ajax/single_field_form.haml",
-               'dictionary': {'id': 'comment-single-form-' + str(pk),
-                              'url': reverse('post-comment-single-form', args=[year, month, day, slug, pk])
-                              }
-                }
+    args = {'attr_name': 'comment',
+            'form_obj': SingleTextareaForm,
+            }
 
-    return validate_single_ajax_form(request, comment, 'comment', render_args, SingleTextareaForm)
+    return ajax_get_form(request, None, comment, 'blog', 'comment-comment', None, **args)
