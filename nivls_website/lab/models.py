@@ -1,11 +1,12 @@
 #-*- coding: utf-8 -*-
-import os
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
 from django.contrib.contenttypes import generic
+from django.db.models.signals import pre_save
+from django.dispatch.dispatcher import receiver
 from commons.fields import ColorField
 from commons.models import I18nSite
 from seo.models import SeoEverywhere, SeoMicroData
@@ -48,22 +49,21 @@ class Tag(models.Model):
     def get_absolute_url(self):
         return ('lab-tag', (), {'slug': self.slug})
 
-    def save(self, *arg, **kwargs):
-        if self.pk is not None:
-            origin = Tag.objects.get(pk=self.pk)
-            if origin.icon_enabled != self.icon_enabled:
-                if os.path.exists(origin.icon_enabled.path):
-                    os.remove(origin.icon_enabled.path)
-            if origin.icon_disabled != self.icon_disabled:
-                if os.path.exists(origin.icon_disabled.path):
-                    os.remove(origin.icon_disabled.path)
-        super(Tag, self).save(*arg, **kwargs)
-
     def __unicode__(self):
         return self.name
 
     class Meta:
         unique_together = ('site', 'slug')
+
+
+@receiver(pre_save, sender=Tag)
+def tag_presave(sender, instance, **kwargs):
+    if instance.pk is not None:
+        origin = Tag.objects.get(pk=instance.pk)
+        if origin.icon_enabled != instance.icon_enabled:
+            origin.icon_enabled.delete(save=False)
+        if origin.icon_disabled != instance.icon_disabled:
+            origin.icon_disabled.delete(save=False)
 
 
 class Language(models.Model):
@@ -104,14 +104,6 @@ class License(models.Model):
     def __unicode__(self):
         return self.name
 
-    def save(self, *arg, **kwargs):
-        if self.pk is not None:
-            origin = License.objects.get(pk=self.pk)
-            if origin.image != self.image:
-                if os.path.exists(origin.image.path):
-                    os.remove(origin.image.path)
-        super(License, self).save(*arg, **kwargs)
-
     class Meta:
         unique_together = ('site', 'slug')
 
@@ -147,16 +139,16 @@ class Coworker(models.Model):
     def __unicode__(self):
         return self.name
 
-    def save(self, *arg, **kwargs):
-        if self.pk is not None:
-            origin = Coworker.objects.get(pk=self.pk)
-            if origin.image != self.image:
-                if os.path.exists(origin.image.path):
-                    os.remove(origin.image.path)
-        super(Coworker, self).save(*arg, **kwargs)
-
     class Meta:
         unique_together = ('site', 'slug')
+
+
+@receiver(pre_save, sender=Coworker)
+def coworker_presave(sender, instance, **kwargs):
+    if instance.pk is not None:
+        origin = Coworker.objects.get(pk=instance.pk)
+        if origin.image != instance.image:
+            origin.image.delete(save=False)
 
 
 class Client(models.Model):
@@ -190,16 +182,16 @@ class Client(models.Model):
     def __unicode__(self):
         return self.name
 
-    def save(self, *arg, **kwargs):
-        if self.pk is not None:
-            origin = Client.objects.get(pk=self.pk)
-            if origin.image != self.image:
-                if os.path.exists(origin.image.path):
-                    os.remove(origin.image.path)
-        super(Client, self).save(*arg, **kwargs)
-
     class Meta:
         unique_together = ('site', 'slug')
+
+
+@receiver(pre_save, sender=Client)
+def client_presave(sender, instance, **kwargs):
+    if instance.pk is not None:
+        origin = Client.objects.get(pk=instance.pk)
+        if origin.image != instance.image:
+            origin.image.delete(save=False)
 
 
 class Project(models.Model):
@@ -392,13 +384,13 @@ class Image(models.Model):
     def __unicode__(self):
         return self.name
 
-    def save(self, *arg, **kwargs):
-        if self.pk is not None:
-            origin = Image.objects.get(pk=self.pk)
-            if origin.image != self.image:
-                if os.path.exists(origin.image.path):
-                    os.remove(origin.image.path)
-        super(Image, self).save(*arg, **kwargs)
+
+@receiver(pre_save, sender=Image)
+def labimage_presave(sender, instance, **kwargs):
+    if instance.pk is not None:
+        origin = Image.objects.get(pk=instance.pk)
+        if origin.image != instance.image:
+            origin.image.delete(save=False)
 
 
 class DownloadIcon(models.Model):
@@ -419,13 +411,13 @@ class DownloadIcon(models.Model):
     def __unicode__(self):
         return self.name
 
-    def save(self, *arg, **kwargs):
-        if self.pk is not None:
-            origin = DownloadIcon.objects.get(pk=self.pk)
-            if origin.image != self.image:
-                if os.path.exists(origin.image.path):
-                    os.remove(origin.image.path)
-        super(DownloadIcon, self).save(*arg, **kwargs)
+
+@receiver(pre_save, sender=DownloadIcon)
+def downloadIcon_presave(sender, instance, **kwargs):
+    if instance.pk is not None:
+        origin = DownloadIcon.objects.get(pk=instance.pk)
+        if origin.image != instance.image:
+            origin.image.delete(save=False)
 
 
 class Download(models.Model):

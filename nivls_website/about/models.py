@@ -1,7 +1,8 @@
-import os
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.db.models.signals import pre_save
+from django.dispatch.dispatcher import receiver
 from lab.models import Project as LabProject
 from commons.models import I18nSite
 
@@ -155,17 +156,15 @@ class WorkProject(models.Model):
     def __unicode__(self):
         return self.lab.name
 
-    def save(self, *arg, **kwargs):
-        try:
-            origin = WorkProject.objects.get(pk=self.pk)
-            if origin.screenshot != self.screenshot:
-                if os.path.exists(origin.screenshot.path):
-                    os.remove(origin.screenshot.path)
-        except WorkProject.DoesNotExist:
-            pass
-        super(WorkProject, self).save(*arg, **kwargs)
-
     class Meta:
         ordering = ["order"]
         verbose_name = _("work Project")
         verbose_name_plural = _("work Projects")
+
+
+@receiver(pre_save, sender=WorkProject)
+def workProject_presave(sender, instance, **kwargs):
+    if instance.pk is not None:
+        origin = WorkProject.objects.get(pk=instance.pk)
+        if origin.screenshot != instance.screenshot:
+            origin.screenshot.delete(save=False)

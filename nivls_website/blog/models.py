@@ -1,4 +1,3 @@
-import os
 from django.utils import timezone
 from django.db import models
 from django.conf import settings
@@ -6,6 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.sitemaps import ping_google
 from django.utils.translation import gettext_lazy as _
 from django.contrib.contenttypes import generic
+from django.db.models.signals import pre_save, post_save
+from django.dispatch.dispatcher import receiver
 from commons.models import I18nSite
 from commons.renders import image_name_to_link
 from seo.models import SeoEverywhere, SeoMicroData
@@ -294,21 +295,25 @@ class Post(models.Model):
                 'slug': self.slug,
                 })
 
-    def save(self, *arg, **kwargs):
-        if self.pk is not None:
-            origin = Post.objects.get(pk=self.pk)
-            if origin.main_image != self.main_image:
-                if origin.main_image and os.path.exists(origin.main_image.path):
-                    os.remove(origin.main_image.path)
-        super(Post, self).save(*arg, **kwargs)
-        try:
-            ping_google()
-        except Exception:
-            pass
-
     class Meta:
         ordering = ['-pub_date']
         unique_together = ('slug', 'pub_date', 'site')
+
+
+@receiver(pre_save, sender=Post)
+def post_presave(sender, instance, **kwargs):
+    if instance.pk is not None:
+        origin = Post.objects.get(pk=instance.pk)
+        if origin.main_image != instance.main_image:
+            origin.main_image.delete(save=False)
+
+
+@receiver(post_save, sender=Post)
+def post_postsave(sender, instance, **kwargs):
+    try:
+        ping_google()
+    except Exception:
+        pass
 
 
 class Image(models.Model):
@@ -328,13 +333,13 @@ class Image(models.Model):
     def __unicode__(self):
         return self.name
 
-    def save(self, *arg, **kwargs):
-        if self.pk is not None:
-            origin = Image.objects.get(pk=self.pk)
-            if origin.image != self.image:
-                if os.path.exists(origin.image.path):
-                    os.remove(origin.image.path)
-        super(Image, self).save(*arg, **kwargs)
+
+@receiver(pre_save, sender=Image)
+def image_presave(sender, instance, **kwargs):
+    if instance.pk is not None:
+        origin = Image.objects.get(pk=instance.pk)
+        if origin.image != instance.image:
+            origin.image.delete(save=False)
 
 
 class Comment(models.Model):

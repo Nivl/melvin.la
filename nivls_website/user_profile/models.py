@@ -1,6 +1,6 @@
-import os
 from django.utils.translation import ugettext_lazy as _
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
+from django.dispatch.dispatcher import receiver
 from django.contrib.auth.models import User
 from django.db import models
 from commons.fields import CroppedImageField
@@ -82,19 +82,18 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.__unicode__()
 
-    def save(self, *arg, **kwargs):
-        if self.pk is not None:
-            origin = UserProfile.objects.get(pk=self.pk)
-            if origin.picture != self.picture:
-                if origin.picture and os.path.exists(origin.picture.path):
-                    os.remove(origin.picture.path)
-                p, s = self._meta.get_field('avatar').set_select
-                self.avatar = '%dx%d %dx%d' % (p[0], p[1], s[0], s[1])
-        super(UserProfile, self).save(*arg, **kwargs)
+
+@receiver(pre_save, sender=UserProfile)
+def userProfile_presave(sender, instance, **kwargs):
+    if instance.pk is not None:
+        origin = UserProfile.objects.get(pk=instance.pk)
+        if origin.picture and origin.picture != instance.picture:
+            origin.picture.delete(save=False)
+            p, s = instance._meta.get_field('avatar').set_select
+            instance.avatar = '%dx%d %dx%d' % (p[0], p[1], s[0], s[1])
 
 
+@receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
-
-post_save.connect(create_user_profile, sender=User)

@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.db.models.signals import pre_save
+from django.dispatch.dispatcher import receiver
 from commons.models import I18nSite
 
 
@@ -71,6 +73,14 @@ class Category(models.Model):
         unique_together = ('order', 'section')
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
+
+
+@receiver(pre_save, sender=Category)
+def category_presave(sender, instance, **kwargs):
+    if instance.pk is not None:
+        origin = Category.objects.get(pk=instance.pk)
+        if origin.image and origin.image != instance.image:
+            origin.image.delete(save=False)
 
 
 class Content(models.Model):
