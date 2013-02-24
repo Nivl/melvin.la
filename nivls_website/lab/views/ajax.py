@@ -6,7 +6,6 @@ from commons.decorators import ajax_only
 from commons.forms import *
 from commons.views import *
 from lab.models import *
-from lab.forms import *
 
 
 def get_single_form(request, pk, Obj=Project, path_name='',
