@@ -3,9 +3,7 @@ from django.views.decorators.http import require_safe
 from django.conf import settings
 from django.contrib.auth.models import User
 from commons.decorators import ajax_only
-from commons.forms import SingleTextareaForm, SingleCharFieldForm
-from commons.forms import SingleChoiceFieldForm, SingleMultipleChoiceFieldForm
-from commons.forms import SingleDateFieldForm
+from commons import forms
 from commons.views import ajax_get_form, ajax_get_single_data
 from lab.models import Project, License, Client, Coworker, Progress, Video
 
@@ -29,7 +27,7 @@ def get_project_description(request, pk):
 
 def get_project_description_form(request, pk):
     args = {'attr_name': 'description',
-            'form_obj': SingleTextareaForm,
+            'form_obj': forms.SingleTextareaForm,
             }
 
     return get_single_form(request, pk, **args)
@@ -42,7 +40,7 @@ def get_project_name(request, pk):
 
 def get_project_name_form(request, pk):
     args = {'attr_name': 'name',
-            'form_obj': SingleCharFieldForm
+            'form_obj': forms.SingleCharFieldForm
             }
 
     return get_single_form(request, pk,
@@ -57,7 +55,7 @@ def get_project_catchphrase(request, pk):
 
 def get_project_catchphrase_form(request, pk):
     args = {'attr_name': 'catchphrase',
-            'form_obj': SingleCharFieldForm
+            'form_obj': forms.SingleCharFieldForm
             }
 
     return get_single_form(request, pk,
@@ -78,7 +76,7 @@ def get_project_license_form(request, pk):
     licenses = License.objects.filter(site=settings.SITE_ID) \
                               .values_list('pk', 'name')
     args = {'attr_name': 'license',
-            'form_obj': SingleChoiceFieldForm,
+            'form_obj': forms.SingleChoiceFieldForm,
             'form_args': {'choices': licenses},
             'inital_fix': ('License', 'pk'),
             }
@@ -100,7 +98,7 @@ def get_project_realclients(request, pk):
 
 def get_project_realclients_form(request, pk):
     args = {'attr_name': 'clients_user',
-            'form_obj': SingleMultipleChoiceFieldForm,
+            'form_obj': forms.SingleMultipleChoiceFieldForm,
             'form_args': {'queryset': User.objects.all()},
             'has_many': True,
             }
@@ -121,7 +119,7 @@ def get_project_clients(request, pk):
 def get_project_clients_form(request, pk):
     queryset = Client.objects.filter(site=settings.SITE_ID)
     args = {'attr_name': 'clients',
-            'form_obj': SingleMultipleChoiceFieldForm,
+            'form_obj': forms.SingleMultipleChoiceFieldForm,
             'form_args': {'queryset': queryset},
             'has_many': True,
             }
@@ -141,7 +139,7 @@ def get_project_realcoworkers(request, pk):
 
 def get_project_realcoworkers_form(request, pk):
     args = {'attr_name': 'coworkers_user',
-            'form_obj': SingleMultipleChoiceFieldForm,
+            'form_obj': forms.SingleMultipleChoiceFieldForm,
             'form_args': {'queryset': User.objects.all()},
             'has_many': True,
             }
@@ -162,7 +160,7 @@ def get_project_coworkers(request, pk):
 
 def get_project_coworkers_form(request, pk):
     args = {'attr_name': 'coworkers',
-            'form_obj': SingleMultipleChoiceFieldForm,
+            'form_obj': forms.SingleMultipleChoiceFieldForm,
             'form_args': {'queryset': Coworker.objects.filter(
                                             site=settings.SITE_ID)},
             'has_many': True,
@@ -179,7 +177,7 @@ def get_project_progress(request, pk):
 
 def get_project_progress_form(request, pk):
     args = {'attr_name': 'overall_progress',
-            'form_obj': SingleCharFieldForm
+            'form_obj': forms.SingleCharFieldForm
             }
 
     return get_single_form(request, pk, path_name='project-progress', **args)
@@ -193,7 +191,7 @@ def get_progress_date(request, pk):
 
 def get_progress_date_form(request, pk):
     kwargs = {'attr_name': 'pub_date',
-              'form_obj': SingleDateFieldForm,
+              'form_obj': forms.SingleDateFieldForm,
               }
 
     return get_single_form(request, pk, Obj=Progress, path_name='progress-date',
@@ -208,7 +206,7 @@ def get_progress_description(request, pk):
 
 def get_progress_description_form(request, pk):
     kwargs = {'attr_name': 'description',
-              'form_obj': SingleCharFieldForm
+              'form_obj': forms.SingleCharFieldForm
               }
 
     return get_single_form(request, pk, Obj=Progress,
@@ -225,7 +223,7 @@ def get_video_name(request, pk):
 def get_video_name_form(request, pk):
     kwargs = {
     'attr_name': 'name',
-    'form_obj': SingleCharFieldForm,
+    'form_obj': forms.SingleCharFieldForm,
     }
 
     return get_single_form(request, pk, Obj=Video, path_name='video-name',
@@ -240,7 +238,7 @@ def get_video_description(request, pk):
 
 def get_video_description_form(request, pk):
     kwargs = {'attr_name': 'description',
-              'form_obj': SingleTextareaForm,
+              'form_obj': forms.SingleTextareaForm,
               }
 
     return get_single_form(request, pk, Obj=Video,
