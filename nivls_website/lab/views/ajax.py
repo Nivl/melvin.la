@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_safe
-from django.contrib.sites.models import Site
+from django.conf import settings
 from django.contrib.auth.models import User
 from commons.decorators import ajax_only
 from commons.forms import SingleTextareaForm, SingleCharFieldForm
@@ -75,7 +75,7 @@ def get_project_license(request, pk):
 
 
 def get_project_license_form(request, pk):
-    licenses = License.objects.filter(site=Site.objects.get_current()) \
+    licenses = License.objects.filter(site=settings.SITE_ID) \
                               .values_list('pk', 'name')
     args = {'attr_name': 'license',
             'form_obj': SingleChoiceFieldForm,
@@ -119,7 +119,7 @@ def get_project_clients(request, pk):
 
 
 def get_project_clients_form(request, pk):
-    queryset = Client.objects.filter(site=Site.objects.get_current())
+    queryset = Client.objects.filter(site=settings.SITE_ID)
     args = {'attr_name': 'clients',
             'form_obj': SingleMultipleChoiceFieldForm,
             'form_args': {'queryset': queryset},
@@ -164,7 +164,7 @@ def get_project_coworkers_form(request, pk):
     args = {'attr_name': 'coworkers',
             'form_obj': SingleMultipleChoiceFieldForm,
             'form_args': {'queryset': Coworker.objects.filter(
-                                            site=Site.objects.get_current())},
+                                            site=settings.SITE_ID)},
             'has_many': True,
             }
 

@@ -15,7 +15,7 @@ def get_post_list(request, **kwargs):
                                         **kwargs)
     else:
         post_list = Post.objects.select_related() \
-                                .filter(Q(is_public=1) | Q(author=request.user),
+                                .filter(is_public=1,
                                         site=Site.objects.get_current(),
                                         **kwargs)
     if not post_list:
@@ -34,9 +34,7 @@ def get_post(request, year, month, day, slug, **kwargs):
     if request.user.is_superuser:
         post = get_object_or_404(Post, **kwargs)
     else:
-        post = get_object_or_404(Post,
-                                 Q(is_public=1) | Q(author=request.user),
-                                 **kwargs)
+        post = get_object_or_404(Post, is_public=1, **kwargs)
     return post
 
 

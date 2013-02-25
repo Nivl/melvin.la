@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.views.decorators.http import require_safe
-from django.contrib.sites.models import Site
 from commons.paginator import simple_paginator
 from lab.models import Project, Tag
 
@@ -17,7 +16,7 @@ def home(request):
 
 @require_safe
 def tag(request, slug):
-    tag = get_object_or_404(Tag, slug=slug, site=Site.objects.get_current())
+    tag = get_object_or_404(Tag, slug=slug, site=settings.SITE_ID)
     project_list = Project.objects.filter(tags=tag)
     projects = simple_paginator(project_list, 5, request.GET.get('page'))
     return render(request, "lab/listing.haml", {'projects': projects,

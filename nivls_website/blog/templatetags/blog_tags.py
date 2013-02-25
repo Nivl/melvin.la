@@ -1,6 +1,6 @@
 from django import template
 from django.db.models import Count
-from django.contrib.sites.models import Site
+from django.conf import settings
 from blog.models import Carousel, Post, Menu, Tag, Category
 
 register = template.Library()
@@ -8,7 +8,7 @@ register = template.Library()
 
 @register.inclusion_tag("blog/templatetags/carousel.haml")
 def blog_carousel(outside=False):
-    posts = Carousel.objects.filter(site=Site.objects.get_current())
+    posts = Carousel.objects.filter(site=settings.SITE_ID)
     return {'posts': posts,
             'outside': outside}
 
@@ -16,7 +16,7 @@ def blog_carousel(outside=False):
 @register.inclusion_tag("blog/templatetags/latest_posts.haml")
 def blog_latest_posts(n, outside=False):
     posts = Post.objects.filter(is_public=True,
-                                site=Site.objects.get_current()) \
+                                site=settings.SITE_ID) \
                         .order_by('-pub_date')[:n]
     return {'posts': posts,
             'outside': outside}
@@ -25,7 +25,7 @@ def blog_latest_posts(n, outside=False):
 @register.inclusion_tag("blog/templatetags/menus.haml")
 def blog_menus():
     menus = Menu.objects.filter(hide=False,
-                                site=Site.objects.get_current()) \
+                                site=settings.SITE_ID) \
                         .order_by('order')
     return {'menus': menus}
 
@@ -33,14 +33,14 @@ def blog_menus():
 @register.inclusion_tag("blog/templatetags/archives.haml")
 def blog_archives():
     dates = Post.objects.filter(is_public=1,
-                                site=Site.objects.get_current()) \
+                                site=settings.SITE_ID) \
                         .dates('pub_date', 'month', order='DESC')
     return {'dates': dates}
 
 
 @register.inclusion_tag("blog/templatetags/tag_cloud.haml")
 def blog_tagcloud():
-    tags = Tag.objects.filter(site=Site.objects.get_current()) \
+    tags = Tag.objects.filter(site=settings.SITE_ID) \
                       .order_by("name") \
                       .annotate(num_post=Count('tags_post__id'))
     tag_list = list()
@@ -74,7 +74,7 @@ def blog_tagcloud():
 
 @register.inclusion_tag("blog/templatetags/categories.haml")
 def blog_categories():
-    categories = Category.objects.filter(site=Site.objects.get_current()) \
+    categories = Category.objects.filter(site=settings.SITE_ID) \
         .order_by('left')
 
     cat_list = list()

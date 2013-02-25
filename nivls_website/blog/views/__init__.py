@@ -3,8 +3,8 @@ import datetime
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_safe
 from django.utils.translation import ugettext as _
-from django.contrib.sites.models import Site
 from django.template.defaultfilters import slugify, date as _date
+from django.conf import settings
 from blog.models import Category, Tag
 from blog.forms import CommentForm
 from helpers import get_post_list, get_post
@@ -29,10 +29,10 @@ def display_post(request, year, month, day, slug):
 
 @require_safe
 def post_list_by_categories(request, slug):
-    cat = get_object_or_404(Category, slug=slug, site=Site.objects.get_current())
+    cat = get_object_or_404(Category, slug=slug, site=settings.SITE_ID)
     cat_list = Category.objects.filter(left__gte=cat.left,
                                        left__lte=cat.right,
-                                       site=Site.objects.get_current())
+                                       site=settings.SITE_ID)
     posts = get_post_list(request, category__in=cat_list)
     return render(
         request,
@@ -47,7 +47,7 @@ def post_list_by_categories(request, slug):
 
 @require_safe
 def post_list_by_tags(request, slug):
-    tag = get_object_or_404(Tag, slug=slug, site=Site.objects.get_current())
+    tag = get_object_or_404(Tag, slug=slug, site=settings.SITE_ID)
     posts = get_post_list(request, tags=tag)
     return render(request,
                   'blog/post_list.haml',

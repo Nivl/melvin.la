@@ -1,7 +1,6 @@
 from django.template import RequestContext
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
-from django.contrib.sites.models import Site
 from django.views.decorators.http import require_safe
 from commons.views import write_pdf
 from resume.models import Section, DocumentCategory
@@ -11,7 +10,7 @@ from about.forms import ContactForm
 
 @require_safe
 def home(request):
-    profile = get_object_or_404(Profile, pk=Site.objects.get_current())
+    profile = get_object_or_404(Profile, pk=settings.SITE_ID)
     navigation_links = NavigationLink.objects.filter(site=settings.SITE_ID)
     contact_links = ContactLink.objects.all()
     return render(request, "about/home.haml",
@@ -29,7 +28,7 @@ def contact(request):
 
 @require_safe
 def about(request):
-    profile = get_object_or_404(Profile, pk=Site.objects.get_current())
+    profile = get_object_or_404(Profile, pk=settings.SITE_ID)
     navigation_links = NavigationLink.objects.filter(site=settings.SITE_ID)
     contact_links = ContactLink.objects.all()
     cv_sections = Section.objects.filter(site=settings.SITE_ID)

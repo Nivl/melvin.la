@@ -6,7 +6,6 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.template import Context
 from django.views.generic.base import TemplateView
-from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
@@ -21,7 +20,7 @@ from blog.models import Category
 class TexplainView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(TexplainView, self).get_context_data(**kwargs)
-        context['site'] = Site.objects.get_current()
+        context['site'] = settings.SITE_ID
         return context
 
     def render_to_response(self, context, **kwargs):

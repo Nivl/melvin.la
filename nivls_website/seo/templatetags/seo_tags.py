@@ -1,6 +1,6 @@
 from django import template
 from django.contrib.sites.models import Site
-from seo.models import *
+from seo.models import SEO
 
 register = template.Library()
 

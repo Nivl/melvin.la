@@ -4,7 +4,6 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseForbidden
-from django.contrib.sites.models import Site
 from django.conf import settings
 from django.views.decorators.http import require_safe
 from django.utils.translation import ugettext as _
@@ -154,7 +153,7 @@ def get_post_category(request, pk):
 
 
 def get_post_category_form(request, pk):
-    categories = Category.objects.filter(site=Site.objects.get_current()) \
+    categories = Category.objects.filter(site=settings.SITE_ID) \
                                  .values_list('pk', 'name')
     args = {'attr_name': 'category',
             'form_obj': SingleChoiceFieldForm,
