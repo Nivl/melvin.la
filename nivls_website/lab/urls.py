@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import patterns, url
-from sitemaps import *
+from sitemaps import ProjectSitemap, TagSitemap
 from commons.sitemaps import StaticSitemap
 from commons.urls import live_edit_url
 

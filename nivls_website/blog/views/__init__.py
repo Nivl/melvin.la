@@ -6,8 +6,8 @@ from django.utils.translation import ugettext as _
 from django.contrib.sites.models import Site
 from django.template.defaultfilters import slugify, date as _date
 from blog.models import Category, Tag
-from blog.forms import *
-from helpers import *
+from blog.forms import CommentForm
+from helpers import get_post_list, get_post
 
 
 @require_safe

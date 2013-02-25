@@ -1,5 +1,5 @@
 from django.middleware.common import _is_ignorable_404
-from models import *
+from models import Logger404
 
 
 class LoggerMiddleware():

@@ -3,9 +3,7 @@ from django.conf import settings
 from django.views.decorators.http import require_safe
 from django.contrib.sites.models import Site
 from commons.paginator import simple_paginator
-from commons.forms import *
-from commons.views import *
-from lab.models import *
+from lab.models import Project, Tag
 
 
 @require_safe

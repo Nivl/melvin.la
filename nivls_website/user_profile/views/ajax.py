@@ -6,17 +6,18 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.contrib.auth.views import password_reset_confirm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from commons.decorators import ajax_only, login_forbidden
-from user_profile.forms import *
+from user_profile.models import UserProfile
+from user_profile import forms
 
 
 @login_forbidden()
 @ajax_only
 def sign_up_form(request):
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = forms.UserForm(request.POST)
         if form.is_valid():
             u = form.save(commit=False)
             u.set_password(form.cleaned_data['password1'])
@@ -53,7 +54,7 @@ def sign_up_form(request):
             msg.send(fail_silently=True)
             return render(request, 'users/ajax/sign_up_ok.haml')
     else:
-        form = UserForm()
+        form = forms.UserForm()
     return render(request, "users/ajax/sign_up_form.haml", {'form': form})
 
 
@@ -72,7 +73,7 @@ def my_password_reset_confirm_form(request, uidb36, token):
 @login_required
 def edit_password_form(request):
     if request.method == 'POST':
-        form = EditPasswordForm(request.POST, request=request)
+        form = forms.EditPasswordForm(request.POST, request=request)
         if form.is_valid():
             request.user.set_password(form.cleaned_data['new_password'])
             request.user.save()
@@ -81,7 +82,7 @@ def edit_password_form(request):
             p.save()
             return HttpResponse('200')
     else:
-        form = EditPasswordForm(request=request)
+        form = forms.EditPasswordForm(request=request)
     return render(request, "users/ajax/edit_password_form.haml", {'form': form})
 
 
@@ -89,13 +90,13 @@ def edit_password_form(request):
 @login_required
 def edit_email_form(request):
     if request.method == 'POST':
-        form = EditEmailForm(request.POST, request=request)
+        form = forms.EditEmailForm(request.POST, request=request)
         if form.is_valid():
             request.user.email = form.cleaned_data['email']
             request.user.save()
             return HttpResponse('200')
     else:
-        form = EditEmailForm(initial={'email': request.user.email},
+        form = forms.EditEmailForm(initial={'email': request.user.email},
                              request=request)
     return render(request, "users/ajax/edit_email_form.haml", {'form': form})
 
@@ -106,12 +107,12 @@ def edit_account_form(request):
     profile = request.user.get_profile()
     username = request.user.username
     if request.method == 'POST':
-        account_form = UserEditForm(
+        account_form = forms.UserEditForm(
             request.POST,
             edit_username=(not profile.lock_username),
             instance=request.user)
 
-        profile_form = UserProfileInfoForm(
+        profile_form = forms.UserProfileInfoForm(
             request.POST,
             instance=profile)
 
@@ -123,9 +124,9 @@ def edit_account_form(request):
             p.save()
             return HttpResponse("200")
     else:
-        account_form = UserEditForm(edit_username=(not profile.lock_username),
+        account_form = forms.UserEditForm(edit_username=(not profile.lock_username),
                                     instance=request.user)
-        profile_form = UserProfileInfoForm(instance=profile)
+        profile_form = forms.UserProfileInfoForm(instance=profile)
     return render(request, "users/ajax/edit_account_form.haml",
                   {'account_form': account_form,
                    'profile_form': profile_form,
@@ -137,7 +138,7 @@ def edit_account_form(request):
 def edit_settings_form(request):
     profile = request.user.get_profile()
     if request.method == 'POST':
-        form = UserProfileSettingsForm(
+        form = forms.UserProfileSettingsForm(
             request.POST,
             instance=profile)
 
@@ -145,7 +146,7 @@ def edit_settings_form(request):
             form.save()
             return HttpResponse("200")
     else:
-        form = UserProfileSettingsForm(instance=profile)
+        form = forms.UserProfileSettingsForm(instance=profile)
     return render(request, "users/ajax/edit_settings_form.haml", {'form': form})
 
 
@@ -154,13 +155,13 @@ def edit_settings_form(request):
 def handle_dropped_picture(request):
     profile = request.user.get_profile()
     if request.method == 'POST':
-        form = UserPictureForm(request.POST, request.FILES,
+        form = forms.UserPictureForm(request.POST, request.FILES,
                                instance=profile)
         if form.is_valid():
             form.save()
             return HttpResponse("200")
     else:
-        form = UserPictureForm(instance=profile)
+        form = forms.UserPictureForm(instance=profile)
     return render(request, "users/ajax/edit_picture_drop_form.haml",
                   {'form': form})
 
@@ -170,14 +171,14 @@ def handle_dropped_picture(request):
 def edit_picture_form(request):
     profile = request.user.get_profile()
     if request.method == 'POST':
-        form = UserPictureForm(request.POST, request.FILES,
+        form = forms.UserPictureForm(request.POST, request.FILES,
                                instance=profile)
         if form.is_valid():
             form.save()
             return render(request, "users/ajax/edit_picture_ok.haml",
                           {'has_file': len(request.FILES)})
     else:
-        form = UserPictureForm(instance=profile)
+        form = forms.UserPictureForm(instance=profile)
     return render(request, "users/ajax/edit_picture_form.haml",
                   {'form': form})
 
@@ -190,10 +191,10 @@ def edit_avatar_form(request):
         return HttpResponseForbidden()
 
     if request.method == 'POST':
-        form = UserAvatarForm(request.POST, instance=profile)
+        form = forms.UserAvatarForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
             return render(request, 'users/ajax/edit_avatar_ok.haml')
     else:
-        form = UserAvatarForm(instance=profile)
+        form = forms.UserAvatarForm(instance=profile)
     return render(request, "users/ajax/edit_avatar_form.haml", {'form': form})

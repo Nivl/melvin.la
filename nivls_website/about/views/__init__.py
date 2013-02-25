@@ -5,9 +5,8 @@ from django.contrib.sites.models import Site
 from django.views.decorators.http import require_safe
 from commons.views import write_pdf
 from resume.models import Section, DocumentCategory
-from commons.views import *
-from about.models import *
-from about.forms import *
+from about.models import Profile, NavigationLink, ContactLink, WorkProject
+from about.forms import ContactForm
 
 
 @require_safe

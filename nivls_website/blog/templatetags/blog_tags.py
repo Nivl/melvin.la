@@ -1,7 +1,7 @@
 from django import template
 from django.db.models import Count
 from django.contrib.sites.models import Site
-from blog.models import *
+from blog.models import Carousel, Post, Menu, Tag, Category
 
 register = template.Library()
 

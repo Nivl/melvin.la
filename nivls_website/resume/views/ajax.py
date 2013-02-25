@@ -1,6 +1,6 @@
-from commons.forms import *
-from commons.views import *
-from resume.models import *
+from commons.forms import SingleCharFieldForm, SingleTextareaForm
+from commons.views import ajax_get_form, ajax_get_single_data
+from resume.models import Category, Content
 
 
 #

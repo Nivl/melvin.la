@@ -1,7 +1,7 @@
 from django.conf import settings
 from django import template
 from django.db.models import Count
-from lab.models import *
+from lab.models import Tag
 
 register = template.Library()
 

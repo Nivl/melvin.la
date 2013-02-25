@@ -3,10 +3,9 @@ from django.shortcuts import render
 from django.core.mail import send_mail
 from commons.forms import SingleTextareaForm
 from commons.decorators import ajax_only
-from resume.models import *
-from commons.views import *
-from about.models import *
-from about.forms import *
+from commons.views import ajax_get_single_data, ajax_get_form, ajax_get_model_data
+from about.models import Profile, WorkProject, NavigationLink, ContactLink
+from about.forms import ContactForm, NavigationForm, ContactLinkForm
 
 
 @ajax_only

@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import patterns, url
-from feeds import *
-from sitemaps import *
+from feeds import LatestPostFeed, TagFeed, CatFeed
+from feeds import LatestPostFeedAtom, TagFeedAtom, CatFeedAtom
+from sitemaps import PostSitemap
 from commons.sitemaps import StaticSitemap
 from commons.urls import live_edit_url
 

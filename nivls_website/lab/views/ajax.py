@@ -3,10 +3,11 @@ from django.views.decorators.http import require_safe
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from commons.decorators import ajax_only
-from commons.forms import *
-from commons.views import *
-from lab.models import *
-from lab.forms import *
+from commons.forms import SingleTextareaForm, SingleCharFieldForm
+from commons.forms import SingleChoiceFieldForm, SingleMultipleChoiceFieldForm
+from commons.forms import SingleDateFieldForm
+from commons.views import ajax_get_form, ajax_get_single_data
+from lab.models import Project, License, Client, Coworker, Progress, Video
 
 
 def get_single_form(request, pk, Obj=Project, path_name='',

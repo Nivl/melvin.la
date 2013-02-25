@@ -4,7 +4,7 @@ import urllib
 from django.http import HttpResponse
 from django.views.decorators.http import require_safe
 from commons.decorators import ajax_only
-from models import *
+from models import Item, BlacklistedWord
 
 
 @ajax_only

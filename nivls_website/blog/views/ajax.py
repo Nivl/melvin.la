@@ -4,17 +4,18 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseForbidden
+from django.contrib.sites.models import Site
 from django.conf import settings
 from django.views.decorators.http import require_safe
 from django.utils.translation import ugettext as _
 from django.template.defaultfilters import slugify
 from commons.decorators import ajax_only
-from commons.forms import SingleTextareaForm
-from commons.views import ajax_get_single_data
-from commons.forms import *
-from blog.models import *
-from blog.forms import *
-from helpers import *
+from commons.forms import SingleTextareaForm, SingleCharFieldForm
+from commons.forms import SingleBooleanFieldForm, SingleChoiceFieldForm
+from commons.views import ajax_get_single_data, ajax_get_form
+from blog.models import Post, Category, Comment
+from blog.forms import CommentForm
+from helpers import get_post, get_single_form
 
 
 @require_safe
