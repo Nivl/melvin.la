@@ -7,4 +7,5 @@ def app(context):
     return {'STATIC_ROOT': settings.STATIC_ROOT,
             'DOMAIN_NAME': Site.objects.get_current().domain,
             'DEBUG': str(settings.DEBUG).lower(),
-            'ADMIN': SiteAdmin().get_admin()}
+            'ADMIN': SiteAdmin().get_admin(),
+            'BRAND_NAME': settings.BRAND_NAME}

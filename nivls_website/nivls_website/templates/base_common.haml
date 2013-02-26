@@ -28,7 +28,8 @@
                   %span.icon-bar
                   %span.icon-bar
 
-                %a.brand{'href': '{% url "home" %}'} Laplanche Melvin
+                %a.brand{'href': '{% url "home" %}'}<
+                    {{ ADMIN.get_full_name }}
 
                 .nav-collapse{'role': 'navigation'}
                   %ul#navbar-main-list.nav.pull-right

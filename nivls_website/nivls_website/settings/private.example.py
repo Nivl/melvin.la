@@ -15,6 +15,7 @@ ADMINS = (
 )
 
 ADMIN_ID = 1
+BRAND_NAME = 'My Website'
 
 DATABASES = {
     'default': {

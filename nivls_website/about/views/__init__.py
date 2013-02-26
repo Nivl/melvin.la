@@ -2,7 +2,9 @@ from django.template import RequestContext
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_safe
+from django.template.defaultfilters import slugify
 from commons.views import write_pdf
+from commons.models import SiteAdmin
 from resume.models import Section, DocumentCategory
 from about.models import Profile, NavigationLink, ContactLink, WorkProject
 from about.forms import ContactForm
@@ -47,7 +49,9 @@ def about(request):
 def cv_pdf(request):
     cv_sections = Section.objects.filter(site=settings.SITE_ID)
     c = RequestContext(request, {'cv_sections': cv_sections, 'to_pdf': True})
-    return write_pdf("about/about.haml", c, "cv_laplanche_melvin.pdf")
+    admin = SiteAdmin().get_admin()
+    return write_pdf("about/about.haml", c,
+                     'cv-%s.pdf' % slugify(admin.get_full_name()))
 
 
 @require_safe
