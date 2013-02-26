@@ -23,7 +23,9 @@
 
     - trans "Comment: "
     %br
-    « {{ comment.comment }} »
+    «
+    - include "ajax/single_field_value_external.haml" value=comment.comment
+    »
 
 %p
     %a{'href': 'http://{{ DOMAIN_NAME }}{% url "admin:blog_comment_changelist" %}'}

@@ -1,3 +1,4 @@
+import markdown
 from django.conf import settings
 from django.shortcuts import render
 from django.core.mail import send_mail
@@ -13,13 +14,18 @@ def contact_form(request):
     if request.method == 'POST':
         form = ContactForm(request.POST, request=request)
         if form.is_valid():
-            msg = form.cleaned_data['message'] + "\n\n\n" + ('-' * 80)
+            md = markdown.Markdown(safe_mode='escape')
+
+            msg = md(form.cleaned_data['message'])
+            msg += "\n\n\n" + ('-' * 80)
             msg += "\n\n Ip : " + request.META["REMOTE_ADDR"]
+
             send_mail(form.cleaned_data['subject'],
                       msg,
                       form.cleaned_data['email'],
                       [row[1] for row in settings.ADMINS],
                       fail_silently=True)
+
             return render(request, 'about/contact_ok.haml')
     else:
         form = ContactForm(request=request)
