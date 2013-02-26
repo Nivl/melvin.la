@@ -264,8 +264,13 @@
     // normally since the focus never leaves the textarea.
     function PanelCollection(postfix) {
         this.buttonBar = doc.getElementById(postfix['bar']);
-        this.preview = doc.getElementById(postfix['preview']);
         this.input = doc.getElementById(postfix['input']);
+
+        if (postfix['preview'] != null) {
+            this.preview = doc.getElementById(postfix['preview']);
+        } else {
+            this.preview = null;
+        }
 
         this.inputId = postfix['input'];
         this.previewId = postfix['preview'];
@@ -643,7 +648,7 @@
         };
 
         var init = function () {
-            setEventHandlers();
+            //setEventHandlers();
             refreshState(true);
             saveState();
         };
@@ -918,14 +923,16 @@
         // value, and reattach. Yes, that *is* ridiculous.
         var ieSafePreviewSet = function (text) {
             var preview = panels.preview;
-            var parent = preview.parentNode;
-            var sibling = preview.nextSibling;
-            parent.removeChild(preview);
-            preview.innerHTML = text;
-            if (!sibling)
-                parent.appendChild(preview);
-            else
-                parent.insertBefore(preview, sibling);
+            if (preview) {
+                var parent = preview.parentNode;
+                var sibling = preview.nextSibling;
+                parent.removeChild(preview);
+                preview.innerHTML = text;
+                if (!sibling)
+                    parent.appendChild(preview);
+                else
+                    parent.insertBefore(preview, sibling);
+            }
         }
 
         var nonSuckyBrowserPreviewSet = function (text) {

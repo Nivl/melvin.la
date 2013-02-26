@@ -1,7 +1,7 @@
 function reloadJsEffects() {
-    resizeTextarea();
     highlightCode();
     markdownEditor();
+    resizeTextarea();
     getStoredData();
     enableBootstrapEffects();
     reloadShareButtons();
