@@ -64,9 +64,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'django.contrib.messages.context_processors.messages',
-    'nivls_website.context_processors.static_root',
-    'nivls_website.context_processors.domain_name',
-    'nivls_website.context_processors.debug',
+    'nivls_website.context_processors.app',
 )
 
 MIDDLEWARE_CLASSES = (
