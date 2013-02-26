@@ -1,8 +1,8 @@
-function highlightCode($this) {
-    if ($this === undefined) {
+function highlightCode($target) {
+    if ($target === undefined) {
         highlightAllCodes();
     } else {
-        highlightSingleCode($this);
+        highlightBlock($target);
     }
 }
 
@@ -22,6 +22,18 @@ function highlightAllCodes() {
     }
 }
 
-function highlightSingleCode($this) {
-    $this.html(prettyPrintOne($this.html()));
+function highlightBlock($target) {
+    var parent = null;
+
+    if ($target.prop("tagName") == 'CODE') {
+        parent = $target.parent();
+    } else {
+        parent = $target.find('code').parent();
+    }
+
+    if (parent.length > 0) {
+        parent.each(function() {
+            $(this).html(prettyPrintOne($(this).html()));
+        });
+    }
 }

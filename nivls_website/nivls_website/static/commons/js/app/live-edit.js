@@ -95,6 +95,7 @@ function liveEdit(prefix, unique_field) {
 
                 $.get(url, function(data){
                     $(selector).html(data);
+                    highlightCode($(selector));
                     $(that).animateHighlight();
                 });
             }
