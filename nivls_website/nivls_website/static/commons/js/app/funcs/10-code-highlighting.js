@@ -33,7 +33,9 @@ function highlightBlock($target) {
 
     if (parent.length > 0) {
         parent.each(function() {
-            $(this).html(prettyPrintOne($(this).html()));
+            $(this).addClass('prettyprint');
+            $(this).addClass('linenums');
+            $(this).html(prettyPrintOne($(this).html(), null, true));
         });
     }
 }
