@@ -9,6 +9,7 @@ from django.views.decorators.http import require_safe
 from django.utils.translation import ugettext as _
 from django.template.defaultfilters import slugify
 from commons.decorators import ajax_only
+from commons.models import SiteAdmin
 from commons.forms import SingleTextareaForm, SingleCharFieldForm
 from commons.forms import SingleBooleanFieldForm, SingleChoiceFieldForm
 from commons.views import ajax_get_single_data, ajax_get_form
@@ -69,7 +70,7 @@ def comment_form(request, year, month, day, slug):
                 subject,
                 text_content,
                 settings.EMAIL_NO_REPLY,
-                [post.author.email])
+                [SiteAdmin().get_admin().email])
 
             msg.attach_alternative(html_content, 'text/html')
             msg.send(fail_silently=True)

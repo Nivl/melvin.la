@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-10 23:21+0100\n"
-"PO-Revision-Date: 2013-02-03 16:54+0100\n"
+"POT-Creation-Date: 2013-02-26 15:02+0100\n"
+"PO-Revision-Date: 2013-02-26 15:09+0100\n"
 "Last-Translator: Melvin laplanche <melvin.laplanche+dev@gmail.com>\n"
 "Language-Team: Laplanche Melvin <LL@li.org>\n"
 "Language: French\n"
@@ -18,120 +18,120 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: about/forms.py:10
+#: about/forms.py:11
 msgid "Subject"
 msgstr "Sujet"
 
-#: about/forms.py:13
+#: about/forms.py:14
 msgid "Email address"
 msgstr "Adresse email"
 
-#: about/forms.py:17
+#: about/forms.py:18
 msgid "Message"
 msgstr "Message"
 
-#: about/models.py:14 about/models.py:56 about/models.py:111 blog/models.py:20
-#: blog/models.py:62 blog/models.py:102 blog/models.py:163 blog/models.py:396
-#: commons/models.py:12 lab/models.py:19 lab/models.py:90 lab/models.py:130
-#: lab/models.py:173 lab/models.py:216 resume/models.py:12
-#: resume/models.py:116 seo/models.py:15
+#: about/models.py:15 about/models.py:57 about/models.py:112 blog/models.py:21
+#: blog/models.py:63 blog/models.py:103 blog/models.py:164 blog/models.py:396
+#: commons/models.py:25 lab/models.py:20 lab/models.py:90 lab/models.py:116
+#: lab/models.py:159 lab/models.py:202 resume/models.py:14
+#: resume/models.py:126 seo/models.py:15
 msgid "site"
 msgstr "site"
 
-#: about/models.py:18 about/models.py:72 about/models.py:115 blog/models.py:24
-#: blog/models.py:39 blog/models.py:66 blog/models.py:106 blog/models.py:317
-#: blog/models.py:365 lab/models.py:23 lab/models.py:72 lab/models.py:94
-#: lab/models.py:134 lab/models.py:177 lab/models.py:220 lab/models.py:382
-#: lab/models.py:413 lab/models.py:440 lab/models.py:476 resume/models.py:16
-#: resume/models.py:49 resume/models.py:120 resume/models.py:148
+#: about/models.py:19 about/models.py:73 about/models.py:116 blog/models.py:25
+#: blog/models.py:40 blog/models.py:67 blog/models.py:107 blog/models.py:317
+#: blog/models.py:365 lab/models.py:24 lab/models.py:72 lab/models.py:94
+#: lab/models.py:120 lab/models.py:163 lab/models.py:206 lab/models.py:368
+#: lab/models.py:399 lab/models.py:426 lab/models.py:462 resume/models.py:18
+#: resume/models.py:51 resume/models.py:130 resume/models.py:158
 #: seo/models.py:80
 msgid "name"
 msgstr "nom"
 
-#: about/models.py:22 about/models.py:147 blog/models.py:115 lab/models.py:141
-#: lab/models.py:184 lab/models.py:251 lab/models.py:347 lab/models.py:387
-#: lab/models.py:446 lab/models.py:479 seo/models.py:26 seo/models.py:56
+#: about/models.py:23 about/models.py:148 blog/models.py:116 lab/models.py:127
+#: lab/models.py:170 lab/models.py:237 lab/models.py:333 lab/models.py:373
+#: lab/models.py:432 lab/models.py:465 seo/models.py:26 seo/models.py:56
 msgid "description"
 msgstr "description"
 
-#: about/models.py:26 about/models.py:75
+#: about/models.py:27 about/models.py:76
 msgid "link"
 msgstr "lien"
 
-#: about/models.py:32 about/models.py:81
-msgid "attributes"
-msgstr "attributs"
+#: about/models.py:33 about/models.py:82
+msgid "link attributes"
+msgstr "attributs du lien"
 
-#: about/models.py:36 about/models.py:85 lab/models.py:462
+#: about/models.py:37 about/models.py:86 lab/models.py:448
 msgid "icon"
 msgstr "icône"
 
-#: about/models.py:40 about/models.py:89 about/models.py:139 blog/models.py:27
-#: blog/models.py:400 resume/models.py:23 resume/models.py:52
-#: resume/models.py:85 resume/models.py:127 resume/models.py:152
+#: about/models.py:41 about/models.py:90 about/models.py:140 blog/models.py:28
+#: blog/models.py:400 resume/models.py:25 resume/models.py:54
+#: resume/models.py:95 resume/models.py:137 resume/models.py:162
 msgid "order"
 msgstr "ordre"
 
-#: about/models.py:47
+#: about/models.py:48
 msgid "navigation link"
 msgstr "lien de navigation"
 
-#: about/models.py:48
+#: about/models.py:49
 msgid "navigation links"
 msgstr "liens de navigation"
 
-#: about/models.py:59
+#: about/models.py:60
 msgid "about me"
 msgstr "À propos de moi"
 
-#: about/models.py:65
+#: about/models.py:66
 msgid "profile"
 msgstr "profil"
 
-#: about/models.py:66
+#: about/models.py:67
 msgid "profiles"
 msgstr "profils"
 
-#: about/models.py:96
+#: about/models.py:97
 msgid "contact link"
 msgstr "lien de contact"
 
-#: about/models.py:97
+#: about/models.py:98
 msgid "contact links"
 msgstr "liens de contact"
 
-#: about/models.py:118 blog/models.py:69 blog/models.py:109 blog/models.py:196
-#: lab/models.py:26 lab/models.py:76 lab/models.py:97 lab/models.py:137
-#: lab/models.py:180 lab/models.py:223 resume/models.py:19
-#: resume/models.py:123
+#: about/models.py:119 blog/models.py:70 blog/models.py:110 blog/models.py:192
+#: lab/models.py:27 lab/models.py:76 lab/models.py:97 lab/models.py:123
+#: lab/models.py:166 lab/models.py:209 resume/models.py:21
+#: resume/models.py:133
 msgid "slug"
 msgstr "slug"
 
-#: about/models.py:125
+#: about/models.py:126
 msgid "work Type"
 msgstr "type de travail"
 
-#: about/models.py:126
+#: about/models.py:127
 msgid "work Types"
 msgstr "types de travail"
 
-#: about/models.py:135
+#: about/models.py:136
 msgid "lab"
 msgstr ""
 
-#: about/models.py:144
+#: about/models.py:145
 msgid "screenshot"
 msgstr ""
 
-#: about/models.py:153
+#: about/models.py:154
 msgid "work"
 msgstr "travail"
 
-#: about/models.py:170
+#: about/models.py:161
 msgid "work Project"
 msgstr "Projet"
 
-#: about/models.py:171
+#: about/models.py:162
 msgid "work Projects"
 msgstr "Projets"
 
@@ -210,11 +210,11 @@ msgstr ""
 "Le message a bien été envoyé, vous devriez recevoir une réponse d'ici "
 "quelques heures."
 
-#: about/templates/about/home.haml_parsed:45
+#: about/templates/about/home.haml_parsed:33
 msgid "Featured blog posts"
 msgstr "Articles mis en avant"
 
-#: about/templates/about/home.haml_parsed:54
+#: about/templates/about/home.haml_parsed:42
 msgid "Latest blog posts"
 msgstr "Derniers articles"
 
@@ -235,8 +235,8 @@ msgid "Job(s):"
 msgstr ""
 
 #: about/templates/about/portfolio.haml_parsed:55
-#: about/templates/about/portfolio.haml_parsed:79 blog/models.py:189
-#: blog/templates/blog/post.haml_parsed:140
+#: about/templates/about/portfolio.haml_parsed:79 blog/models.py:185
+#: blog/templates/blog/post.haml_parsed:137
 #: lab/templates/lab/base.haml_parsed:9 lab/templates/lab/base.haml_parsed:12
 #: lab/templates/lab/base.haml_parsed:21 lab/templates/lab/base.haml_parsed:22
 #: lab/templates/lab/templatetags/tags.haml_parsed:7
@@ -247,7 +247,7 @@ msgid "Lab"
 msgstr ""
 
 #: about/templates/about/portfolio.haml_parsed:56
-#: blog/templates/blog/post.haml_parsed:144
+#: blog/templates/blog/post.haml_parsed:141
 #: lab/templates/lab/inc/project_list.haml_parsed:13
 msgid "Know more"
 msgstr "En savoir plus"
@@ -262,109 +262,105 @@ msgstr "Voir plus de projets"
 msgid "%(sitename)s - Latest posts"
 msgstr "%(sitename)s - Derniers articles"
 
-#: blog/feeds.py:14
+#: blog/feeds.py:13
 msgid "List of the latest posts"
 msgstr "Liste des derniers articles"
 
-#: blog/feeds.py:35
+#: blog/feeds.py:34
 #, python-format
 msgid "%(sitename)s - Tag: %(name)s"
 msgstr "%(sitename)s - Tag : %(name)s"
 
-#: blog/feeds.py:40
+#: blog/feeds.py:39
 #, python-format
 msgid "Latest posts for the tag '%(name)s'"
 msgstr "Derniers articles du tag '%(name)s'"
 
-#: blog/feeds.py:56
+#: blog/feeds.py:55
 #, python-format
 msgid "%(sitename)s - Category: %(name)s"
 msgstr "%(sitename)s - Categorie : %(name)s"
 
-#: blog/feeds.py:61
+#: blog/feeds.py:60
 #, python-format
 msgid "Latest posts for the category '%(name)s'"
 msgstr "Derniers articles de la catégorie '%(name)s'"
 
-#: blog/models.py:30
+#: blog/models.py:31
 msgid "hide"
 msgstr "cacher"
 
-#: blog/models.py:43 blog/models.py:193 seo/models.py:21
+#: blog/models.py:44 blog/models.py:189 seo/models.py:21
 msgid "title"
 msgstr "titre"
 
-#: blog/models.py:46 lab/models.py:102 lab/models.py:146 lab/models.py:189
-#: lab/models.py:457 lab/models.py:482 logger/models.py:7
+#: blog/models.py:47 lab/models.py:102 lab/models.py:132 lab/models.py:175
+#: lab/models.py:443 lab/models.py:468 logger/models.py:7
 msgid "URL"
 msgstr ""
 
-#: blog/models.py:51
+#: blog/models.py:52
 msgid "menu"
 msgstr ""
 
-#: blog/models.py:118
+#: blog/models.py:119
 msgid "is root"
 msgstr "Est une racine"
 
-#: blog/models.py:121
+#: blog/models.py:122
 msgid "left"
 msgstr "gauche"
 
-#: blog/models.py:124
+#: blog/models.py:125
 msgid "right"
 msgstr "droite"
 
-#: blog/models.py:166 blog/models.py:354
+#: blog/models.py:167 blog/models.py:354
 msgid "is public"
 msgstr "est public"
 
-#: blog/models.py:170 blog/models.py:362 lab/models.py:351
+#: blog/models.py:171 blog/models.py:362 lab/models.py:337
 msgid "publication date"
 msgstr "date de publication"
 
-#: blog/models.py:175
-msgid "author"
-msgstr "auteur"
-
-#: blog/models.py:181 resume/models.py:81 resume/models.py:144
+#: blog/models.py:177 resume/models.py:91 resume/models.py:154
 msgid "category"
 msgstr "categorie"
 
-#: blog/models.py:203
+#: blog/models.py:199
 msgid "main image"
 msgstr "image principale"
 
-#: blog/models.py:208
+#: blog/models.py:204
 msgid "short description"
 msgstr "description rapide"
 
-#: blog/models.py:213
+#: blog/models.py:209
 msgid "long description"
 msgstr "longue description"
 
-#: blog/models.py:216 search_engine/models.py:8 seo/models.py:83
+#: blog/models.py:212 search_engine/models.py:8 seo/models.py:83
 msgid "content"
 msgstr "contenu"
 
-#: blog/models.py:224
+#: blog/models.py:220
 msgid "Tags"
 msgstr ""
 
-#: blog/models.py:232
+#: blog/models.py:228
 msgid "i18n"
 msgstr ""
 
-#: blog/models.py:236
+#: blog/models.py:232
 msgid "allow comment"
 msgstr "autoriser les commentaires"
 
-#: blog/models.py:240 lab/models.py:255
+#: blog/models.py:236 lab/models.py:241
 msgid "edit date"
 msgstr "date de modification"
 
-#: blog/models.py:321 lab/models.py:108 lab/models.py:151 lab/models.py:194
-#: lab/models.py:391 lab/models.py:418 resume/models.py:64
+#: blog/models.py:321 lab/models.py:137 lab/models.py:180 lab/models.py:377
+#: lab/models.py:404 resume/models.py:66
 msgid "image"
 msgstr "image"
 
@@ -400,20 +396,10 @@ msgstr "Commentaires"
 msgid "Carousel"
 msgstr "Carrousel"
 
-#: blog/views.py:126
-#, python-format
-msgid "new comment for \"%s\""
-msgstr "Nouveau commentaire pour \"%s\""
-
-#: blog/views.py:254 blog/templates/blog/templatetags/archives.haml_parsed:12
-#, python-format
-msgid "Archives from %(date)s"
-msgstr "Archive de %(date)s"
-
 #: blog/templates/blog/base.haml_parsed:9
 #: blog/templates/blog/base.haml_parsed:12
-#: blog/templates/blog/base.haml_parsed:37
-#: blog/templates/blog/base.haml_parsed:39
+#: blog/templates/blog/base.haml_parsed:53
+#: blog/templates/blog/base.haml_parsed:55
 #: nivls_website/templates/base_common.haml_parsed:39
 #: nivls_website/templates/inc/footer.haml_parsed:53
 #: search_engine/templates/search/search.haml_parsed:45
@@ -424,16 +410,7 @@ msgstr ""
 msgid "Where I tell my life story"
 msgstr "Là où je raconte ma vie"
 
-#: blog/templates/blog/post.haml_parsed:78
-#: blog/templates/blog/ajax/comment_list.haml_parsed:6
-msgid "By "
-msgstr "Par "
-
-#: blog/templates/blog/post.haml_parsed:91
-msgid "In "
-msgstr "Dans"
-
-#: blog/templates/blog/post.haml_parsed:140
+#: blog/templates/blog/post.haml_parsed:137
 #: lab/templates/lab/base.haml_parsed:15
 msgid "Where I present my projects"
 msgstr "Là où je présente mes projets"
@@ -449,6 +426,10 @@ msgid_plural "%(counter)s comments"
 msgstr[0] "1 commentaire"
 msgstr[1] "%(counter)s commentaires"
 
+#: blog/templates/blog/ajax/comment_list.haml_parsed:6
+msgid "By "
+msgstr "Par "
+
 #: blog/templates/blog/ajax/comment_list.haml_parsed:28
 msgid "at "
 msgstr "à "
@@ -460,6 +441,14 @@ msgid ""
 msgstr ""
 "Votre commentaire a été enregistré, il sera très vite validé par un "
 "administrateur."
+
+#: blog/templates/blog/ajax/is_public.haml_parsed:5
+msgid "Public"
+msgstr "Public"
+
+#: blog/templates/blog/ajax/is_public.haml_parsed:8
+msgid "Private"
+msgstr ""
 
 #: blog/templates/blog/inc/comment.haml_parsed:3
 msgid "Comments"
@@ -521,32 +510,43 @@ msgstr "Aller à l'administration"
 msgid "There are no posts."
 msgstr "Il n'y a aucun article."
 
+#: blog/templates/blog/templatetags/archives.haml_parsed:12
+#: blog/views/__init__.py:79
+#, python-format
+msgid "Archives from %(date)s"
+msgstr "Archive de %(date)s"
+
 #: blog/templates/blog/templatetags/menus.haml_parsed:21
 msgid "There are no links."
 msgstr "Il n'y a aucun lien."
 
-#: commons/fields.py:63 commons/forms.py:51 commons/forms.py:87
+#: blog/views/ajax.py:54
+#, python-format
+msgid "new comment for \"%s\""
+msgstr "Nouveau commentaire pour \"%s\""
+
+#: commons/fields.py:63 commons/forms.py:57 commons/forms.py:93
 msgid "Invalid coordinates."
 msgstr "Coordonnées invalides"
 
 #: commons/forms.py:8 commons/forms.py:13 commons/forms.py:19
-#: commons/forms.py:29 commons/forms.py:39
+#: commons/forms.py:25 commons/forms.py:35 commons/forms.py:45
 msgid " "
 msgstr ""
 
-#: commons/models.py:16 lab/models.py:330
+#: commons/models.py:29 lab/models.py:316
 msgid "language"
 msgstr "langage"
 
-#: commons/models.py:20
+#: commons/models.py:33
 msgid "flag"
 msgstr "drapeau"
 
-#: lab/models.py:31
+#: lab/models.py:32
 msgid "icon 'enabled'"
 msgstr "icône 'activé'"
 
-#: lab/models.py:36
+#: lab/models.py:37
 msgid "icon 'disabled'"
 msgstr "icône 'désactivé'"
 
@@ -554,72 +554,72 @@ msgstr "icône 'désactivé'"
 msgid "color"
 msgstr "couleur"
 
-#: lab/models.py:229
+#: lab/models.py:215
 msgid "catchphrase"
 msgstr "phrase d'accroche"
 
-#: lab/models.py:233
+#: lab/models.py:219
 msgid "overall progress"
 msgstr "progression globale"
 
-#: lab/models.py:237
+#: lab/models.py:223
 msgid "start date"
 msgstr "date de commencement"
 
-#: lab/models.py:243
+#: lab/models.py:229
 msgid "license"
 msgstr "licence"
 
-#: lab/models.py:248
+#: lab/models.py:234
 msgid "sources URL"
 msgstr "URL des sources"
 
-#: lab/models.py:260
+#: lab/models.py:246
 msgid "demo codebox"
 msgstr "codebox de démo"
 
-#: lab/models.py:266
+#: lab/models.py:252
 msgid "languages"
 msgstr "langages"
 
-#: lab/models.py:273
+#: lab/models.py:259
 msgid "coworkers (real users)"
 msgstr "équipe (vrais utilisateurs)"
 
-#: lab/models.py:281
+#: lab/models.py:267
 msgid "coworkers"
 msgstr "équipe"
 
-#: lab/models.py:288
+#: lab/models.py:274
 msgid "client (real users)"
 msgstr "client (vrais utilisateurs)"
 
-#: lab/models.py:296
+#: lab/models.py:282
 msgid "clients"
 msgstr "clients"
 
-#: lab/models.py:304
+#: lab/models.py:290
 msgid "tags"
 msgstr "tags"
 
-#: lab/models.py:335
+#: lab/models.py:321
 msgid "Project"
 msgstr "Projet"
 
-#: lab/models.py:338
+#: lab/models.py:324
 msgid "rate"
 msgstr "taux"
 
-#: lab/models.py:356 lab/models.py:373 lab/models.py:396 lab/models.py:467
-#: lab/models.py:487
+#: lab/models.py:342 lab/models.py:359 lab/models.py:382 lab/models.py:453
+#: lab/models.py:473
 msgid "project"
 msgstr "projet"
 
-#: lab/models.py:368
+#: lab/models.py:354
 msgid "task"
 msgstr "tâche"
 
-#: lab/models.py:452
+#: lab/models.py:438
 msgid "uploaded file"
 msgstr "fichier uploadé"
 
@@ -644,8 +644,8 @@ msgstr "Vidéos"
 
 #: lab/templates/lab/project.haml_parsed:79
 #: lab/templates/lab/inc/project_includes/downloads.haml_parsed:4
-#: resume/templates/resumes/inc/resume.haml_parsed:31
-#: resume/templates/resumes/inc/resume.haml_parsed:40
+#: resume/templates/resume/inc/resume.haml_parsed:31
+#: resume/templates/resume/inc/resume.haml_parsed:40
 msgid "Downloads"
 msgstr "Téléchargements"
 
@@ -876,6 +876,74 @@ msgstr "Aller au contenu"
 msgid "Refresh the page"
 msgstr "Recharger la page"
 
+#: nivls_website/templates/inc/help.haml_parsed:5
+msgid "Help"
+msgstr "Aide"
+
+#: nivls_website/templates/inc/help.haml_parsed:8
+msgid "Keyboard shortcuts"
+msgstr "Raccourcis clavier"
+
+#: nivls_website/templates/inc/help.haml_parsed:11
+msgid "Live Editing"
+msgstr "Live Édition"
+
+#: nivls_website/templates/inc/help.haml_parsed:14
+msgid "Enable live editing"
+msgstr "Activer le live édition"
+
+#: nivls_website/templates/inc/help.haml_parsed:18
+msgid "Formatting"
+msgstr "Mise en forme"
+
+#: nivls_website/templates/inc/help.haml_parsed:21
+msgid "Bold"
+msgstr "Gras"
+
+#: nivls_website/templates/inc/help.haml_parsed:23
+msgid "Italic"
+msgstr "Italique"
+
+#: nivls_website/templates/inc/help.haml_parsed:27
+msgid "Link"
+msgstr "Lien"
+
+#: nivls_website/templates/inc/help.haml_parsed:29
+msgid "Blockquote"
+msgstr "Citation"
+
+#: nivls_website/templates/inc/help.haml_parsed:31
+msgid "Code"
+msgstr "Code"
+
+#: nivls_website/templates/inc/help.haml_parsed:33
+msgid "Image"
+msgstr "Image"
+
+#: nivls_website/templates/inc/help.haml_parsed:37
+msgid "Numbered list"
+msgstr "Liste numérotée"
+
+#: nivls_website/templates/inc/help.haml_parsed:39
+msgid "Bulleted list"
+msgstr "Liste à puces"
+
+#: nivls_website/templates/inc/help.haml_parsed:41
+msgid "Heading"
+msgstr "Titre"
+
+#: nivls_website/templates/inc/help.haml_parsed:43
+msgid "Horizontal rule"
+msgstr "Ligne horizontale"
+
+#: nivls_website/templates/inc/help.haml_parsed:47
+msgid "Undo"
+msgstr "Défaire"
+
+#: nivls_website/templates/inc/help.haml_parsed:49
+msgid "Redo"
+msgstr "Refaire"
+
 #: nivls_website/templates/inc/pagination.haml_parsed:7
 #: nivls_website/templates/inc/pagination.haml_parsed:21
 #: nivls_website/templates/inc/pagination.haml_parsed:31
@@ -883,75 +951,75 @@ msgstr "Recharger la page"
 msgid "Page %(i)s"
 msgstr ""
 
-#: resume/models.py:31 resume/models.py:45
+#: resume/models.py:33 resume/models.py:47
 msgid "Section"
 msgstr "Section"
 
-#: resume/models.py:32
+#: resume/models.py:34
 msgid "Sections"
 msgstr "Sections"
 
-#: resume/models.py:58
+#: resume/models.py:60
 msgid "display type"
 msgstr "type d'affichage"
 
-#: resume/models.py:72
+#: resume/models.py:74
 msgid "Category"
 msgstr "Categorie"
 
-#: resume/models.py:73
+#: resume/models.py:75
 msgid "Categories"
 msgstr "Categories"
 
-#: resume/models.py:91
+#: resume/models.py:101
 msgid "key"
 msgstr "clef"
 
-#: resume/models.py:94
+#: resume/models.py:104
 msgid "value"
 msgstr "valeur"
 
-#: resume/models.py:100
+#: resume/models.py:110
 msgid "value for download"
 msgstr "valeur pour téléchargement"
 
-#: resume/models.py:107
+#: resume/models.py:117
 msgid "Content"
 msgstr "Contenu"
 
-#: resume/models.py:108
+#: resume/models.py:118
 msgid "Contents"
 msgstr "Contenus"
 
-#: resume/models.py:135
+#: resume/models.py:145
 msgid "Document category"
 msgstr "Categorie de document"
 
-#: resume/models.py:136
+#: resume/models.py:146
 msgid "Documents category"
 msgstr "Categories de document"
 
-#: resume/models.py:156
+#: resume/models.py:166
 msgid "document"
 msgstr "document"
 
-#: resume/models.py:164
+#: resume/models.py:174
 msgid "Document"
 msgstr "Document"
 
-#: resume/models.py:165
+#: resume/models.py:175
 msgid "Documents"
 msgstr "Documents"
 
-#: resume/templates/resumes/inc/resume.haml_parsed:6
+#: resume/templates/resume/inc/resume.haml_parsed:6
 msgid "C.V."
 msgstr ""
 
-#: resume/templates/resumes/inc/resume.haml_parsed:47
+#: resume/templates/resume/inc/resume.haml_parsed:47
 msgid "Download this C.V. as PDF"
 msgstr "Télécharger ce C.V. au format PDF"
 
-#: resume/templates/resumes/inc/resume.haml_parsed:66
+#: resume/templates/resume/inc/resume.haml_parsed:66
 msgid ""
 "You can download several documents such as academic degrees, tests results, "
 "etc., on my website: "
@@ -959,7 +1027,7 @@ msgstr ""
 "Vous pouvez télécharger plusieurs documents comme mes diplômes, résultats "
 "d'examens, etc., sur mon site web : "
 
-#: resume/templates/resumes/templatetags/cat_as_list.haml_parsed:8
+#: resume/templates/resume/templatetags/cat_as_list.haml_parsed:8
 #, fuzzy
 msgid ": "
 msgstr " : "
@@ -1115,30 +1183,6 @@ msgstr "afficher mon compte twitter"
 #: user_profile/models.py:80
 msgid "show my github account"
 msgstr "afficher mon compte github"
-
-#: user_profile/views.py:51
-msgid ""
-"The sign in has failed. If you think the problem comes from us, feel free to "
-"contact us."
-msgstr ""
-"La connexion à échouée. Si vous pensez que le problème vient de nous, vous "
-"pouvez sans problème nous contater."
-
-#: user_profile/views.py:113
-msgid "Your validation link"
-msgstr "Votre lien de validation"
-
-#: user_profile/views.py:154
-msgid "Your account has been successfully activated, you can now sign in."
-msgstr "Votre compte a bien été activé, vous pouvez maintenant vous connecter."
-
-#: user_profile/views.py:163
-msgid ""
-"This activation link does not exists. If you are experiencing activation "
-"issues, you can contact us using the contact form."
-msgstr ""
-"Ce lien d'activation n'existe pas. Si vous avez des problèmes d'activation, "
-"vous pouvez nous contacter via le formulaire de contact."
 
 #: user_profile/templates/users/base.haml_parsed:12
 msgid "User panel"
@@ -1422,6 +1466,36 @@ msgstr ""
 #: user_profile/templates/users/inc/sign_up_mail.txt:10
 msgid "You can update your information in the user menu."
 msgstr "Vous pouvez mettre à jour vos informations dans le menu utilisateur."
+
+#: user_profile/views/__init__.py:35
+msgid ""
+"The sign in has failed. If you think the problem comes from us, feel free to "
+"contact us."
+msgstr ""
+"La connexion à échouée. Si vous pensez que le problème vient de nous, vous "
+"pouvez sans problème nous contater."
+
+#: user_profile/views/__init__.py:61
+msgid "Your account has been successfully activated, you can now sign in."
+msgstr "Votre compte a bien été activé, vous pouvez maintenant vous connecter."
+
+#: user_profile/views/__init__.py:70
+msgid ""
+"This activation link does not exists. If you are experiencing activation "
+"issues, you can contact us using the contact form."
+msgstr ""
+"Ce lien d'activation n'existe pas. Si vous avez des problèmes d'activation, "
+"vous pouvez nous contacter via le formulaire de contact."
+
+#: user_profile/views/ajax.py:34
+msgid "Your validation link"
+msgstr "Votre lien de validation"
+
+#~ msgid "author"
+#~ msgstr "auteur"
+
+#~ msgid "In "
+#~ msgstr "Dans"
 
 #~ msgid "thumbnail"
 #~ msgstr "miniature"

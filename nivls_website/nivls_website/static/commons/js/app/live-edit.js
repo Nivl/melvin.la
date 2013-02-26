@@ -74,6 +74,7 @@ function liveEdit(prefix, unique_field) {
                 $.get(url, function(data) {
                     $(selector).html(data);
 
+                    markdownEditor(selector);
                     resizeTextarea();
                     var post_selector = '#' + prefix + '-form-' + pk;
 
@@ -95,6 +96,7 @@ function liveEdit(prefix, unique_field) {
 
                 $.get(url, function(data){
                     $(selector).html(data);
+                    $(selector).prettify();
                     $(that).animateHighlight();
                 });
             }

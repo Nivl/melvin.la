@@ -66,20 +66,7 @@
                 .g-plusone.item{'data-size': 'small'}
 
             .info
-                - trans "By "
-
-                %span{'itemprop': 'creator'}<
-                    - if post.author.get_profile.use_name
-                        {{ post.author.get_full_name }}
-                    - else
-                        {{ post.author }}
-                \-
-                %time{'itemprop'    : 'datePublished',
-                      'datetime'    : '{{ post.pub_date|utc|date:"Y-m-d H:i\Z" }}'}
-                    {{ post.pub_date|naturalday }}
-
-                \-
-                - trans "In "
+                %i.icon-reorder
                 %span{'id'    : 'blog-post-category-{{ post.pk }}',
                      'class' : '{% if perms.blog.change_post %}blog-post-category-live-edit{% endif %}'}
 

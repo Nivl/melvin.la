@@ -89,23 +89,9 @@
             panels = new PanelCollection(idPostfix);
             var commandManager = new CommandManager(hooks);
             var previewManager = null;//new PreviewManager(markdownConverter, panels, function () { hooks.onPreviewRefresh(); });
-            var undoManager, uiManager;
+            var uiManager;
 
-            if (!/\?noundo/.test(doc.location.href)) {
-                undoManager = new UndoManager(function () {
-                    //previewManager.refresh();
-                    if (uiManager) // not available on the first call
-                        uiManager.setUndoRedoButtonStates();
-                }, panels);
-                this.textOperation = function (f) {
-                    undoManager.setCommandMode();
-                    f();
-                    //that.refreshPreview();
-                }
-            }
-
-            uiManager = new UIManager(generatedDataPostfix, panels, undoManager, previewManager, commandManager, help);
-            uiManager.setUndoRedoButtonStates();
+            uiManager = new UIManager(generatedDataPostfix, panels, null, previewManager, commandManager, help);
 
             // var forceRefresh = that.refreshPreview = function () { previewManager.refresh(true); };
 
@@ -264,8 +250,13 @@
     // normally since the focus never leaves the textarea.
     function PanelCollection(postfix) {
         this.buttonBar = doc.getElementById(postfix['bar']);
-        this.preview = doc.getElementById(postfix['preview']);
         this.input = doc.getElementById(postfix['input']);
+
+        if (postfix['preview'] != null) {
+            this.preview = doc.getElementById(postfix['preview']);
+        } else {
+            this.preview = null;
+        }
 
         this.inputId = postfix['input'];
         this.previewId = postfix['preview'];
@@ -419,239 +410,6 @@
         return [maxWidth, maxHeight, innerWidth, innerHeight];
     };
 
-    // Handles pushing and popping TextareaStates for undo/redo commands.
-    // I should rename the stack variables to list.
-    function UndoManager(callback, panels) {
-
-        var undoObj = this;
-        var undoStack = []; // A stack of undo states
-        var stackPtr = 0; // The index of the current state
-        var mode = "none";
-        var lastState; // The last state
-        var timer; // The setTimeout handle for cancelling the timer
-        var inputStateObj;
-
-        // Set the mode for later logic steps.
-        var setMode = function (newMode, noSave) {
-            if (mode != newMode) {
-                mode = newMode;
-                if (!noSave) {
-                    saveState();
-                }
-            }
-
-            if (!uaSniffed.isIE || mode != "moving") {
-                timer = setTimeout(refreshState, 1);
-            }
-            else {
-                inputStateObj = null;
-            }
-        };
-
-        var refreshState = function (isInitialState) {
-            inputStateObj = new TextareaState(panels, isInitialState);
-            timer = undefined;
-        };
-
-        this.setCommandMode = function () {
-            mode = "command";
-            saveState();
-            timer = setTimeout(refreshState, 0);
-        };
-
-        this.canUndo = function () {
-            return stackPtr > 1;
-        };
-
-        this.canRedo = function () {
-            if (undoStack[stackPtr + 1]) {
-                return true;
-            }
-            return false;
-        };
-
-        // Removes the last state and restores it.
-        this.undo = function () {
-
-            if (undoObj.canUndo()) {
-                if (lastState) {
-                    // What about setting state -1 to null or checking for undefined?
-                    lastState.restore();
-                    lastState = null;
-                }
-                else {
-                    undoStack[stackPtr] = new TextareaState(panels);
-                    undoStack[--stackPtr].restore();
-
-                    if (callback) {
-                        callback();
-                    }
-                }
-            }
-
-            mode = "none";
-            panels.input.focus();
-            refreshState();
-        };
-
-        // Redo an action.
-        this.redo = function () {
-
-            if (undoObj.canRedo()) {
-
-                undoStack[++stackPtr].restore();
-
-                if (callback) {
-                    callback();
-                }
-            }
-
-            mode = "none";
-            panels.input.focus();
-            refreshState();
-        };
-
-        // Push the input area state to the stack.
-        var saveState = function () {
-            var currState = inputStateObj || new TextareaState(panels);
-
-            if (!currState) {
-                return false;
-            }
-            if (mode == "moving") {
-                if (!lastState) {
-                    lastState = currState;
-                }
-                return;
-            }
-            if (lastState) {
-                if (undoStack[stackPtr - 1].text != lastState.text) {
-                    undoStack[stackPtr++] = lastState;
-                }
-                lastState = null;
-            }
-            undoStack[stackPtr++] = currState;
-            undoStack[stackPtr + 1] = null;
-            if (callback) {
-                callback();
-            }
-        };
-
-        var handleCtrlYZ = function (event) {
-
-            var handled = false;
-
-            if (event.ctrlKey || event.metaKey) {
-
-                // IE and Opera do not support charCode.
-                var keyCode = event.charCode || event.keyCode;
-                var keyCodeChar = String.fromCharCode(keyCode);
-
-                switch (keyCodeChar) {
-
-                    case "y":
-                        undoObj.redo();
-                        handled = true;
-                        break;
-
-                    case "z":
-                        if (!event.shiftKey) {
-                            undoObj.undo();
-                        }
-                        else {
-                            undoObj.redo();
-                        }
-                        handled = true;
-                        break;
-                }
-            }
-
-            if (handled) {
-                if (event.preventDefault) {
-                    event.preventDefault();
-                }
-                if (window.event) {
-                    window.event.returnValue = false;
-                }
-                return;
-            }
-        };
-
-        // Set the mode depending on what is going on in the input area.
-        var handleModeChange = function (event) {
-
-            if (!event.ctrlKey && !event.metaKey) {
-
-                var keyCode = event.keyCode;
-
-                if ((keyCode >= 33 && keyCode <= 40) || (keyCode >= 63232 && keyCode <= 63235)) {
-                    // 33 - 40: page up/dn and arrow keys
-                    // 63232 - 63235: page up/dn and arrow keys on safari
-                    setMode("moving");
-                }
-                else if (keyCode == 8 || keyCode == 46 || keyCode == 127) {
-                    // 8: backspace
-                    // 46: delete
-                    // 127: delete
-                    setMode("deleting");
-                }
-                else if (keyCode == 13) {
-                    // 13: Enter
-                    setMode("newlines");
-                }
-                else if (keyCode == 27) {
-                    // 27: escape
-                    setMode("escape");
-                }
-                else if ((keyCode < 16 || keyCode > 20) && keyCode != 91) {
-                    // 16-20 are shift, etc.
-                    // 91: left window key
-                    // I think this might be a little messed up since there are
-                    // a lot of nonprinting keys above 20.
-                    setMode("typing");
-                }
-            }
-        };
-
-        var setEventHandlers = function () {
-            util.addEvent(panels.input, "keypress", function (event) {
-                // keyCode 89: y
-                // keyCode 90: z
-                if ((event.ctrlKey || event.metaKey) && (event.keyCode == 89 || event.keyCode == 90)) {
-                    event.preventDefault();
-                }
-            });
-
-            var handlePaste = function () {
-                if (uaSniffed.isIE || (inputStateObj && inputStateObj.text != panels.input.value)) {
-                    if (timer == undefined) {
-                        mode = "paste";
-                        saveState();
-                        refreshState();
-                    }
-                }
-            };
-
-            util.addEvent(panels.input, "keydown", handleCtrlYZ);
-            util.addEvent(panels.input, "keydown", handleModeChange);
-            util.addEvent(panels.input, "mousedown", function () {
-                setMode("moving");
-            });
-
-            panels.input.onpaste = handlePaste;
-            panels.input.ondrop = handlePaste;
-        };
-
-        var init = function () {
-            setEventHandlers();
-            refreshState(true);
-            saveState();
-        };
-
-        init();
-    }
-
-    // end of UndoManager
 
     // The input textarea state/contents.
     // This is used to implement undo/redo by the undo manager.
@@ -918,14 +676,16 @@
         // value, and reattach. Yes, that *is* ridiculous.
         var ieSafePreviewSet = function (text) {
             var preview = panels.preview;
-            var parent = preview.parentNode;
-            var sibling = preview.nextSibling;
-            parent.removeChild(preview);
-            preview.innerHTML = text;
-            if (!sibling)
-                parent.appendChild(preview);
-            else
-                parent.insertBefore(preview, sibling);
+            if (preview) {
+                var parent = preview.parentNode;
+                var sibling = preview.nextSibling;
+                parent.removeChild(preview);
+                preview.innerHTML = text;
+                if (!sibling)
+                    parent.appendChild(preview);
+                else
+                    parent.insertBefore(preview, sibling);
+            }
         }
 
         var nonSuckyBrowserPreviewSet = function (text) {
@@ -1209,17 +969,6 @@
                     case "r":
                         doClick(buttons.hr);
                         break;
-                    case "y":
-                        doClick(buttons.redo);
-                        break;
-                    case "z":
-                        if (key.shiftKey) {
-                            doClick(buttons.redo);
-                        }
-                        else {
-                            doClick(buttons.undo);
-                        }
-                        break;
                     default:
                         return;
                 }
@@ -1265,10 +1014,6 @@
             inputBox.focus();
 
             if (button.textOp) {
-
-                if (undoManager) {
-                    undoManager.setCommandMode();
-                }
 
                 var state = new TextareaState(panels);
 
@@ -1316,9 +1061,6 @@
 
             }
 
-            if (button.execute) {
-                button.execute(undoManager);
-            }
             $('#'+panels.inputId).trigger('wysiwygClicked');
         };
 
@@ -1419,17 +1161,6 @@
             buttons.heading = makeButton("wmd-heading-button", "Heading - Ctrl+H", "icon-text-height", bindCommand("doHeading"), group3);
             buttons.hr = makeButton("wmd-hr-button", "Horizontal Rule - Ctrl+R", "icon-minus", bindCommand("doHorizontalRule"), group3);
 
-            group4 = makeGroup(4);
-            buttons.undo = makeButton("wmd-undo-button", "Undo - Ctrl+Z", "icon-undo", null, group4);
-            buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
-
-            var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
-                "Redo - Ctrl+Y" :
-                "Redo - Ctrl+Shift+Z"; // mac and other non-Windows platforms
-
-            buttons.redo = makeButton("wmd-redo-button", redoTitle, "icon-repeat", null, group4);
-            buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
-
             if (helpOptions) {
                 group5 = makeGroup(5);
                 group5.className = group5.className + " pull-right";
@@ -1448,19 +1179,7 @@
                 group5.appendChild(helpButton);
                 buttons.help = helpButton;
             }
-
-            setUndoRedoButtonStates();
         }
-
-        function setUndoRedoButtonStates() {
-            if (undoManager) {
-                setupButton(buttons.undo, undoManager.canUndo());
-                setupButton(buttons.redo, undoManager.canRedo());
-            }
-        };
-
-        this.setUndoRedoButtonStates = setUndoRedoButtonStates;
-
     }
 
     function CommandManager(pluginHooks) {

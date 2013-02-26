@@ -170,11 +170,6 @@ class Post(models.Model):
         default=timezone.now,
         verbose_name=_("publication date"))
 
-    author = models.ForeignKey(
-        User,
-        related_name='author_post_blog',
-        verbose_name=_("author"))
-
     category = models.ForeignKey(
         Category,
         related_name='category_post',

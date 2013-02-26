@@ -8,8 +8,7 @@ import markdown
 
 
 class LatestPostFeed(Feed):
-    title = _("%(sitename)s - Latest posts") \
-        % {'sitename': 'Laplanche-melv.in'}
+    title = _("%(sitename)s - Latest posts") % {'sitename': settings.BRAND_NAME}
     link = "/"
     description = _("List of the latest posts")
 
@@ -34,7 +33,7 @@ class TagFeed(LatestPostFeed):
     def title(self, obj):
         return _("%(sitename)s - Tag: %(name)s") \
             % {'name': obj.name,
-               'sitename': 'Laplanche-melv.in'}
+               'sitename': settings.BRAND_NAME}
 
     def description(self, obj):
         return _("Latest posts for the tag '%(name)s'") % {'name': obj.name}
@@ -55,7 +54,7 @@ class CatFeed(LatestPostFeed):
     def title(self, obj):
         return _("%(sitename)s - Category: %(name)s") \
             % {'name': obj.name,
-               'sitename': 'Laplanche-melv.in'}
+               'sitename': settings.BRAND_NAME}
 
     def description(self, obj):
         return _("Latest posts for the category '%(name)s'") \
