@@ -1,4 +1,3 @@
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -14,6 +13,8 @@ DEFAULT_FROM_EMAIL = EMAIL_NO_REPLY
 ADMINS = (
     ('admin', 'name@domain.tld'),
 )
+
+ADMIN_ID = 1
 
 DATABASES = {
     'default': {

@@ -2,6 +2,19 @@ import os
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.contrib.sites.models import Site
+from django.contrib.auth.models import User
+from django.conf import settings
+from metaclasses import Singleton
+
+
+class SiteAdmin():
+    __metaclass__ = Singleton
+    admin = None
+
+    def get_admin(self):
+        if self.admin is None:
+            self.admin = User.objects.get(pk=settings.ADMIN_ID)
+        return self.admin
 
 
 class I18nSite(models.Model):

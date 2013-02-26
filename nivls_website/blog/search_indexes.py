@@ -5,7 +5,6 @@ from models import Post
 
 class PostIndex(indexes.RealTimeSearchIndex):
     text = indexes.CharField(document=True, use_template=True)
-    author = indexes.CharField(model_attr='author')
     pub_date = indexes.DateTimeField(model_attr='pub_date')
     site_id = indexes.IntegerField(model_attr='site__site__id')
 
