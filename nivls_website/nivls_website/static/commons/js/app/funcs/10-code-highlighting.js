@@ -39,3 +39,5 @@ function highlightBlock($target) {
         });
     }
 }
+
+jQuery.fn.prettify = function () { highlightCode(this) };

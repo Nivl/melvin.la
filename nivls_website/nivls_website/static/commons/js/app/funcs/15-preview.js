@@ -3,6 +3,6 @@
         .on('input keydown wysiwygClicked', '[data-parse]', function() {
             var target = $(this).data('parse');
             $(target).html(markdownToHtml($(this).val()));
-            highlightCode($(target));
+            $(target).prettify();
         });
  }
