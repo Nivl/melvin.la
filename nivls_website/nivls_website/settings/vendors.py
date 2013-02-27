@@ -91,11 +91,15 @@ PIPELINE_LESS_ARGUMENTS = '-x'
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 PIPELINE_JS = {
-    'main': {'source_filenames': ('django_js_utils.js',
-                                  'js/*.js',
-                                  'commons/js/libs/*.js',
-                                  'commons/js/plugins/*.js',
-                                  'commons/js/app/funcs/*.js',
+    'assets': {'source_filenames': ('django_js_utils.js',
+                                    'js/*.js',
+                                    'commons/js/libs/*.js',
+                                    'commons/js/plugins/*.js',
+                                    ),
+               'output_filename': 'commons/compiled/assets.js',
+             },
+
+    'main': {'source_filenames': ('commons/js/app/funcs/*.js',
                                   'commons/js/app/*.js',
                                   'commons/js/app/history/*.js',
                                   'commons/js/app/ajax/*.js',
@@ -105,15 +109,20 @@ PIPELINE_JS = {
 }
 
 PIPELINE_CSS = {
-    'main': {'source_filenames': ('commons/css/libs/*.css',
-                                  'commons/css/plugins/*.css',
-                                  'commons/css/app/main.less',
+    'assets': {'source_filenames': ('commons/css/libs/*.css',
+                                    'commons/css/plugins/*.css',
+                                    ),
+               'output_filename': 'commons/compiled/assets.css',
+               'variant': 'datauri',
+             },
+
+    'main': {'source_filenames': ('commons/css/app/main.less',
                                   'commons/css/app/Markdown.Editor.less',
                                   'commons/css/responsive/bootstrap-responsive.min.css',
                                   'commons/css/responsive/main-responsive.less',
                                   ),
              'output_filename': 'commons/compiled/styles.css',
-              'variant': 'datauri',
+             'variant': 'datauri',
              },
 
     'wkhtml2pdf': {'source_filenames': ('commons/css/libs/*.css',
