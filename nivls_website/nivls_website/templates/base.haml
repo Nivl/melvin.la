@@ -24,7 +24,6 @@
                   'href'    : '{% static "commons/img/apple-touch-icon-precomposed.png" %}'}
             {{ seo.free_head_block|safe }}
 
-            // CDN css
             %link{'href': "//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.css", 'type': 'text/css', 'rel': 'stylesheet' }
             %link{'href': "//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.10/jquery.Jcrop.min.css", 'type': 'text/css', 'rel': 'stylesheet' }
             %link{'href': "//cdnjs.cloudflare.com/ajax/libs/jquery-nivoslider/3.1/nivo-slider.css", 'type': 'text/css', 'rel': 'stylesheet' }
@@ -44,7 +43,6 @@
                 - block "body"
 
             - if not request.is_ajax
-                // CDN js
                 %script{'src': "//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"}
                 %script{'src': "//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"}
                 %script{'src': "//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"}
