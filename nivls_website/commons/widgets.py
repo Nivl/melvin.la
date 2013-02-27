@@ -6,10 +6,10 @@ from django.utils.safestring import mark_safe
 class ColorPickerWidget(forms.TextInput):
     class Media:
         css = {
-            'all': (settings.STATIC_URL + 'commons/css/10/colorpicker.css', )}
+            'all': (settings.STATIC_URL + 'commons/css/plugins/colorpicker.css', )}
         js = (
             settings.STATIC_URL + '/admin/js/disable_jquery_namespace.js',
-            settings.STATIC_URL + 'commons/js/10/colorpicker.js', )
+            settings.STATIC_URL + 'commons/js/plugins/colorpicker.js', )
 
     def __init__(self, language=None, attrs=None):
         self.language = language or settings.LANGUAGE_CODE[:2]
