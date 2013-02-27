@@ -52,11 +52,11 @@ class ColorPickerWidget(forms.TextInput):
 class CroppedImageWidget(forms.TextInput):
     class Media:
         css = {
-            'all': (settings.STATIC_URL + "commons/css/10/jquery.Jcrop.min.css", )}
+            'all': ("//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.10/jquery.Jcrop.min.css", )}
 
         js = (
             'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js',
-            settings.STATIC_URL + 'commons/js/10/jquery.Jcrop.min.js', )
+            '//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.10/jquery.Jcrop.min.js', )
 
     markup = """
 <script>
