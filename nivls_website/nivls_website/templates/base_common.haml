@@ -3,7 +3,9 @@
 - load url from future
 
 - block "local_css"
-  - compressed_css 'main'
+    %link{'href': "//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.css", 'type': 'text/css', 'rel': 'stylesheet' }
+
+    - compressed_css 'main'
 
 - block "body"
 

@@ -37,7 +37,11 @@
             {% endif %}
             #body
                 - block "body"
+
             - if not request.is_ajax
+                // CDN
+                %script{'src': "//cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"}
+
                 %script
                     var STATIC_URL="{% static "" %}";
                     var DEBUG={{ DEBUG }};
