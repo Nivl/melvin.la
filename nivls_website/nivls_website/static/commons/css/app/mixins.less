@@ -1,0 +1,92 @@
+.remove-selection() {
+    cursor: default;
+
+    &::selection {
+        background-color: transparent;
+        color: inherit;
+    }
+}
+
+.transition-delay(@value) {
+    -webkit-transition-delay: @value;
+    -moz-transition-delay: @value;
+    -o-transition-delay: @value;
+    -ms-transition-delay: @value;
+    transition-delay: @value;
+}
+
+.transform-style(@value) {
+    -webkit-transform-style: @value;
+    -moz-transform-style: @value;
+    -o-transform-style: @value;
+    -ms-transform-style: @value;
+    transform-style: @value;
+}
+
+.transform-origin(@value) {
+    -webkit-transform-origin: @value;
+    -moz-transform-origin: @value;
+    -o-transform-origin: @value;
+    -ms-transform-origin: @value;
+    transform-origin: @value;
+}
+
+.perspective(@value) {
+    -webkit-perspective: @value;
+    -moz-perspective: @value;
+    -o-perspective: @value;
+    -ms-perspective: @value;
+    perspective: @value;
+}
+
+.transform(@arg) {
+    -webkit-transform: @arg;
+    -moz-transform: @arg;
+    -o-transform: @arg;
+    -ms-transform: @arg;
+    transform: @arg;
+}
+
+.display-icon(@padding, @size, @url: "../../img/social-medias.png") {
+    margin: none;
+    padding: none;
+    background-image: url(@url);
+    background-repeat: no-repeat;
+    background-position: @padding top;
+    .square(@size);
+    margin-top: 5px;
+
+    a {
+        margin: 0;
+        padding: 0;
+        .square(100%);
+
+        background-image: url(@url);
+        background-repeat: no-repeat;
+        background-position: @padding -@size;
+
+        .transition(opacity 0.3s linear);
+
+        &:hover {
+            .opacity(0);
+        }
+    }
+}
+
+.display-generated-icon(@size) {
+    .main-icon {
+        background-repeat: no-repeat;
+        .square(@size);
+        .center-block();
+
+        img {
+            .transition(opacity 0.2s linear);
+        }
+    }
+
+    &:hover{
+        img {
+            .opacity(0);
+        }
+    }
+}
