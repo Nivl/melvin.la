@@ -8,7 +8,7 @@ class ColorPickerWidget(forms.TextInput):
         css = {
             'all': (settings.STATIC_URL + 'commons/css/10/colorpicker.css', )}
         js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js',
+            settings.STATIC_URL + '/admin/js/disable_jquery_namespace.js',
             settings.STATIC_URL + 'commons/js/10/colorpicker.js', )
 
     def __init__(self, language=None, attrs=None):
@@ -55,7 +55,7 @@ class CroppedImageWidget(forms.TextInput):
             'all': ("//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.10/jquery.Jcrop.min.css", )}
 
         js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js',
+            settings.STATIC_URL + '/admin/js/disable_jquery_namespace.js',
             '//cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.10/jquery.Jcrop.min.js', )
 
     markup = """
