@@ -24,7 +24,9 @@ if (Modernizr.history) {
     }
 
     $('#navbar-main-list > li a').click(function(e) {
-        e.preventDefault();
+        if ($(this).data('ajax') !== undefined) {
+            e.preventDefault();
+        }
 
         if (live_edit_enabled === false) {
             if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
