@@ -5,7 +5,7 @@ function reloadJsEffects() {
     getStoredData();
     enableBootstrapEffects();
     reloadShareButtons();
-    startLabDiagram();
+    loadCharts();
     loadImageViewer();
     loadBlogLeftMenu();
     loadCarousel();

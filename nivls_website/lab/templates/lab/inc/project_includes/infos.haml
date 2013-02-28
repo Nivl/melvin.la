@@ -21,23 +21,16 @@
 
 
 .clearfix
-    .rounded-diagram-wrapper.pull-right
-        #rounded-diagram
+    .donut-chart.chart-wrapper.pull-right
+        #language-rates.chart
 
-        .get
+        .data
             - with project.projectlanguagerate_project.all as languages
                 - for lang in languages
-                    .arc
-                        %span.text<
-                            {{ lang.language.name }}
+                    .tuple{'data-label': '{{ lang.language.name }}',
+                           'data-value': '{{ lang.rate }}',
+                           'data-color': '#{{ lang.language.color }}'}
 
-                        %input{'type'     : 'hidden',
-                               'class'    : 'percent',
-                               'value'    : '{{ lang.rate }}'}
-
-                        %input{'type'     : 'hidden',
-                               'class'    : 'color',
-                               'value'    : '#{{ lang.language.color }} '}
 
     %div{'id'      : 'lab-project-description-{{ project.pk }}',
          'class'   : '{% if perms.lab.change_project %}lab-project-description-live-edit{% endif %}',
