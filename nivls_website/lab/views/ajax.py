@@ -60,6 +60,7 @@ def get_project_catchphrase_form(request, pk):
 
     return get_single_form(request, pk,
                            template_name='ajax/single_field_form_inline.haml',
+                           form_args={'is_required': False},
                            **args)
 
 
