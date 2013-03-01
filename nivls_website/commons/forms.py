@@ -3,23 +3,34 @@ from django.utils.translation import ugettext_lazy as _
 import happyforms
 
 
-class SingleDateFieldForm(happyforms.Form):
+class SingleFieldForm(happyforms.Form):
+    single = None
+
+    class Meta:
+        abstract = True
+
+    def __init__(self, data=None, files=None, is_required=True, *args, **kwargs):
+        super(SingleFieldForm, self).__init__(data=data, files=files, *args, **kwargs)
+        self.fields['single'].required = is_required
+
+
+class SingleDateFieldForm(SingleFieldForm):
     single = forms.DateField(
         label=_(' '))
 
 
-class SingleCharFieldForm(happyforms.Form):
+class SingleCharFieldForm(SingleFieldForm):
     single = forms.CharField(
         label=_(' '))
 
 
-class SingleBooleanFieldForm(forms.Form):
+class SingleBooleanFieldForm(SingleFieldForm):
     single = forms.BooleanField(
         required=False,
         label=_(' '))
 
 
-class SingleTextareaForm(happyforms.Form):
+class SingleTextareaForm(SingleFieldForm):
     single = forms.CharField(
         widget=forms.Textarea(),
         label=_(' '))
@@ -30,7 +41,7 @@ class SingleTextareaForm(happyforms.Form):
         self.fields['single'].widget.attrs['style'] = 'width: ' + str(size) + '%;'
 
 
-class SingleChoiceFieldForm(happyforms.Form):
+class SingleChoiceFieldForm(SingleFieldForm):
     single = forms.ChoiceField(
         label=_(' '))
 
@@ -39,7 +50,7 @@ class SingleChoiceFieldForm(happyforms.Form):
         self.fields['single'].choices = choices
 
 
-class SingleMultipleChoiceFieldForm(happyforms.Form):
+class SingleMultipleChoiceFieldForm(SingleFieldForm):
     single = forms.ModelMultipleChoiceField(
         queryset=None,
         label=_(' '))
