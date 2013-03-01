@@ -13,6 +13,12 @@ $.fn.animateHighlight = function(highlightColor, duration) {
     .animate({backgroundColor: originalBg}, animateMs);
 };
 
+jQuery.extend(jQuery.expr[':'], {
+    reallyEmpty: function (el) {
+        return $.trim($(el).html()).length == 0;
+    }});
+
+
 function resizeTextarea() {
     $('textarea').autosize({append: "\n"});
 }
