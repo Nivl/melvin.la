@@ -58,8 +58,8 @@ class SingleMultipleChoiceFieldForm(SingleFieldForm):
         queryset=None,
         label=_(' '))
 
-    def __init__(self, data=None, files=None, queryset=None, *args, **kwargs):
-        super(SingleMultipleChoiceFieldForm, self).__init__(data=data, files=files, *args, **kwargs)
+    def __init__(self, data=None, files=None, queryset=None, is_required=False, *args, **kwargs):
+        super(SingleMultipleChoiceFieldForm, self).__init__(data=data, files=files, is_required=False, *args, **kwargs)
         self.fields['single'].queryset = queryset
 
 
