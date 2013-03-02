@@ -44,8 +44,8 @@
                 'id'      : 'lab-project-name-{{ project.pk }}'}<
                 - include 'ajax/single_field_value.haml' with value=project.name
 
-            %p.lead{'class'   : '{% if perms.lab.change_project %}lab-project-catchphrase-live-edit{% endif %}',
-                    'id'      : 'lab-project-catchphrase-{{ project.pk }}'}<
+            %p.lead.editable{'class'   : '{% if perms.lab.change_project %}lab-project-catchphrase-live-edit{% endif %}',
+                             'id'      : 'lab-project-catchphrase-{{ project.pk }}'}<
                 - include 'ajax/single_field_value.haml' with value=project.catchphrase
 
                 %ul.nav.nav-tabs
