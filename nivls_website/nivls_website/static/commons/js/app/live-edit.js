@@ -16,13 +16,13 @@ uneditElement = function (e) {
 $(document).bind('keydown.e', function() {
     if (live_edit_enabled) {
         uneditElement();
-        $(".editable:reallyEmpty").animate({'min-height': '0'}, function(){$(this).css('background-color', 'white')});
-        $('#editing-mode-box').animate({'top': '-40'});
-        $('#body > header').animate({'margin-top': '0'});
+        $(".editable:reallyEmpty").stop().animate({'min-height': '0'}, function(){$(this).css('background-color', 'white')});
+        $('#editing-mode-box').stop().animate({'top': '-40'});
+        $('#body > header').stop().animate({'margin-top': '0'});
     } else {
-        $(".editable:reallyEmpty").css('background-color', '#9ccfff').animate({'min-height': '30px'});
-        $('#editing-mode-box').animate({'top': '0'});
-        $('#body > header').animate({'margin-top': '40px'});
+        $(".editable:reallyEmpty").stop().css('background-color', '#9ccfff').animate({'min-height': '30px'});
+        $('#editing-mode-box').stop().animate({'top': '0'});
+        $('#body > header').stop().animate({'margin-top': '40px'});
     }
     live_edit_enabled = !live_edit_enabled;
 });
