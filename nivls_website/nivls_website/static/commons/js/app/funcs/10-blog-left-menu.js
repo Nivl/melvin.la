@@ -1,6 +1,6 @@
-function loadBlogLeftMenu() {
-    $('#left-menu > li').off('hover').hover(
-        function() {
+$(document).off('mouseover mouseleave', '#left-menu > li')
+    .on({
+        mouseenter: function() {
             if (!($(this).hasClass('animate'))) {
                 var that = this;
                 var height = $(this).find('.content').innerHeight();
@@ -20,7 +20,8 @@ function loadBlogLeftMenu() {
                 }
             }
         },
-        function() {
+
+        mouseleave: function() {
             if ($(this).hasClass('animate')) {
                 $(this).toggleClass('animate');
 
@@ -31,5 +32,4 @@ function loadBlogLeftMenu() {
                 }
             }
         }
-    );
-}
+    }, '#left-menu > li');

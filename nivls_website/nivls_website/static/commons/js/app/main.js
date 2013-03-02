@@ -1,21 +1,17 @@
-
 $(function() {
     var uaParser = new UAParser();
     var results = uaParser.getResult();
 
     if (results.engine.name != 'WebKit'
-        && results.engine.name != 'Gecko'
-        && $.cookie('browser-warning') !== '1') {
-       $('#browser-warning').modal('show');
-       $('#browser-warning').find('button').click(function() {
+           && results.engine.name != 'Gecko'
+           && $.cookie('browser-warning') !== '1') {
+        $('#browser-warning').modal('show');
+        $('#browser-warning').find('button').click(function() {
          $.cookie('browser-warning', '1', {expires: 365, path: '/'});
      });
-   }
+    }
 
-    preview();
-    storeData();
     reloadJsEffects();
-    dropFile();
 });
 
 
