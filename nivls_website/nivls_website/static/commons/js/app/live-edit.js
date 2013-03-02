@@ -81,7 +81,8 @@ function liveEdit(prefix, unique_field) {
                     resizeTextarea();
                     var post_selector = '#' + prefix + '-form-' + pk;
 
-                    $(document).on('submit', post_selector, function(){
+                    $(document).off('submit', post_selector)
+                               .on('submit', post_selector, function(){
                         Ajaxion_post(
                             url, post_selector,
                             function(data, proceed){
