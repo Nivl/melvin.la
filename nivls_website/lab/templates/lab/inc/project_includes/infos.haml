@@ -66,17 +66,16 @@
 
 - with project.coworkers_user.all as coworkers_user
     - with project.coworkers.all as coworkers
-        - if coworkers or coworkers_user
-            #coworkers.clearfix
-                %h3<
-                    - trans "Team"
+        #coworkers.clearfix.editable-wrapper{'class' : '{% if not coworkers and not coworkers_user %}hide{% endif %}'}
+            %h3<
+                - trans "Team"
 
-                .business-card
-                    .real_user.pull-left{'id'      : 'lab-project-realcoworkers-{{ project.pk }}',
-                                         'class'   : '{% if perms.lab.change_project %}lab-project-realcoworkers-live-edit{% endif %}'}
-                        - include "lab/ajax/business_card.haml" with items=coworkers_user is_user=1
+            .business-card
+                .real_user.pull-left{'id'      : 'lab-project-realcoworkers-{{ project.pk }}',
+                                     'class'   : '{% if perms.lab.change_project %}lab-project-realcoworkers-live-edit editable{% endif %}'}
+                    - include "lab/ajax/business_card.haml" with items=coworkers_user is_user=1
 
 
-                    .fake_user{'id'      : 'lab-project-coworkers-{{ project.pk }}',
-                               'class'   : '{% if perms.lab.change_project %}lab-project-coworkers-live-edit{% endif %}'}
-                        - include "lab/ajax/business_card.haml" with items=coworkers is_user=0
+                .fake_user.hide-overflow{'id'      : 'lab-project-coworkers-{{ project.pk }}',
+                                         'class'   : '{% if perms.lab.change_project %}lab-project-coworkers-live-edit editable{% endif %}'}
+                    - include "lab/ajax/business_card.haml" with items=coworkers is_user=0
