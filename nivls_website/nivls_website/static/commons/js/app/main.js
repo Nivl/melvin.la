@@ -12,9 +12,9 @@ $(function() {
      });
    }
 
-    reloadJsEffects();
-    storeData();
     preview();
+    storeData();
+    reloadJsEffects();
     dropFile();
 });
 

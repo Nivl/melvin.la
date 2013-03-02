@@ -6,3 +6,7 @@
             $(target).prettify();
         });
  }
+
+ function loadPreviews() {
+    $('[data-storage][value!=""]').trigger('wysiwygClicked');
+ }

@@ -9,4 +9,5 @@ function reloadJsEffects() {
     loadImageViewer();
     loadBlogLeftMenu();
     loadCarousel();
+    loadPreviews();
 }
