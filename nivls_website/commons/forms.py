@@ -29,6 +29,9 @@ class SingleBooleanFieldForm(SingleFieldForm):
         required=False,
         label=_(' '))
 
+    def __init__(self, data=None, files=None, is_required=False, *args, **kwargs):
+        super(SingleFieldForm, self).__init__(data=data, files=files, *args, **kwargs)
+
 
 class SingleTextareaForm(SingleFieldForm):
     single = forms.CharField(
