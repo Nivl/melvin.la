@@ -1,4 +1,3 @@
-
 var current_live_editing_element = null;
 var live_edit_enabled = false;
 
@@ -17,10 +16,11 @@ uneditElement = function (e) {
 $(document).bind('keydown.e', function() {
     if (live_edit_enabled) {
         uneditElement();
+        $(".editable:reallyEmpty").animate({'min-height': '0'}, function(){$(this).css('background-color', 'white')});
         $('#editing-mode-box').animate({'top': '-40'});
         $('#body > header').animate({'margin-top': '0'});
-
     } else {
+        $(".editable:reallyEmpty").css('background-color', '#9ccfff').animate({'min-height': '30px'});
         $('#editing-mode-box').animate({'top': '0'});
         $('#body > header').animate({'margin-top': '40px'});
     }
@@ -69,6 +69,9 @@ function liveEdit(prefix, unique_field) {
             url_values[unique_field] = pk;
 
             if ($(this).find(">:first-child").prop("tagName") != 'FORM') {
+                // In case the element was empty, we remove the blue bg color
+                $(selector).stop().css('background-color', '');
+
                 var url = resolve_urls(form_url, url_values);
 
                 $.get(url, function(data) {
@@ -97,7 +100,12 @@ function liveEdit(prefix, unique_field) {
                 $.get(url, function(data){
                     $(selector).html(data);
                     $(selector).prettify();
-                    $(that).animateHighlight();
+                    if ($(selector).isReallyEmpty()) {
+                        $(that).css('min-height', '30px');
+                        $(that).animateHighlight('#9ccfff');
+                    } else {
+                        $(that).flash();
+                    }
                 });
             }
 
