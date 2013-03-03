@@ -85,7 +85,7 @@ function liveEdit(prefix, unique_field) {
                 $.get(url, function(data) {
                     $(selector).hide();
                     $(selector).html(data);
-                    markdownEditor(selector);
+                    markdownEditor(selector, true);
                     $(selector).fadeIn('fast', function(){
                         resizeTextarea();
                     });
