@@ -4,13 +4,12 @@ function markdownToHtml(elem) {
     return g_markdown_converter.makeHtml(elem);
 }
 
-function markdownEditor(target) {
-    if (target === undefined) {
-        target = '';
-    }
+function markdownEditor(target, move_submit_buttons) {
+    target = target || '';
+    move_submit_buttons = move_submit_buttons || false;
 
     $(target + ' textarea').each(function () {
-        if ($(this).prop('id')) { // Fix for autosizejs wich add weird textareas
+        if ($(this).prop('id')) { // Fix for autosizejs which add weird textareas
             var preview_id = null;
 
             if ($(this).data('parse') !== undefined) {
@@ -18,15 +17,27 @@ function markdownEditor(target) {
                 preview_id = $(preview).prop('id');
             }
 
-            if ($(this).prev().prop('id') != 'markup-bar') {
-                $(this).before('<div id="markup-bar"></div>');
+            var markup_bar_id = $(this).prop('id') + '-' + 'markup-bar';
+
+            if ($(this).prev().prop('id') != markup_bar_id) {
+                $(this).before('<div id="' + markup_bar_id + '"></div>');
 
                 // ugly leak
                 var markdown_converter = new Markdown.getSanitizingConverter();
                 var markdown_editor = new Markdown.Editor(markdown_converter,
-                    {'bar': 'markup-bar', 'preview': preview_id, 'input': $(this).prop('id')});
+                    {'bar': markup_bar_id, 'preview': preview_id, 'input': $(this).prop('id')});
 
                 markdown_editor.run();
+
+                if (move_submit_buttons) {
+                    console.log('OK');
+                    var buttons = $(this).parents('form').find('.form-actions');
+                    console.log(buttons.html());
+                    buttons.removeClass('form-actions');
+                    buttons.addClass('btn-group wmd-button-group4');
+                    buttons.appendTo('#' +  markup_bar_id + ' .btn-toolbar');
+                    console.log(buttons.html());
+                }
             }
         }
     });
