@@ -24,6 +24,30 @@ $.fn.isReallyEmpty = function() {
     return $.trim($(this).html()).length == 0;
 };
 
+$.fn.fancyHide = function(duration, callback) {
+    duration = duration || 400;
+    callback =  callback || $.noop;
+
+    $(this).stop().fadeOut({duration:duration, queue:false})
+                .animate({'margin-left': '-=30px'}, 200, function(){
+                    $(this).css('margin-left', '+=30px');
+                    callback();
+                });
+    return this;
+};
+
+
+$.fn.fancyShow = function(duration, callback) {
+    duration = duration | 400;
+    callback =  callback || $.noop;
+
+    $(this).stop().css('margin-left', '-=30px')
+                .fadeIn({duration:duration, queue:false})
+                .animate({'margin-left': '+=30px'}, 200, callback);
+    return this;
+};
+
+
 jQuery.extend(jQuery.expr[':'], {
     reallyEmpty: function (el) {
         return $(el).isReallyEmpty();
