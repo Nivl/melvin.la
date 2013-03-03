@@ -107,14 +107,14 @@ PIPELINE_JS = {
                                   'commons/js/app/ajax/utils.js',
                                   'commons/js/app/ajax/forms.js',
 
-                                  'commons/js/app/history/utils/*.js',
-                                  'commons/js/app/history/funcs/*.js',
-                                  'commons/js/app/history/*.js',
-
                                   'commons/js/app/live_edit/utils.js',
                                   'commons/js/app/live_edit/events.js',
                                   'commons/js/app/live_edit/live_edit.js',
                                   'commons/js/app/live_edit/editable_elements.js',
+
+                                  'commons/js/app/history/utils/*.js',
+                                  'commons/js/app/history/funcs/*.js',
+                                  'commons/js/app/history/*.js',
 
                                   'commons/js/app/*.js',
                                   ),
