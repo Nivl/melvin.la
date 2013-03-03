@@ -1,9 +1,4 @@
-var resolve_urls = django_js_utils.urls.resolve;
 $.ajaxSetup({ cache: false });
-
-function replaceAll(txt, replace, with_this) {
-    return txt.replace(new RegExp(replace, 'g'), with_this);
-}
 
 $.fn.animateHighlight = function(to, duration) {
     if (duration === undefined) {
@@ -34,8 +29,3 @@ jQuery.extend(jQuery.expr[':'], {
         return $(el).isReallyEmpty();
     }
 });
-
-
-function resizeTextarea() {
-    $('textarea').autosize({append: "\n"});
-}
