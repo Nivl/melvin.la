@@ -30,13 +30,10 @@ function markdownEditor(target, move_submit_buttons) {
                 markdown_editor.run();
 
                 if (move_submit_buttons) {
-                    console.log('OK');
                     var buttons = $(this).parents('form').find('.form-actions');
-                    console.log(buttons.html());
                     buttons.removeClass('form-actions');
                     buttons.addClass('btn-group wmd-button-group4');
                     buttons.appendTo('#' +  markup_bar_id + ' .btn-toolbar');
-                    console.log(buttons.html());
                 }
             }
         }
