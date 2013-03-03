@@ -28,7 +28,6 @@ if (Modernizr.draganddrop) {
             if (e.dataTransfer.files.length == 1) {
                 var data = new FormData($(this).find('form')[0]);
                 data.append('picture', e.dataTransfer.files[0]);
-                console.log(data);
 
                 Ajaxion_formUpload(
                     resolve_urls('handle_dropped_picture'),
