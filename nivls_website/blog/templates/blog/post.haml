@@ -2,10 +2,7 @@
 - load blog_tags markup humanize common_tags i18n tz
 
 - block "app_sub_js"
-    :javascript
-        reloadShareButtons();
-
-   - include "blog/inc/comment_ajax.haml" with post=post user=user
+    - include "blog/inc/comment_ajax.haml" with post=post user=user
 
 - block "title"
     {{ post.title }}

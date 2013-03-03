@@ -31,6 +31,8 @@
             - block "local_css"
             - block "head_link"
 
+            / %script{'src': "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"}
+            / %script{'src': "//code.jquery.com/jquery-migrate-1.1.1.min.js"}
             %script{'src': "https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"}
             /[if lt IE 9]>
                 %script{'src': '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2pre/html5shiv.js'}
@@ -67,7 +69,8 @@
                 - compressed_js 'assets'
                 - compressed_js 'main'
 
-            - block "app_js"
+            #app-js
+                - block "app_js"
 
             - if not request.is_ajax
                 {{ seo.free_javascript_block }}

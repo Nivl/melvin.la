@@ -43,7 +43,7 @@ if (Modernizr.history) {
             var to_change = [];
 
             // Replace without fade
-            to_change = ['#page-title', '#page-subtitle'];
+            to_change = ['#app-js', '#page-title', '#page-subtitle'];
             for (i=0; i<to_change.length; i++) {
                 $(to_change[i]).html(response.find(to_change[i])
                                              .html());
