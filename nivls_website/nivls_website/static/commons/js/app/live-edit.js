@@ -83,10 +83,13 @@ function liveEdit(prefix, unique_field) {
                 var url = resolve_urls(form_url, url_values);
 
                 $.get(url, function(data) {
+                    $(selector).hide();
                     $(selector).html(data);
-
                     markdownEditor(selector);
-                    resizeTextarea();
+                    $(selector).fadeIn('fast', function(){
+                        resizeTextarea();
+                    });
+
                     var post_selector = '#' + prefix + '-form-' + pk;
 
                     $(document).off('submit', post_selector)
@@ -107,13 +110,12 @@ function liveEdit(prefix, unique_field) {
                 var url = resolve_urls(unit_url, url_values);
 
                 $.get(url, function(data){
-                    $(selector).html(data);
+                    $(selector).hide().html(data).fadeIn('fast');
+
                     $(selector).prettify();
                     if ($(selector).isReallyEmpty()) {
                         $(that).css('min-height', '30px');
                         $(that).animateHighlight('#9ccfff');
-                    } else {
-                        $(that).flash();
                     }
                 });
             }
