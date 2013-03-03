@@ -137,7 +137,7 @@ def get_post_parsed_content_form(request, pk):
 
     return get_single_form(request, pk,
                            path_name='post-parsed-content',
-                           template_name='ajax/single_field_form_inline.haml',
+                           template_name='ajax/single_field_form.haml',
                            **args)
 
 
