@@ -1,4 +1,3 @@
-{% load url from future %}
 {% load i18n %}
 {% url "activate-account" code as activation_link %}
 
