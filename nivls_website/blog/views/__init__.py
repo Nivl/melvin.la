@@ -3,7 +3,8 @@ import datetime
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_safe
 from django.utils.translation import ugettext as _
-from django.template.defaultfilters import slugify, date as _date
+from django.template.defaultfilters import date as _date
+from django.utils.text import slugify
 from django.conf import settings
 from blog.models import Category, Tag
 from blog.forms import CommentForm

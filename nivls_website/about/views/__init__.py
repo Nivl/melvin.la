@@ -2,7 +2,7 @@ from django.template import RequestContext
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_safe
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 from commons.views import write_pdf
 from commons.models import SiteAdmin
 from resume.models import Section, DocumentCategory

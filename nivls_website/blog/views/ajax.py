@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.conf import settings
 from django.views.decorators.http import require_safe
 from django.utils.translation import ugettext as _
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 from commons.decorators import ajax_only
 from commons.models import SiteAdmin
 from commons.forms import SingleTextareaForm, SingleCharFieldForm
