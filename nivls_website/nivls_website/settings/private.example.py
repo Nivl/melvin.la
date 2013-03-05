@@ -2,6 +2,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 DOMAIN_NAME = 'localhost:8000'
+ALLOWED_HOSTS = ['.domain.tld']
 EMAIL_HOST = "smtp.localhost.com"
 EMAIL_PORT = 587
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
