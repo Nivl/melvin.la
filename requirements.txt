@@ -5,7 +5,6 @@ PIL==1.1.7
 South==0.7.6
 Whoosh==2.4.1
 akismet==0.2.0
-argparse==1.2.1
 django-bootstrap-form==2.0.5
 django-debug-toolbar==0.9.4
 django-haystack==1.2.7
@@ -15,11 +14,6 @@ django-simple-captcha==0.3.6
 django-social-auth==0.7.10
 hamlpy==0.82.2
 html5lib==0.95
-httplib2==0.7.7
 johnny-cache==1.4
-oauth2==1.5.211
 python-memcached==1.48
-python-openid==2.2.5
-python-ptrace==0.6.4
 pytz==2012j
-wsgiref==0.1.2
