@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.contenttypes import generic
 from django.db.models.signals import pre_save
 from django.dispatch.dispatcher import receiver
+from django.core.urlresolvers import reverse
 from commons.fields import ColorField
 from commons.models import I18nSite
 from seo.models import SeoEverywhere, SeoMicroData
@@ -45,9 +46,8 @@ class Tag(models.Model):
     admin_thumbnail.short_description = 'Thumbnail'
     admin_thumbnail.allow_tags = True
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('lab-tag', (), {'slug': self.slug})
+        return reverse('lab-tag', kwargs={'slug': self.slug})
 
     def __unicode__(self):
         return self.name
@@ -300,9 +300,8 @@ class Project(models.Model):
     def __unicode__(self):
         return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('lab-project', (), {'slug': self.slug})
+        return reverse('lab-project', kwargs={'slug': self.slug})
 
     class Meta:
         unique_together = ('site', 'slug')

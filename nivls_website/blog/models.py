@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.contenttypes import generic
 from django.db.models.signals import pre_save, post_save
 from django.dispatch.dispatcher import receiver
+from django.core.urlresolvers import reverse
 from commons.models import I18nSite
 from commons.renders import image_name_to_link
 from seo.models import SeoEverywhere, SeoMicroData
@@ -76,9 +77,8 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('tag', (), {'slug': self.slug})
+        return reverse('tag', kwargs={'slug': self.slug})
 
     def get_feed_url(self):
         return {'rss': self.get_rss_feed_url(),
@@ -131,9 +131,8 @@ class Category(models.Model):
     def has_child(self):
         return self.right - self.left > 1
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('category', (), {'slug': self.slug})
+        return reverse('category', kwargs={'slug': self.slug})
 
     def get_feed_url(self):
         return {'rss': self.get_rss_feed_url(),
@@ -255,40 +254,36 @@ class Post(models.Model):
     def count_public_comments(self):
         return self.post_comment.filter(is_public=True).count()
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('post', (), {'year': self.pub_date.year,
-                             'month': self.pub_date.strftime("%m"),
-                             'day': self.pub_date.strftime("%d"),
-                             'slug': self.slug,
-                             })
+        return reverse('post', kwargs={'year': self.pub_date.year,
+                                       'month': self.pub_date.strftime("%m"),
+                                       'day': self.pub_date.strftime("%d"),
+                                       'slug': self.slug,
+                                       })
 
-    @models.permalink
     def get_form_url(self):
-        return ('post-comment-form', (), {
-                'year': self.pub_date.year,
-                'month': self.pub_date.strftime("%m"),
-                'day': self.pub_date.strftime("%d"),
-                'slug': self.slug,
-                })
+        return reverse('post-comment-form', kwargs={
+                       'year': self.pub_date.year,
+                       'month': self.pub_date.strftime("%m"),
+                       'day': self.pub_date.strftime("%d"),
+                       'slug': self.slug,
+                       })
 
-    @models.permalink
     def get_comment_count_url(self):
-        return ('post-comment-count', (), {
-                'year': self.pub_date.year,
-                'month': self.pub_date.strftime("%m"),
-                'day': self.pub_date.strftime("%d"),
-                'slug': self.slug,
-                })
+        return reverse('post-comment-count', kwargs={
+                       'year': self.pub_date.year,
+                       'month': self.pub_date.strftime("%m"),
+                       'day': self.pub_date.strftime("%d"),
+                       'slug': self.slug,
+                       })
 
-    @models.permalink
     def get_comment_url(self):
-        return ('post-comment-list', (), {
-                'year': self.pub_date.year,
-                'month': self.pub_date.strftime("%m"),
-                'day': self.pub_date.strftime("%d"),
-                'slug': self.slug,
-                })
+        return reverse('post-comment-list', kwargs={
+                       'year': self.pub_date.year,
+                       'month': self.pub_date.strftime("%m"),
+                       'day': self.pub_date.strftime("%d"),
+                       'slug': self.slug,
+                       })
 
     class Meta:
         ordering = ['-pub_date']
