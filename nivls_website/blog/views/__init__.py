@@ -21,7 +21,7 @@ def home(request):
 def display_post(request, year, month, day, slug):
     post = get_post(request, year, month, day, slug)
 
-    storage_key = slugify(post.get_absolute_url())
+    storage_key = slugify(unicode(post.get_absolute_url()))
     form = CommentForm(storage_key, request=request, user=request.user)
     return render(request, "blog/post.haml", {"post": post,
                                               "form": form,

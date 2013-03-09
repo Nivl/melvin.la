@@ -38,7 +38,7 @@ def comment_count(request, year, month, day, slug):
 @ajax_only
 def comment_form(request, year, month, day, slug):
     post = get_post(request, year, month, day, slug)
-    storage_key = slugify(post.get_absolute_url())
+    storage_key = slugify(unicode(post.get_absolute_url()))
     if request.method == 'POST':
         form = CommentForm(storage_key, request.POST, request=request,
                            user=request.user)

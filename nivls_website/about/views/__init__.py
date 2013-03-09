@@ -51,7 +51,7 @@ def cv_pdf(request):
     c = RequestContext(request, {'cv_sections': cv_sections, 'to_pdf': True})
     admin = SiteAdmin().get_admin()
     return write_pdf("about/about.haml", c,
-                     'cv-%s.pdf' % slugify(admin.get_full_name()))
+                     'cv-%s.pdf' % slugify(unicode(admin.get_full_name())))
 
 
 @require_safe
