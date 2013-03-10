@@ -32,4 +32,4 @@ $('a').click(function(e){
     }
 });
 
-$(document).off('click').on('click', uneditElement);
+$(document).on('click', uneditElement);
