@@ -1,7 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
 
-@footerSize: 200px;
-@footerInner: 80px;
+@font-face {
+  font-family: 'PT Sans';
+  src: url('../fonts/PTS55F.eot');
+  src: url('../fonts/PTS55F.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/PTS55F.woff') format('woff'),
+       url('../fonts/PTS55F.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 html, body {
     height: 100%;
@@ -9,27 +16,81 @@ html, body {
 
 body {
     color: #333;
-    font-family: "Open sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-    background-color: #f5f5f5;
+    font-family: "PT Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: #fff;
     line-height: 30px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Open sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 300;
+}
+
+h2 {
+    font-size: 30px;
+    line-height: 40px;
+}
+
+.navbar {
+    margin-bottom: 0px;
+
+    .brand {
+        color: #333;
+        font-size: 26px;
+        margin-top: 5px;
+    }
+}
+
+.navbar-inner {
+    background-color: #fff;
+    background-image: none;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ie-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+
+    min-height: 60px;
+}
+
+#bottom-header {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+
+    h2 {
+        text-align: center;
+        color: #444;
+    }
+}
+
+#middle-header {
+    background-color: #339fdf;
+    min-height: 180px;
+    color: whitesmoke;
+
+    h1 {
+        padding-top: 51px;
+        font-size: 55px;
+        line-height: 1;
+        padding-left: 30px;
+        margin: 0;
+    }
+}
+
+
 #wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -@footerSize;
+    margin-top: 50px;
+    margin-bottom: 100px;
 }
 
-#push {
-    height: @footerSize + 50;
-}
-
-footer {
-    height: @footerSize;
+img {
+    margin-top: 20px;
 }
 
 footer {
+    padding-bottom: 50px;
+
     background-color: #333;
 
     text-shadow: 0px 1px 0px #3a3a3a, 0px -1px 0px #000000;
@@ -42,10 +103,10 @@ footer {
     }
 
     a {
-        color: #2d7497 !important;
+        color: #b1b1b1 !important;
 
         &:hover {
-            color: #08c !important;
+            color: #fff !important;
         }
     }
 
@@ -67,16 +128,6 @@ footer {
             }
         }
     }
-}
-
-h1 {
-    margin-bottom: 50px;
-    font-weight: 400;
-}
-
-h2 {
-    margin-bottom: 30px;
-    font-weight: 300;
 }
 
 a {
