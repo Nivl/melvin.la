@@ -24,24 +24,26 @@ if (Modernizr.history) {
     }
 
     $('#navbar-main-list > li a').click(function(e) {
-        if ($(this).data('ajax') !== undefined) {
-            e.preventDefault();
-        }
-
         if (live_edit_enabled === false) {
-            if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
-                moveNavbar($(this).parent('li'));
+            if ($(this).data('ajax') !== undefined) {
+                if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
+                    e.preventDefault();
+                    moveNavbar($(this).parent('li'));
+                }
             }
+        } else {
+            e.preventDefault();
         }
     });
 
     $(document).on('click', 'a[data-navbar]', function(e) {
-        e.preventDefault();
-
         if (live_edit_enabled === false) {
             if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
                 moveNavbar($(this).data('navbar'));
+                e.preventDefault();
             }
+        } else {
+            e.preventDefault();
         }
     });
 }

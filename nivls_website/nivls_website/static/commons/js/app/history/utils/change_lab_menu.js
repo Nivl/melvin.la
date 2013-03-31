@@ -10,10 +10,13 @@ if (Modernizr.history) {
     }
 
     $(document).on('click', '#lab-nav-list a', function(e) {
-        e.preventDefault();
-
         if (live_edit_enabled == false) {
-            labChangeMenu($(this).prop('id'));
+            if (e.which != 2 && !e.shiftKey && !e.ctrlKey) {
+                labChangeMenu($(this).prop('id'));
+                e.preventDefault();
+            }
+        } else {
+            e.preventDefault();
         }
     });
 }

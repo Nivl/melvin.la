@@ -20,13 +20,13 @@ if (Modernizr.history) {
     }
 
     $(document).on('click', 'a[data-ajax]', function(event) {
-        event.preventDefault();
-
         if (live_edit_enabled === false) {
             if (!event.shiftKey && !event.ctrlKey) {
                 changePage($(this).attr('href'), $(this).attr('title'), this);
-                return false;
+                event.preventDefault();
             }
+        } else {
+            event.preventDefault();
         }
     });
 }
