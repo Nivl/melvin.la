@@ -37,7 +37,7 @@ $(document).off('click', '[data-type=live-editable]')
 
                     $(document).off('submit', post_selector)
                         .on('submit', post_selector, function(){
-                            Ajaxion_post(
+                            ajaxPost(
                                 url, this,
                                 function(data, proceed){
                                     if (proceed) {

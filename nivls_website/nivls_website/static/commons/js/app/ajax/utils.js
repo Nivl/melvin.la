@@ -1,4 +1,4 @@
-Ajaxion_post = function(url, form_id, options, success, error, xhr) {
+ function ajaxPost(url, form_id, options, success, error, xhr) {
     if (form_id) {
         $(form_id).find("button[type='submit']").button('loading');
     }
@@ -24,7 +24,7 @@ Ajaxion_post = function(url, form_id, options, success, error, xhr) {
         if (form_id) {
             var form = $('<noexists>' + data + '</noexists>').find(form_id);
 
-            if (form.text() != '') {
+            if (form.text() !== '') {
                 proceed = false;
                 $(form_id).replaceWith(form);
             }
@@ -54,19 +54,19 @@ Ajaxion_post = function(url, form_id, options, success, error, xhr) {
 }
 
 
-Ajaxion_formUpload = function(url, data, form_id, success, error, xhr) {
-    if (data == null) {
+function ajaxFormUpload(url, data, form_id, success, error, xhr) {
+    if (data === null) {
         data = new FormData($(form_id)[0]);
     }
     var options = {'data': data,
                    'contentType': false,
-                   'processData': false,
+                   'processData': false
                   };
-    Ajaxion_post(url, form_id, options, success, error, xhr);
-};
+    ajaxPost(url, form_id, options, success, error, xhr);
+}
 
 
-Ajaxion_switch_elem = function (url, elem, target, callbacks) {
+function ajaxSwitchElem(url, elem, target, callbacks) {
     target = (typeof target === 'undefined') ? (elem) : (target);
     callbacks = (typeof callbacks === 'undefined') ? {} : (callbacks);
 
@@ -84,7 +84,7 @@ Ajaxion_switch_elem = function (url, elem, target, callbacks) {
     });
 }
 
-Ajaxion_switch_elem_content = function (url, elem, target, callbacks) {
+function ajaxSwitchElemContent(url, elem, target, callbacks) {
     target = (typeof target === 'undefined') ? (elem) : (target);
     callbacks = (typeof callbacks === 'undefined') ? {} : (callbacks);
 
@@ -103,6 +103,6 @@ Ajaxion_switch_elem_content = function (url, elem, target, callbacks) {
 }
 
 
-Ajaxion_cb_error_push_before = function (that) {
+function ajaxCb_pushBefore(that) {
     $(that).before('<div class="alert alert-error alert-block fade in"><a class="close" data-dismiss="alert">×</a><h4 class="alert-heading">' + gettext('Error!') + '</h4>' + gettext('Your action was unable to be executed at this time. We apologise for the inconvenience.') + '</div>');
 }

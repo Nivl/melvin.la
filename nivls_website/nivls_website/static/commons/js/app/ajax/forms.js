@@ -7,20 +7,20 @@ var resolve_urls = django_js_utils.urls.resolve;
 $(document).on('submit', '#contact-form', function(){
     var that = this;
 
-    Ajaxion_post(
+    ajaxPost(
         resolve_urls('contact-form'), '#contact-form', function(data, proceed){
             if (proceed){
                 $(that).before(data);
                 $.jStorage.deleteKey('contact-message');
 
-                Ajaxion_switch_elem(
+                ajaxSwitchElem(
                     resolve_urls('contact-form'),
                     '#contact-form',
                     '*');
             }
         },
         function(){
-            Ajaxion_cb_error_push_before(that);
+            ajaxCb_pushBefore(that);
         });
     return false;
 });
@@ -42,14 +42,14 @@ $(document).on('submit', '#confirm-password-form', function(){
 $(document).on('submit', '#reset-password-form', function(){
     var that = this;
 
-    Ajaxion_post(
+    ajaxPost(
         resolve_urls('reset-password-form'),
         '#reset-password-form',
         function(data, proceed){
             if (proceed){
                 $(that).before(data);
 
-                Ajaxion_switch_elem(
+                ajaxSwitchElem(
                     resolve_urls('reset-password-form'),
                     '#reset-password-form',
                     '*'
@@ -57,7 +57,7 @@ $(document).on('submit', '#reset-password-form', function(){
             }
         },
         function(){
-            Ajaxion_cb_error_push_before(that);
+            ajaxCb_pushBefore(that);
         });
     return false;
 });
@@ -66,7 +66,7 @@ $(document).on('submit', '#reset-password-form', function(){
 $(document).on('submit', '#edit-account-form', function(){
     var that = this;
 
-    Ajaxion_post(resolve_urls('edit-account-form'), '#edit-account-form',
+    ajaxPost(resolve_urls('edit-account-form'), '#edit-account-form',
                  function(data, proceed){
                      if (proceed){
                          hideOnSuccess(that);
@@ -92,7 +92,7 @@ $(document).on('shown', '#modal-edit-profile', function(){
 $(document).on('submit', '#edit-settings-form', function(){
     var that = this;
 
-    Ajaxion_post(resolve_urls('edit-settings-form'), '#edit-settings-form',
+    ajaxPost(resolve_urls('edit-settings-form'), '#edit-settings-form',
                  function(data, proceed){
                      if (proceed){
                          hideOnSuccess(that);
@@ -118,7 +118,7 @@ $(document).on('shown', '#modal-edit-settings', function(){
 $(document).on('submit', '#edit-password-form', function(){
     var that = this;
 
-    Ajaxion_post(
+    ajaxPost(
         resolve_urls('edit-password-form'),
         '#edit-password-form',
         function(data, proceed){
@@ -129,11 +129,11 @@ $(document).on('submit', '#edit-password-form', function(){
                   .parents('.modal').prop('id')  + '"]')
                     .removeClass('important');
 
-                Ajaxion_switch_elem(
+                ajaxSwitchElem(
                     resolve_urls('get-common-header'),
                     '#header-menu-user'
                 );
-                Ajaxion_switch_elem(
+                ajaxSwitchElem(
                     resolve_urls('edit-email-form'),
                     '#header-menu-user',
                     '*'
@@ -159,7 +159,7 @@ $(document).on('shown', '#modal-edit-password', function(){
 $(document).on('submit', '#edit-email-form', function(){
     var that = this;
 
-    Ajaxion_post(
+    ajaxPost(
         resolve_urls('edit-email-form'),
         '#edit-email-form',
         function(data, proceed){
@@ -187,14 +187,14 @@ $(document).on('shown', '#modal-edit-email', function(){
 $(document).on('submit', '#edit-avatar-form', function(){
     var that = this;
 
-    Ajaxion_post(
+    ajaxPost(
         resolve_urls('edit-avatar-form'),
         '#edit-avatar-form',
         function(data, proceed){
             if (proceed){
                 $(that).before(data);
 
-                Ajaxion_switch_elem(
+                ajaxSwitchElem(
                     resolve_urls('edit-avatar-form'),
                     '#edit-avatar-form',
                     '*'
@@ -202,7 +202,7 @@ $(document).on('submit', '#edit-avatar-form', function(){
             }
         },
         function(){
-            Ajaxion_cb_error_push_before(that)
+            ajaxCb_pushBefore(that)
         });
     return false;
 });
@@ -211,14 +211,14 @@ $(document).on('submit', '#edit-avatar-form', function(){
 $(document).on('submit', '#sign-up-form', function(){
     var that = this;
 
-    Ajaxion_post(
+    ajaxPost(
         resolve_urls('sign-up-form'),
         '#sign-up-form',
         function(data, proceed){
             if (proceed){
                 $(that).before(data);
 
-                Ajaxion_switch_elem(
+                ajaxSwitchElem(
                     resolve_urls('sign-up-form'),
                     '#sign-up-form',
                     '*'
@@ -226,7 +226,7 @@ $(document).on('submit', '#sign-up-form', function(){
             }
         },
         function(){
-            Ajaxion_cb_error_push_before(that)
+            ajaxCb_pushBefore(that)
         });
     return false;
 });
@@ -235,14 +235,14 @@ $(document).on('submit', '#sign-up-form', function(){
 $(document).on('submit', '#profile-picture-form', function(){
     var that = this;
 
-    Ajaxion_formUpload(
+    ajaxFormUpload(
         resolve_urls('edit-picture-form'), null,
         '#profile-picture-form',
         function(data, proceed){
             if (proceed){
                 $(that).before(data);
 
-                Ajaxion_switch_elem(
+                ajaxSwitchElem(
                     resolve_urls('edit-picture-form'),
                     '#profile-picture-form',
                     '*'
@@ -250,7 +250,7 @@ $(document).on('submit', '#profile-picture-form', function(){
             }
         },
         function(){
-            Ajaxion_cb_error_push_before(that)
+            ajaxCb_pushBefore(that)
         });
     return false;
 });

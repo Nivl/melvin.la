@@ -12,25 +12,25 @@
     }
 
     function addCommentAjax(that) {
-        Ajaxion_post(
+        ajaxPost(
             "{{ post.get_form_url }}", '#comment-form', function(data, proceed){
             clearPreview();
                 if (proceed){
                     $(that).before(data);
                     $.jStorage.deleteKey('{{ storage_key }}');
 
-                        Ajaxion_switch_elem('{{ post.get_form_url }}',
+                        ajaxSwitchElem('{{ post.get_form_url }}',
                                         '#comment-form',
                                         '*',
                                         [markdownEditor]);
 
                     {% if user.is_authenticated %}
-                        Ajaxion_switch_elem_content('{{ post.get_comment_url }}',
+                        ajaxSwitchElemContent('{{ post.get_comment_url }}',
                                             '#comment-list',
                                             '*',
                                             [addNewComment]);
 
-                        Ajaxion_switch_elem('{{ post.get_comment_count_url }}',
+                        ajaxSwitchElem('{{ post.get_comment_count_url }}',
                                             '#comment-count',
                                             '*');
                     {% endif %}
@@ -39,7 +39,7 @@
                 }
             },
             function(){
-                Ajaxion_cb_error_push_before(that);
+                ajaxCb_pushBefore(that);
             });
 
     }
