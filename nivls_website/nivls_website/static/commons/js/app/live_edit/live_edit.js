@@ -1,84 +1,68 @@
-/*
-    make an element editable on the fly
-
-    prefix: string - Prefix of the element (ex. single-comment-)
-    unique_field: string - Field name used to differentiate entries in the DB (default slug)
-*/
-function liveEdit(prefix, unique_field) {
-    unique_field = (unique_field === undefined) ? ('pk') : (unique_field);
-
-    var lookup_class = prefix + '-live-edit';
-    var unit_url = 'get-' + prefix
-    var form_url = unit_url + '-form';
-
-    $(document).off('click', '.'+lookup_class)
-        .on('click', '.'+lookup_class, function (e) {
-            if (live_edit_enabled == false)
-                return;
-
-            $(this).toggleClass(lookup_class);
-            uneditElement(e);
+$(document).off('click', '[data-type=live-editable]')
+    .on('click', '[data-type=live-editable]', function (e, close) {
+         if (live_edit_enabled) {
+            closeCurrentLiveEdition(e);
             e.preventDefault();
 
-            current_live_editing_element = {
-                'id'    : $(this).prop('id'),
-                'class' : lookup_class
-            };
+            $(this).removeAttr('data-type');
+            current_live_edited_element = this;
 
-            var that = this;
-            var pk = $(this).prop('id').replace(prefix + '-', '');
-            var selector = '#' + $(this).prop('id');
-            var url_values = {};
-            url_values[unique_field] = pk;
+            var editable_elem = this;
+            var pk = $(this).data('pk');
+            var pk_name = $(this).data('pk-name') || 'pk';
+            var target = $(this).data('target');
+
+            var form_url = 'get-' + target + '-form';
+            var value_url = 'get-' + target;
+            var url_data = {};
+            url_data[pk_name] = pk;
 
             if ($(this).find(">:first-child").prop("tagName") != 'FORM') {
                 // In case the element was empty, we remove the blue bg color
-                $(selector).stop().css('background-color', '');
+                $(editable_elem).stop().css('background-color', '');
 
-                var url = resolve_urls(form_url, url_values);
+                var url = resolve_urls(form_url, url_data);
 
                 $.get(url, function(data) {
-                    $(selector).fancyHide('fast', function(){
-                        $(selector).html(data);
-                        markdownEditor(selector, true);
+                    $(editable_elem).fancyHide('fast', function() {
+                        $(editable_elem).html(data);
+                        //markdownEditor(editable_elem, true);
 
-                        $(selector).fadeIn('fast', function(){
+                        $(editable_elem).fadeIn('fast', function() {
                             resizeTextarea();
                         });
                     });
 
-                    var post_selector = '#' + prefix + '-form-' + pk;
+                    var post_selector = '#' + target + '-form-' + pk;
 
                     $(document).off('submit', post_selector)
-                               .on('submit', post_selector, function(){
-                        Ajaxion_post(
-                            url, post_selector,
-                            function(data, proceed){
-                                if (proceed) {
-                                    uneditElement();
+                        .on('submit', post_selector, function(){
+                            Ajaxion_post(
+                                url, this,
+                                function(data, proceed){
+                                    if (proceed) {
+                                    closeCurrentLiveEdition();
                                 }
                             });
-                        return false;
-                    });
+                            return false;
+                        });
                 });
-            } else {
-                $(that).toggleClass(lookup_class);
-                current_live_editing_element = null;
-                var url = resolve_urls(unit_url, url_values);
+            } else if (close) {
+                $(this).attr('data-type', 'live-editable');
+                current_live_edited_element = null;
+                var url = resolve_urls(value_url, url_data);
 
                 $.get(url, function(data){
-                    $(selector).fadeOut('fast', function() {
-                        $(selector).html(data).prettify();
-                        $(selector).fancyShow('fast', function(){
-                            if ($(selector).isReallyEmpty()) {
-                                $(that).css('min-height', '30px');
-                                $(that).animateHighlight('#9ccfff');
+                    $(editable_elem).fadeOut('fast', function(){
+                        $(this).html(data).prettify();
+                        $(this).fancyShow('fast', function(){
+                            if ($(this).isReallyEmpty()) {
+                                $(this).css('min-height', '30px');
+                                $(this).animateHighlight('#9ccfff');
                             }
                         });
                     });
                 });
             }
-
-            return false;
-        });
-}
+         }
+    });
