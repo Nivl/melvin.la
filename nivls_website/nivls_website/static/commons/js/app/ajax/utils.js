@@ -1,6 +1,10 @@
- function ajaxPost(url, form_id, options, success, error, xhr) {
-    if (form_id) {
-        $(form_id).find("button[type='submit']").button('loading');
+ function ajaxPost(url, $selector, options, success, error, xhr) {
+    if ($selector) {
+        if (Object.prototype.toString.call($selector) == '[object String]') {
+            $selector = $($selector);
+        }
+
+        $selector.find("button[type='submit']").button('loading');
     }
 
     if (typeof options !== 'undefined') {
@@ -15,18 +19,18 @@
     }
 
     if (!('data' in options)) {
-        options['data'] = $(form_id).serialize();
+        options['data'] = $selector.serialize();
     }
 
     options['success'] = function (data) {
         var proceed = true;
 
-        if (form_id) {
-            var form = $('<noexists>' + data + '</noexists>').find(form_id);
+        if ($selector) {
+            var form = $('<noexists>' + data + '</noexists>').find('form');
 
             if (form.text() !== '') {
                 proceed = false;
-                $(form_id).replaceWith(form);
+                $selector.replaceWith(form);
             }
         }
 
@@ -36,8 +40,8 @@
     };
 
     options['error'] = function() {
-        if (form_id) {
-            $(form_id).find("button[type='submit']").button('reset');
+        if ($selector) {
+            $selector.find("button[type='submit']").button('reset');
         }
         if (typeof error !== 'undefined') {
             error();
@@ -54,15 +58,19 @@
 }
 
 
-function ajaxFormUpload(url, data, form_id, success, error, xhr) {
+function ajaxFormUpload(url, data, $selector, success, error, xhr) {
+    if ($selector && Object.prototype.toString.call($selector) == '[object String]') {
+        $selector = $($selector);
+    }
+
     if (data === null) {
-        data = new FormData($(form_id)[0]);
+        data = new FormData($selector[0]);
     }
     var options = {'data': data,
                    'contentType': false,
                    'processData': false
                   };
-    ajaxPost(url, form_id, options, success, error, xhr);
+    ajaxPost(url, $selector, options, success, error, xhr);
 }
 
 
