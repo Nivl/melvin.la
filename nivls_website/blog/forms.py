@@ -38,17 +38,21 @@ class CommentForm(happyforms.ModelForm):
             raise forms.ValidationError('Spam attempt detected!')
         return value
 
-    def clean_comment(self):
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        akismet_status = False
+
         if self.request.user.is_authenticated():
             akismet_status = akismet_is_valid(self.request,
-                                              self.cleaned_data['comment'])
-        else:
-            akismet_status = akismet_is_valid(self.request,
-                                              self.cleaned_data['comment'],
-                                              self.cleaned_data['email'],
-                                              self.cleaned_data['website'])
+                                              cleaned_data.get('comment'))
+        elif cleaned_data.get('email') and cleaned_data.get('comment'):
+                akismet_status = akismet_is_valid(self.request,
+                                                  cleaned_data.get('comment'),
+                                                  cleaned_data.get('email'),
+                                                  cleaned_data.get('website'))
 
-        if akismet_status:
-            return self.cleaned_data['comment']
-        else:
-            raise forms.ValidationError('Spam attempt detected!')
+        if not akismet_status:
+            self._errors['comment'] = forms.ValidationError('Spam attempt detected!')
+            del cleaned_data['comment']
+
+        return cleaned_data
