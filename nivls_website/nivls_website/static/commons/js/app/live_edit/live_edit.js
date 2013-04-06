@@ -33,12 +33,10 @@ $(document).off('click', '[data-type=live-editable]')
                         });
                     });
 
-                    var post_selector = '#' + target + '-form-' + pk;
-
-                    $(document).off('submit', post_selector)
-                        .on('submit', post_selector, function(){
+                    $(editable_elem).off('submit', 'form')
+                        .on('submit', 'form', function(){
                             ajaxPost(
-                                url, this,
+                                url, $(this),
                                 function(data, proceed){
                                     if (proceed) {
                                     closeCurrentLiveEdition();
