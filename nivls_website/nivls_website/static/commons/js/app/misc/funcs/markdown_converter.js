@@ -9,7 +9,7 @@ function markdownEditor(target, move_submit_buttons) {
     move_submit_buttons = move_submit_buttons || false;
 
     $(target + ' textarea').each(function () {
-        if ($(this).prop('id')) { // Fix for autosizejs which add weird textareas
+        if ($(this).prop('id')) { // Fix for autosizejs which adds weird textareas
             var preview_id = null;
 
             if ($(this).data('parse') !== undefined) {
