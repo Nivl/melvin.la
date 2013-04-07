@@ -1,6 +1,6 @@
  function ajaxPost(url, $selector, options, success, error, xhr) {
     if ($selector) {
-        if (Object.prototype.toString.call($selector) == '[object String]') {
+        if (isString($selector)) {
             $selector = $($selector);
         }
 
