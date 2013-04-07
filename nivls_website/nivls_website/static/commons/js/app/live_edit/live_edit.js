@@ -7,7 +7,7 @@ $(document).off('click', '[data-type=live-editable]')
             $(this).removeAttr('data-type');
             current_live_edited_element = this;
 
-            var editable_elem = this;
+            var $editable_elem = $(this);
             var pk = $(this).data('pk');
             var pk_name = $(this).data('pk-name') || 'pk';
             var target = $(this).data('target');
@@ -19,21 +19,21 @@ $(document).off('click', '[data-type=live-editable]')
 
             if ($(this).find(">:first-child").prop("tagName") != 'FORM') {
                 // In case the element was empty, we remove the blue bg color
-                $(editable_elem).stop().css('background-color', '');
+                $editable_elem.stop().css('background-color', '');
 
                 var url = resolve_urls(form_url, url_data);
 
                 $.get(url, function(data) {
-                    $(editable_elem).fancyHide('fast', function() {
-                        $(editable_elem).html(data);
-                        //markdownEditor(editable_elem, true);
+                    $editable_elem.fancyHide('fast', function() {
+                        $editable_elem.html(data);
+                        markdownEditor($editable_elem, true);
 
-                        $(editable_elem).fadeIn('fast', function() {
+                        $editable_elem.fadeIn('fast', function() {
                             resizeTextarea();
                         });
                     });
 
-                    $(editable_elem).off('submit', 'form')
+                    $editable_elem.off('submit', 'form')
                         .on('submit', 'form', function(){
                             ajaxPost(
                                 url, $(this),
@@ -51,7 +51,7 @@ $(document).off('click', '[data-type=live-editable]')
                 var url = resolve_urls(value_url, url_data);
 
                 $.get(url, function(data){
-                    $(editable_elem).fadeOut('fast', function(){
+                    $editable_elem.fadeOut('fast', function(){
                         $(this).html(data).prettify();
                         $(this).fancyShow('fast', function(){
                             if ($(this).isReallyEmpty()) {
