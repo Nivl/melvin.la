@@ -5,10 +5,19 @@ function markdownToHtml(elem) {
 }
 
 function markdownEditor(target, move_submit_buttons) {
-    target = target || '';
+    if (target) {
+        if (isString(target)) {
+            $target = $(target + ' textarea');
+        } else {
+            $target = target.find('textarea');
+        }
+    } else {
+        $target = $('textarea');
+    }
+
     move_submit_buttons = move_submit_buttons || false;
 
-    $(target + ' textarea').each(function () {
+    $target.each(function () {
         if ($(this).prop('id')) { // Fix for autosizejs which add weird textareas
             var preview_id = null;
 

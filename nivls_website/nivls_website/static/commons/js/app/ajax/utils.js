@@ -1,6 +1,10 @@
-Ajaxion_post = function(url, form_id, options, success, error, xhr) {
-    if (form_id) {
-        $(form_id).find("button[type='submit']").button('loading');
+ function ajaxPost(url, $selector, options, success, error, xhr) {
+    if ($selector) {
+        if (isString($selector)) {
+            $selector = $($selector);
+        }
+
+        $selector.find("button[type='submit']").button('loading');
     }
 
     if (typeof options !== 'undefined') {
@@ -15,18 +19,18 @@ Ajaxion_post = function(url, form_id, options, success, error, xhr) {
     }
 
     if (!('data' in options)) {
-        options['data'] = $(form_id).serialize();
+        options['data'] = $selector.serialize();
     }
 
     options['success'] = function (data) {
         var proceed = true;
 
-        if (form_id) {
-            var form = $('<noexists>' + data + '</noexists>').find(form_id);
+        if ($selector) {
+            var form = $('<noexists>' + data + '</noexists>').find('form');
 
-            if (form.text() != '') {
+            if (form.text() !== '') {
                 proceed = false;
-                $(form_id).replaceWith(form);
+                $selector.replaceWith(form);
             }
         }
 
@@ -36,8 +40,8 @@ Ajaxion_post = function(url, form_id, options, success, error, xhr) {
     };
 
     options['error'] = function() {
-        if (form_id) {
-            $(form_id).find("button[type='submit']").button('reset');
+        if ($selector) {
+            $selector.find("button[type='submit']").button('reset');
         }
         if (typeof error !== 'undefined') {
             error();
@@ -54,19 +58,23 @@ Ajaxion_post = function(url, form_id, options, success, error, xhr) {
 }
 
 
-Ajaxion_formUpload = function(url, data, form_id, success, error, xhr) {
-    if (data == null) {
-        data = new FormData($(form_id)[0]);
+function ajaxFormUpload(url, data, $selector, success, error, xhr) {
+    if ($selector && Object.prototype.toString.call($selector) == '[object String]') {
+        $selector = $($selector);
+    }
+
+    if (data === null) {
+        data = new FormData($selector[0]);
     }
     var options = {'data': data,
                    'contentType': false,
-                   'processData': false,
+                   'processData': false
                   };
-    Ajaxion_post(url, form_id, options, success, error, xhr);
-};
+    ajaxPost(url, $selector, options, success, error, xhr);
+}
 
 
-Ajaxion_switch_elem = function (url, elem, target, callbacks) {
+function ajaxSwitchElem(url, elem, target, callbacks) {
     target = (typeof target === 'undefined') ? (elem) : (target);
     callbacks = (typeof callbacks === 'undefined') ? {} : (callbacks);
 
@@ -84,7 +92,7 @@ Ajaxion_switch_elem = function (url, elem, target, callbacks) {
     });
 }
 
-Ajaxion_switch_elem_content = function (url, elem, target, callbacks) {
+function ajaxSwitchElemContent(url, elem, target, callbacks) {
     target = (typeof target === 'undefined') ? (elem) : (target);
     callbacks = (typeof callbacks === 'undefined') ? {} : (callbacks);
 
@@ -103,6 +111,6 @@ Ajaxion_switch_elem_content = function (url, elem, target, callbacks) {
 }
 
 
-Ajaxion_cb_error_push_before = function (that) {
+function ajaxCb_pushBefore(that) {
     $(that).before('<div class="alert alert-error alert-block fade in"><a class="close" data-dismiss="alert">×</a><h4 class="alert-heading">' + gettext('Error!') + '</h4>' + gettext('Your action was unable to be executed at this time. We apologise for the inconvenience.') + '</div>');
 }

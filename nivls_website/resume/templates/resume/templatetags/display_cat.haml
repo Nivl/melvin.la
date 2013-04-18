@@ -5,8 +5,9 @@
     .row-fluid
 
         .span3
-            %h3{'id'      : 'resume-category-name-{{ cat.pk }}',
-                'class'   : '{% if perms.resume.change_category %}resume-category-name-live-edit{% endif %}'}<
+            %h3{'data-type'   :  '{% if perms.resume.change_category %}live-editable{% endif %}',
+                'data-target' :  'resume-category-name',
+                'data-pk'     :  '{{ cat.pk }}'}<
                 - include 'ajax/single_field_value.haml' with value=cat.name
 
         .span9

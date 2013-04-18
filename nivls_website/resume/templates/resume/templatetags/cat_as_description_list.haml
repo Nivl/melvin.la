@@ -4,21 +4,25 @@
     %dl.dl-horizontal
         - for content in cat.category_content.all
             - if content.key
-                %dt{'id'      : 'resume-content-key-{{ content.pk }}',
-                    'class'   : '{% if perms.resume.change_content %}resume-content-key-live-edit{% endif %}'}<
+                %dt{'data-type'   :  '{% if perms.resume.change_content %}live-editable{% endif %}',
+                    'data-target' :  'resume-content-key',
+                    'data-pk'     :  '{{ content.pk }}'}<
                     - include 'ajax/single_field_value_md.haml' with value=content.key
+
                 - if is_downloadable and content.value_for_download.strip
                     %dd<
                         {{ content.value_for_download|markdown }}
                 - else
-                    %dd{'id'      : 'resume-content-value-{{ content.pk }}',
-                         'class'   : '{% if perms.resume.change_content %}resume-content-value-live-edit{% endif %}'}<
+                    %dd{'data-type'   :  '{% if perms.resume.change_content %}live-editable{% endif %}',
+                        'data-target' :  'resume-content-value',
+                        'data-pk'     :  '{{ content.pk }}'}<
                         - include 'ajax/single_field_value_md.haml' with value=content.value
             - else
                 - if is_downloadable and content.value_for_download.strip
                     %dd<
                         {{ content.value_for_download }}
                 - else
-                    %dd{'id'      : 'resume-content-value-{{ content.pk }}',
-                        'class'   : '{% if perms.resume.change_content %}resume-content-value-live-edit{% endif %}'}<
+                    %dd{'data-type'   :  '{% if perms.resume.change_content %}live-editable{% endif %}',
+                        'data-target' :  'resume-content-value',
+                        'data-pk'     :  '{{ content.pk }}'}<
                         - include 'ajax/single_field_value_md.haml' with value=content.value

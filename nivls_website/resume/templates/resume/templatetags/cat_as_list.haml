@@ -4,21 +4,24 @@
     - for content in cat.category_content.all
         - if content.key
             %li
-                %strong{'id'      : 'resume-content-key-{{ content.pk }}',
-                        'class'   : '{% if perms.resume.change_content %}resume-content-key-live-edit{% endif %}'}<
+                %strong{'data-type'   :  '{% if perms.resume.change_content %}live-editable{% endif %}',
+                        'data-target' :  'resume-content-key',
+                        'data-pk'     :  '{{ content.pk }}'}<
                     {{ content.key }}
                 - trans ": "
                 - if is_downloadable and content.value_for_download.strip
                     {{ content.value_for_download|markdown }}
                 - else
-                    %span{'id'      : 'resume-content-value-{{ content.pk }}',
-                          'class'   : '{% if perms.resume.change_content %}resume-content-value-live-edit{% endif %}'}<
-                         - include 'ajax/single_field_value_md.haml' with value=content.value
+                    %span{'data-type'   :  '{% if perms.resume.change_content %}live-editable{% endif %}',
+                          'data-target' :  'resume-content-value',
+                          'data-pk'     :  '{{ content.pk }}'}<
+                          - include 'ajax/single_field_value_md.haml' with value=content.value
         - else
             - if is_downloadable and content.value_for_download.strip
                 %li<
                     {{ content.value_for_download|markdown }}
             - else
-                %li{'id'      : 'resume-content-value-{{ content.pk }}',
-                    'class'   : '{% if perms.resume.change_content %}resume-content-value-live-edit{% endif %}'}<
+                %li{'data-type'   :  '{% if perms.resume.change_content %}live-editable{% endif %}',
+                    'data-target' :  'resume-content-value',
+                    'data-pk'     :  '{{ content.pk }}'}<
                     - include 'ajax/single_field_value_md.haml' with value=content.value

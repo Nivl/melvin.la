@@ -2,15 +2,17 @@
 
 - for project in projects
     %section.clean-section{'itemscope': None, 'itemtype': 'http://schema.org/SoftwareApplication'}
-        %h2{'itemprop': 'name',
-            'class'   : '{% if perms.lab.change_project %}lab-project-name-live-edit{% endif %}',
-            'id'      : 'lab-project-name-{{ project.pk }}'}<
+        %h2{'itemprop'    : 'name',
+            'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+            'data-target' :  'lab-project-name',
+            'data-pk'     :  '{{ project.pk }}'}<
             - include 'ajax/single_field_value.haml' with value=project.name
 
         .section-content.margin-top-1
-            %div{'id'      : 'lab-project-description-{{ project.pk }}',
-                 'class'   : '{% if perms.lab.change_project %}lab-project-description-live-edit{% endif %}',
-                 'itemprop': 'description'}
+            %div{'itemprop': 'description',
+                 'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+                 'data-target' :  'lab-project-description',
+                 'data-pk'     :  '{{ project.pk }}'}<
                 - include 'ajax/single_field_value_md.haml' with value=project.description
 
             %a.btn{'itemprop'   : 'url',

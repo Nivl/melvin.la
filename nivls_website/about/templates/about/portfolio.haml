@@ -30,8 +30,9 @@
 
     - for project in projects
         %section.clean-section
-            %h2.section-content{'class'   : '{% if perms.lab.change_project %}lab-project-name-live-edit{% endif %}',
-                                'id'      : 'lab-project-name-{{ project.lab.pk }}'}<
+            %h2.section-content{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+                                'data-target' :  'lab-project-name',
+                                'data-pk'     :  '{{ project.lab.pk }}'}<
                 - include 'ajax/single_field_value.haml' with value=project.lab.name
 
             .section-content
@@ -50,8 +51,9 @@
                           \-
                         ={ label }
 
-                %div{'class'   : '{% if perms.about.change_project %}about-project-description-live-edit{% endif %}',
-                     'id'      : 'about-project-description-{{ project.pk }}'}
+                %div{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+                     'data-target' :  'about-project-description',
+                     'data-pk'     :  '{{ project.pk }}'}
                     - include 'ajax/single_field_value_md.haml' with value=project.description
 
 

@@ -1,4 +1,3 @@
-
 $(document).bind('keydown.e', function() {
     if (live_edit_enabled === false) {
         if ($(".editable-wrapper:hidden").length) {
@@ -12,9 +11,9 @@ $(document).bind('keydown.e', function() {
         $('#editing-mode-box').stop().animate({'top': '0'});
         $('#body > header').stop().animate({'margin-top': '40px'});
     } else {
-        uneditElement();
+        closeCurrentLiveEdition();
 
-        $(".editable:reallyEmpty").stop().animate({'min-height': '0', 'min-width': '0'}, function(){$(this).css('background-color', 'white')});
+        $(".editable:reallyEmpty").stop().animate({'min-height': '0', 'min-width': '0'}, function(){$(this).css('background-color', 'white');});
         $('#editing-mode-box').stop().animate({'top': '-40'});
         $('#body > header').stop().animate({'margin-top': '0'});
         $(".editable-wrapper").stop().each(function() {
@@ -32,4 +31,4 @@ $('a').click(function(e){
     }
 });
 
-$(document).on('click', uneditElement);
+$(document).on('click', closeCurrentLiveEdition);

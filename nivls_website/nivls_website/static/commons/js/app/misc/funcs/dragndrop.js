@@ -29,7 +29,7 @@ if (Modernizr.draganddrop) {
                 var data = new FormData($(this).find('form')[0]);
                 data.append('picture', e.dataTransfer.files[0]);
 
-                Ajaxion_formUpload(
+                ajaxFormUpload(
                     resolve_urls('handle_dropped_picture'),
                     data,
                     null,

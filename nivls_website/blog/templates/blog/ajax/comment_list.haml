@@ -35,7 +35,8 @@
             - else
                 {% gravatar_from_email comment.email %}
 
-        .content{'id'         : 'blog-comment-comment-{{ comment.pk }}',
-                 'class'      : '{% if user.is_authenticated and user == comment.user or perms.blog.change_comment %}blog-comment-comment-live-edit{%  endif %}',
-                 'itemprop'   : 'commentText'}
+        .content{'itemprop'   : 'commentText',
+                 'data-type'   :  '{% if user.is_authenticated and user == comment.user or perms.blog.change_comment %}live-editable{% endif %}',
+                 'data-target' :  'blog-comment-comment',
+                 'data-pk'     :  '{{ comment.pk }}'}
             - include 'ajax/single_field_value_external.haml' with value=comment.comment
