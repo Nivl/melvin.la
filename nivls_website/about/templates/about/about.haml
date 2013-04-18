@@ -44,8 +44,9 @@
         %section.clean-section
             %h2<
                 {% trans "Welcome to my website" %}
-            .section-content{'id'      : 'about-profile-about-me-{{ profile.pk }}',
-                             'class'   : '{% if perms.about.change_profile %}about-profile-about-me-live-edit{% endif %}'}
+            .section-content{'data-type'   :  '{% if perms.about.change_profile %}live-editable{% endif %}',
+                             'data-target' :  'about-profile-about-me',
+                             'data-pk'     :  '{{ profile.pk }}'}
                 - include 'ajax/single_field_value_md.haml' with value=profile.about_me
 
         %hr
@@ -63,8 +64,9 @@
                 - if forloop.counter0|divisibleby:4
                     <div class="row">
                 .span3
-                    .big-badge{'id'      : 'about-contactLink-model-{{ link.pk }}',
-                               'class'   : '{% if perms.about.change_contactlink %}about-contactLink-model-live-edit{% endif %}'}
+                    .big-badge{'data-type'   :  '{% if perms.about.change_profile %}live-editable{% endif %}',
+                               'data-target' :  'about-contactLink-model',
+                               'data-pk'     :  '{{ link.pk }}'}
                         - include 'about/ajax/big_badge.haml' with object=link
 
                 - if forloop.counter|divisibleby:4 or forloop.last

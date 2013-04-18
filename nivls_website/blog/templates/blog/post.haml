@@ -54,9 +54,10 @@
             %meta{'itemprop': '{{ data.name }}', 'content': '{{ data.content }}'}
 
         %header
-            %h2{'itemprop'  : 'name',
-                'id'        : 'blog-post-title-{{ post.pk }}',
-                'class'     : '{% if perms.blog.change_post %}blog-post-title-live-edit{% endif %}'}<
+            %h2{'itemprop'    : 'name',
+                'data-type'   :  '{% if perms.blog.change_post %}live-editable{% endif %}',
+                'data-target' :  'blog-post-title',
+                'data-pk'     :  '{{ post.pk }}'}<
                 {{ post.title }}
 
             .pull-right.share-btn
@@ -64,8 +65,9 @@
 
             .info
                 %i.icon-reorder
-                %span{'id'    : 'blog-post-category-{{ post.pk }}',
-                     'class' : '{% if perms.blog.change_post %}blog-post-category-live-edit{% endif %}'}
+                %span{'data-type'   :  '{% if perms.blog.change_post %}live-editable{% endif %}',
+                      'data-target' :  'blog-post-category',
+                      'data-pk'     :  '{{ post.pk }}'}
 
                     %a{'data-ajax'  : 'body-content-only',
                        'data-depth' : '10',
@@ -103,14 +105,19 @@
                 - if perms.blog.change_post
                     %br
 
-                    %div{'id'    : 'blog-post-is-public-{{ post.pk }}',
-                         'class' : '{% if perms.blog.change_post %}blog-post-is-public-live-edit{% endif %}'}
+                    %div{'data-type'   :  '{% if perms.blog.change_post %}live-editable{% endif %}',
+                         'data-target' :  'blog-post-is-public',
+                         'data-pk'     :  '{{ post.pk }}'}
+
                         - include 'blog/ajax/is_public.haml' with value=post.is_public
 
 
         %section.content.clearfix{'itemprop': 'articleBody',
-                                  'id'    : 'blog-post-parsed-content-{{ post.pk }}',
-                                  'class' : '{% if perms.blog.change_post %}blog-post-parsed-content-live-edit{% endif %}'}
+
+                                  'data-type'   :  '{% if perms.blog.change_post %}live-editable{% endif %}',
+                                  'data-target' :  'blog-post-parsed-content',
+                                  'data-pk'     :  '{{ post.pk }}'}
+
             - include 'ajax/single_field_value_md.haml' with value=post.parsed_content
 
         %footer#post-footer

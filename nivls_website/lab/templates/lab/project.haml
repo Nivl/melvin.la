@@ -38,12 +38,14 @@
 
         - with progress=project.progress_project.all todo=project.todo_project.all images=project.image_project.all videos=project.video_project.all downloads=project.download_project.all
             %h1{'itemprop': 'name',
-                'class'   : '{% if perms.lab.change_project %}lab-project-name-live-edit{% endif %}',
-                'id'      : 'lab-project-name-{{ project.pk }}'}<
+                'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+                'data-target' :  'lab-project-name',
+                'data-pk'     :  '{{ project.pk }}'}<
                 - include 'ajax/single_field_value.haml' with value=project.name
 
-            %p.lead.{'class'   : '{% if perms.lab.change_project %}lab-project-catchphrase-live-edit editable{% endif %}',
-                     'id'      : 'lab-project-catchphrase-{{ project.pk }}'}<
+            %p.lead.editable{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+                             'data-target' :  'lab-project-catchphrase',
+                             'data-pk'     :  '{{ project.pk }}'}<
                 - include 'ajax/single_field_value.haml' with value=project.catchphrase
 
                 %ul.nav.nav-tabs

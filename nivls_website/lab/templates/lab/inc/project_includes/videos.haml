@@ -8,14 +8,16 @@
            'itemscope': None,
            'itemtype' : 'http://schema.org/ImageObject'}
 
-        %h3{'id'       : 'lab-video-name-{{ video.pk }}',
-            'class'    : '{% if perms.lab.change_video %}lab-video-name-live-edit{% endif %}',
-            'itemprop' : 'name'}
+        %h3{'itemprop'    : 'name',
+            'data-type'   :  '{% if perms.lab.change_video %}live-editable{% endif %}',
+            'data-target' :  'lab-video-name',
+            'data-pk'     :  '{{ video.pk }}'}
             - include 'ajax/single_field_value.haml' with value=video.name
 
-        %div{'id'       : 'lab-video-description-{{ video.pk }}',
-           'class'    : '{% if perms.lab.change_video %}lab-video-description-live-edit{% endif %}',
-           'itemprop' : 'description'}
+        %div{'itemprop' : 'description',
+             'data-type'   :  '{% if perms.lab.change_video %}live-editable{% endif %}',
+             'data-target' :  'lab-video-description',
+             'data-pk'     :  '{{ video.pk }}'}
             - include 'ajax/single_field_value_md.haml' with value=video.description
 
         %iframe{'src'           : '{{ video.url }}',

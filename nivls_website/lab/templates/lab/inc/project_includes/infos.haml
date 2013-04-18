@@ -8,8 +8,9 @@
         %strong<
             - trans "Project License: "
 
-        %span{'class'   : '{% if perms.lab.change_project %}lab-project-license-live-edit{% endif %}',
-              'id'      : 'lab-project-license-{{ project.pk }}'}
+        %span{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+              'data-target' :  'lab-project-license',
+              'data-pk'     :  '{{ project.pk }}'}
             - include 'ajax/single_field_value.haml' with value=project.license.name value_url=project.license.url
 
         - if project.sources_url
@@ -32,9 +33,10 @@
                            'data-color': '#{{ lang.language.color }}'}
 
 
-    %div{'id'      : 'lab-project-description-{{ project.pk }}',
-         'class'   : '{% if perms.lab.change_project %}lab-project-description-live-edit{% endif %}',
-         'itemprop': 'description'}
+    %div{'itemprop'    : 'description',
+         'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+         'data-target' :  'lab-project-description',
+         'data-pk'     :  '{{ project.pk }}'}
         - include 'ajax/single_field_value_md.haml' with value=project.description
 
 
@@ -55,12 +57,14 @@
                     - trans "Client(s)"
 
                 .business-card
-                    .real_user.pull-left{'id'      : 'lab-project-realclients-{{ project.pk }}',
-                                         'class'   : '{% if perms.lab.change_project %}lab-project-realclients-live-edit{% endif %}'}
+                    .real_user.pull-left.editable{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+                                                  'data-target' :  'lab-project-realclients',
+                                                  'data-pk'     :  '{{ project.pk }}'}
                         - include "lab/ajax/business_card.haml" with items=client_user is_user=1
 
-                    .fake_user{'id'      : 'lab-project-clients-{{ project.pk }}',
-                               'class'   : '{% if perms.lab.change_project %}lab-project-clients-live-edit{% endif %}'}
+                    .fake_user.hide-overflow.editable{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+                                                      'data-target' :  'lab-project-clients',
+                                                      'data-pk'     :  '{{ project.pk }}'}
                         - include "lab/ajax/business_card.haml" with items=clients is_user=0
 
 
@@ -71,11 +75,13 @@
                 - trans "Team"
 
             .business-card
-                .real_user.pull-left{'id'      : 'lab-project-realcoworkers-{{ project.pk }}',
-                                     'class'   : '{% if perms.lab.change_project %}lab-project-realcoworkers-live-edit editable{% endif %}'}
+                .real_user.pull-left.editable{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+                                              'data-target' :  'lab-project-realcoworkers',
+                                              'data-pk'     :  '{{ project.pk }}'}
                     - include "lab/ajax/business_card.haml" with items=coworkers_user is_user=1
 
 
-                .fake_user.hide-overflow{'id'      : 'lab-project-coworkers-{{ project.pk }}',
-                                         'class'   : '{% if perms.lab.change_project %}lab-project-coworkers-live-edit editable{% endif %}'}
+                .fake_user.hide-overflow.editable{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+                                                  'data-target' :  'lab-project-coworkers',
+                                                  'data-pk'     :  '{{ project.pk }}'}
                     - include "lab/ajax/business_card.haml" with items=coworkers is_user=0
