@@ -38,9 +38,10 @@ if (Modernizr.history) {
 
         $('#loading-msg').fadeIn();
         $.get(relativeURL, function(html) {
-            var i;
+
             var response = $('<html />').html(html);
             var to_change = [];
+            var i = 0;
 
             // Replace without fade
             to_change = ['#app-js', '#page-title', '#page-subtitle'];
@@ -50,13 +51,24 @@ if (Modernizr.history) {
             }
             // Replace with fades
             to_change = [action];
+            var references = {'nb_of_elem': to_change.length, 'current': 0};
+            var replaced_data = 0;
+
             for (i=0; i<to_change.length; i++) {
-                $(to_change[i]).hide().html(response
-                                            .find(to_change[i])
-                                            .html()).fadeIn();
+                FancydisplayNewPage(response, to_change[i], references);
             }
+        });
+    });
+}
+
+function FancydisplayNewPage(response, elem, references) {
+    $(elem).fadeOut('fast', function(){
+        $(elem).html(response.find(elem).html());
+        $(elem).fancyShow('fast');
+
+        if (++references['current'] == references['nb_of_elem']) {
             reloadJsEffects();
             $('#loading-msg').fadeOut();
-        });
+        }
     });
 }
