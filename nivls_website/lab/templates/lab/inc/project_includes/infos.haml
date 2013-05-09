@@ -62,9 +62,9 @@
                                                   'data-pk'     :  '{{ project.pk }}'}
                         - include "lab/ajax/business_card.haml" with items=client_user is_user=1
 
-                    .fake_user.hide-overflow.editable{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
-                                                      'data-target' :  'lab-project-clients',
-                                                      'data-pk'     :  '{{ project.pk }}'}
+                    .fake_user.editable{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+                                        'data-target' :  'lab-project-clients',
+                                        'data-pk'     :  '{{ project.pk }}'}
                         - include "lab/ajax/business_card.haml" with items=clients is_user=0
 
 
@@ -81,7 +81,7 @@
                     - include "lab/ajax/business_card.haml" with items=coworkers_user is_user=1
 
 
-                .fake_user.hide-overflow.editable{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
-                                                  'data-target' :  'lab-project-coworkers',
-                                                  'data-pk'     :  '{{ project.pk }}'}
+                .fake_user.editable{'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
+                                    'data-target' :  'lab-project-coworkers',
+                                    'data-pk'     :  '{{ project.pk }}'}
                     - include "lab/ajax/business_card.haml" with items=coworkers is_user=0

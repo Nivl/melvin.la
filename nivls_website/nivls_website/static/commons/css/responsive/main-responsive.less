@@ -1,7 +1,9 @@
+
 @media(max-width:320px) {
     .navbar {
         .brand {
             padding: 0px;
+            padding-left: 10px;
             margin: 15px 0 0 -20px;
             font-size: 22px;
         }
@@ -11,6 +13,10 @@
         .form-search {
             margin-top: 10px;
             margin-left: 20px;
+        }
+
+        #page-title {
+            display: none;
         }
     }
 }
@@ -41,6 +47,10 @@
     }
 
     #body {
+        #body-content {
+            padding: 0 10px;
+        }
+
         .post-list .row .post:first-child {
             margin-left: 0px;
         }
@@ -54,6 +64,14 @@
 
             small {
                 font-size: 10px;
+            }
+        }
+
+        .header {
+            height: 30px;
+
+            .row {
+                top: -8px;
             }
         }
     }
