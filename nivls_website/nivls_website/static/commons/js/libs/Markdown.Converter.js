@@ -2490,7 +2490,8 @@ else
                 return this.doLinkOrImage(chunk, postProcessing, false);
             }), group2);
             buttons.quote = makeButton("wmd-quote-button", "Blockquote - Ctrl+Q", "icon-comment-alt", bindCommand("doBlockquote"), group2);
-            buttons.code = makeButton("wmd-code-button", "Code Sample - Ctrl+K", "icon-angle-left,,icon-angle-right", bindCommand("doCode"), group2);
+            //buttons.code = makeButton("wmd-code-button", "Code Sample - Ctrl+K", "icon-angle-left,,icon-angle-right", bindCommand("doCode"), group2);
+            buttons.code = makeButton("wmd-code-button", "Code Sample - Ctrl+K", "icon-code", bindCommand("doCode"), group2);
             buttons.image = makeButton("wmd-image-button", "Image - Ctrl+G", "icon-picture", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, true);
             }), group2);
