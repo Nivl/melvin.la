@@ -55,21 +55,21 @@
                          'href'       : '{% url "about" %}'}<
                         - trans "About"
 
-                    %li#navbar-portfoilio{'class': '{% block "menu-portfolio" %}{% endblock %}'}
+                    %li#navbar-portfolio.portfolio{'class': '{% block "menu-portfolio" %}{% endblock %}'}
                       %a{'data-depth' : '1',
                          'data-ajax'  : 'body-content',
                          'title'      : '{% trans "Portfolio" %}',
                          'href'       : '{% url "portfolio" %}'}<
                         - trans "Portfolio"
 
-                    %li#navbar-contact{'class': '{% block "menu-contact" %}{% endblock %}'}
+                    %li#navbar-contact.contact{'class': '{% block "menu-contact" %}{% endblock %}'}
                       %a{'data-depth' : '1',
                          'data-ajax'  : 'body-content',
                          'title'      : '{% trans "Contact" %}',
                          'href'       : '{% url "contact" %}'}<
                         - trans "Contact"
 
-                    %li.dropdown{'class': '{% block "menu-user" %}{% endblock %}'}
+                    %li.dropdown.user{'class': '{% block "menu-user" %}{% endblock %}'}
                       %a.dropdown-toggle{'href': '#',
                                          'data-toggle': 'dropdown'}<
                         %i.icon-cog
