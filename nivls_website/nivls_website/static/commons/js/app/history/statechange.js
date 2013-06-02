@@ -62,7 +62,7 @@ if (Modernizr.history) {
 }
 
 function FancydisplayNewPage(response, elem, references) {
-    $(elem).fadeOut('fast', function(){
+    $(elem).fadeOut('fast', function() {
         $(elem).html(response.find(elem).html());
         $(elem).fancyShow('fast');
 

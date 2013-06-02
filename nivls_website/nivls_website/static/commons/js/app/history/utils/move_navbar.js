@@ -1,6 +1,18 @@
 if (Modernizr.history) {
+    function getWorld($target) {
+        var worlds = ['blog', 'lab'];
+
+        for (var i=0; i<worlds.length; ++i) {
+            if ($target.hasClass(worlds[i])) {
+                return worlds[i];
+            }
+        }
+        return null;
+    }
+
     function moveNavbar(target) {
         var $current_active = $('#navbar-main-list > li.active');
+        var current_world = getWorld($current_active);
 
         if (target !== null && $(target)[0] == $current_active[0])
             return;
@@ -17,6 +29,14 @@ if (Modernizr.history) {
                 $current_active.removeClass('active');
             }
             $(target).addClass('active');
+            // We now set the new "world"
+            var target_world = getWorld($(target));
+            if (current_world) {
+                $('#middle-header').removeClass(current_world);
+            }
+            if (target_world) {
+                $('#middle-header').addClass(target_world);
+            }
         } else {
             $current_active.removeClass('active');
             $('#navbar-main-list .dropdown li.active').removeClass('active');

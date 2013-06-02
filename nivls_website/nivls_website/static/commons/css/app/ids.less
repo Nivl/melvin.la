@@ -73,10 +73,17 @@
 }
 
 #middle-header {
-    background-color: @lightBlue;
     min-height: 160px;
-
     color: #003d5d;
+    background-color: @lightBlue; // Fallback
+
+    &.blog {
+        background-color: @lightBlue;
+    }
+
+    &.lab {
+        background-color: @lightRed;
+    }
 
     .wrapper {
         padding-top: 51px;
@@ -219,11 +226,6 @@ ul#left-menu {
             color: @white;
         }
     }
-}
-
-.navbar-inner {
-    border: none;
-    .box-shadow(none);
 }
 
 #navbar-main-list > li {

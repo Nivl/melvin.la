@@ -33,21 +33,21 @@
 
                 .nav-collapse{'role': 'navigation'}
                   %ul#navbar-main-list.nav.pull-right
-                    %li#navbar-blog{'class': '{% block "menu-blog" %}{% endblock %}'}
+                    %li#navbar-blog.blog{'class': '{% block "menu-blog" %}{% endblock %}'}
                       %a{'data-depth' : '1',
                          'title'      : '{% trans "Blog" %}',
                          'data-ajax'  : 'body-content',
                          'href'       : '{% url "blog" %}'}<
                         - trans "Blog"
 
-                    %li#navbar-lab{'class': '{% block "menu-lab" %}{% endblock %}'}
+                    %li#navbar-lab.lab{'class': '{% block "menu-lab" %}{% endblock %}'}
                       %a{'data-depth' : '1',
                          'data-ajax'  : 'body-content',
                          'href'       : '{% url "lab" %}',
                          'title'      : '{% trans "Lab" %}'}<
                         - trans "Lab"
 
-                    %li#navbar-about{'class': '{% block "menu-about" %}{% endblock %}'}
+                    %li#navbar-about.about{'class': '{% block "menu-about" %}{% endblock %}'}
                       %a{'data-depth' : '1',
                          'rel'        : 'author',
                          'data-ajax'  : 'body-content',
@@ -164,7 +164,7 @@
                               %i.icon-off
                               - trans "Sign out"
 
-    #middle-header
+    #middle-header{'class': '{% block "middle-header-classes" %}blog{% endblock %}'}
       .container
         .row
           .span12
