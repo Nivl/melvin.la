@@ -46,7 +46,11 @@
             - trans "Blog entries related to this project"
         %p
             - for entry in entries
-                %a.btn{'href' : '{{ entry.get_absolute_url }}'}
+                %a.btn{'href'          : '{{ entry.get_absolute_url }}',
+                       'title'         : '{% trans "Blog" %}',
+                       'data-depth'    : '1',
+                       'data-navbar'   : '#navbar-blog',
+                       'data-ajax'     : 'body-content'}
                     {{ entry }}
 
 - with project.clients_user.all as clients_user
