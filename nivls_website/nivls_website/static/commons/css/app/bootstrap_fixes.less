@@ -30,6 +30,10 @@ h5 {
     line-height: 20px;
 }
 
+button:focus {
+    outline: none !important;
+}
+
 dd > p {
     margin: 0;
 }
@@ -157,7 +161,8 @@ a {
     background-image: none;
 
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
         background-color: @btnInfoBackgroundHighlight;
         color: @white;
         text-decoration: none;
@@ -172,7 +177,8 @@ a {
     background-color: @btnInfoBackground;
 
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
         background-color: @btnInfoBackgroundHighlight;
     }
 }
@@ -181,7 +187,8 @@ a {
     background-color: @btnSuccessBackground;
 
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
         background-color: @btnSuccessBackgroundHighlight;
     }
 }
@@ -190,7 +197,8 @@ a {
     background-color: @btnPrimaryBackground;
 
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
         background-color: @btnPrimaryBackgroundHighlight;
     }
 }
@@ -201,7 +209,8 @@ a {
     background-color: @btnDangerBackground;
 
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
         background-color: @btnDangerBackgroundHighlight;
     }
 }
