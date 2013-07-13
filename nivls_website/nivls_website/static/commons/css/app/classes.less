@@ -87,11 +87,17 @@
             .transition(all 0.1s linear);
 
             &:hover{
-                background-color: @lightBlue;
+                background-color: @homeColor;
                 color: white;
 
-                h4 {
-                    color: white !important;
+                a {
+                    &:hover {
+                        text-decoration: none;
+                    }
+
+                    h4 {
+                        color: white !important;
+                    }
                 }
             }
 
@@ -374,14 +380,15 @@
 
     &:hover{
         a {
-            color: @linkColorHover;
+            color: @linkColorHover !important;
+            text-decoration: none;
         }
     }
 
     a {
         .transition(all 0.1s linear);
 
-        color: @grayDark;
+        color: @grayDark !important;
         width: 100%;
 
         .informations {
