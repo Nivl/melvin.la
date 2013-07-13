@@ -20,41 +20,47 @@
         .box-shadow(none);
 
         .blog {
-            a {
+            & > a {
                 border-top: solid 3px @lightBlue;
             }
         }
 
         .lab {
-            a {
+            & > a {
                 border-top: solid 3px @lightRed;
             }
         }
 
         .about {
-            a {
+            & > a {
                 border-top: solid 3px @lightGreen;
             }
         }
 
         .portfolio {
-            a {
+            & > a {
                 border-top: solid 3px @lightPurple;
             }
         }
 
         .contact {
-            a {
+            & > a {
                 border-top: solid 3px @lightOrange;
             }
         }
 
-        .blog, .lab, .about, .portfolio, .contact {
-            a {
+        .user {
+            & > a {
+                border-top: solid 3px @cyan;
+            }
+        }
+
+        .blog, .lab, .about, .portfolio, .contact, .user {
+            & > a {
                 .transition(all 0.15s linear);
                 padding-top: 15px;
 
-                &:hover {
+                &:hover, &:focus {
                     border-top-width: 6px;
                     padding-top: 12px;
                 }

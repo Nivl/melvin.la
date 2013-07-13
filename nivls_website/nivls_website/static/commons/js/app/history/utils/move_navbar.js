@@ -1,6 +1,6 @@
 if (Modernizr.history) {
     function getWorld($target) {
-        var worlds = ['blog', 'lab', 'about', 'portfolio', 'contact'];
+        var worlds = ['blog', 'lab', 'about', 'portfolio', 'contact', 'user'];
 
         for (var i=0; i<worlds.length; ++i) {
             if ($target.hasClass(worlds[i])) {
