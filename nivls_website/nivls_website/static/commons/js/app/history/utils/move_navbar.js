@@ -32,10 +32,10 @@ if (Modernizr.history) {
             // We now set the new "world"
             var target_world = getWorld($(target));
             if (current_world) {
-                $('#body').removeClass(current_world + '-world');
+                $('body').removeClass(current_world + '-world');
             }
             if (target_world) {
-                $('#body').addClass(target_world + '-world');
+                $('body').addClass(target_world + '-world');
             }
         } else {
             $current_active.removeClass('active');
