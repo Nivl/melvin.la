@@ -378,7 +378,7 @@
     margin: 0 auto;
     width: 100%;
 
-    &:hover{
+    &:hover {
         a {
             color: @linkColorHover !important;
             text-decoration: none;
@@ -386,6 +386,11 @@
     }
 
     a {
+        &:focus {
+            color: @linkColorHover !important;
+            text-decoration: none;
+        }
+
         .transition(all 0.1s linear);
 
         color: @grayDark !important;
