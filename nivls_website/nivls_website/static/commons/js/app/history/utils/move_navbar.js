@@ -28,9 +28,18 @@ if (Modernizr.history) {
             } else {
                 $current_active.removeClass('active');
             }
+
             $(target).addClass('active');
-            // We now set the new "world"
-            var target_world = getWorld($(target));
+            var target_world = null;
+
+            // We check if we're in a dropdown, and get the proper "world"
+            if ($(target).parents('.dropdown').length !== 0) {
+                $(target).parents('.dropdown').addClass('active');
+                target_world = getWorld($(target).parents('.dropdown'));
+            } else {
+                target_world = getWorld($(target));
+            }
+
             if (current_world) {
                 $('body').removeClass(current_world + '-world');
             }
