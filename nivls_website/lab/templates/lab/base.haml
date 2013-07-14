@@ -13,18 +13,7 @@
     - trans "Where I present my projects"
 
 - block "page-menu"
-    #page-menu-icon
-        %a{'href': '#'}
-            %i.icon-chevron-right
-
-
-    #page-menu-wrapper
-      .element
-        .container
-            .row
-              .span12
-                %h2<
-                    - trans "Where you have access to your data"
+    - include "lab/inc/menu.haml"
 
 
 - block "breadcrumb-content"
@@ -48,7 +37,3 @@
         .row
             #body-content-only.span9{'role': 'main'}
                 - block "content"
-
-            - with act_menu="home"
-                - block "menu"
-                    - include "lab/inc/menu.haml"

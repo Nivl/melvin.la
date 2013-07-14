@@ -1,6 +1,34 @@
-- load tag_lab
+- load tag_lab i18n
 
-#menu.span3.clean-links
-    %nav.sidebar-nav{'role': 'complementary'}
-        %ul#lab-nav-list.nav.nav-list.row.center-text
-            - lab_tags act_menu
+#page-menu-icon
+        %a{'href': '#'}
+            %i.icon-chevron-right
+
+
+#page-menu-wrapper
+    .element
+        .container
+            .row
+                .span12
+                    .navbar
+                        .navbar-inner
+                            .container
+                                %button.btn.btn-navbar{'type'        : 'button',
+                                                       'data-toggle' : 'collapse',
+                                                       'data-target' : '.nav-collapse'}
+                                    %span.icon-bar
+                                    %span.icon-bar
+                                    %span.icon-bar
+                                %a.brand{'href': '{% url "lab" %}'}
+                                    %strong
+                                        - trans 'Lab'
+                                    Menu
+                                .nav-collapse.collapse.pull-right
+                                    %ul.nav
+                                        %li.dropdown
+                                            %a.dropdown-toggle{'data-toggle' : 'dropdown',
+                                                               'href'            :  '#'}
+                                                - trans "Tags"
+                                                %b.caret
+                                            %ul.dropdown-menu
+                                                - lab_tags
