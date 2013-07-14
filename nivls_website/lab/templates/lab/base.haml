@@ -12,6 +12,21 @@
 - block "page-subtitle"
     - trans "Where I present my projects"
 
+- block "page-menu"
+    #page-menu-icon
+        %a{'href': '#'}
+            %i.icon-chevron-right
+
+
+    #page-menu-wrapper
+      .element
+        .container
+            .row
+              .span12
+                %h2<
+                    - trans "Where you have access to your data"
+
+
 - block "breadcrumb-content"
     %li<
         %span.divider<

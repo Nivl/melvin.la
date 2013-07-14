@@ -203,12 +203,16 @@
                 - block "breadcrumb-content"
 
     #bottom-header
-      .container
-        .row
-          .span12
-            %h2#page-subtitle<
-              - block "page-subtitle"
-                - trans "Where you have access to your data"
+      - block "page-menu"
+
+      #subtitle-wrapper
+         .element
+          .container
+            .row
+              .span12
+                %h2#page-subtitle<
+                  - block "page-subtitle"
+                    - trans "Where you have access to your data"
 
   .container
     .row
