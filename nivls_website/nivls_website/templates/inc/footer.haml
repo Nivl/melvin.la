@@ -2,29 +2,15 @@
 
 %footer{'role': 'contentinfo'}
     .header
-        .container
-            .row
-                .span3
-                    %a{'href': 'http://www.python.org'}
-                        %img{'src': '{% static "commons/img/footer/python.png" %}',
-                             'alt': 'Python'}
+        .container-fluid
+            .row-fluid
+                .span2{'class': 'home'}
+                .span2{'class': 'lab'}
+                .span2{'class': 'about'}
+                .span2{'class': 'portfolio'}
+                .span2{'class': 'contact'}
+                .span2{'class': 'blog'}
 
-                .span3
-                    %a{'href': 'http://www.w3.org/html/logo/'}
-                        %img{'src'    : 'http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics-storage.png',
-                             'width'  : '229',
-                             'height' : '64',
-                             'alt'    : 'HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage'}
-
-                .span3
-                    %a{'href' : 'http://www.jquery.org'}
-                        %img{'src'  : '{% static "commons/img/footer/jquery.png" %}',
-                             'alt'  : 'jQuery'}
-
-                .span3
-                    %a{'href': 'https://www.djangoproject.com'}
-                        %img{'src': '{% static "commons/img/footer/django.png" %}',
-                             'alt': 'Django'}
 
     .container
         .row

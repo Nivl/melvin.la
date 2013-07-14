@@ -201,14 +201,49 @@ ul#left-menu {
 
 
     .header {
+        @size: 10px;
+
         background-color: #d9d9d9;
         margin-top: -20px;
         margin-bottom: 20px;
-        height: 42px;
+        height: @size;
 
-        .row {
-            position: relative;
-            top: -11px;
+        .container-fluid {
+            padding: 0;
+
+            .row-fluid {
+                height: @size;
+
+                .span2 {
+                    margin-left: 0;
+                    height: 100%;
+                    min-height: 0px;
+
+                    &.home{
+                        background-color: @homeColor;
+                    }
+
+                    &.blog{
+                        background-color: @blogColor;
+                    }
+
+                    &.lab{
+                        background-color: @labColor;
+                    }
+
+                    &.about{
+                        background-color: @aboutColor;
+                    }
+
+                    &.portfolio{
+                        background-color: @portfolioColor;
+                    }
+
+                    &.contact{
+                        background-color: @contactColor;
+                    }
+                }
+            }
         }
     }
 
