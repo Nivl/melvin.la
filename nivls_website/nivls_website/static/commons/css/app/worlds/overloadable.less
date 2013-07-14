@@ -1,8 +1,11 @@
-a {
-    color: @worldColor;
 
-    &:hover {
-        color : @worldColor;
+:not(.label) {
+    & > a {
+        color: @worldColor;
+
+        &:hover {
+            color : @worldColor;
+        }
     }
 }
 
