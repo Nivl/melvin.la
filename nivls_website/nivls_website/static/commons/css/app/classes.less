@@ -13,6 +13,15 @@
     text-align: center;
 }
 
+.tagscloud {
+    width: 300px;
+
+    a {
+        &:hover {
+            color: @homeColor;
+        }
+    }
+}
 
 .navbar {
     .navbar-inner {
@@ -86,7 +95,7 @@
             position: relative;
             .transition(all 0.1s linear);
 
-            &:hover{
+            &:hover {
                 background-color: @homeColor;
                 color: white;
 
@@ -101,7 +110,7 @@
                 }
             }
 
-            &.private:hover{
+            &.private:hover {
                 background-color: @lightRed !important;
             }
 
@@ -156,7 +165,7 @@
         }
     }
 
-    .row:first-child{
+    .row:first-child {
         .post {
             border-top: 1px solid #eaeadd;
         }

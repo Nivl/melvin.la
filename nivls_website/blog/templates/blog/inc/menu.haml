@@ -1,4 +1,4 @@
-- load blog_tags
+- load blog_tags i18n
 
 #page-menu-icon
         %a{'href': '#'}
@@ -25,13 +25,10 @@
                                     Menu
                                 .nav-collapse.collapse.pull-right
                                     %ul.nav{'role': 'complementary'}
-                                        %li.dropdown
-                                            %a.dropdown-toggle{'data-toggle' : 'dropdown',
-                                                               'href'        :  '#'}
-                                                - trans "Categories"
-                                                %b.caret
-                                            %ul.dropdown-menu
-                                                - blog_categories
+                                        - blog_tagcloud
+                                        - blog_categories
+                                        - blog_archives
+                                        - blog_menus
 
 -# %ul#left-menu
     -# - blog_categories

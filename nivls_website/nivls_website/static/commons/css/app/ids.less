@@ -75,7 +75,6 @@
             .transition(all 200ms ease-in-out);
 
             a {
-
                 &:hover {
                     text-decoration: none;
                 }
@@ -104,6 +103,10 @@
             background-image: none;
             border: none;
             border-radius: 0;
+        }
+
+        .dropdown {
+            margin-left: 20px;
         }
     }
 
@@ -171,64 +174,6 @@
 
 ul#lab-nav-list {
     font-size: 13px
-}
-
-ul#left-menu {
-    position: fixed;
-    margin: 0px;
-    padding: 0px;
-    top: 230px;
-    left: 0px;
-    list-style: none;
-
-    & > li {
-        @height: 70px;
-
-        .size(@height, 350px);
-        z-index: 10;
-        margin-left: -320px;
-        background-color: fade(@bodyBackground, 60%);
-        border: 1px solid #d5d5d5;
-        .border-radius(10px);
-
-        .transition(all 200ms ease-in-out);
-
-        &.animate {
-            margin-left: -10px;
-        }
-
-        .content {
-            margin: 0;
-            padding: 0;
-            position: relative;
-            top: -70px;
-            z-index: 15;
-            .border-radius(10px);
-            width: 270px;
-            min-height: @height - 20;
-            padding: 10px 10px 10px 30px;
-            background-color: @bodyBackground;
-            border-bottom: 1px solid #d5d5d5;
-            border-right: 1px solid #d5d5d5;
-        }
-
-        & > .menu-icon {
-            color: #444;
-            display: block;
-            .size(@height, 70px);
-            background-repeat: no-repeat;
-            background-position: center center;
-            position: relative;
-            right: -302px;
-            top: 25px;
-
-            & > i {
-                margin-left: 20px;
-                margin-top: 25px;
-                font-size: 25px;
-            }
-        }
-    }
 }
 
 #body {
