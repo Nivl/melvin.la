@@ -15,6 +15,6 @@ django-simple-captcha==0.3.6
 django-social-auth==0.7.21
 hamlpy==0.82.2
 html5lib==0.95
-johnny-cache==1.4
+-e git+https://github.com/jmoiron/johnny-cache.git@c7d8859df43835198cb3523e9089f058d1e9c34d#egg=johnny_cache-dev
 python-memcached==1.48
 pytz==2012j
