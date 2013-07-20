@@ -23,7 +23,7 @@
             .navbar-inner
               .container-fluid
 
-                %a.btn.btn-navbar{'data-toggle': "collapse", 'data-target': ".nav-collapse"}
+                %a.btn.btn-navbar{'data-toggle': "collapse", 'data-target': "#main-menu-collapse"}
                   %span.icon-bar
                   %span.icon-bar
                   %span.icon-bar
@@ -31,7 +31,7 @@
                 %a.brand{'href': '{% url "home" %}'}<
                     {{ ADMIN.get_full_name }}
 
-                .nav-collapse{'role': 'navigation'}
+                #main-menu-collapse.nav-collapse{'role': 'navigation'}
                   %ul#navbar-main-list.nav.pull-right
                     %li#navbar-blog.blog{'class': '{% block "menu-blog" %}{% endblock %}'}
                       %a{'data-depth' : '1',

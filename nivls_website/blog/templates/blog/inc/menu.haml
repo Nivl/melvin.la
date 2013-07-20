@@ -15,7 +15,7 @@
                             .container
                                 %button.btn.btn-navbar{'type'        : 'button',
                                                        'data-toggle' : 'collapse',
-                                                       'data-target' : '.nav-collapse'}
+                                                       'data-target' : '#submenu-collapse'}
                                     %span.icon-bar
                                     %span.icon-bar
                                     %span.icon-bar
@@ -23,7 +23,7 @@
                                     %strong
                                         - trans 'Blog'
                                     Menu
-                                .nav-collapse.collapse.pull-right
+                                #submenu-collapse.nav-collapse.collapse.pull-right
                                     %ul.nav{'role': 'complementary'}
                                         - blog_tagcloud
                                         - blog_categories
