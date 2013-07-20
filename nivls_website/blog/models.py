@@ -109,27 +109,13 @@ class Category(models.Model):
     slug = models.SlugField(
         verbose_name=_("slug"))
 
-    description = models.CharField(
-        max_length=80,
-        blank=True,
-        null=True,
-        verbose_name=_("description"))
-
-    is_root = models.BooleanField(
-        verbose_name=_("is root"))
-
-    left = models.PositiveIntegerField(
-        verbose_name=_("left"))
-
-    right = models.PositiveIntegerField(
-        verbose_name=_("right"))
+    order = models.PositiveSmallIntegerField(
+        default=0,
+        verbose_name=_("order"))
 
     seo = generic.GenericRelation(
         SeoEverywhere,
         related_name='seo_category_blog')
-
-    def has_child(self):
-        return self.right - self.left > 1
 
     def get_absolute_url(self):
         return reverse('category', kwargs={'slug': self.slug})
@@ -148,11 +134,9 @@ class Category(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['order']
         verbose_name_plural = "Categories"
-        unique_together = (
-            ('site', 'right'),
-            ('site', 'left'),
-            ('site', 'slug'))
+        unique_together = (('site', 'slug'))
 
 
 class Post(models.Model):

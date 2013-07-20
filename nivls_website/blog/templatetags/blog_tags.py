@@ -74,23 +74,5 @@ def blog_tagcloud():
 
 @register.inclusion_tag("blog/templatetags/categories.haml")
 def blog_categories():
-    categories = Category.objects.filter(site=settings.SITE_ID) \
-        .order_by('left')
-
-    cat_list = list()
-    if categories:
-        for i, cat in enumerate(categories):
-            cat_list.append(cat)
-            if cat.is_root:
-                last_root = cat
-            if i != 0 and (not cat.is_root or not categories[i - 1].is_root):
-                r = cat.left - categories[i - 1].right
-                if r > 1:
-                    for j in range(r - 1):
-                        cat_list.insert(cat_list.index(cat), 'level_down')
-                if i == len(categories) - 1:
-                    for j in range(last_root.right - cat.right):
-                        cat_list.append('level_down')
-            if cat.has_child():
-                cat_list.append('level_up')
-    return {'nested_tree': cat_list}
+    categories = Category.objects.filter(site=settings.SITE_ID)
+    return {'categories': categories}

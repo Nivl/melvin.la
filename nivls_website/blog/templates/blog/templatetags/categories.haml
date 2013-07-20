@@ -1,21 +1,15 @@
 - load i18n
 
-- if nested_tree
+- if categories
     %li.dropdown
         %a.dropdown-toggle{'data-toggle' : 'dropdown',
                            'href'        :  '#'}
             - trans "Categories"
             %b.caret
         %ul.dropdown-menu
-            - for object in nested_tree
-                - if object == "level_down"
-                    </ul>
-                - elif object == "level_up"
-                    <ul class="nested_tree_child">
-                - else
-                    <li>
-                        <a data-depth="10"
-                           data-ajax="body-content-only"
-                           href="{{ object.get_absolute_url }}">
-                            {{ object.name }}
-                        </a>
+            - for cat in categories
+                %li
+                    %a{'data-depth' : '10',
+                       'data-ajax'  : 'body-content-only',
+                       'href'       : '{{ cat.get_absolute_url }}'}
+                        {{ cat.name }}
