@@ -27,24 +27,9 @@ class Tag(models.Model):
     slug = models.SlugField(
         verbose_name=_("slug"))
 
-    icon_enabled = models.ImageField(
-        upload_to='lab/icons/',
-        help_text='32x32',
-        verbose_name=_("icon 'enabled'"))
-
-    icon_disabled = models.ImageField(
-        upload_to='lab/icons/',
-        help_text='32x32',
-        verbose_name=_("icon 'disabled'"))
-
     seo = generic.GenericRelation(
         SeoEverywhere,
         related_name='lab_tag_seo')
-
-    def admin_thumbnail(self):
-        return u'<img src="%s" />' % (self.icon_enabled.url)
-    admin_thumbnail.short_description = 'Thumbnail'
-    admin_thumbnail.allow_tags = True
 
     def get_absolute_url(self):
         return reverse('lab-tag', kwargs={'slug': self.slug})

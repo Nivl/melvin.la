@@ -56,7 +56,7 @@ class DLIconAdmin(admin.ModelAdmin):
 
 
 class TagAdmin(CommonAdminWithSlug):
-    list_display = ['admin_thumbnail', 'name']
+    list_display = ['name']
     inlines = [InlineSeo]
 
 
