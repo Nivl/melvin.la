@@ -11,6 +11,8 @@
     - trans "Blog"
 - block "page-subtitle"
     - trans "Where I tell my life story"
+- block "page-menu"
+    - include "blog/inc/menu.haml"
 
 - block "app_js"
     - block "app_sub_js"
@@ -49,5 +51,3 @@
         .row
             #body-content-only.span12{'role': 'main'}
                 - block "content"
-
-            {% include "blog/inc/menu.html" %}
