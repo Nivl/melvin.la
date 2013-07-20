@@ -44,7 +44,7 @@ if (Modernizr.history) {
             var i = 0;
 
             // Replace without fade
-            to_change = ['#app-js', '#page-title', '#page-subtitle'];
+            to_change = ['#app-js', '#page-title', '#bottom-header'];
             for (i=0; i<to_change.length; i++) {
                 $(to_change[i]).html(response.find(to_change[i])
                                              .html());
