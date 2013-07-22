@@ -16,7 +16,7 @@ def contact_form(request):
         if form.is_valid():
             md = markdown.Markdown(safe_mode='escape')
 
-            msg = md(form.cleaned_data['message'])
+            msg = md.convert(form.cleaned_data['message'])
             msg += "\n\n\n" + ('-' * 80)
             msg += "\n\n Ip : " + request.META["REMOTE_ADDR"]
 
