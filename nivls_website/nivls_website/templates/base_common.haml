@@ -15,154 +15,154 @@
         %p
             Live editing mode activated
 
-  %header{'class': '{% block "header-classes" %}{% endblock %}'}
-    .container
-      .row
-        .span12
-          #navbar.navbar
-            .navbar-inner
-              .container-fluid
+    %header{'class': '{% block "header-classes" %}{% endblock %}'}
+        #navbar.navbar
+            .container
+                %button.navbar-toggle{'data-toggle': "collapse", 'data-target': "#main-menu-collapse"}
+                    %span.icon-bar
+                    %span.icon-bar
+                    %span.icon-bar
 
-                %a.btn.btn-navbar{'data-toggle': "collapse", 'data-target': "#main-menu-collapse"}
-                  %span.icon-bar
-                  %span.icon-bar
-                  %span.icon-bar
-
-                %a.brand{'href': '{% url "home" %}'}<
+                %a.navbar-brand{'href': '{% url "home" %}'}<
                     {{ ADMIN.get_full_name }}
 
-                #main-menu-collapse.nav-collapse{'role': 'navigation'}
-                  %ul#navbar-main-list.nav.pull-right
-                    %li#navbar-blog.blog{'class': '{% block "menu-blog" %}{% endblock %}'}
-                      %a{'data-depth' : '1',
-                         'title'      : '{% trans "Blog" %}',
-                         'data-ajax'  : 'body-content',
-                         'href'       : '{% url "blog" %}'}<
-                        - trans "Blog"
+                #main-menu-collapse.nav-collapse.collapse{'role': 'navigation'}
+                    %ul#navbar-main-list.nav.navbar-nav.pull-right
+                        %li#navbar-blog.blog{'class': '{% block "menu-blog" %}{% endblock %}'}
+                            %a{'data-depth' : '1',
+                               'title'      : '{% trans "Blog" %}',
+                               'data-ajax'  : 'body-content',
+                               'href'       : '{% url "blog" %}'}<
+                                - trans "Blog"
 
-                    %li#navbar-lab.lab{'class': '{% block "menu-lab" %}{% endblock %}'}
-                      %a{'data-depth' : '1',
-                         'data-ajax'  : 'body-content',
-                         'href'       : '{% url "lab" %}',
-                         'title'      : '{% trans "Lab" %}'}<
-                        - trans "Lab"
+                        %li#navbar-lab.lab{'class': '{% block "menu-lab" %}{% endblock %}'}
+                            %a{'data-depth' : '1',
+                               'data-ajax'  : 'body-content',
+                               'href'       : '{% url "lab" %}',
+                               'title'      : '{% trans "Lab" %}'}<
+                                - trans "Lab"
 
-                    %li#navbar-about.about{'class': '{% block "menu-about" %}{% endblock %}'}
-                      %a{'data-depth' : '1',
-                         'rel'        : 'author',
-                         'data-ajax'  : 'body-content',
-                         'title'      : '{% trans "About" %}',
-                         'href'       : '{% url "about" %}'}<
-                        - trans "About"
+                        %li#navbar-about.about{'class': '{% block "menu-about" %}{% endblock %}'}
+                            %a{'data-depth' : '1',
+                               'rel'        : 'author',
+                               'data-ajax'  : 'body-content',
+                               'title'      : '{% trans "About" %}',
+                               'href'       : '{% url "about" %}'}<
+                                - trans "About"
 
-                    %li#navbar-portfolio.portfolio{'class': '{% block "menu-portfolio" %}{% endblock %}'}
-                      %a{'data-depth' : '1',
-                         'data-ajax'  : 'body-content',
-                         'title'      : '{% trans "Portfolio" %}',
-                         'href'       : '{% url "portfolio" %}'}<
-                        - trans "Portfolio"
+                        %li#navbar-portfolio.portfolio{'class': '{% block "menu-portfolio" %}{% endblock %}'}
+                            %a{'data-depth' : '1',
+                               'data-ajax'  : 'body-content',
+                               'title'      : '{% trans "Portfolio" %}',
+                               'href'       : '{% url "portfolio" %}'}<
+                                - trans "Portfolio"
 
-                    %li#navbar-contact.contact{'class': '{% block "menu-contact" %}{% endblock %}'}
-                      %a{'data-depth' : '1',
-                         'data-ajax'  : 'body-content',
-                         'title'      : '{% trans "Contact" %}',
-                         'href'       : '{% url "contact" %}'}<
-                        - trans "Contact"
+                        %li#navbar-contact.contact{'class': '{% block "menu-contact" %}{% endblock %}'}
+                            %a{'data-depth' : '1',
+                               'data-ajax'  : 'body-content',
+                               'title'      : '{% trans "Contact" %}',
+                               'href'       : '{% url "contact" %}'}<
+                                - trans "Contact"
 
-                    %li.dropdown.user{'class': '{% block "menu-user" %}{% endblock %}'}
-                      %a.dropdown-toggle{'href': '#',
-                                         'data-toggle': 'dropdown'}<
-                        %i.icon-cog
+                        %li.dropdown.user{'class': '{% block "menu-user" %}{% endblock %}'}
+                            %a.dropdown-toggle{'href': '#',
+                                               'data-toggle': 'dropdown'}<
+                                %i.icon-cog
 
-                      %ul.dropdown-menu
-                        - if not user.is_authenticated
-                          %li
-                            %a{'data-ajax'  : 'body-content',
-                               'data-depth' : '1',
-                               'title'      : '{% trans "Sign up" %}',
-                               'href'       : '{% url "sign-up" %}'}<
-                              - trans "Sign up"
+                            %ul.dropdown-menu
+                                - if not user.is_authenticated
+                                    %li
+                                        %a{'data-ajax'  : 'body-content',
+                                           'data-depth' : '1',
+                                           'title'      : '{% trans "Sign up" %}',
+                                           'href'       : '{% url "sign-up" %}'}<
+                                            - trans "Sign up"
 
-                          %li
-                            %a{'data-ajax'  : 'body-content',
-                               'data-depth'  : '1',
-                               'title'       : '{% trans "I lost my password" %}',
-                               'href'        : '{% url "reset-password" %}'}<
-                              - trans "I lost my password"
+                                    %li
+                                        %a{'data-ajax'  : 'body-content',
+                                           'data-depth'  : '1',
+                                           'title'       : '{% trans "I lost my password" %}',
+                                           'href'        : '{% url "reset-password" %}'}<
+                                            - trans "I lost my password"
 
-                          %li.divider
+                                    %li.divider
 
-                          %li.login-box<
-                            %h5 {% trans "Sign in" %}
+                                    %li.login-box<
+                                        %h5 {% trans "Sign in" %}
 
-                            .social-media-box.clearfix
-                              %p.login-sm.pull-left<
-                                - trans "Sign in with:"
+                                        .social-media-box.clearfix
+                                            %p.login-sm.pull-left<
+                                                - trans "Sign in with:"
 
-                              %ul.nav.nav-pills.social-medias-icons<
-                                {{ social_auth.backends|social_sign_in_links:request }}
+                                            %ul.nav.nav-pills.social-medias-icons<
+                                                {{ social_auth.backends|social_sign_in_links:request }}
 
-                            %p<
-                              - trans "Or sign in using your account:"
+                                        %p<
+                                            - trans "Or sign in using your account:"
 
-                            %form{'action': '{% url "sign-in" %}', 'method': 'post'}
-                              {% csrf_token %}
-                                %input{'placeholder': '{{ _("Username")|force_escape }}',
-                                     'id'         : 'id_username',
-                                     'name'       : 'username',
-                                     'type'       : 'text'}
-                              %input{'placeholder': '{% trans "Password" %}',
-                                    'type'        : 'password',
-                                    'id'          : 'id_password',
-                                    'name'        : 'password'}
-                              %input{'type': 'hidden',
-                                     'name': 'next',
-                                     'value': '{{ request.get_full_path }}'}
-                              %input.btn.btn-primary{'value': '{% trans "Sign in" %}',
-                                                     'type': 'submit'}
-                        - else
-                          %li.nav-header.center-text {{ user.username }}
+                                        %form{'action': '{% url "sign-in" %}', 'method': 'post'}
+                                            {% csrf_token %}
 
-                          %li.divider
+                                            %input{'placeholder': '{{ _("Username")|force_escape }}',
+                                                   'id'         : 'id_username',
+                                                   'name'       : 'username',
+                                                   'type'       : 'text'}
 
-                          %li
-                            %a{'data-ajax'  : 'body-content',
-                               'data-depth' : '1',
-                               'title'      : '{% trans "My profile" %}',
-                               'href'       : '{{ user.get_absolute_url }}'}
-                              %i.icon-user
-                              - trans "My profile"
 
-                          %li{'class': '{% if not user.get_profile.has_password %}important{% endif %}'}
-                            %a{'data-ajax'  : 'body-content',
-                               'data-depth' : '1',
-                               'title'      : '{% trans "Edit my account" %}',
-                               'href'       : '{% url "edit-account" %}'}
-                              %i.icon-edit
-                              - trans "Edit my account"
+                                            %input{'placeholder' : '{% trans "Password" %}',
+                                                   'type'        : 'password',
+                                                   'id'          : 'id_password',
+                                                   'name'        : 'password'}
 
-                          %li
-                            %a{'data-ajax'  : 'body-content',
-                               'data-depth' : '1',
-                               'title'      : '{% trans "Edit my profile picture" %}',
-                               'href'       : '{% url "edit-picture" %}'}
-                              %i.icon-camera
-                              - trans "Edit my profile picture"
+                                            %input{'type': 'hidden',
+                                                    'name': 'next',
+                                                    'value': '{{ request.get_full_path }}'}
 
-                          %li
-                            %a{'data-ajax'  : 'body-content',
-                               'data-depth' : '1',
-                               'title'      : '{% trans "Social media accounts" %}',
-                               'href'       : '{% url "manage-social-account" %}'}
-                              %i.icon-tasks
-                              - trans "Social media accounts"
+                                            %input.btn.btn-primary{'value': '{% trans "Sign in" %}',
+                                                                   'type': 'submit'}
+                                - else
+                                    %li.nav-header.center-text {{ user.username }}
 
-                          %li.divider
+                                    %li.divider
 
-                          %li
-                            %a{'href': '{% url "sign-out" %}?next={{ request.get_full_path }}'}
-                              %i.icon-off
-                              - trans "Sign out"
+                                    %li
+                                        %a{'data-ajax'  : 'body-content',
+                                           'data-depth' : '1',
+                                           'title'      : '{% trans "My profile" %}',
+                                           'href'       : '{{ user.get_absolute_url }}'}
+                                            %i.icon-user
+                                            - trans "My profile"
+
+                                    %li{'class': '{% if not user.get_profile.has_password %}important{% endif %}'}
+                                        %a{'data-ajax'  : 'body-content',
+                                           'data-depth' : '1',
+                                           'title'      : '{% trans "Edit my account" %}',
+                                           'href'       : '{% url "edit-account" %}'}
+                                            %i.icon-edit
+                                            - trans "Edit my account"
+
+                                    %li
+                                        %a{'data-ajax'  : 'body-content',
+                                           'data-depth' : '1',
+                                           'title'      : '{% trans "Edit my profile picture" %}',
+                                           'href'       : '{% url "edit-picture" %}'}
+                                            %i.icon-camera
+                                            - trans "Edit my profile picture"
+
+                                    %li
+                                        %a{'data-ajax'  : 'body-content',
+                                           'data-depth' : '1',
+                                           'title'      : '{% trans "Social media accounts" %}',
+                                           'href'       : '{% url "manage-social-account" %}'}
+                                            %i.icon-tasks
+                                            - trans "Social media accounts"
+
+                                    %li.divider
+
+                                    %li
+                                        %a{'href': '{% url "sign-out" %}?next={{ request.get_full_path }}'}
+                                            %i.icon-off
+                                            - trans "Sign out"
 
     #middle-header
       .container

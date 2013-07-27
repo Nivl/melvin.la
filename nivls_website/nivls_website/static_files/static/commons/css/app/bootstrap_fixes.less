@@ -1,0 +1,22 @@
+#navbar {
+    margin-bottom: 0px;
+    background-color: #fff;
+
+    #navbar-main-list {
+        @height: 60px;
+        height: @height;
+
+        & > li {
+            height: @height;
+
+            &.active {
+                .box-shadow(inset 0 3px 8px rgba(0,0,0,0.125));
+            }
+
+            a {
+                height: @height;
+            }
+        }
+    }
+}
+

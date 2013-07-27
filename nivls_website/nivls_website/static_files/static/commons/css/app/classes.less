@@ -23,64 +23,59 @@
     }
 }
 
-.navbar {
-    .navbar-inner {
-        border: none;
-        .box-shadow(none);
-
-        .blog {
-            & > a {
-                border-top: solid 3px @blogColor;
-            }
+#navbar {
+    .blog {
+        & > a {
+            border-top: solid 3px @blogColor;
         }
+    }
 
-        .lab {
-            & > a {
-                border-top: solid 3px @labColor;
-            }
+    .lab {
+        & > a {
+            border-top: solid 3px @labColor;
         }
+    }
 
-        .about {
-            & > a {
-                border-top: solid 3px @aboutColor;
-            }
+    .about {
+        & > a {
+            border-top: solid 3px @aboutColor;
         }
+    }
 
-        .portfolio {
-            & > a {
-                border-top: solid 3px @portfolioColor;
-            }
+    .portfolio {
+        & > a {
+            border-top: solid 3px @portfolioColor;
         }
+    }
 
-        .contact {
-            & > a {
-                border-top: solid 3px @contactColor;
-            }
+    .contact {
+        & > a {
+            border-top: solid 3px @contactColor;
         }
+    }
 
-        .user {
-            & > a {
-                border-top: solid 3px @userColor;
-            }
+    .user {
+        & > a {
+            border-top: solid 3px @userColor;
         }
+    }
 
-        .blog, .lab, .about, .portfolio, .contact, .user {
-            & > a {
-                .transition(all 0.15s linear);
-                padding-top: 15px;
+    .blog, .lab, .about, .portfolio, .contact, .user {
+        & > a {
+            .transition(all 0.15s linear);
+            padding-top: 15px;
 
-                &:hover, &:focus {
-                    border-top-width: 6px;
-                    padding-top: 12px;
-                }
-            }
-        }
-
-        #navbar-main-list > .active {
-            a {
+            &:hover, &:focus {
                 border-top-width: 6px;
                 padding-top: 12px;
             }
+        }
+    }
+
+    #navbar-main-list > .active {
+        a {
+            border-top-width: 6px;
+            padding-top: 12px;
         }
     }
 }
