@@ -134,7 +134,6 @@ PIPELINE_CSS = {
 
     'main': {'source_filenames': ('commons/css/app/main.less',
                                   'commons/css/app/Markdown.Editor.less',
-                                  'commons/css/responsive/bootstrap-responsive.min.css',
                                   'commons/css/responsive/main-responsive.less',
                                   ),
              'output_filename': 'commons/compiled/styles.css',

@@ -21,9 +21,6 @@
 
 
 - block "breadcrumb-subcontent"
-    %li
-        %span.divider
-            \/
     %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
         %a{'itemprop'   : 'url',
            'data-depth' : '10',
@@ -32,9 +29,7 @@
            'href'       : '{{ post.category.get_absolute_url }}'}
             %span{'itemprop': 'title'}
                 {{ post.category.name }}
-    %li
-        %span.divider
-            \/
+
     %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
         %a{'itemprop'   : 'url',
            'data-depth' : '30',

@@ -29,10 +29,7 @@
               'href'    : '{{ obj.feed.rss }}'}
 
 - block "breadcrumb-subcontent"
-    %li
-        %span.divider
-            \/
-    %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+     %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
         %a{'itemprop': 'url',
            'data-depth' : '10',
            'data-ajax'  : 'body-content-only',

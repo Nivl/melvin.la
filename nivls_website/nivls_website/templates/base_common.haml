@@ -194,13 +194,10 @@
               %ul#breadcrumb.breadcrumb{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
                 %li<
                   - trans "You are here"
-                %li<
-                  %span.divider →
-                %li
-                  %a{'href': '{% url "home" %}', 'itemprop': 'url'}
-                    %span{'itemprop': 'title'}
-                      - trans "Home"
-                - block "breadcrumb-content"
+                   →
+                   %a{'href': '{% url "home" %}', 'itemprop': 'url'}
+                        %span{'itemprop': 'title'}
+                        - trans "Home"
 
     #bottom-header
       - block "page-menu"

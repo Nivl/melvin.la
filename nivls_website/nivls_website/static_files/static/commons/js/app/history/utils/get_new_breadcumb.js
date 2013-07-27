@@ -13,18 +13,9 @@ if (Modernizr.history) {
                 if (children.data('depth') >= $(that).data('depth')) {
                     $(this).nextAll().remove();
                     $(this).remove();
-                    if (prev.length) {
-                        prev.children('span').remove();
-                    }
-
                 }
             }
         });
-
-        if (breadcrumb.children('li').last().length) {
-            breadcrumb.children('li').last()
-                .append('<span class="divider">/<span/>');
-        }
 
         var new_elem = "<li itemtype='http://data-vocabulary.org/Breadcrumb' itemscope><a";
         new_elem += ' data-depth="' + $(that).data('depth') + '"';
