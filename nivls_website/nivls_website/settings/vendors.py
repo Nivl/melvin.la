@@ -128,7 +128,7 @@ PIPELINE_CSS = {
                                     ),
                'output_filename': 'commons/compiled/assets.css',
                'variant': 'datauri',
-             },
+               },
 
     'main': {'source_filenames': ('commons/css/app/main.less',
                                   'commons/css/app/Markdown.Editor.less',
