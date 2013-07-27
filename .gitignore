@@ -12,3 +12,4 @@ private.py
 *.json
 TODO
 nivlsWebsite.sublime-*
+node_modules/

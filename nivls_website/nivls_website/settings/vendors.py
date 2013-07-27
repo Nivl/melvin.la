@@ -93,6 +93,7 @@ STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 PIPELINE_JS = {
     'assets': {'source_filenames': ('django_js_utils.js',
                                     'js/*.js',
+                                    'commons/bootstrap/dist/js/bootstrap.min.js',
                                     'commons/js/libs/*.js',
                                     'commons/js/plugins/*.js',
                                     ),
@@ -123,7 +124,8 @@ PIPELINE_JS = {
 }
 
 PIPELINE_CSS = {
-    'assets': {'source_filenames': ('commons/css/libs/*.css',
+    'assets': {'source_filenames': ('commons/bootstrap/dist/css/bootstrap.min.css',
+                                    'commons/css/libs/*.css',
                                     'commons/css/plugins/*.css',
                                     ),
                'output_filename': 'commons/compiled/assets.css',
