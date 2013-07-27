@@ -165,39 +165,42 @@
                                             - trans "Sign out"
 
     #middle-header
-      .container
-        .row
-          .span12
-            .wrapper
+        .container
+            .row
+                .wrapper
+                    .col-lg-10
+                        %h1#page-title<
+                            - block "page-title"
+                                - trans "Welcome"
 
-              %form.form-search.navbar-search.pull-right{'method'     : 'get',
-                                                         'action'     : '{% url "haystack_search" %}',
-                                                         'data-ajax'  : 'body-content',
-                                                         'data-depth' : '1',
-                                                         'title'      : '{% trans "Search" %}'}
-                .input-append
-                  %input.search-query{'type'          : 'text',
-                                      'placeholder'   : 'Search',
-                                      'name'          : 'q',
-                                      'data-provide'  : 'typeahead',
-                                      'data-items'    : '6'}
-                  %button.btn{'type': 'submit'}
-                    %i.icon-search
+                    .col-lg-2
+                        %form.search-form{'method'     : 'get',
+                                          'action'     : '{% url "haystack_search" %}',
+                                          'data-ajax'  : 'body-content',
+                                          'data-depth' : '1',
+                                          'title'      : '{% trans "Search" %}'}
 
-              %h1#page-title<
-                - block "page-title"
-                  - trans "Welcome"
+                            .input-group
+                                %input.form-control{'type'          : 'text',
+                                                    'placeholder'   : 'Search',
+                                                    'name'          : 'q',
+                                                    'data-provide'  : 'typeahead',
+                                                    'data-items'    : '6'}
 
-        .row.margin-top-1
-          .span12.clearfix
-            - block "breadcrumb"
-              %ul#breadcrumb.breadcrumb{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
-                %li<
-                  - trans "You are here"
-                   →
-                   %a{'href': '{% url "home" %}', 'itemprop': 'url'}
-                        %span{'itemprop': 'title'}
-                        - trans "Home"
+                                %span.input-group-btn
+                                    %button.btn.btn-default{'type': 'submit'}
+                                        %i.icon-search
+
+            .row.margin-top-1
+                .col-lg-12.clearfix
+                    - block "breadcrumb"
+                        %ul#breadcrumb.breadcrumb{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
+                            %li<
+                                - trans "You are here"
+                                →
+                                %a{'href': '{% url "home" %}', 'itemprop': 'url'}
+                                    %span{'itemprop': 'title'}
+                                    - trans "Home"
 
     #bottom-header
       - block "page-menu"
