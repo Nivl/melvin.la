@@ -41,7 +41,8 @@ STATIC_URL = 'http://static.' + DOMAIN_NAME + '/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"  # rm when 1.4
 
 STATICFILES_DIRS = (
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "static")),
+    os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'static_files', 'static')),
+    os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'static_files', 'vendors', 'bootstrap', 'dist', 'static')),
 )
 
 STATICFILES_FINDERS = (

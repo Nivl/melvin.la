@@ -21,7 +21,7 @@ module.exports = function(grunt) {
             },
             bootstrap: {
                 src: ['js/transition.js', 'js/alert.js', 'js/button.js', 'js/carousel.js', 'js/collapse.js', 'js/dropdown.js', 'js/modal.js', 'js/tooltip.js', 'js/popover.js', 'js/scrollspy.js', 'js/tab.js', 'js/affix.js'],
-                dest: 'dist/js/<%= pkg.name %>.js'
+                dest: 'dist/static/bootstrap/js/<%= pkg.name %>.js'
             }
         },
         jshint: {
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
             },
             bootstrap: {
                 files: {
-                    'dist/css/bootstrap.css': ['less/bootstrap.less']
+                    'dist/static/bootstrap/css/bootstrap.css': ['less/bootstrap.less']
                 }
             },
             min: {
@@ -49,7 +49,7 @@ module.exports = function(grunt) {
                     compress: true
                 },
                 files: {
-                    'dist/css/bootstrap.min.css': ['less/bootstrap.less']
+                    'dist/static/bootstrap/css/bootstrap.min.css': ['less/bootstrap.less']
                 }
             }
         },
@@ -59,7 +59,7 @@ module.exports = function(grunt) {
             },
             bootstrap: {
                 files: {
-                    'dist/js/<%= pkg.name %>.min.js': ['<%= concat.bootstrap.dest %>']
+                    'dist/static/bootstrap/js/<%= pkg.name %>.min.js': ['<%= concat.bootstrap.dest %>']
                 }
             }
         },
