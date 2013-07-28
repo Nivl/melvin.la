@@ -6,7 +6,7 @@ South==0.8.1
 Whoosh==2.4.1
 akismet==0.2.0
 cssmin==0.1.4
-django-bootstrap-form==2.0.5
+django-bootstrap-form==2.0.6
 django-debug-toolbar==0.9.4
 django-haystack==1.2.7
 django-js-utils==0.0.5dev
