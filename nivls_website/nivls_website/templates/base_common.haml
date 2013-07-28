@@ -9,6 +9,7 @@
 
     - if not request.is_ajax
         - include "inc/browser_warning.haml"
+        - include "inc/signin.haml"
         - include "inc/help.haml"
 
     #editing-mode-box
@@ -64,63 +65,72 @@
                                'href'       : '{% url "contact" %}'}<
                                 - trans "Contact"
 
+
                         %li.dropdown.user{'class': '{% block "menu-user" %}{% endblock %}'}
-                            %a.dropdown-toggle{'href': '#',
-                                               'data-toggle': 'dropdown'}<
-                                %i.icon-cog
+                            - if not user.is_authenticated
 
-                            %ul.dropdown-menu
-                                - if not user.is_authenticated
-                                    %li
-                                        %a{'data-ajax'  : 'body-content',
-                                           'data-depth' : '1',
-                                           'title'      : '{% trans "Sign up" %}',
-                                           'href'       : '{% url "sign-up" %}'}<
-                                            - trans "Sign up"
+                                %a{'href': '#sign-in', 'data-toggle': 'modal'}<
+                                    %i.icon-cog
 
-                                    %li
-                                        %a{'data-ajax'  : 'body-content',
-                                           'data-depth'  : '1',
-                                           'title'       : '{% trans "I lost my password" %}',
-                                           'href'        : '{% url "reset-password" %}'}<
-                                            - trans "I lost my password"
+                                -# %ul.dropdown-menu
 
-                                    %li.divider
+                                -#     %li
+                                -#         %a{'data-ajax'  : 'body-content',
+                                -#            'data-depth' : '1',
+                                -#            'title'      : '{% trans "Sign up" %}',
+                                -#            'href'       : '{% url "sign-up" %}'}<
+                                -#             - trans "Sign up"
 
-                                    %li.login-box<
-                                        %h5 {% trans "Sign in" %}
+                                -#     %li
+                                -#         %a{'data-ajax'  : 'body-content',
+                                -#            'data-depth'  : '1',
+                                -#            'title'       : '{% trans "I lost my password" %}',
+                                -#            'href'        : '{% url "reset-password" %}'}<
+                                -#             - trans "I lost my password"
 
-                                        .social-media-box.clearfix
-                                            %p.login-sm.pull-left<
-                                                - trans "Sign in with:"
+                                -#     %li.divider
 
-                                            %ul.nav.nav-pills.social-medias-icons<
-                                                {{ social_auth.backends|social_sign_in_links:request }}
+                                -#     %li.login-box<
+                                -#         %h5 {% trans "Sign in" %}
 
-                                        %p<
-                                            - trans "Or sign in using your account:"
+                                -#         .social-media-box.clearfix
+                                -#             %p.login-sm.pull-left<
+                                -#                 - trans "Sign in with:"
 
-                                        %form{'action': '{% url "sign-in" %}', 'method': 'post'}
-                                            {% csrf_token %}
+                                -#             %ul.nav.nav-pills.social-medias-icons<
+                                -#                 {{ social_auth.backends|social_sign_in_links:request }}
 
-                                            %input{'placeholder': '{{ _("Username")|force_escape }}',
-                                                   'id'         : 'id_username',
-                                                   'name'       : 'username',
-                                                   'type'       : 'text'}
+                                -#         %p<
+                                -#             - trans "Or sign in using your account:"
 
+                                -#         %form{'action': '{% url "sign-in" %}', 'method': 'post'}
+                                -#             {% csrf_token %}
 
-                                            %input{'placeholder' : '{% trans "Password" %}',
-                                                   'type'        : 'password',
-                                                   'id'          : 'id_password',
-                                                   'name'        : 'password'}
+                                -#             .form-group
+                                -#                 %input.form-control{'placeholder': '{{ _("Username")|force_escape }}',
+                                -#                        'id'         : 'id_username',
+                                -#                        'name'       : 'username',
+                                -#                        'type'       : 'text'}
 
-                                            %input{'type': 'hidden',
-                                                    'name': 'next',
-                                                    'value': '{{ request.get_full_path }}'}
+                                -#             .form-group
+                                -#                 %input.form-control{'placeholder' : '{% trans "Password" %}',
+                                -#                        'type'        : 'password',
+                                -#                        'id'          : 'id_password',
+                                -#                        'name'        : 'password'}
 
-                                            %input.btn.btn-primary{'value': '{% trans "Sign in" %}',
-                                                                   'type': 'submit'}
-                                - else
+                                -#             %input{'type': 'hidden',
+                                -#                     'name': 'next',
+                                -#                     'value': '{{ request.get_full_path }}'}
+
+                                -#             %input.btn.btn-primary{'value': '{% trans "Sign in" %}',
+                                -#                                    'type': 'submit'}
+                            - else
+
+                                %a.dropdown-toggle{'href': '#',
+                                                   'data-toggle': 'dropdown'}<
+                                    %i.icon-cog
+
+                                %ul.dropdown-menu
                                     %li.nav-header.center-text {{ user.username }}
 
                                     %li.divider
