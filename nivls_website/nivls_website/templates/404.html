@@ -8,19 +8,20 @@
 {% endblock %}
 
 {% block "body" %}
-  <div class="content">
-    <div class="row">
-      <div class="span7 offset5">
-	<h1>404 <small>Page not found</small></h1>
-	<div class="msg">
-	  <p>
-	    Sorry but this page no longer exists (or has never existed).
-	  </p>
-	  <p>
-	    You can go <a href="#" onClick="javascript: history.go(-1); return false;">back</a>, go to the <a href="{% url "home" %}">home page</a>, or <a href="{% url "contact" %}">contact us</a>.
-	  </p>
-	</div>
-      </div>
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-7 col-offset-4">
+                <h1>404 <small>Page not found</small></h1>
+
+                <div class="msg">
+                    <p>
+                        Sorry but this page no longer exists (or has never existed).
+                    </p>
+                    <p>
+                        You can go <a href="#" onClick="javascript: history.go(-1); return false;">back</a>, go to the <a href="{% url "home" %}">home page</a>, or <a href="{% url "contact" %}">contact us</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 {% endblock %}

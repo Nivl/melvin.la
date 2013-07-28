@@ -147,9 +147,8 @@ PIPELINE_CSS = {
                    'output_filename': 'commons/compiled/wkhtml2pdf.css',
                    },
 
-    'error': {'source_filenames': ('commons/css/libs/bootstrap.min.css',
+    'error': {'source_filenames': ('bootstrap/css/bootstrap.min.css',
                                    'commons/css/app/error.less',
-                                   'commons/css/responsive/bootstrap-responsive.min.css',
                                    ),
               'output_filename': 'commons/compiled/error.css',
               'variant': 'datauri',

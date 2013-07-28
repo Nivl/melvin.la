@@ -1,25 +1,27 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block "title" %}405 - Bad Request{% endblock %}
 
 {% block "local_css" %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}commons/compiled/error.css">
+  <link rel="stylesheet" href="{% static "commons/compiled/error.css" %}">
 {% endblock %}
 
 {% block "body" %}
-  <div class="content">
-    <div class="row">
-      <div class="span7 offset5">
-	<h1>405 <small>Method not allowed</small></h1>
-	<div class="msg">
-	  <p>
-	    You probably have javascript turned off. Try to enable it, <a href="#" onClick="javascript: history.go(-1); return false;">go back</a>, and try again.
-	  </p>
-	  <p>
-	    You can also <a href="{% url "contact" %}">contact us</a>, or go to the <a href="{% url "home" %}">home page</a>.
-	  </p>
-	</div>
-      </div>
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-7 col-offset-4">
+                <h1>405 <small>Method not allowed</small></h1>
+
+                <div class="msg">
+                    <p>
+                        You probably have javascript turned off. Try to enable it, <a href="#" onClick="javascript: history.go(-1); return false;">go back</a>, and try again.
+                    </p>
+                    <p>
+                        You can also <a href="{% url "contact" %}">contact us</a>, or go to the <a href="{% url "home" %}">home page</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 {% endblock %}
