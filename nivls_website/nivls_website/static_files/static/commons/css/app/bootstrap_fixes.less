@@ -28,11 +28,13 @@ h5 {
     line-height: 20px;
 }
 
-#navbar {
-    margin-bottom: 0px;
-    background-color: #fff;
+.navbar {
+    .navbar-brand {
+        .remove-selection();
+        cursor: pointer;
+    }
 
-    #navbar-main-list {
+    .nav-collapse > ul {
         @height: 60px;
         height: @height;
 
@@ -43,7 +45,7 @@ h5 {
                 .box-shadow(inset 0 3px 8px rgba(0,0,0,0.125));
             }
 
-            a {
+            & > a {
                 height: @height;
             }
         }

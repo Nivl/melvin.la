@@ -203,20 +203,20 @@
                                     - trans "Home"
 
     #bottom-header
-      - block "page-menu"
+        - block "page-menu"
 
-      #subtitle-wrapper
-         .element
-          .container
-            .row
-              .span12
-                %h2#page-subtitle<
-                  - block "page-subtitle"
-                    - trans "Where you have access to your data"
+        #subtitle-wrapper
+            .element
+                .container
+                    .row
+                        .col-lg-12
+                            %h2#page-subtitle<
+                                - block "page-subtitle"
+                                    - trans "Where you have access to your data"
 
   .container
     .row
-      .span12
+      .col-lg-12
 
         #loading-msg
           %img{'alt'  : 'loading',

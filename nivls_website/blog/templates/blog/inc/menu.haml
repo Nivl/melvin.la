@@ -7,25 +7,21 @@
 
 #page-menu-wrapper
     .element
-        .container
-            .row
-                .span12
-                    .navbar
-                        .navbar-inner
-                            .container
-                                %button.btn.btn-navbar{'type'        : 'button',
-                                                       'data-toggle' : 'collapse',
-                                                       'data-target' : '#submenu-collapse'}
-                                    %span.icon-bar
-                                    %span.icon-bar
-                                    %span.icon-bar
-                                %a.brand{'href': '{% url "blog" %}'}
-                                    %strong
-                                        - trans 'Blog'
-                                    Menu
-                                #submenu-collapse.nav-collapse.collapse.pull-right
-                                    %ul.nav{'role': 'complementary'}
-                                        - blog_tagcloud
-                                        - blog_categories
-                                        - blog_archives
-                                        - blog_menus
+        .navbar
+            .container
+                %button.navbar-toggle{'data-toggle' : 'collapse', 'data-target' : '#submenu-collapse'}
+                    %span.icon-bar
+                    %span.icon-bar
+                    %span.icon-bar
+
+                %a.navbar-brand{'href': '{% url "blog" %}'}
+                    %strong
+                        - trans 'Blog'
+                    Menu
+
+                #submenu-collapse.nav-collapse.collapse
+                    %ul.nav.navbar-nav.pull-right{'role': 'complementary'}
+                        - blog_tagcloud
+                        - blog_categories
+                        - blog_archives
+                        - blog_menus

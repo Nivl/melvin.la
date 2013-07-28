@@ -19,26 +19,26 @@
     }
 }
 
-#navbar {
+.navbar {
     a {
-        color: #333;
-    }
+        color: #777;
 
-    #navbar-main-list {
-        & > li {
-            & > a {
-                &:hover:not(.brand) {
-                    color : @worldColor;
-                }
+        &.navbar-brand {
+            &:hover {
+                color : #777;
+            }
+
+            strong {
+                color: @worldColor;
             }
         }
+    }
 
-        .user {
-            .dropdown-menu {
-                a {
-                    &:hover {
-                        color : white;
-                    }
+    .user {
+        .dropdown-menu {
+            a {
+                &:hover {
+                    color : white;
                 }
             }
         }
