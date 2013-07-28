@@ -273,34 +273,20 @@ ul#lab-nav-list {
 }
 
 #browser-warning {
-    color: #333 !important;
 
-    h3 {
-        font-family: inherit !important;
-    }
-
-    .browser-list {
-        .clearfix();
-        font-size: 13px;
+    .items {
+        .make-row();
+        text-align: center;
 
         .item {
-            .size(110px, 90px);
-            float: left;
-            margin-left: 40px;
-
-            &:first-child {
-                margin-left: 150px;
-            }
-
-            a {
-                text-align: center;
-            }
+            .make-column(6);
 
             [class^="browser-icon"],
             [class*=" browser-icon"] {
                 background-image: url("../../img/supported-browsers.png");
                 background-repeat: no-repeat;
                 .square(90px);
+                margin: auto;
             }
 
             .browser-icon-chrome {
@@ -310,6 +296,7 @@ ul#lab-nav-list {
             .browser-icon-firefox {
                 background-position: -90px 0;
             }
+
         }
     }
 }
