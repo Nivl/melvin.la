@@ -4,12 +4,12 @@
     - trans "Images"
 
     - for image in images
-        - if forloop.counter0|divisibleby:3
-            <ul class="thumbnails">
+        - if forloop.counter0|divisibleby:4
+            <div class="row">
 
-        %li.span3{'itemprop' : 'screenshot',
-                  'itemscope': None,
-                  'itemtype' : 'http://schema.org/ImageObject'}
+        .col-lg-3{'itemprop' : 'screenshot',
+                     'itemscope': None,
+                     'itemtype' : 'http://schema.org/ImageObject'}
 
             %meta{'itemprop': 'title',
                   'content' : '{{ image.description }}'}
@@ -25,5 +25,5 @@
                 .highslide-caption{'itemprop': 'caption'}
                     {{ image.description|markdown }}
 
-        - if forloop.counter|divisibleby:3 or forloop.last
-            </ul>
+        - if forloop.counter|divisibleby:4 or forloop.last
+            </div>
