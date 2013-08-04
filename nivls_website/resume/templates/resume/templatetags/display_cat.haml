@@ -1,16 +1,14 @@
 - load resume_tags markup
 
 - for cat in cats
-
-    .row-fluid
-
-        .span3
+    .row
+        .title
             %h3{'data-type'   :  '{% if perms.resume.change_category %}live-editable{% endif %}',
                 'data-target' :  'resume-category-name',
                 'data-pk'     :  '{{ cat.pk }}'}<
                 - include 'ajax/single_field_value.haml' with value=cat.name
 
-        .span9
+        .item
             - if cat.image
                 %img.pull-right.img-rounded{'src': '{{ cat.image.url }}'}
 

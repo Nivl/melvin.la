@@ -18,7 +18,7 @@
                      'class': 'collapse{% if to_pdf %} in{% endif %}'}
 
                 .block
-                    .container-fluid
+                    .container
                         {% display_cat section.section_category.all to_pdf %}
 
     .accordion-group
@@ -30,18 +30,19 @@
 
         %section#downloads{'class': 'collapse{% if to_pdf %} in{% endif %}'}
             .block
-                .container-fluid
-                    .row-fluid
-                        .span3
+                .container
+                    .row
+                        .col-lg-3
                             %h3<
                                 - trans "Downloads"
 
-                        .span9
+                        .col-lg-9
                             %ul.element.list-unstyled
                                 - if not to_pdf
                                     %li
                                         %a{'href': '{% url "cv_pdf" %}'}
                                             - trans "Download this C.V. as PDF"
+
                                     - for cat in cv_document_cats
                                         %li
                                             {{ cat.name }}

@@ -33,36 +33,50 @@ header > .navbar {
         }
     }
 
-    .element {
-        border-left: 2px solid @link-hover-color;
-        padding: 5px 20px;
-        margin: 20px;
+    span {
+        p {
+            display: inline;
+        }
+    }
 
-        .content {
-            padding-left: 25px;
+    .title {
+        .make-column(3);
+    }
 
-            li {
-                h5, p {
-                    margin-top: 10px;
-                    margin-bottom: 0px;
-                }
+    .item {
+        .make-column(9);
 
-                h5 {
-                    color: @link-hover-color;
+        .element {
+            border-left: 2px solid lighten(@about-color, 10%);
+            padding: 5px 20px;
+            margin: 20px;
 
-                    strong {
-                        color: #666;
+            .content {
+                padding-left: 25px;
+
+                li {
+                    h5, p {
+                        margin-top: 10px;
+                        margin-bottom: 0px;
+                    }
+
+                    h5 {
+                        color: @about-color;
+
+                        strong {
+                            color: #666;
+                        }
+                    }
+
+                    p {
+                        display: block;
                     }
                 }
-
-                p {
-                    display: block;
-                }
             }
-        }
 
-        ul {
-            margin-bottom: 0;
+            ul {
+                margin-bottom: 0;
+            }
         }
     }
 }
