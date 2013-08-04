@@ -15,10 +15,10 @@
                  'data-pk'     :  '{{ project.pk }}'}<
                 - include 'ajax/single_field_value_md.haml' with value=project.description
 
-            %a.btn{'itemprop'   : 'url',
-                   'data-depth' : '30',
-                   'data-ajax'  : 'body-content-only',
-                   'title'      : '{{ project.name }}',
-                   'href'       : '{% url "lab-project" project.slug %}'}
+            %a.btn.btn-default{'itemprop'   : 'url',
+                               'data-depth' : '30',
+                               'data-ajax'  : 'body-content-only',
+                               'title'      : '{{ project.name }}',
+                               'href'       : '{% url "lab-project" project.slug %}'}
                 {% trans "Know more" %}
     %hr

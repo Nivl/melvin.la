@@ -61,13 +61,8 @@
                 - trans "Be social"
 
             - for link in contact_links
-                - if forloop.counter0|divisibleby:4
-                    <div class="row">
-                .span3
+                .col-lg-3.col-sm-3
                     .big-badge{'data-type'   :  '{% if perms.about.change_profile %}live-editable{% endif %}',
                                'data-target' :  'about-contactLink-model',
                                'data-pk'     :  '{{ link.pk }}'}
                         - include 'about/ajax/big_badge.haml' with object=link
-
-                - if forloop.counter|divisibleby:4 or forloop.last
-                    </div>
