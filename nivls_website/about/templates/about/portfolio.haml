@@ -33,9 +33,8 @@
             .section-content
                 .section-image-left
 
-                    %img{'src'      :   '{{ project.screenshot.url }}',
-                         'alt'      :   '{{ project.lab.name }}',
-                         'class'    :   'img-polaroid img-rounded'}
+                    %img.img-thumbnail{'src'      :   '{{ project.screenshot.url }}',
+                                       'alt'      :   '{{ project.lab.name }}'}
 
                 .info.margin-bottom-30
                     %strong<
@@ -52,11 +51,11 @@
                     - include 'ajax/single_field_value_md.haml' with value=project.description
 
 
-                  %a.btn{'data-depth'   :   '1',
-                         'data-ajax'    :   'body-content',
-                         'data-navbar'  :   '#navbar-lab',
-                         'title'        :   '{% trans "Lab" %}',
-                         'href'         :   '{{ project.lab.get_absolute_url }}'}
+                  %a.btn.btn-default{'data-depth'   :   '1',
+                                     'data-ajax'    :   'body-content',
+                                     'data-navbar'  :   '#navbar-lab',
+                                     'title'        :   '{% trans "Lab" %}',
+                                     'href'         :   '{{ project.lab.get_absolute_url }}'}
                     - trans "Know more"
 
         %hr
@@ -68,15 +67,15 @@
         .section-content
             .section-image-left
 
-                %img.img-polaroid.img-rounded{'src': '{% static "commons/img/portfolio_+.png" %}',
-                                              'alt' : '{{ project.lab.name }}'}
+                %img.img-thumbnail{'src': '{% static "commons/img/portfolio_+.png" %}',
+                                   'alt' : '{{ project.lab.name }}'}
 
             %div
               {{ project.lab.description|markdown }}
 
-              %a.btn{'data-depth'   :   '1',
-                     'data-ajax'    :   'body-content',
-                     'data-navbar'  :   '#navbar-lab',
-                     'title'        :   '{% trans "Lab" %}',
-                     'href'         :   '{% url "lab" %}'}
+              %a.btn.btn-default{'data-depth'   :   '1',
+                                 'data-ajax'    :   'body-content',
+                                 'data-navbar'  :   '#navbar-lab',
+                                 'title'        :   '{% trans "Lab" %}',
+                                 'href'         :   '{% url "lab" %}'}
                     {% trans "See more projects" %}
