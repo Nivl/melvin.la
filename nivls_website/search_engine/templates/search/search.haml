@@ -43,7 +43,7 @@
                         %h2<
                             - trans "Results"
 
-                        %ul.unstyled
+                        %ul.list-unstyled
                             - for result in page.object_list
                                 %li
                                     - if result.object|app_name == "blog"
