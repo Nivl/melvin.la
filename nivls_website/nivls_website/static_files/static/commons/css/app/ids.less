@@ -198,7 +198,10 @@ ul#lab-nav-list {
             .row-fluid {
                 height: @size;
 
-                .span2 {
+                .item {
+                    .make-column(2);
+                    .make-small-column(2);
+
                     margin-left: 0;
                     height: 100%;
                     min-height: 0px;
@@ -233,15 +236,15 @@ ul#lab-nav-list {
 
     .brand {
         font-size: 30px;
-        margin-top: 80px;
+        margin-top: 60px;
         text-shadow: 0px 1px 0px #3a3a3a, 0px -1px 0px black;
         color: #615e5e;
         .remove-selection();
+        text-align: center;
 
         small {
             font-size: @font-size-base;
             display: block;
-            margin-left: 27px;
 
             .remove-selection();
         }
