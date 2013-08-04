@@ -1,20 +1,41 @@
-.carousel-wrapper
-    #homeCarousel.nivoSlider
+#home-carousel.carousel.slide
+    %ol.carousel-indicators
         - for item in posts
-            - if outside
-                %a{'data-depth'     : '30',
-                   'data-navbar'    : '#navbar-blog',
-                   'data-ajax'      : 'body-content',
-                   'title'          : '{{ item.post.title }}',
-                   'href'           : '{{ item.post.get_absolute_url }}'}
-                    %img{'src'  : '{{ item.post.main_image.url }}',
-                         'alt'  : '{{ item.post.title }}',
-                         'title': '{{ item.post.short_description }}'}
+            - if forloop.first
+                %li.active{'data-target': '#home-carousel', 'data-slide-to': '0'}
             - else
-                %a{'data-depth' : '30',
-                   'data-ajax'  : 'body-content-only',
-                   'title'      : '{{ item.post.title }}',
-                   'href'       : '{{ item.post.get_absolute_url }}'}
-                    %img{'src'  : '{{ item.post.main_image.url }}',
-                         'alt'  : '{{ item.post.title }}',
-                         'title': '{{ item.post.short_description }}'}
+                %li{'data-target': '#home-carousel', 'data-slide-to': '{{ forloop.counter0 }}'}
+
+
+
+    .carousel-inner
+        - for item in posts
+            .item{'class': '{% if forloop.first %}active{% endif %}'}
+                - if outside
+                    %a{'data-depth'     : '30',
+                       'data-navbar'    : '#navbar-blog',
+                       'data-ajax'      : 'body-content',
+                       'title'          : '{{ item.post.title }}',
+                       'href'           : '{{ item.post.get_absolute_url }}'}
+                        %img{'src'  : '{{ item.post.main_image.url }}',
+                             'alt'  : '{{ item.post.title }}'}
+
+                        .carousel-caption
+                            %p
+                                {{ item.post.short_description }}
+                - else
+                    %a{'data-depth' : '30',
+                       'data-ajax'  : 'body-content-only',
+                       'title'      : '{{ item.post.title }}',
+                       'href'       : '{{ item.post.get_absolute_url }}'}
+                        %img{'src'  : '{{ item.post.main_image.url }}',
+                             'alt'  : '{{ item.post.title }}'}
+
+                        .carousel-caption
+                            %p
+                                {{ item.post.short_description }}
+
+    %a.left.carousel-control{'href': '#home-carousel', 'data-slide': 'prev'}
+        %span.icon-prev
+    %a.right.carousel-control{'href': '#home-carousel', 'data-slide': 'next'}
+        %span.icon-next

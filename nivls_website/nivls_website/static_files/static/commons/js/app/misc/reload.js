@@ -7,6 +7,5 @@ function reloadJsEffects() {
     reloadShareButtons();
     loadCharts();
     loadImageViewer();
-    loadCarousel();
     loadPreviews();
 }
