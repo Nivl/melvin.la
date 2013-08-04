@@ -3,7 +3,7 @@
 - load markup i18n
 
 - block "body-content"
-  .container{'role': 'main'}
-    .row
-      %div{'class': '{% block "position" %}span12{% endblock %}'}
-        - block "content"
+    .container{'role': 'main'}
+        .row
+            %div{'class': '{% block "position" %}col-lg-12{% endblock %}'}
+                - block "content"

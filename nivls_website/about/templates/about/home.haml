@@ -7,29 +7,27 @@
 
 - block "content"
 
-    - for link in navigation_links
+    .row
+        - for link in navigation_links
 
-        - if forloop.counter0|divisibleby:4
-          <div class="row">
-        .span3
-            .big-badge{'data-type'   :  '{% if perms.lab.change_navigationlink %}live-editable{% endif %}',
-                       'data-target' :  'about-navigationLink-model',
-                       'data-pk'     :  '{{ link.pk }}'}
-                - include "about/ajax/big_badge.haml" with object=link
+            .col-lg-3.col-sm-3
+                .big-badge{'data-type'   :  '{% if perms.lab.change_navigationlink %}live-editable{% endif %}',
+                           'data-target' :  'about-navigationLink-model',
+                           'data-pk'     :  '{{ link.pk }}'}
+                    - include "about/ajax/big_badge.haml" with object=link
 
-        - if forloop.counter|divisibleby:4 or forloop.last
-          </div>
+    %hr
 
-  %hr
+    %section.clean-section-full-length
+        %h2<
+            {% trans "Featured blog posts" %}
 
-  %section.clean-section-full-length
-    %h2
-      {% trans "Featured blog posts" %}
-    {% blog_carousel 1 %}
+        {% blog_carousel 1 %}
 
-  %hr
+    %hr
 
-  %section.clean-section-full-length
-    %h2
-      {% trans "Latest blog posts" %}
-    {% blog_latest_posts 3 1 %}
+    %section.clean-section-full-length
+        %h2<
+            {% trans "Latest blog posts" %}
+
+        {% blog_latest_posts 3 1 %}
