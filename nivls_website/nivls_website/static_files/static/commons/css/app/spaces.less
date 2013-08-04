@@ -1,26 +1,25 @@
-.margin-top-1 {
-    margin-top: 10px;
+.spaces (@index) when (@index > 0) {
+    (~".margin-top-@{index}") {
+        margin-top: @index px;
+    }
+
+    (~".margin-bottom-@{index}") {
+        margin-bottom: @index px;
+    }
+
+    (~".margin-left-@{index}") {
+        margin-left: @index px;
+    }
+
+    (~".margin-right-@{index}") {
+        margin-right: @index px;
+    }
+
+    .spaces(@index - 5);
 }
 
-.margin-top-2 {
-    margin-top: 20px;
-}
-
-.margin-bottom-3 {
-    margin-bottom: 30px;
-}
-
-.margin-right-2 {
-    margin-right: 20px;
-}
-
-.margin-right-8 {
-    margin-right: 80px;
-}
-
-.margin-left-1 {
-    margin-left: 10px;
-}
+.spaces (0) {}
+.spaces (30);
 
 .space-li-10 {
     & > li {

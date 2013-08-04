@@ -8,7 +8,7 @@
             'data-pk'     :  '{{ project.pk }}'}<
             - include 'ajax/single_field_value.haml' with value=project.name
 
-        .section-content.margin-top-1
+        .section-content.margin-top-10
             %div{'itemprop': 'description',
                  'data-type'   :  '{% if perms.lab.change_project %}live-editable{% endif %}',
                  'data-target' :  'lab-project-description',
