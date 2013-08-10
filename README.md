@@ -1,3 +1,5 @@
+The beta version is accessible at [beta.melvin.re](http://beta.melvin.re).
+
 Dependencies
 ============
 
