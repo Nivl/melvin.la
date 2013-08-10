@@ -31,7 +31,7 @@
                           'action'    : '{% url "sign-in" %}'}
         - csrf_token
 
-        {{ form|bootstrap }}
+        {{ form|bootstrap_horizontal }}
 
         %input{'type'   : 'hidden',
                'name'   : 'next',

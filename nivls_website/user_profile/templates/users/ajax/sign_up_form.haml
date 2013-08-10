@@ -3,7 +3,7 @@
 %form#sign-up-form.form-horizontal{'method'     : 'post',
                                    'action'     : '{% url "sign-up-form" %}'}
     - csrf_token
-    {{ form|bootstrap }}
+    {{ form|bootstrap_horizontal }}
 
     .form-actions
         %button.btn.btn-primary{'type'              : 'submit',

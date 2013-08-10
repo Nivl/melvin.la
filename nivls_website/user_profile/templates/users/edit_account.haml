@@ -16,7 +16,7 @@
 
 - block "content"
     .row
-        .span5
+        .col-lg-5
             %a.well.link-box{'href': '#modal-edit-profile', 'data-toggle': 'modal'}
                 %h3
                     - trans "Edit my profile"
@@ -24,36 +24,40 @@
                 .content
                     - trans "Here you can change your name, hobbies, occupation, …"
 
-            #modal-edit-profile.modal.hide
-                .modal-header
-                    %button.close{'type': 'button', 'data-dismiss': 'modal'}
-                        ×
-                    %h3
-                        - trans "Edit my profile"
+            #modal-edit-profile.modal.fade
+                .modal-dialog
+                    .modal-content
+                        .modal-header
+                            %button.close{'type': 'button', 'data-dismiss': 'modal'}
+                                ×
+                            %h3
+                                - trans "Edit my profile"
 
-                #edit-account-form.loading
-                    %img{'src': '{% static "commons/img/loading-small.gif" %}', 'alt': 'loading'}
+                        #edit-account-form.loading
+                            %img{'src': '{% static "commons/img/loading-small.gif" %}', 'alt': 'loading'}
 
-        .span5.offset1
+        .col-lg-5.col-lg-offset-1
             %a.well.link-box{'href': '#modal-edit-settings', 'data-toggle': 'modal'}
                 %h3
                     - trans "Edit my settings"
                 .content
                     - trans "If you want to enable/disable some features, it's the place."
 
-            #modal-edit-settings.modal.hide
-                .modal-header
-                    %button.close{'type': 'button', 'data-dismiss': 'modal'}
-                        ×
-                    %h3<
-                        - trans "Edit my settings"
+            #modal-edit-settings.modal
+                .modal-dialog
+                    .modal-content
+                        .modal-header
+                            %button.close{'type': 'button', 'data-dismiss': 'modal'}
+                                ×
+                            %h3<
+                                - trans "Edit my settings"
 
-                #edit-settings-form.loading
-                    %img{'src'    : '{% static "commons/img/loading-small.gif" %}',
-                         'alt'    : 'loading'}
+                        #edit-settings-form.loading
+                            %img{'src'    : '{% static "commons/img/loading-small.gif" %}',
+                                 'alt'    : 'loading'}
 
     .row
-        .span5
+        .col-lg-5
             %a.well.link-box{'href'           : '#modal-edit-email',
                              'data-toggle'    : 'modal'}
 
@@ -62,19 +66,21 @@
                 .content
                     - trans "You must have set a password to change you email address."
 
-            #modal-edit-email.modal.hide
-                .modal-header<
-                    %button.close{'type': 'button', 'data-dismiss': 'modal'}<
-                        ×
+            #modal-edit-email.modal
+                .modal-dialog
+                    .modal-content
+                        .modal-header<
+                            %button.close{'type': 'button', 'data-dismiss': 'modal'}<
+                                ×
 
-                    %h3
-                        - trans "Edit my email address"
+                            %h3
+                                - trans "Edit my email address"
 
-                #edit-email-form.loading
-                      %img{'src'    : '{% static "commons/img/loading-small.gif" %}',
-                           'alt'    : 'loading'}
+                        #edit-email-form.loading
+                              %img{'src'    : '{% static "commons/img/loading-small.gif" %}',
+                                   'alt'    : 'loading'}
 
-        .span5.offset1
+        .col-lg-5.col-lg-offset-1
             %a.well.link-box{'href'           : '#modal-edit-password',
                              'data-toggle'    : 'modal',
                              'class'          : "{% if not user.get_profile.has_password %}important{% endif %}"}
@@ -83,15 +89,17 @@
                 .content
                     - trans "Here you can change or set your password."
 
-            #modal-edit-password.modal.hide
-                .modal-header
-                    %button.close{'type'           : 'button',
-                                 'data-dismiss'    : 'modal'}
-                                 ×
+            #modal-edit-password.modal
+                .modal-dialog
+                    .modal-content
+                        .modal-header
+                            %button.close{'type'           : 'button',
+                                         'data-dismiss'    : 'modal'}
+                                         ×
 
-                    %h3<
-                        - trans "Edit my password"
+                            %h3<
+                                - trans "Edit my password"
 
-                #edit-password-form.loading
-                    %img{'src'    : '{% static "commons/img/loading-small.gif" %}',
-                         'alt'    : 'loading'}
+                        #edit-password-form.loading
+                            %img{'src'    : '{% static "commons/img/loading-small.gif" %}',
+                                 'alt'    : 'loading'}

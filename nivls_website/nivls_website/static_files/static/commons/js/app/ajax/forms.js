@@ -79,7 +79,7 @@ $(document).on('submit', '#edit-account-form', function(){
 });
 
 
-$(document).on('shown', '#modal-edit-profile', function(){
+$(document).on('shown.bs.modal', '#modal-edit-profile', function(){
     var that = this;
 
     $.get(resolve_urls('edit-account-form'), function(data){
@@ -105,7 +105,7 @@ $(document).on('submit', '#edit-settings-form', function(){
 });
 
 
-$(document).on('shown', '#modal-edit-settings', function(){
+$(document).on('shown.bs.modal', '#modal-edit-settings', function(){
     var that = this;
 
     $.get(resolve_urls('edit-settings-form'), function(data){
@@ -147,7 +147,7 @@ $(document).on('submit', '#edit-password-form', function(){
 });
 
 
-$(document).on('shown', '#modal-edit-password', function(){
+$(document).on('shown.bs.modal', '#modal-edit-password', function(){
     var that = this;
 
     $.get(resolve_urls('edit-password-form'), function(data){
@@ -174,7 +174,7 @@ $(document).on('submit', '#edit-email-form', function(){
 });
 
 
-$(document).on('shown', '#modal-edit-email', function(){
+$(document).on('shown.bs.modal', '#modal-edit-email', function(){
     var that = this;
 
     $.get(resolve_urls('edit-email-form'), function(data){
@@ -258,7 +258,7 @@ $(document).on('submit', '#profile-picture-form', function(){
 
 // Callbacks
 
-$(document).on('hidden', '[id^=modal-edit-]', function() {
+$(document).on('hidden.bs.modal', '[id^=modal-edit-]', function() {
     var target = $(this).find('[id^=edit-][id$=-form]');
     target.replaceWith('<div class="loading" id="' + target.prop('id') + '"><img src="' + STATIC_URL + '/commons/img/loading-small.gif" alt="loading..."></div>');
 });
@@ -267,7 +267,7 @@ $(document).on('hidden', '[id^=modal-edit-]', function() {
 // HELPERS
 
 function clearError(that) {
-    $(that).css('background-color', '#fff');
+    $(that).children('.modal-content').css('background-color', '#fff');
 }
 
 function hideOnSuccess(that) {
@@ -275,5 +275,5 @@ function hideOnSuccess(that) {
 }
 
 function colorOnError(that) {
-    $(that).parents('.modal').css('background-color', '#f2dede');
+    $(that).parents('.modal-content').css('background-color', '#f2dede');
 }

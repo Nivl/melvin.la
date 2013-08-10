@@ -5,8 +5,8 @@
 
     .modal-body
         {% csrf_token %}
-        {{ account_form|bootstrap }}
-        {{ profile_form|bootstrap }}
+        {{ account_form|bootstrap_horizontal:'col-lg-4' }}
+        {{ profile_form|bootstrap_horizontal:'col-lg-4' }}
 
 
     .modal-footer

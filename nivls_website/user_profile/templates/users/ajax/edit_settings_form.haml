@@ -4,7 +4,7 @@
                                          'action'   : '{% url "edit-settings-form" %}'}
     .modal-body
         - csrf_token
-        {{ form|bootstrap }}
+        {{ form|bootstrap_horizontal }}
 
     .modal-footer
         %button.btn.btn-primary{'type' : 'submit'}
