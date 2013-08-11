@@ -24,12 +24,12 @@
             #body-content-only.col-lg-8.col-lg-offset-2.col-sm-8.col-sm-offset-2
                 %h2
                     - trans "Search"
-                %form.form-search.form-horizontal{'method'      : 'get',
-                                                  'action'      : '{% url "haystack_search" %}',
-                                                  'data-ajax'   : 'search-result',
-                                                  'data-depth'  : '0',
-                                                  'title'       : '{% trans "Search" %}'}
-                    {{ form|bootstrap }}
+                %form.form-horizontal{'method'      : 'get',
+                                      'action'      : '{% url "haystack_search" %}',
+                                      'data-ajax'   : 'search-result',
+                                      'data-depth'  : '0',
+                                      'title'       : '{% trans "Search" %}'}
+                    {{ form|bootstrap_horizontal }}
 
                     .form-actions
                         %button.btn.btn-primary{'type': 'submit'}<
