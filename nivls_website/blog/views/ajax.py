@@ -131,7 +131,7 @@ def get_post_parsed_content(request, pk):
 
 
 def get_post_parsed_content_form(request, pk):
-    args = {'attr_name': 'parsed_content',
+    args = {'attr_name': 'content',
             'form_obj': SingleTextareaForm,
             }
 
