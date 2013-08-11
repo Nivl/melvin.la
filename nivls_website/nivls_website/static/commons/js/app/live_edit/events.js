@@ -1,5 +1,4 @@
 $(document).on('keypress', null, 'e', function() {
-    console.log('inside');
     if (live_edit_enabled === false) {
         if ($(".editable-wrapper:hidden").length) {
             $(".editable-wrapper:hidden").stop().slideToggle(function() {
