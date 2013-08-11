@@ -315,13 +315,13 @@ textarea {
 }
 
 a {
-  color: #428bca;
+  color: #ffffff;
   text-decoration: none;
 }
 
 a:hover,
 a:focus {
-  color: #2a6496;
+  color: #d9d9d9;
   text-decoration: underline;
 }
 
@@ -1975,7 +1975,7 @@ fieldset[disabled] .btn-info.active {
 
 .btn-link {
   font-weight: normal;
-  color: #428bca;
+  color: #ffffff;
   cursor: pointer;
   border-radius: 0;
 }
@@ -1998,7 +1998,7 @@ fieldset[disabled] .btn-link {
 
 .btn-link:hover,
 .btn-link:focus {
-  color: #2a6496;
+  color: #d9d9d9;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -2618,8 +2618,8 @@ button.close {
 .nav.open > a:hover,
 .nav.open > a:focus {
   color: #ffffff;
-  background-color: #428bca;
-  border-color: #428bca;
+  background-color: #ffffff;
+  border-color: #ffffff;
 }
 
 .nav.open > a .caret,
@@ -2776,13 +2776,13 @@ button.close {
 }
 
 .nav .caret {
-  border-top-color: #428bca;
-  border-bottom-color: #428bca;
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
 }
 
 .nav a:hover .caret {
-  border-top-color: #2a6496;
-  border-bottom-color: #2a6496;
+  border-top-color: #d9d9d9;
+  border-bottom-color: #d9d9d9;
 }
 
 .nav-tabs .dropdown-menu {
@@ -4058,7 +4058,7 @@ button.close {
 
 a.thumbnail:hover,
 a.thumbnail:focus {
-  border-color: #428bca;
+  border-color: #ffffff;
 }
 
 .thumbnail > img {
@@ -4205,7 +4205,7 @@ a.badge:focus {
 
 a.list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
-  color: #428bca;
+  color: #ffffff;
   background-color: #ffffff;
 }
 
