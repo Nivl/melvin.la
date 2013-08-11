@@ -15,14 +15,14 @@
                 - trans "Edit my profile picture"
 
 - block "content"
-    %h2.center-text
+    %h2.text-center
         - trans "You can drop your new picture in this box: "
 
     #drop-profil-picture.drop-area
         - include "users/ajax/edit_picture_drop_form.haml"
 
     .col-lg-8.col-lg-offset-2.col-sm-8.col-sm-offset-2
-        %h2.center-text
+        %h2.text-center
             - trans "Or you can use this form: "
 
         - include "users/ajax/edit_picture_form.haml"
