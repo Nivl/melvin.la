@@ -6,7 +6,7 @@
 
 - block "breadcrumb-content"
     %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
-        %a{'itemprop': 'url',
+        %a{'itemprop'   : 'url',
            'data-depth' : '1',
            'data-ajax'  : 'body-content',
            'title'      : '{% trans "Manage social media accounts" %}',
@@ -33,7 +33,7 @@
     %ul.list-unstyled.well
         - for account in social_auth.associated
             %li
-                %span.label.label-important
+                %span.label.label-danger
                     %a{'href': '{% url "socialauth_disconnect_individual" account.provider|replace:",_,-" account.id %}?next={{ request.get_full_path }}'}
                        - trans "Delete"
                 &nbsp;

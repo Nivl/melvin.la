@@ -6,7 +6,7 @@
 - block "page-subtitle"
     {% blocktrans with username=target_user.username %}Profile of {{ username }}{% endblocktrans %}
 - block "body_classes"
-    span8 offset2
+    col-lg-8 col-lg-offset-4 col-sm-8 col-sm-offset-4
 
 - block "breadcrumb-content"
     %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}

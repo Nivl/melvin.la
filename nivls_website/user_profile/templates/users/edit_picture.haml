@@ -6,7 +6,7 @@
 
 - block "breadcrumb-content"
     %li{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
-        %a{'itemprop': 'url',
+        %a{'itemprop'   : 'url',
            'data-depth' : '1',
            'data-ajax'  : 'body-content',
            'title'      : '{% trans "Edit my profile picture" %}',
@@ -21,7 +21,7 @@
     #drop-profil-picture.drop-area
         - include "users/ajax/edit_picture_drop_form.haml"
 
-    .span8.offset2
+    .col-lg-8.col-lg-offset-2.col-sm-8.col-sm-offset-2
         %h2.center-text
             - trans "Or you can use this form: "
 
