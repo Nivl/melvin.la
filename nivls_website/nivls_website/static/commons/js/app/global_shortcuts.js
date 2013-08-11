@@ -1,9 +1,9 @@
 // e: live-edit.js
 
-$(document).bind('keyup.shift_/', function() {
+$(document).on('keyup', null, 'shift+/', function() {
     $('#help').modal('toggle');
 });
 
-$(document).bind('keyup./', function() {
+$(document).on('keyup', null, '/', function() {
     $('.form-search .search-query').focus();
 });

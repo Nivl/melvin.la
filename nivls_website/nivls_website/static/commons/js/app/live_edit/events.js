@@ -1,4 +1,5 @@
-$(document).bind('keydown.e', function() {
+$(document).on('keypress', null, 'e', function() {
+    console.log('inside');
     if (live_edit_enabled === false) {
         if ($(".editable-wrapper:hidden").length) {
             $(".editable-wrapper:hidden").stop().slideToggle(function() {
@@ -25,7 +26,7 @@ $(document).bind('keydown.e', function() {
     live_edit_enabled = !live_edit_enabled;
 });
 
-$('a').click(function(e){
+$('a').click(function(e) {
     if (live_edit_enabled) {
         e.preventDefault();
     }
