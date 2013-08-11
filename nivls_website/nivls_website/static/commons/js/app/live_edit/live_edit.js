@@ -1,5 +1,5 @@
 $(document).off('click', '[data-type=live-editable]')
-    .on('click', '[data-type=live-editable]', function (e, close) {
+    .on('click', '[data-type=live-editable]', function(e, close) {
          if (live_edit_enabled) {
             closeCurrentLiveEdition(e);
             e.preventDefault();
@@ -17,7 +17,7 @@ $(document).off('click', '[data-type=live-editable]')
             var url_data = {};
             url_data[pk_name] = pk;
 
-            if ($(this).find(">:first-child").prop("tagName") != 'FORM') {
+            if ($(this).find('>:first-child').prop('tagName') != 'FORM') {
                 // In case the element was empty, we remove the blue bg color
                 $editable_elem.stop().css('background-color', '');
 
@@ -34,10 +34,10 @@ $(document).off('click', '[data-type=live-editable]')
                     });
 
                     $editable_elem.off('submit', 'form')
-                        .on('submit', 'form', function(){
+                        .on('submit', 'form', function() {
                             ajaxPost(
                                 url, $(this),
-                                function(data, proceed){
+                                function(data, proceed) {
                                     if (proceed) {
                                     closeCurrentLiveEdition();
                                 }
@@ -50,10 +50,10 @@ $(document).off('click', '[data-type=live-editable]')
                 current_live_edited_element = null;
                 var url = resolve_urls(value_url, url_data);
 
-                $.get(url, function(data){
-                    $editable_elem.fadeOut('fast', function(){
+                $.get(url, function(data) {
+                    $editable_elem.fadeOut('fast', function() {
                         $(this).html(data).prettify();
-                        $(this).fancyShow('fast', function(){
+                        $(this).fancyShow('fast', function() {
                             if ($(this).isReallyEmpty()) {
                                 $(this).css('min-height', '30px');
                                 $(this).animateHighlight('#9ccfff');
