@@ -1,5 +1,10 @@
+/*jslint browser:true */
+/*global $, gapi */
+
 function reloadShareButtons() {
-    if (typeof gapi !== 'undefined') {
+    'use strict';
+
+    if (gapi !== undefined) {
         gapi.plusone.go();
     }
 }
