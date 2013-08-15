@@ -55,9 +55,6 @@
                 'data-pk'     :  '{{ post.pk }}'}<
                 {{ post.title }}
 
-            .pull-right.share-btn
-                .g-plusone.item{'data-size': 'small'}
-
             .info
                 %i.icon-reorder
                 %span{'data-type'   :  '{% if perms.blog.change_post %}live-editable{% endif %}',
@@ -96,6 +93,10 @@
 
                             - if not forloop.last
                                 &nbsp;
+                %br
+                %i.icon-share
+                %span.share-btn
+                    %span.g-plusone.item{'data-size': 'small'}
 
                 - if perms.blog.change_post
                     %br
