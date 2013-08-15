@@ -15,19 +15,16 @@ class SingleFieldForm(happyforms.Form):
 
 
 class SingleDateFieldForm(SingleFieldForm):
-    single = forms.DateField(
-        label=_(' '))
+    single = forms.DateField()
 
 
 class SingleCharFieldForm(SingleFieldForm):
-    single = forms.CharField(
-        label=_(' '))
+    single = forms.CharField()
 
 
 class SingleBooleanFieldForm(SingleFieldForm):
     single = forms.BooleanField(
-        required=False,
-        label=_(' '))
+        required=False)
 
     def __init__(self, data=None, files=None, is_required=False, *args, **kwargs):
         super(SingleFieldForm, self).__init__(data=data, files=files, *args, **kwargs)
@@ -35,8 +32,7 @@ class SingleBooleanFieldForm(SingleFieldForm):
 
 class SingleTextareaForm(SingleFieldForm):
     single = forms.CharField(
-        widget=forms.Textarea(),
-        label=_(' '))
+        widget=forms.Textarea(),)
 
     def __init__(self, data=None, files=None, size=97, prefix='single_', *args, **kwargs):
         super(SingleTextareaForm, self).__init__(data=data, files=files, prefix=prefix, *args, **kwargs)
@@ -45,8 +41,7 @@ class SingleTextareaForm(SingleFieldForm):
 
 
 class SingleChoiceFieldForm(SingleFieldForm):
-    single = forms.ChoiceField(
-        label=_(' '))
+    single = forms.ChoiceField()
 
     def __init__(self, data=None, files=None, choices=[], *args, **kwargs):
         super(SingleChoiceFieldForm, self).__init__(data=data, files=files, *args, **kwargs)
@@ -55,8 +50,7 @@ class SingleChoiceFieldForm(SingleFieldForm):
 
 class SingleMultipleChoiceFieldForm(SingleFieldForm):
     single = forms.ModelMultipleChoiceField(
-        queryset=None,
-        label=_(' '))
+        queryset=None,)
 
     def __init__(self, data=None, files=None, queryset=None, is_required=False, *args, **kwargs):
         super(SingleMultipleChoiceFieldForm, self).__init__(data=data, files=files, is_required=False, *args, **kwargs)

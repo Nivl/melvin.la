@@ -2,12 +2,11 @@
 
 %form.form-inline{'id': '{{ id }}',
                   'method': 'post',
-                  'action': '{{ url }}',
-                  'style': 'display: inline'}
+                  'action': '{{ url }}'}
     - csrf_token
 
     - for field in form.visible_fields
-        {{ field }}
+        {{ field|bootstrap_inline }}
 
     %button.btn.btn-primary{'type'             : 'submit',
                            'data-loading-text' : '{% trans "Sending..." %}'}<
