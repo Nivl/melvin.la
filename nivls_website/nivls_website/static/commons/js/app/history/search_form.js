@@ -1,12 +1,27 @@
+/*jslint browser:true */
+/*global $, Modernizr */
+/*global replaceAll, resolve_urls, changePage, moveNavbar */
+
+/*
+    replaceAll  : /misc/utils/utils.js
+    moveNavbar  : utils/move_navbar.js
+    changePage  : funcs/change_page.js
+*/
+
 if (Modernizr.history) {
-    $(document).on('submit', '.form-search', function() {
-        var search_query = $(this).find('.search-query');
-        var query;
-        var url;
+    $(document).on('submit', '.form-search', function () {
+        'use strict';
+
+        var search_query = $(this).find('.search-query'),
+            query = '',
+            url = '';
 
         if (search_query.val().length > 0) {
             query = replaceAll(
-                encodeURIComponent(search_query.val()), '%20', '+');
+                encodeURIComponent(search_query.val()),
+                '%20',
+                '+'
+            );
             url = resolve_urls('update-typeahead');
             url += '?search=' + query;
             $.get(url);
@@ -18,23 +33,24 @@ if (Modernizr.history) {
         return false;
     });
 
-    $(document).on('input', '.form-search .search-query', function(e) {
+    $(document).on('input', '.form-search .search-query', function (e) {
+        'use strict';
+
         if ($.inArray(e.keyCode, [40, 38, 9, 13, 27]) === -1
-            && $(this).val().length > 0) {
-            var that = this;
-            var query = replaceAll(
-                encodeURIComponent(
-                    $(this).val()
-                ), '%20', '+');
+                && $(this).val().length > 0) {
+            var that = this,
+                query = replaceAll(
+                    encodeURIComponent($(this).val()),
+                    '%20',
+                    '+'
+                ),
+                url = resolve_urls('autocomplete') + '?search=' + query;
 
-            var url = resolve_urls('autocomplete');
-            url += '?search=' + query;
-
-            $.getJSON(url, function(data) {
+            $.getJSON(url, function (data) {
                 var items = [];
 
                 if (data) {
-                    $.each(data, function(i, val) {
+                    $.each(data, function (i, val) {
                         items.push(val);
                     });
                 }
