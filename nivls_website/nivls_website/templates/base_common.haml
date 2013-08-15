@@ -211,6 +211,7 @@
                                 %a{'href': '{% url "home" %}', 'itemprop': 'url'}
                                     %span{'itemprop': 'title'}
                                     - trans "Home"
+                            - block "breadcrumb-content"
 
     #bottom-header
         - block "page-menu"
