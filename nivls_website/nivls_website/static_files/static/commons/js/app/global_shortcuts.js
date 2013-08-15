@@ -10,7 +10,7 @@ $(document).on('keyup', null, 'shift+/', function () {
 $(document).on('keyup', null, '/', function () {
     "use strict";
 
-    $('.form-search .search-query').focus();
+    $('.search-form input').focus();
 });
 
 // e: live-edit.js

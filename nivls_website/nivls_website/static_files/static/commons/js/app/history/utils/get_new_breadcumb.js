@@ -12,25 +12,16 @@ function getNewBreadcrumb(that) {
     }
 
     breadcrumb.children('li').each(function () {
-        var prev = $(this).prev(),
-            children = $(this).children('a');
+        var children = $(this).children('a');
 
         if (children.data('depth') !== undefined) {
             if (children.data('depth') >= $(that).data('depth')) {
                 $(this).nextAll().remove();
                 $(this).remove();
-                if (prev.length) {
-                    prev.children('span').remove();
-                }
 
             }
         }
     });
-
-    if (breadcrumb.children('li').last().length) {
-        breadcrumb.children('li').last()
-            .append('<span class="divider">/<span/>');
-    }
 
     new_elem = "<li itemtype='http://data-vocabulary.org/Breadcrumb' itemscope><a";
     new_elem += ' data-depth="' + $(that).data('depth') + '"';
