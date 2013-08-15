@@ -40,11 +40,15 @@ header > .navbar {
     }
 
     .title {
-        .make-column(3);
+        .make-lg-column(3);
+        .make-md-column(3);
+        .make-sm-column(3);
     }
 
     .item {
-        .make-column(9);
+        .make-lg-column(9);
+        .make-md-column(9);
+        .make-sm-column(9);
 
         .element {
             border-left: 2px solid lighten(@about-color, 10%);
@@ -213,8 +217,9 @@ ul#lab-nav-list {
                 height: @size;
 
                 .item {
-                    .make-column(2);
-                    .make-small-column(2);
+                    .make-lg-column(2);
+                    .make-md-column(2);
+                    .make-sm-column(2);
 
                     margin-left: 0;
                     height: 100%;
@@ -295,7 +300,9 @@ ul#lab-nav-list {
         text-align: center;
 
         .item {
-            .make-column(6);
+            .make-lg-column(6);
+            .make-md-column(6);
+            .make-sm-column(6);
 
             [class^="browser-icon"],
             [class*=" browser-icon"] {
