@@ -1,4 +1,14 @@
- function ajaxPost(url, $selector, options, success, error, xhr) {
+/*jslint browser:true */
+/*global $ */
+/*global isString, gettext */
+
+/*
+    isString      : /utils/utils.js
+*/
+
+function ajaxPost(url, $selector, options, success, error, xhr) {
+    'use strict';
+
     if ($selector) {
         if (isString($selector)) {
             $selector = $($selector);
@@ -7,7 +17,7 @@
         $selector.find("button[type='submit']").button('loading');
     }
 
-    if (typeof options !== 'undefined') {
+    if (options !== undefined) {
         if ($.isFunction(options)) {
             xhr = error;
             error = success;
@@ -18,15 +28,16 @@
         options = {};
     }
 
-    if (!('data' in options)) {
-        options['data'] = $selector.serialize();
+    if (options.data === undefined) {
+        options.data = $selector.serialize();
     }
 
-    options['success'] = function (data) {
-        var proceed = true;
+    options.success = function (data) {
+        var proceed = true,
+            form = null;
 
         if ($selector) {
-            var form = $('<noexists>' + data + '</noexists>').find('form');
+            form = $('<noexists>' + data + '</noexists>').find('form');
 
             if (form.text() !== '') {
                 proceed = false;
@@ -34,32 +45,34 @@
             }
         }
 
-        if (typeof success !== 'undefined') {
+        if (success !== undefined) {
             success(data, proceed);
         }
     };
 
-    options['error'] = function() {
+    options.error = function () {
         if ($selector) {
             $selector.find("button[type='submit']").button('reset');
         }
-        if (typeof error !== 'undefined') {
+        if (error !== undefined) {
             error();
         }
     };
 
-    if (typeof xhr !== 'undefined') {
-        options['xhr'] = xhr;
+    if (xhr !== undefined) {
+        options.xhr = xhr;
     }
 
-    options['type'] = 'POST';
-    options['url'] = url;
+    options.type = 'POST';
+    options.url = url;
     $.ajax(options);
 }
 
 
 function ajaxFormUpload(url, data, $selector, success, error, xhr) {
-    if ($selector && Object.prototype.toString.call($selector) == '[object String]') {
+    'use strict';
+
+    if ($selector && Object.prototype.toString.call($selector) === '[object String]') {
         $selector = $($selector);
     }
 
@@ -75,36 +88,42 @@ function ajaxFormUpload(url, data, $selector, success, error, xhr) {
 
 
 function ajaxSwitchElem(url, elem, target, callbacks) {
-    target = (typeof target === 'undefined') ? (elem) : (target);
-    callbacks = (typeof callbacks === 'undefined') ? {} : (callbacks);
+    'use strict';
+
+    target = (target === undefined) ? elem : target;
+    callbacks = (callbacks === undefined) ? {} : callbacks;
 
     if ($.isArray(target)) {
         callbacks = target;
     }
 
-    $.get(url, function(data) {
-        var content = (target == '*') ? data : $(data).find(target);
+    $.get(url, function (data) {
+        var content = target === '*' ? data : $(data).find(target),
+            i = 0;
         $(elem).replaceWith(content);
 
-        for (var i=0; i<callbacks.length; i++) {
+        for (i = 0; i < callbacks.length; i = i + 1) {
             callbacks[i]();
         }
     });
 }
 
 function ajaxSwitchElemContent(url, elem, target, callbacks) {
-    target = (typeof target === 'undefined') ? (elem) : (target);
-    callbacks = (typeof callbacks === 'undefined') ? {} : (callbacks);
+    'use strict';
+
+    target = (target === undefined) ? elem : target;
+    callbacks = (callbacks === undefined) ? {} : callbacks;
 
     if ($.isArray(target)) {
         callbacks = target;
     }
 
-    $.get(url, function(data) {
-        var content = (target == '*') ? data : $(data).find(target);
+    $.get(url, function (data) {
+        var content = (target === '*') ? data : $(data).find(target),
+            i = 0;
         $(elem).html(content);
 
-        for (var i=0; i<callbacks.length; i++) {
+        for (i = 0; i < callbacks.length; i = i + 1) {
             callbacks[i]();
         }
     });
@@ -112,5 +131,7 @@ function ajaxSwitchElemContent(url, elem, target, callbacks) {
 
 
 function ajaxCb_pushBefore(that) {
+    'use strict';
+
     $(that).before('<div class="alert alert-error alert-block fade in"><a class="close" data-dismiss="alert">×</a><h4 class="alert-heading">' + gettext('Error!') + '</h4>' + gettext('Your action was unable to be executed at this time. We apologise for the inconvenience.') + '</div>');
 }

@@ -1,5 +1,9 @@
+/*jslint browser:true */
+/*global $ */
+
 $(document).off('click', '#page-menu-icon > a')
-    .on('click', '#page-menu-icon > a', function(e) {
+    .on('click', '#page-menu-icon > a', function (e) {
+        'use strict';
 
         if ($('#page-menu-icon').hasClass('clicked') === false) {
             $('#page-menu-icon').css('-webkit-transform', 'rotate(180deg)');
@@ -8,7 +12,7 @@ $(document).off('click', '#page-menu-icon > a')
             $('#page-menu-icon').css('top', '8px');
 
             $('#page-menu-wrapper').stop().animate({'left': '0'});
-            $('#subtitle-wrapper').stop().animate({'left': '100%'}, function() {
+            $('#subtitle-wrapper').stop().animate({'left': '100%'}, function () {
                 $('#subtitle-wrapper').css('display', 'none');
                 $('#bottom-header').css('overflow', 'visible');
             });

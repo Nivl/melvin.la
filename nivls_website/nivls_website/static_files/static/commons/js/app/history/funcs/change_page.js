@@ -1,25 +1,37 @@
-if (Modernizr.history) {
-    function changePage(url, title, that) {
-        var action = '#' + $(that).data('ajax');
-        var breadcrumb = getNewBreadcrumb(that);
-        var navbar_id = $('#navbar-main-list > li.active').prop('id');
-        var lab_tag_id = $('#lab-nav-list .active').parents('a').prop('id');
-        var page_subtitle = $(that).data('subtitle');
+/*jslint browser:true */
+/*global $, Modernizr, _gaq */
+/*global getNewBreadcrumb */
+/*global live_edit_enabled */
 
-        if (typeof _gaq !== 'undefined') {
-            _gaq.push(['_trackPageview', url]);
-        }
+/*
+    getNewBreadcrumb    : utils/get_new_breadcumb.js
+    live_edit_enabled   : /live_edit/utils.js
+*/
 
-        options = {'url': window.location.pathname};
-        window.History.pushState({'breadcrumb': breadcrumb.html(),
-                                  'action': action,
-                                  'navbar_id': navbar_id,
-                                  'lab_tag_id': lab_tag_id},
-                                  title,
-                                  url);
+function changePage(url, title, that) {
+    'use strict';
+
+    /*jslint nomen: true*/
+    if (_gaq !== undefined) {
+        _gaq.push(['_trackPageview', url]);
     }
+    /*jslint nomen: false*/
 
-    $(document).on('click', 'a[data-ajax]', function(event) {
+    var action = '#' + $(that).data('ajax'),
+        breadcrumb = getNewBreadcrumb(that),
+        navbar_id = $('#navbar-main-list > li.active').prop('id');
+
+    window.History.pushState({'breadcrumb': breadcrumb.html(),
+                              'action': action,
+                              'navbar_id': navbar_id},
+                              title,
+                              url);
+}
+
+if (Modernizr.history) {
+    $(document).on('click', 'a[data-ajax]', function (event) {
+        'use strict';
+
         if (live_edit_enabled === false) {
             if (!event.shiftKey && !event.ctrlKey) {
                 changePage($(this).attr('href'), $(this).attr('title'), this);

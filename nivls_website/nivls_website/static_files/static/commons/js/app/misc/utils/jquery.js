@@ -1,6 +1,11 @@
+/*global $ */
+/*jslint browser:true */
+
 $.ajaxSetup({ cache: false });
 
-$.fn.animateHighlight = function(to, duration) {
+$.fn.animateHighlight = function (to, duration) {
+    'use strict';
+
     if (duration === undefined) {
         duration = 1000;
     }
@@ -9,7 +14,9 @@ $.fn.animateHighlight = function(to, duration) {
     return this;
 };
 
-$.fn.flash = function(color, duration) {
+$.fn.flash = function (color, duration) {
+    'use strict';
+
     color = color || '#9ccfff';
     duration = duration || 1500;
     var current = this.css('backgroundColor');
@@ -20,36 +27,46 @@ $.fn.flash = function(color, duration) {
 };
 
 
-$.fn.isReallyEmpty = function() {
-    return $.trim($(this).html()).length == 0;
+$.fn.isReallyEmpty = function () {
+    'use strict';
+
+    return $.trim($(this).html()).length === 0;
 };
 
-$.fn.fancyHide = function(duration, callback) {
+$.fn.fancyHide = function (duration, callback) {
+    'use strict';
+
     duration = duration || 400;
     callback =  callback || $.noop;
 
-    $(this).stop().fadeOut({duration:duration, queue:false})
-                .animate({'margin-left': '-=30px'}, 200, function(){
-                    $(this).css('margin-left', '+=30px');
-                    callback();
-                });
+    $(this).stop()
+        .fadeOut({duration: duration, queue: false})
+        .animate({'margin-left': '-=30px'}, 200, function () {
+            $(this).css('margin-left', '+=30px');
+            callback();
+        });
     return this;
 };
 
 
-$.fn.fancyShow = function(duration, callback) {
-    duration = duration | 400;
+$.fn.fancyShow = function (duration, callback) {
+    'use strict';
+
+    duration = duration || 400;
     callback =  callback || $.noop;
 
-    $(this).stop().css('margin-left', '-=30px')
-                .fadeIn({duration:duration, queue:false})
-                .animate({'margin-left': '+=30px'}, 200, callback);
+    $(this).stop()
+        .css('margin-left', '-=30px')
+        .fadeIn({duration: duration, queue: false})
+        .animate({'margin-left': '+=30px'}, 200, callback);
     return this;
 };
 
 
-jQuery.extend(jQuery.expr[':'], {
+$.extend($.expr[':'], {
     reallyEmpty: function (el) {
+        'use strict';
+
         return $(el).isReallyEmpty();
     }
 });
