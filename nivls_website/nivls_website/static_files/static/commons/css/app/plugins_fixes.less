@@ -1,32 +1,56 @@
 /******************************************************************************
- * Google prettify r244
+ * Google prettify r298
  *****************************************************************************/
 
-.prettyprint.linenums {
-   .box-shadow(~"inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0");
-}
+.prettyprint {
+    overflow-x: auto;
+    font-family: Monaco, Consolas, "Lucida Console", monospace;
+    background-color: #333;
+    padding: 1.5em;
+    font-size: .75em;
+    border: 0;
+    color: #e9e4e5;
+    line-height: 1.9em;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
 
-ol.linenums li {
-    list-style-type: decimal;
-    background-color: #f7f7f9;
-    padding-left: 12px;
-    color: #bebec5;
-    line-height: 20px;
-    text-shadow: 0 1px 0 #fff;
-}
+    .pln { color: #e9e4e5; }
+    .str { color: #bcd42a; }
+    .kwd { color: #4bb1b1; }
+    .com { color: #888; }
+    .typ { color: #ef7c61; }
+    .lit { color: #bcd42a; }
+    .pun, .opn, .clo { color: #fff; }
+    .tag { color: #4bb1b1; }
+    .atn { color: #ef7c61; }
+    .atv { color: #bcd42a; }
+    .dec, .var { color: #606; }
+    .fun { color: red; }
 
-pre.prettyprint { padding: 8px; border: 1px solid #e1e1e8 }
+    .linenums {
+        margin-bottom: 0px;
+        li {
+            list-style-type: decimal;
+            background-color: #333;
+            padding-left: 12px;
+            line-height: 20px;
+        }
+    }
 
-@media screen {
-    .pln { color: #48484c; }
-    .com { color: #93A1A1; }
-    .lit { color: #195F91; }
-    .kwd, .tag { color: #1E347B; }
-    .fun { color: #dc322f; }
-    .pun, .opt, .clo { color: #93a1a1; }
-    .typ, .dec, .var, .atn { color: teal; }
+    code {
+        font-family: Monaco, Consolas, "Lucida Console", monospace;
+        background-color: transparent
+    }
+
+    .hh {
+        display: none;
+    }
 }
 
 /******************************************************************************
- * Google prettify r244
+ * Google prettify r298
  *****************************************************************************/
