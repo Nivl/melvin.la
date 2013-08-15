@@ -1,8 +1,6 @@
 /*global $*/
 /*jslint browser:true */
 
-// e: live-edit.js
-
 $(document).on('keyup', null, 'shift+/', function () {
     "use strict";
 
@@ -14,3 +12,5 @@ $(document).on('keyup', null, '/', function () {
 
     $('.form-search .search-query').focus();
 });
+
+// e: live-edit.js
