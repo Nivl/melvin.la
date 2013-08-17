@@ -56,49 +56,54 @@
                 {{ post.title }}
 
             .info
-                %i.icon-time
-                %time{'datetime': '{{ post.pub_date|date:"Y-m-d\TH:iO" }}'}
-                    {{ post.pub_date|date:"Y-m-d" }}
+                .clearfix
+                    .pull-left.margin-right-20
+                        %i.icon-time
+                        %time{'datetime': '{{ post.pub_date|date:"Y-m-d\TH:iO" }}'}
+                            {{ post.pub_date|date:"Y-m-d" }}
 
-                %br
-
-                %i.icon-reorder
-                %span{'data-type'   :  '{% if perms.blog.change_post %}live-editable{% endif %}',
-                      'data-target' :  'blog-post-category',
-                      'data-pk'     :  '{{ post.pk }}'}
-
-                    %a{'data-ajax'  : 'body-content-only',
-                       'data-depth' : '10',
-                       'href'       : '{{ post.category.get_absolute_url }}'}
-                        {{ post.category }}
-
-                - with post.tags.all as tags
-                    - if tags
                         %br
-                        %i.icon-tags
 
-                        - for tag in tags
+                        %i.icon-reorder
+                        %span{'data-type'   :  '{% if perms.blog.change_post %}live-editable{% endif %}',
+                              'data-target' :  'blog-post-category',
+                              'data-pk'     :  '{{ post.pk }}'}
+
                             %a{'data-ajax'  : 'body-content-only',
                                'data-depth' : '10',
-                               'href'       : '{{ tag.get_absolute_url }}'}
-                                {{ tag.name }}
+                               'href'       : '{{ post.category.get_absolute_url }}'}<
+                                {{ post.category }}
 
-                            - if not forloop.last
-                                \-
+                    %div
+                        - with post.i18n.all as rels
+                            - if rels
+                                %i.icon-globe
 
-                - with post.i18n.all as rels
-                    - if rels
+                                - for rel in rels
+                                    %a{'href' : 'http://{{ rel.site.site }}{{ rel.get_absolute_url }}#'}<
+
+                                        %img.flag.valign-inherit{'width'   : '14',
+                                                                 'src'     : '{{ rel.site.flag.url }}'}
+
+                                    - if not forloop.last
+                                        &nbsp;
+
                         %br
-                        %i.icon-globe
 
-                        - for rel in rels
-                            %a{'href' : 'http://{{ rel.site.site }}{{ rel.get_absolute_url }}#'}
+                        - with post.tags.all as tags
+                            - if tags
+                                %i.icon-tags
 
-                                %img.flag.valign-inherit{'width'   : '14',
-                                                         'src'     : '{{ rel.site.flag.url }}'}
+                                - for tag in tags
+                                    %a{'data-ajax'  : 'body-content-only',
+                                       'data-depth' : '10',
+                                       'href'       : '{{ tag.get_absolute_url }}'}<
+                                        {{ tag.name }}
 
-                            - if not forloop.last
-                                &nbsp;
+                                    - if not forloop.last
+                                        \-
+
+
                 %br
                 %i.icon-share
                 %span.share-btn
