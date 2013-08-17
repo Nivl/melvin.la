@@ -103,20 +103,20 @@
                                     - if not forloop.last
                                         \-
 
-
-                %br
-                %i.icon-share
-                %span.share-btn
-                    %span.g-plusone.item{'data-size': 'small'}
-
                 - if perms.blog.change_post
-                    %br
-
                     %div{'data-type'   :  '{% if perms.blog.change_post %}live-editable{% endif %}',
                          'data-target' :  'blog-post-is-public',
                          'data-pk'     :  '{{ post.pk }}'}
 
                         - include 'blog/ajax/is_public.haml' with value=post.is_public
+
+                %br
+                %span.share-btn
+                    %span.g-plusone.item{'data-size': 'medium'}
+                    %a.twitter-share-button{'href'      : 'https://twitter.com/share',
+                                            'data-via'  : 'Nivl_',
+                                            'data-lang' : '{% trans "en" %}'}<
+                        Tweet
 
 
         %section.content.clearfix{'itemprop': 'articleBody',

@@ -56,8 +56,11 @@
                 %script
                     var STATIC_URL="{% static "" %}";
                     var DEBUG={{ DEBUG }};
+
+                %script{'src': 'https://platform.twitter.com/widgets.js'}
                 %script{'src': 'https://apis.google.com/js/plusone.js'}
                     \{parsetags: 'explicit'}
+
                 %script{'src': '{% url "django.views.i18n.javascript_catalog" %}'}
                 %script{'src': '{% url "jsurls" %}'}
 
