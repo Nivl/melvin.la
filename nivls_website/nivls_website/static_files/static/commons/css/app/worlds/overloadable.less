@@ -19,17 +19,26 @@
     }
 }
 
-.btn {
-    color: white !important;
+.pagination {
+    & > .active {
+        & > a {
+            color: white;
+            background-color: @world-color;
+            border-color: @world-color;
+        }
+    }
+
+    & > .active > span,
+    & > .disabled > span,
+    & > .disabled > a,
+    & > .disabled > a:hover,
+    & > .disabled > a:focus {
+        color: #999;
+    }
 }
 
-.pagination>.active>a,
-.pagination>.active>span,
-.pagination>.disabled>span,
-.pagination>.disabled>a,
-.pagination>.disabled>a:hover,
-.pagination>.disabled>a:focus {
-    color: #999 !important;
+.btn {
+    color: white !important;
 }
 
 .navbar {
