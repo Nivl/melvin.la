@@ -13,7 +13,7 @@
 
             %form{'action': '{% url "sign-in" %}', 'method': 'post'}
                 .modal-body
-                    .social-media-box.clearfix
+                    .clearfix
                         %p.pull-left.margin-right-20<
                             - trans "Sign in with:"
 
@@ -23,23 +23,23 @@
                     %p<
                         - trans "Or sign in using your account:"
 
-                        {% csrf_token %}
+                    {% csrf_token %}
 
-                        .form-group
-                            %input.form-control{'placeholder': '{{ _("Username")|force_escape }}',
-                                   'id'         : 'id_username',
-                                   'name'       : 'username',
-                                   'type'       : 'text'}
+                    .form-group
+                        %input.form-control{'placeholder': '{{ _("Username")|force_escape }}',
+                               'id'         : 'id_username',
+                               'name'       : 'username',
+                               'type'       : 'text'}
 
-                        .form-group
-                            %input.form-control{'placeholder' : '{% trans "Password" %}',
-                                   'type'        : 'password',
-                                   'id'          : 'id_password',
-                                   'name'        : 'password'}
+                    .form-group
+                        %input.form-control{'placeholder' : '{% trans "Password" %}',
+                               'type'        : 'password',
+                               'id'          : 'id_password',
+                               'name'        : 'password'}
 
-                        %input{'type': 'hidden',
-                                'name': 'next',
-                                'value': '{{ request.get_full_path }}'}
+                    %input{'type': 'hidden',
+                            'name': 'next',
+                            'value': '{{ request.get_full_path }}'}
 
                 .modal-footer
                     .pull-left

@@ -3,27 +3,27 @@
 %h2
     - trans "Images"
 
-    - for image in images
-        - if forloop.counter0|divisibleby:4
-            <div class="row">
+- for image in images
+    - if forloop.counter0|divisibleby:4
+        <div class="row">
 
-        .col-lg-3{'itemprop' : 'screenshot',
-                     'itemscope': None,
-                     'itemtype' : 'http://schema.org/ImageObject'}
+    .col-lg-3{'itemprop' : 'screenshot',
+                 'itemscope': None,
+                 'itemtype' : 'http://schema.org/ImageObject'}
 
-            %meta{'itemprop': 'title',
-                  'content' : '{{ image.description }}'}
+        %meta{'itemprop': 'title',
+              'content' : '{{ image.description }}'}
 
-            %a.thumbnail.highslide{'title'        : '{{ image.name }}',
-                                   'href'         : '{{ image.image.url }}'}
+        %a.thumbnail.highslide{'title'        : '{{ image.name }}',
+                               'href'         : '{{ image.image.url }}'}
 
-                %img{'src'      :   '{{ image.image.url }}',
-                     'alt'      :   '{{ image.name }}',
-                     'itemprop' :   'contentURL'}
+            %img{'src'      :   '{{ image.image.url }}',
+                 'alt'      :   '{{ image.name }}',
+                 'itemprop' :   'contentURL'}
 
-            - if image.description
-                .highslide-caption{'itemprop': 'caption'}
-                    {{ image.description|markdown }}
+        - if image.description
+            .highslide-caption{'itemprop': 'caption'}
+                {{ image.description|markdown }}
 
-        - if forloop.counter|divisibleby:4 or forloop.last
-            </div>
+    - if forloop.counter|divisibleby:4 or forloop.last
+        </div>

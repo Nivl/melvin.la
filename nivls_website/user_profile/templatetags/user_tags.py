@@ -49,7 +49,7 @@ def social_user_links(user):
                 .replace('[id]', str(extra['id']))
 
             output += '<li class="%(provider)s-icon">' \
-                '<a rel="tooltip" title="%(title)s" href="%(link)s"></a>' \
+                '<a data-toggle="tooltip" title="%(title)s" href="%(link)s"></a>' \
                 % {
                 'link': link,
                 'provider': account.provider,
@@ -67,7 +67,7 @@ def social_sign_in_links(providers, request):
         provider = provider.replace('_', '-')
 
         output += '<li class="%(provider)s-icon">'\
-            '<a rel="tooltip" title="%(title)s" href="%(link)s%(next)s"></a>'\
+            '<a data-toggle="tooltip" title="%(title)s" href="%(link)s%(next)s"></a>'\
             % {
             'link': reverse("socialauth_begin", args=[provider]),
             'next': '?next=' + request.get_full_path(),
@@ -102,6 +102,7 @@ def square_thumbnail(user, size=80, itemprop=False):
                 'resize_h': h,
                 'image_url': profile.picture.url,
                 'microdata': microdata,
+                'alt': 'user_picture',
                 }
 
     return gravatar(user, size, itemprop)

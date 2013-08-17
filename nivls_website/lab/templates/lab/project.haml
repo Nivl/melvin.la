@@ -44,66 +44,66 @@
                              'data-pk'     :  '{{ project.pk }}'}<
                 - include 'ajax/single_field_value.haml' with value=project.catchphrase
 
-                %ul.nav.nav-tabs
-                    %li.active
-                        %a{'href'          : "#information",
-                           'data-toggle'   : 'tab'}
-                            - trans "Information"
+            %ul.nav.nav-tabs
+                %li.active
+                    %a{'href'          : "#information",
+                       'data-toggle'   : 'tab'}
+                        - trans "Information"
 
-                    - if progress
-                        %li
-                            %a{'href'        : '#progress',
-                               'data-toggle' : 'tab'}
-                               - trans "Progress"
+                - if progress
+                    %li
+                        %a{'href'        : '#progress',
+                           'data-toggle' : 'tab'}
+                           - trans "Progress"
 
-                    - if images
-                        %li
-                            %a{'href'           :   '#images',
-                               'data-toggle'    :   'tab'}
-                               - trans "Images"
+                - if images
+                    %li
+                        %a{'href'           :   '#images',
+                           'data-toggle'    :   'tab'}
+                           - trans "Images"
 
-                    - if videos
-                        %li
-                            %a{'href'           : "#videos",
-                               'data-toggle'    : 'tab'}
-                                - trans "Videos"
+                - if videos
+                    %li
+                        %a{'href'           : "#videos",
+                           'data-toggle'    : 'tab'}
+                            - trans "Videos"
 
-                    - if downloads
-                        %li
-                            %a{'href'       : '#downloads',
-                               'data-toggle': 'tab'}
-                                - trans "Downloads"
+                - if downloads
+                    %li
+                        %a{'href'       : '#downloads',
+                           'data-toggle': 'tab'}
+                            - trans "Downloads"
 
-                    - if project.demo_codebox
-                        %li
-                            %a{'href': '#demos', 'data-toggle': 'tab'}
-                                %span
-                                    - trans "Demos"
+                - if project.demo_codebox
+                    %li
+                        %a{'href': '#demos', 'data-toggle': 'tab'}
+                            %span
+                                - trans "Demos"
 
 
-                .tab-content
-                    #information.tab-pane.fade.active.in
-                        - include "lab/inc/project_includes/infos.html"
+            .tab-content
+                #information.tab-pane.fade.active.in
+                    - include "lab/inc/project_includes/infos.html"
 
-                    - if progress
-                        #progress.tab-pane.fade
-                            - include "lab/inc/project_includes/progress.haml"
+                - if progress
+                    #progress.tab-pane.fade
+                        - include "lab/inc/project_includes/progress.haml"
 
-                    - if images
-                        #images.tab-pane.fade
-                            - include "lab/inc/project_includes/images.haml"
+                - if images
+                    #images.tab-pane.fade
+                        - include "lab/inc/project_includes/images.haml"
 
-                    - if videos
-                        #videos.tab-pane.fade
-                            - include "lab/inc/project_includes/videos.haml"
+                - if videos
+                    #videos.tab-pane.fade
+                        - include "lab/inc/project_includes/videos.haml"
 
-                    - if downloads
-                        #downloads.tab-pane.fade
-                            - include "lab/inc/project_includes/downloads.haml"
+                - if downloads
+                    #downloads.tab-pane.fade
+                        - include "lab/inc/project_includes/downloads.haml"
 
-                    - if project.demo_codebox
-                        #demo.tab-pane.fade
-                        :javascript
-                          {{ project.demo_codebox|safe }}
+                - if project.demo_codebox
+                    #demo.tab-pane.fade
+                    :javascript
+                      {{ project.demo_codebox|safe }}
 
-                        %canvas#demo_canvas
+                    %canvas#demo_canvas

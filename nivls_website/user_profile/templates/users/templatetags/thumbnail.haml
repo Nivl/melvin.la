@@ -5,11 +5,22 @@
                    height: {{ needed_size }}px;
                    overflow: hidden;'}
 
-        %img{'style': 'max-width: none;
-                       position: relative;
-                       left: {{ pos_x }}px;
-                       top: {{ pos_y }}px;
-                       width: {{ resize_w }}px;
-                       height: {{ resize_h }}px;',
-            'src': '{{ image_url }}',
-            'itemprop': '{{ microdata }}'}
+        - if microdata
+            %img{'style'  : 'max-width: none;
+                             position: relative;
+                             left: {{ pos_x }}px;
+                             top: {{ pos_y }}px;
+                             width: {{ resize_w }}px;
+                             height: {{ resize_h }}px;',
+                'src'     : '{{ image_url }}',
+                'itemprop': '{{ microdata }}',
+                'alt'     : '{{ alt }}',}
+        - else
+            %img{'style': 'max-width: none;
+                           position: relative;
+                           left: {{ pos_x }}px;
+                           top: {{ pos_y }}px;
+                           width: {{ resize_w }}px;
+                           height: {{ resize_h }}px;',
+                'src'   : '{{ image_url }}',
+                'alt'   : '{{ alt }}',}

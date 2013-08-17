@@ -1,4 +1,8 @@
 .thumbnail
-    %img{'alt'     :  '{{ alt }}',
-         'src'     : '{{ src }}?s={{ size }}',
-         'itemprop': '{{ microdata }}'}
+    - if microdata
+        %img{'alt'     :  '{{ alt }}',
+             'src'     : '{{ src }}?s={{ size }}',
+             'itemprop': '{{ microdata }}'}
+    - else
+        %img{'alt'     :  '{{ alt }}',
+             'src'     : '{{ src }}?s={{ size }}'}

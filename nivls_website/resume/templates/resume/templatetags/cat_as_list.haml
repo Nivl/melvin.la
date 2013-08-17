@@ -12,9 +12,9 @@
                 - if is_downloadable and content.value_for_download.strip
                     {{ content.value_for_download|markdown }}
                 - else
-                    %span{'data-type'   :  '{% if perms.resume.change_content %}live-editable{% endif %}',
-                          'data-target' :  'resume-content-value',
-                          'data-pk'     :  '{{ content.pk }}'}<
+                    %div{'data-type'   :  '{% if perms.resume.change_content %}live-editable{% endif %}',
+                         'data-target' :  'resume-content-value',
+                         'data-pk'     :  '{{ content.pk }}'}<
                           - include 'ajax/single_field_value_md.haml' with value=content.value
         - else
             - if is_downloadable and content.value_for_download.strip

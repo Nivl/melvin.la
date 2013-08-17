@@ -3,7 +3,6 @@ function reloadJsEffects() {
     markdownEditor();
     resizeTextarea();
     getStoredData();
-    enableBootstrapEffects();
     reloadShareButtons();
     loadCharts();
     loadImageViewer();
