@@ -56,6 +56,12 @@
                 {{ post.title }}
 
             .info
+                %i.icon-time
+                %time{'datetime': '{{ post.pub_date|date:"Y-m-d\TH:iO" }}'}
+                    {{ post.pub_date|date:"Y-m-d" }}
+
+                %br
+
                 %i.icon-reorder
                 %span{'data-type'   :  '{% if perms.blog.change_post %}live-editable{% endif %}',
                       'data-target' :  'blog-post-category',
