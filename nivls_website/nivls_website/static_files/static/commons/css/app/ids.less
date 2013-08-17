@@ -27,61 +27,77 @@ header > .navbar {
 }
 
 #resume {
-    h2 {
-        a {
-            color: #666;
+    .panel {
+        border: none;
+        .box-shadow(none);
+
+        .panel-heading {
+            background-color: transparent;
+
+            h2 {
+                text-align: center;
+                font-size: 30px;
+
+                a {
+                    color: #666;
+                }
+            }
         }
-    }
 
-    div {
-        display: inline;
+        .panel-block {
+            .title {
+                .make-lg-column(3);
+                .make-md-column(3);
+                .make-sm-column(3);
+            }
 
-        p {
-            display: inline;
-        }
-    }
+            .item {
+                .make-lg-column(9);
+                .make-md-column(9);
+                .make-sm-column(9);
 
-    .title {
-        .make-lg-column(3);
-        .make-md-column(3);
-        .make-sm-column(3);
-    }
+                ul {
+                    div {
+                        display: inline;
 
-    .item {
-        .make-lg-column(9);
-        .make-md-column(9);
-        .make-sm-column(9);
-
-        .element {
-            border-left: 2px solid lighten(@about-color, 10%);
-            padding: 5px 20px;
-            margin: 20px;
-
-            .content {
-                padding-left: 25px;
-
-                li {
-                    h5, p {
-                        margin-top: 10px;
-                        margin-bottom: 0px;
+                        p {
+                            display: inline;
+                        }
                     }
+                }
 
-                    h5 {
-                        color: @about-color;
+                .element {
+                    border-left: 2px solid lighten(@about-color, 10%);
+                    padding: 5px 20px;
+                    margin: 20px;
 
-                        strong {
-                            color: #666;
+                    .content {
+                        padding-left: 25px;
+
+                        li {
+                            h5, p {
+                                margin-top: 10px;
+                                margin-bottom: 0px;
+                            }
+
+                            h5 {
+                                color: @about-color;
+
+                                strong {
+                                    color: #666;
+                                }
+                            }
+
+                            p {
+                                display: block;
+                            }
                         }
                     }
 
-                    p {
-                        display: block;
+                    ul {
+                        margin-bottom: 0;
                     }
                 }
-            }
-
-            ul {
-                margin-bottom: 0;
             }
         }
     }

@@ -5,31 +5,32 @@
     %h2<
         {% trans "C.V." %}
 
-%article#resume.accordion.clean-accordion.main-accordion
+%article#resume.panel-group
     - for section in cv_sections
-        .accordion-group
-            %h2
-                %a.accordion-toggle{'data-toggle' : 'collapse',
-                                    'data-parent' : '#resume',
-                                    'href'        : '#{{ section.slug }}'}
-                    {{ section.name }}
+        .panel
+            .panel-heading
+                %h2.panel-title
+                    %a.accordion-toggle{'data-toggle' : 'collapse',
+                                        'data-parent' : '#resume',
+                                        'href'        : '#{{ section.slug }}'}
+                        {{ section.name }}
 
-            %section{'id'   : '{{ section.slug }}',
-                     'class': 'collapse{% if to_pdf %} in{% endif %}'}
-
-                .block
+            %section.panel-collapse.collapse{'id'   : '{{ section.slug }}',
+                                             'class': '{% if to_pdf %} in{% endif %}'}
+                .panel-block
                     .container
                         {% display_cat section.section_category.all to_pdf %}
 
-    .accordion-group
-        %h2
-            %a.accordion-toggle{'data-toggle' : 'collapse',
-                                'data-parent' : '#resume',
-                                'href'        : '#downloads'}
-                - trans "Downloads"
+    .panel
+        .panel-heading
+            %h2.panel-title
+                %a.accordion-toggle{'data-toggle' : 'collapse',
+                                    'data-parent' : '#resume',
+                                    'href'        : '#downloads'}
+                    - trans "Downloads"
 
-        %section#downloads{'class': 'collapse{% if to_pdf %} in{% endif %}'}
-            .block
+        %section#downloads.panel-collapse.collapse{'class': 'collapse{% if to_pdf %} in{% endif %}'}
+            .panel-block
                 .container
                     .row
                         .col-lg-3
