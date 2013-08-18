@@ -7,4 +7,5 @@ function reloadJsEffects() {
     loadCharts();
     loadImageViewer();
     loadPreviews();
+    loadBootstrapEffects();
 }
