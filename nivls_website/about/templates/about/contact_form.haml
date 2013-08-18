@@ -9,10 +9,11 @@
 
     {{ form|bootstrap_horizontal }}
 
-    .form-actions
-        %button.btn.btn-primary{'type'              : 'submit',
-                                'data-loading-text' : '{% trans "Sending..." %}'}
-            - trans "Send"
-        %button.btn.btn-danger{'type'               : 'reset',
-                               'data-storage-reset' : 'contact-message'}
-            - trans "Reset"
+    .row
+        .form-action-horizontal
+            %button.btn.btn-primary{'type'              : 'submit',
+                                    'data-loading-text' : '{% trans "Sending..." %}'}
+                - trans "Send"
+            %button.btn.btn-danger{'type'               : 'reset',
+                                   'data-storage-reset' : 'contact-message'}
+                - trans "Reset"

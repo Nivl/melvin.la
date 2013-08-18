@@ -43,7 +43,7 @@ function markdownEditor(target, move_submit_buttons) {
             markup_bar_id = $(this).prop('id') + '-' + 'markup-bar';
 
             if ($(this).prev().prop('id') !== markup_bar_id) {
-                $(this).before('<div id="' + markup_bar_id + '"></div>');
+                $(this).before('<div class="margin-bottom-10" id="' + markup_bar_id + '"></div>');
 
                 // ugly leak
                 markdown_converter = new Markdown.getSanitizingConverter();

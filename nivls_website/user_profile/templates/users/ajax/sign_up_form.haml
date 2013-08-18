@@ -5,10 +5,11 @@
     - csrf_token
     {{ form|bootstrap_horizontal }}
 
-    .form-actions
-        %button.btn.btn-primary{'type'              : 'submit',
-                                'data-loading-text' : '{% trans "Signing up..." %}'}
-            - trans "Sign up"
+    .row
+        .form-action-horizontal
+            %button.btn.btn-primary{'type'              : 'submit',
+                                    'data-loading-text' : '{% trans "Signing up..." %}'}
+                - trans "Sign up"
 
-        %button.btn.btn-danger{'type': 'reset'}
-            - trans "Reset"
+            %button.btn.btn-danger{'type': 'reset'}
+                - trans "Reset"
