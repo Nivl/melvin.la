@@ -2462,7 +2462,7 @@ else
                 }
 
                 button.title = title;
-                $(button).tooltip({placement: 'bottom'})
+                $(button).tooltip({container: 'body'})
                 if (textOp)
                     button.textOp = textOp;
                 setupButton(button, true);
@@ -2517,7 +2517,7 @@ else
                 helpButton.id = "wmd-help-button" + postfix;
                 helpButton.isHelp = true;
                 helpButton.title = helpOptions.title || defaultHelpHoverTitle;
-                $(helpButton).tooltip({placement: 'bottom'})
+                $(helpButton).tooltip({container: 'body'})
                 helpButton.onclick = helpOptions.handler;
 
                 setupButton(helpButton, true);
