@@ -31,15 +31,16 @@
                           'action'    : '{% url "sign-in" %}'}
         - csrf_token
 
-        {{ form|bootstrap_horizontal }}
+        {{ form|bootstrap_horizontal:"col-lg-4" }}
 
         %input{'type'   : 'hidden',
                'name'   : 'next',
                'value'  : '{{ next }}'}
 
-        .form-actions
-            %button.btn.btn-primary{'type': 'submit'}<
-                - trans "Sign in"
+        .row
+            .form-action-horizontal-bigger
+                %button.btn.btn-primary{'type': 'submit'}<
+                    - trans "Sign in"
 
-            %button.btn.btn-danger{'type' : 'reset'}<
-                - trans "Reset"
+                %button.btn.btn-danger{'type' : 'reset'}<
+                    - trans "Reset"

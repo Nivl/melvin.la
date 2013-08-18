@@ -7,12 +7,11 @@
 
     {{ form|bootstrap }}
 
-    .form-actions
-        %button.btn.btn-primary{'type'              : 'submit',
-                                'data-loading-text' : '{% trans "Sending..." %}'}
+    %button.btn.btn-primary{'type'              : 'submit',
+                            'data-loading-text' : '{% trans "Sending..." %}'}
 
-            - trans "Send"
+        - trans "Send"
 
-        %button.btn.btn-danger{'type'               : 'reset',
-                               'data-storage-reset' : '{{ storage_key }}'}
-            - trans "Reset"
+    %button.btn.btn-danger{'type'               : 'reset',
+                           'data-storage-reset' : '{{ storage_key }}'}
+        - trans "Reset"
