@@ -165,14 +165,19 @@ PIPELINE_DISABLE_WRAPPER = True
 
 INSTALLED_APPS += ('haystack',)
 
-HAYSTACK_SITECONF = 'nivls_website.search_sites'
-HAYSTACK_SEARCH_ENGINE = 'whoosh'
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
-HAYSTACK_WHOOSH_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.abspath(os.path.join(os.path.dirname(__file__),
                                                     '..',
                                                     '..',
                                                     '..',
-                                                    'whoosh_index'))
+                                                    'whoosh_index')),
+        'STORAGE': 'file',
+    },
+}
 
 #
 # Hamlpy
