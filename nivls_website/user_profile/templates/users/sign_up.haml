@@ -19,10 +19,10 @@
                 {% trans "Sign up" %}
 
 - block "content"
-    #sign-up-accordion.accordion
-        .accordion-group
-            .accordion-heading
-                %h2
+    #sign-up-accordion.panel-group
+        .panel
+            .panel-heading
+                %h2.panel-title
                     %a.accordion-toggle{'data-toggle' : 'collapse',
                                         'data-parent' : '#sign-up-accordion',
                                         'href'        : '#sign-up-social'}
@@ -30,8 +30,8 @@
 
                         %small
                             - trans "(faster)"
-            #sign-up-social.accordion-body.collapse.in
-                .accordion-inner
+            #sign-up-social.panel-collapse.collapse.in
+                .panel-body
                     %p.alert.alert-info<
                         - trans "Signing up using one of your social medias accounts is the simplest and fastest way to sign up. You won't have to fill any forms or validate your account."
 
@@ -42,9 +42,9 @@
                         {{ social_auth.backends|social_sign_in_links:request }}
 
 
-        .accordion-group
-            .accordion-heading
-                %h2
+        .panel
+            .panel-heading
+                %h2.panel-title
                     %a.accordion-toggle{'data-toggle' : 'collapse',
                                         'data-parent' : '#sign-up-accordion',
                                         'href'        : '#sign-up-manually'}
@@ -53,9 +53,9 @@
                         %small
                             - trans "(painful)"
 
-        #sign-up-manually.accordion-body.collapse
-            .accordion-inner
-                %p.alert.alert-info
-                    - trans "If you choose to sign up this way, we will send you an e-mail to validate your account."
+            #sign-up-manually.panel-collapse.collapse
+                .panel-body
+                    %p.alert.alert-info
+                        - trans "If you choose to sign up this way, we will send you an e-mail to validate your account."
 
-                - include "users/ajax/sign_up_form.haml" with form=form
+                    - include "users/ajax/sign_up_form.haml" with form=form
