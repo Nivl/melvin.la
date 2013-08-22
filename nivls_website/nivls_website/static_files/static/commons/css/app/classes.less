@@ -242,7 +242,7 @@
 .video {
     margin-bottom: 30px;
 
-    iframe {
+    & > iframe { // for an unknow reason, without the direct child selector, all iframe are selected
         margin-left: 20px;
     }
 }
