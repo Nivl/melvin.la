@@ -135,11 +135,11 @@
         %footer#post-footer
             - if post.lab
                 .lab-button
-                    %a.btn.btn-default{'data-depth'      : '1',
-                           'data-ajax'       : 'body-content',
-                           'data-navbar'     : '#navbar-lab',
-                           'title'           : '{% trans "Lab" %}',
-                           'href'            : '{{ post.lab.get_absolute_url }}'}
+                    %a.btn.btn-reverse{'data-depth'      : '1',
+                                       'data-ajax'       : 'body-content',
+                                       'data-navbar'     : '#navbar-lab',
+                                       'title'           : '{% trans "Lab" %}',
+                                       'href'            : '{{ post.lab.get_absolute_url }}'}
 
                             %i.icon-info-sign.icon-white
                             &nbsp;

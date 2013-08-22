@@ -15,7 +15,7 @@
                  'data-pk'     :  '{{ project.pk }}'}<
                 - include 'ajax/single_field_value_md.haml' with value=project.description
 
-            %a.btn.btn-default{'itemprop'   : 'url',
+            %a.btn.btn-reverse{'itemprop'   : 'url',
                                'data-depth' : '30',
                                'data-ajax'  : 'body-content-only',
                                'title'      : '{{ project.name }}',

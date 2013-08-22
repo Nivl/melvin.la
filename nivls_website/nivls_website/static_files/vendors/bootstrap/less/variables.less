@@ -28,31 +28,31 @@
 // -------------------------
 
 @body-bg:               #fff;
-@text-color:            @gray-dark;
+@text-color:            @gray;
 
 // Links
 // -------------------------
 
-@link-color:            @brand-primary;
+@link-color:            white;
 @link-hover-color:      darken(@link-color, 15%);
 
 // Typography
 // -------------------------
 
-@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-sans-serif:  "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @font-family-serif:       Georgia, "Times New Roman", Times, serif;
 @font-family-monospace:   Monaco, Menlo, Consolas, "Courier New", monospace;
 @font-family-base:        @font-family-sans-serif;
 
-@font-size-base:          14px;
+@font-size-base:          16px;
 @font-size-large:         ceil(@font-size-base * 1.25); // ~18px
 @font-size-small:         ceil(@font-size-base * 0.85); // ~12px
 
-@line-height-base:        1.428571429; // 20/14
-@line-height-computed:    floor(@font-size-base * @line-height-base); // ~20px
+@line-height-base:        1.5; // 24/16
+@line-height-computed:    floor(@font-size-base * @line-height-base); // ~24px
 
-@headings-font-family:    @font-family-base;
-@headings-font-weight:    500;
+@headings-font-family:    "Open Sans", @font-family-base;
+@headings-font-weight:    300;
 @headings-line-height:    1.1;
 
 // Iconography
@@ -64,12 +64,12 @@
 
 // Components
 // -------------------------
-// Based on 14px font-size and 1.428 line-height (~20px to start)
+// Based on 16px font-size and 1.5 line-height (~24px to start)
 
-@padding-base-vertical:          6px;
+@padding-base-vertical:          8px;
 @padding-base-horizontal:        12px;
 
-@padding-large-vertical:         10px;
+@padding-large-vertical:         14px;
 @padding-large-horizontal:       16px;
 
 @padding-small-vertical:         5px;
@@ -236,13 +236,13 @@
 // -------------------------
 
 // Basics of a navbar
-@navbar-height:                    50px;
+@navbar-height:                    60px;
 @navbar-margin-bottom:             @line-height-computed;
 @navbar-default-color:             #777;
-@navbar-default-bg:                #f8f8f8;
+@navbar-default-bg:                #f5f5f5;
 @navbar-default-border:            darken(@navbar-default-bg, 6.5%);
 @navbar-border-radius:             @border-radius-base;
-@navbar-padding-horizontal:        floor(@grid-gutter-width / 2);
+@navbar-padding-horizontal:        floor(@grid-gutter-width / 2);  // ~15px
 @navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
 
 // Navbar links
@@ -250,7 +250,7 @@
 @navbar-default-link-hover-color:          #333;
 @navbar-default-link-hover-bg:             transparent;
 @navbar-default-link-active-color:         #555;
-@navbar-default-link-active-bg:            darken(@navbar-default-bg, 6.5%);
+@navbar-default-link-active-bg:            transparent;
 @navbar-default-link-disabled-color:       #ccc;
 @navbar-default-link-disabled-bg:          transparent;
 
@@ -336,7 +336,7 @@
 
 @pagination-hover-bg:                  @gray-lighter;
 
-@pagination-active-bg:                 @brand-primary;
+@pagination-active-bg:                 #f5f5f5;
 @pagination-active-color:              #fff;
 
 @pagination-disabled-color:            @gray-light;
@@ -550,8 +550,8 @@
 
 // Breadcrumbs
 // -------------------------
-@breadcrumb-bg:               #f5f5f5;
-@breadcrumb-color:            #ccc;
+@breadcrumb-bg:               transparent;
+@breadcrumb-color:            @gray-dark;
 @breadcrumb-active-color:     @gray-light;
 
 
