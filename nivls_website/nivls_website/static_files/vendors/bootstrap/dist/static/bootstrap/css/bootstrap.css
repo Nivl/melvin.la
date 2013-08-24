@@ -4360,7 +4360,7 @@ a .icon-flip-vertical:before {
   clear: both;
   font-weight: normal;
   line-height: 1.5;
-  color: #333333;
+  color: #555555;
   white-space: nowrap;
 }
 
@@ -4913,7 +4913,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: transparent;
+  background-color: #eeeeee;
 }
 
 .nav > li.disabled > a {
@@ -4931,7 +4931,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
-  background-color: transparent;
+  background-color: #eeeeee;
   border-color: #ffffff;
 }
 
