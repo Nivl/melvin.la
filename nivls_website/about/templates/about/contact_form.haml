@@ -7,10 +7,10 @@
 
     - csrf_token
 
-    {{ form|bootstrap_horizontal }}
+    {{ form|bootstrap_horizontal:'col-lg-4' }}
 
     .row
-        .form-action-horizontal
+        .form-action-horizontal-bigger
             %button.btn.btn-primary{'type'              : 'submit',
                                     'data-loading-text' : '{% trans "Sending..." %}'}
                 - trans "Send"
