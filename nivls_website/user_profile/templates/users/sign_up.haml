@@ -20,7 +20,7 @@
 
 - block "content"
     #sign-up-accordion.panel-group
-        .panel
+        .panel.panel-default
             .panel-heading
                 %h2.panel-title
                     %a.accordion-toggle{'data-toggle' : 'collapse',
@@ -42,7 +42,7 @@
                         {{ social_auth.backends|social_sign_in_links:request }}
 
 
-        .panel
+        .panel.panel-default
             .panel-heading
                 %h2.panel-title
                     %a.accordion-toggle{'data-toggle' : 'collapse',

@@ -7,7 +7,7 @@
 
 %article#resume.panel-group
     - for section in cv_sections
-        .panel
+        .panel.panel-default
             .panel-heading
                 %h2.panel-title
                     %a.accordion-toggle{'data-toggle' : 'collapse',
@@ -21,7 +21,7 @@
                     .container
                         {% display_cat section.section_category.all to_pdf %}
 
-    .panel
+    .panel.panel-default
         .panel-heading
             %h2.panel-title
                 %a.accordion-toggle{'data-toggle' : 'collapse',
