@@ -103,6 +103,13 @@
 .col-all(0) {}
 .col-all(12);
 
+.make-col-all(@size) {
+    .make-xs-column(@size);
+    .make-sm-column(@size);
+    .make-md-column(@size);
+    .make-lg-column(@size);
+}
+
 .col-no-phone (@index) when (@index > 0) {
     .col-no-phone-@{index} {
         .make-sm-column(@index);
@@ -113,3 +120,9 @@
 }
 .col-no-phone(0) {}
 .col-no-phone(12);
+
+.make-col-no-phone(@size) {
+    .make-sm-column(@size);
+    .make-md-column(@size);
+    .make-lg-column(@size);
+}
