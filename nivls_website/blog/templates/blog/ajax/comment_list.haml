@@ -10,12 +10,13 @@
             - if comment.user
                 %a{'data-ajax'  : 'body-content-only',
                    'data-depth' : '40',
-                   'href'       : '{{ comment.user.get_absolute_url }}'}
+                   'href'       : '{{ comment.user.get_absolute_url }}'}<
 
                     - if comment.user.get_profile.use_name
-                        {{ comment.user.get_full_name }},
+                        {{ comment.user.get_full_name }}
                     - else
-                        {{ comment.user.username }},
+                        {{ comment.user.username }}
+                \-
 
             - elif comment.website
                 %a{'href': '{{ comment.website }}'}
