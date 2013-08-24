@@ -17,7 +17,7 @@
 
 // Callbacks
 
-$(document).on('hidden', '[id^=modal-edit-]', function () {
+$(document).on('hidden.bs.modal', '[id^=modal-edit-]', function () {
     'use strict';
 
     var target = $(this).find('[id^=edit-][id$=-form]');
@@ -30,7 +30,7 @@ $(document).on('hidden', '[id^=modal-edit-]', function () {
 function clearError(that) {
     'use strict';
 
-    $(that).css('background-color', '#fff');
+    $(that).find('.modal-content').css('background-color', '#fff');
 }
 
 function hideOnSuccess(that) {
@@ -42,7 +42,7 @@ function hideOnSuccess(that) {
 function colorOnError(that) {
     'use strict';
 
-    $(that).parents('.modal').css('background-color', '#f2dede');
+    $(that).parents('.modal-content').css('background-color', '#f2dede');
 }
 
 
@@ -145,7 +145,7 @@ $(document).on('submit', '#edit-account-form', function () {
 });
 
 
-$(document).on('shown', '#modal-edit-profile', function () {
+$(document).on('shown.bs.modal', '#modal-edit-profile', function () {
     'use strict';
 
     var that = this;
@@ -178,7 +178,7 @@ $(document).on('submit', '#edit-settings-form', function () {
 });
 
 
-$(document).on('shown', '#modal-edit-settings', function () {
+$(document).on('shown.bs.modal', '#modal-edit-settings', function () {
     'use strict';
 
     var that = this;
@@ -225,7 +225,7 @@ $(document).on('submit', '#edit-password-form', function () {
 });
 
 
-$(document).on('shown', '#modal-edit-password', function () {
+$(document).on('shown.bs.modal', '#modal-edit-password', function () {
     'use strict';
 
     var that = this;
@@ -257,7 +257,7 @@ $(document).on('submit', '#edit-email-form', function () {
 });
 
 
-$(document).on('shown', '#modal-edit-email', function () {
+$(document).on('shown.bs.modal', '#modal-edit-email', function () {
     'use strict';
 
     var that = this;
