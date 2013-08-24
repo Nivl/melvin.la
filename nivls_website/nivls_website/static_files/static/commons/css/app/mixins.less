@@ -90,3 +90,26 @@
         }
     }
 }
+
+.col-all (@index) when (@index > 0) {
+    .col-all-@{index} {
+        .make-xs-column(@index);
+        .make-sm-column(@index);
+        .make-md-column(@index);
+        .make-lg-column(@index);
+    }
+    .col-all(@index - 1);
+}
+.col-all(0) {}
+.col-all(12);
+
+.col-no-phone (@index) when (@index > 0) {
+    .col-no-phone-@{index} {
+        .make-sm-column(@index);
+        .make-md-column(@index);
+        .make-lg-column(@index);
+    }
+    .col-no-phone(@index - 1);
+}
+.col-no-phone(0) {}
+.col-no-phone(12);
