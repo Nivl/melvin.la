@@ -110,6 +110,27 @@
     }
 }
 
+@media(max-width: 979px) {
+    #body {
+        .post-list {
+           .row {
+                .post {
+                    border-left: 1px solid #eaeadd !important;
+                    border-right: 1px solid #eaeadd !important;
+                    border-bottom: 1px solid #eaeadd !important;
+                    border-top: none;
+                }
+
+                &:first-child {
+                    .post:first-child {
+                        border-top: 1px solid #eaeadd !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media(max-width: 979px) and (min-width: 768px) {
     #body > footer {
         .brand {
@@ -123,7 +144,7 @@
 
     #body {
         .post-list .row .post {
-            min-height: 530px;
+            min-height: 250px;
         }
     }
 }
