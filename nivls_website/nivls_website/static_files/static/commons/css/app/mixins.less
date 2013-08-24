@@ -110,6 +110,23 @@
     .make-lg-column(@size);
 }
 
+.col-all-offset (@index) when (@index > 0) {
+    .col-all-offset-@{index} {
+        .make-sm-column-offset(@index);
+        .make-md-column-offset(@index);
+        .make-lg-column-offset(@index);
+    }
+    .col-all-offset(@index - 1);
+}
+.col-all-offset(0) {}
+.col-all-offset(12);
+
+.make-col-all-offset(@size) {
+    .make-sm-column-offset(@size);
+    .make-md-column-offset(@size);
+    .make-lg-column-offset(@size);
+}
+
 .col-no-phone (@index) when (@index > 0) {
     .col-no-phone-@{index} {
         .make-sm-column(@index);
@@ -125,4 +142,22 @@
     .make-sm-column(@size);
     .make-md-column(@size);
     .make-lg-column(@size);
+}
+
+.col-no-phone-offset (@index) when (@index > 0) {
+    .col-no-phone-offset-@{index} {
+        .make-sm-column-offset(@index);
+        .make-md-column-offset(@index);
+        .make-lg-column-offset(@index);
+    }
+    .col-no-phone-offset(@index - 1);
+}
+
+.col-no-phone-offset(0) {}
+.col-no-phone-offset(12);
+
+.make-col-no-phone-offset(@size) {
+    .make-sm-column-offset(@size);
+    .make-md-column-offset(@size);
+    .make-lg-column-offset(@size);
 }
