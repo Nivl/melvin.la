@@ -74,59 +74,6 @@
 
                                 %a{'href': '#sign-in', 'data-toggle': 'modal'}<
                                     %i.icon-cog
-
-                                -# %ul.dropdown-menu
-
-                                -#     %li
-                                -#         %a{'data-ajax'  : 'body-content',
-                                -#            'data-depth' : '1',
-                                -#            'title'      : '{% trans "Sign up" %}',
-                                -#            'href'       : '{% url "sign-up" %}'}<
-                                -#             - trans "Sign up"
-
-                                -#     %li
-                                -#         %a{'data-ajax'  : 'body-content',
-                                -#            'data-depth'  : '1',
-                                -#            'title'       : '{% trans "I lost my password" %}',
-                                -#            'href'        : '{% url "reset-password" %}'}<
-                                -#             - trans "I lost my password"
-
-                                -#     %li.divider
-
-                                -#     %li.login-box<
-                                -#         %h5 {% trans "Sign in" %}
-
-                                -#         .social-media-box.clearfix
-                                -#             %p.login-sm.pull-left<
-                                -#                 - trans "Sign in with:"
-
-                                -#             %ul.nav.nav-pills.social-medias-icons<
-                                -#                 {{ social_auth.backends|social_sign_in_links:request }}
-
-                                -#         %p<
-                                -#             - trans "Or sign in using your account:"
-
-                                -#         %form{'action': '{% url "sign-in" %}', 'method': 'post'}
-                                -#             {% csrf_token %}
-
-                                -#             .form-group
-                                -#                 %input.form-control{'placeholder': '{{ _("Username")|force_escape }}',
-                                -#                        'id'         : 'id_username',
-                                -#                        'name'       : 'username',
-                                -#                        'type'       : 'text'}
-
-                                -#             .form-group
-                                -#                 %input.form-control{'placeholder' : '{% trans "Password" %}',
-                                -#                        'type'        : 'password',
-                                -#                        'id'          : 'id_password',
-                                -#                        'name'        : 'password'}
-
-                                -#             %input{'type': 'hidden',
-                                -#                     'name': 'next',
-                                -#                     'value': '{{ request.get_full_path }}'}
-
-                                -#             %input.btn.btn-primary{'value': '{% trans "Sign in" %}',
-                                -#                                    'type': 'submit'}
                             - else
 
                                 %a.dropdown-toggle{'href': '#',
