@@ -31,7 +31,7 @@
                         {{ ADMIN.get_full_name }}
 
                 #main-menu-collapse.navbar-collapse.collapse
-                    %ul#navbar-main-list.nav.navbar-nav.pull-right
+                    %ul#navbar-main-list.nav.navbar-nav.navbar-right
                         %li#navbar-blog.blog{'class': '{% block "menu-blog" %}{% endblock %}'}
                             %a{'data-depth' : '1',
                                'title'      : '{% trans "Blog" %}',
@@ -128,12 +128,12 @@
             .container
                 .row
                     .wrapper
-                        .col-lg-9
+                        .col-no-phone-9
                             %h1#page-title<
                                 - block "page-title"
                                     - trans "Welcome"
 
-                        .col-lg-3
+                        .col-no-phone-3
                             %form.search-form{'method'     : 'get',
                                               'action'     : '{% url "haystack_search" %}',
                                               'data-ajax'  : 'body-content',
@@ -152,7 +152,7 @@
                                             %i.icon-search
 
                 .row.margin-top-10
-                    .col-lg-12.clearfix
+                    .col-no-phone-12.clearfix
                         - block "breadcrumb"
                             %ul#breadcrumb.breadcrumb{'itemscope': None, 'itemtype': 'http://data-vocabulary.org/Breadcrumb'}
                                 %li<

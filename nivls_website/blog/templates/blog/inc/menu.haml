@@ -15,13 +15,13 @@
                         %span.icon-bar
                         %span.icon-bar
 
-                %a.navbar-brand{'href': '{% url "blog" %}'}
-                    %strong
-                        - trans 'Blog'
-                    Menu
+                    %a.navbar-brand{'href': '{% url "blog" %}'}
+                        %strong
+                            - trans 'Blog'
+                        Menu
 
                 #submenu-collapse.navbar-collapse.collapse
-                    %ul.nav.navbar-nav.pull-right{'role': 'complementary'}
+                    %ul.nav.navbar-nav.navbar-right{'role': 'complementary'}
                         - blog_tagcloud
                         - blog_categories
                         - blog_archives
