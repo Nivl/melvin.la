@@ -1,7 +1,7 @@
 import markdown
 from django.conf import settings
 from django.shortcuts import render
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from commons.forms import SingleTextareaForm
 from commons.decorators import ajax_only
 from commons.views import ajax_get_single_data, ajax_get_form, ajax_get_model_data
@@ -20,11 +20,16 @@ def contact_form(request):
             msg += "\n\n\n" + ('-' * 80)
             msg += "\n\n Ip : " + request.META["REMOTE_ADDR"]
 
-            send_mail(form.cleaned_data['subject'],
-                      msg,
-                      form.cleaned_data['email'],
-                      [row[1] for row in settings.ADMINS],
-                      fail_silently=True)
+            msg_html = md.convert(form.cleaned_data['message'])
+            msg_html += '<br />' + ('-' * 80)
+            msg_html += '<br /><br /> Ip : ' + request.META["REMOTE_ADDR"]
+
+            mail = EmailMultiAlternatives(form.cleaned_data['subject'],
+                                          msg,
+                                          form.cleaned_data['email'],
+                                          [row[1] for row in settings.ADMINS])
+            mail.attach_alternative(msg_html, 'text/html')
+            mail.send()
 
             return render(request, 'about/contact_ok.haml')
     else:
