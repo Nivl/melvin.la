@@ -45,7 +45,7 @@ class CommentForm(happyforms.ModelForm):
         if self.request.user.is_authenticated():
             akismet_status = akismet_is_valid(self.request,
                                               cleaned_data.get('comment'))
-        elif cleaned_data.get('email') and cleaned_data.get('comment'):
+        elif 'email' in cleaned_data and 'comment' in cleaned_data:
                 akismet_status = akismet_is_valid(self.request,
                                                   cleaned_data.get('comment'),
                                                   cleaned_data.get('email'),
@@ -53,6 +53,7 @@ class CommentForm(happyforms.ModelForm):
 
         if not akismet_status:
             self._errors['comment'] = forms.ValidationError('Spam attempt detected!')
-            del cleaned_data['comment']
+            if 'comment' in cleaned_data:
+                del cleaned_data['comment']
 
         return cleaned_data
