@@ -140,7 +140,8 @@ PIPELINE_CSS = {
              'variant': 'datauri',
              },
 
-    'wkhtml2pdf': {'source_filenames': ('commons/css/libs/*.css',
+    'wkhtml2pdf': {'source_filenames': ('bootstrap/css/bootstrap.min.css',
+                                        'commons/css/libs/*.css',
                                         'commons/css/plugins/*.css',
                                         'commons/css/app/main.less',
                                         ),
