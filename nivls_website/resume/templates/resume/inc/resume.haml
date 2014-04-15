@@ -5,7 +5,7 @@
     %h2<
         {% trans "C.V." %}
 
-%article#resume.panel-group
+%article#resume.panel-group{'class': '{% if to_pdf %}to-pdf{% endif %}'}
     - for section in cv_sections
         .panel.panel-default
             .panel-heading
@@ -33,11 +33,10 @@
             .panel-block
                 .container
                     .row
-                        .col-lg-3
+                        .title
                             %h3<
                                 - trans "Downloads"
-
-                        .col-lg-9
+                        .item
                             %ul.element.list-unstyled
                                 - if not to_pdf
                                     %li

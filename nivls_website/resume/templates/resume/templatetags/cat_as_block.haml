@@ -8,7 +8,11 @@
                 'data-pk'     :  '{{ content.pk }}'}<
                 - include 'ajax/single_field_value_md.haml' with value=content.key
 
-            .content{'data-type'   :  '{% if perms.resume.change_content %}live-editable{% endif %}',
-                     'data-target' :  'resume-content-value',
-                     'data-pk'     :  '{{ content.pk }}'}
-                - include 'ajax/single_field_value_md.haml' with value=content.value
+            - if is_downloadable and content.value_for_download.strip
+                .content
+                    {{ content.value_for_download|markdown }}
+            - else
+                .content{'data-type'   :  '{% if perms.resume.change_content %}live-editable{% endif %}',
+                         'data-target' :  'resume-content-value',
+                         'data-pk'     :  '{{ content.pk }}'}
+                    - include 'ajax/single_field_value_md.haml' with value=content.value

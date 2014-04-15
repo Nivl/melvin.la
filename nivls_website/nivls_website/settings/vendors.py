@@ -61,20 +61,20 @@ MIDDLEWARE_CLASSES += (
 # Johnny cache
 #
 
-MIDDLEWARE_CLASSES = (
-    'johnny.middleware.LocalStoreClearMiddleware',
-    'johnny.middleware.QueryCacheMiddleware',
-) + MIDDLEWARE_CLASSES
+# MIDDLEWARE_CLASSES = (
+#     'johnny.middleware.LocalStoreClearMiddleware',
+#     'johnny.middleware.QueryCacheMiddleware',
+# ) + MIDDLEWARE_CLASSES
 
 
-CACHES = {
-    'default': dict(BACKEND='johnny.backends.memcached.MemcachedCache',
-                    LOCATION=['127.0.0.1:11211'],
-                    JOHNNY_CACHE=True,
-                    )
-}
+# CACHES = {
+#     'default': dict(BACKEND='johnny.backends.memcached.MemcachedCache',
+#                     LOCATION=['127.0.0.1:11211'],
+#                     JOHNNY_CACHE=True,
+#                     )
+# }
 
-JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_nivls_website'
+# JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_nivls_website'
 
 #
 # Django pipeline
@@ -140,7 +140,8 @@ PIPELINE_CSS = {
              'variant': 'datauri',
              },
 
-    'wkhtml2pdf': {'source_filenames': ('bootstrap/css/bootstrap.min.css',
+
+    'wkhtml2pdf': {'source_filenames': ('bootstrap/css/bootstrap.min.css'
                                         'commons/css/libs/*.css',
                                         'commons/css/plugins/*.css',
                                         'commons/css/app/main.less',

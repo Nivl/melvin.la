@@ -103,8 +103,7 @@ class Content(models.Model):
     value = models.TextField(
         verbose_name=_("value"))
 
-    value_for_download = models.CharField(
-        max_length=255,
+    value_for_download = models.TextField(
         blank=True,
         null=True,
         verbose_name=_("value for download"))
