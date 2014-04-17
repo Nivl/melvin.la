@@ -21,24 +21,28 @@
                     .container
                         {% display_cat section.section_category.all to_pdf %}
 
-    .panel.panel-default
-        .panel-heading
-            %h2.panel-title
-                %a.accordion-toggle{'data-toggle' : 'collapse',
-                                    'data-parent' : '#resume',
-                                    'href'        : '#downloads'}
-                    - trans "Downloads"
 
-        %section#downloads.panel-collapse.collapse{'class': 'collapse{% if to_pdf %} in{% endif %}'}
-            .panel-block
-                .container
-                    .row
-                        .title
-                            %h3<
-                                - trans "Downloads"
-                        .item
-                            %ul.element.list-unstyled
-                                - if not to_pdf
+    - if to_pdf
+        - trans "You can download several documents such as academic degrees, tests results, etc., on my website: "
+        <a href="http://{{ DOMAIN_NAME }}{% url "cv" %}">{{ DOMAIN_NAME }}{% url "cv" %}</a>
+    - else
+        .panel.panel-default
+            .panel-heading
+                %h2.panel-title
+                    %a.accordion-toggle{'data-toggle' : 'collapse',
+                                        'data-parent' : '#resume',
+                                        'href'        : '#downloads'}
+                        - trans "Downloads"
+
+            %section#downloads.panel-collapse.collapse{'class': 'collapse{% if to_pdf %} in{% endif %}'}
+                .panel-block
+                    .container
+                        .row
+                            .title
+                                %h3<
+                                    - trans "Downloads"
+                            .item
+                                %ul.element.list-unstyled
                                     %li
                                         %a{'href': '{% url "cv_pdf" %}'}
                                             - trans "Download this C.V. as PDF"
@@ -51,7 +55,4 @@
                                                     %li
                                                         %a{'href': '{{ file.document.url }}'}
                                                             {{ file.name }}
-                                - else
-                                    %li
-                                        - trans "You can download several documents such as academic degrees, tests results, etc., on my website: "
-                                        <a href="http://{{ DOMAIN_NAME }}{% url "cv" %}">{{ DOMAIN_NAME }}{% url "cv" %}</a>
+                                        
