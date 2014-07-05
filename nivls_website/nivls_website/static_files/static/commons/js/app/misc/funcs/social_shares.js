@@ -11,7 +11,7 @@ function reloadShareButtons() {
         gapi.plusone.go();
     }
 
-    if (typeof twttr.widgets !== "undefined") {
+    if (twttr && typeof twttr.widgets !== "undefined") {
         if ($twttr_button.length > 0) {
             $twttr_button.attr('data-url', document.location.href);
             $twttr_button.attr('data-text', $('title').text());
