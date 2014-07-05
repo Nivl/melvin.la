@@ -7,11 +7,11 @@ function reloadShareButtons() {
     var $twttr_button = $('.twitter-share-button'),
         $fb_button = $('.fb-like');
 
-    if (typeof gapi !== "undefined") {
+    if (typeof gapi !== 'undefined') {
         gapi.plusone.go();
     }
 
-    if (twttr && typeof twttr.widgets !== "undefined") {
+    if (typeof twttr !== 'undefined' && typeof twttr.widgets !== 'undefined') {
         if ($twttr_button.length > 0) {
             $twttr_button.attr('data-url', document.location.href);
             $twttr_button.attr('data-text', $('title').text());
