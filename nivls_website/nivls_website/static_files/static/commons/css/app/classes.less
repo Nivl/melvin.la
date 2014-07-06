@@ -243,11 +243,13 @@
     .display-generated-icon(32px);
 }
 
-.video {
-    margin-bottom: 30px;
+#videos { // Fix for the video class autmatically added on <html> in production
+    .video {
+        margin-bottom: 30px;
 
-    & > iframe { // for an unknow reason, without the direct child selector, all iframe are selected
-        margin-left: 20px;
+        & > iframe { // for an unknow reason, without the direct child selector, all iframe are selected
+            margin-left: 20px;
+        }
     }
 }
 
