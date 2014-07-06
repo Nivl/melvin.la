@@ -110,19 +110,19 @@
 
                         - include 'blog/ajax/is_public.haml' with value=post.is_public
 
-                %br
-                %span.share-btn
-                    %span.g-plusone.item{'data-size': 'medium'}
-                    %a.twitter-share-button{'href'      : 'https://twitter.com/share',
-                                            'data-via'  : 'Nivl_',
-                                            'data-lang' : '{% trans "en" %}'}<
-                        Tweet
-                    %span.fb-like{'data-href': 'http://{{ DOMAIN_NAME }}{{ request.path }}',
-                                  'data-width': '450',
-                                  'data-layout': 'button_count',
-                                  'data-show-faces': 'false',
-                                  'data-send': 'false',
-                                  'data-action': 'recommend'}
+                -# %br
+                -# %span.share-btn
+                -#     %span.g-plusone.item{'data-size': 'medium'}
+                -#     %a.twitter-share-button{'href'      : 'https://twitter.com/share',
+                -#                             'data-via'  : 'Nivl_',
+                -#                             'data-lang' : '{% trans "en" %}'}<
+                -#         Tweet
+                -#     %span.fb-like{'data-href': 'http://{{ DOMAIN_NAME }}{{ request.path }}',
+                -#                   'data-width': '450',
+                -#                   'data-layout': 'button_count',
+                -#                   'data-show-faces': 'false',
+                -#                   'data-send': 'false',
+                -#                   'data-action': 'recommend'}
 
         %section.content.clearfix{'itemprop': 'articleBody',
 
