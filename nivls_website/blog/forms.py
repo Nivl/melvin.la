@@ -51,6 +51,8 @@ class CommentForm(happyforms.ModelForm):
                                                   cleaned_data.get('email'),
                                                   cleaned_data.get('website'))
 
+        # todo: The error is actually not displayed.
+        # Note to self: the string "test" will FAIL the validation
         if not akismet_status:
             self._errors['comment'] = forms.ValidationError('Spam attempt detected!')
             if 'comment' in cleaned_data:
