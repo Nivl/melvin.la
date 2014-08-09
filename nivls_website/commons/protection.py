@@ -5,7 +5,12 @@ import akismet
 
 def akismet_is_valid(request, data, user_email='', user_url=''):
     current_site = Site.objects.get_current()
-    data = data.encode('ascii', 'ignore')
+
+    if data is not None:
+        data = data.encode('ascii', 'ignore')
+    else:
+       data = ''
+
     user_data = {'user_ip': request.META.get('REMOTE_ADDR'),
                  'user_agent':  request.META.get('HTTP_USER_AGENT'),
                  'referrer':  request.META.get('HTTP_REFERER', 'unknown'),
