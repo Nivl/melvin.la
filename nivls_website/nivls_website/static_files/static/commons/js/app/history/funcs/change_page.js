@@ -12,8 +12,8 @@ function changePage(url, title, that) {
     'use strict';
 
     /*jslint nomen: true*/
-    if (_gaq !== undefined) {
-        _gaq.push(['_trackPageview', url]);
+    if (typeof ga !== 'undefined') {
+	ga('send', 'pageview', url);
     }
     /*jslint nomen: false*/
 
