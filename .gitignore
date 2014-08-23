@@ -13,3 +13,5 @@ private.py
 TODO
 nivlsWebsite.sublime-*
 node_modules/
+.idea/workspace.xml
+.idea/tasks.xml
