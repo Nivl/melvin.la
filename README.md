@@ -1,4 +1,4 @@
-The beta version is accessible at [beta.melvin.re](http://beta.melvin.re).
+I am rewriting this project from scratch using Angular 2. Check the [branch "next"](https://github.com/Nivl/www.melvin.la/tree/next) to check it out. 
 
 Dependencies
 ============
