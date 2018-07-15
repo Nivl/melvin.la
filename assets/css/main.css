@@ -4140,11 +4140,25 @@ input, select, textarea {
 		position: relative;
 		margin-left: -100%;
     margin-right: -100%;
+		margin-bottom: 100px;
 	}
 
 	@media screen and (min-width: 980px) {
 		#google-map {
 			top: 2em;
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		#google-map {
+			height: 500px;
+			margin-bottom: 50px;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		#google-map {
+			height: 300px;
 		}
 	}
 
@@ -4232,15 +4246,5 @@ ul.contact li a {
 		width: 100%;
 		align-items: start;
 		margin-top: 15px;
-	}
-
-	#google-map {
-		height: 500px;
-	}
-}
-
-@media screen and (max-width: 480px) {
-	#google-map {
-		height: 300px;
 	}
 }
