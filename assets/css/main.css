@@ -29,6 +29,11 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
 
+html, body {
+	max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
 	line-height: 1;
 	/* font-family: 'Open Sans', sans-serif; */
