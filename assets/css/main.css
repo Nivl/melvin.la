@@ -4136,13 +4136,10 @@ input, select, textarea {
 
 	#google-map {
 		height: 600px;
-		/* top: 300px; */
 
 		position: relative;
-		margin-left: -50vw;
-		margin-right: -50vw;
-    left: -50%;
-    /* width: 100vw !important; */
+		margin-left: -100%;
+    margin-right: -100%;
 	}
 
 	@media screen and (min-width: 980px) {
