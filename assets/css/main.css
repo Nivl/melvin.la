@@ -4250,6 +4250,7 @@ ul.people li .description {
 	justify-content: center;
 	text-decoration: none;
 	flex-direction: column;
+	border: 1px solid #ffffff52;
 
 	opacity: 0;
 	transform: rotateY(180deg);
@@ -4281,6 +4282,7 @@ ul.people .pinfo {
 }
 
 ul.people li img {
+	border: 1px solid #ffffff52;
 	border-radius: 100%;
 	width: 300px;
 	transition: transform 0.3s linear;
