@@ -35,6 +35,7 @@
     ]
   },
   "devDependencies": {
+    "@glennsl/bs-json": "^5.0.2",
     "bs-platform": "6.2.1",
     "node-sass": "^4.13.1"
   }
