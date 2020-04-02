@@ -1,0 +1,23 @@
+:root {
+  --color-primary: #060c0e;
+  --color-secondary: #f5414f;
+
+  --color-text: #fff;
+  --color-border: #d1d0d2;
+
+  --color-success: #88c459;
+  --color-error: #f5414f;
+  --color-warning: #ffd137;
+}
+
+@supports (--css: variables) {
+  @media (prefers-color-scheme: light) {
+    :root {
+      --color-primary: #fff;
+      --color-secondary: #f5414f;
+
+      --color-text: #333;
+      --color-border: #d1d0d2;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+b,
+strong {
+  font-weight: bold;
+}
+
+h1,
+h2,
+h3,
+h4,
+form legend {
+  margin-bottom: var(--space-xxs);
+  line-height: var(--heading-line-height);
+}
+
+body {
+  background-color: var(--color-primary);
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #fff;
+  }
+}
+
+a {
+  color: var(--color-link);
+
+  &:visited {
+    color: var(--color-link-visited);
+  }
+}
