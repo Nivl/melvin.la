@@ -10,8 +10,19 @@ function pageAbout(json) {
         ];
 }
 
+function pageContact(json) {
+  return /* record */[
+          /* email */Json_decode.field("email", Json_decode.string, json),
+          /* linkedInHandle */Json_decode.field("linkedInHandle", Json_decode.string, json),
+          /* githubHandle */Json_decode.field("githubHandle", Json_decode.string, json)
+        ];
+}
+
 function pages(json) {
-  return /* record */[/* about */Json_decode.field("about", pageAbout, json)];
+  return /* record */[
+          /* about */Json_decode.field("about", pageAbout, json),
+          /* contact */Json_decode.field("contact", pageContact, json)
+        ];
 }
 
 function db(json) {
@@ -20,6 +31,7 @@ function db(json) {
 
 var Decode = {
   pageAbout: pageAbout,
+  pageContact: pageContact,
   pages: pages,
   db: db
 };

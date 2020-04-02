@@ -4,7 +4,16 @@ type pageAbout = {
   resumeUrl: string,
 };
 
-type pages = {about: pageAbout};
+type pageContact = {
+  email: string,
+  linkedInHandle: string,
+  githubHandle: string,
+};
+
+type pages = {
+  about: pageAbout,
+  contact: pageContact,
+};
 
 type db = {pages};
 
@@ -17,7 +26,16 @@ module Decode = {
     resumeUrl: json |> field("resumeUrl", string),
   };
 
-  let pages = json => {about: json |> field("about", pageAbout)};
+  let pageContact = json => {
+    email: json |> field("email", string),
+    linkedInHandle: json |> field("linkedInHandle", string),
+    githubHandle: json |> field("githubHandle", string),
+  };
+
+  let pages = json => {
+    about: json |> field("about", pageAbout),
+    contact: json |> field("contact", pageContact),
+  };
 
   let db = json => {pages: json |> field("pages", pages)};
 };
