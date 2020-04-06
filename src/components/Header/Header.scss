@@ -1,0 +1,37 @@
+header {
+  padding: 10em 0 4.75em 0;
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    display: inline-flex;
+    align-items: center;
+    border-bottom: solid var(--color-text) 1px;
+
+    padding: 0 2em 0.5em 2em;
+    margin: 0 auto 0.7em auto;
+
+    font-size: 2.5em;
+    font-weight: 800;
+
+    .simplified-svg-logo {
+      margin-right: 1em;
+
+      svg {
+        width: 80px;
+      }
+    }
+  }
+
+  .subtitle {
+    margin: 0 auto;
+    font-size: 1em;
+
+    a {
+      text-decoration: none;
+      border-bottom: 1px dotted var(--color-border);
+    }
+  }
+}

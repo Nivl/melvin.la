@@ -17,8 +17,6 @@ let dbRaw = {| {
 
 let db: Db.db = dbRaw |> Json.parseOrRaise |> Db.Decode.db;
 
-// db.pages.about.title
-
 [@react.component]
 let make = () =>
   <>

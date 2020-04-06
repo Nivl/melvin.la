@@ -1,3 +1,8 @@
 section {
-  margin: 10px;
+  max-width: 55em;
+  margin: 0 auto;
+
+  .full {
+    max-width: 100%;
+  }
 }

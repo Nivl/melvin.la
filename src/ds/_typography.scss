@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway);
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;800&display=swap");
 
 :root {
   --font-primary: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -7,8 +7,9 @@
   --font-secondary: serif;
 
   /* set base values */
-  --text-base-size: 1em;
+  --text-base-size: 16.5pt;
   --text-scale-ratio: 1.2;
+  --text-line-height: 1.65;
 
   /* type scale */
 

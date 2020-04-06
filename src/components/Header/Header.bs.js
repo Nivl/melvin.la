@@ -1,21 +1,25 @@
 'use strict';
 
 var React = require("react");
-var LogoPng = require("./logo.png");
+var MelvinLogo$MelvinLa = require("../Logos/MelvinLogo.bs.js");
 
-var logo = LogoPng;
+((require('./Header.scss')));
 
 function Header(Props) {
-  return React.createElement("header", undefined, React.createElement("img", {
-                  alt: "logo",
-                  src: logo
-                }), React.createElement("h1", undefined, "MELVIN LAPLANCHE"), React.createElement("div", undefined, "FULL STACK ENGINEER BUILDING COOL STUFF AT ", React.createElement("a", {
+  return React.createElement("header", undefined, React.createElement("h1", undefined, React.createElement("span", {
+                      className: "simplified-svg-logo"
+                    }, React.createElement(MelvinLogo$MelvinLa.make, { })), React.createElement("div", {
+                      className: "title-text"
+                    }, React.createElement("span", {
+                          className: "text-accent"
+                        }, "MELVIN "), React.createElement("span", undefined, "LAPLANCHE"))), React.createElement("div", {
+                  className: "subtitle"
+                }, "FULL STACK ENGINEER BUILDING COOL STUFF AT ", React.createElement("a", {
                       href: "www.abstract.com"
                     }, "ABSTRACT")));
 }
 
 var make = Header;
 
-exports.logo = logo;
 exports.make = make;
-/* logo Not a pure module */
+/*  Not a pure module */

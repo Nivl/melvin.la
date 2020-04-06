@@ -8,6 +8,7 @@ body {
   font-size: var(--text-base-size);
   font-family: var(--font-primary);
   color: var(--color-text);
+  line-height: --text-line-height;
 
   font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -17,9 +18,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-feature-settings: "lnum";
   font-feature-settings: "lnum";
+}
 
-  background-image: linear-gradient(to top, #000000cc, #000000cc), url("bg.jpg");
-  background-size: auto, cover;
-  background-attachment: fixed, fixed;
-  background-position: center, center;
+.simplified-svg-logo {
+  svg {
+    fill: #fff;
+  }
+}
+
+.text-accent {
+  color: var(--color-accent);
 }
