@@ -1,6 +1,7 @@
 @import "ds/reset";
 @import "ds/_typography";
 @import "ds/_colors";
+@import "ds/_spacing";
 @import "ds/_utils";
 @import "ds/defaults";
 
@@ -22,7 +23,7 @@ body {
 
 .simplified-svg-logo {
   svg {
-    fill: #fff;
+    fill: var(--color-text);
   }
 }
 

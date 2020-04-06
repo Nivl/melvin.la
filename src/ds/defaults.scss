@@ -2,30 +2,35 @@ b,
 strong {
   font-weight: bold;
 }
-
 h1,
 h2,
 h3,
-h4,
-form legend {
+h4 {
+  color: var(--color-accent);
   margin-bottom: var(--space-xxs);
   line-height: var(--heading-line-height);
+  font-weight: 700;
+  border-bottom: solid var(--color-accent) 1px;
+
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+h2 {
+  text-transform: uppercase;
+  font-size: var(--text-lg);
 }
 
 body {
   background-color: var(--color-primary);
 }
 
-@media (prefers-color-scheme: light) {
-  body {
-    background-color: #fff;
-  }
-}
-
 a {
   color: var(--color-link);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-border);
 
   &:visited {
-    color: var(--color-link-visited);
+    color: var(--color-link);
   }
 }
