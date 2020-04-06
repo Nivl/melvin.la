@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require("react");
-var MelvinLogo$MelvinLa = require("../Logos/MelvinLogo.bs.js");
+var MelvinLogo$MelvinLa = require("../svg/MelvinLogo.bs.js");
 
 ((require('./Header.scss')));
 

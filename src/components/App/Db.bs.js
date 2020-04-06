@@ -6,7 +6,8 @@ function pageAbout(json) {
   return /* record */[
           /* title */Json_decode.field("title", Json_decode.string, json),
           /* content */Json_decode.field("content", Json_decode.string, json),
-          /* resumeUrl */Json_decode.field("resumeUrl", Json_decode.string, json)
+          /* resumeUrl */Json_decode.field("resumeUrl", Json_decode.string, json),
+          /* pictureUrl */Json_decode.field("pictureUrl", Json_decode.string, json)
         ];
 }
 

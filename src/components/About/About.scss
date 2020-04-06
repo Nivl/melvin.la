@@ -1,0 +1,49 @@
+#about {
+  display: flex;
+  flex-direction: row;
+
+  .about-content {
+    text-align: right;
+
+    .resume {
+      border: none;
+
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: var(--text-sm);
+      display: inline-flex;
+      align-items: center;
+
+      margin-top: var(--space-lg);
+
+      .simplified-svg-logo {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        margin-right: var(--space-md);
+
+        border: 1px solid var(--color-border);
+        border-radius: 100%;
+
+        svg {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+
+          height: 14px;
+        }
+      }
+    }
+  }
+
+  .picture {
+    margin-left: 3em;
+
+    img {
+      border-radius: 100%;
+      display: block;
+      width: 16.5em;
+    }
+  }
+}
