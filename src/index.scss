@@ -19,6 +19,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-feature-settings: "lnum";
   font-feature-settings: "lnum";
+
+  background-color: var(--color-primary);
+  font-weight: 300;
 }
 
 .simplified-svg-logo {
