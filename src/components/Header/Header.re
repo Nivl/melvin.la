@@ -4,7 +4,7 @@
 let make = () =>
   <header>
     <h1>
-      <span className="simplified-svg-logo"> <MelvinLogo /> </span>
+      <span className="simplified-svg-logo"> <Logo.Melvin /> </span>
       <div className="title-text">
         <span className="text-accent"> {React.string("MELVIN ")} </span>
         <span> {React.string("LAPLANCHE")} </span>

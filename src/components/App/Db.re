@@ -11,9 +11,22 @@ type pageContact = {
   githubHandle: string,
 };
 
+type techLogo = {
+  img: string,
+  url: string,
+  name: string,
+};
+
+type techPage = {
+  title: string,
+  content: string,
+  logos: list(techLogo),
+};
+
 type pages = {
   about: pageAbout,
   contact: pageContact,
+  backendOps: techPage,
 };
 
 type db = {pages};
@@ -34,9 +47,22 @@ module Decode = {
     githubHandle: json |> field("githubHandle", string),
   };
 
+  let techLogo = json => {
+    img: json |> field("img", string),
+    url: json |> field("url", string),
+    name: json |> field("name", string),
+  };
+
+  let techPage = json => {
+    title: json |> field("title", string),
+    content: json |> field("content", string),
+    logos: json |> field("logos", list(techLogo)),
+  };
+
   let pages = json => {
     about: json |> field("about", pageAbout),
     contact: json |> field("contact", pageContact),
+    backendOps: json |> field("backendOps", techPage),
   };
 
   let db = json => {pages: json |> field("pages", pages)};

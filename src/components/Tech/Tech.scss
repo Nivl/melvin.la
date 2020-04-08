@@ -1,0 +1,32 @@
+.tech {
+  display: flex;
+  flex-direction: row;
+  align-items: center; // remove?
+
+  .tech-content {
+    text-align: left;
+    width: 100%;
+  }
+
+  .logos {
+    // margin-right: 3em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .tech-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: calc(100% * (1 / 3) - 10px - 1px);
+      padding-top: 4%;
+
+      border: none;
+
+      svg {
+        max-width: 70px;
+        max-height: 70px;
+      }
+    }
+  }
+}

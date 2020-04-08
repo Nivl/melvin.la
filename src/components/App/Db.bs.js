@@ -19,10 +19,29 @@ function pageContact(json) {
         ];
 }
 
+function techLogo(json) {
+  return /* record */[
+          /* img */Json_decode.field("img", Json_decode.string, json),
+          /* url */Json_decode.field("url", Json_decode.string, json),
+          /* name */Json_decode.field("name", Json_decode.string, json)
+        ];
+}
+
+function techPage(json) {
+  return /* record */[
+          /* title */Json_decode.field("title", Json_decode.string, json),
+          /* content */Json_decode.field("content", Json_decode.string, json),
+          /* logos */Json_decode.field("logos", (function (param) {
+                  return Json_decode.list(techLogo, param);
+                }), json)
+        ];
+}
+
 function pages(json) {
   return /* record */[
           /* about */Json_decode.field("about", pageAbout, json),
-          /* contact */Json_decode.field("contact", pageContact, json)
+          /* contact */Json_decode.field("contact", pageContact, json),
+          /* backendOps */Json_decode.field("backendOps", techPage, json)
         ];
 }
 
@@ -33,6 +52,8 @@ function db(json) {
 var Decode = {
   pageAbout: pageAbout,
   pageContact: pageContact,
+  techLogo: techLogo,
+  techPage: techPage,
   pages: pages,
   db: db
 };

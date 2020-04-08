@@ -1,14 +1,14 @@
 'use strict';
 
 var React = require("react");
-var MelvinLogo$MelvinLa = require("../svg/MelvinLogo.bs.js");
+var Logo$MelvinLa = require("../svg/Logo.bs.js");
 
 ((require('./Header.scss')));
 
 function Header(Props) {
   return React.createElement("header", undefined, React.createElement("h1", undefined, React.createElement("span", {
                       className: "simplified-svg-logo"
-                    }, React.createElement(MelvinLogo$MelvinLa.make, { })), React.createElement("div", {
+                    }, React.createElement(Logo$MelvinLa.Melvin.make, { })), React.createElement("div", {
                       className: "title-text"
                     }, React.createElement("span", {
                           className: "text-accent"
