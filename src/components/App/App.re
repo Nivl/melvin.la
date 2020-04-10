@@ -86,6 +86,7 @@ let make = () =>
         title={db.pages.clientTech.title}
         content={db.pages.clientTech.content}
         logos={db.pages.clientTech.logos}
+        inverted=true
       />
     </Section>
     <Section>

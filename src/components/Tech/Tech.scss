@@ -1,7 +1,7 @@
 .tech {
   display: flex;
   flex-direction: row;
-  align-items: center; // remove?
+  align-items: center;
 
   .tech-content {
     text-align: left;
@@ -9,17 +9,17 @@
   }
 
   .logos {
-    // margin-right: 3em;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding-left: 1em;
 
     .tech-logo {
       display: flex;
       flex-direction: column;
       align-items: center;
       width: calc(100% * (1 / 3) - 10px - 1px);
-      padding-top: 4%;
+      padding-top: var(--space-lg);
 
       border: none;
 
@@ -28,5 +28,13 @@
         max-height: 70px;
       }
     }
+  }
+}
+
+.inverted {
+  flex-direction: row-reverse;
+
+  .tech-content {
+    text-align: right;
   }
 }

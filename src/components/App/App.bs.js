@@ -36,7 +36,8 @@ function App(Props) {
                   children: React.createElement(Tech$MelvinLa.make, {
                         title: db[/* pages */0][/* clientTech */3][/* title */0],
                         content: db[/* pages */0][/* clientTech */3][/* content */1],
-                        logos: db[/* pages */0][/* clientTech */3][/* logos */2]
+                        logos: db[/* pages */0][/* clientTech */3][/* logos */2],
+                        inverted: true
                       })
                 }), React.createElement(Section$MelvinLa.make, {
                   children: React.createElement(Contact$MelvinLa.make, {

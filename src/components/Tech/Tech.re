@@ -2,8 +2,13 @@
 
 [@react.component]
 let make =
-    (~title: string, ~content: list(string), ~logos: list(Db.techLogo)) =>
-  <div className="tech">
+    (
+      ~title: string,
+      ~content: list(string),
+      ~logos: list(Db.techLogo),
+      ~inverted=false,
+    ) =>
+  <div className={"tech" ++ (inverted ? " inverted" : "")}>
     <div className="logos">
       {React.array(
          Array.of_list(

@@ -11,8 +11,12 @@ function Tech(Props) {
   var title = Props.title;
   var content = Props.content;
   var logos = Props.logos;
+  var match = Props.inverted;
+  var inverted = match !== undefined ? match : false;
   return React.createElement("div", {
-              className: "tech"
+              className: "tech" + (
+                inverted ? " inverted" : ""
+              )
             }, React.createElement("div", {
                   className: "logos"
                 }, $$Array.of_list(List.map((function (logo) {
