@@ -41,7 +41,8 @@ function pages(json) {
   return /* record */[
           /* about */Json_decode.field("about", pageAbout, json),
           /* contact */Json_decode.field("contact", pageContact, json),
-          /* backendOps */Json_decode.field("backendOps", techPage, json)
+          /* backendOps */Json_decode.field("backendOps", techPage, json),
+          /* clientTech */Json_decode.field("clientTech", techPage, json)
         ];
 }
 

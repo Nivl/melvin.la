@@ -48,6 +48,11 @@ module Electron = {
   external make: (~title: string=?) => React.element = "Electron";
 };
 
+module Git = {
+  [@bs.module "./logo.js"] [@react.component]
+  external make: (~title: string=?) => React.element = "Git";
+};
+
 module Go = {
   [@bs.module "./logo.js"] [@react.component]
   external make: (~title: string=?) => React.element = "Go";
@@ -133,6 +138,11 @@ module Typescript = {
   external make: (~title: string=?) => React.element = "Typescript";
 };
 
+module Unknown = {
+  [@bs.module "./logo.js"] [@react.component]
+  external make: (~title: string=?) => React.element = "Unknown";
+};
+
 [@react.component]
 let make = (~name: string) =>
   switch (name) {
@@ -146,6 +156,7 @@ let make = (~name: string) =>
   | "docker" => <Docker />
   | "elasticSearch" => <ElasticSearch />
   | "electron" => <Electron />
+  | "git" => <Git />
   | "go" => <Go />
   | "googleCloud" => <GoogleCloud />
   | "grpc" => <Grpc />
@@ -162,5 +173,5 @@ let make = (~name: string) =>
   | "redis" => <Redis />
   | "swift" => <Swift />
   | "typescript" => <Typescript />
-  // | _ => <Melvin />
+  | _ => <Unknown />
   };

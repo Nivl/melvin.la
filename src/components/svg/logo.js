@@ -8,6 +8,7 @@ import { ReactComponent as Django } from './raw/django.svg';
 import { ReactComponent as Docker } from './raw/docker.svg';
 import { ReactComponent as ElasticSearch } from './raw/elasticsearch.svg';
 import { ReactComponent as Electron } from './raw/electron.svg';
+import { ReactComponent as Git } from './raw/git.svg';
 import { ReactComponent as Go } from './raw/go.svg';
 import { ReactComponent as GoogleCloud } from './raw/google-cloud.svg';
 import { ReactComponent as Grpc } from './raw/grpc.svg';
@@ -25,6 +26,7 @@ import { ReactComponent as Reasonml } from './raw/reasonml.svg';
 import { ReactComponent as Redis } from './raw/redis.svg';
 import { ReactComponent as Swift } from './raw/swift.svg';
 import { ReactComponent as Typescript } from './raw/typescript.svg';
+import { ReactComponent as Unknown } from './raw/unknown.svg';
 
 export {
     Android,
@@ -37,6 +39,7 @@ export {
     Docker,
     ElasticSearch,
     Electron,
+    Git,
     Go,
     GoogleCloud,
     Grpc,
@@ -54,4 +57,5 @@ export {
     Redis,
     Swift,
     Typescript,
+    Unknown,
 };

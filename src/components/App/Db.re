@@ -27,6 +27,7 @@ type pages = {
   about: pageAbout,
   contact: pageContact,
   backendOps: techPage,
+  clientTech: techPage,
 };
 
 type db = {pages};
@@ -63,6 +64,7 @@ module Decode = {
     about: json |> field("about", pageAbout),
     contact: json |> field("contact", pageContact),
     backendOps: json |> field("backendOps", techPage),
+    clientTech: json |> field("clientTech", techPage),
   };
 
   let db = json => {pages: json |> field("pages", pages)};

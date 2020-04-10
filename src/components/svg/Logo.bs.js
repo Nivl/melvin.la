@@ -2,7 +2,6 @@
 
 var React = require("react");
 var LogoJs = require("./logo.js");
-var Caml_builtin_exceptions = require("bs-platform/lib/js/caml_builtin_exceptions.js");
 
 var make = LogoJs.Android;
 
@@ -64,106 +63,118 @@ var Electron = {
   make: make$9
 };
 
-var make$10 = LogoJs.Go;
+var make$10 = LogoJs.Git;
 
-var Go = {
+var Git = {
   make: make$10
 };
 
-var make$11 = LogoJs.GoogleCloud;
+var make$11 = LogoJs.Go;
 
-var GoogleCloud = {
+var Go = {
   make: make$11
 };
 
-var make$12 = LogoJs.Grpc;
+var make$12 = LogoJs.GoogleCloud;
 
-var Grpc = {
+var GoogleCloud = {
   make: make$12
 };
 
-var make$13 = LogoJs.Heroku;
+var make$13 = LogoJs.Grpc;
 
-var Heroku = {
+var Grpc = {
   make: make$13
 };
 
-var make$14 = LogoJs.Java;
+var make$14 = LogoJs.Heroku;
 
-var Java = {
+var Heroku = {
   make: make$14
 };
 
-var make$15 = LogoJs.Javascript;
+var make$15 = LogoJs.Java;
 
-var Javascript = {
+var Java = {
   make: make$15
 };
 
-var make$16 = LogoJs.Melvin;
+var make$16 = LogoJs.Javascript;
 
-var Melvin = {
+var Javascript = {
   make: make$16
 };
 
-var make$17 = LogoJs.Mongodb;
+var make$17 = LogoJs.Melvin;
 
-var Mongodb = {
+var Melvin = {
   make: make$17
 };
 
-var make$18 = LogoJs.Mysql;
+var make$18 = LogoJs.Mongodb;
 
-var Mysql = {
+var Mongodb = {
   make: make$18
 };
 
-var make$19 = LogoJs.Nodejs;
+var make$19 = LogoJs.Mysql;
 
-var Nodejs = {
+var Mysql = {
   make: make$19
 };
 
-var make$20 = LogoJs.Postgres;
+var make$20 = LogoJs.Nodejs;
 
-var Postgres = {
+var Nodejs = {
   make: make$20
 };
 
-var make$21 = LogoJs.Python;
+var make$21 = LogoJs.Postgres;
 
-var Python = {
+var Postgres = {
   make: make$21
 };
 
-var make$22 = LogoJs.React;
+var make$22 = LogoJs.Python;
 
-var Reactjs = {
+var Python = {
   make: make$22
 };
 
-var make$23 = LogoJs.Reasonml;
+var make$23 = LogoJs.React;
 
-var Reasonml = {
+var Reactjs = {
   make: make$23
 };
 
-var make$24 = LogoJs.Redis;
+var make$24 = LogoJs.Reasonml;
 
-var Redis = {
+var Reasonml = {
   make: make$24
 };
 
-var make$25 = LogoJs.Swift;
+var make$25 = LogoJs.Redis;
 
-var Swift = {
+var Redis = {
   make: make$25
 };
 
-var make$26 = LogoJs.Typescript;
+var make$26 = LogoJs.Swift;
+
+var Swift = {
+  make: make$26
+};
+
+var make$27 = LogoJs.Typescript;
 
 var Typescript = {
-  make: make$26
+  make: make$27
+};
+
+var make$28 = LogoJs.Unknown;
+
+var Unknown = {
+  make: make$28
 };
 
 function Logo(Props) {
@@ -189,51 +200,46 @@ function Logo(Props) {
         return React.createElement(make$8, { });
     case "electron" :
         return React.createElement(make$9, { });
-    case "go" :
+    case "git" :
         return React.createElement(make$10, { });
-    case "googleCloud" :
+    case "go" :
         return React.createElement(make$11, { });
-    case "grpc" :
+    case "googleCloud" :
         return React.createElement(make$12, { });
-    case "heroku" :
+    case "grpc" :
         return React.createElement(make$13, { });
-    case "java" :
+    case "heroku" :
         return React.createElement(make$14, { });
-    case "javascript" :
+    case "java" :
         return React.createElement(make$15, { });
+    case "javascript" :
+        return React.createElement(make$16, { });
     case "mongodb" :
-        return React.createElement(make$17, { });
-    case "mysql" :
         return React.createElement(make$18, { });
-    case "nodejs" :
+    case "mysql" :
         return React.createElement(make$19, { });
-    case "postgres" :
+    case "nodejs" :
         return React.createElement(make$20, { });
-    case "python" :
+    case "postgres" :
         return React.createElement(make$21, { });
-    case "reactjs" :
+    case "python" :
         return React.createElement(make$22, { });
-    case "reasonml" :
+    case "reactjs" :
         return React.createElement(make$23, { });
-    case "redis" :
+    case "reasonml" :
         return React.createElement(make$24, { });
-    case "swift" :
+    case "redis" :
         return React.createElement(make$25, { });
-    case "typescript" :
+    case "swift" :
         return React.createElement(make$26, { });
+    case "typescript" :
+        return React.createElement(make$27, { });
     default:
-      throw [
-            Caml_builtin_exceptions.match_failure,
-            /* tuple */[
-              "_none_",
-              1,
-              -1
-            ]
-          ];
+      return React.createElement(make$28, { });
   }
 }
 
-var make$27 = Logo;
+var make$29 = Logo;
 
 exports.Android = Android;
 exports.Angular = Angular;
@@ -245,6 +251,7 @@ exports.Django = Django;
 exports.Docker = Docker;
 exports.ElasticSearch = ElasticSearch;
 exports.Electron = Electron;
+exports.Git = Git;
 exports.Go = Go;
 exports.GoogleCloud = GoogleCloud;
 exports.Grpc = Grpc;
@@ -262,5 +269,6 @@ exports.Reasonml = Reasonml;
 exports.Redis = Redis;
 exports.Swift = Swift;
 exports.Typescript = Typescript;
-exports.make = make$27;
+exports.Unknown = Unknown;
+exports.make = make$29;
 /* make Not a pure module */
