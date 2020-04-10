@@ -1,7 +1,8 @@
 [%raw {|require('./Tech.scss')|}];
 
 [@react.component]
-let make = (~title: string, ~content: string, ~logos: list(Db.techLogo)) =>
+let make =
+    (~title: string, ~content: list(string), ~logos: list(Db.techLogo)) =>
   <div className="tech">
     <div className="logos">
       {React.array(
@@ -20,6 +21,10 @@ let make = (~title: string, ~content: string, ~logos: list(Db.techLogo)) =>
     </div>
     <div className="tech-content">
       <h2> {React.string(title)} </h2>
-      <p> {React.string(content)} </p>
+      {React.array(
+         Array.of_list(
+           content |> List.map((c: string) => <p> {React.string(c)} </p>),
+         ),
+       )}
     </div>
   </div>;

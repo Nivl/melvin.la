@@ -15,7 +15,9 @@ let dbRaw = {| {
     },
     "backendOps": {
       "title": "Backend / Ops technologies",
-      "content": "Like many people, backend is the very first \"real\" thing I started learning (I don't count HTML/CSS since they are not programing language). I started with raw PHP back when it was still the hot tech to build websites, then jumped on the new trends: Rails, Django, Symfony 2, Node, Go, etc (the list on the left doesn't contain all the tech I used, but only the one I liked the most and/or used the most). I usually try to keep myself up to date with the evolution of the backend techs while trying to understand all the pros and cons before taking a decision of moving forward with them (instead of blindly following the trend).",
+      "content": [
+        "Like many people, backend is the very first \"real\" thing I started learning (I don't count HTML/CSS since they are not programing language). I started with raw PHP back when it was still the hot tech to build websites, then jumped on the new trends: Rails, Django, Symfony 2, Node, Go, etc (the list on the left doesn't contain all the tech I used, but only the one I liked the most and/or used the most). I usually try to keep myself up to date with the evolution of the backend techs while trying to understand all the pros and cons before taking a decision of moving forward with them (instead of blindly following the trend)."
+      ],
       "logos": [
         { "img":"go", "name":"Go", "url":"https://golang.org" },
         { "img":"grpc", "name":"gRPC", "url":"https://grpc.io" },
@@ -35,7 +37,10 @@ let dbRaw = {| {
     },
     "clientTech": {
       "title": "CLIENT (WEB, MOBILE, DESKTOP, etc.) TECHNOLOGIES",
-      "content": "Backend is fun, but nowadays a backend doesn't do much beside treating data and returning more data to the clients. So naturally, I got interested in learning the client side of the stack. I'm convinced that writing client code made me a better backend engineer as I know the pain and struggle of dealing with undocumented APIs, or badly implemented APIs that partially return the data you need (you know, those APIs made by backend engineers that know better than you what data you need). I professionally touched a bit of everything: native mobile apps (iOS and Android), hybrid mobile apps, regular Electron apps, Electron apps with a Go backend to do all the heavy lifting (with some cgo to use native Windows and macOS libraries), SPAs using angular, etc.",
+      "content": [
+        "Backend is fun, but nowadays a backend doesn't do much beside treating data and returning more data to the clients. So naturally, I got interested in learning the client side of the stack. I'm convinced that writing client code made me a better backend engineer as I know the pain and struggle of dealing with undocumented APIs, or badly implemented APIs that partially return the data you need (you know, those APIs made by backend engineers that know better than you what data you need).",
+        "I professionally touched a bit of everything: native mobile apps (iOS and Android), hybrid mobile apps, regular Electron apps, Electron apps with a Go backend to do all the heavy lifting (with some cgo to use native Windows and macOS libraries), SPAs using angular, etc."
+      ],
       "logos": [
         { "img":"android", "name":"Android", "url":"https://android.com" },
         { "img":"apple", "name":"MacOS / iOS", "url":"https://developer.apple.com" },

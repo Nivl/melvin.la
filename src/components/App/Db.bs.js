@@ -30,7 +30,9 @@ function techLogo(json) {
 function techPage(json) {
   return /* record */[
           /* title */Json_decode.field("title", Json_decode.string, json),
-          /* content */Json_decode.field("content", Json_decode.string, json),
+          /* content */Json_decode.field("content", (function (param) {
+                  return Json_decode.list(Json_decode.string, param);
+                }), json),
           /* logos */Json_decode.field("logos", (function (param) {
                   return Json_decode.list(techLogo, param);
                 }), json)

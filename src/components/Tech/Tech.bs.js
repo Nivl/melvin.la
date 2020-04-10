@@ -25,7 +25,9 @@ function Tech(Props) {
                                           }));
                           }), logos))), React.createElement("div", {
                   className: "tech-content"
-                }, React.createElement("h2", undefined, title), React.createElement("p", undefined, content)));
+                }, React.createElement("h2", undefined, title), $$Array.of_list(List.map((function (c) {
+                            return React.createElement("p", undefined, c);
+                          }), content))));
 }
 
 var make = Tech;

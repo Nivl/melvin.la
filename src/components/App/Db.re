@@ -19,7 +19,7 @@ type techLogo = {
 
 type techPage = {
   title: string,
-  content: string,
+  content: list(string),
   logos: list(techLogo),
 };
 
@@ -56,7 +56,7 @@ module Decode = {
 
   let techPage = json => {
     title: json |> field("title", string),
-    content: json |> field("content", string),
+    content: json |> field("content", list(string)),
     logos: json |> field("logos", list(techLogo)),
   };
 
