@@ -2,7 +2,7 @@ import { ReactComponent as Android } from './raw/android.svg';
 import { ReactComponent as Angular } from './raw/angular.svg';
 import { ReactComponent as Apple } from './raw/apple.svg';
 import { ReactComponent as Aws } from './raw/aws.svg';
-import { ReactComponent as C } from './raw/cpp.svg';
+import { ReactComponent as C } from './raw/c.svg';
 import { ReactComponent as Cpp } from './raw/cpp.svg';
 import { ReactComponent as Django } from './raw/django.svg';
 import { ReactComponent as Docker } from './raw/docker.svg';
