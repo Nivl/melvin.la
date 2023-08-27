@@ -1,27 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@layer base {
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-accent;
+    @apply mb-1;
+    @apply leading-none;
+    @apply font-bold;
+    @apply border-b-accent;
+    @apply border-solid;
+    @apply border-b;
+
+    @apply pb-10;
+    @apply mb-10;
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  h2 {
+    @apply uppercase;
+    @apply leading-relaxed;
+    @apply text-2xl;
+  }
+
+  a {
+    @apply text-white;
+    @apply no-underline;
+    @apply border-b;
+    @apply border-dotted;
+    @apply border-white;
+    @apply border-opacity-30;
+
+    &:visited {
+      @apply text-white;
+    }
+  }
+
+  p {
+    @apply mb-8;
+  }
 }
