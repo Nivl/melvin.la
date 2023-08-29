@@ -1,4 +1,5 @@
 import { About } from '@/components/About';
+import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Section } from '@/components/Section';
 
@@ -16,10 +17,12 @@ export default function Home() {
         <About
           title={pages.about.title}
           content={pages.about.content}
-          resumeUrl={pages.about.resumeUrl}
-          pictureUrl={pages.about.pictureUrl}
           linkedInUrl={pages.about.linkedInUrl}
         />
+      </Section>
+
+      <Section>
+        <Footer />
       </Section>
     </>
   );

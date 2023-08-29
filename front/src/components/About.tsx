@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import ProfilePicture from '../melvin.jpg';
-import AngleRightIcon from './svg/angle-right-icon.svg';
 
 export const About = ({
   title,
@@ -11,7 +10,6 @@ export const About = ({
   title: string;
   content: string;
   linkedInUrl: string;
-  blogUrl: string;
 }) => {
   return (
     <div>
