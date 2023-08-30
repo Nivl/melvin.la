@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import ProfilePicture from '../melvin.jpg';
+import ProfilePicture from './melvin.jpg';
 
 export const About = ({
   title,

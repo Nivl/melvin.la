@@ -12,7 +12,7 @@ export function Section({
       fullScreen
         ? 'max-w-full'
         : // TODO(melvin): all width values are wrong besides 2xl
-          'max-w-md sm:max-w-xl lg:max-w-4xl 2xl:max-w-7xl'
+          'max-w-7xl'
     }`}
     >
       {children}
