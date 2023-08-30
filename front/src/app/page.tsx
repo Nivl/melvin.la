@@ -1,4 +1,5 @@
 import { About } from '@/components/About';
+import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Section } from '@/components/Section';
@@ -36,6 +37,14 @@ export default function Home() {
           content={pages.clientTech.content}
           logos={pages.clientTech.logos}
           inverted={true}
+        />
+      </Section>
+
+      <Section fullScreen={true}>
+        <Contact
+          email={pages.contact.email}
+          linkedInHandle={pages.contact.linkedInHandle}
+          githubHandle={pages.contact.githubHandle}
         />
       </Section>
 
