@@ -1,5 +1,5 @@
 import { Contact as ContactModel } from '../models';
-// import Map from "./Map";
+import { Map } from './Map';
 
 export const Contact = ({
   email,
@@ -37,10 +37,10 @@ export const Contact = ({
           </span>
         </div>
       </div>
-      {/* <Map
-        className={styles.map}
+      <Map
+        className="h-[800px] w-full"
         initialCenter={{ lat: 34.0218593, lng: -118.498265 }}
-      /> */}
+      />
     </>
   );
 };
