@@ -18,13 +18,16 @@
     @apply border-solid;
     @apply border-b;
 
-    @apply pb-8;
-    @apply mb-8;
+    @apply pb-2;
+    @apply mb-2;
+    @apply xl:pb-5;
+    @apply xl:mb-5;
   }
 
   h2 {
     @apply uppercase;
-    @apply text-3xl;
+    @apply text-xl;
+    @apply xl:text-3xl;
   }
 
   a {
