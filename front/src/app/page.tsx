@@ -40,13 +40,13 @@ export default function Home() {
         />
       </Section>
 
-      <Section fullScreen={true}>
+      {/* <Section fullScreen={true}>
         <Contact
           email={pages.contact.email}
           linkedInHandle={pages.contact.linkedInHandle}
           githubHandle={pages.contact.githubHandle}
         />
-      </Section>
+      </Section> */}
 
       <Section>
         <Footer />

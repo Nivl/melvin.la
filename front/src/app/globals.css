@@ -20,6 +20,8 @@
 
     @apply pb-2;
     @apply mb-2;
+    @apply md:pb-4;
+    @apply md:mb-4;
     @apply xl:pb-5;
     @apply xl:mb-5;
   }
@@ -27,6 +29,7 @@
   h2 {
     @apply uppercase;
     @apply text-xl;
+    @apply md:text-2xl;
     @apply xl:text-3xl;
   }
 
@@ -44,6 +47,7 @@
   }
 
   p {
-    @apply mb-8;
+    @apply mb-3;
+    @apply lg:mb-8;
   }
 }
