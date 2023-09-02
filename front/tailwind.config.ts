@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss';
-import colors from 'tailwindcss/colors';
 
 const config: Config = {
   content: [
@@ -25,14 +24,8 @@ const config: Config = {
       ],
     },
     colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
       black: '#1f1f23',
       white: '#fffefb',
-      gray: colors.neutral,
-      indigo: colors.indigo,
-      red: colors.rose,
-      yellow: colors.amber,
     },
     extend: {
       colors: {
