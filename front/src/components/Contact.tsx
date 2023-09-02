@@ -8,10 +8,10 @@ export const Contact = ({
 }: ContactModel) => {
   return (
     <>
-      <div className="mx-auto my-0 mb-10 mt-52 max-w-7xl">
+      <div className="mx-auto my-0 mb-3 mt-16 w-5/6 md:mb-10 lg:mt-52 lg:max-w-7xl">
         <h2> Get In Touch </h2>
 
-        <div className="flex flex-row">
+        <div className="flex flex-col md:flex-row">
           <span className="flex-grow text-center">
             <a className="border-none" href={`mailto:${email}`}>
               {email}
