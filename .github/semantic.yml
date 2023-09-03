@@ -1,0 +1,12 @@
+titleOnly: true
+types:
+  - build # Changes that affect the build system or external dependencies (yarn, go mod, ...)
+  - ci # Changes to our CI configuration files and scripts (github actions, renovate, ...)
+  - dev # Changes to the dev environment
+  - docs # Documentation only changes
+  - feat # A new feature
+  - fix # A bug fix
+  - perf # A code change that improves performance
+  - refactor # A code change that neither fixes a bug nor adds a feature (no effect on the user)
+  - test # Adding missing tests or correcting existing tests
+  - uix # Changes to the UI that is neither a new feature or a bug fix (impacts the user visually)
