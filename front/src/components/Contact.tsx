@@ -18,14 +18,16 @@ export const Contact = ({
             </a>
           </span>
 
-          <span className="flex-grow text-center">
-            <a
-              className="border-none"
-              href={`https://linkedin.com/in/${linkedInHandle}`}
-            >
-              in/{linkedInHandle}
-            </a>
-          </span>
+          {linkedInHandle && (
+            <span className="flex-grow text-center">
+              <a
+                className="border-none"
+                href={`https://linkedin.com/in/${linkedInHandle}`}
+              >
+                in/{linkedInHandle}
+              </a>
+            </span>
+          )}
 
           <span className="flex-grow text-center">
             <a

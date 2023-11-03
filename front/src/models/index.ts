@@ -6,6 +6,11 @@ export interface Logo {
 
 export interface Contact {
   email: string;
-  linkedInHandle: string;
+  linkedInHandle?: string | null;
   githubHandle: string;
+}
+
+export interface CTA {
+  text: string;
+  url: string;
 }

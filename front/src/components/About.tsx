@@ -1,15 +1,16 @@
 import Image from 'next/image';
 
+import { CTA } from '../models';
 import ProfilePicture from './melvin.jpg';
 
 export const About = ({
   title,
   content,
-  linkedInUrl,
+  cta,
 }: {
   title: string;
   content: string;
-  linkedInUrl: string;
+  cta: CTA;
 }) => {
   return (
     <div>
@@ -19,10 +20,10 @@ export const About = ({
           <p> {content} </p>
           <div className="flex items-center justify-end text-base font-bold uppercase">
             <a
-              href={linkedInUrl}
+              href={cta.url}
               className="border-none text-accent visited:text-accent"
             >
-              Checkout my LinkedIn
+              {cta.text}
             </a>
           </div>
         </div>

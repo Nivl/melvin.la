@@ -10,3 +10,4 @@ types:
   - refactor # A code change that neither fixes a bug nor adds a feature (no effect on the user)
   - test # Adding missing tests or correcting existing tests
   - uix # Changes to the UI that is neither a new feature or a bug fix (impacts the user visually)
+  - content # Change to the content (text, images, ...) of the website
