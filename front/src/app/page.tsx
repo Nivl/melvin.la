@@ -19,7 +19,7 @@ export default function Home() {
         <About
           title={pages.about.title}
           content={pages.about.content}
-          linkedInUrl={pages.about.linkedInUrl}
+          cta={pages.about.cta}
         />
       </Section>
 

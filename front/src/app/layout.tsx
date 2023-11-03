@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black font-sans text-base font-light lining-nums leading-relaxed text-white antialiased xl:text-xl">
+      <body className="bg-black font-sans text-base font-light lining-nums leading-relaxed text-white antialiased xl:text-xl xl:leading-relaxed">
         {children}
         <Analytics />
       </body>
