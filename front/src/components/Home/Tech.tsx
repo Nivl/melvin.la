@@ -1,4 +1,4 @@
-import { Logo as LogoInfo } from '../models';
+import { Logo as LogoInfo } from '../../models';
 import { Logo } from './Logo';
 
 export const Tech = ({

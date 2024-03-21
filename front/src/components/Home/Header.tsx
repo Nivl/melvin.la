@@ -1,4 +1,4 @@
-import { Melvin } from '@/components/icons/Melvin';
+import { Melvin } from '@/components/Home/icons/Melvin';
 
 export const Header = () => {
   return (

@@ -1,4 +1,4 @@
-import { Contact as ContactModel } from '../models';
+import { Contact as ContactModel } from '../../models';
 import { Map } from './Map';
 
 export const Contact = ({

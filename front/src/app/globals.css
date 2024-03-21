@@ -1,53 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;800&display=swap");
+@import url("https://db.onlinewebfonts.com/c/800e985f75a5a56c2f7b4be502d286de?family=Burbank+Big+Condensed+Bold");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    @apply text-accent;
-    @apply mb-1;
-    @apply leading-none;
-    @apply font-bold;
-    @apply border-b-accent;
-    @apply border-solid;
-    @apply border-b;
-
-    @apply pb-2;
-    @apply mb-2;
-    @apply md:pb-4;
-    @apply md:mb-4;
-    @apply xl:pb-5;
-    @apply xl:mb-5;
-  }
-
-  h2 {
-    @apply uppercase;
-    @apply text-xl;
-    @apply md:text-2xl;
-    @apply xl:text-3xl;
-  }
-
-  a {
-    @apply text-white;
-    @apply no-underline;
-    @apply border-b;
-    @apply border-dotted;
-    @apply border-white;
-    @apply border-opacity-30;
-
-    &:visited {
-      @apply text-white;
-    }
-  }
-
-  p {
-    @apply mb-3;
-    @apply lg:mb-8;
-  }
-}

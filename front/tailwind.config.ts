@@ -1,10 +1,13 @@
+import { nextui } from '@nextui-org/react';
 import type { Config } from 'tailwindcss';
+import colors from 'tailwindcss/colors';
 
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     fontFamily: {
@@ -22,17 +25,38 @@ const config: Config = {
         'Helvetica Neue',
         'sans-serif',
       ],
+      fortnite: ['Burbank Big Condensed Bold'],
     },
     colors: {
-      black: '#1f1f23',
-      white: '#fffefb',
+      brands: {
+        playstation: '#006FCD',
+        xbox: '#2ca243',
+        epic: '#ffffff',
+      },
+      ...colors,
     },
     extend: {
+      keyframes: {
+        levitate: {
+          '0%, 100%': { transform: 'translateY(-5px)' },
+          '50%': { transform: 'translateY(5px)' },
+        },
+      },
+      animation: {
+        levitate: 'levitate 1s ease-in-out infinite',
+      },
       colors: {
         accent: '#26ace6',
       },
     },
   },
-  plugins: [],
+  darkMode: 'class',
+  plugins: [
+    nextui({
+      prefix: 'nextui',
+      defaultTheme: 'dark',
+      defaultExtendTheme: 'dark',
+    }),
+  ],
 };
 export default config;

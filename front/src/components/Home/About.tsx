@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { CTA } from '../models';
+import { CTA } from '../../models';
 import ProfilePicture from './melvin.jpg';
 
 export const About = ({

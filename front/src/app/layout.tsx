@@ -3,6 +3,8 @@ import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 
+import { Providers } from '@/components/Providers';
+
 export const metadata: Metadata = {
   title: 'Melvin Laplanche',
   description:
@@ -15,9 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-black font-sans text-base font-light lining-nums leading-relaxed text-white antialiased xl:text-xl xl:leading-relaxed">
-        {children}
+    <html lang="en" className="bg-background text-foreground dark">
+      <body className="h-full font-sans text-base font-light lining-nums leading-relaxed antialiased xl:text-xl xl:leading-relaxed">
+        <Providers>{children}</Providers>
         <Analytics />
       </body>
     </html>
