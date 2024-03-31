@@ -1,0 +1,48 @@
+name: webapp
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'front/**'
+      - '!front/**/*.md'
+      - '.github/workflows/webapp.yml'
+      - '.github/actions/node-setup/**'
+
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'front/**'
+      - '!front/**/*.md'
+      - '.github/workflows/webapp.yml'
+      - '.github/actions/node-setup/**'
+
+defaults:
+  run:
+    working-directory: ./front
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup
+      uses: './.github/actions/node-setup'
+
+    - uses: actions/cache@v3
+      with:
+        path: ${{ github.workspace }}/front/.next/cache
+        # Generate a new cache whenever packages or source files change.
+        key: ${{ runner.os }}-nextjs-${{ hashFiles('front/pnpm-lock.yaml') }}-${{ hashFiles('front/**.[jt]s', 'front/**.[jt]sx') }}
+        restore-keys: |
+          ${{ runner.os }}-nextjs-${{ hashFiles('front/pnpm-lock.yaml') }}-
+    - run: pnpm run build
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup
+      uses: './.github/actions/node-setup'
+    - run: pnpm run lint
+
