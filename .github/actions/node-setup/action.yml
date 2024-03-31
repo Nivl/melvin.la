@@ -1,0 +1,17 @@
+name: Node setup
+description: "Sets up the environment for jobs using node"
+
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v3
+      with:
+        package_json_file: "front/package.json"
+    - uses: actions/setup-node@v4
+      with:
+        node-version-file: "front/.nvmrc"
+        cache: "pnpm"
+        cache-dependency-path: front/pnpm-lock.yaml
+    - name: install deps
+      shell: bash
+      run: cd front && pnpm install --frozen-lockfile
