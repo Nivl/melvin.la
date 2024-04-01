@@ -25,11 +25,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Setup
       uses: './.github/actions/node-setup'
 
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/front/.next/cache
         # Generate a new cache whenever packages or source files change.
@@ -41,7 +41,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Setup
       uses: './.github/actions/node-setup'
     - run: pnpm run lint
