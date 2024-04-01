@@ -10,7 +10,7 @@ import { Pages } from '@/models';
 
 export function Home({ pages }: { pages: Pages }) {
   return (
-    <div id="home">
+    <>
       <Section>
         <Header />
       </Section>
@@ -51,6 +51,6 @@ export function Home({ pages }: { pages: Pages }) {
       <Section>
         <Footer />
       </Section>
-    </div>
+    </>
   );
 }
