@@ -115,7 +115,7 @@ const mapStyles = [
     elementType: 'all',
     stylers: [
       {
-        color: '#1f1f23',
+        color: '#000000',
       },
     ],
   },
