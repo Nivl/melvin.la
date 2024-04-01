@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 
+import { Navbar } from '@/components/Navbar';
 import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background text-foreground dark">
       <body className="h-full font-sans text-base font-light lining-nums leading-relaxed antialiased xl:text-xl xl:leading-relaxed">
+        <Navbar />
         <Providers>{children}</Providers>
         <Analytics />
         <SpeedInsights />
