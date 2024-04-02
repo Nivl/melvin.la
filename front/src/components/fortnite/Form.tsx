@@ -1,3 +1,5 @@
+'use client';
+
 import { Input, Switch } from '@nextui-org/react';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { useEffect, useState } from 'react';
@@ -40,6 +42,14 @@ export const Form = ({
   const [timeWindow, setTimeWindow] = useState(defaultTimeWindow);
 
   useEffect(() => {
+    const accountName = localStorage.getItem('accountName');
+    if (accountName) {
+      setName(accountName);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('accountName', debouncedName);
     onAccountNameChange(debouncedName);
   }, [debouncedName, onAccountNameChange]);
 
