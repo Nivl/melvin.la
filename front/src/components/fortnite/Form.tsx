@@ -34,13 +34,16 @@ export const Form = ({
   defaultTimeWindow: TimeWindow;
 }) => {
   const [name, setName] = useState(defaultAccountName);
-  const [debouncedName] = useDebounce(name, 1000);
+  const [debouncedName] = useDebounce(name, 1000, { leading: true });
 
   const [accountType, setAccountType] = useState(defaultAccountType);
   const [debouncedAccountType] = useDebounce(accountType, 500);
 
   const [timeWindow, setTimeWindow] = useState(defaultTimeWindow);
 
+  // Set the account name from the local storage if it exists.
+  // That's so the user can come back to the page and see their
+  // data directly
   useEffect(() => {
     const accountName = localStorage.getItem('accountName');
     if (accountName) {
