@@ -95,11 +95,11 @@ export const Fortnite = () => {
 
           <Section className="mb-16 md:mx-auto md:max-w-full">
             {/* Desktop only */}
-            <div className="hidden sm:block">
+            <div className="hidden md:block">
               <TableDesktop data={data} isLoading={isLoading} />
             </div>
             {/* Mobile / small screen only */}
-            <div className="sm:hidden">
+            <div className="block md:hidden">
               <TableMobile data={data} isLoading={isLoading} />
             </div>
           </Section>

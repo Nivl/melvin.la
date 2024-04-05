@@ -21,7 +21,7 @@ export const TableMobile = ({
   isLoading: boolean;
 }) => {
   return (
-    <div className="sm:hidden">
+    <>
       {(isLoading || data?.stats.all.solo) && (
         <>
           <h3 className="mb-3 flex items-center gap-3">
@@ -224,6 +224,6 @@ export const TableMobile = ({
           </Table>
         </>
       )}
-    </div>
+    </>
   );
 };
