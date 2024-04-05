@@ -13,7 +13,7 @@ export function Section({
     ${
       fullScreen
         ? `mx-auto max-w-full ${className}`
-        : `mx-6 max-w-screen-sm sm:mx-auto sm:max-w-screen-sm lg:max-w-screen-md xl:max-w-7xl ${className}`
+        : `mx-6 max-w-screen-sm sm:mx-auto lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-7xl ${className}`
     }`}
     >
       {children}
