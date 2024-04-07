@@ -1,6 +1,7 @@
 import { Card, CardHeader, Skeleton } from '@nextui-org/react';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { MouseEvent } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 export const Pill = ({
   icon,
@@ -32,7 +33,9 @@ export const Pill = ({
       onMouseMove={handleMouseMove}
       {...delegated}
       onPress={!isLoading ? onPress : () => {}}
-      className={`group relative w-72 bg-neutral-950 text-pink-500 ${isSelected ? 'bg-violet-950 bg-opacity-40' : 'bg-neutral-950'} ${className}`}
+      className={twMerge(
+        `group relative w-72 bg-neutral-950 text-pink-500 ${isSelected ? 'bg-violet-950 bg-opacity-40' : 'bg-neutral-950'} ${className}`,
+      )}
       isPressable={!isLoading}
     >
       <motion.div

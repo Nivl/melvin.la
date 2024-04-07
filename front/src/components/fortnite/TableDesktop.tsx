@@ -10,10 +10,9 @@ import {
   TableRow,
 } from '@nextui-org/react';
 import { useEffect, useMemo, useState } from 'react';
-import { FaGamepad, FaKeyboard, FaUser } from 'react-icons/fa';
-import { FaUserGroup } from 'react-icons/fa6';
+import { FaGamepad, FaKeyboard } from 'react-icons/fa';
+import { FaUser, FaUserGroup, FaUsers } from 'react-icons/fa6';
 import { GiSmartphone } from 'react-icons/gi';
-import { HiMiniUserGroup } from 'react-icons/hi2';
 import { TfiInfinite } from 'react-icons/tfi';
 
 import { Data } from '@/models/fortnite';
@@ -183,7 +182,7 @@ export const TableDesktop = ({
       const squad = {
         key: crypto.randomUUID(),
         mode: 'Trio / Squad',
-        icon: <HiMiniUserGroup />,
+        icon: <FaUsers />,
         timePlayed: humanizeDuration(squadData.minutesPlayed),
         gamePlayed: squadData.matches,
         wins: squadData.wins,
