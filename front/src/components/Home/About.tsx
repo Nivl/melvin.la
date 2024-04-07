@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { CTA } from '../../models';
+import { Heading } from './Heading';
 import ProfilePicture from './melvin.jpg';
 
 export const About = ({
@@ -16,7 +17,7 @@ export const About = ({
     <div>
       <div className="flex flex-col items-center md:flex-row">
         <div className="md:text-right">
-          <h2> {title} </h2>
+          <Heading level={2}>{title}</Heading>
           <p> {content} </p>
           <div className="flex items-center justify-end text-base font-bold uppercase">
             <a
