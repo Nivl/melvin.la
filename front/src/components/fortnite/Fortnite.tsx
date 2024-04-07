@@ -93,7 +93,10 @@ export const Fortnite = () => {
             <MainData data={data} isLoading={isLoading} />
           </Section>
 
-          <Section className="mb-16 md:mx-auto md:max-w-full">
+          <Section
+            fullScreen
+            className="mx-4 mb-16 max-w-7xl md:max-w-full xl:mx-16 2xl:mx-auto 2xl:max-w-7xl"
+          >
             {/* Desktop only */}
             <div className="hidden md:block">
               <TableDesktop data={data} isLoading={isLoading} />

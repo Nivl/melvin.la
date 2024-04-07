@@ -2,6 +2,7 @@ import { Card, CardBody, CardHeader, Skeleton } from '@nextui-org/react';
 import { Avatar } from '@nextui-org/react';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { MouseEvent } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 export const StatCard = ({
   icon,
@@ -32,7 +33,9 @@ export const StatCard = ({
     <Card
       onMouseMove={handleMouseMove}
       {...delegated}
-      className={`group relative w-80 bg-neutral-950 sm:w-72 lg:w-80 ${className}`}
+      className={twMerge(
+        `group relative w-80 bg-neutral-950 sm:w-72 lg:w-80 ${className}`,
+      )}
     >
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"

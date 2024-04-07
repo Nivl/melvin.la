@@ -1,4 +1,5 @@
 import { createElement } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 export const Heading = ({
   level,
@@ -18,7 +19,7 @@ export const Heading = ({
   return createElement(
     `h${level}`,
     {
-      className: `${classname} ${className}`,
+      className: twMerge(`${classname} ${className}`),
     },
     children,
   );
