@@ -1,4 +1,5 @@
 import { Logo as LogoInfo } from '../../models';
+import { Heading } from './Heading';
 import { Logo } from './Logo';
 
 export const Tech = ({
@@ -36,7 +37,7 @@ export const Tech = ({
         ))}
       </div>
       <div className={`md:w-2/3 ${inverted ? 'text-right' : 'text-left'}`}>
-        <h2>{title}</h2>
+        <Heading level={2}>{title}</Heading>
         {content.map((c, i) => (
           <p key={i}>{c}</p>
         ))}
