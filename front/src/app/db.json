@@ -58,9 +58,9 @@
           "url": "https://redis.io"
         },
         {
-          "img": "elasticSearch",
-          "name": "ElasticSearch",
-          "url": "https://www.elastic.co/products/elasticsearch"
+          "img": "datadog",
+          "name": "Datadog",
+          "url": "https://www.datadoghq.com/"
         },
         {
           "img": "googleCloud",
