@@ -28,28 +28,30 @@ export const Pill = ({
     mouseY.set(clientY - top);
   };
 
+  const background = useMotionTemplate`
+    radial-gradient(
+      50px circle at ${mouseX}px ${mouseY}px,
+      #1c5bff50,
+      transparent 80%
+    )
+  `;
+
   return (
     <Card
       onMouseMove={handleMouseMove}
       {...delegated}
-      onPress={!isLoading ? onPress : () => {}}
+      onPress={!isLoading && !isSelected ? onPress : () => {}}
       className={twMerge(
-        `group relative w-72 bg-neutral-950 text-pink-500 ${isSelected ? 'bg-violet-950 bg-opacity-40' : 'bg-neutral-950'} ${className}`,
+        `group relative w-72 bg-neutral-950 ${isSelected ? 'bg-gradient-to-br from-[#2753ad] to-[#052d67]' : 'border-1 border-neutral-800'} ${className}`,
       )}
       isPressable={!isLoading}
     >
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              50px circle at ${mouseX}px ${mouseY}px,
-              #FF1CF726,
-              transparent 80%
-            )
-          `,
-        }}
-      />
+      {!isSelected && (
+        <motion.div
+          className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+          style={{ background }}
+        />
+      )}
       <CardHeader className="text-start text-base font-semibold text-foreground">
         <Skeleton isLoaded={!isLoading}>{icon}</Skeleton>
         <Skeleton
