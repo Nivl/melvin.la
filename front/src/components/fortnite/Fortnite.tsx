@@ -32,7 +32,7 @@ export const Fortnite = () => {
         <header className="flex flex-col gap-10 sm:flex-row sm:gap-0">
           <h1 className="basis-full text-center text-2xl font-black sm:text-start sm:text-5xl">
             See how well you are doing in{' '}
-            <span className="bg-gradient-to-b from-[#FF1CF7] to-[#b249f8] bg-clip-text font-fortnite text-3xl uppercase text-transparent sm:text-6xl">
+            <span className="bg-gradient-to-b from-[#1c78ff] to-[#4983f8] bg-clip-text font-fortnite text-3xl uppercase text-transparent sm:text-6xl">
               Fortnite
             </span>
           </h1>

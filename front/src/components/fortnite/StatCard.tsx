@@ -6,7 +6,6 @@ import {
   CircularProgress,
   Skeleton,
 } from '@nextui-org/react';
-import { MouseEvent } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export const StatCard = ({
