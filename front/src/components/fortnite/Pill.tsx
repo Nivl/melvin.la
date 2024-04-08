@@ -52,7 +52,10 @@ export const Pill = ({
       />
       <CardHeader className="text-start text-base font-semibold text-foreground">
         <Skeleton isLoaded={!isLoading}>{icon}</Skeleton>
-        <Skeleton className="m-auto w-48" isLoaded={!isLoading}>
+        <Skeleton
+          className={`m-auto w-48 ${isSelected ? 'light' : 'dark'}`}
+          isLoaded={!isLoading}
+        >
           <p>{title}</p>
         </Skeleton>
       </CardHeader>
