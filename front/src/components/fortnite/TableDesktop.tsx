@@ -8,6 +8,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
+  Tooltip,
 } from '@nextui-org/react';
 import { useEffect, useMemo, useState } from 'react';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
@@ -32,8 +33,8 @@ type TableEntry = {
   wins: number;
   winRate: string;
   kd: string;
-  top10ratio: string;
-  top25ratio: string;
+  top10rate: string;
+  top25rate: string;
 };
 
 export const TableDesktop = ({
@@ -154,8 +155,8 @@ export const TableDesktop = ({
         wins: soloData.wins,
         winRate: `${rateStr(soloData.wins, soloData.matches)}`,
         kd: `${Math.ceil(soloData.kd * 100) / 100}`,
-        top10ratio: `${rateStr(soloData.top10 || 0, soloData.matches)}`,
-        top25ratio: `${rateStr(soloData.top25 || 0, soloData.matches)}`,
+        top10rate: `${rateStr(soloData.top10 || 0, soloData.matches)}`,
+        top25rate: `${rateStr(soloData.top25 || 0, soloData.matches)}`,
       };
       out.push(solo);
     }
@@ -171,8 +172,8 @@ export const TableDesktop = ({
         wins: duoData.wins,
         winRate: `${rateStr(duoData.wins, duoData.matches)}`,
         kd: `${Math.ceil(duoData.kd * 100) / 100}`,
-        top10ratio: `${rateStr(duoData.top5 || 0, duoData.matches)}`,
-        top25ratio: `${rateStr(duoData.top12 || 0, duoData.matches)}`,
+        top10rate: `${rateStr(duoData.top5 || 0, duoData.matches)}`,
+        top25rate: `${rateStr(duoData.top12 || 0, duoData.matches)}`,
       };
       out.push(duo);
     }
@@ -188,8 +189,8 @@ export const TableDesktop = ({
         wins: squadData.wins,
         winRate: `${rateStr(squadData.wins, squadData.matches)}`,
         kd: `${Math.ceil(squadData.kd * 100) / 100}`,
-        top10ratio: `${rateStr(squadData.top3 || 0, squadData.matches)}`,
-        top25ratio: `${rateStr(squadData.top6 || 0, squadData.matches)}`,
+        top10rate: `${rateStr(squadData.top3 || 0, squadData.matches)}`,
+        top25rate: `${rateStr(squadData.top6 || 0, squadData.matches)}`,
       };
       out.push(squad);
     }
@@ -206,13 +207,13 @@ export const TableDesktop = ({
         wins: overallData.wins,
         winRate: `${rateStr(overallData.wins, overallData.matches)}`,
         kd: `${Math.ceil(overallData.kd * 100) / 100}`,
-        top10ratio: `${rateStr(
+        top10rate: `${rateStr(
           (overallData.top3 || 0) +
             (overallData.top5 || 0) +
             (overallData.top10 || 0),
           overallData.matches,
         )}`,
-        top25ratio: `${rateStr(
+        top25rate: `${rateStr(
           (overallData.top6 || 0) +
             (overallData.top12 || 0) +
             (overallData.top25 || 0),
@@ -241,9 +242,33 @@ export const TableDesktop = ({
           <TableColumn key="gamePlayed">Game Played</TableColumn>
           <TableColumn key="wins">Wins</TableColumn>
           <TableColumn key="winRate">Win Rate</TableColumn>
-          <TableColumn key="kd">Kill/Death rate</TableColumn>
-          <TableColumn key="top10ratio">Top 10% rate</TableColumn>
-          <TableColumn key="top25ratio">Top 25% ratio</TableColumn>
+          <TableColumn key="kd">
+            <Tooltip
+              closeDelay={0}
+              delay={0}
+              content="How many people you kill for each time you die"
+            >
+              <span>Kill/Death ratio</span>
+            </Tooltip>
+          </TableColumn>
+          <TableColumn key="top10rate">
+            <Tooltip
+              closeDelay={0}
+              delay={0}
+              content="How often you are one of the last 10 players alive"
+            >
+              <span>Top 10% rate</span>
+            </Tooltip>
+          </TableColumn>
+          <TableColumn key="top25rate">
+            <Tooltip
+              closeDelay={0}
+              delay={0}
+              content="How often you are one of the last 25 players alive"
+            >
+              <span>Top 25% rate</span>
+            </Tooltip>
+          </TableColumn>
           <TableColumn key="timePlayed">Time Played</TableColumn>
         </TableHeader>
         <TableBody emptyContent={'No data to display.'} items={tableData}>
