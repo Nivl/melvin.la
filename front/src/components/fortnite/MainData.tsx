@@ -18,7 +18,7 @@ export const MainData = ({
       <StatCard
         icon={<TfiCup />}
         iconSize="text-[20px]"
-        title="Win Rate"
+        title="Overall win rate"
         isLoading={isLoading || !data}
         stat={
           data
@@ -32,7 +32,7 @@ export const MainData = ({
       <StatCard
         icon={<LiaSkullSolid />}
         iconSize="text-[32px]"
-        title="Kill / Death ratio"
+        title="Overall Kill / Death ratio"
         isLoading={isLoading || !data}
         stat={
           data ? `${Math.ceil(data.stats.all.overall.kd * 100) / 100}` : '0.00'
