@@ -8,21 +8,17 @@ import { ErrorWithCode } from '@/error';
 import { ErrCode, useStats } from '@/hooks/fortnite/useStats';
 import { humanizeDuration } from '@/utils';
 
-import { AccountTypes, Form, TimeWindow } from './Form';
+import { AccountPresets, defaults } from './AccountPresets';
+import { Form } from './Form';
 import { MainData } from './MainData';
 import { TableDesktop } from './TableDesktop';
 import { TableMobile } from './TableMobile';
 
-const defaults = {
-  accountName: '',
-  accountType: AccountTypes.Epic,
-  timeWindow: TimeWindow.Lifetime,
-};
-
 export const Fortnite = () => {
-  const [name, setName] = useState(defaults.accountName);
-  const [accountType, setAccountType] = useState(defaults.accountType);
-  const [timeWindow, setTimeWindow] = useState(defaults.timeWindow);
+  const [preset, setPreset] = useState(defaults);
+  const [name, setName] = useState(preset.accountName);
+  const [accountType, setAccountType] = useState(preset.accountType);
+  const [timeWindow, setTimeWindow] = useState(preset.timeWindow);
 
   const { data, error, isLoading } = useStats(name, accountType, timeWindow);
 
@@ -41,12 +37,18 @@ export const Fortnite = () => {
             onAccountNameChange={setName}
             onAccountTypeChange={setAccountType}
             onTimeWindowChange={setTimeWindow}
-            defaultTimeWindow={defaults.timeWindow}
-            defaultAccountType={defaults.accountType}
-            defaultAccountName={defaults.accountName}
+            defaultTimeWindow={preset.timeWindow}
+            defaultAccountType={preset.accountType}
+            defaultAccountName={preset.accountName}
           />
         </header>
       </Section>
+
+      {!isLoading && !error && !data && (
+        <Section className="mb-16 flex flex-col gap-10">
+          <AccountPresets setPreset={setPreset} />
+        </Section>
+      )}
 
       {!isLoading && error && (
         <Section className="text-center text-xl font-black text-red-400 sm:text-4xl">
