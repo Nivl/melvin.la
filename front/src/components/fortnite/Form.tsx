@@ -36,20 +36,35 @@ export const Form = ({
   const [name, setName] = useState(defaultAccountName);
   const [debouncedName] = useDebounce(name, 1000, { leading: true });
 
-  const [accountType, setAccountType] = useState(defaultAccountType);
-  const [debouncedAccountType] = useDebounce(accountType, 500, {
+  const [accountType, setAccountType] = useState(AccountTypes.Epic);
+  const [debouncedAccountType] = useDebounce(accountType, 1000, {
     leading: true,
   });
 
   const [timeWindow, setTimeWindow] = useState(defaultTimeWindow);
 
-  // Set the account name from the local storage if it exists.
+  // Set the data from the local storage if there is some.
   // That's so the user can come back to the page and see their
-  // data directly
+  // data directly without having to re-enter anything.
   useEffect(() => {
     const accountName = localStorage.getItem('accountName');
     if (accountName) {
       setName(accountName);
+    }
+
+    const accountType = localStorage.getItem(
+      'accountType',
+    ) as AccountTypes | null;
+
+    if (
+      accountType &&
+      Object.values(AccountTypes).includes(accountType) &&
+      // we ignore the default value to avoid a race with useDebounce
+      // always triggering with the default value and overriding the
+      // local storage temporarily.
+      accountType !== AccountTypes.Epic
+    ) {
+      setAccountType(accountType);
     }
   }, []);
 
@@ -59,16 +74,17 @@ export const Form = ({
   }, [debouncedName, onAccountNameChange]);
 
   useEffect(() => {
+    localStorage.setItem('accountType', debouncedAccountType);
     onAccountTypeChange(debouncedAccountType);
   }, [debouncedAccountType, onAccountTypeChange]);
 
+  // Used when the user picks a preset
   useEffect(() => {
     if (defaultAccountName) {
       setName(defaultAccountName);
+      setAccountType(defaultAccountType);
+      setTimeWindow(defaultTimeWindow);
     }
-
-    setAccountType(defaultAccountType);
-    setTimeWindow(defaultTimeWindow);
   }, [defaultAccountName, defaultAccountType, defaultTimeWindow]);
 
   return (
