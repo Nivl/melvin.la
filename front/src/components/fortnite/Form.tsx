@@ -5,7 +5,7 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { useEffect, useState } from 'react';
 import { FaPlaystation, FaXbox } from 'react-icons/fa';
 import { SiEpicgames } from 'react-icons/si';
-import { useDebounce } from 'use-debounce';
+import { useDebouncedCallback } from 'use-debounce';
 
 export enum AccountTypes {
   Epic = 'epic',
@@ -34,13 +34,15 @@ export const Form = ({
   defaultTimeWindow: TimeWindow;
 }) => {
   const [name, setName] = useState(defaultAccountName);
-  const [debouncedName] = useDebounce(name, 1000, { leading: true });
+  const debounceName = useDebouncedCallback(name => setName(name), 1000);
+  // When it's value change, we redraw the form and update the default
+  // value of the name input. We have to do this to display the presets
+  // as well as the local storage value in the input.
+  // This is because we cannot use 'name' as it is debounced, and
+  // debounceName doesn't contains the current value being debounced.
+  const [nameKey, setNameKey] = useState('');
 
   const [accountType, setAccountType] = useState(AccountTypes.Epic);
-  const [debouncedAccountType] = useDebounce(accountType, 1000, {
-    leading: true,
-  });
-
   const [timeWindow, setTimeWindow] = useState(defaultTimeWindow);
 
   // Set the data from the local storage if there is some.
@@ -50,6 +52,7 @@ export const Form = ({
     const accountName = localStorage.getItem('accountName');
     if (accountName) {
       setName(accountName);
+      setNameKey(accountName);
     }
 
     const accountType = localStorage.getItem(
@@ -69,19 +72,20 @@ export const Form = ({
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('accountName', debouncedName);
-    onAccountNameChange(debouncedName);
-  }, [debouncedName, onAccountNameChange]);
+    localStorage.setItem('accountName', name);
+    onAccountNameChange(name);
+  }, [name, onAccountNameChange]);
 
   useEffect(() => {
-    localStorage.setItem('accountType', debouncedAccountType);
-    onAccountTypeChange(debouncedAccountType);
-  }, [debouncedAccountType, onAccountTypeChange]);
+    localStorage.setItem('accountType', accountType);
+    onAccountTypeChange(accountType);
+  }, [accountType, onAccountTypeChange]);
 
   // Used when the user picks a preset
   useEffect(() => {
     if (defaultAccountName) {
       setName(defaultAccountName);
+      setNameKey(defaultAccountName);
       setAccountType(defaultAccountType);
       setTimeWindow(defaultTimeWindow);
     }
@@ -95,14 +99,15 @@ export const Form = ({
       }}
     >
       <Input
+        key={nameKey}
         className="w-auto"
         type="text"
         label="Account Name"
         labelPlacement="outside-left"
         placeholder="Account Name"
         variant="bordered"
-        value={name}
-        onChange={e => setName(e.target.value)}
+        defaultValue={name}
+        onChange={e => debounceName(e.target.value)}
       />
 
       <div className="flex flex-row items-center justify-center">
