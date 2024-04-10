@@ -37,7 +37,9 @@ export const Form = ({
   const [debouncedName] = useDebounce(name, 1000, { leading: true });
 
   const [accountType, setAccountType] = useState(defaultAccountType);
-  const [debouncedAccountType] = useDebounce(accountType, 500);
+  const [debouncedAccountType] = useDebounce(accountType, 500, {
+    leading: true,
+  });
 
   const [timeWindow, setTimeWindow] = useState(defaultTimeWindow);
 
@@ -59,6 +61,15 @@ export const Form = ({
   useEffect(() => {
     onAccountTypeChange(debouncedAccountType);
   }, [debouncedAccountType, onAccountTypeChange]);
+
+  useEffect(() => {
+    if (defaultAccountName) {
+      setName(defaultAccountName);
+    }
+
+    setAccountType(defaultAccountType);
+    setTimeWindow(defaultTimeWindow);
+  }, [defaultAccountName, defaultAccountType, defaultTimeWindow]);
 
   return (
     <form
