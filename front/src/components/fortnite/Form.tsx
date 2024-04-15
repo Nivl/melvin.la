@@ -80,6 +80,8 @@ export const Form = ({
         variant="bordered"
         defaultValue={name}
         onChange={e => debounceName(e.target.value)}
+        onClear={() => setName('')}
+        isClearable
       />
 
       <div className="flex flex-row items-center justify-center">
