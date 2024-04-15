@@ -37,47 +37,19 @@ export const Form = ({
   const debounceName = useDebouncedCallback(name => setName(name), 1000);
   // When it's value change, we redraw the form and update the default
   // value of the name input. We have to do this to display the presets
-  // as well as the local storage value in the input.
+  // in the input.
   // This is because we cannot use 'name' as it is debounced, and
   // debounceName doesn't contains the current value being debounced.
   const [nameKey, setNameKey] = useState('');
 
-  const [accountType, setAccountType] = useState(AccountTypes.Epic);
+  const [accountType, setAccountType] = useState(defaultAccountType);
   const [timeWindow, setTimeWindow] = useState(defaultTimeWindow);
 
-  // Set the data from the local storage if there is some.
-  // That's so the user can come back to the page and see their
-  // data directly without having to re-enter anything.
   useEffect(() => {
-    const accountName = localStorage.getItem('accountName');
-    if (accountName) {
-      setName(accountName);
-      setNameKey(accountName);
-    }
-
-    const accountType = localStorage.getItem(
-      'accountType',
-    ) as AccountTypes | null;
-
-    if (
-      accountType &&
-      Object.values(AccountTypes).includes(accountType) &&
-      // we ignore the default value to avoid a race with useDebounce
-      // always triggering with the default value and overriding the
-      // local storage temporarily.
-      accountType !== AccountTypes.Epic
-    ) {
-      setAccountType(accountType);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('accountName', name);
     onAccountNameChange(name);
   }, [name, onAccountNameChange]);
 
   useEffect(() => {
-    localStorage.setItem('accountType', accountType);
     onAccountTypeChange(accountType);
   }, [accountType, onAccountTypeChange]);
 

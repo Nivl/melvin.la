@@ -1,26 +1,75 @@
 'use client';
 
 import { Skeleton } from '@nextui-org/react';
-import { useState } from 'react';
+import { notFound } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { Section } from '@/components/Home/Section';
 import { ErrorWithCode } from '@/error';
 import { ErrCode, useStats } from '@/hooks/fortnite/useStats';
 import { humanizeDuration } from '@/utils';
 
-import { AccountPresets, defaults } from './AccountPresets';
-import { Form } from './Form';
+import { AccountPresets, defaults, Preset } from './AccountPresets';
+import { AccountTypes, Form } from './Form';
 import { MainData } from './MainData';
 import { TableDesktop } from './TableDesktop';
 import { TableMobile } from './TableMobile';
 
-export const Fortnite = () => {
-  const [preset, setPreset] = useState(defaults);
+export const Fortnite = ({
+  providedName,
+  providedType,
+}: {
+  providedName?: string;
+  providedType?: AccountTypes;
+}) => {
+  const providedTypeIsValid =
+    providedType && Object.values(AccountTypes).includes(providedType);
+
+  const [preset, setPreset] = useState<Preset>({
+    accountName: providedName
+      ? decodeURIComponent(providedName)
+      : defaults.accountName,
+    accountType: providedType || defaults.accountType,
+    timeWindow: defaults.timeWindow,
+  });
+
   const [name, setName] = useState(preset.accountName);
   const [accountType, setAccountType] = useState(preset.accountType);
   const [timeWindow, setTimeWindow] = useState(preset.timeWindow);
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const { data, error, isLoading } = useStats(name, accountType, timeWindow);
+  const { data, error, isLoading } = useStats(
+    name,
+    accountType,
+    timeWindow,
+    providedType && !providedTypeIsValid,
+  );
+
+  useEffect(() => {
+    let url = '/fortnite';
+    if (name) {
+      url += `/${encodeURIComponent(name)}`;
+      if (accountType) {
+        url += `/${accountType}`;
+      }
+    }
+
+    if (pathname != url) {
+      void router.push(url, {
+        // @ts-expect-error 'shallow' does not exist in type 'NavigateOptions' but is valid. See https://github.com/vercel/next.js/issues/60007
+        shallow: true,
+      });
+    }
+
+    // We don't need the router here, it's only for a shallow change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, accountType]);
+
+  if (providedType && !providedTypeIsValid) {
+    return notFound();
+  }
 
   return (
     <>

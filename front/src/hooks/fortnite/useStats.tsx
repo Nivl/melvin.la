@@ -19,10 +19,11 @@ export const useStats = (
   accountName: string,
   accountType: string,
   timeWindow: string,
+  disabled = false,
 ) => {
   return useQuery({
     queryKey: ['fortnite', 'stats', accountName, accountType, timeWindow],
-    enabled: !!accountName && !!accountType && !!timeWindow,
+    enabled: !disabled && !!accountName && !!accountType && !!timeWindow,
     queryFn: async () => {
       const res = await fetch(
         `/api/fortnite?&name=${accountName}&accountType=${accountType}&timeWindow=${timeWindow}`,

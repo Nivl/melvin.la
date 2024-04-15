@@ -19,7 +19,7 @@ export const Navbar = () => {
             Home
           </Link>
         </NavbarItem>
-        <NavbarItem isActive={pathname == '/fortnite'}>
+        <NavbarItem isActive={pathname.startsWith('/fortnite')}>
           <Link color="foreground" href="/fortnite">
             Fortnite Data
           </Link>
