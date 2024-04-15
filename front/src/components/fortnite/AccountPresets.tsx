@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { AccountTypes, TimeWindow } from './Form';
 
-type Preset = {
+export type Preset = {
   accountName: string;
   accountType: AccountTypes;
   timeWindow: TimeWindow;
