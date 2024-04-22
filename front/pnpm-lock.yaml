@@ -41,15 +41,6 @@ importers:
       react-icons:
         specifier: 5.1.0
         version: 5.1.0(react@18.2.0)
-      tailwind-merge:
-        specifier: 2.3.0
-        version: 2.3.0
-      tailwindcss:
-        specifier: 3.4.3
-        version: 3.4.3
-      typescript:
-        specifier: 5.4.5
-        version: 5.4.5
       use-debounce:
         specifier: 10.0.0
         version: 10.0.0(react@18.2.0)
@@ -102,6 +93,15 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: 0.5.14
         version: 0.5.14(prettier@3.2.5)
+      tailwind-merge:
+        specifier: 2.3.0
+        version: 2.3.0
+      tailwindcss:
+        specifier: 3.4.3
+        version: 3.4.3
+      typescript:
+        specifier: 5.4.5
+        version: 5.4.5
 
 packages:
 
