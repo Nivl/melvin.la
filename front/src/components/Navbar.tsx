@@ -24,6 +24,11 @@ export const Navbar = () => {
             Fortnite Data
           </Link>
         </NavbarItem>
+        <NavbarItem isActive={pathname.startsWith('/conway')}>
+          <Link color="foreground" href="/conway">
+            Game of Life
+          </Link>
+        </NavbarItem>
       </NavbarContent>
     </NuiNavbar>
   );
