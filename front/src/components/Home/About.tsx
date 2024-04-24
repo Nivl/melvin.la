@@ -1,8 +1,5 @@
-import Image from 'next/image';
-
 import { CTA } from '../../models';
 import { Heading } from './Heading';
-import ProfilePicture from './melvin.jpg';
 
 export const About = ({
   title,
@@ -15,7 +12,7 @@ export const About = ({
 }) => {
   return (
     <div>
-      <div className="flex flex-col items-center md:flex-row">
+      <div className="flex items-center">
         <div className="md:text-right">
           <Heading level={2}>{title}</Heading>
           <p> {content} </p>
@@ -27,13 +24,6 @@ export const About = ({
               {cta.text}
             </a>
           </div>
-        </div>
-        <div className="ml-12 hidden md:block">
-          <Image
-            className="block max-w-none rounded-full md:w-52 xl:w-80"
-            src={ProfilePicture}
-            alt="me"
-          />
         </div>
       </div>
     </div>
