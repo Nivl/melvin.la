@@ -88,7 +88,7 @@ export const Conway = () => {
           </p>
           <p className="my-5">
             The grid has been pre-filled with random cells. You can edit the
-            grid by click on a cell to change its state.
+            grid by clicking on a cell to change its state.
           </p>
         </Section>
 
