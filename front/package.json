@@ -2,7 +2,7 @@
     "name": "front",
     "version": "0.1.0",
     "private": true,
-    "packageManager": "pnpm@9.1.1",
+    "packageManager": "pnpm@9.1.2",
     "scripts": {
         "dev": "next dev",
         "build": "next build",
@@ -15,18 +15,18 @@
         "@react-google-maps/api": "2.19.3",
         "@tanstack/react-query": "5.39.0",
         "@vercel/analytics": "1.3.1",
-        "@vercel/speed-insights": "1.0.10",
-        "framer-motion": "11.2.4",
+        "@vercel/speed-insights": "1.0.11",
+        "framer-motion": "11.2.6",
         "next": "14.2.3",
         "react": "18.3.1",
         "react-dom": "18.3.1",
         "react-icons": "5.2.1",
-        "use-debounce": "10.0.0"
+        "use-debounce": "10.0.1"
     },
     "devDependencies": {
         "@types/eslint": "8.56.10",
         "@types/node": "20.12.12",
-        "@types/react": "18.3.2",
+        "@types/react": "18.3.3",
         "@types/react-dom": "18.3.0",
         "@typescript-eslint/eslint-plugin": "7.10.0",
         "@typescript-eslint/parser": "7.10.0",
