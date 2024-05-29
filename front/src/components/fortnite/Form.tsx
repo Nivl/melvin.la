@@ -91,7 +91,7 @@ export const Form = ({
 
         <ToggleGroup.Root
           type="single"
-          className="px-4 py-3 text-3xl text-gray-500"
+          className="px-4 py-3 text-3xl text-gray-300 dark:text-neutral-600" //3e3e45
           value={accountType}
           onValueChange={v => {
             if (v !== '') {
@@ -101,12 +101,12 @@ export const Form = ({
         >
           <ToggleGroup.Item
             value={AccountTypes.Epic}
-            className="px-2 transition-colors hover:text-brands-epic"
+            className="hover:text-brands-epic px-2 transition-colors"
             aria-label="Epic Games"
           >
             <SiEpicgames
               className={
-                accountType === AccountTypes.Epic ? 'text-brands-epic' : ''
+                accountType === AccountTypes.Epic ? 'text-foreground' : ''
               }
             />
           </ToggleGroup.Item>

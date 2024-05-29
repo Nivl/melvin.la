@@ -37,13 +37,6 @@ export const Navbar = () => {
         <Dropdown>
           <NavbarItem>
             <DropdownTrigger>
-              {/* <Link
-                color="foreground"
-                className="cursor-pointer antialiased"
-                endContent={icons.chevron}
-              >
-                Games
-              </Link> */}
               <Button
                 disableRipple
                 className={`cursor-pointer bg-transparent p-0 text-medium text-foreground antialiased transition-opacity tap-highlight-transparent hover:opacity-80 active:opacity-disabled data-[hover=true]:bg-transparent ${pathname.startsWith('/conway') || pathname.startsWith('/nothing') ? 'font-semibold' : ''}`}
@@ -61,7 +54,7 @@ export const Navbar = () => {
               description="Zero-player cellular automation game."
               startContent={<ConwayIcon className="h-5 w-5" />}
               href="/conway"
-              className={`${pathname.startsWith('/conway') ? 'bg-[#222227]' : ''}`}
+              className={`${pathname.startsWith('/conway') ? 'bg-neutral-100 dark:bg-[#222227]' : ''}`}
             >
               Game of Life
             </DropdownItem>
@@ -70,7 +63,7 @@ export const Navbar = () => {
               description="The game where you do nothing."
               startContent={<NothingIcon className="h-5 w-5" />}
               href="/nothing"
-              className={`${pathname.startsWith('/nothing') ? 'bg-[#222227]' : ''}`}
+              className={`${pathname.startsWith('/nothing') ? 'bg-neutral-100 dark:bg-[#222227]' : ''}`}
             >
               Nothing
             </DropdownItem>

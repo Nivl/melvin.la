@@ -31,7 +31,7 @@ export const Pill = ({
   const background = useMotionTemplate`
     radial-gradient(
       50px circle at ${mouseX}px ${mouseY}px,
-      #1c5bff50,
+      #1c5bff25,
       transparent 80%
     )
   `;
@@ -42,7 +42,7 @@ export const Pill = ({
       {...delegated}
       onPress={!isLoading && !isSelected ? onPress : () => {}}
       className={twMerge(
-        `group relative w-72 bg-neutral-950 ${isSelected ? 'bg-gradient-to-br from-[#2753ad] to-[#052d67]' : 'border-1 border-neutral-800'} ${className}`,
+        `group relative w-72 dark:bg-neutral-950 ${isSelected ? 'bg-gradient-to-br from-[#2753ad] to-[#418eff] dark:to-[#052d67]' : 'border-1 border-neutral-200 dark:border-neutral-800'} ${className}`,
       )}
       isPressable={!isLoading}
     >
@@ -52,7 +52,9 @@ export const Pill = ({
           style={{ background }}
         />
       )}
-      <CardHeader className="text-start text-base font-semibold text-foreground">
+      <CardHeader
+        className={`text-start text-base font-semibold dark:text-foreground ${isSelected ? 'text-white' : ''}`}
+      >
         <Skeleton isLoaded={!isLoading}>{icon}</Skeleton>
         <Skeleton
           className={`m-auto w-48 ${isSelected ? 'light' : 'dark'}`}
