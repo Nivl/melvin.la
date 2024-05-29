@@ -32,7 +32,10 @@ export const Tech = ({
                 : 'justify-center md:justify-start lg:justify-center'
             }`}
           >
-            <Logo className="h-16 w-16 fill-white" name={logo.img} />
+            <Logo
+              className="h-16 w-16 fill-neutral-700 dark:fill-foreground"
+              name={logo.img}
+            />
           </a>
         ))}
       </div>

@@ -1,14 +1,3 @@
-a {
-  @apply text-white;
-  @apply no-underline;
-  @apply border-none;
-  @apply border-opacity-30;
-
-  &:visited {
-    @apply text-white;
-  }
-}
-
 p {
   @apply mb-3;
   @apply lg:mb-8;
