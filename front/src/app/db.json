@@ -80,7 +80,7 @@
       ]
     },
     "clientTech": {
-      "title": "CLIENT (WEB, MOBILE, DESKTOP, etc.) TECHNOLOGIES",
+      "title": "CLIENT TECHNOLOGIES",
       "content": [
         "Backend is fun, but nowadays a backend doesn't do much beside treating data and returning more data to the clients. So naturally, I got interested in learning the client side of the stack. I'm convinced that writing client code made me a better backend engineer as I know the pain and struggle of dealing with undocumented APIs, or poorly built APIs that only partially return the data you need.",
         "I professionally worked on a bit of everything: native mobile apps (iOS and Android), hybrid mobile apps, regular Electron apps, Electron apps with a local Go backend to do all the heavy lifting (with some cgo to use native Windows and macOS libraries), SPAs using angular, react, etc."
