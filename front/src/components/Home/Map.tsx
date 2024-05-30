@@ -11,7 +11,7 @@ const MapContainer = ({
   className: string;
   initialCenter: google.maps.LatLng | google.maps.LatLngLiteral;
 }) => {
-  const { theme, systemTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.NEXT_PUBLIC_GCP_MAP_API_KEY || '',
@@ -23,10 +23,7 @@ const MapContainer = ({
       center={initialCenter}
       zoom={12}
       options={{
-        styles:
-          theme === 'dark' || systemTheme === 'dark'
-            ? mapStylesDark
-            : mapStylesLight,
+        styles: resolvedTheme === 'dark' ? mapStylesDark : mapStylesLight,
         scrollwheel: false,
         keyboardShortcuts: false,
         disableDoubleClickZoom: true,
