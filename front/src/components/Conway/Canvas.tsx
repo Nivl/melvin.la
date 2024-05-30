@@ -79,8 +79,8 @@ export const Canvas = ({
   [x: string]: unknown;
 }) => {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const { theme, systemTheme } = useTheme();
-  const isDarkMode = theme === 'dark' || systemTheme === 'dark';
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme === 'dark';
 
   const updateBoard = useCallback(() => {
     const ctx = canvas.current?.getContext('2d', {

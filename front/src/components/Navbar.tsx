@@ -12,12 +12,22 @@ import {
   NavbarItem,
 } from '@nextui-org/react';
 import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import { CiPause1 as NothingIcon } from 'react-icons/ci';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
+import { FiMonitor as SystemIcon } from 'react-icons/fi';
 import { GiConwayLifeGlider as ConwayIcon } from 'react-icons/gi';
+import { IoMdMoon as NightIcon, IoMdSunny as LightIcon } from 'react-icons/io';
 
 export const Navbar = () => {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <NuiNavbar position="static">
@@ -70,6 +80,54 @@ export const Navbar = () => {
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
+
+      {mounted && (
+        <NavbarContent justify="end">
+          <Dropdown>
+            <NavbarItem>
+              <DropdownTrigger>
+                <Button variant="light" isIconOnly>
+                  {theme === 'system' && <SystemIcon />}
+                  {theme === 'light' && <LightIcon />}
+                  {theme === 'dark' && <NightIcon />}
+                </Button>
+              </DropdownTrigger>
+            </NavbarItem>
+            <DropdownMenu aria-label="theme">
+              <DropdownItem
+                key="light"
+                startContent={<LightIcon />}
+                onClick={() => setTheme('light')}
+                className={
+                  theme === 'light' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
+                }
+              >
+                Light
+              </DropdownItem>
+              <DropdownItem
+                key="dark"
+                startContent={<NightIcon />}
+                onClick={() => setTheme('dark')}
+                className={
+                  theme === 'dark' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
+                }
+              >
+                Night
+              </DropdownItem>
+              <DropdownItem
+                key="system"
+                startContent={<SystemIcon />}
+                onClick={() => setTheme('system')}
+                className={
+                  theme === 'system' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
+                }
+              >
+                System
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </NavbarContent>
+      )}
     </NuiNavbar>
   );
 };
