@@ -87,7 +87,7 @@ export const Navbar = () => {
               <DropdownItem
                 key="light"
                 startContent={<LightIcon />}
-                onClick={() => setTheme('light')}
+                onPress={() => setTheme('light')}
                 className={
                   theme === 'light' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
                 }
@@ -97,7 +97,7 @@ export const Navbar = () => {
               <DropdownItem
                 key="dark"
                 startContent={<NightIcon />}
-                onClick={() => setTheme('dark')}
+                onPress={() => setTheme('dark')}
                 className={
                   theme === 'dark' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
                 }
@@ -107,7 +107,7 @@ export const Navbar = () => {
               <DropdownItem
                 key="system"
                 startContent={<SystemIcon />}
-                onClick={() => setTheme('system')}
+                onPress={() => setTheme('system')}
                 className={
                   theme === 'system' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
                 }
