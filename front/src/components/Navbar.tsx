@@ -57,13 +57,18 @@ export const Navbar = () => {
               </Button>
             </DropdownTrigger>
           </NavbarItem>
-          <DropdownMenu aria-label="games">
+          <DropdownMenu
+            aria-label="games"
+            selectionMode="single"
+            selectedKeys={
+              pathname.startsWith('/conway') ? new Set(['conway']) : ''
+            }
+          >
             <DropdownItem
               key="conway"
               description="Zero-player cellular automation game."
               startContent={<ConwayIcon className="h-5 w-5" />}
               href="/conway"
-              className={`${pathname.startsWith('/conway') ? 'bg-neutral-100 dark:bg-[#222227]' : ''}`}
             >
               Game of Life
             </DropdownItem>
@@ -83,14 +88,15 @@ export const Navbar = () => {
                 </Button>
               </DropdownTrigger>
             </NavbarItem>
-            <DropdownMenu aria-label="theme">
+            <DropdownMenu
+              aria-label="theme"
+              selectionMode="single"
+              selectedKeys={theme ? new Set([theme]) : ''}
+            >
               <DropdownItem
                 key="light"
                 startContent={<LightIcon />}
                 onPress={() => setTheme('light')}
-                className={
-                  theme === 'light' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
-                }
               >
                 Light
               </DropdownItem>
@@ -98,9 +104,6 @@ export const Navbar = () => {
                 key="dark"
                 startContent={<NightIcon />}
                 onPress={() => setTheme('dark')}
-                className={
-                  theme === 'dark' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
-                }
               >
                 Night
               </DropdownItem>
@@ -108,9 +111,6 @@ export const Navbar = () => {
                 key="system"
                 startContent={<SystemIcon />}
                 onPress={() => setTheme('system')}
-                className={
-                  theme === 'system' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
-                }
               >
                 System
               </DropdownItem>
