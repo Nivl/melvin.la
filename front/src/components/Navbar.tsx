@@ -12,12 +12,21 @@ import {
   NavbarItem,
 } from '@nextui-org/react';
 import { usePathname } from 'next/navigation';
-import { CiPause1 as NothingIcon } from 'react-icons/ci';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
+import { FiMonitor as SystemIcon } from 'react-icons/fi';
 import { GiConwayLifeGlider as ConwayIcon } from 'react-icons/gi';
+import { IoMdMoon as NightIcon, IoMdSunny as LightIcon } from 'react-icons/io';
 
 export const Navbar = () => {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <NuiNavbar position="static">
@@ -37,16 +46,9 @@ export const Navbar = () => {
         <Dropdown>
           <NavbarItem>
             <DropdownTrigger>
-              {/* <Link
-                color="foreground"
-                className="cursor-pointer antialiased"
-                endContent={icons.chevron}
-              >
-                Games
-              </Link> */}
               <Button
                 disableRipple
-                className={`cursor-pointer bg-transparent p-0 text-medium text-foreground antialiased transition-opacity tap-highlight-transparent hover:opacity-80 active:opacity-disabled data-[hover=true]:bg-transparent ${pathname.startsWith('/conway') || pathname.startsWith('/nothing') ? 'font-semibold' : ''}`}
+                className={`cursor-pointer bg-transparent p-0 text-medium text-foreground antialiased transition-opacity tap-highlight-transparent hover:opacity-80 active:opacity-disabled data-[hover=true]:bg-transparent ${pathname.startsWith('/conway') ? 'font-semibold' : ''}`}
                 radius="sm"
                 variant="flat"
                 endContent={<DownIcon />}
@@ -61,22 +63,61 @@ export const Navbar = () => {
               description="Zero-player cellular automation game."
               startContent={<ConwayIcon className="h-5 w-5" />}
               href="/conway"
-              className={`${pathname.startsWith('/conway') ? 'bg-[#222227]' : ''}`}
+              className={`${pathname.startsWith('/conway') ? 'bg-neutral-100 dark:bg-[#222227]' : ''}`}
             >
               Game of Life
-            </DropdownItem>
-            <DropdownItem
-              key="nothing"
-              description="The game where you do nothing."
-              startContent={<NothingIcon className="h-5 w-5" />}
-              href="/nothing"
-              className={`${pathname.startsWith('/nothing') ? 'bg-[#222227]' : ''}`}
-            >
-              Nothing
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
+
+      {mounted && (
+        <NavbarContent justify="end">
+          <Dropdown>
+            <NavbarItem>
+              <DropdownTrigger>
+                <Button variant="light" isIconOnly>
+                  {theme === 'system' && <SystemIcon />}
+                  {theme === 'light' && <LightIcon />}
+                  {theme === 'dark' && <NightIcon />}
+                </Button>
+              </DropdownTrigger>
+            </NavbarItem>
+            <DropdownMenu aria-label="theme">
+              <DropdownItem
+                key="light"
+                startContent={<LightIcon />}
+                onClick={() => setTheme('light')}
+                className={
+                  theme === 'light' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
+                }
+              >
+                Light
+              </DropdownItem>
+              <DropdownItem
+                key="dark"
+                startContent={<NightIcon />}
+                onClick={() => setTheme('dark')}
+                className={
+                  theme === 'dark' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
+                }
+              >
+                Night
+              </DropdownItem>
+              <DropdownItem
+                key="system"
+                startContent={<SystemIcon />}
+                onClick={() => setTheme('system')}
+                className={
+                  theme === 'system' ? 'bg-neutral-100 dark:bg-[#222227]' : ''
+                }
+              >
+                System
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </NavbarContent>
+      )}
     </NuiNavbar>
   );
 };

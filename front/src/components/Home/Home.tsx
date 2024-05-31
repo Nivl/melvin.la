@@ -48,9 +48,11 @@ export function Home({ pages }: { pages: Pages }) {
         />
       </Section>
 
-      <Section>
-        <Footer />
-      </Section>
+      <div className="bg-[#63B7FF] pb-4 dark:bg-background">
+        <Section className="mt-0 pt-16 sm:mt-0 sm:pt-40 xl:mt-0 xl:pt-52">
+          <Footer />
+        </Section>
+      </div>
     </>
   );
 }

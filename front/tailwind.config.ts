@@ -31,7 +31,6 @@ const config: Config = {
       brands: {
         playstation: '#006FCD',
         xbox: '#2ca243',
-        epic: '#ffffff',
       },
       ...colors,
     },
@@ -54,7 +53,6 @@ const config: Config = {
   plugins: [
     nextui({
       prefix: 'nextui',
-      defaultTheme: 'dark',
       defaultExtendTheme: 'dark',
     }),
   ],

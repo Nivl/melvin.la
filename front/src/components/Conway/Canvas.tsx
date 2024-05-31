@@ -1,5 +1,6 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import {
   Dispatch,
   MouseEvent,
@@ -46,24 +47,20 @@ const drawCell = (
   state: 0 | 1,
   x: number,
   y: number,
+  darkMode: boolean,
 ) => {
   const cellSize = ~~(701 / boardSize);
-  const currentColor = ctx.getImageData(
-    x * cellSize + 1,
-    y * cellSize + 1,
-    1,
-    1,
-  ).data;
+  const cursorX = x * cellSize + 1;
+  const cursorY = y * cellSize + 1;
 
-  if (
-    (state === 0 && currentColor[0] === 0) ||
-    (state === 1 && currentColor[0] === 255)
-  ) {
-    return;
-  }
-
-  ctx.fillStyle = state ? 'white' : 'black';
-  ctx.fillRect(x * cellSize + 1, y * cellSize + 1, cellSize - 1, cellSize - 1);
+  ctx.fillStyle = darkMode
+    ? state
+      ? 'white'
+      : 'black'
+    : state
+      ? 'black'
+      : 'white';
+  ctx.fillRect(cursorX, cursorY, cellSize - 1, cellSize - 1);
 };
 
 export const Canvas = ({
@@ -82,6 +79,8 @@ export const Canvas = ({
   [x: string]: unknown;
 }) => {
   const canvas = useRef<HTMLCanvasElement>(null);
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme === 'dark';
 
   const updateBoard = useCallback(() => {
     const ctx = canvas.current?.getContext('2d', {
@@ -113,13 +112,14 @@ export const Canvas = ({
                 }
                 break;
             }
-            drawCell(ctx, boardSize, newValue, x, y);
+
+            drawCell(ctx, boardSize, newValue, x, y, isDarkMode);
             return newValue;
           });
         });
       });
     }
-  }, [setBoard, boardSize]);
+  }, [isDarkMode, setBoard, boardSize]);
 
   // Board in editing mode
   useEffect(() => {
@@ -132,12 +132,12 @@ export const Canvas = ({
 
         for (let y = 0; y < board.length; y++) {
           for (let x = 0; x < board[y].length; x++) {
-            drawCell(ctx, boardSize, board[y][x], x, y);
+            drawCell(ctx, boardSize, board[y][x], x, y, isDarkMode);
           }
         }
       }
     }
-  }, [canvas, board, isPlaying, boardSize]);
+  }, [isDarkMode, canvas, board, isPlaying, boardSize]);
 
   // Board in playing mode
   useEffect(() => {
