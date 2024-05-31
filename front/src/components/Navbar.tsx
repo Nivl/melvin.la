@@ -11,6 +11,7 @@ import {
   NavbarContent,
   NavbarItem,
 } from '@nextui-org/react';
+import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
@@ -69,6 +70,7 @@ export const Navbar = () => {
               description="Zero-player cellular automation game."
               startContent={<ConwayIcon className="h-5 w-5" />}
               href="/conway"
+              as={NextLink} // https://github.com/nextui-org/nextui/issues/2131
             >
               Game of Life
             </DropdownItem>
