@@ -117,7 +117,7 @@ const mapStylesLight = [
     elementType: 'all',
     stylers: [
       {
-        color: '#ffffff',
+        color: '#63B7FF',
       },
     ],
   },

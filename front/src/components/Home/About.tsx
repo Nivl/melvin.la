@@ -1,3 +1,5 @@
+import { PiHandPeaceLight as PeaceIcon } from 'react-icons/pi';
+
 import { CTA } from '../../models';
 import { Heading } from './Heading';
 
@@ -12,7 +14,7 @@ export const About = ({
 }) => {
   return (
     <div>
-      <div className="flex items-center">
+      <div className="flex flex-col items-center md:flex-row">
         <div className="md:text-right">
           <Heading level={2}>{title}</Heading>
           <p> {content} </p>
@@ -24,6 +26,9 @@ export const About = ({
               {cta.text}
             </a>
           </div>
+        </div>
+        <div className="ml-12 hidden dark:hidden md:block">
+          <PeaceIcon className="h-56 w-56 fill-neutral-700 drop-shadow-lg dark:fill-foreground" />
         </div>
       </div>
     </div>
