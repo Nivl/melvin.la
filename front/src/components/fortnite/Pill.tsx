@@ -53,7 +53,7 @@ export const Pill = ({
         />
       )}
       <CardHeader
-        className={`text-start text-base font-semibold dark:text-foreground ${isSelected ? 'text-white' : ''}`}
+        className={`h-12 text-start text-base font-semibold dark:text-foreground ${isSelected ? 'text-white' : ''}`}
       >
         <Skeleton isLoaded={!isLoading}>{icon}</Skeleton>
         <Skeleton
