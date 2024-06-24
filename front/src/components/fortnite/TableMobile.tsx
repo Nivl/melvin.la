@@ -10,8 +10,8 @@ import { FaUser } from 'react-icons/fa';
 import { FaUserGroup } from 'react-icons/fa6';
 import { HiMiniUserGroup } from 'react-icons/hi2';
 
-import { Data } from '@/models/fortnite';
-import { humanizeDuration, rateStr } from '@/utils';
+import { Data } from '#models/fortnite';
+import { humanizeDuration, rateStr } from '#utils';
 
 export const TableMobile = ({
   data,

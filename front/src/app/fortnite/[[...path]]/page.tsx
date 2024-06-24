@@ -1,11 +1,7 @@
-import { AccountTypes } from '@/components/fortnite/Form';
-import { Fortnite } from '@/components/fortnite/Fortnite';
+import { AccountTypes } from '#components/fortnite/Form';
+import { Fortnite } from '#components/fortnite/Fortnite';
 
-export default async function Home({
-  params,
-}: {
-  params: { path?: string[] };
-}) {
+export default function Home({ params }: { params: { path?: string[] } }) {
   return (
     <>
       <Fortnite

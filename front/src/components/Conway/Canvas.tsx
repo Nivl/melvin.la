@@ -10,7 +10,7 @@ import {
   useRef,
 } from 'react';
 
-import { Board } from '@/models/conway';
+import { Board } from '#models/conway';
 
 const drawBoard = (ctx: CanvasRenderingContext2D, boardSize: number) => {
   const cellSize = ~~(701 / boardSize);

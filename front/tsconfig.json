@@ -23,8 +23,14 @@
         "name": "next"
       }
     ],
+    // Used because:
+    // Node subpath imports are:
+    //    Not working in vscode as of 2024-06-25
+    //    Not working in with next build as of 2024-06-25
+    // When fixed, the tsconfig.json from storybook should be
+    // the default one
     "paths": {
-      "@/*": [
+      "#*": [
         "./src/*"
       ]
     }

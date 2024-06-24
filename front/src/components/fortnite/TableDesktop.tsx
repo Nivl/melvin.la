@@ -16,8 +16,8 @@ import { FaUser, FaUserGroup, FaUsers } from 'react-icons/fa6';
 import { GiSmartphone } from 'react-icons/gi';
 import { TfiInfinite } from 'react-icons/tfi';
 
-import { Data } from '@/models/fortnite';
-import { humanizeDuration, rateStr } from '@/utils';
+import { Data } from '#models/fortnite';
+import { humanizeDuration, rateStr } from '#utils';
 
 import { Pill } from './Pill';
 

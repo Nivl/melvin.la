@@ -1,5 +1,5 @@
-import { Data } from '@/models/fortnite';
-import { rate } from '@/utils';
+import { Data } from '#models/fortnite';
+import { rate } from '#utils';
 
 import { StatCard } from './StatCard';
 

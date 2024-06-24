@@ -1,6 +1,6 @@
-import { Conway } from '@/components/Conway';
+import { Conway } from '#components/Conway';
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <Conway />
