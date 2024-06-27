@@ -5,10 +5,10 @@ import { notFound } from 'next/navigation';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { Section } from '@/components/Home/Section';
-import { ErrorWithCode } from '@/error';
-import { ErrCode, useStats } from '@/hooks/fortnite/useStats';
-import { humanizeDuration } from '@/utils';
+import { Section } from '#components/Home/Section';
+import { ErrorWithCode } from '#error';
+import { ErrCode, useStats } from '#hooks/fortnite/useStats';
+import { humanizeDuration } from '#utils';
 
 import { AccountPresets, defaults, Preset } from './AccountPresets';
 import { AccountTypes, Form } from './Form';

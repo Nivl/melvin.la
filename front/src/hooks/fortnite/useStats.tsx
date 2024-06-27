@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { ErrorWithCode } from '@/error';
-import { Data } from '@/models/fortnite';
+import { ErrorWithCode } from '#error';
+import { Data } from '#models/fortnite';
 
 export interface APIResponse {
   status: number;
@@ -21,7 +21,7 @@ export const useStats = (
   timeWindow: string,
   disabled = false,
 ) => {
-  return useQuery({
+  const resp = useQuery({
     queryKey: ['fortnite', 'stats', accountName, accountType, timeWindow],
     enabled: !disabled && !!accountName && !!accountType && !!timeWindow,
     queryFn: async () => {
@@ -51,4 +51,6 @@ export const useStats = (
       return data.data;
     },
   });
+
+  return { data: resp.data, isLoading: resp.isLoading, error: resp.error };
 };

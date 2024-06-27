@@ -8,7 +8,7 @@ import {
   HeavyweightPreset,
   PentadecathlonPreset,
   pulsarPreset,
-} from '@/models/conway';
+} from '#models/conway';
 
 import { Heading } from '../Home/Heading';
 import { Preset } from './Preset';

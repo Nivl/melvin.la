@@ -1,12 +1,12 @@
 import './globals.css';
 
-import { About } from '@/components/Home/About';
-import { Contact } from '@/components/Home/Contact';
-import { Footer } from '@/components/Home/Footer';
-import { Header } from '@/components/Home/Header';
-import { Section } from '@/components/Home/Section';
-import { Tech } from '@/components/Home/Tech';
-import { Pages } from '@/models';
+import { About } from '#components/Home/About';
+import { Contact } from '#components/Home/Contact';
+import { Footer } from '#components/Home/Footer';
+import { Header } from '#components/Home/Header';
+import { Section } from '#components/Home/Section';
+import { Tech } from '#components/Home/Tech';
+import { Pages } from '#models';
 
 export function Home({ pages }: { pages: Pages }) {
   return (
