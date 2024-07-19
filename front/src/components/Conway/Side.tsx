@@ -130,11 +130,9 @@ export const Side = ({
 
       <Heading level={3}>Presets</Heading>
 
-      <div className="grid grid-cols-2 gap-y-4">
+      <div className="flex w-56 flex-wrap justify-center gap-4">
         <Preset
           name="Glider"
-          alt="Spaceship that will move through the map diagonally"
-          imgUrl="/images/conway/glider.png"
           onClick={() => {
             setPreset(gliderPreset);
           }}
@@ -142,8 +140,6 @@ export const Side = ({
 
         <Preset
           name="Pulsar"
-          alt="Oscillator that repeats itself every 3 generations"
-          imgUrl="/images/conway/pulsar.png"
           onClick={() => {
             setPreset(pulsarPreset);
           }}
@@ -151,8 +147,6 @@ export const Side = ({
 
         <Preset
           name="Penta-decathlon"
-          alt="Oscillator that repeats itself every 15 generations"
-          imgUrl="/images/conway/penta.png"
           onClick={() => {
             setPreset(PentadecathlonPreset);
           }}
@@ -160,8 +154,6 @@ export const Side = ({
 
         <Preset
           name="Heavy spaceship"
-          alt="Spaceship that will move through the map horizontally"
-          imgUrl="/images/conway/heavy.png"
           onClick={() => {
             setPreset(HeavyweightPreset);
           }}
