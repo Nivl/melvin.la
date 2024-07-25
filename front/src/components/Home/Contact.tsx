@@ -41,6 +41,7 @@ export const Contact = ({
         </div>
       </div>
       <Map
+        data-chromatic="ignore"
         className="h-[800px] w-full"
         initialCenter={{ lat: 34.0218593, lng: -118.498265 }}
       />
