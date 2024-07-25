@@ -19,6 +19,7 @@ import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FiMonitor as SystemIcon } from 'react-icons/fi';
 import { GiConwayLifeGlider as ConwayIcon } from 'react-icons/gi';
 import { IoMdMoon as NightIcon, IoMdSunny as LightIcon } from 'react-icons/io';
+import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -73,6 +74,38 @@ export const Navbar = () => {
               as={NextLink} // https://github.com/nextui-org/nextui/issues/2131
             >
               Game of Life
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+
+        <Dropdown>
+          <NavbarItem>
+            <DropdownTrigger>
+              <Button
+                disableRipple
+                className={`cursor-pointer bg-transparent p-0 text-medium text-foreground antialiased transition-opacity tap-highlight-transparent hover:opacity-80 active:opacity-disabled data-[hover=true]:bg-transparent ${pathname.startsWith('/conway') ? 'font-semibold' : ''}`}
+                radius="sm"
+                variant="flat"
+                endContent={<DownIcon />}
+              >
+                Tools
+              </Button>
+            </DropdownTrigger>
+          </NavbarItem>
+          <DropdownMenu
+            aria-label="tools"
+            selectionMode="single"
+            selectedKeys={
+              pathname.startsWith('/timezones') ? new Set(['timezones']) : ''
+            }
+          >
+            <DropdownItem
+              key="timezones"
+              startContent={<TimezoneIcon className="h-5 w-5" />}
+              href="/timezones"
+              as={NextLink} // https://github.com/nextui-org/nextui/issues/2131
+            >
+              Timezone Convertor
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
