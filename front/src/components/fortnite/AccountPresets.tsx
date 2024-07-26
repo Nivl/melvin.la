@@ -58,7 +58,7 @@ const presetLists: {
     key: crypto.randomUUID(),
     name: 'Talmo',
     picture:
-      'https://yt3.googleusercontent.com/8LgVp8ccwAc-TRMxCqPJD3yjL_o4VRP96aWckgvbSo-88cpwI4yNhIGvgbZB6ncGgDZhpiK_q0Y=s176-c-k-c0x00ffffff-no-rj',
+      'https://yt3.googleusercontent.com/dzISfFDpHsOktzBoaYf8bgrC_fHnSC5P172Vekt-5AjLcORbexQzT5R8sTFqUn9WSvSIvGM5Wg=s160-c-k-c0x00ffffff-no-rj',
     data: {
       accountName: 'solo talmo',
       accountType: AccountTypes.Epic,
