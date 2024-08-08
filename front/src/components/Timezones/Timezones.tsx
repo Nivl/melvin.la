@@ -33,13 +33,18 @@ export const Timezones = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [searchItems, setSearchItems] = useState<City[]>([]);
   const [dateTime, setDateTime] = useState<DateValue | null | undefined>(
-    now(getLocalTimeZone()),
+    now(getLocalTimeZone()).set({ second: 0, millisecond: 0 }),
   );
 
   const date = dateTime
-    ? moment(dateTime.toDate('utc')).tz(
+    ? moment.tz(
+        // using the proper `dateTime.toDate('utc')` creates issues
+        // on some days where daylight saving time kicks off.
+        // For example, Saturday March 25th 1989 at 5pm in Paris
+        // Shows as 4pm in... Paris. It's off by one hour in every
+        // other timezones as well.
+        dateTime.toString().slice(0, 19),
         baseZone?.timezone ?? getLocalTimeZone(),
-        true,
       )
     : moment();
 
@@ -136,6 +141,7 @@ export const Timezones = () => {
                         In <span className="font-bold">{zone.city}</span>{' '}
                         it&apos;s{' '}
                         {date
+                          .clone()
                           .tz(zone.timezone)
                           .format('dddd, MMMM Do YYYY, h:mm:ss a')}{' '}
                         <a
