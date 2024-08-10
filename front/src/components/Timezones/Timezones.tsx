@@ -88,7 +88,7 @@ export const Timezones = () => {
       <Section>
         <div className="flex flex-col justify-center gap-4">
           <div className="flex flex-row items-center justify-center gap-4">
-            <div>When in</div>
+            <div className="w-20 text-center">When in</div>
             <Autocomplete
               label="Search for a city"
               className="max-w-[284px]"
@@ -120,7 +120,7 @@ export const Timezones = () => {
             </Autocomplete>
           </div>
           <div className="flex flex-row items-center justify-center gap-4">
-            <div>it&apos;s</div>
+            <div className="w-20 text-center">it&apos;s</div>
             <DateInput
               label="Time to convert"
               className="max-w-[284px]"
