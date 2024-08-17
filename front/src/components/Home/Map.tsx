@@ -20,25 +20,27 @@ const MapContainer = ({
   const mapId =
     resolvedTheme === 'dark' ? 'cdfadb8c71aaba12' : '70614a0367adfbc3';
   return (
-    <APIProvider apiKey={process.env.NEXT_PUBLIC_GCP_MAP_API_KEY || ''}>
-      <GoogleMap
-        className={className}
-        defaultCenter={initialCenter}
-        defaultZoom={12}
-        scrollwheel={false}
-        keyboardShortcuts={false}
-        disableDoubleClickZoom={true}
-        zoomControl={false}
-        mapTypeControl={false}
-        scaleControl={false}
-        streetViewControl={false}
-        rotateControl={false}
-        fullscreenControl={false}
-        mapId={mapId}
-      >
-        <Marker position={initialCenter} />
-      </GoogleMap>
-    </APIProvider>
+    <div data-chromatic="ignore">
+      <APIProvider apiKey={process.env.NEXT_PUBLIC_GCP_MAP_API_KEY || ''}>
+        <GoogleMap
+          className={className}
+          defaultCenter={initialCenter}
+          defaultZoom={12}
+          scrollwheel={false}
+          keyboardShortcuts={false}
+          disableDoubleClickZoom={true}
+          zoomControl={false}
+          mapTypeControl={false}
+          scaleControl={false}
+          streetViewControl={false}
+          rotateControl={false}
+          fullscreenControl={false}
+          mapId={mapId}
+        >
+          <Marker position={initialCenter} />
+        </GoogleMap>
+      </APIProvider>
+    </div>
   );
 };
 
