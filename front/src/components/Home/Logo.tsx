@@ -1,3 +1,4 @@
+import { DiRedis as Redis } from 'react-icons/di';
 import {
   FaAndroid as Android,
   FaApple as Apple,
@@ -22,7 +23,6 @@ import {
   SiJavascript as Javascript,
   SiMongodb as MongoDb,
   SiPostgresql as Postgres,
-  SiRedis as Redis,
   SiTypescript as Typescript,
 } from 'react-icons/si';
 
