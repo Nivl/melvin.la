@@ -123,7 +123,7 @@ export const Timezones = () => {
             <div className="w-20 text-center">it&apos;s</div>
             <DateInput
               label="Time to convert"
-              className="max-w-[284px]"
+              className="chromatic-ignore max-w-[284px]"
               hideTimeZone
               value={dateTime}
               onChange={setDateTime}
