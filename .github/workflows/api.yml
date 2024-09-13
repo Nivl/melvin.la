@@ -1,0 +1,272 @@
+name: api
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'api/**/*.go'
+      - 'api/**/*.sql'
+      - 'api/.env.development'
+      - 'api/Taskfile_CI.yml'
+      - 'api/go.sum'
+      - 'api/go.mod'
+      - 'api/Dockerfile'
+      - '.github/workflows/api.yml'
+      - '.github/actions/go-*/*.yml'
+
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'api/**/*.go'
+      - 'api/**/*.sql'
+      - 'api/.env.development'
+      - 'api/Taskfile_CI.yml'
+      - 'api/go.sum'
+      - 'api/go.mod'
+      - '.github/workflows/api.yml'
+      - '.github/actions/go-*/*.yml'
+
+defaults:
+  run:
+    working-directory: api
+
+# Don't run more than one workflow for the same branch at a time
+# This is to save credits on the CI provider
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+env:
+   PROD_IMAGE_URI: registry.fly.io/melvinla-api-prod
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - run: git config --global --add safe.directory /__w/melvin.la/melvin.la
+
+      - name: Restore Cache
+        id: restore-cache
+        uses: './.github/actions/go-restore-cache'
+        with:
+          project-name: api
+
+      - name: Update Cache
+        uses: './.github/actions/go-update-cache'
+        with:
+          project-name: api
+          cache-key: ${{ steps.restore-cache.outputs.cache-key }}
+          is-cache-hit: ${{ steps.restore-cache.outputs.is-cache-hit }}
+
+
+  build:
+    needs: [checkout]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: './.github/actions/go-restore-cache'
+        with:
+          project-name: api
+
+      - run: task ci:build
+
+      - name: Save binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: api
+          path: ./api/bin/api
+          if-no-files-found: error
+
+  lint:
+    needs: [checkout]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: './.github/actions/go-restore-cache'
+        with:
+          project-name: api
+      - run: task ci:lint
+
+  test-code:
+    needs: [checkout]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+    services:
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: pguser
+          POSTGRES_PASSWORD: pguser
+          POSTGRES_DB: api-melvinla
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: './.github/actions/go-restore-cache'
+        with:
+          project-name: api
+
+      - name: Test
+        run: task ci:test RESULTS_DIR=/tmp/test-results
+        env:
+          API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
+
+      - name: Annotate tests
+        if: success() || failure()
+        uses: Nivl/golang-test-annotations@ml/proper-annotation
+        with:
+          test-results: /tmp/test-results/results.json
+          working-directory: api
+
+  test-migrations:
+    needs: [checkout]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+    services:
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: pguser
+          POSTGRES_PASSWORD: pguser
+          POSTGRES_DB: api-melvinla
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: './.github/actions/go-restore-cache'
+        with:
+          project-name: api
+
+      - name: Up
+        run: task ci:migrate -- up
+        env:
+          API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
+
+      - name: Lint migrations
+        run: task ci:lint-migration
+        env:
+          API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
+
+      - name: Down
+        run: task ci:migrate -- down -all
+        env:
+          API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
+
+  publish-image:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    name: Build and Publish image to registry
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - lint
+      - test-code
+      - test-migrations
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Restore Binary
+        uses: actions/download-artifact@v3
+        with:
+          name: api
+          path: ./api/bin
+
+      - name: Install flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Login to the Registry
+        run: flyctl auth docker
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.PROD_IMAGE_URI }}
+          tags: |
+            type=sha
+            type=raw,value=latest
+
+      - name: Buid Image, tag it, and push to Github Container Registry
+        uses: docker/build-push-action@v4
+        with:
+          context: ./api
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy-to-prod:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    name: Run migrations and deploy to prod
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+    needs:
+      - publish-image
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Run migrations
+        run: task ci:migrate -- up
+        env:
+          API_POSTGRES_URL: ${{ secrets.PROD_API_POSTGRES_URL }}
+
+      - name: Deploy
+        run: flyctl deploy --image ${{ env.PROD_IMAGE_URI }}:latest
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        timeout-minutes: 5

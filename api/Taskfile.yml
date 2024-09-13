@@ -1,0 +1,59 @@
+version: "3"
+
+dotenv: [".env", ".env.local", ".env.development"]
+
+includes:
+  ci: ./Taskfile_CI.yml
+
+vars:
+  BIN_OUT: "./bin/api"
+
+tasks:
+  build:
+    cmds:
+      - rm -rf {{.BIN_OUT}}
+      - CGO_ENABLED=0 go build -v -o {{.BIN_OUT}} github.com/Nivl/melvin.la/api/cmd/api
+
+  start:
+    deps: [build]
+    cmds:
+      - "{{.BIN_OUT}}"
+
+  dev:
+    deps: [build]
+    cmds:
+      - "{{.BIN_OUT}}"
+    sources:
+      - ./**/*.go
+      - ./**/*.env
+      - ./**/*.mod
+      - ./**/*.sum
+      - go.mod
+      - go.sum
+    generates:
+      - "{{.BIN_OUT}}"
+
+  # usage: task migrate -- up
+  migrate:
+    cmds:
+      - migrate -database ${API_POSTGRES_URL} -path database/migrations {{.CLI_ARGS}}
+      - pg_dump -d ${API_POSTGRES_URL} -C | awk 'RS="";/(CREATE TABLE|INDEX)|(ALTER TABLE)[^;]*;/' > docs/db_schema.sql
+
+  # usage: task new-migration -- name_of_the_migration
+  new-migration:
+    cmds:
+      - migrate create -ext sql -dir database/migrations {{.CLI_ARGS}}
+
+  lint: golangci-lint run ./...
+
+  generate:
+    cmds:
+      - go generate ./...
+      - go mod tidy
+
+  deps-upgrade:
+    cmds:
+      - go get -t -u ./...
+      - go mod tidy
+
+  test: go test -race ./...

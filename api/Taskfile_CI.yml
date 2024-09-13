@@ -1,0 +1,27 @@
+version: "3"
+
+tasks:
+  # This is only used by the CI, for the production build check the Dockerfile
+  build: CGO_ENABLED=0 go build -v -o ./bin/api github.com/Nivl/melvin.la/api/cmd/api
+
+  migrate:
+    cmds:
+      - migrate -path database/migrations -database ${API_POSTGRES_URL} {{.CLI_ARGS}}
+
+  lint-migration:
+    cmds:
+      - pg_dump -d ${API_POSTGRES_URL} -C | awk 'RS="";/(CREATE TABLE|INDEX)|(ALTER TABLE)[^;]*;/' > docs/db_schema.sql
+      - git diff --exit-code
+
+  lint:
+    cmds:
+      - golangci-lint run ./...
+      - go mod tidy
+      - git diff --exit-code
+      - go generate ./...
+      - go mod tidy
+      - git diff --exit-code
+
+  test:
+    - mkdir -p {{.RESULTS_DIR}}
+    - CGO_ENABLED=1 gotestsum --jsonfile="{{.RESULTS_DIR}}"/results.json -- -race -timeout 3m -coverprofile coverage.txt ./...

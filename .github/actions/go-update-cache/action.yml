@@ -1,0 +1,33 @@
+name: Update Go Cache
+description: "Update cache if needed"
+
+inputs:
+  project-name:
+    description: "name of the project (should match directory)"
+    required: true
+  cache-key:
+    description: "Results of the restore cache action for go-mod"
+    required: true
+  is-cache-hit:
+    description: "Results of the restore cache action for go-mod"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - id: go-cache-path
+      shell: sh
+      run: |
+        echo "go-mod=$(go env GOMODCACHE)" >> $GITHUB_OUTPUT
+
+    - name: Update cache
+      shell: sh
+      if: inputs.is-cache-hit != 'true'
+      run: cd ./${{ inputs.project-name }} && go mod download
+
+    - name: Save Go mod cache
+      uses: actions/cache/save@v3
+      if: inputs.is-cache-hit != 'true'
+      with:
+        path: ${{ steps.go-cache-path.outputs.go-mod }}
+        key: ${{ inputs.cache-key }}
