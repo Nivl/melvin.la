@@ -1,0 +1,120 @@
+run:
+  timeout: 10m
+
+issues:
+  max-same-issues: 0
+  max-issues-per-linter: 0
+  exclude-use-default: false
+
+  exclude-rules:
+    - linters:
+        - govet
+      text: 'shadow: declaration of "err"'
+
+    # we remove a few annoying things from our tests, because they
+    # don't provide much beside complexity
+    - path: _test\.go
+      linters:
+        - errcheck
+        - gosec
+        - err113
+        - forcetypeassert
+        - maintidx
+
+    - path: testutil/
+      linters:
+        - errcheck
+        - gosec
+        - err113
+        - forcetypeassert
+        - maintidx
+
+    - path: _test\.go
+      text: "fieldalignment: struct"
+
+    # No need to check for non-wrapped errors in cmd/ since most
+    # command might return inline errors
+    - path: cmd/
+      linters:
+        - err113
+      text: "do not define dynamic errors"
+
+linters:
+  enable-all: true
+  disable:
+    - cyclop # checks function and package cyclomatic complexity || Hard to use productively due to many valid use cases going against the linter
+    - depguard # Go linter that checks if package imports are in a list of acceptable packages || No use case for this repo
+    - dupl # Tool for code clone detection || Hard to use productively due to many valid use cases going against the linter
+    - execinquery # Repo archived
+    - exportloopref # Replaced by copyloopvar
+    - funlen # Tool for detection of long functions || Hard to use productively due to many valid use cases going against the linter
+    - gci # Gci control golang package import order and make it always deterministic || Conflicts with gofumpt
+    - gochecknoglobals # check that no global variables exist || Hard to use productively due to many valid use cases going against the linter || Recommend using locally
+    - gocognit # Computes and checks the cognitive complexity of functions || Hard to use productively due to many valid use cases going against the linter
+    - goconst # Finds repeated strings that could be replaced by a constant || Hard to use productively due to many valid use cases going against the linter
+    - gocyclo # Computes and checks the cyclomatic complexity of functions || Too much of a pain, too arbitrary
+    - godot # Check if comments end in a period || Good to have, too much work for now
+    - godox # Tool for detection of FIXME, TODO and other comment keywords || There is absolutely nothing wrong having in-code FIXMEs and TODOs
+    - gofmt # Replaced by gofumpt
+    - gomnd # Replaced by mnd
+    - gomoddirectives # Manage the use of 'replace', 'retract', and 'excludes' directives in go.mod || Conflicts with pflag's replace that we force into cobra
+    - gomodguard # Allow and block list linter for direct Go module dependencies || No use case for this repo
+    - ireturn # Complains when returning an interface || failed to ignore with nolint
+    - lll # Reports long lines || Hard to use productively due to many valid use cases going against the linter
+    - mnd # An analyzer to detect magic numbers || Hard to use productively due to many valid use cases going against the linter. A comment works bertter than creating many vars
+    - nakedret # Finds naked returns in functions greater than a specified function length || Too opinionated, doesn't solve any issue we have
+    - nestif # Reports deeply nested if statements || Hard to use productively due to many valid use cases going against the linter
+    - nlreturn # checks for a new line before return and branch statements to increase code clarity || Too opinionated
+    - nonamedreturns # Prevent named return || We use this in defers. Also useful when returning multiple params
+    - paralleltest # detects missing usage of t.Parallel() method in your Go test || Too many false positives https://github.com/kunwardeep/paralleltest/issues/8
+    - testpackage # linter that makes you use a separate _test package || Hard to use productively due to many valid use cases going against the linter
+    - thelper # detects golang test helpers without t.Helper() call and checks the consistency of test helpers || No reasons not to use this one, we should probably try it
+    - varnamelen # Find var names that are too short || Too opinionated, doesn't solve any issue we have
+    - wrapcheck # Checks that errors returned from external packages are wrapped || Hard to use productively due to many valid use cases going against the linter || recommend using localy
+    - wsl # Forces you to use empty lines || Too opinionated
+
+linters-settings:
+  govet:
+    enable-all: true
+
+  gosec:
+    excludes:
+      - G104 # this is a duplicate of errcheck
+
+  gocritic:
+    enabled-tags:
+      - performance
+      - diagnostic
+      - style
+      - experimental
+      - opinionated
+
+    disabled-checks:
+      - sloppyReassign # conflicts with no shadow || Recommend using locally
+      - hugeParam # disabled because we pass Option objects by copy
+      - singleCaseSwitch # disabled because its opinionated. We use single switch case for error handling
+
+  nolintlint:
+    require-explanation: true
+    require-specific: true
+
+  exhaustruct:
+    exclude:
+      - 'database/sql\.NullString$'
+      - 'database/sql\.TxOptions$'
+      - 'github.com/google/uuid\.NullUUID$'
+      - 'github.com/golang-migrate/migrate/v4/database/postgres\.Config$'
+      - 'github.com/sethvargo/go-envconfig\.Config$'
+
+  depguard:
+    rules:
+      main:
+        deny:
+          - pkg: "github.com/labstack/echo"
+            desc: replace with github.com/labstack/echo/v4
+
+  tagalign:
+    order:
+      - db
+      - json
+      - exhaustruct
