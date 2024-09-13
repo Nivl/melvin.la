@@ -1,5 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;800&display=swap");
+
+/*
+Fortnite font:
+
+The proper import should be:
 @import url("https://db.onlinewebfonts.com/c/800e985f75a5a56c2f7b4be502d286de?family=Burbank+Big+Condensed+Bold");
+
+Unfortunately, even though we are using https, onlinewebfonts.com serves
+the font using `http` and not `https`. So we have to do that ourselves.
+*/
+@font-face {
+    font-family: "Burbank Big Condensed Bold";
+    src: url("https://db.onlinewebfonts.com/t/800e985f75a5a56c2f7b4be502d286de.eot");
+    src: url("https://db.onlinewebfonts.com/t/800e985f75a5a56c2f7b4be502d286de.eot?#iefix")format("embedded-opentype"),
+        url("https://db.onlinewebfonts.com/t/800e985f75a5a56c2f7b4be502d286de.woff")format("woff"),
+        url("https://db.onlinewebfonts.com/t/800e985f75a5a56c2f7b4be502d286de.woff2")format("woff2"),
+        url("https://db.onlinewebfonts.com/t/800e985f75a5a56c2f7b4be502d286de.ttf")format("truetype"),
+        url("https://db.onlinewebfonts.com/t/800e985f75a5a56c2f7b4be502d286de.svg#Burbank Big Condensed Bold")format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
