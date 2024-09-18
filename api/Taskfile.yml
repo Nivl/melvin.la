@@ -1,6 +1,6 @@
 version: "3"
 
-dotenv: [".env", ".env.development"]
+dotenv: [".env", ".env.local", ".env.development"]
 
 includes:
   ci: ./Taskfile_CI.yml
@@ -25,6 +25,9 @@ tasks:
       - "{{.BIN_OUT}}"
     sources:
       - ./**/*.go
+      - ./**/*.env
+      - ./**/*.mod
+      - ./**/*.sum
       - go.mod
       - go.sum
     generates:

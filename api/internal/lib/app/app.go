@@ -17,6 +17,11 @@ type Config struct {
 	PostgresURI secret.Secret `exhaustruct:"optional"`
 	Environment string
 	UseDB       bool `exhaustruct:"optional"`
+	Features    FeaturesConfig
+}
+
+type FeaturesConfig struct {
+	SignUp bool `env:"SIGN_UP,required"`
 }
 
 // New creates and returns a Dependency object

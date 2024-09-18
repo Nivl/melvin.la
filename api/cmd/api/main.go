@@ -23,10 +23,11 @@ import (
 type appConfig struct {
 	Environment string `env:"ENVIRONMENT"`
 	API         struct {
-		PostgresURL         secret.Secret `env:"POSTGRES_URL,required"`
-		Port                string        `env:"PORT,default=5000"`
-		SSLCertsDir         string        `env:"SSL_CERTS_DIR"`
-		ExtraFrontendDomain string        `env:"EXTRA_FRONTEND_DOMAIN"`
+		PostgresURL         secret.Secret      `env:"POSTGRES_URL,required"`
+		Port                string             `env:"PORT,default=5000"`
+		SSLCertsDir         string             `env:"SSL_CERTS_DIR"`
+		ExtraFrontendDomain string             `env:"EXTRA_FRONTEND_DOMAIN"`
+		Feat                app.FeaturesConfig `env:",prefix=FEAT_"`
 	} `env:",prefix=API_"`
 }
 
@@ -70,7 +71,7 @@ func run() (returnedErr error) {
 	e.Use(ufhttputil.AuthUser())
 
 	// User Facing endpoints
-	userhttpendpoint.Register(e.Group("/users"))
+	userhttpendpoint.Register(e.Group("/users"), cfg.API.Feat.SignUp)
 	authendpoint.Register(e.Group("/auth"))
 
 	err = httputil.StartAndWaitWithCb(ctx, deps, e, httputil.StartAndWaitOpts{
