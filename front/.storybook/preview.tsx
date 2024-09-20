@@ -4,8 +4,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { allModes } from "./modes";
 
+import { MeProvider } from '../src/contexts/MeContext';
 import '../src/app/globals.css';
 
+if (typeof global.process === 'undefined') {
+  const enableMSW = require('../src/backend/mocks').enableMSW; // eslint-disable-line @typescript-eslint/no-var-requires
+  enableMSW();
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -64,10 +69,25 @@ const preview: Preview = {
       defaultTheme: 'dark',
   }),
   (Story) => (
+    <MeProvider>
+      <Story />
+    </MeProvider>
+  ),
+  (Story) => (
     <QueryClientProvider client={queryClient}>
         <Story />
     </QueryClientProvider>
-  )
+  ),
+  (Story, ctx) => {
+    window.localStorage.clear();
+    if (ctx.args.userSessionToken) {
+      window.localStorage.setItem(
+        'user_access_token',
+        ctx.args.userSessionToken,
+      );
+    }
+    return <Story />;
+  },
 ]
 };
 

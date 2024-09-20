@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
+import { MeProvider } from '#contexts/MeContext';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -17,7 +19,9 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <NextUIProvider navigate={router.push}>
-        <NextThemesProvider attribute="class">{children}</NextThemesProvider>
+        <NextThemesProvider attribute="class">
+          <MeProvider>{children}</MeProvider>
+        </NextThemesProvider>
       </NextUIProvider>
     </QueryClientProvider>
   );
