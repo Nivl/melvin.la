@@ -21,13 +21,13 @@ import (
 )
 
 type appConfig struct {
-	Environment string `env:"ENVIRONMENT"`
+	Environment string `env:"ENVIRONMENT,default=dev"`
 	API         struct {
-		PostgresURL         secret.Secret      `env:"POSTGRES_URL,required"`
-		Port                string             `env:"PORT,default=5000"`
-		SSLCertsDir         string             `env:"SSL_CERTS_DIR"`
-		ExtraFrontendDomain string             `env:"EXTRA_FRONTEND_DOMAIN"`
-		Feat                app.FeaturesConfig `env:",prefix=FEAT_"`
+		PostgresURL      secret.Secret      `env:"POSTGRES_URL,required"`
+		Port             string             `env:"PORT,default=5000"`
+		SSLCertsDir      string             `env:"SSL_CERTS_DIR"`
+		ExtraCORSOrigins []string           `env:"EXTRA_CORS_ORIGINS"`
+		Feat             app.FeaturesConfig `env:",prefix=FEAT_"`
 	} `env:",prefix=API_"`
 }
 
@@ -60,9 +60,9 @@ func run() (returnedErr error) {
 	e := httputil.NewbaseRouter(deps)
 	e.IPExtractor = echo.ExtractIPDirect()
 	e.Use(ufhttputil.ServiceContext())
-	origins := []string{"https://melvin.la", "https://melvin-la-*-nivls-projects.vercel.app"}
-	if cfg.API.ExtraFrontendDomain != "" {
-		origins = append(origins, cfg.API.ExtraFrontendDomain)
+	origins := []string{"https://melvin.la"}
+	if len(cfg.API.ExtraCORSOrigins) > 0 {
+		origins = append(origins, cfg.API.ExtraCORSOrigins...)
 	}
 	e.Use(echomid.CORSWithConfig(echomid.CORSConfig{ //nolint:exhaustruct // no need of everything
 		AllowOrigins: origins,
