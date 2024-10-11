@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import { isSignUpEnabled } from '#backend/features';
 import { RequestError } from '#error';
 import { Input, useSignIn } from '#hooks/auth/useSignIn';
 
@@ -104,14 +105,18 @@ export const SignIn = () => {
         </Button>
       </form>
 
-      <Divider text="or" />
+      {isSignUpEnabled && (
+        <>
+          <Divider text="or" />
 
-      <p className="text-center text-small">
-        Need to create an account?&nbsp;
-        <Link className="text-small text-accent" href="/auth/sign-up">
-          Sign Up
-        </Link>
-      </p>
+          <p className="text-center text-small">
+            Need to create an account?&nbsp;
+            <Link className="text-small text-accent" href="/auth/sign-up">
+              Sign Up
+            </Link>
+          </p>
+        </>
+      )}
     </Layout>
   );
 };

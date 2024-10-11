@@ -10,6 +10,7 @@ import {
   PiEyeLight as VisibleIcon,
 } from 'react-icons/pi';
 
+import { isSignUpEnabled } from '#backend/features';
 import { RequestError } from '#error';
 import { useSignIn } from '#hooks/auth/useSignIn';
 import { Input as SignUpInput, useSignUp } from '#hooks/auth/useSignUp';
@@ -185,7 +186,7 @@ export const SignUp = () => {
         />
 
         <Button
-          isDisabled={!formIsValid}
+          isDisabled={!formIsValid || !isSignUpEnabled}
           className="mt-2"
           isLoading={isSigningUp || isSigningIn}
           color="primary"
