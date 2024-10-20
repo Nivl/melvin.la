@@ -49,7 +49,7 @@ export const Fortnite = ({
   );
 
   useEffect(() => {
-    let url = '/fortnite';
+    let url = '/tools/fortnite';
     if (name) {
       url += `/${encodeURIComponent(name)}`;
       if (accountType) {
