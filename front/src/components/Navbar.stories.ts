@@ -29,7 +29,7 @@ export const SubMenu: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        pathname: '/conway',
+        pathname: '/games/conway',
       },
     },
   },

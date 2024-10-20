@@ -20,6 +20,7 @@ import { FiMonitor as SystemIcon } from 'react-icons/fi';
 import { GiConwayLifeGlider as ConwayIcon } from 'react-icons/gi';
 import { IoMdMoon as NightIcon, IoMdSunny as LightIcon } from 'react-icons/io';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
+import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -39,18 +40,12 @@ export const Navbar = () => {
           </Link>
         </NavbarItem>
 
-        <NavbarItem isActive={pathname.startsWith('/fortnite')}>
-          <Link color="foreground" href="/fortnite">
-            Fortnite Data
-          </Link>
-        </NavbarItem>
-
         <Dropdown>
           <NavbarItem>
             <DropdownTrigger>
               <Button
                 disableRipple
-                className={`cursor-pointer bg-transparent p-0 text-medium text-foreground antialiased transition-opacity tap-highlight-transparent hover:opacity-80 active:opacity-disabled data-[hover=true]:bg-transparent ${pathname.startsWith('/conway') ? 'font-semibold' : ''}`}
+                className={`cursor-pointer bg-transparent p-0 text-medium text-foreground antialiased transition-opacity tap-highlight-transparent hover:opacity-80 active:opacity-disabled data-[hover=true]:bg-transparent ${pathname.startsWith('/games') ? 'font-semibold' : ''}`}
                 radius="sm"
                 variant="flat"
                 endContent={<DownIcon />}
@@ -63,14 +58,14 @@ export const Navbar = () => {
             aria-label="games"
             selectionMode="single"
             selectedKeys={
-              pathname.startsWith('/conway') ? new Set(['conway']) : ''
+              pathname.startsWith('/games/conway') ? new Set(['conway']) : ''
             }
           >
             <DropdownItem
               key="conway"
               description="Zero-player cellular automation game."
               startContent={<ConwayIcon className="h-5 w-5" />}
-              href="/conway"
+              href="/games/conway"
               as={NextLink} // https://github.com/nextui-org/nextui/issues/2131
             >
               Game of Life
@@ -83,7 +78,7 @@ export const Navbar = () => {
             <DropdownTrigger>
               <Button
                 disableRipple
-                className={`cursor-pointer bg-transparent p-0 text-medium text-foreground antialiased transition-opacity tap-highlight-transparent hover:opacity-80 active:opacity-disabled data-[hover=true]:bg-transparent ${pathname.startsWith('/timezones') ? 'font-semibold' : ''}`}
+                className={`cursor-pointer bg-transparent p-0 text-medium text-foreground antialiased transition-opacity tap-highlight-transparent hover:opacity-80 active:opacity-disabled data-[hover=true]:bg-transparent ${pathname.startsWith('/tools') ? 'font-semibold' : ''}`}
                 radius="sm"
                 variant="flat"
                 endContent={<DownIcon />}
@@ -96,13 +91,26 @@ export const Navbar = () => {
             aria-label="tools"
             selectionMode="single"
             selectedKeys={
-              pathname.startsWith('/timezones') ? new Set(['timezones']) : ''
+              pathname.startsWith('/tools/fortnite')
+                ? new Set(['fortnite'])
+                : pathname.startsWith('/tools/timezones')
+                  ? new Set(['timezones'])
+                  : ''
             }
           >
             <DropdownItem
+              key="fortnite"
+              startContent={<FortniteIcon className="h-5 w-5" />}
+              href="/tools/fortnite"
+              as={NextLink} // https://github.com/nextui-org/nextui/issues/2131
+            >
+              Fortnite Data
+            </DropdownItem>
+
+            <DropdownItem
               key="timezones"
               startContent={<TimezoneIcon className="h-5 w-5" />}
-              href="/timezones"
+              href="/tools/timezones"
               as={NextLink} // https://github.com/nextui-org/nextui/issues/2131
             >
               Timezone Convertor
