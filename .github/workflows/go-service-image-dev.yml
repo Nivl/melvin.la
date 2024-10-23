@@ -1,0 +1,60 @@
+name: go-service-image-dev
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docker/go-service-image-dev/**'
+      - '.github/workflows/go-service-image-dev.yml'
+
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'docker/go-service-image-dev/**'
+      - '.github/workflows/go-service-image-dev.yml'
+
+defaults:
+  run:
+    working-directory: ./docker/go-service-image-dev
+
+# Don't run more than one workflow for the same branch at a time
+# This is to save credits on the CI provider
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}-go-service-image-dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./docker/go-service-image-dev
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
