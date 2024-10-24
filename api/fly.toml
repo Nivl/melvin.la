@@ -2,7 +2,7 @@
 #
 
 app = "melvinla-api-prod"
-primary_region = "lax"
+primary_region = "ord"
 
 [deploy]
 strategy = "rolling"
