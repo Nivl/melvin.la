@@ -117,7 +117,7 @@ jobs:
         password: ${{ secrets.github_token }}
     services:
       postgres:
-        image: postgres
+        image: postgres:16
         ports:
           - 5432:5432
         env:
@@ -160,7 +160,7 @@ jobs:
         password: ${{ secrets.github_token }}
     services:
       postgres:
-        image: postgres
+        image: postgres:16
         ports:
           - 5432:5432
         env:
