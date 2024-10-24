@@ -1,0 +1,23 @@
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "melvinla-api-prod"
+primary_region = "ord"
+
+[deploy]
+strategy = "rolling"
+
+[build]
+
+[http_service]
+internal_port = 80
+force_https = true
+auto_stop_machines = "stop" # stop machines when idle
+auto_start_machines = true
+min_machines_running = 0
+max_machines_running = 2
+processes = ["app"]
+
+[env]
+API_PORT = "80"
+ENVIRONMENT = "production"

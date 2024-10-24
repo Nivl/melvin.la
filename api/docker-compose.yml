@@ -1,0 +1,27 @@
+services:
+  database:
+    container_name: melvinla_api_postgres
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=pguser
+      - POSTGRES_PASSWORD=pguser
+      - POSTGRES_DB=api-melvinla
+      - POSTGRES_INITDB_ARGS="-E 'UTF-8'"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-q",
+          "-d",
+          "$${POSTGRES_DB}",
+          "-U",
+          "$${POSTGRES_USER}",
+          "-p",
+          "$${POSTGRES_PASSWORD}"
+        ]
+      interval: 1s
+      timeout: 10s
+      retries: 10
