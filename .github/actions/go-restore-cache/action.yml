@@ -27,7 +27,7 @@ runs:
 
     - name: Restore Go mod cache
       id: go-mod-restore-cache
-      uses: actions/cache/restore@v3
+      uses: actions/cache/restore@v4
       with:
         path: ${{ steps.go-cache-path.outputs.go-mod }}
         key: ${{ runner.os }}-${{ inputs.project-name }}-go-mod-${{ hashFiles(format('./{0}/go.sum',inputs.project-name)) }}

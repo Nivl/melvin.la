@@ -26,7 +26,7 @@ runs:
       run: cd ./${{ inputs.project-name }} && go mod download
 
     - name: Save Go mod cache
-      uses: actions/cache/save@v3
+      uses: actions/cache/save@v4
       if: inputs.is-cache-hit != 'true'
       with:
         path: ${{ steps.go-cache-path.outputs.go-mod }}
