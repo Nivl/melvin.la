@@ -16,10 +16,10 @@ Source code of my personal website
 
 ### Frontend
 
-| ENV | Required | Format | Info |
-| --- | --- | --- | --- |
-| NEXT_PUBLIC_API_URL | required |  | Value of the `NetflixId` cookie |
-| NEXT_PUBLIC_API_MOCKING | optional |  | Whether or not use the mocked API |
-| NEXT_PUBLIC_GCP_MAP_API_KEY | required |  | Value of the `NetflixId` cookie |
-| FORTNITE_API_KEY | required | required | API Key for the Fortnite API |
-| NEXT_PUBLIC_FEAT_SIGN_UP | optional |  | Allow/Block sign ups |
+| ENV | Required | Format | Default | Info |
+| --- | --- | --- | --- | --- |
+| NEXT_PUBLIC_API_URL | required | string | | Domain of the API |
+| NEXT_PUBLIC_API_MOCKING | optional | bool | flase | Whether or not use the mocked API |
+| NEXT_PUBLIC_GCP_MAP_API_KEY | required | string | | API Key for Google map |
+| FORTNITE_API_KEY | required | required | string | | API Key for the Fortnite API |
+| NEXT_PUBLIC_FEAT_SIGN_UP | optional | bool | false | Allow/Block sign ups |
