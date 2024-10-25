@@ -1,7 +1,7 @@
 services:
   database:
     container_name: melvinla_api_postgres
-    image: postgres:16
+    image: postgres:17
     ports:
       - "5432:5432"
     environment:
