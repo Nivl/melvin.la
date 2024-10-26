@@ -1,28 +1,48 @@
 name: webapp
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'front/**'
-      - '!front/**/*.md'
-      - '.github/workflows/webapp.yml'
-      - '.github/actions/node-setup/**'
-
-  pull_request:
-    branches: [ main ]
-    paths:
-      - 'front/**'
-      - '!front/**/*.md'
-      - '.github/workflows/webapp.yml'
-      - '.github/actions/node-setup/**'
+  [push, pull_request]
 
 defaults:
   run:
     working-directory: ./front
 
+# Don't run more than one workflow for the same branch at a time
+# This is to save credits on the CI provider
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
+  perpare-env:
+    name: detect what files changed
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+    outputs:
+      code-changed: ${{ steps.changes.outputs.src }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: git config --global --add safe.directory /__w/melvin.la/melvin.la
+
+      - name: Check for file changes
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          token: ${{ github.token }}
+          filters: |
+            src:
+            - 'front/**'
+            - '!front/**/*.md'
+            - '.github/workflows/webapp.yml'
+            - '.github/actions/node-setup/**'
+
   build:
+    if: needs.perpare-env.outputs.code-changed == 'true'
+    needs: [perpare-env]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -39,6 +59,8 @@ jobs:
     - run: pnpm run build
 
   lint:
+    if: needs.perpare-env.outputs.code-changed == 'true'
+    needs: [perpare-env]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -47,7 +69,15 @@ jobs:
     - run: pnpm run lint
 
 
+  # we only run this one after everything has run to save chromatic
+  # credits
   chromatic:
+    if: needs.perpare-env.outputs.code-changed == 'true'
+    needs: [
+      perpare-env,
+      lint,
+      build
+    ]
     name: Run Chromatic
     runs-on: ubuntu-latest
     steps:
@@ -67,4 +97,23 @@ jobs:
           autoAcceptChanges: main
           onlyChanged: true
 
-
+  # This job is what github action will check to see if a PR is ready to
+  # be merged.
+  webapp-required-check:
+    needs:
+      [
+        perpare-env,
+        build,
+        lint,
+        chromatic,
+      ]
+    # This is necessary since a failed/skipped dependent job would cause this job to be skipped
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      # If any jobs we depend on fail, we will fail since this is a required check
+      # NOTE: A timeout is considered a failure
+      - name: Check for failures
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: |
+          echo "One of the dependent jobs have failed. You may need to re-run it." && exit 1

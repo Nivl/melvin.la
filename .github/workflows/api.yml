@@ -1,30 +1,7 @@
 name: api
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'api/**/*.go'
-      - 'api/**/*.sql'
-      - 'api/.env.development'
-      - 'api/Taskfile_CI.yml'
-      - 'api/go.sum'
-      - 'api/go.mod'
-      - 'api/Dockerfile'
-      - '.github/workflows/api.yml'
-      - '.github/actions/go-*/*.yml'
-
-  pull_request:
-    branches: [ main ]
-    paths:
-      - 'api/**/*.go'
-      - 'api/**/*.sql'
-      - 'api/.env.development'
-      - 'api/Taskfile_CI.yml'
-      - 'api/go.sum'
-      - 'api/go.mod'
-      - '.github/workflows/api.yml'
-      - '.github/actions/go-*/*.yml'
+  [push, pull_request]
 
 defaults:
   run:
@@ -33,23 +10,26 @@ defaults:
 # Don't run more than one workflow for the same branch at a time
 # This is to save credits on the CI provider
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 env:
    PROD_IMAGE_URI: registry.fly.io/melvinla-api-prod
 
 jobs:
-  checkout:
+  perpare-env:
+    name: detect what files changed
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
-
+    outputs:
+      code-changed: ${{ steps.changes.outputs.src }}
+      has-migrations: ${{ steps.changes.outputs.migrations }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: git config --global --add safe.directory /__w/melvin.la/melvin.la
 
       - name: Restore Cache
@@ -65,9 +45,28 @@ jobs:
           cache-key: ${{ steps.restore-cache.outputs.cache-key }}
           is-cache-hit: ${{ steps.restore-cache.outputs.is-cache-hit }}
 
+      - name: Check for file changes
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          token: ${{ github.token }}
+          filters: |
+            src:
+              - 'api/**/*.go'
+              - 'api/**/*.sql'
+              - 'api/.env.development'
+              - 'api/Taskfile_CI.yml'
+              - 'api/go.sum'
+              - 'api/go.mod'
+              - 'api/Dockerfile'
+              - '.github/workflows/api.yml'
+              - '.github/actions/go-*/*.yml'
+            migrations:
+              - 'api/**/*.sql'
 
   build:
-    needs: [checkout]
+    if: needs.perpare-env.outputs.code-changed == 'true'
+    needs: [perpare-env]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
@@ -76,7 +75,7 @@ jobs:
         password: ${{ secrets.github_token }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup
         uses: './.github/actions/go-restore-cache'
         with:
@@ -92,7 +91,8 @@ jobs:
           if-no-files-found: error
 
   lint:
-    needs: [checkout]
+    if: needs.perpare-env.outputs.code-changed == 'true'
+    needs: [perpare-env]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
@@ -100,7 +100,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup
         uses: './.github/actions/go-restore-cache'
         with:
@@ -108,7 +108,8 @@ jobs:
       - run: task ci:lint
 
   test-code:
-    needs: [checkout]
+    if: needs.perpare-env.outputs.code-changed == 'true'
+    needs: [perpare-env]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
@@ -132,7 +133,7 @@ jobs:
           --health-retries 5
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup
         uses: './.github/actions/go-restore-cache'
         with:
@@ -151,7 +152,8 @@ jobs:
           working-directory: api
 
   test-migrations:
-    needs: [checkout]
+    if: needs.perpare-env.outputs.has-migrations == 'true'
+    needs: [perpare-env]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
@@ -175,7 +177,7 @@ jobs:
           --health-retries 5
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup
         uses: './.github/actions/go-restore-cache'
         with:
@@ -196,6 +198,32 @@ jobs:
         env:
           API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
 
+  build-image:
+    if: needs.perpare-env.outputs.code-changed == 'true'
+    name: Build docker image
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - test-migrations
+    permissions:
+      contents: read
+      packages: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore Binary
+        uses: actions/download-artifact@v3
+        with:
+          name: api
+          path: ./api/bin
+
+      - name: Buid Image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./api
+          push: false
+
   publish-image:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     name: Build and Publish image to registry
@@ -205,12 +233,13 @@ jobs:
       - lint
       - test-code
       - test-migrations
+      - build-image
     permissions:
       contents: read
       packages: write
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Restore Binary
         uses: actions/download-artifact@v3
@@ -255,7 +284,7 @@ jobs:
     needs:
       - publish-image
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
@@ -270,3 +299,26 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
         timeout-minutes: 5
+
+  # This job is what github action will check to see if a PR is ready to
+  # be merged.
+  api-required-check:
+    needs:
+      [
+        perpare-env,
+        build,
+        lint,
+        test-code,
+        test-migrations,
+        build-image,
+      ]
+    # This is necessary since a failed/skipped dependent job would cause this job to be skipped
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      # If any jobs we depend on fail, we will fail since this is a required check
+      # NOTE: A timeout is considered a failure
+      - name: Check for failures
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: |
+          echo "One of the dependent jobs have failed. You may need to re-run it." && exit 1
