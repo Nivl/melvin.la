@@ -2,5 +2,16 @@
   "extends": [
     "github>Nivl/configs:renovate"
   ],
-  "automerge": true
+  "automerge": true,
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "postgres"
+      ],
+      "updateTypes": [
+        "major"
+      ],
+      "enabled": false
+    }
+  ]
 }
