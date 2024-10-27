@@ -11,3 +11,4 @@ types:
   - test # Adding missing tests or correcting existing tests
   - uix # Changes to the UI that is neither a new feature or a bug fix (impacts the user visually)
   - content # Change to the content (text, images, ...) of the website
+  - infra # Change to the infra (k8s, fly, ...)
