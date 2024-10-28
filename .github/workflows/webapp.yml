@@ -40,10 +40,10 @@ jobs:
           token: ${{ github.token }}
           filters: |
             src:
-            - 'front/**'
-            - '!front/**/*.md'
-            - '.github/workflows/webapp.yml'
-            - '.github/actions/node-setup/**'
+              - 'front/**'
+              - '!front/**/*.md'
+              - '.github/workflows/webapp.yml'
+              - '.github/actions/node-setup/**'
 
   build:
     if: needs.perpare-env.outputs.code-changed == 'true'
