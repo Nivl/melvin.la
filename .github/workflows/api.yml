@@ -60,7 +60,6 @@ jobs:
             src:
               - 'api/**/*.go'
               - 'api/**/*.sql'
-              - 'api/.env.development'
               - 'api/Taskfile_CI.yml'
               - 'api/go.sum'
               - 'api/go.mod'

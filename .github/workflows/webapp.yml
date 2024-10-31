@@ -38,10 +38,22 @@ jobs:
         id: changes
         with:
           token: ${{ github.token }}
+          # Negation is kinda weird in paths-filter (picomatch).
+          # If you want everything BUT markdown files, you cannot say:
+          #    - 'front/**'
+          #    - '!front/**/*.md'
+          # The negation doesn't remove all the .md files that have been
+          # matched. Instead it matches everything that is not a .md file.
+          #
+          # Which means that using:
+          #    - 'front/**'
+          #    - '!front/**/*.md'
+          # Will match the whole codebase as it does:
+          #    - front/** (which includes the .md files)
+          #    - ** BUT NOT front/**/*.md (add the rest of the codebase)
           filters: |
             src:
-              - 'front/**'
-              - '!front/**/*.md'
+              - 'front/**/!(*.md)'
               - '.github/workflows/webapp.yml'
               - '.github/actions/node-setup/**'
 
