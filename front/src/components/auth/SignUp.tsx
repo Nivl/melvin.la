@@ -2,6 +2,7 @@
 
 import { Input } from '@nextui-org/input';
 import { Button, Link } from '@nextui-org/react';
+import { useFlags } from 'launchdarkly-react-client-sdk';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -10,7 +11,7 @@ import {
   PiEyeLight as VisibleIcon,
 } from 'react-icons/pi';
 
-import { isSignUpEnabled } from '#backend/features';
+import { FLAG_SIGN_UP_ALLOWED } from '#backend/flags';
 import { RequestError } from '#error';
 import { useSignIn } from '#hooks/auth/useSignIn';
 import { Input as SignUpInput, useSignUp } from '#hooks/auth/useSignUp';
@@ -30,6 +31,7 @@ type Inputs = SignUpInput & {
 
 export const SignUp = () => {
   const router = useRouter();
+  const flags = useFlags();
 
   const {
     isPending: isSigningUp,
@@ -186,7 +188,7 @@ export const SignUp = () => {
         />
 
         <Button
-          isDisabled={!formIsValid || !isSignUpEnabled}
+          isDisabled={!formIsValid || !flags[FLAG_SIGN_UP_ALLOWED]}
           className="mt-2"
           isLoading={isSigningUp || isSigningIn}
           color="primary"

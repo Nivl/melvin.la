@@ -1,11 +1,12 @@
 'use client';
 
 import { Button, Link } from '@nextui-org/react';
+import { useFlags } from 'launchdarkly-react-client-sdk';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { isSignUpEnabled } from '#backend/features';
+import { FLAG_SIGN_UP_ALLOWED } from '#backend/flags';
 import { RequestError } from '#error';
 import { Input, useSignIn } from '#hooks/auth/useSignIn';
 
@@ -20,6 +21,7 @@ type ServerErrors = {
 
 export const SignIn = () => {
   const router = useRouter();
+  const flags = useFlags();
 
   const {
     isPending: isSigningIn,
@@ -79,7 +81,6 @@ export const SignIn = () => {
           ))}
         </div>
       )}
-
       <form className="flex flex-col gap-3">
         <InputEmail
           register={register}
@@ -105,7 +106,7 @@ export const SignIn = () => {
         </Button>
       </form>
 
-      {isSignUpEnabled && (
+      {flags[FLAG_SIGN_UP_ALLOWED] && (
         <>
           <Divider text="or" />
 

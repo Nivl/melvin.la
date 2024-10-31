@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useLDClient } from 'launchdarkly-react-client-sdk';
 import { createContext } from 'react';
 import { ReactNode, useEffect, useState } from 'react';
 
@@ -17,6 +18,7 @@ export interface MeContextInterface {
 export const MeProvider = ({ children }: { children: ReactNode }) => {
   const [me, setMe] = useState<Me | null>(null);
   const [win] = useWindow();
+  const ldClient = useLDClient();
 
   const { data, isLoading, fetchStatus, isError, error } = useQuery({
     queryKey: ['me'],
@@ -48,6 +50,13 @@ export const MeProvider = ({ children }: { children: ReactNode }) => {
       setMe(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (ldClient) {
+      const identity = me ? { key: me.id } : { anonymous: true };
+      void ldClient.identify(identity);
+    }
+  }, [me, ldClient]);
 
   const toProvide: MeContextInterface = {
     me: data || me,
