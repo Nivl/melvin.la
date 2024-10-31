@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
 	"github.com/google/uuid"
@@ -57,6 +58,12 @@ func NewCreateUserInput(c *ufhttputil.Context) (*CreateUserInput, error) {
 // The current user must be logged out
 func CreateUser(ec echo.Context) error {
 	c, _ := ec.(*ufhttputil.Context)
+
+	// Most of the time we don't want people to sign up
+	if c.FeatureFlag().IsEnabled(ec.Request().Context(), fflag.FlagEnableSignUps, false) {
+		return httputil.NewNotFoundError()
+	}
+
 	if c.User() != nil {
 		return httputil.NewForbiddenError("user is already logged in")
 	}

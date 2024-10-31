@@ -83,9 +83,10 @@ func ServiceContext(deps *app.Dependencies) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			cc := &Context{
-				Context: c,
-				db:      deps.DB,
-				logger:  deps.Logger,
+				Context:     c,
+				db:          deps.DB,
+				logger:      deps.Logger,
+				featureFlag: deps.FeatureFlag,
 			}
 			reqID := c.Response().Header().Get(echo.HeaderXRequestID)
 			if reqID != "" {

@@ -13,6 +13,7 @@ Source code of my personal website
 | API_PORT | optional | 5000 | Port to serve the API from |
 | API_POSTGRES_URL | required |  | URL of the postgress DB |
 | API_EXTRA_CORS_ORIGINS | optional |  | List of origins allowed by CORS |
+| API_LAUNCH_DARKLY_SDK_KEY | required |  | SDK Key of Launch Darkly |
 
 ### Frontend
 

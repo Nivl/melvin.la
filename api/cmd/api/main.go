@@ -23,11 +23,11 @@ import (
 type appConfig struct {
 	Environment string `env:"ENVIRONMENT,default=dev"`
 	API         struct {
-		PostgresURL      secret.Secret      `env:"POSTGRES_URL,required"`
-		Port             string             `env:"PORT,default=5000"`
-		SSLCertsDir      string             `env:"SSL_CERTS_DIR"`
-		ExtraCORSOrigins []string           `env:"EXTRA_CORS_ORIGINS"`
-		Features         app.FeaturesConfig `env:",prefix=FEAT_"`
+		PostgresURL       secret.Secret `env:"POSTGRES_URL,required"`
+		LauchDarklySDKKey secret.Secret `env:"LAUNCH_DARKLY_SDK_KEY"`
+		Port              string        `env:"PORT,default=5000"`
+		SSLCertsDir       string        `env:"SSL_CERTS_DIR"`
+		ExtraCORSOrigins  []string      `env:"EXTRA_CORS_ORIGINS"`
 	} `env:",prefix=API_"`
 }
 
@@ -45,10 +45,9 @@ func run() (returnedErr error) {
 	}
 
 	appCfg := &app.Config{
-		Environment: cfg.Environment,
-		UseDB:       true,
-		PostgresURI: cfg.API.PostgresURL,
-		Features:    cfg.API.Features,
+		Environment:     cfg.Environment,
+		PostgresURI:     cfg.API.PostgresURL,
+		LaunchDarklyKey: cfg.API.LauchDarklySDKKey,
 	}
 	deps, err := app.New(appCfg)
 	if err != nil {
@@ -72,7 +71,7 @@ func run() (returnedErr error) {
 	e.Use(ufhttputil.AuthUser())
 
 	// User Facing endpoints
-	userhttpendpoint.Register(e.Group("/users"), cfg.API.Features.SignUp)
+	userhttpendpoint.Register(e.Group("/users"))
 	authendpoint.Register(e.Group("/auth"))
 
 	err = httputil.StartAndWaitWithCb(ctx, deps, e, httputil.StartAndWaitOpts{
