@@ -19,6 +19,7 @@ type Context struct {
 func (c *Context) SetUser(u *models.User) {
 	c.user = u
 	c.SetLog(c.Log().With(zap.String("user_id", u.ID)))
+	c.SetFeatureFlag(c.FeatureFlag().WithKey(u.ID))
 }
 
 // User returns the user that initiated the request or nil if no auth

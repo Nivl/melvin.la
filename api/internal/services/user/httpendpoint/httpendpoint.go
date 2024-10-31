@@ -4,9 +4,7 @@ package httpendpoint
 import "github.com/labstack/echo/v4"
 
 // Register registers the service's routes
-func Register(g *echo.Group, enableSignUp bool) {
+func Register(g *echo.Group) {
 	g.GET("/:id", GetUser)
-	if enableSignUp {
-		g.POST("", CreateUser)
-	}
+	g.POST("", CreateUser)
 }
