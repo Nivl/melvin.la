@@ -10,7 +10,7 @@ require (
 	github.com/jackc/pgx/v5 v5.7.1
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/labstack/echo/v4 v4.12.0
-	github.com/launchdarkly/go-sdk-common/v3 v3.1.0
+	github.com/launchdarkly/go-sdk-common/v3 v3.2.0
 	github.com/launchdarkly/go-server-sdk/v7 v7.7.0
 	github.com/sethvargo/go-envconfig v1.1.0
 	github.com/stretchr/testify v1.9.0
