@@ -237,6 +237,7 @@ jobs:
     if: |
       always() &&
       github.event_name == 'push' && github.ref == 'refs/heads/main' &&
+      needs.perpare-env.outputs.code-changed == 'true' &&
       !contains(needs.*.result, 'failure') &&
       !contains(needs.*.result, 'cancelled')
     name: Build and Publish image to registry
@@ -289,6 +290,7 @@ jobs:
     if: |
       always() &&
       github.event_name == 'push' && github.ref == 'refs/heads/main' &&
+      needs.perpare-env.outputs.code-changed == 'true' &&
       !contains(needs.*.result, 'failure') &&
       !contains(needs.*.result, 'cancelled')
     name: Run migrations and deploy to prod
