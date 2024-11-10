@@ -6,6 +6,7 @@ import { allModes } from "./modes";
 
 import { MeProvider } from '../src/contexts/MeContext';
 import '../src/app/globals.css';
+import '../src/app/editorjs.css';
 
 if (typeof global.process === 'undefined') {
   const enableMSW = require('../src/backend/mocks').enableMSW; // eslint-disable-line @typescript-eslint/no-var-requires

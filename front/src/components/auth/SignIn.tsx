@@ -7,15 +7,13 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { FLAG_SIGN_UP_ALLOWED } from '#backend/flags';
-import { RequestError } from '#error';
+import { RequestError, ServerErrors } from '#error';
 import { Input, useSignIn } from '#hooks/auth/useSignIn';
 
 import { Divider } from './Divider';
 import { InputEmail } from './InputEmail';
 import { InputPassword } from './InputPassword';
 import { Layout } from './Layout';
-
-type ServerErrors = Record<string, string[]>;
 
 export const SignIn = () => {
   const router = useRouter();

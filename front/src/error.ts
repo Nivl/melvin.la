@@ -1,5 +1,7 @@
 import { HttpError } from '#backend/types';
 
+export type ServerErrors = Record<string, string[]>;
+
 export class RequestError extends Error {
   info: HttpError;
 

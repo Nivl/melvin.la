@@ -1,0 +1,272 @@
+/*
+    UI
+*/
+
+.codex-editor__redactor {
+    padding-bottom: 0 !important;
+}
+
+.ce-toolbar__content,
+.ce-block__content {
+    max-width: 100%;
+}
+
+.ce-toolbar__plus,
+.ce-toolbar__plus:hover,
+.ce-toolbar__settings-btn,
+.ce-toolbar__settings-btn:hover,
+.ce-inline-tool:hover {
+    @apply bg-background;
+    @apply text-foreground;
+}
+
+.ce-popover-item {
+    color: hsl(var(--nextui-content2-foreground));
+    fill: hsl(var(--nextui-content2-foreground));
+}
+
+.ce-popover-item__icon__codeblock {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.ce-popover-item:hover:not(.ce-popover-item--no-hover) {
+    color: hsl(var(--nextui-content2-foreground));
+    background-color: hsl(var(--nextui-content2));
+}
+
+.ce-popover--opened>.ce-popover__container {
+    background-color: hsl(var(--nextui-content1));
+    border: none;
+}
+
+.ce-popover-item-separator__line {
+    background: hsl(var(--nextui-content3));
+}
+
+.ce-popover-item--active {
+    background-color: hsl(var(--nextui-content3));
+}
+
+.ce-block--selected .ce-block__content {
+    background-color: hsl(var(--nextui-focus));
+}
+
+/* Tables
+    popover is the menu that appears when you click on a table
+*/
+
+.tc-popover {
+    background-color: hsl(var(--nextui-content2)) !important;
+}
+
+.tc-popover__item {
+    color: hsl(var(--nextui-content2-foreground)) !important;
+}
+
+.tc-popover__item-icon {
+    background-color: transparent !important;
+    color: hsl(var(--nextui-content2-foreground)) !important;
+    border: none !important;
+}
+
+.tc-popover__item--confirm {
+    background: hsl(var(--nextui-danger));
+    color: white !important;
+
+    .tc-popover__item-icon {
+        color: white !important;
+    }
+}
+
+.tc-row--selected,
+.tc-cell--selected,
+.tc-row--selected:after,
+.tc-add-column:hover,
+.tc-add-row:hover,
+.tc-add-row:hover:before {
+    background: hsl(var(--nextui-content2)) !important;
+    color: hsl(var(--nextui-content2-foreground)) !important;
+}
+
+/* .tc-cell[heading="Heading"], there's a bug and the headers aren't always displayed */
+/* that's a hack, but it works */
+.tc-table>.tc-row:first-of-type {
+    @apply text-default-500;
+    @apply text-tiny;
+    @apply font-semibold;
+    @apply align-middle;
+    border-bottom: 1px solid hsl(var(--nextui-content2)) !important;
+}
+
+.tc-table {
+    border-top: none !important;
+}
+
+.tc-cell {
+    border-right: none !important;
+}
+
+.tc-add-column,
+.tc-add-row,
+.tc-toolbox__toggler {
+    color: hsl(var(--nextui-foreground)) !important;
+}
+
+.tc-row,
+.tc-row:after {
+    border-bottom: none !important;
+}
+
+.tc-add-column {
+    border-top: none !important;
+}
+
+/* quote */
+
+.cdx-quote__text,
+.cdx-quote__caption {
+    border: 0 !important;
+    border-left: 3px solid !important;
+    border-radius: 0 !important;
+    border-color: hsl(var(--nextui-content3)) !important;
+}
+
+/* List */
+
+.cdx-list__item {
+    padding: 0;
+}
+
+/* search fields */
+.ce-popover__search {
+    background-color: hsl(var(--nextui-background));
+}
+
+/* Tooltip */
+.ct__content {
+    color: hsl(var(--nextui-forground));
+}
+
+.ct::before,
+.ct::after {
+    background-color: hsl(var(--nextui-content1));
+}
+
+.ct {
+    @apply shadow-md;
+}
+
+/* Inline toolbar */
+.ce-inline-tool {
+    color: hsl(var(--nextui-content1-foreground));
+    background-color: hsl(var(--nextui-content1));
+}
+
+.ce-inline-tool:hover {
+    color: hsl(var(--nextui-content2-foreground));
+    background-color: hsl(var(--nextui-content2));
+}
+
+
+/* Code */
+
+.editorjs-codeCup_input {
+    background-color: hsl(var(--nextui-background)) !important;
+    @apply text-sm;
+}
+
+.codex-editor [data-placeholder][data-empty=true]:before {
+    color: hsl(var(--nextui-foreground));
+}
+
+.editorjs-codeCup_inputButton:hover {
+    background-color: transparent !important;
+    color: hsl(var(--nextui-default-600));
+}
+
+.codecup__copyButton,
+.codecup__copyMessage {
+    background: transparent !important;
+}
+
+.editorjs-codeCup_LangDisplay {
+    display: none !important;
+}
+
+.codecup.codecup--has-line-numbers::before {
+    background-color: hsl(var(--nextui-content3)) !important;
+    @apply rounded-bl-lg !important;
+    @apply rounded-tl-lg !important;
+}
+
+.codecup__lines {
+    color: hsl(var(--nextui-content3-foreground)) !important;
+
+}
+
+
+.editorjs-codeCup_Wrapper {
+    background-color: hsl(var(--nextui-background)) !important;
+    border-color: hsl(var(--nextui-content1)) !important;
+    @apply rounded-bl-lg !important;
+    @apply rounded-tl-lg !important;
+}
+
+.codecup__textarea {
+    background-color: hsl(var(--nextui-content2)) !important;
+    caret-color: hsl(var(--nextui-content2-foreground)) !important;
+    @apply rounded-br-lg !important;
+    @apply rounded-tr-lg !important;
+}
+
+/*
+    Content of the editor
+*/
+
+.ce-block__content {
+    color: hsl(var(--nextui-forground));
+
+    .ce-paragraph.cdx-block::selection {
+        color: hsl(var(--nextui-forground));
+        background-color: hsl(var(--nextui-primary-200));
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-black;
+        @apply uppercase;
+    }
+
+    h2 {
+        @apply text-2xl;
+
+    }
+
+    h3 {
+        @apply text-xl;
+    }
+
+
+    h4 {
+        @apply text-lg;
+    }
+
+    h5 {
+        @apply text-center;
+    }
+
+    h6 {
+        @apply text-center;
+        @apply text-sm;
+    }
+
+    .inline-code {
+        background-color: hsl(var(--nextui-content1));
+        color: hsl(var(--nextui-content1-foreground));
+        @apply font-monospace;
+    }
+}

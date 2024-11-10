@@ -12,7 +12,7 @@ import {
 } from 'react-icons/pi';
 
 import { FLAG_SIGN_UP_ALLOWED } from '#backend/flags';
-import { RequestError } from '#error';
+import { RequestError, ServerErrors } from '#error';
 import { useSignIn } from '#hooks/auth/useSignIn';
 import { Input as SignUpInput, useSignUp } from '#hooks/auth/useSignUp';
 
@@ -20,8 +20,6 @@ import { Divider } from './Divider';
 import { InputEmail } from './InputEmail';
 import { InputPassword } from './InputPassword';
 import { Layout } from './Layout';
-
-type ServerErrors = Record<string, string[]>;
 
 type Inputs = SignUpInput & {
   passwordAgain: string;
