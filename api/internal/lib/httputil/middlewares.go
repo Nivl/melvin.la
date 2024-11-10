@@ -88,6 +88,7 @@ func ServiceContext(deps *app.Dependencies) echo.MiddlewareFunc {
 				logger:      deps.Logger,
 				featureFlag: deps.FeatureFlag,
 			}
+
 			reqID := c.Response().Header().Get(echo.HeaderXRequestID)
 			if reqID != "" {
 				cc.logger = cc.logger.With(zap.String("request_id", reqID))
