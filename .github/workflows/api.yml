@@ -188,17 +188,22 @@ jobs:
         with:
           project-name: api
 
-      - name: Up
+      - name: Lint SQL files
+        uses: sbdchd/squawk-action@v2
+        with:
+          pattern: "api/database/migrations/*.sql"
+
+      - name: Run Up
         run: task ci:migrate -- up
         env:
           API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
 
-      - name: Lint migrations
+      - name: Lint docs
         run: task ci:lint-migration
         env:
           API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
 
-      - name: Down
+      - name: Run Down
         run: task ci:migrate -- down -all
         env:
           API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
