@@ -1,3 +1,32 @@
+CREATE TABLE public.blog_post_revs (
+    id uuid NOT NULL,
+    blog_post_id uuid NOT NULL,
+    title text NOT NULL,
+    slug text NOT NULL,
+    thumbnail_url text,
+    description text,
+    content_json jsonb,
+    created_at timestamp with time zone DEFAULT now(),
+    deleted_at timestamp with time zone
+);
+ALTER TABLE public.blog_post_revs OWNER TO pguser;
+CREATE TABLE public.blog_posts (
+    id uuid NOT NULL,
+    title text NOT NULL,
+    slug text NOT NULL,
+    thumbnail_url text,
+    description text,
+    content_json jsonb,
+    published_at timestamp with time zone,
+    created_at timestamp with time zone DEFAULT now(),
+    updated_at timestamp with time zone DEFAULT now(),
+    deleted_at timestamp with time zone,
+    CONSTRAINT blog_posts_description_check CHECK ((char_length(description) <= 130)),
+    CONSTRAINT blog_posts_slug_check CHECK ((char_length(slug) <= 105)),
+    CONSTRAINT blog_posts_thumbnail_url_check CHECK ((char_length(thumbnail_url) <= 255)),
+    CONSTRAINT blog_posts_title_check CHECK ((char_length(title) <= 100))
+);
+ALTER TABLE public.blog_posts OWNER TO pguser;
 CREATE TABLE public.schema_migrations (
     version bigint NOT NULL,
     dirty boolean NOT NULL
@@ -30,6 +59,10 @@ CREATE TABLE public.users (
     CONSTRAINT users_password_crypto_check CHECK ((char_length(password_crypto) <= 30))
 );
 ALTER TABLE public.users OWNER TO pguser;
+ALTER TABLE ONLY public.blog_post_revs
+    ADD CONSTRAINT blog_post_revs_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.blog_posts
+    ADD CONSTRAINT blog_posts_pkey PRIMARY KEY (id);
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 ALTER TABLE ONLY public.user_sessions
@@ -38,5 +71,7 @@ ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_email_key UNIQUE (email);
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.blog_post_revs
+    ADD CONSTRAINT blog_post_revs_blog_post_id_fkey FOREIGN KEY (blog_post_id) REFERENCES public.blog_posts(id);
 ALTER TABLE ONLY public.user_sessions
     ADD CONSTRAINT user_sessions_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);

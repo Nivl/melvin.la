@@ -12,6 +12,7 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/Nivl/melvin.la/api/internal/lib/secret"
 	authendpoint "github.com/Nivl/melvin.la/api/internal/services/auth/httpendpoint"
+	blogendpoint "github.com/Nivl/melvin.la/api/internal/services/blog/httpendpoint"
 	userhttpendpoint "github.com/Nivl/melvin.la/api/internal/services/user/httpendpoint"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
 	_ "github.com/jackc/pgx/v5/stdlib"
@@ -66,13 +67,14 @@ func run() (returnedErr error) {
 	}
 	e.Use(echomid.CORSWithConfig(echomid.CORSConfig{ //nolint:exhaustruct // no need of everything
 		AllowOrigins: origins,
-		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodDelete, http.MethodOptions},
+		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodDelete, http.MethodPatch, http.MethodOptions},
 	}))
 	e.Use(ufhttputil.AuthUser())
 
 	// User Facing endpoints
 	userhttpendpoint.Register(e.Group("/users"))
 	authendpoint.Register(e.Group("/auth"))
+	blogendpoint.Register(e.Group("/blog"))
 
 	err = httputil.StartAndWaitWithCb(ctx, deps, e, httputil.StartAndWaitOpts{
 		Port:      cfg.API.Port,

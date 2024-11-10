@@ -29,6 +29,9 @@ func NewSecret(secret string) Secret {
 
 // Get returns the secret
 func (s Secret) Get() string {
+	if s.secret == nil {
+		panic("secret is not set")
+	}
 	return *s.secret
 }
 

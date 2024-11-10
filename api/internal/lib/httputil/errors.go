@@ -3,6 +3,7 @@ package httputil
 import (
 	"net/http"
 
+	"github.com/Nivl/melvin.la/api/internal/lib/stringutil"
 	"github.com/labstack/echo/v4"
 )
 
@@ -11,7 +12,7 @@ import (
 func NewValidationError(field, message string) *echo.HTTPError {
 	return echo.NewHTTPError(http.StatusBadRequest, echo.Map{
 		"message": message,
-		"field":   field,
+		"field":   stringutil.ToCamelCase(field),
 	})
 }
 
@@ -27,7 +28,7 @@ func NewBadRequestError(message string) *echo.HTTPError {
 func NewConflictError(field, message string) *echo.HTTPError {
 	return echo.NewHTTPError(http.StatusConflict, echo.Map{
 		"message": message,
-		"field":   field,
+		"field":   stringutil.ToCamelCase(field),
 	})
 }
 

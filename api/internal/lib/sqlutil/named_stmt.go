@@ -2,6 +2,7 @@ package sqlutil
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 
 	"github.com/Nivl/melvin.la/api/internal/lib/errutil"
@@ -22,14 +23,14 @@ func NamedSelectContext(ctx context.Context, db sqalx.Node, dest any, query stri
 
 // NamedGetContext binds a named query and then runs Query on the result using the
 // provided connection and StructScan the row into dest.
-func NamedGetContext(ctx context.Context, db sqlx.ExtContext, dest any, query string, arg interface{}) error {
+func NamedGetContext(ctx context.Context, db sqalx.Node, dest any, query string, arg interface{}) (err error) {
 	rows, err := sqlx.NamedQueryContext(ctx, db, query, arg) //nolint:sqlclosecheck // false positive. it's done in the CheckWithMessage
 	if err != nil {
-		return err
+		return fmt.Errorf("NamedQueryContext: %w", err)
 	}
 	defer errutil.CheckWithMessage(rows.Close, &err, "couldn't close the row")
 	if rows.Next() {
 		return rows.StructScan(dest)
 	}
-	return nil
+	return sql.ErrNoRows
 }
