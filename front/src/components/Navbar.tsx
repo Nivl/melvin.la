@@ -11,6 +11,7 @@ import {
   NavbarContent,
   NavbarItem,
 } from '@nextui-org/react';
+import { useFlags } from 'launchdarkly-react-client-sdk';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
@@ -21,11 +22,14 @@ import { IoMdMoon as NightIcon, IoMdSunny as LightIcon } from 'react-icons/io';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
+import { FLAG_ENABLE_BLOG } from '#backend/flags';
+
 export const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const flags = useFlags();
 
   useEffect(() => {
     setMounted(true);
@@ -39,6 +43,14 @@ export const Navbar = () => {
             Home
           </Link>
         </NavbarItem>
+
+        {flags[FLAG_ENABLE_BLOG] && (
+          <NavbarItem isActive={pathname == '/blog'}>
+            <Link color="foreground" href="/blog">
+              Blog
+            </Link>
+          </NavbarItem>
+        )}
 
         <Dropdown>
           <NavbarItem>
