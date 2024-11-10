@@ -1,5 +1,9 @@
 import { HttpError } from '#backend/types';
 
+export type ServerErrors = {
+  [key: string]: string[];
+};
+
 export class ErrorWithCode extends Error {
   code: number;
 
