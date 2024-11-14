@@ -5,13 +5,13 @@
   "automerge": true,
   "packageRules": [
     {
-      "matchPackagePatterns": [
-        "postgres"
-      ],
-      "updateTypes": [
+      "matchUpdateTypes": [
         "major"
       ],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "/postgres/"
+      ]
     }
   ]
 }
