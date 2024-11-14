@@ -36,7 +36,7 @@ jobs:
           token: ${{ github.token }}
           filters: |
             renovate:
-              - '.github/workflows/renovate.yml'
+              - '.github/renovate.json'
 
   renovate-lint:
     if: ${{ needs.perpare-env.outputs.renovate == 'true' }}
