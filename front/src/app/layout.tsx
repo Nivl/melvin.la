@@ -1,4 +1,5 @@
 import './globals.css';
+import './editorjs.css';
 
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -6,6 +7,11 @@ import type { Metadata } from 'next';
 
 import { Navbar } from '#components/Navbar';
 import { Providers } from '#components/Providers';
+
+if (process.env.NEXT_PUBLIC_API_MOCKING?.toLowerCase() === 'true') {
+  const enableMSW = require('../backend/mocks').enableMSW; // eslint-disable-line @typescript-eslint/no-var-requires
+  enableMSW();
+}
 
 export const metadata: Metadata = {
   title: 'Melvin Laplanche',
