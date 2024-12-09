@@ -1,11 +1,11 @@
-/* eslint-disable no-console, @typescript-eslint/no-var-requires */
+/* eslint-disable no-console */
 
 export const enableMSW = async () => {
   if (typeof window === 'undefined') {
-    const { server } = await require('./server');
+    const { server } = await require('./server'); // eslint-disable-line @typescript-eslint/no-require-imports
     server.listen();
   } else {
-    const { worker } = await require('./browser');
+    const { worker } = await require('./browser'); // eslint-disable-line @typescript-eslint/no-require-imports
     worker.start({
       onUnhandledRequest(req: Request) {
         console.log(

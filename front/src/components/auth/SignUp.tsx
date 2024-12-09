@@ -90,7 +90,7 @@ export const SignUp = () => {
     try {
       await signInAsync({ email, password });
       router.push('/admin');
-    } catch (error) {
+    } catch (_) {
       // TODO(melvin): Report error somewhere
       // In case of error we'll let the user try again manually
       router.replace('/auth/sign-in');
