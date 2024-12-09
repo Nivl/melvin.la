@@ -19,7 +19,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="bg-background text-foreground">
+    <html
+      suppressHydrationWarning
+      lang="en"
+      className="bg-background text-foreground"
+    >
       <body className="h-full font-sans text-base font-light lining-nums leading-relaxed antialiased xl:text-xl xl:leading-relaxed">
         <Providers>
           <Navbar />

@@ -28,7 +28,9 @@ export const Default: Story = {
     },
   },
   args: {
-    params: {},
+    params: new Promise(resolve => {
+      resolve({});
+    }),
   },
 };
 
@@ -42,9 +44,11 @@ export const Profile: Story = {
     },
   },
   args: {
-    params: {
-      path: ['M8%20Nîkof', 'epic'],
-    },
+    params: new Promise(resolve => {
+      resolve({
+        path: ['M8%20Nîkof', 'epic'],
+      });
+    }),
   },
   beforeEach() {
     useStats.mockImplementation(() => {
@@ -67,9 +71,11 @@ export const Loading: Story = {
     },
   },
   args: {
-    params: {
-      path: ['M8%20Nîkof', 'xbl'],
-    },
+    params: new Promise(resolve => {
+      resolve({
+        path: ['M8%20Nîkof', 'xbl'],
+      });
+    }),
   },
   async beforeEach() {
     useStats.mockImplementation(() => {
@@ -92,9 +98,11 @@ export const ErrorInvalidApiKey: Story = {
     },
   },
   args: {
-    params: {
-      path: ['M8%20Nîkof', 'epic'],
-    },
+    params: new Promise(resolve => {
+      resolve({
+        path: ['M8%20Nîkof', 'epic'],
+      });
+    }),
   },
   beforeEach() {
     useStats.mockImplementation(() => {
@@ -117,9 +125,11 @@ export const ErrorInvalidAccount: Story = {
     },
   },
   args: {
-    params: {
-      path: ['M8%20Nîkof', 'psn'],
-    },
+    params: new Promise(resolve => {
+      resolve({
+        path: ['M8%20Nîkof', 'psn'],
+      });
+    }),
   },
   beforeEach() {
     useStats.mockImplementation(() => {
@@ -145,9 +155,11 @@ export const ErrorPrivateAccount: Story = {
     },
   },
   args: {
-    params: {
-      path: ['M8%20Nîkof', 'xbl'],
-    },
+    params: new Promise(resolve => {
+      resolve({
+        path: ['M8%20Nîkof', 'xbl'],
+      });
+    }),
   },
   beforeEach() {
     useStats.mockImplementation(() => {
@@ -170,9 +182,11 @@ export const ErrorInternalError: Story = {
     },
   },
   args: {
-    params: {
-      path: ['M8%20Nîkof', 'xbl'],
-    },
+    params: new Promise(resolve => {
+      resolve({
+        path: ['M8%20Nîkof', 'xbl'],
+      });
+    }),
   },
   beforeEach() {
     useStats.mockImplementation(() => {
