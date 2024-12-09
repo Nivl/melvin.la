@@ -1,6 +1,5 @@
 import { nextui } from '@nextui-org/react';
 import type { Config } from 'tailwindcss';
-import colors from 'tailwindcss/colors';
 
 const config: Config = {
   content: [
@@ -27,14 +26,14 @@ const config: Config = {
       ],
       fortnite: ['Burbank Big Condensed Bold'],
     },
-    colors: {
-      brands: {
-        playstation: '#006FCD',
-        xbox: '#2ca243',
-      },
-      ...colors,
-    },
     extend: {
+      colors: {
+        accent: '#26ace6',
+        brands: {
+          playstation: '#006FCD',
+          xbox: '#2ca243',
+        },
+      },
       keyframes: {
         levitate: {
           '0%, 100%': { transform: 'translateY(-5px)' },
@@ -43,9 +42,6 @@ const config: Config = {
       },
       animation: {
         levitate: 'levitate 1s ease-in-out infinite',
-      },
-      colors: {
-        accent: '#26ace6',
       },
     },
   },
