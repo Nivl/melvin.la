@@ -11,8 +11,7 @@ import {
   NavbarContent,
   NavbarItem,
 } from '@nextui-org/react';
-import NextLink from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
@@ -24,6 +23,7 @@ import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
 export const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -60,13 +60,20 @@ export const Navbar = () => {
             selectedKeys={
               pathname.startsWith('/games/conway') ? new Set(['conway']) : ''
             }
+            // remove once they fix href on DropdownItem -- https://github.com/nextui-org/nextui/issues/4244
+            onAction={key => {
+              switch (key) {
+                case 'conway':
+                  router.push('/games/conway');
+                  break;
+              }
+            }}
           >
             <DropdownItem
               key="conway"
               description="Zero-player cellular automation game."
               startContent={<ConwayIcon className="h-5 w-5" />}
-              href="/games/conway"
-              as={NextLink} // https://github.com/nextui-org/nextui/issues/2131
+              // href="/games/conway" -- https://github.com/nextui-org/nextui/issues/4244
             >
               Game of Life
             </DropdownItem>
@@ -97,12 +104,22 @@ export const Navbar = () => {
                   ? new Set(['timezones'])
                   : ''
             }
+            // remove once they fix href on DropdownItem -- https://github.com/nextui-org/nextui/issues/4244
+            onAction={key => {
+              switch (key) {
+                case 'fortnite':
+                  router.push('/tools/fortnite');
+                  break;
+                case 'timezones':
+                  router.push('/tools/timezones');
+                  break;
+              }
+            }}
           >
             <DropdownItem
               key="fortnite"
               startContent={<FortniteIcon className="h-5 w-5" />}
-              href="/tools/fortnite"
-              as={NextLink} // https://github.com/nextui-org/nextui/issues/2131
+              // href="/tools/fortnite" -- https://github.com/nextui-org/nextui/issues/4244
             >
               Fortnite Data
             </DropdownItem>
@@ -110,8 +127,7 @@ export const Navbar = () => {
             <DropdownItem
               key="timezones"
               startContent={<TimezoneIcon className="h-5 w-5" />}
-              href="/tools/timezones"
-              as={NextLink} // https://github.com/nextui-org/nextui/issues/2131
+              // href="/tools/timezones" -- https://github.com/nextui-org/nextui/issues/4244
             >
               Timezone Convertor
             </DropdownItem>
