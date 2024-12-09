@@ -67,7 +67,7 @@ export const SignIn = () => {
     try {
       await signInAsync({ email, password });
       router.replace('/admin');
-    } catch (error) {
+    } catch (_) {
       // TODO(melvin): Report error somewhere
     }
   };

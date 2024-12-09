@@ -42,13 +42,13 @@ export const Side = ({
   setBoardSize,
 }: {
   board: Board;
-  setBoard: (b: Board) => void;
+  setBoard: (_: Board) => void;
   speed: number;
-  setSpeed: (b: number) => void;
+  setSpeed: (_: number) => void;
   isPlaying: boolean;
-  setIsPlaying: (b: boolean) => void;
+  setIsPlaying: (_: boolean) => void;
   boardSize: number;
-  setBoardSize: (b: number) => void;
+  setBoardSize: (_: number) => void;
 }) => {
   const setPreset = (preset: Board) => {
     setBoard(growBoard(preset, boardSize));
