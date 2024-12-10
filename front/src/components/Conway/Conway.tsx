@@ -5,7 +5,9 @@ import { useState } from 'react';
 import { Board, boardSizes, defaultPresets } from '#models/conway';
 
 import { Footer } from '../Home/Footer';
+
 import { Heading } from '../Home/Heading';
+
 import { Section } from '../Home/Section';
 import { Canvas } from './Canvas';
 import { Side } from './Side';

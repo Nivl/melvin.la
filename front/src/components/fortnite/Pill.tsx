@@ -40,7 +40,13 @@ export const Pill = ({
     <Card
       onMouseMove={handleMouseMove}
       {...delegated}
-      onPress={!isLoading && !isSelected ? onPress : () => {}}
+      onPress={
+        !isLoading && !isSelected
+          ? onPress
+          : () => {
+              // do nothing
+            }
+      }
       className={twMerge(
         `group relative w-72 dark:bg-neutral-950 ${isSelected ? 'bg-gradient-to-br from-[#2753ad] to-[#418eff] dark:to-[#052d67]' : 'border-1 border-neutral-200 dark:border-neutral-800'} ${className}`,
       )}

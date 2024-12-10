@@ -1,85 +1,79 @@
-import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import nextPlugin from '@next/eslint-plugin-next';
+import prettierPluginRecommended from 'eslint-plugin-prettier/recommended';
+import importPlugin from 'eslint-plugin-import';
 import simpleImportSort from "eslint-plugin-simple-import-sort";
-import prettier from "eslint-plugin-prettier";
-import tsParser from "@typescript-eslint/parser";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
-
-export default [...fixupConfigRules(compat.extends(
-    "eslint:recommended",
-    "plugin:import/typescript",
-    "plugin:@typescript-eslint/recommended",
-    "next/core-web-vitals",
-    "plugin:prettier/recommended",
-    "prettier",
-)), {
+export default tseslint.config(
+  {
     plugins: {
-        "@typescript-eslint": fixupPluginRules(typescriptEslint),
-        "simple-import-sort": simpleImportSort,
-        prettier: fixupPluginRules(prettier),
+      "simple-import-sort": simpleImportSort,
     },
-
-    languageOptions: {
-        parser: tsParser,
-        ecmaVersion: 2021,
-        sourceType: "module",
-
-        parserOptions: {
-            project: ["tsconfig.json"],
-        },
-    },
-
     settings: {
-        react: {
-            version: "detect",
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+          project: import.meta.dirname,
         },
+      },
     },
+    extends: [
+      eslint.configs.recommended,
+      tseslint.configs.strict,
+      tseslint.configs.stylistic,
+      next.configs.coreWebVitals,
+      importPlugin.flatConfigs.recommended,
+      importPlugin.flatConfigs.react,
+      importPlugin.flatConfigs.typescript,
 
+      // Keep last
+      prettierPluginRecommended,
+    ],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+        projectService: true,
+      },
+    },
     rules: {
-        "simple-import-sort/imports": ["error", {
-            groups: [
-                ["^\\u0000"],
-                ["^@?\\w"],
-                ["^"],
-                ["^\\.", "^(backend|components|contexts|hooks|pages|utils)"],
-            ],
-        }],
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
+      'simple-import-sort/exports': 'error',
+      'simple-import-sort/imports': ['error', {
+        groups: [
+          ['^\\u0000'],
+          ['^@?\\w'],
+          ['^'],
+          ['^\\.', '^(backend|components|contexts|hooks|pages|utils)'],
+        ],
+      }],
 
-        "simple-import-sort/exports": ["error"],
-        "@typescript-eslint/explicit-module-boundary-types": 0,
-        "prettier/prettier": "error",
-        "no-console": "error",
+      'import/no-default-export': 'error',
+      'prettier/prettier': 'error',
+      'no-console': 'error',
 
-        "@typescript-eslint/no-unused-vars": ["error", {
-            "args": "all",
-            "argsIgnorePattern": "^_",
-            "caughtErrors": "all",
-            "caughtErrorsIgnorePattern": "^_",
-            "destructuredArrayIgnorePattern": "^_",
-            "varsIgnorePattern": "^_",
-            "ignoreRestSiblings": true
-        }],
-
-        "import/no-default-export": "error",
-        "@typescript-eslint/no-floating-promises": "error",
-        "@typescript-eslint/await-thenable": "error",
-        "@typescript-eslint/no-misused-promises": "error",
+      '@typescript-eslint/explicit-module-boundary-types': 0,
+      '@typescript-eslint/no-unused-vars': ['error', {
+        'args': 'all',
+        'argsIgnorePattern': '^_',
+        'caughtErrors': 'all',
+        'caughtErrorsIgnorePattern': '^_',
+        'destructuredArrayIgnorePattern': '^_',
+        'varsIgnorePattern': '^_',
+        'ignoreRestSiblings': true
+      }],
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/await-thenable': 'error',
+      '@typescript-eslint/no-misused-promises': 'error',
     },
-}, {
+  },
+  {
     files: ["src/app/**/*.tsx", "src/**/*.stories.ts"],
-
     rules: {
-        "import/no-default-export": "off",
+      "import/no-default-export": "off",
     },
-}];
+  }
+);
