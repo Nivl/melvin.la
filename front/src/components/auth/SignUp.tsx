@@ -105,7 +105,13 @@ export const SignUp = () => {
         </div>
       )}
 
-      <form className="flex flex-col gap-3">
+      <form
+        className="flex flex-col gap-3"
+        onSubmit={e => {
+          e.preventDefault();
+          void handleSubmit(onSubmit)(e);
+        }}
+      >
         <Input
           isRequired
           type="text"
@@ -193,7 +199,6 @@ export const SignUp = () => {
           isLoading={isSigningUp || isSigningIn}
           color="primary"
           type="submit"
-          onClick={(...args) => void handleSubmit(onSubmit)(...args)}
         >
           {isSigningUp || isSigningIn ? 'Signing Up...' : 'Sign Up'}
         </Button>

@@ -79,7 +79,13 @@ export const SignIn = () => {
           ))}
         </div>
       )}
-      <form className="flex flex-col gap-3">
+      <form
+        className="flex flex-col gap-3"
+        onSubmit={e => {
+          e.preventDefault();
+          void handleSubmit(onSubmit)(e);
+        }}
+      >
         <InputEmail
           register={register}
           fieldError={formErrors.email}
@@ -98,7 +104,6 @@ export const SignIn = () => {
           isLoading={isSigningIn}
           color="primary"
           type="submit"
-          onClick={(...args) => void handleSubmit(onSubmit)(...args)}
         >
           {isSigningIn ? 'Logging In...' : 'Log In'}
         </Button>
