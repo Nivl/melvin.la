@@ -15,9 +15,7 @@ import { InputEmail } from './InputEmail';
 import { InputPassword } from './InputPassword';
 import { Layout } from './Layout';
 
-type ServerErrors = {
-  [key: string]: string[];
-};
+type ServerErrors = Record<string, string[]>;
 
 export const SignIn = () => {
   const router = useRouter();
@@ -42,7 +40,7 @@ export const SignIn = () => {
       if (signInError instanceof RequestError) {
         errors[signInError.info.field ?? '_'] = [signInError.info.message];
       } else if (signInError instanceof Error) {
-        errors['_'] = [signInError.message ?? 'Unknown server error'];
+        errors._ = [signInError.message || 'Unknown server error'];
       }
       setServerError(errors);
     }
@@ -74,9 +72,9 @@ export const SignIn = () => {
 
   return (
     <Layout title="Log in to your account to continue">
-      {serverError['_'] && (
+      {serverError._ && (
         <div className="mb-4 flex flex-col text-center text-sm text-danger">
-          {serverError['_'].map(e => (
+          {serverError._.map(e => (
             <span key={e}>{e}</span>
           ))}
         </div>
@@ -85,24 +83,24 @@ export const SignIn = () => {
         <InputEmail
           register={register}
           fieldError={formErrors.email}
-          serverErrors={serverError['email']}
+          serverErrors={serverError.email}
         />
 
         <InputPassword
           register={register}
           fieldError={formErrors.password}
-          serverErrors={serverError['password']}
+          serverErrors={serverError.password}
         />
 
         <Button
           isDisabled={!formIsValid}
           className="mt-2"
-          isLoading={isSigningIn || isSigningIn}
+          isLoading={isSigningIn}
           color="primary"
           type="submit"
           onClick={(...args) => void handleSubmit(onSubmit)(...args)}
         >
-          {isSigningIn || isSigningIn ? 'Logging In...' : 'Log In'}
+          {isSigningIn ? 'Logging In...' : 'Log In'}
         </Button>
       </form>
 

@@ -22,10 +22,10 @@ const baseRequest = () => {
 };
 
 const fullURL = (path: string) => {
-  if (path[0] !== '/') {
+  if (!path.startsWith('/')) {
     path = `/${path}`;
   }
-  return `${process.env.NEXT_PUBLIC_API_URL}${path}`;
+  return `${process.env.NEXT_PUBLIC_API_URL ?? ''}${path}`;
 };
 
 export function errorWrapper<TData = unknown, TVariables = void>(

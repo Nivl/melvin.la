@@ -21,7 +21,7 @@ const MapContainer = ({
     resolvedTheme === 'dark' ? 'cdfadb8c71aaba12' : '70614a0367adfbc3';
   return (
     <div data-chromatic="ignore">
-      <APIProvider apiKey={process.env.NEXT_PUBLIC_GCP_MAP_API_KEY || ''}>
+      <APIProvider apiKey={process.env.NEXT_PUBLIC_GCP_MAP_API_KEY ?? ''}>
         <GoogleMap
           className={className}
           defaultCenter={initialCenter}

@@ -21,9 +21,7 @@ import { InputEmail } from './InputEmail';
 import { InputPassword } from './InputPassword';
 import { Layout } from './Layout';
 
-type ServerErrors = {
-  [key: string]: string[];
-};
+type ServerErrors = Record<string, string[]>;
 
 type Inputs = SignUpInput & {
   passwordAgain: string;
@@ -65,7 +63,7 @@ export const SignUp = () => {
       if (signUpError instanceof RequestError) {
         errors[signUpError.info.field ?? '_'] = [signUpError.info.message];
       } else if (signUpError instanceof Error) {
-        errors['_'] = [signUpError.message ?? 'Unknown server error'];
+        errors._ = [signUpError.message || 'Unknown server error'];
       }
       setServerError(errors);
     }
@@ -99,9 +97,9 @@ export const SignUp = () => {
 
   return (
     <Layout title="Create your account to get started">
-      {serverError['_'] && (
+      {serverError._ && (
         <div className="mb-4 flex flex-col text-center text-sm text-danger">
-          {serverError['_'].map(e => (
+          {serverError._.map(e => (
             <span key={e}>{e}</span>
           ))}
         </div>
@@ -126,21 +124,21 @@ export const SignUp = () => {
               ((formErrors.name.type == 'required' && 'Please enter a name') ||
                 (formErrors.name.type == 'maxLength' &&
                   'Name should be less or equal to 50 chars') ||
-                'Invalid')) ||
-            (serverError['name'] && serverError['name'][0])
+                'Invalid')) ??
+            (serverError.name && serverError.name[0])
           }
         />
 
         <InputEmail
           register={register}
           fieldError={formErrors.email}
-          serverErrors={serverError['email']}
+          serverErrors={serverError.email}
         />
 
         <InputPassword
           register={register}
           fieldError={formErrors.password}
-          serverErrors={serverError['password']}
+          serverErrors={serverError.password}
         />
 
         <Input
@@ -154,7 +152,9 @@ export const SignUp = () => {
             <button
               className="focus:outline-none"
               type="button"
-              onClick={() => setIsPasswordAgainVisible(!isPasswordAgainVisible)}
+              onClick={() => {
+                setIsPasswordAgainVisible(!isPasswordAgainVisible);
+              }}
               aria-label="toggle password visibility"
             >
               {isPasswordAgainVisible ? (

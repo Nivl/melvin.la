@@ -11,7 +11,7 @@ export type Input = {
 };
 
 export const useSignUp = () => {
-  const mutation = useMutation<void, Error | RequestError, Input>({
+  const mutation = useMutation<unknown, Error | RequestError, Input>({
     mutationFn: errorWrapper(async (input: Input) => {
       const res = await post('/users', input);
       if (!res.ok) {

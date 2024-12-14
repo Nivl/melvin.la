@@ -11,7 +11,7 @@ import { MdDeleteForever as DeleteIcon } from 'react-icons/md';
 import { Footer } from '../Home/Footer';
 import { Section } from '../Home/Section';
 
-const sortedCities: City[] = Array(cityMapping.length);
+const sortedCities: City[] = Array(cityMapping.length) as City[];
 
 for (let i = 0; i < cityMapping.length; i++) {
   const city = cityMapping[i];
@@ -94,7 +94,9 @@ export const Timezones = () => {
               className="max-w-[284px]"
               aria-label="Search for a city"
               defaultItems={[]}
-              onInputChange={e => searchBaseCity(e)}
+              onInputChange={e => {
+                searchBaseCity(e);
+              }}
               items={baseSearchItems}
               inputValue={baseSearchValue}
               onSelectionChange={e => {
@@ -109,10 +111,10 @@ export const Timezones = () => {
             >
               {item => (
                 <AutocompleteItem
-                  key={`${item.entryIndex}`}
+                  key={item.entryIndex.toString()}
                   className="capitalize"
                   textValue={`${item.data.city}, ${item.data.country} (${item.data.timezone})`}
-                  value={`${item.entryIndex}`}
+                  value={item.entryIndex.toString()}
                 >
                   {item.data.city}, {item.data.country} ({item.data.timezone})
                 </AutocompleteItem>
@@ -165,7 +167,9 @@ export const Timezones = () => {
                   className="max-w-[284px]"
                   aria-label="Search for a city"
                   defaultItems={[]}
-                  onInputChange={e => searchTargetCity(e)}
+                  onInputChange={e => {
+                    searchTargetCity(e);
+                  }}
                   items={searchItems}
                   inputValue={searchValue}
                   onSelectionChange={e => {
@@ -182,10 +186,10 @@ export const Timezones = () => {
                 >
                   {item => (
                     <AutocompleteItem
-                      key={`${item.entryIndex}`}
+                      key={item.entryIndex.toString()}
                       className="capitalize"
                       textValue={`${item.data.city}, ${item.data.country} (${item.data.timezone})`}
-                      value={`${item.entryIndex}`}
+                      value={item.entryIndex.toString()}
                     >
                       {item.data.city}, {item.data.country} (
                       {item.data.timezone})

@@ -1,12 +1,33 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
-import nextPlugin from '@next/eslint-plugin-next';
 import prettierPluginRecommended from 'eslint-plugin-prettier/recommended';
 import importPlugin from 'eslint-plugin-import';
 import simpleImportSort from "eslint-plugin-simple-import-sort";
-import { FlatCompat } from "@eslint/eslintrc";
+
+/*
+  START COMPAT
+*/
+
+import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
+import { FlatCompat } from '@eslint/eslintrc'
+
+const compat = new FlatCompat({
+  baseDirectory: import.meta.dirname,
+})
+
+const compatRules = compat.extends("next/core-web-vitals")
+
+/*
+  END COMPAT
+*/
 
 export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
+  ...compatRules,
+  // Keep prettier last
+  prettierPluginRecommended,
   {
     plugins: {
       "simple-import-sort": simpleImportSort,
@@ -19,18 +40,6 @@ export default tseslint.config(
         },
       },
     },
-    extends: [
-      eslint.configs.recommended,
-      tseslint.configs.strict,
-      tseslint.configs.stylistic,
-      next.configs.coreWebVitals,
-      importPlugin.flatConfigs.recommended,
-      importPlugin.flatConfigs.react,
-      importPlugin.flatConfigs.typescript,
-
-      // Keep last
-      prettierPluginRecommended,
-    ],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -39,8 +48,6 @@ export default tseslint.config(
       },
     },
     rules: {
-      ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs['core-web-vitals'].rules,
       'simple-import-sort/exports': 'error',
       'simple-import-sort/imports': ['error', {
         groups: [
@@ -68,12 +75,16 @@ export default tseslint.config(
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/await-thenable': 'error',
       '@typescript-eslint/no-misused-promises': 'error',
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      '@typescript-eslint/no-unnecessary-condition': 'off', // doesn't work with tsx
+      '@typescript-eslint/prefer-optional-chain': 'off', // lots of false positives
     },
   },
   {
     files: ["src/app/**/*.tsx", "src/**/*.stories.ts"],
     rules: {
       "import/no-default-export": "off",
+      "@typescript-eslint/no-empty-function": "off",
     },
   }
 );

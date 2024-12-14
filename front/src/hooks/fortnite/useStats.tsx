@@ -1,12 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { ErrorWithCode } from '#error';
 import { Data } from '#models/fortnite';
 
-export interface APIResponse {
+export class ErrorWithCode extends Error {
+  code: ErrCode;
+
+  constructor(message: string, code: ErrCode) {
+    super(message);
+    this.name = 'ErrorWithCode';
+    this.code = code;
+  }
+}
+
+export type APIResponse = {
   status: number;
   data: Data;
-}
+};
 
 export enum ErrCode {
   AccountPrivate,

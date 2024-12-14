@@ -22,7 +22,11 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <MswProvider>
       <QueryClientProvider client={queryClient}>
-        <NextUIProvider navigate={router.push}>
+        <NextUIProvider
+          navigate={(...args) => {
+            router.push(...args);
+          }}
+        >
           <NextThemesProvider attribute="class">
             <LaunchDarklyProvider>
               <MeProvider>{children}</MeProvider>

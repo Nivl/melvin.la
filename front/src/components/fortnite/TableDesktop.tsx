@@ -51,7 +51,7 @@ export const TableDesktop = ({
   useEffect(() => {
     // The 'all' category is only going to be displayed if there is more than
     // one category available.
-    const availableCats: { [key: string]: boolean } = {};
+    const availableCats: Record<string, boolean> = {};
 
     categoryList.forEach(e => {
       if (e !== 'all' && data?.stats[e]?.overall) {
@@ -153,10 +153,10 @@ export const TableDesktop = ({
         timePlayed: humanizeDuration(soloData.minutesPlayed),
         gamePlayed: soloData.matches,
         wins: soloData.wins,
-        winRate: `${rateStr(soloData.wins, soloData.matches)}`,
-        kd: `${Math.ceil(soloData.kd * 100) / 100}`,
-        top10rate: `${rateStr(soloData.top10 || 0, soloData.matches)}`,
-        top25rate: `${rateStr(soloData.top25 || 0, soloData.matches)}`,
+        winRate: rateStr(soloData.wins, soloData.matches),
+        kd: (Math.ceil(soloData.kd * 100) / 100).toFixed(2),
+        top10rate: rateStr(soloData.top10 ?? 0, soloData.matches),
+        top25rate: rateStr(soloData.top25 ?? 0, soloData.matches),
       };
       out.push(solo);
     }
@@ -170,10 +170,10 @@ export const TableDesktop = ({
         timePlayed: humanizeDuration(duoData.minutesPlayed),
         gamePlayed: duoData.matches,
         wins: duoData.wins,
-        winRate: `${rateStr(duoData.wins, duoData.matches)}`,
-        kd: `${Math.ceil(duoData.kd * 100) / 100}`,
-        top10rate: `${rateStr(duoData.top5 || 0, duoData.matches)}`,
-        top25rate: `${rateStr(duoData.top12 || 0, duoData.matches)}`,
+        winRate: rateStr(duoData.wins, duoData.matches),
+        kd: (Math.ceil(duoData.kd * 100) / 100).toFixed(2),
+        top10rate: rateStr(duoData.top5 ?? 0, duoData.matches),
+        top25rate: rateStr(duoData.top12 ?? 0, duoData.matches),
       };
       out.push(duo);
     }
@@ -187,10 +187,10 @@ export const TableDesktop = ({
         timePlayed: humanizeDuration(squadData.minutesPlayed),
         gamePlayed: squadData.matches,
         wins: squadData.wins,
-        winRate: `${rateStr(squadData.wins, squadData.matches)}`,
-        kd: `${Math.ceil(squadData.kd * 100) / 100}`,
-        top10rate: `${rateStr(squadData.top3 || 0, squadData.matches)}`,
-        top25rate: `${rateStr(squadData.top6 || 0, squadData.matches)}`,
+        winRate: rateStr(squadData.wins, squadData.matches),
+        kd: (Math.ceil(squadData.kd * 100) / 100).toFixed(2),
+        top10rate: rateStr(squadData.top3 ?? 0, squadData.matches),
+        top25rate: rateStr(squadData.top6 ?? 0, squadData.matches),
       };
       out.push(squad);
     }
@@ -205,20 +205,20 @@ export const TableDesktop = ({
         timePlayed: humanizeDuration(overallData.minutesPlayed),
         gamePlayed: overallData.matches,
         wins: overallData.wins,
-        winRate: `${rateStr(overallData.wins, overallData.matches)}`,
-        kd: `${Math.ceil(overallData.kd * 100) / 100}`,
-        top10rate: `${rateStr(
-          (overallData.top3 || 0) +
-            (overallData.top5 || 0) +
-            (overallData.top10 || 0),
+        winRate: rateStr(overallData.wins, overallData.matches),
+        kd: (Math.ceil(overallData.kd * 100) / 100).toFixed(2),
+        top10rate: rateStr(
+          (overallData.top3 ?? 0) +
+            (overallData.top5 ?? 0) +
+            (overallData.top10 ?? 0),
           overallData.matches,
-        )}`,
-        top25rate: `${rateStr(
-          (overallData.top6 || 0) +
-            (overallData.top12 || 0) +
-            (overallData.top25 || 0),
+        ),
+        top25rate: rateStr(
+          (overallData.top6 ?? 0) +
+            (overallData.top12 ?? 0) +
+            (overallData.top25 ?? 0),
           overallData.matches,
-        )}`,
+        ),
       };
       out.unshift(overall);
     }

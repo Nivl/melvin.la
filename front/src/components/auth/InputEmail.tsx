@@ -34,7 +34,7 @@ export const InputEmail = <T,>({
               'Please enter a valid email address') ||
             (fieldError.type == 'maxLength' &&
               'E-mail address should be less or equal to 255 chars') ||
-            'Invalid')) ||
+            'Invalid')) ??
         serverErrors?.at(0)
       }
     />
