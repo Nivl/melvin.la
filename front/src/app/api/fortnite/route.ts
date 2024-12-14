@@ -20,13 +20,13 @@ export async function GET(request: Request) {
     `https://fortnite-api.com/v2/stats/br/v2?name=${name}&accountType=${accountType}&timeWindow=${timeWindow}`,
     {
       headers: {
-        Authorization: process.env.FORTNITE_API_KEY!,
+        Authorization: process.env.FORTNITE_API_KEY ?? '',
       },
     },
   );
 
   try {
-    const data = await res.json();
+    const data = (await res.json()) as unknown;
     return Response.json(data, { status: res.status });
   } catch (_) {
     return Response.json(

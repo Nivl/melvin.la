@@ -1,37 +1,37 @@
-export interface Data {
+export type Data = {
   account: Account;
   battlePass: BattlePass;
   image: string;
   stats: Stats;
-}
+};
 
-export interface Account {
+export type Account = {
   id: string;
   name: string;
-}
+};
 
-export interface BattlePass {
+export type BattlePass = {
   level: number;
   progress: number;
-}
+};
 
-export interface Stats {
+export type Stats = {
   all: All;
   keyboardMouse: All | null;
   gamepad: All | null;
   touch: All | null;
-}
+};
 
-export interface All {
+export type All = {
   overall: Overall;
   solo: Overall | null;
   duo: Overall | null;
   trio: null;
   squad: Overall | null;
   ltm: Overall | null;
-}
+};
 
-export interface Overall {
+export type Overall = {
   score: number;
   scorePerMin: number;
   scorePerMatch: number;
@@ -52,4 +52,4 @@ export interface Overall {
   top10?: number;
   top12?: number;
   top25?: number;
-}
+};

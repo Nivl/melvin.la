@@ -150,7 +150,9 @@ export const Canvas = ({
         refreshRate = baseSpeed * (speed + 1);
       }
 
-      const interval = setInterval(() => updateBoard(), refreshRate);
+      const interval = setInterval(() => {
+        updateBoard();
+      }, refreshRate);
       return () => {
         clearInterval(interval);
       };

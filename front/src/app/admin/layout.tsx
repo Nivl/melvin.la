@@ -16,7 +16,7 @@ export default function RootLayout({
 
   useEffect(() => {
     if (!isPageLoading && !me) {
-      void router.replace('/auth/sign-in');
+      router.replace('/auth/sign-in');
     }
 
     // We don't put the router here to avoid an infinite loop

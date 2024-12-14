@@ -47,10 +47,7 @@ export const useSignIn = () => {
       const res = await mutateAsync(input);
       return res.me;
     },
-    signIn: (
-      input: Input,
-      options?: MutateOptions<Me, unknown, Input, unknown>,
-    ) => {
+    signIn: (input: Input, options?: MutateOptions<Me, unknown, Input>) => {
       mutate(input, {
         onError: options?.onError,
         onSettled: (data, error, variables, context) => {
@@ -70,12 +67,12 @@ export const useSignIn = () => {
   };
 };
 
-export interface MutateOptions<
+export type MutateOptions<
   TData = Me,
   TError = unknown,
   TVariables = void,
   TContext = unknown,
-> {
+> = {
   onSuccess?: (data: TData, variables: TVariables, context: TContext) => void;
   onError?: (
     error: TError,
@@ -88,4 +85,4 @@ export interface MutateOptions<
     variables: TVariables,
     context: TContext | undefined,
   ) => void;
-}
+};

@@ -155,21 +155,27 @@ export const Navbar = () => {
               <DropdownItem
                 key="light"
                 startContent={<LightIcon />}
-                onPress={() => setTheme('light')}
+                onPress={() => {
+                  setTheme('light');
+                }}
               >
                 Light
               </DropdownItem>
               <DropdownItem
                 key="dark"
                 startContent={<NightIcon />}
-                onPress={() => setTheme('dark')}
+                onPress={() => {
+                  setTheme('dark');
+                }}
               >
                 Night
               </DropdownItem>
               <DropdownItem
                 key="system"
                 startContent={<SystemIcon />}
-                onPress={() => setTheme('system')}
+                onPress={() => {
+                  setTheme('system');
+                }}
               >
                 System
               </DropdownItem>

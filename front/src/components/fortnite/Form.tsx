@@ -34,7 +34,9 @@ export const Form = ({
   defaultTimeWindow: TimeWindow;
 }) => {
   const [name, setName] = useState(defaultAccountName);
-  const debounceName = useDebouncedCallback(name => setName(name), 1000);
+  const debounceName = useDebouncedCallback((name: string) => {
+    setName(name);
+  }, 1000);
   // When it's value change, we redraw the form and update the default
   // value of the name input. We have to do this to display the presets
   // in the input.
@@ -80,7 +82,9 @@ export const Form = ({
         variant="bordered"
         defaultValue={name}
         onChange={e => debounceName(e.target.value)}
-        onClear={() => setName('')}
+        onClear={() => {
+          setName('');
+        }}
         isClearable
       />
 

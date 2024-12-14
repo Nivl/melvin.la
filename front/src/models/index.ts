@@ -1,42 +1,42 @@
-export interface Result {
+export type Result = {
   pages: Pages;
-}
+};
 
-export interface Pages {
+export type Pages = {
   about: About;
   contact: Contact;
   backendOps: Tech;
   clientTech: Tech;
-}
+};
 
-export interface About {
+export type About = {
   title: string;
   content: string;
   resumeUrl: string;
   linkedInUrl: string;
   pictureUrl: string;
   cta: CTA;
-}
+};
 
-export interface Logo {
+export type Logo = {
   img: string;
   name: string;
   url: string;
-}
+};
 
-export interface Contact {
+export type Contact = {
   email: string;
   linkedInHandle?: string | null;
   githubHandle: string;
-}
+};
 
-export interface CTA {
+export type CTA = {
   text: string;
   url: string;
-}
+};
 
-export interface Tech {
+export type Tech = {
   title: string;
   content: string[];
   logos: Logo[];
-}
+};

@@ -50,23 +50,23 @@ export const TableMobile = ({
                 <TableCell>Win Rate</TableCell>
                 <TableCell>
                   {rateStr(
-                    data?.stats.all.solo?.wins || 0,
-                    data?.stats.all.solo?.matches || 0,
+                    data?.stats.all.solo?.wins ?? 0,
+                    data?.stats.all.solo?.matches ?? 0,
                   )}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Kill/Death rate</TableCell>
                 <TableCell>
-                  {Math.ceil((data?.stats.all.solo?.kd || 0) * 100) / 100}
+                  {Math.ceil((data?.stats.all.solo?.kd ?? 0) * 100) / 100}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Top 10 rate</TableCell>
                 <TableCell>
                   {rateStr(
-                    data?.stats.all.solo?.top10 || 0,
-                    data?.stats.all.solo?.matches || 0,
+                    data?.stats.all.solo?.top10 ?? 0,
+                    data?.stats.all.solo?.matches ?? 0,
                   )}
                 </TableCell>
               </TableRow>
@@ -74,15 +74,15 @@ export const TableMobile = ({
                 <TableCell>Top 25 rate</TableCell>
                 <TableCell>
                   {rateStr(
-                    data?.stats.all.solo?.top25 || 0,
-                    data?.stats.all.solo?.matches || 0,
+                    data?.stats.all.solo?.top25 ?? 0,
+                    data?.stats.all.solo?.matches ?? 0,
                   )}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Time Played</TableCell>
                 <TableCell>
-                  {humanizeDuration(data?.stats.all.solo?.minutesPlayed || 0)}
+                  {humanizeDuration(data?.stats.all.solo?.minutesPlayed ?? 0)}
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -118,23 +118,23 @@ export const TableMobile = ({
                 <TableCell>Win Rate</TableCell>
                 <TableCell>
                   {rateStr(
-                    data?.stats.all.duo?.wins || 0,
-                    data?.stats.all.duo?.matches || 0,
+                    data?.stats.all.duo?.wins ?? 0,
+                    data?.stats.all.duo?.matches ?? 0,
                   )}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Kill/Death rate</TableCell>
                 <TableCell>
-                  {Math.ceil((data?.stats.all.duo?.kd || 0) * 100) / 100}
+                  {Math.ceil((data?.stats.all.duo?.kd ?? 0) * 100) / 100}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Top 5 rate</TableCell>
                 <TableCell>
                   {rateStr(
-                    data?.stats.all.duo?.top5 || 0,
-                    data?.stats.all.duo?.matches || 0,
+                    data?.stats.all.duo?.top5 ?? 0,
+                    data?.stats.all.duo?.matches ?? 0,
                   )}
                 </TableCell>
               </TableRow>
@@ -142,15 +142,15 @@ export const TableMobile = ({
                 <TableCell>Top 12 rate</TableCell>
                 <TableCell>
                   {rateStr(
-                    data?.stats.all.duo?.top12 || 0,
-                    data?.stats.all.duo?.matches || 0,
+                    data?.stats.all.duo?.top12 ?? 0,
+                    data?.stats.all.duo?.matches ?? 0,
                   )}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Time Played</TableCell>
                 <TableCell>
-                  {humanizeDuration(data?.stats.all.duo?.minutesPlayed || 0)}
+                  {humanizeDuration(data?.stats.all.duo?.minutesPlayed ?? 0)}
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -185,23 +185,23 @@ export const TableMobile = ({
                 <TableCell>Win Rate</TableCell>
                 <TableCell>
                   {rateStr(
-                    data?.stats.all.squad?.wins || 0,
-                    data?.stats.all.squad?.matches || 0,
+                    data?.stats.all.squad?.wins ?? 0,
+                    data?.stats.all.squad?.matches ?? 0,
                   )}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Kill/Death rate</TableCell>
                 <TableCell>
-                  {Math.ceil((data?.stats.all.solo?.kd || 0) * 100) / 100}
+                  {Math.ceil((data?.stats.all.solo?.kd ?? 0) * 100) / 100}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Top 3 rate</TableCell>
                 <TableCell>
                   {rateStr(
-                    data?.stats.all.squad?.top3 || 0,
-                    data?.stats.all.squad?.matches || 0,
+                    data?.stats.all.squad?.top3 ?? 0,
+                    data?.stats.all.squad?.matches ?? 0,
                   )}
                 </TableCell>
               </TableRow>
@@ -209,15 +209,15 @@ export const TableMobile = ({
                 <TableCell>Top 6 rate</TableCell>
                 <TableCell>
                   {rateStr(
-                    data?.stats.all.squad?.top6 || 0,
-                    data?.stats.all.squad?.matches || 0,
+                    data?.stats.all.squad?.top6 ?? 0,
+                    data?.stats.all.squad?.matches ?? 0,
                   )}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Time Played</TableCell>
                 <TableCell>
-                  {humanizeDuration(data?.stats.all.squad?.minutesPlayed || 0)}
+                  {humanizeDuration(data?.stats.all.squad?.minutesPlayed ?? 0)}
                 </TableCell>
               </TableRow>
             </TableBody>

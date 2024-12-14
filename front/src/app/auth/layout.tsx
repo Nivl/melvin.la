@@ -17,7 +17,7 @@ export default function RootLayout({
   // Redirect the user if/when they log in
   useEffect(() => {
     if (me) {
-      void router.replace('/');
+      router.replace('/');
     }
 
     // We don't put the router here to avoid an infinite loop

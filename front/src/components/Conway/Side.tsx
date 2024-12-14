@@ -26,7 +26,7 @@ const growBoard = (board: Board, newSize: number): Board => {
     return row.concat(Array(newSize - boardSize).fill(0));
   });
   for (let i = 0; i < newSize - boardSize; i++) {
-    newBoard.push(Array(newSize).fill(0));
+    newBoard.push(Array(newSize).fill(0) as Board[0]);
   }
   return newBoard;
 };
@@ -76,7 +76,7 @@ export const Side = ({
 
       <Slider
         label="Speed"
-        getValue={speed => `${speed}x`}
+        getValue={speed => `${speed.toString()}x`}
         step={0.25}
         maxValue={5}
         minValue={0.25}
@@ -97,7 +97,7 @@ export const Side = ({
         isDisabled={isPlaying}
         getValue={sizeIndex => {
           const actualSize = boardSizes[~~sizeIndex] || boardSizes[0];
-          return `${actualSize}x${actualSize}`;
+          return `${actualSize.toString()}x${actualSize.toString()}`;
         }}
         onChange={v => {
           const x = typeof v === 'object' ? v[0] : v;
@@ -120,7 +120,7 @@ export const Side = ({
             return row.concat(Array(newSize - boardSize).fill(0));
           });
           for (let i = 0; i < newSize - boardSize; i++) {
-            newBoard.push(Array(newSize).fill(0));
+            newBoard.push(Array(newSize).fill(0) as Board[0]);
           }
 
           setBoardSize(newSize);

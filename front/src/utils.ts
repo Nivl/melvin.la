@@ -8,7 +8,7 @@ export const rate = (value: number, total: number) => {
 };
 
 export const rateStr = (value: number, total: number) => {
-  return `${rate(value, total)}%`;
+  return `${rate(value, total).toFixed(2)}%`;
 };
 
 // convert minutes to human readable duration
@@ -18,13 +18,13 @@ export const humanizeDuration = (minutes: number) => {
   const h = Math.floor((minutes % 1440) / 60);
   const m = minutes % 60;
   if (d > 0) {
-    output += `${d} day${d > 1 ? 's' : ''} `;
+    output += `${d.toFixed()} day${d > 1 ? 's' : ''} `;
   }
   if (h > 0) {
-    output += `${h} hour${h > 1 ? 's' : ''} `;
+    output += `${h.toFixed()} hour${h > 1 ? 's' : ''} `;
   }
   if (m > 0) {
-    output += `${m} minute${m > 1 ? 's' : ''} `;
+    output += `${m.toFixed()} minute${m > 1 ? 's' : ''} `;
   }
   return output;
 };

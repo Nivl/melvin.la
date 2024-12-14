@@ -31,7 +31,9 @@ export const InputPassword = <T,>({
         <button
           className="focus:outline-none"
           type="button"
-          onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+          onClick={() => {
+            setIsPasswordVisible(!isPasswordVisible);
+          }}
           aria-label="toggle password visibility"
         >
           {isPasswordVisible ? (
@@ -52,7 +54,7 @@ export const InputPassword = <T,>({
           ((fieldError.type == 'required' && 'Required') ||
             (fieldError.type == 'maxLength' &&
               'Password should be less or equal to 255 chars') ||
-            'Invalid')) ||
+            'Invalid')) ??
         serverErrors?.at(0)
       }
     />

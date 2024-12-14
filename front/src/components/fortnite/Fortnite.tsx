@@ -6,8 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { Section } from '#components/Home/Section';
-import { ErrorWithCode } from '#error';
-import { ErrCode, useStats } from '#hooks/fortnite/useStats';
+import { ErrCode, ErrorWithCode, useStats } from '#hooks/fortnite/useStats';
 import { humanizeDuration } from '#utils';
 
 import { Footer } from '../Home/Footer';
@@ -31,7 +30,7 @@ export const Fortnite = ({
     accountName: providedName
       ? decodeURIComponent(providedName)
       : defaults.accountName,
-    accountType: providedType || defaults.accountType,
+    accountType: providedType ?? defaults.accountType,
     timeWindow: defaults.timeWindow,
   });
 
@@ -51,14 +50,11 @@ export const Fortnite = ({
   useEffect(() => {
     let url = '/tools/fortnite';
     if (name) {
-      url += `/${encodeURIComponent(name)}`;
-      if (accountType) {
-        url += `/${accountType}`;
-      }
+      url += `/${encodeURIComponent(name)}/${accountType}`;
     }
 
     if (pathname != url) {
-      void router.push(url, {
+      router.push(url, {
         // @ts-expect-error 'shallow' does not exist in type 'NavigateOptions' but is valid. See https://github.com/vercel/next.js/issues/60007
         shallow: true,
       });

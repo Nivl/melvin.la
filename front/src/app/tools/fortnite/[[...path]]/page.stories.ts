@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ErrorWithCode } from '#error';
-import { ErrCode, useStats } from '#hooks/fortnite/useStats.mock';
+import {
+  ErrCode,
+  ErrorWithCode,
+  useStats,
+} from '#hooks/fortnite/useStats.mock';
 import { Data } from '#models/fortnite';
 
 import validData from '../../../../../.storybook/fixtures/valid_fortnite_data.json';
@@ -77,7 +80,7 @@ export const Loading: Story = {
       });
     }),
   },
-  async beforeEach() {
+  beforeEach() {
     useStats.mockImplementation(() => {
       return {
         isLoading: true,

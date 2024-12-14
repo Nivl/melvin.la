@@ -21,7 +21,7 @@ export const MainData = ({
             ? `${rate(
                 data.stats.all.overall.wins,
                 data.stats.all.overall.matches,
-              )} %`
+              ).toFixed(2)}%`
             : '0.00%'
         }
       />
@@ -30,14 +30,16 @@ export const MainData = ({
         title="Overall Kill / Death ratio"
         isLoading={isLoading || !data}
         stat={
-          data ? `${Math.ceil(data.stats.all.overall.kd * 100) / 100}` : '0.00'
+          data
+            ? (Math.ceil(data.stats.all.overall.kd * 100) / 100).toFixed(2)
+            : '0.00'
         }
       />
       <StatCard
         className="from-[#FF72E1] to-[#F54C7A]"
-        title={`Level ${data?.battlePass.level || 1}`}
+        title={`Level ${(data?.battlePass.level ?? 1).toString()}`}
         isLoading={isLoading || !data}
-        stat={data?.battlePass.progress || 0}
+        stat={data?.battlePass.progress ?? 0}
         isProgress
       />
     </div>

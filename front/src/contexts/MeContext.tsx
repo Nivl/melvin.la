@@ -7,13 +7,13 @@ import { deleteToken, get, hasToken } from '#backend/request';
 import { Me } from '#backend/types';
 import { useWindow } from '#hooks/useWindow';
 
-export interface MeContextInterface {
+export type MeContextInterface = {
   me: Me | null;
   isLoading: boolean;
   isError: boolean;
   error?: unknown;
   setMe: (_: Me | null) => void;
-}
+};
 
 export const MeProvider = ({ children }: { children: ReactNode }) => {
   const [me, setMe] = useState<Me | null>(null);
@@ -59,7 +59,7 @@ export const MeProvider = ({ children }: { children: ReactNode }) => {
   }, [me, ldClient]);
 
   const toProvide: MeContextInterface = {
-    me: data || me,
+    me: data ?? me,
     setMe,
     isLoading: !win || (isLoading && fetchStatus !== 'idle'),
     isError,
