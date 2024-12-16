@@ -44,6 +44,12 @@ tasks:
     cmds:
       - migrate create -ext sql -dir database/migrations {{.CLI_ARGS}}
 
+  fixtures:
+    cmds:
+      - psql "${API_POSTGRES_URL}" < database/fixtures/drop.sql
+      - migrate -database ${API_POSTGRES_URL} -path database/migrations up
+      - psql "${API_POSTGRES_URL}" < database/fixtures/fixtures.sql
+
   lint: golangci-lint run ./...
 
   generate:
