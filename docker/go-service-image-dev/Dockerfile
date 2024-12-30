@@ -1,4 +1,4 @@
-FROM golang:1.23-alpine
+FROM golang:1.24-alpine
 
 RUN apk update && apk upgrade
 RUN apk add curl git gcc musl-dev postgresql-client
@@ -14,16 +14,16 @@ RUN curl -L -o migrate.linux-amd64.tar.gz https://github.com/golang-migrate/migr
     mv migrate /usr/local/bin/migrate
 
 
-ARG TASK_VERSION=3.39.2
-ARG TASK_SHASUM="ba109e09e7235ed017e18a23775ed7f032ca436d8f913b2d40978b03e972f106  task_linux_amd64.tar.gz"
+ARG TASK_VERSION=3.41.0
+ARG TASK_SHASUM="0a2595f7fa3c15a62f8d0c244121a4977018b3bfdec7c1542ac2a8cf079978b8  task_linux_amd64.tar.gz"
 RUN curl -L -o task_linux_amd64.tar.gz https://github.com/go-task/task/releases/download/v${TASK_VERSION}/task_linux_amd64.tar.gz && \
     tar xvzf task_linux_amd64.tar.gz && \
     echo "$TASK_SHASUM" | sha256sum -c - && \
     mv task /usr/local/bin/task
 
 
-ARG GOLANG_CI_VERSION=1.61.0
-ARG GOLANG_CI_SHASUM="77cb0af99379d9a21d5dc8c38364d060e864a01bd2f3e30b5e8cc550c3a54111  golangci-lint.tar.gz"
+ARG GOLANG_CI_VERSION=1.64.5
+ARG GOLANG_CI_SHASUM="e6bd399a0479c5fd846dcf9f3990d20448b4f0d1e5027d82348eab9f80f7ac71  golangci-lint.tar.gz"
 RUN curl -L -o golangci-lint.tar.gz https://github.com/golangci/golangci-lint/releases/download/v${GOLANG_CI_VERSION}/golangci-lint-${GOLANG_CI_VERSION}-linux-amd64.tar.gz && \
     tar xvzf golangci-lint.tar.gz --strip-components=1 && \
     echo "$GOLANG_CI_SHASUM" | sha256sum -c - && \
