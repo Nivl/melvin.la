@@ -14,16 +14,16 @@ RUN curl -L -o migrate.linux-amd64.tar.gz https://github.com/golang-migrate/migr
     mv migrate /usr/local/bin/migrate
 
 
-ARG TASK_VERSION=3.39.2
-ARG TASK_SHASUM="ba109e09e7235ed017e18a23775ed7f032ca436d8f913b2d40978b03e972f106  task_linux_amd64.tar.gz"
+ARG TASK_VERSION=3.40.1
+ARG TASK_SHASUM="a35462ec71410cccfc428072de830e4478bc57a919d0131ef7897759270dff8f  task_linux_amd64.tar.gz"
 RUN curl -L -o task_linux_amd64.tar.gz https://github.com/go-task/task/releases/download/v${TASK_VERSION}/task_linux_amd64.tar.gz && \
     tar xvzf task_linux_amd64.tar.gz && \
     echo "$TASK_SHASUM" | sha256sum -c - && \
     mv task /usr/local/bin/task
 
 
-ARG GOLANG_CI_VERSION=1.61.0
-ARG GOLANG_CI_SHASUM="77cb0af99379d9a21d5dc8c38364d060e864a01bd2f3e30b5e8cc550c3a54111  golangci-lint.tar.gz"
+ARG GOLANG_CI_VERSION=1.62.2
+ARG GOLANG_CI_SHASUM="5101292b7925a6a14b49c5c3d845c5021399698ffd2f41bcfab8a111b5669939  golangci-lint.tar.gz"
 RUN curl -L -o golangci-lint.tar.gz https://github.com/golangci/golangci-lint/releases/download/v${GOLANG_CI_VERSION}/golangci-lint-${GOLANG_CI_VERSION}-linux-amd64.tar.gz && \
     tar xvzf golangci-lint.tar.gz --strip-components=1 && \
     echo "$GOLANG_CI_SHASUM" | sha256sum -c - && \
