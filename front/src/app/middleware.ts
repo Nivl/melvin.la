@@ -13,10 +13,7 @@ export function middleware(request: Request) {
     return new Error('Invalid origin'), { status: 403 };
   }
   const response = NextResponse.next({
-    request: {
-      ...request,
-      headers: request.headers,
-    },
+    request,
   });
 
   response.headers.set('Access-Control-Allow-Origin', '*');
