@@ -1,6 +1,6 @@
 'use client';
 
-import { Divider as NextDivider } from '@nextui-org/react';
+import { Divider as NextDivider } from '@heroui/react';
 export const Divider = ({ text }: { text: string }) => {
   return (
     <div className="my-4 flex items-center gap-4">

@@ -1,4 +1,4 @@
-import { Slider, Switch } from '@nextui-org/react';
+import { Slider, Switch } from '@heroui/react';
 import { FaPause as PauseIcon, FaPlay as Playicon } from 'react-icons/fa6';
 
 import {

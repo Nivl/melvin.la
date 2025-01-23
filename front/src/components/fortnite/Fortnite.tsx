@@ -1,6 +1,6 @@
 'use client';
 
-import { Skeleton } from '@nextui-org/react';
+import { Skeleton } from '@heroui/react';
 import { notFound } from 'next/navigation';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
