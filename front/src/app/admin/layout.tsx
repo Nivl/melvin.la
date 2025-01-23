@@ -1,6 +1,6 @@
 'use client';
 
-import { Spinner } from '@nextui-org/react';
+import { Spinner } from '@heroui/react';
 import { useRouter } from 'next/navigation';
 import { useContext, useEffect } from 'react';
 

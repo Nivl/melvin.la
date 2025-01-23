@@ -1,4 +1,4 @@
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import { FieldError, UseFormRegister } from 'react-hook-form';
 
 type Props<T> = {

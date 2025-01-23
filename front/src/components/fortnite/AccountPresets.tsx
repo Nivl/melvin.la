@@ -1,4 +1,4 @@
-import { Avatar, Tooltip } from '@nextui-org/react';
+import { Avatar, Tooltip } from '@heroui/react';
 import { useMemo } from 'react';
 
 import { AccountTypes, TimeWindow } from './Form';
