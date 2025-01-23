@@ -25,7 +25,7 @@ const presetLists: {
     key: crypto.randomUUID(),
     name: 'Nikof',
     picture:
-      'https://yt3.googleusercontent.com/OJFpkcyoN3FHwsFc1v8EBkD4aSyKvUTkd8NL6jrKku85Jd99h8MwRTYJP5m37NXBhFprZW9SxA=s176-c-k-c0x00ffffff-no-rj',
+      'https://yt3.googleusercontent.com/2mxiF3jOPiZcd-FjQ-rmSuE9t_RiOBqoPgiJsHMxdR0_wovWqHwOA-xGzz3pxmqxPXIsamsI=s160-c-k-c0x00ffffff-no-rj',
     data: {
       accountName: 'M8 Nîkof',
       accountType: AccountTypes.Epic,
