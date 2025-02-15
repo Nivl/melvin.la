@@ -1,4 +1,4 @@
-FROM golang:1.23-alpine
+FROM golang:1.24-alpine
 
 RUN apk update && apk upgrade
 RUN apk add curl git gcc musl-dev postgresql-client
