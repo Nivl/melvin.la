@@ -47,7 +47,7 @@ const presetLists: {
     key: crypto.randomUUID(),
     name: 'Aussie Antics',
     picture:
-      'https://yt3.googleusercontent.com/gxSnaytdtO70nd4_MydIjGo4_6DTSpkk662Rm5wx6DXIpKLF_X5UVSSfHNRZqMMlI8fZGl_iGg=s176-c-k-c0x00ffffff-no-rj',
+      'https://yt3.googleusercontent.com/AvhJUD0eAio7gb3a39GfSuf7Fpdf4cEZlCqSkvastLXOjBrdDR2t59h9_MRc3MEfvM8-SJ0d=s160-c-k-c0x00ffffff-no-rj',
     data: {
       accountName: 'DIG Aussie',
       accountType: AccountTypes.Epic,
