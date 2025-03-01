@@ -114,7 +114,6 @@ export const Timezones = () => {
                   key={item.entryIndex.toString()}
                   className="capitalize"
                   textValue={`${item.data.city}, ${item.data.country} (${item.data.timezone})`}
-                  value={item.entryIndex.toString()}
                 >
                   {item.data.city}, {item.data.country} ({item.data.timezone})
                 </AutocompleteItem>
@@ -189,7 +188,6 @@ export const Timezones = () => {
                       key={item.entryIndex.toString()}
                       className="capitalize"
                       textValue={`${item.data.city}, ${item.data.country} (${item.data.timezone})`}
-                      value={item.entryIndex.toString()}
                     >
                       {item.data.city}, {item.data.country} (
                       {item.data.timezone})

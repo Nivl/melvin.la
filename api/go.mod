@@ -1,6 +1,6 @@
 module github.com/Nivl/melvin.la/api
 
-go 1.23.2
+go 1.23.6
 
 require (
 	github.com/golang-migrate/migrate/v4 v4.18.2
@@ -16,7 +16,7 @@ require (
 	github.com/stretchr/testify v1.10.0
 	go.uber.org/mock v0.5.0
 	go.uber.org/zap v1.27.0
-	golang.org/x/crypto v0.33.0
+	golang.org/x/crypto v0.35.0
 )
 
 require (
