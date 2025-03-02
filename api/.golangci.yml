@@ -11,6 +11,10 @@ issues:
         - govet
       text: 'shadow: declaration of "err"'
 
+    - path: secret/secret\.go
+      linters:
+        - recvcheck
+
     # we remove a few annoying things from our tests, because they
     # don't provide much beside complexity
     - path: _test\.go
@@ -45,6 +49,7 @@ linters:
     - cyclop # checks function and package cyclomatic complexity || Hard to use productively due to many valid use cases going against the linter
     - depguard # Go linter that checks if package imports are in a list of acceptable packages || No use case for this repo
     - dupl # Tool for code clone detection || Hard to use productively due to many valid use cases going against the linter
+    - exportloopref # Replaced by copyloopvar
     - funlen # Tool for detection of long functions || Hard to use productively due to many valid use cases going against the linter
     - gci # Gci control golang package import order and make it always deterministic || Conflicts with gofumpt
     - gochecknoglobals # check that no global variables exist || Hard to use productively due to many valid use cases going against the linter || Recommend using locally

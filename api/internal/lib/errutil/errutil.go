@@ -6,13 +6,13 @@ import (
 	"log"
 )
 
-// Check call the provided method and sets the error to err if err is nil
+// Check calls the provided method and sets the error to err if err is nil
 // Deprecated: use CheckWithMessage instead
 func Check(f func() error, err *error) { //nolint: gocritic // the pointer of pointer is on purpose so we can change the value if it's nil
 	CheckWithMessage(f, err, "")
 }
 
-// CheckWithMessage call the provided method and sets the error to err
+// CheckWithMessage calls the provided method and sets the error to err
 // if err is nil
 func CheckWithMessage(f func() error, err *error, msg string) { //nolint: gocritic // the pointer of pointer is on purpose so we can change the value if it's nil
 	if e := f(); e != nil {
@@ -26,5 +26,14 @@ func CheckWithMessage(f func() error, err *error, msg string) { //nolint: gocrit
 		default:
 			log.Println("a check failed:", e)
 		}
+	}
+}
+
+// CheckWhenErr calls the provided method if the provided error is nil.
+// If the provided method returns an error, it will be set to
+// the provided error.
+func CheckWhenErr(f func() error, err *error, msg string) { //nolint: gocritic // the pointer of pointer is on purpose so we can change the value if it's nil
+	if *err != nil {
+		CheckWithMessage(f, err, msg)
 	}
 }
