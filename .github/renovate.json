@@ -12,6 +12,12 @@
       "matchPackageNames": [
         "/postgres/"
       ]
+    },
+    {
+      "enabled": false,
+      "matchPackageNames": [
+        "@internationalized/date"
+      ]
     }
   ]
 }

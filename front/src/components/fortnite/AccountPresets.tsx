@@ -1,4 +1,4 @@
-import { Avatar, Tooltip } from '@nextui-org/react';
+import { Avatar, Tooltip } from '@heroui/react';
 import { useMemo } from 'react';
 
 import { AccountTypes, TimeWindow } from './Form';
@@ -25,7 +25,7 @@ const presetLists: {
     key: crypto.randomUUID(),
     name: 'Nikof',
     picture:
-      'https://yt3.googleusercontent.com/OJFpkcyoN3FHwsFc1v8EBkD4aSyKvUTkd8NL6jrKku85Jd99h8MwRTYJP5m37NXBhFprZW9SxA=s176-c-k-c0x00ffffff-no-rj',
+      'https://yt3.googleusercontent.com/2mxiF3jOPiZcd-FjQ-rmSuE9t_RiOBqoPgiJsHMxdR0_wovWqHwOA-xGzz3pxmqxPXIsamsI=s160-c-k-c0x00ffffff-no-rj',
     data: {
       accountName: 'M8 Nîkof',
       accountType: AccountTypes.Epic,
@@ -47,7 +47,7 @@ const presetLists: {
     key: crypto.randomUUID(),
     name: 'Aussie Antics',
     picture:
-      'https://yt3.googleusercontent.com/gxSnaytdtO70nd4_MydIjGo4_6DTSpkk662Rm5wx6DXIpKLF_X5UVSSfHNRZqMMlI8fZGl_iGg=s176-c-k-c0x00ffffff-no-rj',
+      'https://yt3.googleusercontent.com/AvhJUD0eAio7gb3a39GfSuf7Fpdf4cEZlCqSkvastLXOjBrdDR2t59h9_MRc3MEfvM8-SJ0d=s160-c-k-c0x00ffffff-no-rj',
     data: {
       accountName: 'DIG Aussie',
       accountType: AccountTypes.Epic,
@@ -58,7 +58,7 @@ const presetLists: {
     key: crypto.randomUUID(),
     name: 'Talmo',
     picture:
-      'https://yt3.googleusercontent.com/dzISfFDpHsOktzBoaYf8bgrC_fHnSC5P172Vekt-5AjLcORbexQzT5R8sTFqUn9WSvSIvGM5Wg=s160-c-k-c0x00ffffff-no-rj',
+      'https://static-cdn.jtvnw.net/jtv_user_pictures/b310031d-5759-47bd-89b4-3c3e8c613351-profile_image-70x70.png',
     data: {
       accountName: 'solo talmo',
       accountType: AccountTypes.Epic,

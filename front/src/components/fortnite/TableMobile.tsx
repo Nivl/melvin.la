@@ -5,7 +5,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { FaUser } from 'react-icons/fa';
 import { FaUserGroup } from 'react-icons/fa6';
 import { HiMiniUserGroup } from 'react-icons/hi2';

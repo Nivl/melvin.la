@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
   Tooltip,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { useEffect, useMemo, useState } from 'react';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 import { FaUser, FaUserGroup, FaUsers } from 'react-icons/fa6';

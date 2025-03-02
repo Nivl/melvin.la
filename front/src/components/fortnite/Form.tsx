@@ -1,6 +1,6 @@
 'use client';
 
-import { Input, Switch } from '@nextui-org/react';
+import { Input, Switch } from '@heroui/react';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { useEffect, useState } from 'react';
 import { FaPlaystation, FaXbox } from 'react-icons/fa';

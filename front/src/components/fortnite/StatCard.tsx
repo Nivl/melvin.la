@@ -5,7 +5,7 @@ import {
   Chip,
   CircularProgress,
   Skeleton,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { twMerge } from 'tailwind-merge';
 
 export const StatCard = ({

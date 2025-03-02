@@ -1,8 +1,8 @@
 'use client';
 
+import { DateInput, DateValue } from '@heroui/react';
+import { Autocomplete, AutocompleteItem } from '@heroui/react';
 import { getLocalTimeZone, now } from '@internationalized/date';
-import { DateInput, DateValue } from '@nextui-org/react';
-import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
 import { CityData, cityMapping } from 'city-timezones';
 import moment from 'moment-timezone';
 import { useState } from 'react';
@@ -114,7 +114,6 @@ export const Timezones = () => {
                   key={item.entryIndex.toString()}
                   className="capitalize"
                   textValue={`${item.data.city}, ${item.data.country} (${item.data.timezone})`}
-                  value={item.entryIndex.toString()}
                 >
                   {item.data.city}, {item.data.country} ({item.data.timezone})
                 </AutocompleteItem>
@@ -189,7 +188,6 @@ export const Timezones = () => {
                       key={item.entryIndex.toString()}
                       className="capitalize"
                       textValue={`${item.data.city}, ${item.data.country} (${item.data.timezone})`}
-                      value={item.entryIndex.toString()}
                     >
                       {item.data.city}, {item.data.country} (
                       {item.data.timezone})

@@ -10,7 +10,7 @@ import {
   Navbar as NuiNavbar,
   NavbarContent,
   NavbarItem,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { useFlags } from 'launchdarkly-react-client-sdk';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
@@ -72,7 +72,7 @@ export const Navbar = () => {
             selectedKeys={
               pathname.startsWith('/games/conway') ? new Set(['conway']) : ''
             }
-            // remove once they fix href on DropdownItem -- https://github.com/nextui-org/nextui/issues/4244
+            // remove once they fix href on DropdownItem -- https://github.com/heroui-inc/heroui/issues/4244
             onAction={key => {
               switch (key) {
                 case 'conway':
@@ -85,7 +85,7 @@ export const Navbar = () => {
               key="conway"
               description="Zero-player cellular automation game."
               startContent={<ConwayIcon className="h-5 w-5" />}
-              // href="/games/conway" -- https://github.com/nextui-org/nextui/issues/4244
+              // href="/games/conway" -- https://github.com/heroui-inc/heroui/issues/4244
             >
               Game of Life
             </DropdownItem>
@@ -116,7 +116,7 @@ export const Navbar = () => {
                   ? new Set(['timezones'])
                   : ''
             }
-            // remove once they fix href on DropdownItem -- https://github.com/nextui-org/nextui/issues/4244
+            // remove once they fix href on DropdownItem -- https://github.com/heroui-inc/heroui/issues/4244
             onAction={key => {
               switch (key) {
                 case 'fortnite':
@@ -131,7 +131,7 @@ export const Navbar = () => {
             <DropdownItem
               key="fortnite"
               startContent={<FortniteIcon className="h-5 w-5" />}
-              // href="/tools/fortnite" -- https://github.com/nextui-org/nextui/issues/4244
+              // href="/tools/fortnite" -- https://github.com/heroui-inc/heroui/issues/4244
             >
               Fortnite Data
             </DropdownItem>
@@ -139,7 +139,7 @@ export const Navbar = () => {
             <DropdownItem
               key="timezones"
               startContent={<TimezoneIcon className="h-5 w-5" />}
-              // href="/tools/timezones" -- https://github.com/nextui-org/nextui/issues/4244
+              // href="/tools/timezones" -- https://github.com/heroui-inc/heroui/issues/4244
             >
               Timezone Convertor
             </DropdownItem>
