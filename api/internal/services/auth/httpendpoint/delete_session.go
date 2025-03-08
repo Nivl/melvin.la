@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Nivl/melvin.la/api/.gen/api-melvinla/public/table"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
+	"github.com/go-jet/jet/v2/postgres"
 	"github.com/labstack/echo/v4"
 )
 
@@ -15,15 +17,12 @@ func DeleteSession(ec echo.Context) error {
 	if c.User() == nil {
 		return httputil.NewAuthenticationError("user not authenticated")
 	}
-	query := `
-		UPDATE user_sessions
-			SET deleted_at = NOW()
-		WHERE
-			token=:token
-	`
-	_, err := c.DB().NamedExecContext(c.Request().Context(), query, map[string]interface{}{
-		"token": c.SessionToken(),
-	})
+
+	_, err := table.UserSessions.
+		UPDATE().
+		SET(table.UserSessions.DeletedAt.SET(postgres.NOW())).
+		WHERE(table.UserSessions.Token.EQ(postgres.String(c.SessionToken()))).
+		ExecContext(c.Request().Context(), c.DB())
 	if err != nil {
 		return fmt.Errorf("could not soft-delete session: %w", err)
 	}

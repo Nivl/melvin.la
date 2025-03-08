@@ -5,9 +5,9 @@ package uftestutil
 import (
 	"testing"
 
+	"github.com/Nivl/melvin.la/api/.gen/api-melvinla/public/model"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/Nivl/melvin.la/api/internal/lib/testutil"
-	"github.com/Nivl/melvin.la/api/internal/services/auth/models"
 
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
 )
@@ -15,7 +15,7 @@ import (
 // TestData contains all the data needed for a test
 type TestData struct {
 	*testutil.TestData
-	User *models.User
+	User *model.Users
 }
 
 // NewTest creates a new DB, a new HTTP context,  and adds a

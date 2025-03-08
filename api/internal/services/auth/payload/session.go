@@ -3,7 +3,7 @@ package payload
 import (
 	"time"
 
-	"github.com/Nivl/melvin.la/api/internal/services/auth/models"
+	"github.com/Nivl/melvin.la/api/.gen/api-melvinla/public/model"
 )
 
 // Session represents a valid session for the user to use to login
@@ -15,11 +15,11 @@ type Session struct {
 }
 
 // NewSession creates a new Session payload
-func NewSession(s *models.Session) *Session {
+func NewSession(s *model.UserSessions) *Session {
 	return &Session{
-		Token:        s.Token,
-		UserID:       s.UserID,
-		RefreshToken: s.RefreshToken,
+		Token:        s.Token.String(),
+		UserID:       s.UserID.String(),
+		RefreshToken: s.RefreshToken.String(),
 		ExpiresAt:    s.ExpiresAt,
 	}
 }

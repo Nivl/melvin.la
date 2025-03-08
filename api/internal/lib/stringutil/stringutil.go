@@ -35,3 +35,7 @@ func ToCamelCase(s string) string {
 	s = strings.ReplaceAll(s, " ", "")
 	return string(firstChar) + s[1:]
 }
+
+func ToPointer(s string) *string {
+	return &s
+}

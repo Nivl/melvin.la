@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/Nivl/melvin.la/api/.gen/api-melvinla/public/model"
+	"github.com/Nivl/melvin.la/api/.gen/api-melvinla/public/table"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
@@ -80,19 +82,17 @@ func CreateUser(ec echo.Context) error {
 		return fmt.Errorf("could not get a bcrypt hash from the password: %w", err)
 	}
 
-	query := `
-		INSERT INTO users
-			(id, email, password, password_crypto, name)
-		VALUES
-			(:id, :email, :password, :password_crypto, :name)`
-
-	_, err = c.DB().NamedExecContext(c.Request().Context(), query, map[string]interface{}{
-		"id":              uuid.NewString(),
-		"name":            input.Name,
-		"email":           email,
-		"password":        password,
-		"password_crypto": "bcrypt",
-	})
+	u := model.Users{
+		ID:             uuid.New(),
+		Name:           input.Name,
+		Email:          email,
+		Password:       string(password),
+		PasswordCrypto: "bcrypt",
+	}
+	_, err = table.Users.
+		INSERT(table.Users.ID, table.Users.Name, table.Users.Email, table.Users.Password, table.Users.PasswordCrypto).
+		MODEL(u).
+		ExecContext(c.Request().Context(), c.DB())
 	if err != nil {
 		var dbErr *pgconn.PgError
 		if errors.As(err, &dbErr) {

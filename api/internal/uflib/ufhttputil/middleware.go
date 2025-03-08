@@ -5,8 +5,10 @@ import (
 	"errors"
 	"strings"
 
+	"github.com/Nivl/melvin.la/api/.gen/api-melvinla/public/model"
+	"github.com/Nivl/melvin.la/api/.gen/api-melvinla/public/table"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
-	"github.com/Nivl/melvin.la/api/internal/services/auth/models"
+	"github.com/go-jet/jet/v2/postgres"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
@@ -43,16 +45,16 @@ func AuthUser() echo.MiddlewareFunc {
 				if _, err := uuid.Parse(sessionToken); err != nil {
 					return httputil.NewBadRequestError("Invalid authorization format")
 				}
-				var u models.User
-				query := `
-			SELECT u.*
-			FROM users u
-			LEFT JOIN user_sessions us
-				ON u.id = us.user_id
-			WHERE us.token=$1
-				AND us.deleted_at IS NULL
-				AND u.deleted_at IS NULL`
-				err := c.DB().GetContext(ctx, &u, query, sessionToken)
+
+				var u model.Users
+				err := table.Users.
+					SELECT(table.Users.AllColumns).
+					FROM(table.Users.
+						LEFT_JOIN(table.UserSessions, table.Users.ID.EQ(table.UserSessions.UserID))).
+					WHERE(table.UserSessions.Token.EQ(postgres.String(sessionToken)).
+						AND(table.UserSessions.DeletedAt.IS_NULL()).
+						AND(table.Users.DeletedAt.IS_NULL())).
+					QueryContext(ctx, c.DB(), &u)
 				if err != nil {
 					if errors.Is(err, sql.ErrNoRows) {
 						return httputil.NewAuthenticationError("token invalid or expired")

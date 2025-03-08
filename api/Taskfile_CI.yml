@@ -13,6 +13,11 @@ tasks:
       - pg_dump -d ${API_POSTGRES_URL} -C | awk 'RS="";/(CREATE TABLE|INDEX)|(ALTER TABLE)[^;]*;/' > docs/db_schema.sql
       - git diff --exit-code
 
+  lint-models:
+    cmds:
+      - jet -dsn=${API_POSTGRES_URL} -schema=public -path=./.gen
+      - git diff --exit-code
+
   lint:
     cmds:
       - golangci-lint run ./...

@@ -17,7 +17,7 @@ func GetUser(ec echo.Context) error {
 	}
 	// We only allow users to get themselves
 	userID := c.Param("id")
-	if userID != "me" && userID != c.User().ID {
+	if userID != "me" && userID != c.User().ID.String() {
 		return httputil.NewNotFoundError()
 	}
 	return c.JSON(http.StatusOK, payload.NewMe(c.User()))

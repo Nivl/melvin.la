@@ -8,9 +8,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Nivl/melvin.la/api/.gen/api-melvinla/public/model"
+	"github.com/Nivl/melvin.la/api/.gen/api-melvinla/public/table"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
+	"github.com/Nivl/melvin.la/api/internal/lib/stringutil"
+	"github.com/go-jet/jet/v2/postgres"
 
-	"github.com/Nivl/melvin.la/api/internal/services/auth/models"
 	"github.com/Nivl/melvin.la/api/internal/services/auth/payload"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
 	"github.com/google/uuid"
@@ -56,7 +59,7 @@ type SignedInUser struct {
 }
 
 // NewSignedInUser creates a new SignedInUser payload
-func NewSignedInUser(u *models.User, s *models.Session) *SignedInUser {
+func NewSignedInUser(u *model.Users, s *model.UserSessions) *SignedInUser {
 	me := payload.NewMe(u)
 	sess := payload.NewSession(s)
 
@@ -82,14 +85,15 @@ func CreateSession(ec echo.Context) error {
 
 	// We first check if the email is valid, while retrieving the hashed
 	// password
-	var user models.User
-	query := `
-		SELECT *
-		FROM users
-		WHERE
-			email=$1
-			AND deleted_at IS NULL`
-	err = c.DB().GetContext(c.Request().Context(), &user, query, input.Email)
+	var user model.Users
+	err = table.Users.
+		SELECT(table.Users.AllColumns).
+		FROM(table.Users).
+		WHERE(
+			table.Users.Email.EQ(postgres.String(input.Email)).
+				AND(table.Users.DeletedAt.IS_NULL()),
+		).
+		QueryContext(c.Request().Context(), c.DB(), &user)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return httputil.NewValidationError("_", "Invalid email or password")
@@ -103,21 +107,18 @@ func CreateSession(ec echo.Context) error {
 	}
 
 	// We can now create a new Session and return it to the user
-	sess := &models.Session{
-		Token:        uuid.NewString(),
+	sess := &model.UserSessions{
+		Token:        uuid.New(),
 		UserID:       user.ID,
-		RefreshToken: uuid.NewString(),
+		RefreshToken: uuid.New(),
 		ExpiresAt:    time.Now().Add(time.Hour * 24 * 7), // 7 days
-		IPAddress:    c.RealIP(),
-		RefreshedAs:  uuid.NullUUID{},
+		IPAddress:    stringutil.ToPointer(c.RealIP()),
+		RefreshedAs:  nil,
 	}
-	query = `
-		INSERT INTO user_sessions
-			(token, user_id, refresh_token, expires_at, ip_address)
-		VALUES
-			(:token, :user_id, :refresh_token, :expires_at, :ip_address)
-	`
-	_, err = c.DB().NamedExecContext(c.Request().Context(), query, sess)
+	_, err = table.UserSessions.
+		INSERT(table.UserSessions.Token, table.UserSessions.UserID, table.UserSessions.RefreshToken, table.UserSessions.ExpiresAt, table.UserSessions.IPAddress).
+		MODEL(sess).
+		ExecContext(c.Request().Context(), c.DB())
 	if err != nil {
 		return fmt.Errorf("could not create session: %w", err)
 	}
