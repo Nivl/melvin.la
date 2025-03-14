@@ -11,7 +11,7 @@ require (
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/launchdarkly/go-sdk-common/v3 v3.2.0
-	github.com/launchdarkly/go-server-sdk/v7 v7.8.0
+	github.com/launchdarkly/go-server-sdk/v7 v7.9.0
 	github.com/sethvargo/go-envconfig v1.1.1
 	github.com/stretchr/testify v1.10.0
 	go.uber.org/mock v0.5.0
@@ -30,9 +30,9 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
 	github.com/launchdarkly/ccache v1.1.0 // indirect
-	github.com/launchdarkly/eventsource v1.6.2 // indirect
+	github.com/launchdarkly/eventsource v1.8.0 // indirect
 	github.com/launchdarkly/go-jsonstream/v3 v3.1.0 // indirect
-	github.com/launchdarkly/go-sdk-events/v3 v3.4.0 // indirect
+	github.com/launchdarkly/go-sdk-events/v3 v3.5.0 // indirect
 	github.com/launchdarkly/go-semver v1.0.3 // indirect
 	github.com/launchdarkly/go-server-sdk-evaluation/v3 v3.0.1 // indirect
 	github.com/lib/pq v1.10.9 // indirect
