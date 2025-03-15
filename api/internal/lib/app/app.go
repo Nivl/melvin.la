@@ -3,13 +3,14 @@
 package app
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
+	"github.com/Nivl/melvin.la/api/internal/lib/errutil"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
 	"github.com/Nivl/melvin.la/api/internal/lib/secret"
-	"github.com/heetch/sqalx"
-	"github.com/jmoiron/sqlx"
+	"github.com/jackc/pgx/v5"
 	"go.uber.org/zap"
 )
 
@@ -21,7 +22,7 @@ type Config struct {
 }
 
 // New creates and returns a Dependency object
-func New(cfg *Config) (deps *Dependencies, returnedErr error) {
+func New(ctx context.Context, cfg *Config) (deps *Dependencies, returnedErr error) {
 	logger, err := zap.NewProduction()
 	if !strings.EqualFold(cfg.Environment, "production") {
 		logger, err = zap.NewDevelopment()
@@ -29,30 +30,10 @@ func New(cfg *Config) (deps *Dependencies, returnedErr error) {
 	if err != nil {
 		return nil, fmt.Errorf("couldn't create a logger: %w", err)
 	}
-	defer func() {
-		if returnedErr != nil {
-			logger.Sync() //nolint:errcheck // can't do anything about it
-		}
-	}()
+	defer errutil.RunOnErr(logger.Sync, returnedErr, "could not sync the logger")
 
-	var dbNode sqalx.Node
-	var db *sqlx.DB
-	db, err = sqlx.Connect("pgx", cfg.PostgresURI.Get())
-	if err != nil {
-		return nil, fmt.Errorf("couldn't connect to the database: %w", err)
-	}
-	defer func() {
-		if returnedErr != nil {
-			if e := db.Close(); e != nil {
-				logger.Error("could not close database", zap.Error(e))
-			}
-		}
-	}()
-
-	dbNode, err = sqalx.New(db.Unsafe())
-	if err != nil {
-		return nil, fmt.Errorf("couldn't create a sqalx node: %w", err)
-	}
+	db, err := pgx.Connect(ctx, cfg.PostgresURI.Get())
+	defer errutil.RunOnErrWithCtx(ctx, db.Close, returnedErr, "could not close database")
 
 	featureFlag, err := fflag.NewLD(cfg.LaunchDarklyKey.Get(), logger)
 	if err != nil {
@@ -61,7 +42,7 @@ func New(cfg *Config) (deps *Dependencies, returnedErr error) {
 
 	return &Dependencies{
 		Logger:      logger,
-		DB:          dbNode,
+		DB:          db,
 		FeatureFlag: featureFlag,
 	}, nil
 }

@@ -1,0 +1,36 @@
+version: "2"
+
+sql:
+  - engine: "postgresql"
+    queries: "database/queries.sql"
+    schema: "database/schemas/public.sql"
+    gen:
+      go:
+        package: "dbpublic"
+        out: "internal/gen/sql"
+        sql_package: "pgx/v5"
+        initialisms: ["id", "url", "json", "ip"]
+        emit_pointers_for_null_types: true
+        emit_interface: true
+        emit_result_struct_pointers: true
+        emit_db_tags: true
+        overrides:
+          - column: "blog_posts.content_json"
+            go_type:
+              import: "github.com/Nivl/melvin.la/api/internal/services/blog"
+              package: "blog"
+              type: "EditorJSOutput"
+          - column: "blog_post_revs.content_json"
+            go_type:
+              import: "github.com/Nivl/melvin.la/api/internal/services/blog"
+              package: "blog"
+              type: "EditorJSOutput"
+          - db_type: "uuid"
+            go_type:
+              import: "github.com/google/uuid"
+              type: "UUID"
+          - db_type: "uuid"
+            go_type:
+              import: "github.com/google/uuid"
+              type: "UUID"
+            nullable: true

@@ -3,13 +3,12 @@ package httpendpoint
 import (
 	"fmt"
 	"net/http"
-	"time"
 
+	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
-	"github.com/Nivl/melvin.la/api/internal/lib/sqlutil"
+	"github.com/jackc/pgx/v5/pgtype"
 
-	"github.com/Nivl/melvin.la/api/internal/services/blog/models"
 	"github.com/Nivl/melvin.la/api/internal/services/blog/payload"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
 	"github.com/labstack/echo/v4"
@@ -17,8 +16,8 @@ import (
 
 // GetPostsInput represents the endpoint params needed to get posts
 type GetPostsInput struct {
-	After  *time.Time `json:"after"`
-	Before *time.Time `json:"before"`
+	After  pgtype.Timestamptz `json:"after"`
+	Before pgtype.Timestamptz `json:"before"`
 }
 
 // NewGetPostsInput parses, validates, and returns the user's input
@@ -29,7 +28,7 @@ func NewGetPostsInput(c *ufhttputil.Context) (*GetPostsInput, error) {
 	}
 
 	// Validate
-	if input.After != nil && input.Before != nil {
+	if !input.After.Valid && !input.Before.Valid {
 		return nil, httputil.NewValidationError("after", "after and before cannot be used together")
 	}
 
@@ -39,6 +38,7 @@ func NewGetPostsInput(c *ufhttputil.Context) (*GetPostsInput, error) {
 // GetPosts returns a paginated list of blog posts
 func GetPosts(ec echo.Context) error {
 	c, _ := ec.(*ufhttputil.Context)
+	ctx := c.Request().Context()
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(c.Request().Context(), fflag.FlagEnableBlog, false) {
@@ -50,38 +50,24 @@ func GetPosts(ec echo.Context) error {
 		return err
 	}
 
-	query := `SELECT * FROM blog_posts
-			WHERE
-				deleted_at IS NULL`
-
-	// visitors can only see published posts in order of publication,
-	// logged in users (admins) can see all posts in order of creation
-	//
-	// This is shitty, but easier than writing an admin API
-	dateFieldToUse := "created_at"
+	var posts []*dbpublic.BlogPost
 	if c.User() == nil {
-		query += ` AND published_at IS NOT NULL`
-		dateFieldToUse = "published_at"
+		posts, err = c.DB().
+			GetPublishedBlogPosts(ctx, dbpublic.GetPublishedBlogPostsParams{
+				IsBefore:   input.Before.Valid,
+				BeforeDate: input.Before,
+				IsAfter:    input.After.Valid,
+				AfterDate:  input.After,
+			})
+	} else {
+		posts, err = c.DB().
+			AdminGetBlogPosts(ctx, dbpublic.AdminGetBlogPostsParams{
+				IsBefore:   input.Before.Valid,
+				BeforeDate: input.Before,
+				IsAfter:    input.After.Valid,
+				AfterDate:  input.After,
+			})
 	}
-
-	switch {
-	case input.After != nil:
-		query += fmt.Sprintf(" AND %s > :after", dateFieldToUse)
-	case input.Before != nil:
-		query += fmt.Sprintf(` AND %[1]s < :before
-							   ORDER BY %[1]s DESC`,
-			dateFieldToUse)
-	default:
-		query += fmt.Sprintf(" ORDER BY %s DESC", dateFieldToUse)
-	}
-
-	query += ` LIMIT 100`
-
-	posts := []*models.Post{}
-	err = sqlutil.NamedSelectContext(c.Request().Context(), c.DB(), &posts, query, map[string]interface{}{
-		"after":  input.After,
-		"before": input.Before,
-	})
 	if err != nil {
 		return fmt.Errorf("could not retrieve posts: %w", err)
 	}

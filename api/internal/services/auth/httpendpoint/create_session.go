@@ -5,12 +5,14 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/netip"
 	"strings"
 	"time"
 
+	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
+	"github.com/jackc/pgx/v5/pgtype"
 
-	"github.com/Nivl/melvin.la/api/internal/services/auth/models"
 	"github.com/Nivl/melvin.la/api/internal/services/auth/payload"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
 	"github.com/google/uuid"
@@ -56,7 +58,7 @@ type SignedInUser struct {
 }
 
 // NewSignedInUser creates a new SignedInUser payload
-func NewSignedInUser(u *models.User, s *models.Session) *SignedInUser {
+func NewSignedInUser(u *dbpublic.User, s *dbpublic.UserSession) *SignedInUser {
 	me := payload.NewMe(u)
 	sess := payload.NewSession(s)
 
@@ -75,6 +77,7 @@ func CreateSession(ec echo.Context) error {
 	if c.User() != nil {
 		return httputil.NewForbiddenError("User is already logged in")
 	}
+	ctx := c.Request().Context()
 	input, err := NewCreateSessionInput(c)
 	if err != nil {
 		return err
@@ -82,14 +85,7 @@ func CreateSession(ec echo.Context) error {
 
 	// We first check if the email is valid, while retrieving the hashed
 	// password
-	var user models.User
-	query := `
-		SELECT *
-		FROM users
-		WHERE
-			email=$1
-			AND deleted_at IS NULL`
-	err = c.DB().GetContext(c.Request().Context(), &user, query, input.Email)
+	user, err := c.DB().GetUserByEmail(ctx, input.Email)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return httputil.NewValidationError("_", "Invalid email or password")
@@ -102,25 +98,32 @@ func CreateSession(ec echo.Context) error {
 		return httputil.NewValidationError("_", "Invalid email or password")
 	}
 
-	// We can now create a new Session and return it to the user
-	sess := &models.Session{
-		Token:        uuid.NewString(),
-		UserID:       user.ID,
-		RefreshToken: uuid.NewString(),
-		ExpiresAt:    time.Now().Add(time.Hour * 24 * 7), // 7 days
-		IPAddress:    c.RealIP(),
-		RefreshedAs:  uuid.NullUUID{},
+	var ipPrefix netip.Prefix
+	ipAddr, err := netip.ParseAddr(c.RealIP())
+	if err != nil {
+		c.Logger().Errorf("could not parse IP address: %s", err)
+	} else {
+		ipPrefix, err = ipAddr.Prefix(32)
+		if err != nil {
+			c.Logger().Errorf("could not extract IP prefix (32) for %s: %s", ipAddr.String(), err)
+		}
 	}
-	query = `
-		INSERT INTO user_sessions
-			(token, user_id, refresh_token, expires_at, ip_address)
-		VALUES
-			(:token, :user_id, :refresh_token, :expires_at, :ip_address)
-	`
-	_, err = c.DB().NamedExecContext(c.Request().Context(), query, sess)
+
+	// We can now create a new Session and return it to the user
+	sess, err := c.DB().
+		InsertUserSession(ctx, dbpublic.InsertUserSessionParams{
+			Token:        uuid.New(),
+			UserID:       user.ID,
+			RefreshToken: uuid.New(),
+			ExpiresAt: pgtype.Timestamptz{
+				Time:  time.Now().Add(time.Hour * 24 * 7), // 7 days
+				Valid: true,
+			},
+			IPAddress: &ipPrefix,
+		})
 	if err != nil {
 		return fmt.Errorf("could not create session: %w", err)
 	}
 
-	return c.JSON(http.StatusCreated, NewSignedInUser(&user, sess))
+	return c.JSON(http.StatusCreated, NewSignedInUser(user, sess))
 }

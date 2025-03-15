@@ -37,7 +37,7 @@ tasks:
   migrate:
     cmds:
       - migrate -database ${API_POSTGRES_URL} -path database/migrations {{.CLI_ARGS}}
-      - pg_dump -d ${API_POSTGRES_URL} -C | awk 'RS="";/(CREATE TABLE|INDEX)|(ALTER TABLE)[^;]*;/' > docs/db_schema.sql
+      - pg_dump -d ${API_POSTGRES_URL} -C | awk 'RS="";/(CREATE TABLE|INDEX)|(ALTER TABLE)[^;]*;/' > database/schemas/public.sql
 
   # usage: task new-migration -- name_of_the_migration
   new-migration:

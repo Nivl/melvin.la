@@ -10,7 +10,7 @@ tasks:
 
   lint-migration:
     cmds:
-      - pg_dump -d ${API_POSTGRES_URL} -C | awk 'RS="";/(CREATE TABLE|INDEX)|(ALTER TABLE)[^;]*;/' > docs/db_schema.sql
+      - pg_dump -d ${API_POSTGRES_URL} -C | awk 'RS="";/(CREATE TABLE|INDEX)|(ALTER TABLE)[^;]*;/' > database/schemas/public.sql
       - git diff --exit-code
 
   lint:

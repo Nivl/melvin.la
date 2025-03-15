@@ -106,7 +106,7 @@ func UpdatePost(ec echo.Context) (err error) {
 	if err != nil {
 		return fmt.Errorf("could not start transaction: %w", err)
 	}
-	defer errutil.CheckWhenErr(tx.Rollback, &err, "could not rollback transaction")
+	defer errutil.RunOnErr(tx.Rollback, &err, "could not rollback transaction")
 
 	rev := models.NewRevision(post)
 

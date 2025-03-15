@@ -6,6 +6,7 @@ import (
 
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
@@ -15,15 +16,9 @@ func DeleteSession(ec echo.Context) error {
 	if c.User() == nil {
 		return httputil.NewAuthenticationError("user not authenticated")
 	}
-	query := `
-		UPDATE user_sessions
-			SET deleted_at = NOW()
-		WHERE
-			token=:token
-	`
-	_, err := c.DB().NamedExecContext(c.Request().Context(), query, map[string]interface{}{
-		"token": c.SessionToken(),
-	})
+	ctx := c.Request().Context()
+
+	err := c.DB().DeleteUserSession(ctx, uuid.MustParse(c.SessionToken()))
 	if err != nil {
 		return fmt.Errorf("could not soft-delete session: %w", err)
 	}

@@ -28,7 +28,7 @@ type EditorJSOutput struct {
 var ErrUnknownType = errors.New("unknown type")
 
 // Scan implements the sql.Scanner interface
-func (e *EditorJSOutput) Scan(val interface{}) error {
+func (e *EditorJSOutput) Scan(val any) error {
 	switch v := val.(type) {
 	case []byte:
 		return json.Unmarshal(v, &e)

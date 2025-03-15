@@ -50,12 +50,12 @@ func run() (returnedErr error) {
 		PostgresURI:     cfg.API.PostgresURL,
 		LaunchDarklyKey: cfg.API.LauchDarklySDKKey,
 	}
-	deps, err := app.New(appCfg)
+	deps, err := app.New(ctx, appCfg)
 	if err != nil {
 		return err
 	}
-	defer deps.Logger.Sync() //nolint:errcheck // Sync always returns an error on linux
-	defer errutil.CheckWithMessage(deps.DB.Close, &returnedErr, "couldn't close the database")
+	defer deps.Logger.Sync() //nolint:errcheck // Sync always returns an ror on linux
+	defer errutil.RunAndSetErrorCtx(ctx, deps.DB.Close, &returnedErr, "couldn't close the database")
 
 	// HTTP Server
 	e := httputil.NewbaseRouter(deps)

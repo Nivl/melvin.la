@@ -8,10 +8,9 @@ import (
 
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
-	"github.com/Nivl/melvin.la/api/internal/lib/sqlutil"
 	"github.com/google/uuid"
 
-	"github.com/Nivl/melvin.la/api/internal/services/blog/models"
+	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/services/blog/payload"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
 	"github.com/labstack/echo/v4"
@@ -20,31 +19,27 @@ import (
 // GetPost returns a the blog post matching the given slug or ID
 func GetPost(ec echo.Context) error {
 	c, _ := ec.(*ufhttputil.Context)
+	ctx := c.Request().Context()
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(c.Request().Context(), fflag.FlagEnableBlog, false) {
 		return httputil.NewNotFoundError()
 	}
 
-	query := `SELECT * FROM blog_posts
-			WHERE
-				deleted_at IS NULL`
-
+	var post *dbpublic.BlogPost
+	var err error
 	if c.User() == nil {
-		query += ` AND published_at IS NOT NULL`
-	}
-
-	if err := uuid.Validate(c.Param("slug")); err == nil {
-		query += ` AND id = :slug`
+		post, err = c.DB().GetPublishedBlogPost(ctx, c.Param("slug"))
 	} else {
-		query += ` AND slug = :slug`
+		if uuid.Validate(c.Param("slug")) == nil {
+			id, err := uuid.Parse(c.Param("slug"))
+			if err != nil {
+				return fmt.Errorf("could not parse valid UUID %s: %w", c.Param("slug"), err)
+			}
+			post, err = c.DB().AdminGetBlogPost(ctx, id)
+		}
 	}
-	query += ` LIMIT 1`
 
-	post := models.Post{} //nolint:exhaustruct // Will be populated by the query
-	err := sqlutil.NamedGetContext(c.Request().Context(), c.DB(), &post, query, map[string]interface{}{
-		"slug": c.Param("slug"),
-	})
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return httputil.NewNotFoundError()
@@ -52,5 +47,5 @@ func GetPost(ec echo.Context) error {
 		return fmt.Errorf("could not retrieve post: %w", err)
 	}
 
-	return c.JSON(http.StatusOK, payload.NewPost(&post))
+	return c.JSON(http.StatusOK, payload.NewPost(post))
 }

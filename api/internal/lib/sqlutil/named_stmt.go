@@ -17,7 +17,7 @@ func NamedSelectContext(ctx context.Context, db sqalx.Node, dest any, query stri
 	if err != nil {
 		return fmt.Errorf("couldn't prepare the query: %w", err)
 	}
-	defer errutil.CheckWithMessage(stmt.Close, &err, "couldn't close the statement")
+	defer errutil.RunAndSetError(stmt.Close, &err, "couldn't close the statement")
 	return stmt.SelectContext(ctx, dest, arg)
 }
 
@@ -28,7 +28,7 @@ func NamedGetContext(ctx context.Context, db sqalx.Node, dest any, query string,
 	if err != nil {
 		return fmt.Errorf("NamedQueryContext: %w", err)
 	}
-	defer errutil.CheckWithMessage(rows.Close, &err, "couldn't close the row")
+	defer errutil.RunAndSetError(rows.Close, &err, "couldn't close the row")
 	if rows.Next() {
 		return rows.StructScan(dest)
 	}

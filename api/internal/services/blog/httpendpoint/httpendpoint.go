@@ -11,5 +11,5 @@ func Register(g *echo.Group) {
 	g.GET("/posts/:slug", GetPost)
 	g.POST("/posts", CreatePost)
 	g.PATCH("/posts/:id", UpdatePost)
-	g.DELETE("/posts", DeletePost)
+	g.DELETE("/posts/:id", DeletePost)
 }
