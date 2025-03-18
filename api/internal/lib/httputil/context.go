@@ -1,8 +1,8 @@
 package httputil
 
 import (
-	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
+	"github.com/Nivl/melvin.la/api/internal/lib/sqlutil"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 )
@@ -10,18 +10,18 @@ import (
 // Context represents the context and dependencies needed by all the requests
 type Context struct {
 	echo.Context
-	db          dbpublic.Querier
+	db          sqlutil.Querier
 	logger      *zap.Logger
 	featureFlag fflag.FeatureFlag
 }
 
 // SetDB sets the DB connection
-func (c *Context) SetDB(db dbpublic.Querier) {
+func (c *Context) SetDB(db sqlutil.Querier) {
 	c.db = db
 }
 
 // DB returns the DB connection
-func (c *Context) DB() dbpublic.Querier { //nolint:ireturn // needed for mocking purposes
+func (c *Context) DB() sqlutil.Querier { //nolint:ireturn // needed for mocking purposes
 	return c.db
 }
 

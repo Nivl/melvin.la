@@ -14,9 +14,10 @@ import (
 	slg "github.com/gosimple/slug"
 	"github.com/jackc/pgerrcode"
 	"github.com/jackc/pgx/v5/pgconn"
+	"github.com/jackc/pgx/v5/pgtype"
 
+	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/services/blog"
-	"github.com/Nivl/melvin.la/api/internal/services/blog/models"
 	"github.com/Nivl/melvin.la/api/internal/services/blog/payload"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
 	"github.com/labstack/echo/v4"
@@ -24,12 +25,12 @@ import (
 
 // CreatePostInput represents the data needed to create a new user
 type CreatePostInput struct {
-	Description  *string              `json:"description,omitempty"`
-	Slug         *string              `json:"slug,omitempty"`
-	ThumbnailURL *string              `json:"thumbnailUrl,omitempty"`
-	ContentJSON  *blog.EditorJSOutput `json:"contentJson,omitempty"`
-	Title        string               `json:"title"`
-	Publish      bool                 `json:"publish"`
+	Description  *string             `json:"description,omitempty"`
+	Slug         *string             `json:"slug,omitempty"`
+	ThumbnailURL *string             `json:"thumbnailUrl,omitempty"`
+	ContentJSON  blog.EditorJSOutput `json:"contentJson"`
+	Title        string              `json:"title"`
+	Publish      bool                `json:"publish"`
 }
 
 // NewCreatePostInput parses, validates, and returns the user's input
@@ -62,14 +63,15 @@ func NewCreatePostInput(c *ufhttputil.Context) (*CreatePostInput, error) {
 		return nil, httputil.NewValidationError("title", "title must be 105 chars or less")
 	}
 
+	if len(input.ContentJSON.Blocks) == 0 {
+		return nil, httputil.NewValidationError("contentJson", "required")
+	}
+
 	if input.Publish {
 		if input.ThumbnailURL == nil || *input.ThumbnailURL == "" {
 			return nil, httputil.NewValidationError("thumbnailUrl", "required when publishing")
 		} else if len(*input.ThumbnailURL) > 255 {
 			return nil, httputil.NewValidationError("thumbnailUrl", "title must be 255 chars or less")
-		}
-		if input.ContentJSON == nil || len(input.ContentJSON.Blocks) == 0 {
-			return nil, httputil.NewValidationError("contentJson", "required when publishing")
 		}
 		if input.Description == nil || *input.Description == "" {
 			return nil, httputil.NewValidationError("description", "required when publishing")
@@ -84,6 +86,7 @@ func NewCreatePostInput(c *ufhttputil.Context) (*CreatePostInput, error) {
 // CreatePost lets allowed users to create a new blog post
 func CreatePost(ec echo.Context) error {
 	c, _ := ec.(*ufhttputil.Context)
+	ctx := c.Request().Context()
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(c.Request().Context(), fflag.FlagEnableBlog, false) {
@@ -98,10 +101,10 @@ func CreatePost(ec echo.Context) error {
 		return err
 	}
 
-	var publishedAt *time.Time
+	var publishedAt pgtype.Timestamptz
 	if input.Publish {
-		now := time.Now()
-		publishedAt = &now
+		publishedAt.Time = time.Now()
+		publishedAt.Valid = true
 	}
 
 	slug := "" //nolint:wastedassign // No need to run expensive ops until we need it
@@ -111,18 +114,15 @@ func CreatePost(ec echo.Context) error {
 		slug = slg.Make(input.Title) + "-" + stringutil.Random(6)
 	}
 
-	// We can now create a new Session and return it to the user
-	post := &models.Post{
-		ID:           uuid.NewString(),
+	post, err := c.DB().InsertBlogPost(ctx, dbpublic.InsertBlogPostParams{
+		ID:           uuid.New(),
 		Title:        input.Title,
 		PublishedAt:  publishedAt,
 		Description:  input.Description,
 		ContentJSON:  input.ContentJSON,
 		ThumbnailURL: input.ThumbnailURL,
 		Slug:         strings.ToLower(slug),
-	}
-
-	_, err = post.Insert(c.Request().Context(), c.DB())
+	})
 	if err != nil {
 		var dbErr *pgconn.PgError
 		if errors.As(err, &dbErr) {
@@ -135,6 +135,5 @@ func CreatePost(ec echo.Context) error {
 		}
 		return fmt.Errorf("couldn't create new post: %w", err)
 	}
-
 	return c.JSON(http.StatusCreated, payload.NewPost(post))
 }

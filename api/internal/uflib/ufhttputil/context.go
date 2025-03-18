@@ -1,8 +1,9 @@
 package ufhttputil
 
 import (
+	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
-	"github.com/Nivl/melvin.la/api/internal/services/auth/models"
+	"github.com/google/uuid"
 
 	"go.uber.org/zap"
 )
@@ -11,29 +12,29 @@ import (
 // user-facing requests
 type Context struct {
 	*httputil.Context
-	user         *models.User
-	sessionToken string
+	user         *dbpublic.User
+	sessionToken uuid.UUID
 }
 
 // SetUser set the user that initiated the request
-func (c *Context) SetUser(u *models.User) {
+func (c *Context) SetUser(u *dbpublic.User) {
 	c.user = u
-	c.SetLog(c.Log().With(zap.String("user_id", u.ID)))
-	c.SetFeatureFlag(c.FeatureFlag().WithKey(u.ID))
+	c.SetLog(c.Log().With(zap.String("user_id", u.ID.String())))
+	c.SetFeatureFlag(c.FeatureFlag().WithKey(u.ID.String()))
 }
 
 // User returns the user that initiated the request or nil if no auth
 // were provided
-func (c *Context) User() *models.User {
+func (c *Context) User() *dbpublic.User {
 	return c.user
 }
 
 // SetSessionToken sets the session token used to authenticate the user
-func (c *Context) SetSessionToken(t string) {
+func (c *Context) SetSessionToken(t uuid.UUID) {
 	c.sessionToken = t
 }
 
 // SessionToken return the session token used to authenticate the user
-func (c *Context) SessionToken() string {
+func (c *Context) SessionToken() uuid.UUID {
 	return c.sessionToken
 }

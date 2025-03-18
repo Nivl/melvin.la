@@ -9,6 +9,7 @@ import (
 	"context"
 	"net/netip"
 
+	blog "github.com/Nivl/melvin.la/api/internal/services/blog"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
@@ -116,6 +117,30 @@ WHERE
 func (q *Queries) DeleteUserSession(ctx context.Context, token uuid.UUID) error {
 	_, err := q.db.Exec(ctx, deleteUserSession, token)
 	return err
+}
+
+const getBlogPostForUpdate = `-- name: GetBlogPostForUpdate :one
+SELECT id, title, slug, thumbnail_url, description, content_json, published_at, created_at, updated_at, deleted_at FROM blog_posts
+WHERE id = $1
+LIMIT 1
+`
+
+func (q *Queries) GetBlogPostForUpdate(ctx context.Context, id uuid.UUID) (*BlogPost, error) {
+	row := q.db.QueryRow(ctx, getBlogPostForUpdate, id)
+	var i BlogPost
+	err := row.Scan(
+		&i.ID,
+		&i.Title,
+		&i.Slug,
+		&i.ThumbnailURL,
+		&i.Description,
+		&i.ContentJSON,
+		&i.PublishedAt,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.DeletedAt,
+	)
+	return &i, err
 }
 
 const getPublishedBlogPost = `-- name: GetPublishedBlogPost :one
@@ -226,6 +251,120 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (*User, erro
 	return &i, err
 }
 
+const getUserBySessionToken = `-- name: GetUserBySessionToken :one
+SELECT u.id, u.email, u.password, u.password_crypto, u.name, u.created_at, u.updated_at, u.deleted_at
+FROM users u
+LEFT JOIN user_sessions us
+    ON u.id = us.user_id
+WHERE us.token=$1
+    AND us.deleted_at IS NULL
+    AND u.deleted_at IS NULL
+LIMIT 1
+`
+
+func (q *Queries) GetUserBySessionToken(ctx context.Context, token uuid.UUID) (*User, error) {
+	row := q.db.QueryRow(ctx, getUserBySessionToken, token)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Email,
+		&i.Password,
+		&i.PasswordCrypto,
+		&i.Name,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.DeletedAt,
+	)
+	return &i, err
+}
+
+const insertBlogPost = `-- name: InsertBlogPost :one
+INSERT INTO blog_posts
+    (id, title, description, slug, thumbnail_url, content_json, published_at)
+VALUES
+    ($1, $2, $3, $4, $5, $6, $7)
+RETURNING id, title, slug, thumbnail_url, description, content_json, published_at, created_at, updated_at, deleted_at
+`
+
+type InsertBlogPostParams struct {
+	ID           uuid.UUID           `db:"id"`
+	Title        string              `db:"title"`
+	Description  *string             `db:"description"`
+	Slug         string              `db:"slug"`
+	ThumbnailURL *string             `db:"thumbnail_url"`
+	ContentJSON  blog.EditorJSOutput `db:"content_json"`
+	PublishedAt  pgtype.Timestamptz  `db:"published_at"`
+}
+
+func (q *Queries) InsertBlogPost(ctx context.Context, arg InsertBlogPostParams) (*BlogPost, error) {
+	row := q.db.QueryRow(ctx, insertBlogPost,
+		arg.ID,
+		arg.Title,
+		arg.Description,
+		arg.Slug,
+		arg.ThumbnailURL,
+		arg.ContentJSON,
+		arg.PublishedAt,
+	)
+	var i BlogPost
+	err := row.Scan(
+		&i.ID,
+		&i.Title,
+		&i.Slug,
+		&i.ThumbnailURL,
+		&i.Description,
+		&i.ContentJSON,
+		&i.PublishedAt,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.DeletedAt,
+	)
+	return &i, err
+}
+
+const insertBlogPostRev = `-- name: InsertBlogPostRev :one
+INSERT INTO blog_post_revs
+    (id, blog_post_id, title, content_json, description, thumbnail_url, slug)
+VALUES
+    ($1, $2, $3, $4, $5, $6, $7)
+RETURNING id, blog_post_id, title, slug, thumbnail_url, description, content_json, created_at, deleted_at
+`
+
+type InsertBlogPostRevParams struct {
+	ID           uuid.UUID           `db:"id"`
+	BlogPostID   uuid.UUID           `db:"blog_post_id"`
+	Title        string              `db:"title"`
+	ContentJSON  blog.EditorJSOutput `db:"content_json"`
+	Description  *string             `db:"description"`
+	ThumbnailURL *string             `db:"thumbnail_url"`
+	Slug         string              `db:"slug"`
+}
+
+func (q *Queries) InsertBlogPostRev(ctx context.Context, arg InsertBlogPostRevParams) (*BlogPostRev, error) {
+	row := q.db.QueryRow(ctx, insertBlogPostRev,
+		arg.ID,
+		arg.BlogPostID,
+		arg.Title,
+		arg.ContentJSON,
+		arg.Description,
+		arg.ThumbnailURL,
+		arg.Slug,
+	)
+	var i BlogPostRev
+	err := row.Scan(
+		&i.ID,
+		&i.BlogPostID,
+		&i.Title,
+		&i.Slug,
+		&i.ThumbnailURL,
+		&i.Description,
+		&i.ContentJSON,
+		&i.CreatedAt,
+		&i.DeletedAt,
+	)
+	return &i, err
+}
+
 type InsertUserParams struct {
 	ID             uuid.UUID `db:"id"`
 	Name           string    `db:"name"`
@@ -269,6 +408,57 @@ func (q *Queries) InsertUserSession(ctx context.Context, arg InsertUserSessionPa
 		&i.ExpiresAt,
 		&i.RefreshedAs,
 		&i.IPAddress,
+	)
+	return &i, err
+}
+
+const updateBlogPost = `-- name: UpdateBlogPost :one
+UPDATE blog_posts
+SET
+    title = $1,
+    slug = $2,
+    description = $3,
+    thumbnail_url = $4,
+    content_json = $5,
+    published_at = $6,
+    updated_at = NOW()
+WHERE
+    id = $7
+RETURNING id, title, slug, thumbnail_url, description, content_json, published_at, created_at, updated_at, deleted_at
+`
+
+type UpdateBlogPostParams struct {
+	Title        string              `db:"title"`
+	Slug         string              `db:"slug"`
+	Description  *string             `db:"description"`
+	ThumbnailURL *string             `db:"thumbnail_url"`
+	ContentJSON  blog.EditorJSOutput `db:"content_json"`
+	PublishedAt  pgtype.Timestamptz  `db:"published_at"`
+	ID           uuid.UUID           `db:"id"`
+}
+
+func (q *Queries) UpdateBlogPost(ctx context.Context, arg UpdateBlogPostParams) (*BlogPost, error) {
+	row := q.db.QueryRow(ctx, updateBlogPost,
+		arg.Title,
+		arg.Slug,
+		arg.Description,
+		arg.ThumbnailURL,
+		arg.ContentJSON,
+		arg.PublishedAt,
+		arg.ID,
+	)
+	var i BlogPost
+	err := row.Scan(
+		&i.ID,
+		&i.Title,
+		&i.Slug,
+		&i.ThumbnailURL,
+		&i.Description,
+		&i.ContentJSON,
+		&i.PublishedAt,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.DeletedAt,
 	)
 	return &i, err
 }

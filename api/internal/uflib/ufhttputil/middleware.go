@@ -3,10 +3,10 @@ package ufhttputil
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
-	"github.com/Nivl/melvin.la/api/internal/services/auth/models"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
@@ -39,20 +39,16 @@ func AuthUser() echo.MiddlewareFunc {
 				if !strings.HasPrefix(authHeader, "Bearer ") {
 					return httputil.NewBadRequestError("Invalid authorization format")
 				}
-				sessionToken := strings.TrimPrefix(authHeader, "Bearer ")
-				if _, err := uuid.Parse(sessionToken); err != nil {
+				rawSessionToken := strings.TrimPrefix(authHeader, "Bearer ")
+				if err := uuid.Validate(rawSessionToken); err != nil {
 					return httputil.NewBadRequestError("Invalid authorization format")
 				}
-				var u models.User
-				query := `
-			SELECT u.*
-			FROM users u
-			LEFT JOIN user_sessions us
-				ON u.id = us.user_id
-			WHERE us.token=$1
-				AND us.deleted_at IS NULL
-				AND u.deleted_at IS NULL`
-				err := c.DB().GetContext(ctx, &u, query, sessionToken)
+				sessionToken, err := uuid.Parse(rawSessionToken)
+				if err != nil {
+					return fmt.Errorf("could not parse valid session token %s: %w", err)
+				}
+
+				user, err := c.DB().GetUserBySessionToken(ctx, sessionToken)
 				if err != nil {
 					if errors.Is(err, sql.ErrNoRows) {
 						return httputil.NewAuthenticationError("token invalid or expired")
@@ -61,7 +57,7 @@ func AuthUser() echo.MiddlewareFunc {
 					// We probably always want to return a "invalid token" error
 					return err
 				}
-				c.SetUser(&u)
+				c.SetUser(user)
 				c.SetSessionToken(sessionToken)
 			}
 			return next(c)

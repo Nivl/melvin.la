@@ -11,10 +11,10 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/errutil"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
-	"github.com/Nivl/melvin.la/api/internal/lib/sqlutil"
+	"github.com/google/uuid"
 
+	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/services/blog"
-	"github.com/Nivl/melvin.la/api/internal/services/blog/models"
 	"github.com/Nivl/melvin.la/api/internal/services/blog/payload"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
 	"github.com/labstack/echo/v4"
@@ -31,7 +31,7 @@ type UpdatePostsInput struct {
 }
 
 // NewUpdatePostInput parses, validates, and returns the user's input
-func NewUpdatePostInput(c *ufhttputil.Context, ogPost *models.Post) (*UpdatePostsInput, error) {
+func NewUpdatePostInput(c *ufhttputil.Context, ogPost *dbpublic.BlogPost) (*UpdatePostsInput, error) {
 	input := new(UpdatePostsInput)
 	if err := c.Bind(input); err != nil {
 		return nil, httputil.NewBadRequestError("invalid input")
@@ -54,7 +54,7 @@ func NewUpdatePostInput(c *ufhttputil.Context, ogPost *models.Post) (*UpdatePost
 	}
 	// If the post is meant to be published, or is currently published
 	// we need to make sure all the required fields are present
-	isPublished := input.Publish == nil && ogPost.PublishedAt != nil
+	isPublished := input.Publish == nil && ogPost.PublishedAt.Valid
 	willBePublished := input.Publish != nil && *input.Publish
 	if isPublished || willBePublished {
 		if input.ThumbnailURL == nil || *input.ThumbnailURL == "" {
@@ -74,6 +74,7 @@ func NewUpdatePostInput(c *ufhttputil.Context, ogPost *models.Post) (*UpdatePost
 // UpdatePost updates a blog post
 func UpdatePost(ec echo.Context) (err error) {
 	c, _ := ec.(*ufhttputil.Context)
+	ctx := c.Request().Context()
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(c.Request().Context(), fflag.FlagEnableBlog, false) {
@@ -84,12 +85,16 @@ func UpdatePost(ec echo.Context) (err error) {
 		return httputil.NewAuthenticationError("User not authenticated")
 	}
 
-	query := `SELECT * FROM blog_posts
-	WHERE id = :idOrSlug OR slug = :idOrSlug`
-	post := &models.Post{} //nolint:exhaustruct // Will be populated by the query
-	err = sqlutil.NamedGetContext(c.Request().Context(), c.DB(), post, query, map[string]interface{}{
-		"idOrSlug": c.Param("id"),
-	})
+	if err := uuid.Validate(c.Param("id")); err != nil {
+		return httputil.NewValidationError("id", "invalid uuid")
+	}
+
+	id, err := uuid.Parse(c.Param("id"))
+	if err != nil {
+		return fmt.Errorf("could not parse ID %s: %w", c.Param("id"), err)
+	}
+
+	post, err := c.DB().GetBlogPostForUpdate(ctx, id)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return httputil.NewNotFoundError()
@@ -102,57 +107,79 @@ func UpdatePost(ec echo.Context) (err error) {
 		return err
 	}
 
-	tx, err := c.DB().BeginTxx(c.Request().Context(), &sql.TxOptions{})
-	if err != nil {
-		return fmt.Errorf("could not start transaction: %w", err)
+	hasUpdates := false
+	updatedFields := dbpublic.UpdateBlogPostParams{
+		ID:           post.ID,
+		Title:        post.Title,
+		Slug:         post.Slug,
+		ContentJSON:  post.ContentJSON,
+		ThumbnailURL: post.ThumbnailURL,
+		Description:  post.Description,
+		PublishedAt:  post.PublishedAt,
 	}
-	defer errutil.RunOnErr(tx.Rollback, &err, "could not rollback transaction")
-
-	rev := models.NewRevision(post)
-
 	if input.Title != nil {
-		post.Title = *input.Title
+		updatedFields.Title = *input.Title
+		hasUpdates = true
 	}
 	if input.Slug != nil {
-		post.Slug = *input.Slug
+		updatedFields.Slug = *input.Slug
+		hasUpdates = true
 	}
 	if input.ThumbnailURL != nil {
-		post.ThumbnailURL = input.ThumbnailURL
+		updatedFields.ThumbnailURL = input.ThumbnailURL
+		hasUpdates = true
 	}
 	if input.Description != nil {
-		post.Description = input.Description
+		updatedFields.Description = input.Description
+		hasUpdates = true
 	}
 	if input.ContentJSON != nil {
-		post.ContentJSON = input.ContentJSON
-	}
-
-	// We only want to create a new revision if the actual
-	// content of the post has changed
-	// We don't create revision for changes such as publish/unpublish
-	if rev.Post != *post {
-		_, err = rev.Insert(c.Request().Context(), tx)
-		if err != nil {
-			return fmt.Errorf("could not create revision for %s: %w", post.ID, err)
-		}
+		updatedFields.ContentJSON = *input.ContentJSON
+		hasUpdates = true
 	}
 
 	if input.Publish != nil {
-		if *input.Publish && post.PublishedAt == nil {
-			now := time.Now()
-			post.PublishedAt = &now
-		} else {
-			post.PublishedAt = nil
+		hasUpdates = hasUpdates ||
+			*input.Publish != !post.PublishedAt.Valid
+
+		post.PublishedAt.Valid = *input.Publish
+
+		if *input.Publish && !post.PublishedAt.Valid {
+			post.PublishedAt.Time = time.Now()
+			post.PublishedAt.Valid = true
 		}
 	}
 
-	_, err = post.Update(c.Request().Context(), tx)
-	if err != nil {
-		return fmt.Errorf("could not update post %s: %w", post.ID, err)
+	if hasUpdates {
+		tx, err := c.DB().WithTx(ctx)
+		if err != nil {
+			return fmt.Errorf("could not start transaction: %w", err)
+		}
+		defer errutil.RunOnErrWithCtx(ctx, tx.Rollback, err, "could not rollback transaction")
+
+		_, err = tx.InsertBlogPostRev(ctx, dbpublic.InsertBlogPostRevParams{
+			ID:           uuid.New(),
+			BlogPostID:   post.ID,
+			Title:        post.Title,
+			Slug:         post.Slug,
+			ContentJSON:  post.ContentJSON,
+			ThumbnailURL: post.ThumbnailURL,
+			Description:  post.Description,
+		})
+		if err != nil {
+			return fmt.Errorf("could not create revision for %s: %w", post.ID, err)
+		}
+
+		post, err = tx.UpdateBlogPost(ctx, updatedFields)
+		if err != nil {
+			return fmt.Errorf("could not update post %s: %w", post.ID, err)
+		}
+
+		err = tx.Commit(ctx)
+		if err != nil {
+			return fmt.Errorf("could not commit transaction: %w", err)
+		}
 	}
 
-	err = tx.Commit()
-	if err != nil {
-		return fmt.Errorf("could not commit transaction: %w", err)
-	}
 	return c.JSON(http.StatusOK, payload.NewPost(post))
 }

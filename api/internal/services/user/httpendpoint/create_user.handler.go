@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strings"
 
+	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
@@ -58,6 +59,7 @@ func NewCreateUserInput(c *ufhttputil.Context) (*CreateUserInput, error) {
 // The current user must be logged out
 func CreateUser(ec echo.Context) error {
 	c, _ := ec.(*ufhttputil.Context)
+	ctx := c.Request().Context()
 
 	// Most of the time we don't want people to sign up
 	if c.FeatureFlag().IsEnabled(ec.Request().Context(), fflag.FlagEnableSignUps, false) {
@@ -80,18 +82,14 @@ func CreateUser(ec echo.Context) error {
 		return fmt.Errorf("could not get a bcrypt hash from the password: %w", err)
 	}
 
-	query := `
-		INSERT INTO users
-			(id, email, password, password_crypto, name)
-		VALUES
-			(:id, :email, :password, :password_crypto, :name)`
-
-	_, err = c.DB().NamedExecContext(c.Request().Context(), query, map[string]interface{}{
-		"id":              uuid.NewString(),
-		"name":            input.Name,
-		"email":           email,
-		"password":        password,
-		"password_crypto": "bcrypt",
+	_, err = c.DB().InsertUser(ctx, []dbpublic.InsertUserParams{
+		{
+			ID:             uuid.New(),
+			Name:           input.Name,
+			Email:          email,
+			Password:       string(password),
+			PasswordCrypto: "bcrypt",
+		},
 	})
 	if err != nil {
 		var dbErr *pgconn.PgError

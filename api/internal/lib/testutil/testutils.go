@@ -10,6 +10,7 @@ import (
 
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 
+	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -89,7 +90,7 @@ func NewTest(t *testing.T, cfg TestConfig) *TestData {
 	c := &httputil.Context{
 		Context: &httputil.Context{Context: ec},
 	}
-	c.SetDB(dbWrapper.DB())
+	c.SetDB(dbpublic.New(dbWrapper.DB()))
 	c.SetLog(logger)
 
 	return &TestData{

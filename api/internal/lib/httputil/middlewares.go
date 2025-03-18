@@ -8,6 +8,7 @@ import (
 
 	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/lib/app"
+	"github.com/Nivl/melvin.la/api/internal/lib/sqlutil"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
@@ -85,7 +86,7 @@ func ServiceContext(deps *app.Dependencies) echo.MiddlewareFunc {
 		return func(c echo.Context) error {
 			cc := &Context{
 				Context:     c,
-				db:          dbpublic.New(deps.DB),
+				db:          sqlutil.NewQuerier(dbpublic.New(deps.DB), deps.DB),
 				logger:      deps.Logger,
 				featureFlag: deps.FeatureFlag,
 			}
