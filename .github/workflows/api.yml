@@ -199,7 +199,7 @@ jobs:
           API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
 
       - name: Lint docs
-        run: task ci:lint-migration
+        run: task ci:lint-migrations-and-codegen
         env:
           API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
 

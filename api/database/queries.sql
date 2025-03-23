@@ -1,3 +1,9 @@
+-- name: InsertUser :copyfrom
+INSERT INTO users
+    (id, name, email, password, password_crypto)
+VALUES
+    ($1, $2, $3, $4, $5);
+
 -- name: GetUserByEmail :one
 SELECT *
 FROM users
@@ -15,13 +21,6 @@ WHERE us.token=$1
     AND us.deleted_at IS NULL
     AND u.deleted_at IS NULL
 LIMIT 1;
-
--- name: InsertUser :copyfrom
-INSERT INTO users
-    (id, name, email, password, password_crypto)
-VALUES
-    ($1, $2, $3, $4, $5);
-
 
 -- name: InsertUserSession :one
 INSERT INTO user_sessions
