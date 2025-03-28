@@ -7,11 +7,11 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/heetch/sqalx v1.4.0
 	github.com/jackc/pgerrcode v0.0.0-20240316143900-6e2875d9b438
-	github.com/jackc/pgx/v5 v5.7.2
+	github.com/jackc/pgx/v5 v5.7.4
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/launchdarkly/go-sdk-common/v3 v3.2.0
-	github.com/launchdarkly/go-server-sdk/v7 v7.9.0
+	github.com/launchdarkly/go-server-sdk/v7 v7.10.0
 	github.com/sethvargo/go-envconfig v1.1.1
 	github.com/stretchr/testify v1.10.0
 	go.uber.org/mock v0.5.0
