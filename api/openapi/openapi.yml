@@ -1,0 +1,48 @@
+openapi: "3.0.0"
+
+servers:
+  - url: "https://api.melvin.la"
+
+info:
+  version: 1.0.0
+  title: melvin.la API specs
+  description: This is the API specification for melvin.la.
+
+tags:
+  - name: users
+    description: This is the user API. It is used to manage users.
+  - name: auth
+    description: This is the auth API. It is used to manage sessions
+      and authentication.
+  - name: blog
+    description: This is the blog API. It is used to manage blog posts
+      and revisions.
+
+components:
+  responses:
+    $ref: "./components/responses/_index.yml"
+
+  examples:
+    $ref: "./components/examples/_index.yml"
+
+  schemas:
+    $ref: "./components/schemas/_index.yml"
+
+paths:
+  /users:
+    $ref: "./paths/users/_index.yml"
+
+  /users/{id}:
+    $ref: "./paths/users/{id}/_index.yml"
+
+  /sessions:
+    $ref: "./paths/sessions/_index.yml"
+
+  /blog/posts:
+    $ref: "./paths/blog/posts/_index.yml"
+
+  /blog/posts/{id-or-slug}:
+    $ref: "./paths/blog/posts/{id-or-slug}/_index.yml"
+
+  /blog/posts/{id}:
+    $ref: "./paths/blog/posts/{id}/_index.yml"

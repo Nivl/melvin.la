@@ -1,0 +1,54 @@
+description: Create a new user.
+summary: Create a new user.
+operationId: createUser
+tags:
+  - users
+requestBody:
+  required: true
+  description: Data that is needed to create a new user.
+  content:
+    application/json:
+      schema:
+        description: User object
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            type: string
+            description: The name of the user.
+            example: "John Doe"
+          email:
+            type: string
+            format: email
+            description: The email of the user.
+            example: "user@example.com"
+          password:
+            type: string
+            format: password
+            description: The password of the user.
+            example: "my p@55w0rd"
+responses:
+  "201":
+    description: Successfully created the user
+  "400":
+    $ref: "../../components/responses/BodyError.yml"
+  "403":
+    $ref: "../../components/responses/AlreadyLoggedIn.yml"
+  "409":
+    description: The email is already being used
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/ErrorResponse.yml"
+        examples:
+          example-1:
+            value:
+              message: "already in use"
+              field: "email"
+  "500":
+    description: Something wrong happened
+  "503":
+    description: The endpoint has been disabled

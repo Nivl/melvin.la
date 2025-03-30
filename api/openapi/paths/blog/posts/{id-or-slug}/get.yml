@@ -1,0 +1,41 @@
+description: Retrieve a list of blog posts.
+summary: Get blog posts.
+operationId: getBlogPosts
+tags:
+  - blog
+responses:
+  "200":
+    description: Successfully retrieved a post
+    content:
+      application/json:
+        schema:
+          description: A blog post
+          type: object
+          $ref: "../../../../components/schemas/BlogPost.yml"
+        example:
+          - id: "123e4567-e89b-12d3-a456-426614174000"
+            title: "My awesome blog post"
+            slug: "my-awesome-blog-post"
+            description: "This post explains how to ..."
+            thumbnailUrl: "https://picsum.photos/200/300"
+            publishedAt: "2023-10-31T23:59:59Z"
+            contentJson:
+              attributes:
+                - name: "version"
+                  type: "string"
+                  description: "The version of the post"
+                - name: "time"
+                  type: "number"
+                  description: "Time at which it has been last edited"
+                - name: "blocks"
+                  type: "array"
+                  description: "Content of the post"
+
+  "400":
+    $ref: "../../../../components/responses/BodyError.yml"
+  "404":
+    description: Blog post not found
+  "500":
+    description: Something wrong happened
+  "503":
+    description: The endpoint has been disabled

@@ -51,10 +51,14 @@ tasks:
       - migrate -database ${API_POSTGRES_URL} -path database/migrations up
       - psql "${API_POSTGRES_URL}" < database/fixtures/fixtures.sql
 
-  lint: golangci-lint run ./...
+  lint:
+    cmds:
+      - golangci-lint run ./...
+      - go tool github.com/daveshanley/vacuum lint internal/gen/openapi.yml -q -d -n warn
 
   generate:
     cmds:
+      - go tool github.com/daveshanley/vacuum bundle -p openapi/ openapi/openapi.yml internal/gen/openapi.yml
       - go generate ./...
       - go mod tidy
 
@@ -62,5 +66,11 @@ tasks:
     cmds:
       - go get -t -u ./...
       - go mod tidy
+
+  tidy:
+    cmds:
+      - go mod tidy
+      - go tool github.com/daveshanley/vacuum bundle -p openapi/ openapi/openapi.yml internal/gen/openapi.yml
+      - go generate ./...
 
   test: go test -race ./...

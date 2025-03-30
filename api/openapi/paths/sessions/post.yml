@@ -1,0 +1,62 @@
+description: Create a new user session that should be used
+  to authenticate the user.
+summary: Create a new session.
+operationId: createSession
+tags:
+  - auth
+requestBody:
+  required: true
+  description: Data that is needed to create a new session.
+  content:
+    application/json:
+      schema:
+        description: Data that is needed to create a new session
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            format: email
+            description: The email of the user.
+            example: "user@example.com"
+          password:
+            type: string
+            format: password
+            description: The password of the user.
+            example: "my p@55w0rd"
+responses:
+  "201":
+    description: Successfully created the session
+    content:
+      application/json:
+        schema:
+          description: Session object
+          type: object
+          required:
+            - session
+            - me
+          properties:
+            session:
+              $ref: "../../components/schemas/Session.yml"
+            me:
+              $ref: "../../components/schemas/User.yml"
+        examples:
+          example-1:
+            value:
+              me:
+                id: "123e4567-e89b-12d3-a456-426614174000"
+                name: "John Doe"
+                email: "user@example.com"
+              session:
+                token: "123e4567-e89b-12d3-a456-426614174000"
+                userId: "259d9d82-bdd7-4a8a-be4f-76b156b46203"
+                refreshToken: "da315121-65f2-4661-9ad2-fdf40d494998"
+                expiresAt: "2023-10-31T23:59:59Z"
+  "400":
+    $ref: "../../components/responses/BodyError.yml"
+  "403":
+    $ref: "../../components/responses/AlreadyLoggedIn.yml"
+  "500":
+    description: Something wrong happened

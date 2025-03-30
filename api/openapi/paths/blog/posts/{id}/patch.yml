@@ -1,0 +1,114 @@
+description: Update a blog post.
+summary: Update a new blog post.
+operationId: updateBlogPost
+tags:
+  - blog
+requestBody:
+  required: true
+  description: Data that is available to update a blog post.
+  content:
+    application/json:
+      schema:
+        description: Data that is available to update a blog post
+        type: object
+        properties:
+          title:
+            type: string
+            format: uuid
+            description: Title of the blog post.
+            example: "My awesome blog post"
+            minLength: 1
+            maxLength: 100
+          slug:
+            type: string
+            format: uuid
+            description: slug of the blog post.
+            example: "my-awesome-blog-post"
+            minLength: 1
+            maxLength: 105
+          contentJson:
+            type: object
+            description: The content of the blog post in JSON format.
+            properties:
+              version:
+                type: string
+                description: The version of the post
+                example: "1.0"
+              time:
+                type: number
+                description: Time at which it has been last edited
+                example: 1698796799
+              blocks:
+                type: array
+                description: Content of the post
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Id of the block
+                      example: "1"
+                    type:
+                      type: string
+                      description: Type of the block (e.g., paragraph, header)
+                      example: "paragraph"
+                    data:
+                      type: object
+                      description: Data of the block
+                example:
+                  - id: "1"
+                    type: "paragraph"
+                    data:
+                      text: "This is a paragraph."
+                  - id: "2"
+                    type: "header"
+                    data:
+                      text: "This is a header."
+                      level: 2
+          description:
+            type: string
+            description: Short description of the blog post.
+            example: "123e4567-e89b-12d3-a456-426614174000"
+            minLength: 1
+            maxLength: 130
+          thumbnailUrl:
+            type: string
+            format: url
+            description: URL of the thumbnail to display.
+            example: "https://picsum.photos/200/300"
+            minLength: 1
+            maxLength: 255
+          publish:
+            type: boolean
+            description: publish or un-publish the post.
+            example: true
+responses:
+  "201":
+    description: Successfully updated the blog post
+    content:
+      application/json:
+        schema:
+          $ref: "../../../../components/schemas/BlogPost.yml"
+        examples:
+          example-1:
+            $ref: "../../../../components/examples/BlogPostExample.yml"
+  "400":
+    $ref: "../../../../components/responses/BodyError.yml"
+  "401":
+    $ref: "../../../../components/responses/NotLoggedIn.yml"
+  "409":
+    description: The slug, or another unique data is already
+      being used
+    content:
+      application/json:
+        schema:
+          $ref: "../../../../components/schemas/ErrorResponse.yml"
+        examples:
+          example-1:
+            value:
+              message: "already in use"
+              field: "slug"
+  "500":
+    description: Something wrong happened
+  "503":
+    description: The endpoint has been disabled

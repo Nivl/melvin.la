@@ -1,0 +1,14 @@
+description: Object returned to any query that fails with an
+  error code that expects a body (400, 409, ...)
+type: object
+required:
+  - message
+properties:
+  message:
+    type: string
+    description: Descriptive error message
+    example: "user must be logged in to make the request"
+  field:
+    type: string
+    description: The name of the field/param that caused the error
+    example: "id"

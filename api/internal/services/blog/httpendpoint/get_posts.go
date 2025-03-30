@@ -42,7 +42,7 @@ func GetPosts(ec echo.Context) error {
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(c.Request().Context(), fflag.FlagEnableBlog, false) {
-		return httputil.NewNotFoundError()
+		return httputil.NewNotAvailable()
 	}
 
 	input, err := NewGetPostsInput(c)
@@ -72,5 +72,5 @@ func GetPosts(ec echo.Context) error {
 		return fmt.Errorf("could not retrieve posts: %w", err)
 	}
 
-	return c.JSON(http.StatusCreated, payload.NewPosts(posts))
+	return c.JSON(http.StatusOK, payload.NewPosts(posts))
 }

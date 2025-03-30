@@ -1,0 +1,12 @@
+description: Delete a user session.
+summary: Delete a session.
+operationId: deleteSession
+tags:
+  - auth
+responses:
+  "204":
+    description: Successfully deleted the session
+  "401":
+    $ref: "../../components/responses/NotLoggedIn.yml"
+  "500":
+    description: Something wrong happened

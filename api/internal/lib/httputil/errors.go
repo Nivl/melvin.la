@@ -50,3 +50,8 @@ func NewForbiddenError(message string) *echo.HTTPError {
 func NewNotFoundError() error {
 	return echo.NewHTTPError(http.StatusNotFound)
 }
+
+// NewNotAvailable returns a error representing a resource not available.
+func NewNotAvailable() error {
+	return echo.NewHTTPError(http.StatusServiceUnavailable)
+}

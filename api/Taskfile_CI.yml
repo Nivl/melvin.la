@@ -12,13 +12,17 @@ tasks:
     cmds:
       - pg_dump -d ${API_POSTGRES_URL} -C | awk 'RS="";/(CREATE TABLE|INDEX)|(ALTER TABLE)[^;]*;/' > database/schemas/public.sql
       - git diff --exit-code
+      - go tool github.com/daveshanley/vacuum bundle -p openapi/ openapi/openapi.yml internal/gen/openapi.yml
+      - git diff --exit-code
       - go generate ./...
+      - git diff --exit-code
       - go mod tidy
       - git diff --exit-code
 
   lint:
     cmds:
       - golangci-lint run ./...
+      - go tool github.com/daveshanley/vacuum lint internal/gen/openapi.yml -q -d -n warn
       - go mod tidy
       - git diff --exit-code
 

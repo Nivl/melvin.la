@@ -63,7 +63,7 @@ func CreateUser(ec echo.Context) error {
 
 	// Most of the time we don't want people to sign up
 	if c.FeatureFlag().IsEnabled(ec.Request().Context(), fflag.FlagEnableSignUps, false) {
-		return httputil.NewNotFoundError()
+		return httputil.NewNotAvailable()
 	}
 
 	if c.User() != nil {

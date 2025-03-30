@@ -23,7 +23,7 @@ func GetPost(ec echo.Context) error {
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(c.Request().Context(), fflag.FlagEnableBlog, false) {
-		return httputil.NewNotFoundError()
+		return httputil.NewNotAvailable()
 	}
 
 	var post *dbpublic.BlogPost

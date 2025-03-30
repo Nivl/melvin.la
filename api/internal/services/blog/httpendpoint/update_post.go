@@ -12,6 +12,8 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/google/uuid"
+	"github.com/jackc/pgerrcode"
+	"github.com/jackc/pgx/v5/pgconn"
 
 	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/services/blog"
@@ -78,14 +80,14 @@ func UpdatePost(ec echo.Context) (err error) {
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(c.Request().Context(), fflag.FlagEnableBlog, false) {
-		return httputil.NewNotFoundError()
+		return httputil.NewNotAvailable()
 	}
 
 	if c.User() == nil {
 		return httputil.NewAuthenticationError("User not authenticated")
 	}
 
-	if err := uuid.Validate(c.Param("id")); err != nil {
+	if err = uuid.Validate(c.Param("id")); err != nil {
 		return httputil.NewValidationError("id", "invalid uuid")
 	}
 
@@ -167,6 +169,15 @@ func UpdatePost(ec echo.Context) (err error) {
 			Description:  post.Description,
 		})
 		if err != nil {
+			var dbErr *pgconn.PgError
+			if errors.As(err, &dbErr) {
+				switch dbErr.Code {
+				case pgerrcode.UniqueViolation:
+					return httputil.NewConflictError(dbErr.ColumnName, "already in use")
+				case pgerrcode.CheckViolation:
+					return httputil.NewValidationError(dbErr.ColumnName, "either too short or too long")
+				}
+			}
 			return fmt.Errorf("could not create revision for %s: %w", post.ID, err)
 		}
 
