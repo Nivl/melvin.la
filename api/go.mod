@@ -12,7 +12,7 @@ require (
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/launchdarkly/go-sdk-common/v3 v3.2.0
 	github.com/launchdarkly/go-server-sdk/v7 v7.10.0
-	github.com/sethvargo/go-envconfig v1.1.1
+	github.com/sethvargo/go-envconfig v1.2.0
 	github.com/stretchr/testify v1.10.0
 	go.uber.org/mock v0.5.1
 	go.uber.org/zap v1.27.0
