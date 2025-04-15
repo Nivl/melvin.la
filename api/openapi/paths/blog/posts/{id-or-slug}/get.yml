@@ -1,6 +1,6 @@
 description: Retrieve a list of blog posts.
 summary: Get blog posts.
-operationId: getBlogPosts
+operationId: getBlogPost
 tags:
   - blog
 responses:
@@ -11,7 +11,7 @@ responses:
         schema:
           description: A blog post
           type: object
-          $ref: "../../../../components/schemas/BlogPost.yml"
+          $ref: "../../../../components/schemas/_index.yml#/BlogPost"
         example:
           - id: "123e4567-e89b-12d3-a456-426614174000"
             title: "My awesome blog post"
@@ -32,7 +32,7 @@ responses:
                   description: "Content of the post"
 
   "400":
-    $ref: "../../../../components/responses/BodyError.yml"
+    $ref: "../../../../components/responses/_index.yml#/BodyError"
   "404":
     description: Blog post not found
   "500":

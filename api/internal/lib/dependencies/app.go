@@ -1,6 +1,6 @@
-// Package app contains core structs and functions that are common to
-// multiple apps
-package app
+// Package dependencies contains core structs and functions that are
+// common to multiple apps
+package dependencies
 
 import (
 	"context"
@@ -21,7 +21,15 @@ type Config struct {
 	Environment     string
 }
 
-// New creates and returns a Dependency object
+// Dependencies represents the app dependencies
+type Dependencies struct {
+	DB          *pgx.Conn `exhaustruct:"optional"`
+	Logger      *zap.Logger
+	FeatureFlag fflag.FeatureFlag
+}
+
+// New create a Dependency object from the app config by loading all the
+// needed 3rd party libraries.
 func New(ctx context.Context, cfg *Config) (deps *Dependencies, returnedErr error) {
 	logger, err := zap.NewProduction()
 	if !strings.EqualFold(cfg.Environment, "production") {

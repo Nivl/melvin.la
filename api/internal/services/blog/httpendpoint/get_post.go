@@ -29,12 +29,12 @@ func GetPost(ec echo.Context) error {
 	var post *dbpublic.BlogPost
 	var err error
 	if c.User() == nil {
-		post, err = c.DB().GetPublishedBlogPost(ctx, c.Param("slug"))
+		post, err = c.DB().GetPublishedBlogPost(ctx, c.Param("id-or-slug"))
 	} else {
-		if uuid.Validate(c.Param("slug")) == nil {
-			id, err := uuid.Parse(c.Param("slug"))
+		if uuid.Validate(c.Param("id-or-slug")) == nil {
+			id, err := uuid.Parse(c.Param("id-or-slug"))
 			if err != nil {
-				return fmt.Errorf("could not parse valid UUID %s: %w", c.Param("slug"), err)
+				return fmt.Errorf("could not parse valid UUID %s: %w", c.Param("id-or-slug"), err)
 			}
 			post, err = c.DB().AdminGetBlogPost(ctx, id)
 		}

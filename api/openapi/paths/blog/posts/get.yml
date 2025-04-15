@@ -26,7 +26,7 @@ responses:
           description: List of posts
           type: array
           items:
-            $ref: "../../../components/schemas/BlogPost.yml"
+            $ref: "../../../components/schemas/_index.yml#/BlogPost"
         example:
           - id: "123e4567-e89b-12d3-a456-426614174000"
             title: "My awesome blog post"
@@ -47,7 +47,7 @@ responses:
                   description: "Content of the post"
 
   "400":
-    $ref: "../../../components/responses/BodyError.yml"
+    $ref: "../../../components/responses/_index.yml#/BodyError"
   "500":
     description: Something wrong happened
   "503":

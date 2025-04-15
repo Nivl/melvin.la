@@ -3,10 +3,12 @@ summary: Delete a session.
 operationId: deleteSession
 tags:
   - auth
+security:
+  - bearerAuth: []
 responses:
   "204":
     description: Successfully deleted the session
   "401":
-    $ref: "../../components/responses/NotLoggedIn.yml"
+    $ref: "../../components/responses/_index.yml#/NotLoggedIn"
   "500":
-    description: Something wrong happened
+    description: Something went wrong

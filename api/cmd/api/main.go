@@ -7,17 +7,15 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Nivl/melvin.la/api/internal/lib/app"
+	"github.com/Nivl/melvin.la/api/internal/gen/api"
+	"github.com/Nivl/melvin.la/api/internal/lib/dependencies"
 	"github.com/Nivl/melvin.la/api/internal/lib/errutil"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
+	"github.com/Nivl/melvin.la/api/internal/lib/httputil/middleware"
 	"github.com/Nivl/melvin.la/api/internal/lib/secret"
-	authendpoint "github.com/Nivl/melvin.la/api/internal/services/auth/httpendpoint"
-	blogendpoint "github.com/Nivl/melvin.la/api/internal/services/blog/httpendpoint"
-	userhttpendpoint "github.com/Nivl/melvin.la/api/internal/services/user/httpendpoint"
-	"github.com/Nivl/melvin.la/api/internal/uflib/ufhttputil"
+	"github.com/Nivl/melvin.la/api/internal/server"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/labstack/echo/v4"
-	echomid "github.com/labstack/echo/v4/middleware"
 	"github.com/sethvargo/go-envconfig"
 )
 
@@ -40,43 +38,40 @@ func main() {
 
 func run() (returnedErr error) {
 	ctx := context.Background()
+	// Load the config and build the deps
 	var cfg appConfig
 	if err := envconfig.Process(ctx, &cfg); err != nil {
 		return fmt.Errorf("couldn't parse the env: %w", err)
 	}
-
-	appCfg := &app.Config{
+	appCfg := &dependencies.Config{
 		Environment:     cfg.Environment,
 		PostgresURI:     cfg.API.PostgresURL,
 		LaunchDarklyKey: cfg.API.LauchDarklySDKKey,
 	}
-	deps, err := app.New(ctx, appCfg)
+	deps, err := dependencies.New(ctx, appCfg)
 	if err != nil {
 		return err
 	}
-	defer deps.Logger.Sync() //nolint:errcheck // Sync always returns an ror on linux
+	defer deps.Logger.Sync() //nolint:errcheck // Sync always returns an error on linux
 	defer errutil.RunAndSetErrorCtx(ctx, deps.DB.Close, &returnedErr, "couldn't close the database")
 
-	// HTTP Server
-	e := httputil.NewbaseRouter(deps)
+	// Setup and start the server
+	e := httputil.NewBaseRouter(deps)
 	e.IPExtractor = echo.ExtractIPDirect()
-	e.Use(ufhttputil.ServiceContext())
 	origins := []string{"https://melvin.la"}
 	if len(cfg.API.ExtraCORSOrigins) > 0 {
 		origins = append(origins, cfg.API.ExtraCORSOrigins...)
 	}
-	e.Use(echomid.CORSWithConfig(echomid.CORSConfig{ //nolint:exhaustruct // no need of everything
+	e.Use(middleware.CORS(middleware.CORSConfig{ //nolint:exhaustruct // no need of everything
 		AllowOrigins: origins,
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodDelete, http.MethodPatch, http.MethodOptions},
 	}))
-	e.Use(ufhttputil.AuthUser())
+	e.Use(middleware.Auth())
 
-	// User Facing endpoints
-	userhttpendpoint.Register(e.Group("/users"))
-	authendpoint.Register(e.Group("/auth"))
-	blogendpoint.Register(e.Group("/blog"))
+	srv := server.NewServer()
+	api.RegisterHandlers(e, srv)
 
-	err = httputil.StartAndWaitWithCb(ctx, deps, e, httputil.StartAndWaitOpts{
+	err = httputil.StartAndWaitWithCb(ctx, deps.Logger, e, httputil.StartAndWaitOpts{
 		Port:      cfg.API.Port,
 		CertsPath: cfg.API.SSLCertsDir,
 		Callback:  nil,

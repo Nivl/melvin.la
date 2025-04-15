@@ -3,6 +3,7 @@ module github.com/Nivl/melvin.la/api
 go 1.24
 
 require (
+	github.com/getkin/kin-openapi v0.127.0
 	github.com/google/uuid v1.6.0
 	github.com/gosimple/slug v1.15.0
 	github.com/jackc/pgerrcode v0.0.0-20240316143900-6e2875d9b438
@@ -10,6 +11,7 @@ require (
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/launchdarkly/go-sdk-common/v3 v3.2.0
 	github.com/launchdarkly/go-server-sdk/v7 v7.8.0
+	github.com/oapi-codegen/echo-middleware v1.0.2
 	github.com/oapi-codegen/runtime v1.1.1
 	github.com/sethvargo/go-envconfig v1.1.1
 	github.com/stretchr/testify v1.10.0
@@ -42,7 +44,6 @@ require (
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/fatih/structtag v1.2.0 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
-	github.com/getkin/kin-openapi v0.127.0 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/gizak/termui/v3 v3.1.0 // indirect
 	github.com/go-openapi/jsonpointer v0.21.0 // indirect
@@ -52,6 +53,7 @@ require (
 	github.com/google/cel-go v0.22.1 // indirect
 	github.com/google/pprof v0.0.0-20240727154555-813a5fbdbec8 // indirect
 	github.com/gookit/color v1.5.4 // indirect
+	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/gosimple/unidecode v1.0.1 // indirect
 	github.com/gregjones/httpcache v0.0.0-20190611155906-901d90724c79 // indirect

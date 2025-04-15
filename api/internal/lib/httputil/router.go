@@ -1,18 +1,17 @@
 package httputil
 
 import (
-	"github.com/Nivl/melvin.la/api/internal/lib/app"
+	"github.com/Nivl/melvin.la/api/internal/lib/dependencies"
+	"github.com/Nivl/melvin.la/api/internal/lib/httputil/middleware"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
-// NewbaseRouter returns a new router with the default middlewares
-func NewbaseRouter(deps *app.Dependencies) *echo.Echo {
+// NewBaseRouter returns a new router with the default middlewares
+func NewBaseRouter(deps *dependencies.Dependencies) *echo.Echo {
 	e := echo.New()
-	e.Use(RequestID())
-	e.Use(ServiceContext(deps))
-	e.Use(LogRequests())
+	e.Use(middleware.ServiceContext(deps))
+	e.Use(middleware.LogRequests())
 	e.Use(middleware.BodyLimit("5K"))
-	e.Use(Recover())
+	e.Use(middleware.Recover())
 	return e
 }

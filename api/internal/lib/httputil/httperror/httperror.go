@@ -1,4 +1,4 @@
-package httputil
+package httperror
 
 import (
 	"net/http"

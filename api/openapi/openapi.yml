@@ -20,13 +20,34 @@ tags:
 
 components:
   responses:
-    $ref: "./components/responses/_index.yml"
+    BodyError:
+      $ref: "./components/responses/BodyError.yml"
+    AlreadyLoggedIn:
+      $ref: "./components/responses/AlreadyLoggedIn.yml"
+    NotLoggedIn:
+      $ref: "./components/responses/NotLoggedIn.yml"
 
   examples:
-    $ref: "./components/examples/_index.yml"
+    UserExample:
+      $ref: "./components/examples/UserExample.yml"
+    SessionExample:
+      $ref: "./components/examples/SessionExample.yml"
+    BlogPostExample:
+      $ref: "./components/examples/BlogPostExample.yml"
 
   schemas:
-    $ref: "./components/schemas/_index.yml"
+    ErrorResponse:
+      $ref: "./components/schemas/ErrorResponse.yml"
+    User:
+      $ref: "./components/schemas/User.yml"
+    Session:
+      $ref: "./components/schemas/Session.yml"
+    BlogPost:
+      $ref: "./components/schemas/BlogPost.yml"
+
+  securitySchemes:
+    ApiKeyAuth:
+      $ref: "./components/securitySchemes/ApiKeyAuth.yml"
 
 paths:
   /users:
@@ -41,8 +62,8 @@ paths:
   /blog/posts:
     $ref: "./paths/blog/posts/_index.yml"
 
-  /blog/posts/{id-or-slug}:
-    $ref: "./paths/blog/posts/{id-or-slug}/_index.yml"
-
   /blog/posts/{id}:
     $ref: "./paths/blog/posts/{id}/_index.yml"
+
+  /blog/posts/{id-or-slug}:
+    $ref: "./paths/blog/posts/{id-or-slug}/_index.yml"

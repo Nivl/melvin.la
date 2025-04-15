@@ -4,59 +4,120 @@
 package api
 
 import (
+	"bytes"
+	"compress/gzip"
+	"context"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
+	"path"
+	"strings"
+	"time"
 
+	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/labstack/echo/v4"
 	"github.com/oapi-codegen/runtime"
+	strictecho "github.com/oapi-codegen/runtime/strictmiddleware/echo"
+	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
-// ErrorResponse Object returned to any query that fails with an error code that expects a body (400, 409, ...)
-type ErrorResponse struct {
-	// Field The name of the field/param that caused the error
-	Field *string `json:"field,omitempty"`
+const (
+	BearerAuthScopes = "bearerAuth.Scopes"
+)
 
-	// Message Descriptive error message
-	Message string `json:"message"`
+// GetBlogPostsParams defines parameters for GetBlogPosts.
+type GetBlogPostsParams struct {
+	// After All the posts should have been published after this date.
+	After *time.Time `form:"after,omitempty" json:"after,omitempty"`
+
+	// Before All the posts should have been published before this date.
+	Before *time.Time `form:"before,omitempty" json:"before,omitempty"`
 }
 
-// Session User session object
-type Session struct {
-	// ExpiresAt Date at which the session expires.
-	ExpiresAt string `json:"expiresAt"`
+// CreateBlogPostJSONBody defines parameters for CreateBlogPost.
+type CreateBlogPostJSONBody struct {
+	// ContentJson The content of the blog post in JSON format.
+	ContentJson struct {
+		// Blocks Content of the post
+		Blocks *[]struct {
+			// Data Data of the block
+			Data *map[string]interface{} `json:"data,omitempty"`
 
-	// RefreshToken Token to use to refresh the session after it expired.
-	RefreshToken string `json:"refreshToken"`
+			// Id Id of the block
+			Id *string `json:"id,omitempty"`
 
-	// Token The ID of the user.
-	Token string `json:"token"`
+			// Type Type of the block (e.g., paragraph, header)
+			Type *string `json:"type,omitempty"`
+		} `json:"blocks,omitempty"`
 
-	// UserId Id of the user attached to this sessions.
-	UserId string `json:"userId"`
+		// Time Time at which it has been last edited
+		Time *float32 `json:"time,omitempty"`
+
+		// Version The version of the post
+		Version *string `json:"version,omitempty"`
+	} `json:"contentJson"`
+
+	// Description Short description of the blog post.
+	Description *string `json:"description,omitempty"`
+
+	// Publish publish the post.
+	Publish *bool `json:"publish,omitempty"`
+
+	// Slug slug of the blog post.
+	Slug openapi_types.UUID `json:"slug"`
+
+	// ThumbnailUrl URL of the thumbnail to display.
+	ThumbnailUrl *string `json:"thumbnailUrl,omitempty"`
+
+	// Title Title of the blog post.
+	Title openapi_types.UUID `json:"title"`
 }
 
-// User User object
-type User struct {
-	// Email The email of the user.
-	Email string `json:"email"`
+// UpdateBlogPostJSONBody defines parameters for UpdateBlogPost.
+type UpdateBlogPostJSONBody struct {
+	// ContentJson The content of the blog post in JSON format.
+	ContentJson *struct {
+		// Blocks Content of the post
+		Blocks *[]struct {
+			// Data Data of the block
+			Data *map[string]interface{} `json:"data,omitempty"`
 
-	// Id The ID of the user.
-	Id string `json:"id"`
+			// Id Id of the block
+			Id *string `json:"id,omitempty"`
 
-	// Name The name of the user.
-	Name string `json:"name"`
+			// Type Type of the block (e.g., paragraph, header)
+			Type *string `json:"type,omitempty"`
+		} `json:"blocks,omitempty"`
+
+		// Time Time at which it has been last edited
+		Time *float32 `json:"time,omitempty"`
+
+		// Version The version of the post
+		Version *string `json:"version,omitempty"`
+	} `json:"contentJson,omitempty"`
+
+	// Description Short description of the blog post.
+	Description *string `json:"description,omitempty"`
+
+	// Publish publish or un-publish the post.
+	Publish *bool `json:"publish,omitempty"`
+
+	// Slug slug of the blog post.
+	Slug *openapi_types.UUID `json:"slug,omitempty"`
+
+	// ThumbnailUrl URL of the thumbnail to display.
+	ThumbnailUrl *string `json:"thumbnailUrl,omitempty"`
+
+	// Title Title of the blog post.
+	Title *openapi_types.UUID `json:"title,omitempty"`
 }
-
-// AlreadyLoggedIn Object returned to any query that fails with an error code that expects a body (400, 409, ...)
-type AlreadyLoggedIn = ErrorResponse
-
-// BodyError Object returned to any query that fails with an error code that expects a body (400, 409, ...)
-type BodyError = ErrorResponse
 
 // CreateSessionJSONBody defines parameters for CreateSession.
 type CreateSessionJSONBody struct {
 	// Email The email of the user.
-	Email string `json:"email"`
+	Email openapi_types.Email `json:"email"`
 
 	// Password The password of the user.
 	Password string `json:"password"`
@@ -65,14 +126,20 @@ type CreateSessionJSONBody struct {
 // CreateUserJSONBody defines parameters for CreateUser.
 type CreateUserJSONBody struct {
 	// Email The email of the user.
-	Email string `json:"email"`
+	Email openapi_types.Email `json:"email" validate:"required,max=255"`
 
 	// Name The name of the user.
-	Name string `json:"name"`
+	Name string `json:"name" validate:"required,min=1,max=50"`
 
 	// Password The password of the user.
-	Password string `json:"password"`
+	Password string `json:"password" validate:"required,min=8,max=50"`
 }
+
+// CreateBlogPostJSONRequestBody defines body for CreateBlogPost for application/json ContentType.
+type CreateBlogPostJSONRequestBody CreateBlogPostJSONBody
+
+// UpdateBlogPostJSONRequestBody defines body for UpdateBlogPost for application/json ContentType.
+type UpdateBlogPostJSONRequestBody UpdateBlogPostJSONBody
 
 // CreateSessionJSONRequestBody defines body for CreateSession for application/json ContentType.
 type CreateSessionJSONRequestBody CreateSessionJSONBody
@@ -82,7 +149,25 @@ type CreateUserJSONRequestBody CreateUserJSONBody
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
-	// Create a new user.
+	// Get blog posts.
+	// (GET /blog/posts)
+	GetBlogPosts(ctx echo.Context, params GetBlogPostsParams) error
+	// Create a new blog post.
+	// (POST /blog/posts)
+	CreateBlogPost(ctx echo.Context) error
+	// Get blog posts.
+	// (GET /blog/posts/{id-or-slug})
+	GetBlogPost(ctx echo.Context, idOrSlug string) error
+	// Delete a blog post.
+	// (DELETE /blog/posts/{id})
+	DeleteBlogPost(ctx echo.Context, id openapi_types.UUID) error
+	// Update a new blog post.
+	// (PATCH /blog/posts/{id})
+	UpdateBlogPost(ctx echo.Context, id openapi_types.UUID) error
+	// Delete a session.
+	// (DELETE /sessions)
+	DeleteSession(ctx echo.Context) error
+	// Create a new session.
 	// (POST /sessions)
 	CreateSession(ctx echo.Context) error
 	// Create a new user.
@@ -96,6 +181,105 @@ type ServerInterface interface {
 // ServerInterfaceWrapper converts echo contexts to parameters.
 type ServerInterfaceWrapper struct {
 	Handler ServerInterface
+}
+
+// GetBlogPosts converts echo context to params.
+func (w *ServerInterfaceWrapper) GetBlogPosts(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params GetBlogPostsParams
+	// ------------- Optional query parameter "after" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "after", ctx.QueryParams(), &params.After)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter after: %s", err))
+	}
+
+	// ------------- Optional query parameter "before" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "before", ctx.QueryParams(), &params.Before)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter before: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.GetBlogPosts(ctx, params)
+	return err
+}
+
+// CreateBlogPost converts echo context to params.
+func (w *ServerInterfaceWrapper) CreateBlogPost(ctx echo.Context) error {
+	var err error
+
+	ctx.Set(BearerAuthScopes, []string{})
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.CreateBlogPost(ctx)
+	return err
+}
+
+// GetBlogPost converts echo context to params.
+func (w *ServerInterfaceWrapper) GetBlogPost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "id-or-slug" -------------
+	var idOrSlug string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id-or-slug", ctx.Param("id-or-slug"), &idOrSlug, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter id-or-slug: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.GetBlogPost(ctx, idOrSlug)
+	return err
+}
+
+// DeleteBlogPost converts echo context to params.
+func (w *ServerInterfaceWrapper) DeleteBlogPost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "id" -------------
+	var id openapi_types.UUID
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", ctx.Param("id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter id: %s", err))
+	}
+
+	ctx.Set(BearerAuthScopes, []string{})
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.DeleteBlogPost(ctx, id)
+	return err
+}
+
+// UpdateBlogPost converts echo context to params.
+func (w *ServerInterfaceWrapper) UpdateBlogPost(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "id" -------------
+	var id openapi_types.UUID
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", ctx.Param("id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter id: %s", err))
+	}
+
+	ctx.Set(BearerAuthScopes, []string{})
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.UpdateBlogPost(ctx, id)
+	return err
+}
+
+// DeleteSession converts echo context to params.
+func (w *ServerInterfaceWrapper) DeleteSession(ctx echo.Context) error {
+	var err error
+
+	ctx.Set(BearerAuthScopes, []string{})
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.DeleteSession(ctx)
+	return err
 }
 
 // CreateSession converts echo context to params.
@@ -126,6 +310,8 @@ func (w *ServerInterfaceWrapper) GetUserById(ctx echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter id: %s", err))
 	}
+
+	ctx.Set(BearerAuthScopes, []string{})
 
 	// Invoke the callback with all the unmarshaled arguments
 	err = w.Handler.GetUserById(ctx, id)
@@ -160,8 +346,1155 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 		Handler: si,
 	}
 
+	router.GET(baseURL+"/blog/posts", wrapper.GetBlogPosts)
+	router.POST(baseURL+"/blog/posts", wrapper.CreateBlogPost)
+	router.GET(baseURL+"/blog/posts/:id-or-slug", wrapper.GetBlogPost)
+	router.DELETE(baseURL+"/blog/posts/:id", wrapper.DeleteBlogPost)
+	router.PATCH(baseURL+"/blog/posts/:id", wrapper.UpdateBlogPost)
+	router.DELETE(baseURL+"/sessions", wrapper.DeleteSession)
 	router.POST(baseURL+"/sessions", wrapper.CreateSession)
 	router.POST(baseURL+"/users", wrapper.CreateUser)
 	router.GET(baseURL+"/users/:id", wrapper.GetUserById)
 
+}
+
+type GetBlogPostsRequestObject struct {
+	Params GetBlogPostsParams
+}
+
+type GetBlogPostsResponseObject interface {
+	VisitGetBlogPostsResponse(w http.ResponseWriter) error
+}
+
+type GetBlogPosts200JSONResponse []struct {
+	// ContentJson The content of the blog post in JSON format.
+	ContentJson struct {
+		// Blocks Content of the post
+		Blocks *[]struct {
+			// Data Data of the block
+			Data *map[string]interface{} `json:"data,omitempty"`
+
+			// Id Id of the block
+			Id *string `json:"id,omitempty"`
+
+			// Type Type of the block (e.g., paragraph, header)
+			Type *string `json:"type,omitempty"`
+		} `json:"blocks,omitempty"`
+
+		// Time Time at which it has been last edited
+		Time *float32 `json:"time,omitempty"`
+
+		// Version The version of the post
+		Version *string `json:"version,omitempty"`
+	} `json:"contentJson"`
+
+	// Description Short description of the blog post.
+	Description *string `json:"description,omitempty"`
+
+	// Id The ID of the blog post.
+	Id openapi_types.UUID `json:"id"`
+
+	// PublishedAt Date at which the post has been published.
+	PublishedAt *time.Time `json:"publishedAt,omitempty"`
+
+	// Slug slug of the blog post.
+	Slug openapi_types.UUID `json:"slug"`
+
+	// ThumbnailUrl URL of the thumbnail to display.
+	ThumbnailUrl *string `json:"thumbnailUrl,omitempty"`
+
+	// Title Title of the blog post.
+	Title openapi_types.UUID `json:"title"`
+}
+
+func (response GetBlogPosts200JSONResponse) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetBlogPosts400JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response GetBlogPosts400JSONResponse) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetBlogPosts500Response struct {
+}
+
+func (response GetBlogPosts500Response) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
+	w.WriteHeader(500)
+	return nil
+}
+
+type GetBlogPosts503Response struct {
+}
+
+func (response GetBlogPosts503Response) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
+	w.WriteHeader(503)
+	return nil
+}
+
+type CreateBlogPostRequestObject struct {
+	Body *CreateBlogPostJSONRequestBody
+}
+
+type CreateBlogPostResponseObject interface {
+	VisitCreateBlogPostResponse(w http.ResponseWriter) error
+}
+
+type CreateBlogPost201JSONResponse struct {
+	// ContentJson The content of the blog post in JSON format.
+	ContentJson struct {
+		// Blocks Content of the post
+		Blocks *[]struct {
+			// Data Data of the block
+			Data *map[string]interface{} `json:"data,omitempty"`
+
+			// Id Id of the block
+			Id *string `json:"id,omitempty"`
+
+			// Type Type of the block (e.g., paragraph, header)
+			Type *string `json:"type,omitempty"`
+		} `json:"blocks,omitempty"`
+
+		// Time Time at which it has been last edited
+		Time *float32 `json:"time,omitempty"`
+
+		// Version The version of the post
+		Version *string `json:"version,omitempty"`
+	} `json:"contentJson"`
+
+	// Description Short description of the blog post.
+	Description *string `json:"description,omitempty"`
+
+	// Id The ID of the blog post.
+	Id openapi_types.UUID `json:"id"`
+
+	// PublishedAt Date at which the post has been published.
+	PublishedAt *time.Time `json:"publishedAt,omitempty"`
+
+	// Slug slug of the blog post.
+	Slug openapi_types.UUID `json:"slug"`
+
+	// ThumbnailUrl URL of the thumbnail to display.
+	ThumbnailUrl *string `json:"thumbnailUrl,omitempty"`
+
+	// Title Title of the blog post.
+	Title openapi_types.UUID `json:"title"`
+}
+
+func (response CreateBlogPost201JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(201)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type CreateBlogPost400JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response CreateBlogPost400JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type CreateBlogPost401JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response CreateBlogPost401JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(401)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type CreateBlogPost404Response struct {
+}
+
+func (response CreateBlogPost404Response) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+	w.WriteHeader(404)
+	return nil
+}
+
+type CreateBlogPost409JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response CreateBlogPost409JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(409)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type CreateBlogPost500Response struct {
+}
+
+func (response CreateBlogPost500Response) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+	w.WriteHeader(500)
+	return nil
+}
+
+type CreateBlogPost503Response struct {
+}
+
+func (response CreateBlogPost503Response) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+	w.WriteHeader(503)
+	return nil
+}
+
+type GetBlogPostRequestObject struct {
+	IdOrSlug string `json:"id-or-slug"`
+}
+
+type GetBlogPostResponseObject interface {
+	VisitGetBlogPostResponse(w http.ResponseWriter) error
+}
+
+type GetBlogPost200JSONResponse struct {
+	// ContentJson The content of the blog post in JSON format.
+	ContentJson struct {
+		// Blocks Content of the post
+		Blocks *[]struct {
+			// Data Data of the block
+			Data *map[string]interface{} `json:"data,omitempty"`
+
+			// Id Id of the block
+			Id *string `json:"id,omitempty"`
+
+			// Type Type of the block (e.g., paragraph, header)
+			Type *string `json:"type,omitempty"`
+		} `json:"blocks,omitempty"`
+
+		// Time Time at which it has been last edited
+		Time *float32 `json:"time,omitempty"`
+
+		// Version The version of the post
+		Version *string `json:"version,omitempty"`
+	} `json:"contentJson"`
+
+	// Description Short description of the blog post.
+	Description *string `json:"description,omitempty"`
+
+	// Id The ID of the blog post.
+	Id openapi_types.UUID `json:"id"`
+
+	// PublishedAt Date at which the post has been published.
+	PublishedAt *time.Time `json:"publishedAt,omitempty"`
+
+	// Slug slug of the blog post.
+	Slug openapi_types.UUID `json:"slug"`
+
+	// ThumbnailUrl URL of the thumbnail to display.
+	ThumbnailUrl *string `json:"thumbnailUrl,omitempty"`
+
+	// Title Title of the blog post.
+	Title openapi_types.UUID `json:"title"`
+}
+
+func (response GetBlogPost200JSONResponse) VisitGetBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetBlogPost400JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response GetBlogPost400JSONResponse) VisitGetBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetBlogPost404Response struct {
+}
+
+func (response GetBlogPost404Response) VisitGetBlogPostResponse(w http.ResponseWriter) error {
+	w.WriteHeader(404)
+	return nil
+}
+
+type GetBlogPost500Response struct {
+}
+
+func (response GetBlogPost500Response) VisitGetBlogPostResponse(w http.ResponseWriter) error {
+	w.WriteHeader(500)
+	return nil
+}
+
+type GetBlogPost503Response struct {
+}
+
+func (response GetBlogPost503Response) VisitGetBlogPostResponse(w http.ResponseWriter) error {
+	w.WriteHeader(503)
+	return nil
+}
+
+type DeleteBlogPostRequestObject struct {
+	Id openapi_types.UUID `json:"id"`
+}
+
+type DeleteBlogPostResponseObject interface {
+	VisitDeleteBlogPostResponse(w http.ResponseWriter) error
+}
+
+type DeleteBlogPost204Response struct {
+}
+
+func (response DeleteBlogPost204Response) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
+	w.WriteHeader(204)
+	return nil
+}
+
+type DeleteBlogPost400JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response DeleteBlogPost400JSONResponse) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type DeleteBlogPost401JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response DeleteBlogPost401JSONResponse) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(401)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type DeleteBlogPost500Response struct {
+}
+
+func (response DeleteBlogPost500Response) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
+	w.WriteHeader(500)
+	return nil
+}
+
+type DeleteBlogPost503Response struct {
+}
+
+func (response DeleteBlogPost503Response) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
+	w.WriteHeader(503)
+	return nil
+}
+
+type UpdateBlogPostRequestObject struct {
+	Id   openapi_types.UUID `json:"id"`
+	Body *UpdateBlogPostJSONRequestBody
+}
+
+type UpdateBlogPostResponseObject interface {
+	VisitUpdateBlogPostResponse(w http.ResponseWriter) error
+}
+
+type UpdateBlogPost201JSONResponse struct {
+	// ContentJson The content of the blog post in JSON format.
+	ContentJson struct {
+		// Blocks Content of the post
+		Blocks *[]struct {
+			// Data Data of the block
+			Data *map[string]interface{} `json:"data,omitempty"`
+
+			// Id Id of the block
+			Id *string `json:"id,omitempty"`
+
+			// Type Type of the block (e.g., paragraph, header)
+			Type *string `json:"type,omitempty"`
+		} `json:"blocks,omitempty"`
+
+		// Time Time at which it has been last edited
+		Time *float32 `json:"time,omitempty"`
+
+		// Version The version of the post
+		Version *string `json:"version,omitempty"`
+	} `json:"contentJson"`
+
+	// Description Short description of the blog post.
+	Description *string `json:"description,omitempty"`
+
+	// Id The ID of the blog post.
+	Id openapi_types.UUID `json:"id"`
+
+	// PublishedAt Date at which the post has been published.
+	PublishedAt *time.Time `json:"publishedAt,omitempty"`
+
+	// Slug slug of the blog post.
+	Slug openapi_types.UUID `json:"slug"`
+
+	// ThumbnailUrl URL of the thumbnail to display.
+	ThumbnailUrl *string `json:"thumbnailUrl,omitempty"`
+
+	// Title Title of the blog post.
+	Title openapi_types.UUID `json:"title"`
+}
+
+func (response UpdateBlogPost201JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(201)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type UpdateBlogPost400JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response UpdateBlogPost400JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type UpdateBlogPost401JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response UpdateBlogPost401JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(401)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type UpdateBlogPost409JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response UpdateBlogPost409JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(409)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type UpdateBlogPost500Response struct {
+}
+
+func (response UpdateBlogPost500Response) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+	w.WriteHeader(500)
+	return nil
+}
+
+type UpdateBlogPost503Response struct {
+}
+
+func (response UpdateBlogPost503Response) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+	w.WriteHeader(503)
+	return nil
+}
+
+type DeleteSessionRequestObject struct {
+}
+
+type DeleteSessionResponseObject interface {
+	VisitDeleteSessionResponse(w http.ResponseWriter) error
+}
+
+type DeleteSession204Response struct {
+}
+
+func (response DeleteSession204Response) VisitDeleteSessionResponse(w http.ResponseWriter) error {
+	w.WriteHeader(204)
+	return nil
+}
+
+type DeleteSession401JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response DeleteSession401JSONResponse) VisitDeleteSessionResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(401)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type DeleteSession500Response struct {
+}
+
+func (response DeleteSession500Response) VisitDeleteSessionResponse(w http.ResponseWriter) error {
+	w.WriteHeader(500)
+	return nil
+}
+
+type CreateSessionRequestObject struct {
+	Body *CreateSessionJSONRequestBody
+}
+
+type CreateSessionResponseObject interface {
+	VisitCreateSessionResponse(w http.ResponseWriter) error
+}
+
+type CreateSession201JSONResponse struct {
+	// Me User object
+	Me struct {
+		// Email The email of the user.
+		Email openapi_types.Email `json:"email"`
+
+		// Id The ID of the user.
+		Id openapi_types.UUID `json:"id"`
+
+		// Name The name of the user.
+		Name string `json:"name"`
+	} `json:"me"`
+
+	// Session User session object
+	Session struct {
+		// ExpiresAt Date at which the session expires.
+		ExpiresAt time.Time `json:"expiresAt"`
+
+		// RefreshToken Token to use to refresh the session after it expired.
+		RefreshToken openapi_types.UUID `json:"refreshToken"`
+
+		// Token The ID of the user.
+		Token openapi_types.UUID `json:"token"`
+
+		// UserId Id of the user attached to this sessions.
+		UserId openapi_types.UUID `json:"userId"`
+	} `json:"session"`
+}
+
+func (response CreateSession201JSONResponse) VisitCreateSessionResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(201)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type CreateSession400JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response CreateSession400JSONResponse) VisitCreateSessionResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type CreateSession403JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response CreateSession403JSONResponse) VisitCreateSessionResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(403)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type CreateSession500Response struct {
+}
+
+func (response CreateSession500Response) VisitCreateSessionResponse(w http.ResponseWriter) error {
+	w.WriteHeader(500)
+	return nil
+}
+
+type CreateUserRequestObject struct {
+	Body *CreateUserJSONRequestBody
+}
+
+type CreateUserResponseObject interface {
+	VisitCreateUserResponse(w http.ResponseWriter) error
+}
+
+type CreateUser201Response struct {
+}
+
+func (response CreateUser201Response) VisitCreateUserResponse(w http.ResponseWriter) error {
+	w.WriteHeader(201)
+	return nil
+}
+
+type CreateUser400JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response CreateUser400JSONResponse) VisitCreateUserResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type CreateUser403JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response CreateUser403JSONResponse) VisitCreateUserResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(403)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type CreateUser409JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response CreateUser409JSONResponse) VisitCreateUserResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(409)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type CreateUser500Response struct {
+}
+
+func (response CreateUser500Response) VisitCreateUserResponse(w http.ResponseWriter) error {
+	w.WriteHeader(500)
+	return nil
+}
+
+type CreateUser503Response struct {
+}
+
+func (response CreateUser503Response) VisitCreateUserResponse(w http.ResponseWriter) error {
+	w.WriteHeader(503)
+	return nil
+}
+
+type GetUserByIdRequestObject struct {
+	Id string `json:"id"`
+}
+
+type GetUserByIdResponseObject interface {
+	VisitGetUserByIdResponse(w http.ResponseWriter) error
+}
+
+type GetUserById200JSONResponse struct {
+	// Email The email of the user.
+	Email openapi_types.Email `json:"email"`
+
+	// Id The ID of the user.
+	Id openapi_types.UUID `json:"id"`
+
+	// Name The name of the user.
+	Name string `json:"name"`
+}
+
+func (response GetUserById200JSONResponse) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetUserById401JSONResponse struct {
+	// Field The name of the field/param that caused the error
+	Field *string `json:"field,omitempty"`
+
+	// Message Descriptive error message
+	Message string `json:"message"`
+}
+
+func (response GetUserById401JSONResponse) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(401)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetUserById500Response struct {
+}
+
+func (response GetUserById500Response) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+	w.WriteHeader(500)
+	return nil
+}
+
+// StrictServerInterface represents all server handlers.
+type StrictServerInterface interface {
+	// Get blog posts.
+	// (GET /blog/posts)
+	GetBlogPosts(ctx context.Context, request GetBlogPostsRequestObject) (GetBlogPostsResponseObject, error)
+	// Create a new blog post.
+	// (POST /blog/posts)
+	CreateBlogPost(ctx context.Context, request CreateBlogPostRequestObject) (CreateBlogPostResponseObject, error)
+	// Get blog posts.
+	// (GET /blog/posts/{id-or-slug})
+	GetBlogPost(ctx context.Context, request GetBlogPostRequestObject) (GetBlogPostResponseObject, error)
+	// Delete a blog post.
+	// (DELETE /blog/posts/{id})
+	DeleteBlogPost(ctx context.Context, request DeleteBlogPostRequestObject) (DeleteBlogPostResponseObject, error)
+	// Update a new blog post.
+	// (PATCH /blog/posts/{id})
+	UpdateBlogPost(ctx context.Context, request UpdateBlogPostRequestObject) (UpdateBlogPostResponseObject, error)
+	// Delete a session.
+	// (DELETE /sessions)
+	DeleteSession(ctx context.Context, request DeleteSessionRequestObject) (DeleteSessionResponseObject, error)
+	// Create a new session.
+	// (POST /sessions)
+	CreateSession(ctx context.Context, request CreateSessionRequestObject) (CreateSessionResponseObject, error)
+	// Create a new user.
+	// (POST /users)
+	CreateUser(ctx context.Context, request CreateUserRequestObject) (CreateUserResponseObject, error)
+	// Get a user by ID.
+	// (GET /users/{id})
+	GetUserById(ctx context.Context, request GetUserByIdRequestObject) (GetUserByIdResponseObject, error)
+}
+
+type StrictHandlerFunc = strictecho.StrictEchoHandlerFunc
+type StrictMiddlewareFunc = strictecho.StrictEchoMiddlewareFunc
+
+func NewStrictHandler(ssi StrictServerInterface, middlewares []StrictMiddlewareFunc) ServerInterface {
+	return &strictHandler{ssi: ssi, middlewares: middlewares}
+}
+
+type strictHandler struct {
+	ssi         StrictServerInterface
+	middlewares []StrictMiddlewareFunc
+}
+
+// GetBlogPosts operation middleware
+func (sh *strictHandler) GetBlogPosts(ctx echo.Context, params GetBlogPostsParams) error {
+	var request GetBlogPostsRequestObject
+
+	request.Params = params
+
+	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
+		return sh.ssi.GetBlogPosts(ctx.Request().Context(), request.(GetBlogPostsRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetBlogPosts")
+	}
+
+	response, err := handler(ctx, request)
+
+	if err != nil {
+		return err
+	} else if validResponse, ok := response.(GetBlogPostsResponseObject); ok {
+		return validResponse.VisitGetBlogPostsResponse(ctx.Response())
+	} else if response != nil {
+		return fmt.Errorf("unexpected response type: %T", response)
+	}
+	return nil
+}
+
+// CreateBlogPost operation middleware
+func (sh *strictHandler) CreateBlogPost(ctx echo.Context) error {
+	var request CreateBlogPostRequestObject
+
+	var body CreateBlogPostJSONRequestBody
+	if err := ctx.Bind(&body); err != nil {
+		return err
+	}
+	request.Body = &body
+
+	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
+		return sh.ssi.CreateBlogPost(ctx.Request().Context(), request.(CreateBlogPostRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "CreateBlogPost")
+	}
+
+	response, err := handler(ctx, request)
+
+	if err != nil {
+		return err
+	} else if validResponse, ok := response.(CreateBlogPostResponseObject); ok {
+		return validResponse.VisitCreateBlogPostResponse(ctx.Response())
+	} else if response != nil {
+		return fmt.Errorf("unexpected response type: %T", response)
+	}
+	return nil
+}
+
+// GetBlogPost operation middleware
+func (sh *strictHandler) GetBlogPost(ctx echo.Context, idOrSlug string) error {
+	var request GetBlogPostRequestObject
+
+	request.IdOrSlug = idOrSlug
+
+	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
+		return sh.ssi.GetBlogPost(ctx.Request().Context(), request.(GetBlogPostRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetBlogPost")
+	}
+
+	response, err := handler(ctx, request)
+
+	if err != nil {
+		return err
+	} else if validResponse, ok := response.(GetBlogPostResponseObject); ok {
+		return validResponse.VisitGetBlogPostResponse(ctx.Response())
+	} else if response != nil {
+		return fmt.Errorf("unexpected response type: %T", response)
+	}
+	return nil
+}
+
+// DeleteBlogPost operation middleware
+func (sh *strictHandler) DeleteBlogPost(ctx echo.Context, id openapi_types.UUID) error {
+	var request DeleteBlogPostRequestObject
+
+	request.Id = id
+
+	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
+		return sh.ssi.DeleteBlogPost(ctx.Request().Context(), request.(DeleteBlogPostRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "DeleteBlogPost")
+	}
+
+	response, err := handler(ctx, request)
+
+	if err != nil {
+		return err
+	} else if validResponse, ok := response.(DeleteBlogPostResponseObject); ok {
+		return validResponse.VisitDeleteBlogPostResponse(ctx.Response())
+	} else if response != nil {
+		return fmt.Errorf("unexpected response type: %T", response)
+	}
+	return nil
+}
+
+// UpdateBlogPost operation middleware
+func (sh *strictHandler) UpdateBlogPost(ctx echo.Context, id openapi_types.UUID) error {
+	var request UpdateBlogPostRequestObject
+
+	request.Id = id
+
+	var body UpdateBlogPostJSONRequestBody
+	if err := ctx.Bind(&body); err != nil {
+		return err
+	}
+	request.Body = &body
+
+	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
+		return sh.ssi.UpdateBlogPost(ctx.Request().Context(), request.(UpdateBlogPostRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "UpdateBlogPost")
+	}
+
+	response, err := handler(ctx, request)
+
+	if err != nil {
+		return err
+	} else if validResponse, ok := response.(UpdateBlogPostResponseObject); ok {
+		return validResponse.VisitUpdateBlogPostResponse(ctx.Response())
+	} else if response != nil {
+		return fmt.Errorf("unexpected response type: %T", response)
+	}
+	return nil
+}
+
+// DeleteSession operation middleware
+func (sh *strictHandler) DeleteSession(ctx echo.Context) error {
+	var request DeleteSessionRequestObject
+
+	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
+		return sh.ssi.DeleteSession(ctx.Request().Context(), request.(DeleteSessionRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "DeleteSession")
+	}
+
+	response, err := handler(ctx, request)
+
+	if err != nil {
+		return err
+	} else if validResponse, ok := response.(DeleteSessionResponseObject); ok {
+		return validResponse.VisitDeleteSessionResponse(ctx.Response())
+	} else if response != nil {
+		return fmt.Errorf("unexpected response type: %T", response)
+	}
+	return nil
+}
+
+// CreateSession operation middleware
+func (sh *strictHandler) CreateSession(ctx echo.Context) error {
+	var request CreateSessionRequestObject
+
+	var body CreateSessionJSONRequestBody
+	if err := ctx.Bind(&body); err != nil {
+		return err
+	}
+	request.Body = &body
+
+	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
+		return sh.ssi.CreateSession(ctx.Request().Context(), request.(CreateSessionRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "CreateSession")
+	}
+
+	response, err := handler(ctx, request)
+
+	if err != nil {
+		return err
+	} else if validResponse, ok := response.(CreateSessionResponseObject); ok {
+		return validResponse.VisitCreateSessionResponse(ctx.Response())
+	} else if response != nil {
+		return fmt.Errorf("unexpected response type: %T", response)
+	}
+	return nil
+}
+
+// CreateUser operation middleware
+func (sh *strictHandler) CreateUser(ctx echo.Context) error {
+	var request CreateUserRequestObject
+
+	var body CreateUserJSONRequestBody
+	if err := ctx.Bind(&body); err != nil {
+		return err
+	}
+	request.Body = &body
+
+	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
+		return sh.ssi.CreateUser(ctx.Request().Context(), request.(CreateUserRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "CreateUser")
+	}
+
+	response, err := handler(ctx, request)
+
+	if err != nil {
+		return err
+	} else if validResponse, ok := response.(CreateUserResponseObject); ok {
+		return validResponse.VisitCreateUserResponse(ctx.Response())
+	} else if response != nil {
+		return fmt.Errorf("unexpected response type: %T", response)
+	}
+	return nil
+}
+
+// GetUserById operation middleware
+func (sh *strictHandler) GetUserById(ctx echo.Context, id string) error {
+	var request GetUserByIdRequestObject
+
+	request.Id = id
+
+	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
+		return sh.ssi.GetUserById(ctx.Request().Context(), request.(GetUserByIdRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetUserById")
+	}
+
+	response, err := handler(ctx, request)
+
+	if err != nil {
+		return err
+	} else if validResponse, ok := response.(GetUserByIdResponseObject); ok {
+		return validResponse.VisitGetUserByIdResponse(ctx.Response())
+	} else if response != nil {
+		return fmt.Errorf("unexpected response type: %T", response)
+	}
+	return nil
+}
+
+// Base64 encoded, gzipped, json marshaled Swagger object
+var swaggerSpec = []string{
+
+	"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",
+}
+
+// GetSwagger returns the content of the embedded swagger specification file
+// or error if failed to decode
+func decodeSpec() ([]byte, error) {
+	zipped, err := base64.StdEncoding.DecodeString(strings.Join(swaggerSpec, ""))
+	if err != nil {
+		return nil, fmt.Errorf("error base64 decoding spec: %w", err)
+	}
+	zr, err := gzip.NewReader(bytes.NewReader(zipped))
+	if err != nil {
+		return nil, fmt.Errorf("error decompressing spec: %w", err)
+	}
+	var buf bytes.Buffer
+	_, err = buf.ReadFrom(zr)
+	if err != nil {
+		return nil, fmt.Errorf("error decompressing spec: %w", err)
+	}
+
+	return buf.Bytes(), nil
+}
+
+var rawSpec = decodeSpecCached()
+
+// a naive cached of a decoded swagger spec
+func decodeSpecCached() func() ([]byte, error) {
+	data, err := decodeSpec()
+	return func() ([]byte, error) {
+		return data, err
+	}
+}
+
+// Constructs a synthetic filesystem for resolving external references when loading openapi specifications.
+func PathToRawSpec(pathToFile string) map[string]func() ([]byte, error) {
+	res := make(map[string]func() ([]byte, error))
+	if len(pathToFile) > 0 {
+		res[pathToFile] = rawSpec
+	}
+
+	return res
+}
+
+// GetSwagger returns the Swagger specification corresponding to the generated code
+// in this file. The external references of Swagger specification are resolved.
+// The logic of resolving external references is tightly connected to "import-mapping" feature.
+// Externally referenced files must be embedded in the corresponding golang packages.
+// Urls can be supported but this task was out of the scope.
+func GetSwagger() (swagger *openapi3.T, err error) {
+	resolvePath := PathToRawSpec("")
+
+	loader := openapi3.NewLoader()
+	loader.IsExternalRefsAllowed = true
+	loader.ReadFromURIFunc = func(loader *openapi3.Loader, url *url.URL) ([]byte, error) {
+		pathToFile := url.String()
+		pathToFile = path.Clean(pathToFile)
+		getSpec, ok := resolvePath[pathToFile]
+		if !ok {
+			err1 := fmt.Errorf("path not found: %s", pathToFile)
+			return nil, err1
+		}
+		return getSpec()
+	}
+	var specData []byte
+	specData, err = rawSpec()
+	if err != nil {
+		return
+	}
+	swagger, err = loader.LoadFromData(specData)
+	if err != nil {
+		return
+	}
+	return
 }

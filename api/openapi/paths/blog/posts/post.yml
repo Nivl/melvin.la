@@ -1,6 +1,8 @@
 description: Create a blog post.
 summary: Create a new blog post.
 operationId: createBlogPost
+security:
+  - bearerAuth: []
 tags:
   - blog
 requestBody:
@@ -92,14 +94,14 @@ responses:
     content:
       application/json:
         schema:
-          $ref: "../../../components/schemas/BlogPost.yml"
+          $ref: "../../../components/schemas/_index.yml#/BlogPost"
         examples:
           example-1:
-            $ref: "../../../components/examples/BlogPostExample.yml"
+            $ref: "../../../components/examples/_index.yml#/BlogPostExample"
   "400":
-    $ref: "../../../components/responses/BodyError.yml"
+    $ref: "../../../components/responses/_index.yml#/BodyError"
   "401":
-    $ref: "../../../components/responses/NotLoggedIn.yml"
+    $ref: "../../../components/responses/_index.yml#/NotLoggedIn"
   "404":
     description: The post does not exist
   "409":
@@ -108,7 +110,7 @@ responses:
     content:
       application/json:
         schema:
-          $ref: "../../../components/schemas/ErrorResponse.yml"
+          $ref: "../../../components/schemas/_index.yml#/ErrorResponse"
         examples:
           example-1:
             value:

@@ -58,7 +58,6 @@ tasks:
 
   generate:
     cmds:
-      - go tool github.com/daveshanley/vacuum bundle -p openapi/ openapi/openapi.yml internal/gen/openapi.yml
       - go generate ./...
       - go mod tidy
 
@@ -70,7 +69,7 @@ tasks:
   tidy:
     cmds:
       - go mod tidy
-      - go tool github.com/daveshanley/vacuum bundle -p openapi/ openapi/openapi.yml internal/gen/openapi.yml
+      - go tool github.com/daveshanley/vacuum bundle -q -p openapi/ openapi/openapi.yml internal/gen/openapi.yml
       - go generate ./...
 
   test: go test -race ./...

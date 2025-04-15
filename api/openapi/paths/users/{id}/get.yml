@@ -3,6 +3,8 @@ description:
   current user itself.
 summary: Get a user by ID.
 operationId: getUserById
+security:
+  - bearerAuth: []
 tags:
   - users
 responses:
@@ -11,16 +13,16 @@ responses:
     content:
       application/json:
         schema:
-          $ref: "../../../components/schemas/User.yml"
+          $ref: "../../../components/schemas/_index.yml#/User"
         examples:
           example-1:
-            $ref: "../../../components/examples/UserExample.yml"
+            $ref: "../../../components/examples/_index.yml#/UserExample"
   "401":
     description: Unauthorized access - User must be logged in to make the request
     content:
       application/json:
         schema:
-          $ref: "../../../components/schemas/ErrorResponse.yml"
+          $ref: "../../../components/schemas/_index.yml#/ErrorResponse"
         examples:
           example-1:
             value:
