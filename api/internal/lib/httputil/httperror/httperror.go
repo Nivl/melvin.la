@@ -16,11 +16,30 @@ func NewValidationError(field, message string) *echo.HTTPError {
 	})
 }
 
+// NewValidationErrorWithLoc returns a error representing a data
+// validation error.
+func NewValidationErrorWithLoc(field, message, location string) *echo.HTTPError {
+	return echo.NewHTTPError(http.StatusBadRequest, echo.Map{
+		"message":  message,
+		"field":    stringutil.ToCamelCase(field),
+		"location": location,
+	})
+}
+
 // NewBadRequestError returns a error representing a badly formed
 // request.
 func NewBadRequestError(message string) *echo.HTTPError {
 	return echo.NewHTTPError(http.StatusBadRequest, echo.Map{
 		"message": message,
+	})
+}
+
+// NewBadRequestErrorWithLoc returns a error representing a badly
+// formed request.
+func NewBadRequestErrorWithLoc(message, location string) *echo.HTTPError {
+	return echo.NewHTTPError(http.StatusBadRequest, echo.Map{
+		"message":  message,
+		"location": location,
 	})
 }
 

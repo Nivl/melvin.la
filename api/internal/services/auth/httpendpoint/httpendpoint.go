@@ -7,4 +7,7 @@ import "github.com/labstack/echo/v4"
 func Register(g *echo.Group) {
 	g.POST("/sessions", CreateSession)
 	g.DELETE("/sessions", DeleteSession)
+
+	g.GET("/users/:id", GetUser)
+	g.POST("/users", CreateUser)
 }
