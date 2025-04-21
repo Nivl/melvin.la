@@ -8,15 +8,13 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
 )
 
-type Server struct {
-	DB dbpublic.Querier
-}
+type Server struct{}
 
 // we make sure the struct implements the interface
 var _ api.StrictServerInterface = (*Server)(nil)
 
 func NewServer(db dbpublic.Querier) *Server {
-	return &Server{DB: db}
+	return &Server{}
 }
 
 func (s *Server) GetServiceContext(ctx context.Context) *request.Context {
