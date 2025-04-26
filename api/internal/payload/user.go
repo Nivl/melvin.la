@@ -6,9 +6,10 @@ import (
 	"github.com/oapi-codegen/runtime/types"
 )
 
+// NewUser creates a User response object from SQL object
 func NewUser(u *dbpublic.User) api.User {
 	return api.User{
-		Id:    u.ID,
+		ID:    u.ID,
 		Name:  u.Name,
 		Email: types.Email(u.Email),
 	}

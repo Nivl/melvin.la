@@ -8,7 +8,9 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/httperror"
 )
 
-func (s *Server) DeleteSession(ctx context.Context, input api.DeleteSessionRequestObject) (api.DeleteSessionResponseObject, error) {
+// DeleteSession is a user-facing HTTP endpoint used to delete a user session
+// This is used to properly log a user out
+func (s *Server) DeleteSession(ctx context.Context, _ api.DeleteSessionRequestObject) (api.DeleteSessionResponseObject, error) {
 	c := s.GetServiceContext(ctx)
 	if c.User() == nil {
 		return nil, httperror.NewAuthenticationError("user not authenticated")

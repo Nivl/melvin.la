@@ -9,7 +9,7 @@ import (
 	"context"
 	"net/netip"
 
-	blog "github.com/Nivl/melvin.la/api/internal/services/blog"
+	api "github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
@@ -287,13 +287,13 @@ RETURNING id, title, slug, thumbnail_url, description, content_json, published_a
 `
 
 type InsertBlogPostParams struct {
-	ID           uuid.UUID           `db:"id"`
-	Title        string              `db:"title"`
-	Description  *string             `db:"description"`
-	Slug         string              `db:"slug"`
-	ThumbnailURL *string             `db:"thumbnail_url"`
-	ContentJSON  blog.EditorJSOutput `db:"content_json"`
-	PublishedAt  pgtype.Timestamptz  `db:"published_at"`
+	ID           uuid.UUID          `db:"id"`
+	Title        string             `db:"title"`
+	Description  *string            `db:"description"`
+	Slug         string             `db:"slug"`
+	ThumbnailURL *string            `db:"thumbnail_url"`
+	ContentJSON  api.EditorJS       `db:"content_json"`
+	PublishedAt  pgtype.Timestamptz `db:"published_at"`
 }
 
 func (q *Queries) InsertBlogPost(ctx context.Context, arg InsertBlogPostParams) (*BlogPost, error) {
@@ -331,13 +331,13 @@ RETURNING id, blog_post_id, title, slug, thumbnail_url, description, content_jso
 `
 
 type InsertBlogPostRevParams struct {
-	ID           uuid.UUID           `db:"id"`
-	BlogPostID   uuid.UUID           `db:"blog_post_id"`
-	Title        string              `db:"title"`
-	ContentJSON  blog.EditorJSOutput `db:"content_json"`
-	Description  *string             `db:"description"`
-	ThumbnailURL *string             `db:"thumbnail_url"`
-	Slug         string              `db:"slug"`
+	ID           uuid.UUID    `db:"id"`
+	BlogPostID   uuid.UUID    `db:"blog_post_id"`
+	Title        string       `db:"title"`
+	ContentJSON  api.EditorJS `db:"content_json"`
+	Description  *string      `db:"description"`
+	ThumbnailURL *string      `db:"thumbnail_url"`
+	Slug         string       `db:"slug"`
 }
 
 func (q *Queries) InsertBlogPostRev(ctx context.Context, arg InsertBlogPostRevParams) (*BlogPostRev, error) {
@@ -428,13 +428,13 @@ RETURNING id, title, slug, thumbnail_url, description, content_json, published_a
 `
 
 type UpdateBlogPostParams struct {
-	Title        string              `db:"title"`
-	Slug         string              `db:"slug"`
-	Description  *string             `db:"description"`
-	ThumbnailURL *string             `db:"thumbnail_url"`
-	ContentJSON  blog.EditorJSOutput `db:"content_json"`
-	PublishedAt  pgtype.Timestamptz  `db:"published_at"`
-	ID           uuid.UUID           `db:"id"`
+	Title        string             `db:"title"`
+	Slug         string             `db:"slug"`
+	Description  *string            `db:"description"`
+	ThumbnailURL *string            `db:"thumbnail_url"`
+	ContentJSON  api.EditorJS       `db:"content_json"`
+	PublishedAt  pgtype.Timestamptz `db:"published_at"`
+	ID           uuid.UUID          `db:"id"`
 }
 
 func (q *Queries) UpdateBlogPost(ctx context.Context, arg UpdateBlogPostParams) (*BlogPost, error) {

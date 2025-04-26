@@ -33,6 +33,8 @@ func createUserInputValidation(input *api.CreateUserRequestObject) error {
 	return nil
 }
 
+// CreateUser is a user-facing HTTP endpoint used to create a user
+// This is used to sign up a new user
 func (s *Server) CreateUser(ctx context.Context, input api.CreateUserRequestObject) (api.CreateUserResponseObject, error) {
 	c := s.GetServiceContext(ctx)
 

@@ -2,7 +2,6 @@ package secret_test
 
 import (
 	"bytes"
-	"context"
 	"encoding/binary"
 	"encoding/json"
 	"fmt"
@@ -142,7 +141,7 @@ func TestNewSecret(t *testing.T) {
 		}
 
 		var cfg envStruct
-		err := envconfig.ProcessWith(context.Background(), &envconfig.Config{
+		err := envconfig.ProcessWith(t.Context(), &envconfig.Config{
 			Target:   &cfg,
 			Lookuper: finder,
 		})

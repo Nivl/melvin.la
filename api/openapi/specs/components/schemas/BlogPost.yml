@@ -7,34 +7,38 @@ required:
   - contentJson
 properties:
   id:
+    x-go-name: ID
     type: string
     format: uuid
     description: The ID of the blog post.
     example: "123e4567-e89b-12d3-a456-426614174000"
   title:
     type: string
-    format: uuid
     description: Title of the blog post.
     example: "My awesome blog post"
     minLength: 1
     maxLength: 100
   slug:
     type: string
-    format: uuid
     description: slug of the blog post.
     example: "my-awesome-blog-post"
     minLength: 1
     maxLength: 105
   contentJson:
+    x-go-name: ContentJSON
     type: object
     description: The content of the blog post in JSON format.
+    required:
+      - version
+      - blocks
+      - time
     properties:
       version:
         type: string
         description: The version of the post
         example: "1.0"
       time:
-        type: number
+        type: integer
         description: Time at which it has been last edited
         example: 1698796799
       blocks:
@@ -44,6 +48,7 @@ properties:
           type: object
           properties:
             id:
+              x-go-name: ID
               type: string
               description: Id of the block
               example: "1"
@@ -71,6 +76,7 @@ properties:
     minLength: 1
     maxLength: 130
   thumbnailUrl:
+    x-go-name: thumbnailURL
     type: string
     format: url
     description: URL of the thumbnail to display.

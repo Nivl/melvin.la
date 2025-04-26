@@ -33,6 +33,8 @@ func createSessionInputValidation(input *api.CreateSessionRequestObject) error {
 	return nil
 }
 
+// CreateSession is a user-facing HTTP endpoint used to create a user session
+// This is used to log a user in
 func (s *Server) CreateSession(ctx context.Context, input api.CreateSessionRequestObject) (api.CreateSessionResponseObject, error) {
 	if err := createSessionInputValidation(&input); err != nil {
 		return nil, err

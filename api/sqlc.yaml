@@ -17,14 +17,14 @@ sql:
         overrides:
           - column: "blog_posts.content_json"
             go_type:
-              import: "github.com/Nivl/melvin.la/api/internal/services/blog"
-              package: "blog"
-              type: "EditorJSOutput"
+              import: "github.com/Nivl/melvin.la/api/internal/gen/api"
+              package: "api"
+              type: "EditorJS"
           - column: "blog_post_revs.content_json"
             go_type:
-              import: "github.com/Nivl/melvin.la/api/internal/services/blog"
-              package: "blog"
-              type: "EditorJSOutput"
+              import: "github.com/Nivl/melvin.la/api/internal/gen/api"
+              package: "api"
+              type: "EditorJS"
           - db_type: "uuid"
             go_type:
               import: "github.com/google/uuid"

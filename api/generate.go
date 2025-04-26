@@ -1,3 +1,5 @@
+// Package melvinla contains the code generation directives for the whole
+// project
 package melvinla
 
 // generate DB models and queries

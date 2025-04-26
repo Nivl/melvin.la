@@ -20,8 +20,8 @@ type Dependencies struct {
 	FeatureFlag fflag.FeatureFlag
 }
 
-// New create a Dependency object from the app config by loading all the
-// needed 3rd party libraries.
+// NewDependencies create a Dependency object from the app config by
+// loading all the needed 3rd party libraries.
 func NewDependencies(ctx context.Context, cfg *Config) (deps *Dependencies, returnedErr error) {
 	logger, err := zap.NewProduction()
 	if !strings.EqualFold(cfg.Environment, "production") {
@@ -33,6 +33,9 @@ func NewDependencies(ctx context.Context, cfg *Config) (deps *Dependencies, retu
 	defer errutil.RunOnErr(logger.Sync, returnedErr, "could not sync the logger")
 
 	db, err := pgx.Connect(ctx, cfg.API.PostgresURL.Get())
+	if err != nil {
+		return nil, fmt.Errorf("couldn't connect to the database: %w", err)
+	}
 	defer errutil.RunOnErrWithCtx(ctx, db.Close, returnedErr, "could not close database")
 
 	featureFlag, err := fflag.NewLD(cfg.API.LauchDarklySDKKey.Get(), logger)

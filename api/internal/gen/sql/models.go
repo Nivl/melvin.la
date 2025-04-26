@@ -7,34 +7,34 @@ package dbpublic
 import (
 	"net/netip"
 
-	blog "github.com/Nivl/melvin.la/api/internal/services/blog"
+	api "github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
 type BlogPost struct {
-	ID           uuid.UUID           `db:"id"`
-	Title        string              `db:"title"`
-	Slug         string              `db:"slug"`
-	ThumbnailURL *string             `db:"thumbnail_url"`
-	Description  *string             `db:"description"`
-	ContentJSON  blog.EditorJSOutput `db:"content_json"`
-	PublishedAt  pgtype.Timestamptz  `db:"published_at"`
-	CreatedAt    pgtype.Timestamptz  `db:"created_at"`
-	UpdatedAt    pgtype.Timestamptz  `db:"updated_at"`
-	DeletedAt    pgtype.Timestamptz  `db:"deleted_at"`
+	ID           uuid.UUID          `db:"id"`
+	Title        string             `db:"title"`
+	Slug         string             `db:"slug"`
+	ThumbnailURL *string            `db:"thumbnail_url"`
+	Description  *string            `db:"description"`
+	ContentJSON  api.EditorJS       `db:"content_json"`
+	PublishedAt  pgtype.Timestamptz `db:"published_at"`
+	CreatedAt    pgtype.Timestamptz `db:"created_at"`
+	UpdatedAt    pgtype.Timestamptz `db:"updated_at"`
+	DeletedAt    pgtype.Timestamptz `db:"deleted_at"`
 }
 
 type BlogPostRev struct {
-	ID           uuid.UUID           `db:"id"`
-	BlogPostID   uuid.UUID           `db:"blog_post_id"`
-	Title        string              `db:"title"`
-	Slug         string              `db:"slug"`
-	ThumbnailURL *string             `db:"thumbnail_url"`
-	Description  *string             `db:"description"`
-	ContentJSON  blog.EditorJSOutput `db:"content_json"`
-	CreatedAt    pgtype.Timestamptz  `db:"created_at"`
-	DeletedAt    pgtype.Timestamptz  `db:"deleted_at"`
+	ID           uuid.UUID          `db:"id"`
+	BlogPostID   uuid.UUID          `db:"blog_post_id"`
+	Title        string             `db:"title"`
+	Slug         string             `db:"slug"`
+	ThumbnailURL *string            `db:"thumbnail_url"`
+	Description  *string            `db:"description"`
+	ContentJSON  api.EditorJS       `db:"content_json"`
+	CreatedAt    pgtype.Timestamptz `db:"created_at"`
+	DeletedAt    pgtype.Timestamptz `db:"deleted_at"`
 }
 
 type SchemaMigration struct {

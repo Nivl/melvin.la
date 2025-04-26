@@ -16,7 +16,7 @@ import (
 )
 
 // Secret represents a secret string that is protected against accidental leaks
-type Secret struct { //nolint:recvcheck // It purposely use both pointer and value receiver to make sure to target everything
+type Secret struct {
 	secret *string
 }
 

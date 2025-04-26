@@ -1,3 +1,5 @@
+// Package httperror provides a set of functions to create HTTP errors
+// compatible with echo.
 package httperror
 
 import (
@@ -18,6 +20,7 @@ func NewValidationError(field, message string) *echo.HTTPError {
 
 // NewValidationErrorWithLoc returns a error representing a data
 // validation error.
+// TODO(melvin): use an enum for the location
 func NewValidationErrorWithLoc(field, message, location string) *echo.HTTPError {
 	return echo.NewHTTPError(http.StatusBadRequest, echo.Map{
 		"message":  message,

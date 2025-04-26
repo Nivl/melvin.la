@@ -384,7 +384,7 @@ func (response CreateUser503Response) VisitCreateUserResponse(w http.ResponseWri
 }
 
 type GetUserByIdRequestObject struct {
-	Id string `json:"id"`
+	ID string `json:"id"`
 }
 
 type GetUserByIdResponseObject interface {
@@ -578,7 +578,7 @@ func (response GetBlogPost503Response) VisitGetBlogPostResponse(w http.ResponseW
 }
 
 type DeleteBlogPostRequestObject struct {
-	Id openapi_types.UUID `json:"id"`
+	ID openapi_types.UUID `json:"id"`
 }
 
 type DeleteBlogPostResponseObject interface {
@@ -628,7 +628,7 @@ func (response DeleteBlogPost503Response) VisitDeleteBlogPostResponse(w http.Res
 }
 
 type UpdateBlogPostRequestObject struct {
-	Id   openapi_types.UUID `json:"id"`
+	ID   openapi_types.UUID `json:"id"`
 	Body *UpdateBlogPostJSONRequestBody
 }
 
@@ -636,11 +636,11 @@ type UpdateBlogPostResponseObject interface {
 	VisitUpdateBlogPostResponse(w http.ResponseWriter) error
 }
 
-type UpdateBlogPost201JSONResponse BlogPost
+type UpdateBlogPost200JSONResponse BlogPost
 
-func (response UpdateBlogPost201JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+func (response UpdateBlogPost200JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(201)
+	w.WriteHeader(200)
 
 	return json.NewEncoder(w).Encode(response)
 }
@@ -837,7 +837,7 @@ func (sh *strictHandler) CreateUser(ctx echo.Context) error {
 func (sh *strictHandler) GetUserById(ctx echo.Context, id string) error {
 	var request GetUserByIdRequestObject
 
-	request.Id = id
+	request.ID = id
 
 	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
 		return sh.ssi.GetUserById(
@@ -953,7 +953,7 @@ func (sh *strictHandler) GetBlogPost(ctx echo.Context, idOrSlug string) error {
 func (sh *strictHandler) DeleteBlogPost(ctx echo.Context, id openapi_types.UUID) error {
 	var request DeleteBlogPostRequestObject
 
-	request.Id = id
+	request.ID = id
 
 	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
 		return sh.ssi.DeleteBlogPost(
@@ -981,7 +981,7 @@ func (sh *strictHandler) DeleteBlogPost(ctx echo.Context, id openapi_types.UUID)
 func (sh *strictHandler) UpdateBlogPost(ctx echo.Context, id openapi_types.UUID) error {
 	var request UpdateBlogPostRequestObject
 
-	request.Id = id
+	request.ID = id
 
 	var body UpdateBlogPostJSONRequestBody
 	if err := ctx.Bind(&body); err != nil {

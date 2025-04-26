@@ -41,7 +41,7 @@ requestBody:
                 description: The version of the post
                 example: "1.0"
               time:
-                type: number
+                type: integer
                 description: Time at which it has been last edited
                 example: 1698796799
               blocks:

@@ -6,6 +6,7 @@ package api
 import (
 	"time"
 
+	pgtype "github.com/jackc/pgx/v5/pgtype"
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
@@ -25,43 +26,46 @@ const (
 // BlogPost represents a blog post
 type BlogPost struct {
 	// ContentJson The content of the blog post in JSON format.
-	ContentJson struct {
-		// Blocks Content of the post
-		Blocks *[]struct {
-			// Data Data of the block
-			Data *map[string]interface{} `json:"data,omitempty"`
-
-			// Id Id of the block
-			Id *string `json:"id,omitempty"`
-
-			// Type Type of the block (e.g., paragraph, header)
-			Type *string `json:"type,omitempty"`
-		} `json:"blocks,omitempty"`
-
-		// Time Time at which it has been last edited
-		Time *float32 `json:"time,omitempty"`
-
-		// Version The version of the post
-		Version *string `json:"version,omitempty"`
-	} `json:"contentJson"`
+	ContentJson EditorJS `json:"contentJson"`
 
 	// Description Short description of the blog post.
 	Description *string `json:"description,omitempty"`
 
-	// Id The ID of the blog post.
-	Id openapi_types.UUID `json:"id"`
+	// ID The ID of the blog post.
+	ID openapi_types.UUID `json:"id"`
 
 	// PublishedAt Date at which the post has been published.
 	PublishedAt *time.Time `json:"publishedAt,omitempty"`
 
 	// Slug slug of the blog post.
-	Slug openapi_types.UUID `json:"slug"`
+	Slug string `json:"slug"`
 
-	// ThumbnailUrl URL of the thumbnail to display.
-	ThumbnailUrl *string `json:"thumbnailUrl,omitempty"`
+	// ThumbnailURL URL of the thumbnail to display.
+	ThumbnailURL *string `json:"thumbnailUrl,omitempty"`
 
 	// Title Title of the blog post.
-	Title openapi_types.UUID `json:"title"`
+	Title string `json:"title"`
+}
+
+// EditorJS The content of the blog post in JSON format.
+type EditorJS struct {
+	// Blocks Content of the post
+	Blocks []struct {
+		// Data Data of the block
+		Data map[string]interface{} `json:"data"`
+
+		// ID Id of the block
+		ID string `json:"id"`
+
+		// Type Type of the block (e.g., paragraph, header)
+		Type string `json:"type"`
+	} `json:"blocks"`
+
+	// Time Time at which it has been last edited
+	Time int `json:"time"`
+
+	// Version The version of the post
+	Version string `json:"version"`
 }
 
 // ErrorResponse Object returned to any query that fails with an error code that expects a body (400, 409, ...)
@@ -90,8 +94,8 @@ type Session struct {
 	// Token The ID of the user.
 	Token openapi_types.UUID `json:"token"`
 
-	// UserId Id of the user attached to this sessions.
-	UserId openapi_types.UUID `json:"userId"`
+	// UserID Id of the user attached to this sessions.
+	UserID openapi_types.UUID `json:"userId"`
 }
 
 // User User object
@@ -99,8 +103,8 @@ type User struct {
 	// Email The email of the user.
 	Email openapi_types.Email `json:"email"`
 
-	// Id The ID of the user.
-	Id openapi_types.UUID `json:"id"`
+	// ID The ID of the user.
+	ID openapi_types.UUID `json:"id"`
 
 	// Name The name of the user.
 	Name string `json:"name"`
@@ -139,34 +143,16 @@ type CreateUserJSONBody struct {
 // GetBlogPostsParams defines parameters for GetBlogPosts.
 type GetBlogPostsParams struct {
 	// After All the posts should have been published after this date.
-	After *time.Time `form:"after,omitempty" json:"after,omitempty"`
+	After *pgtype.Timestamptz `form:"after,omitempty" json:"after,omitempty"`
 
 	// Before All the posts should have been published before this date.
-	Before *time.Time `form:"before,omitempty" json:"before,omitempty"`
+	Before *pgtype.Timestamptz `form:"before,omitempty" json:"before,omitempty"`
 }
 
 // CreateBlogPostJSONBody defines parameters for CreateBlogPost.
 type CreateBlogPostJSONBody struct {
 	// ContentJson The content of the blog post in JSON format.
-	ContentJson struct {
-		// Blocks Content of the post
-		Blocks *[]struct {
-			// Data Data of the block
-			Data *map[string]interface{} `json:"data,omitempty"`
-
-			// Id Id of the block
-			Id *string `json:"id,omitempty"`
-
-			// Type Type of the block (e.g., paragraph, header)
-			Type *string `json:"type,omitempty"`
-		} `json:"blocks,omitempty"`
-
-		// Time Time at which it has been last edited
-		Time *float32 `json:"time,omitempty"`
-
-		// Version The version of the post
-		Version *string `json:"version,omitempty"`
-	} `json:"contentJson"`
+	ContentJson EditorJS `json:"contentJson"`
 
 	// Description Short description of the blog post.
 	Description *string `json:"description,omitempty"`
@@ -175,52 +161,34 @@ type CreateBlogPostJSONBody struct {
 	Publish *bool `json:"publish,omitempty"`
 
 	// Slug slug of the blog post.
-	Slug openapi_types.UUID `json:"slug"`
+	Slug *string `json:"slug,omitempty"`
 
-	// ThumbnailUrl URL of the thumbnail to display.
-	ThumbnailUrl *string `json:"thumbnailUrl,omitempty"`
+	// ThumbnailURL URL of the thumbnail to display.
+	ThumbnailURL *string `json:"thumbnailUrl,omitempty"`
 
 	// Title Title of the blog post.
-	Title openapi_types.UUID `json:"title"`
+	Title string `json:"title"`
 }
 
 // UpdateBlogPostJSONBody defines parameters for UpdateBlogPost.
 type UpdateBlogPostJSONBody struct {
 	// ContentJson The content of the blog post in JSON format.
-	ContentJson *struct {
-		// Blocks Content of the post
-		Blocks *[]struct {
-			// Data Data of the block
-			Data *map[string]interface{} `json:"data,omitempty"`
-
-			// Id Id of the block
-			Id *string `json:"id,omitempty"`
-
-			// Type Type of the block (e.g., paragraph, header)
-			Type *string `json:"type,omitempty"`
-		} `json:"blocks,omitempty"`
-
-		// Time Time at which it has been last edited
-		Time *float32 `json:"time,omitempty"`
-
-		// Version The version of the post
-		Version *string `json:"version,omitempty"`
-	} `json:"contentJson,omitempty"`
+	ContentJson *EditorJS `json:"contentJson,omitempty"`
 
 	// Description Short description of the blog post.
 	Description *string `json:"description,omitempty"`
 
-	// Publish publish or un-publish the post.
+	// Publish publish the post.
 	Publish *bool `json:"publish,omitempty"`
 
 	// Slug slug of the blog post.
-	Slug *openapi_types.UUID `json:"slug,omitempty"`
+	Slug *string `json:"slug,omitempty"`
 
-	// ThumbnailUrl URL of the thumbnail to display.
-	ThumbnailUrl *string `json:"thumbnailUrl,omitempty"`
+	// ThumbnailURL URL of the thumbnail to display.
+	ThumbnailURL *string `json:"thumbnailUrl,omitempty"`
 
 	// Title Title of the blog post.
-	Title *openapi_types.UUID `json:"title,omitempty"`
+	Title *string `json:"title,omitempty"`
 }
 
 // CreateSessionJSONRequestBody defines body for CreateSession for application/json ContentType.

@@ -20,6 +20,7 @@ type Config struct {
 	} `env:",prefix=API_"`
 }
 
+// LoadConfig loads the configuration from the environment
 func LoadConfig(ctx context.Context) (*Config, error) {
 	var cfg *Config
 	if err := envconfig.Process(ctx, &cfg); err != nil {
@@ -28,6 +29,8 @@ func LoadConfig(ctx context.Context) (*Config, error) {
 	return cfg, nil
 }
 
+// New creates a returns a new Config and Dependencies object by
+// parsing the environment variables
 func New(ctx context.Context) (*Config, *Dependencies, error) {
 	cfg, err := LoadConfig(ctx)
 	if err != nil {
