@@ -1,0 +1,9 @@
+description: The user is not logged in
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/_index.yml#/ErrorResponse"
+    examples:
+      example-1:
+        value:
+          message: "user not authenticated"

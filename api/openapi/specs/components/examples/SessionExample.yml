@@ -1,0 +1,6 @@
+description: Example of a session object
+value:
+  token: "123e4567-e89b-12d3-a456-426614174000"
+  userId: "259d9d82-bdd7-4a8a-be4f-76b156b46203"
+  refreshToken: "da315121-65f2-4661-9ad2-fdf40d494998"
+  expiresAt: "2023-10-31T23:59:59Z"

@@ -2,9 +2,9 @@
 package stringutil
 
 import (
+	"math/rand/v2"
 	"strings"
 
-	"golang.org/x/exp/rand"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
@@ -18,7 +18,7 @@ var charRunes = []rune("bcdfghjkmpqrtvwxyBCDFGHJKMPQRTVWXY346789")
 func Random(n int) string {
 	b := make([]rune, n)
 	for i := range b {
-		b[i] = charRunes[rand.Intn(len(charRunes))]
+		b[i] = charRunes[rand.IntN(len(charRunes))] //nolint:gosec // No need for a strong random number generator
 	}
 	return string(b)
 }

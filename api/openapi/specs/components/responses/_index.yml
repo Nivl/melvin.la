@@ -1,0 +1,6 @@
+BodyError:
+  $ref: "./BodyError.yml"
+AlreadyLoggedIn:
+  $ref: "./AlreadyLoggedIn.yml"
+NotLoggedIn:
+  $ref: "./NotLoggedIn.yml"

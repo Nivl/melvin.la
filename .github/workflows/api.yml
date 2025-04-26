@@ -27,7 +27,7 @@ jobs:
     name: detect what files changed
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-42fda74
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
@@ -74,7 +74,7 @@ jobs:
     needs: [perpare-env]
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-42fda74
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
@@ -100,7 +100,7 @@ jobs:
     needs: [perpare-env]
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-42fda74
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
@@ -117,7 +117,7 @@ jobs:
     needs: [perpare-env]
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-42fda74
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
@@ -161,7 +161,7 @@ jobs:
     needs: [perpare-env]
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-42fda74
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
@@ -199,7 +199,7 @@ jobs:
           API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
 
       - name: Lint docs
-        run: task ci:lint-migration
+        run: task ci:lint-migrations-and-codegen
         env:
           API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
 
@@ -301,7 +301,7 @@ jobs:
     name: Run migrations and deploy to prod
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-42fda74
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}

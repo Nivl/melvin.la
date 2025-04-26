@@ -1,0 +1,741 @@
+openapi: "3.0.0"
+servers:
+    - url: "https://api.melvin.la"
+info:
+    version: 1.0.0
+    title: melvin.la API specs
+    description: This is the API specification for melvin.la.
+tags:
+    - name: users
+      description: This is the user API. It is used to manage users.
+    - name: auth
+      description: This is the auth API. It is used to manage sessions and authentication.
+    - name: blog
+      description: This is the blog API. It is used to manage blog posts and revisions.
+components:
+    responses:
+        ParamError:
+            description: The paths/body/query/header contains missing or invalid data
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/ErrorResponse"
+                    examples:
+                        example-1:
+                            value:
+                                message: "name is required"
+                                field: "name"
+        AlreadyLoggedIn:
+            description: The user is not logged in
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/ErrorResponse"
+                    examples:
+                        example-1:
+                            value:
+                                message: "user not authenticated"
+        NotLoggedIn:
+            description: The user is already logged in
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/ErrorResponse"
+                    examples:
+                        example-1:
+                            value:
+                                message: "user is already logged in"
+    examples:
+        UserExample:
+            description: Example of a user object
+            value:
+                id: "123e4567-e89b-12d3-a456-426614174000"
+                name: "John Doe"
+                email: "user@example.com"
+        SessionExample:
+            description: Example of a session object
+            value:
+                token: "123e4567-e89b-12d3-a456-426614174000"
+                userId: "259d9d82-bdd7-4a8a-be4f-76b156b46203"
+                refreshToken: "da315121-65f2-4661-9ad2-fdf40d494998"
+                expiresAt: "2023-10-31T23:59:59Z"
+        BlogPostExample:
+            description: Example of a blog post object
+            value:
+                id: "123e4567-e89b-12d3-a456-426614174000"
+                title: "My awesome blog post"
+                slug: "my-awesome-blog-post"
+                description: "This post explains how to ..."
+                thumbnailUrl: "https://picsum.photos/200/300"
+                publishedAt: "2023-10-31T23:59:59Z"
+                contentJson:
+                    version: "1.0"
+                    time: 1698796799
+                    blocks:
+                        - id: "1"
+                          type: "paragraph"
+                          data:
+                            text: "This is a paragraph."
+                        - id: "2"
+                          type: "header"
+                          data:
+                            text: "This is a header."
+                            level: 2
+    schemas:
+        ErrorResponse:
+            description: Object returned to any query that fails with an error code that expects a body (400, 409, ...)
+            type: object
+            required:
+                - message
+            properties:
+                message:
+                    type: string
+                    description: Descriptive error message
+                    example: "user must be logged in to make the request"
+                field:
+                    type: string
+                    description: The name of the field/param that caused the error
+                    example: "id"
+                location:
+                    type: string
+                    enum: [query, path, body, header, cookie]
+                    description: Location of where the field/param was found
+                    example: "body"
+        User:
+            description: User object
+            type: object
+            required:
+                - id
+                - name
+                - email
+            properties:
+                id:
+                    x-go-name: ID
+                    type: string
+                    format: uuid
+                    description: The ID of the user.
+                    example: "123e4567-e89b-12d3-a456-426614174000"
+                name:
+                    type: string
+                    description: The name of the user.
+                    example: "John Doe"
+                email:
+                    type: string
+                    format: email
+                    description: The email of the user.
+                    example: "user@example.com"
+        Session:
+            description: User session object
+            type: object
+            required:
+                - token
+                - userId
+                - refreshToken
+                - expiresAt
+            properties:
+                token:
+                    type: string
+                    format: uuid
+                    description: The ID of the user.
+                    example: "123e4567-e89b-12d3-a456-426614174000"
+                userId:
+                    x-go-name: userID
+                    type: string
+                    format: uuid
+                    description: Id of the user attached to this sessions.
+                    example: "259d9d82-bdd7-4a8a-be4f-76b156b46203"
+                refreshToken:
+                    type: string
+                    format: uuid
+                    description: Token to use to refresh the session after it expired.
+                    example: "da315121-65f2-4661-9ad2-fdf40d494998"
+                expiresAt:
+                    type: string
+                    format: date-time
+                    description: Date at which the session expires.
+                    example: "2023-10-31T23:59:59Z"
+        EditorJS:
+            type: object
+            description: The content of the blog post in JSON format.
+            required:
+                - version
+                - blocks
+                - time
+            properties:
+                version:
+                    type: string
+                    description: The version of the post
+                    example: "1.0"
+                time:
+                    type: integer
+                    description: Time at which it has been last edited
+                    example: 1698796799
+                blocks:
+                    type: array
+                    description: Content of the post
+                    items:
+                        type: object
+                        required:
+                            - id
+                            - type
+                            - data
+                        properties:
+                            id:
+                                x-go-name: ID
+                                type: string
+                                description: Id of the block
+                                example: "1"
+                            type:
+                                type: string
+                                description: Type of the block (e.g., paragraph, header)
+                                example: "paragraph"
+                            data:
+                                type: object
+                                description: Data of the block
+                    example:
+                        - id: "1"
+                          type: "paragraph"
+                          data:
+                            text: "This is a paragraph."
+                        - id: "2"
+                          type: "header"
+                          data:
+                            text: "This is a header."
+                            level: 2
+        BlogPost:
+            description: represents a blog post
+            type: object
+            required:
+                - id
+                - title
+                - slug
+                - contentJson
+            properties:
+                id:
+                    x-go-name: ID
+                    type: string
+                    format: uuid
+                    description: The ID of the blog post.
+                    example: "123e4567-e89b-12d3-a456-426614174000"
+                title:
+                    type: string
+                    description: Title of the blog post.
+                    example: "My awesome blog post"
+                    minLength: 1
+                    maxLength: 100
+                slug:
+                    type: string
+                    description: slug of the blog post.
+                    example: "my-awesome-blog-post"
+                    minLength: 1
+                    maxLength: 105
+                contentJson:
+                    x-go-name: ContentJSON
+                    $ref: "#/components/schemas/EditorJS"
+                description:
+                    type: string
+                    description: Short description of the blog post.
+                    example: "123e4567-e89b-12d3-a456-426614174000"
+                    minLength: 1
+                    maxLength: 130
+                thumbnailUrl:
+                    x-go-name: thumbnailURL
+                    type: string
+                    format: url
+                    description: URL of the thumbnail to display.
+                    example: "https://picsum.photos/200/300"
+                    minLength: 1
+                    maxLength: 255
+                publishedAt:
+                    type: string
+                    format: date-time
+                    description: Date at which the post has been published.
+                    example: "2023-10-31T23:59:59Z"
+    securitySchemes:
+        ApiKeyAuth:
+            type: apiKey
+            in: header
+            name: X-Api-Key
+paths:
+    /auth/users:
+        post:
+            description: Create a new user.
+            summary: Create a new user.
+            operationId: createUser
+            tags:
+                - users
+            requestBody:
+                required: true
+                description: Data that is needed to create a new user.
+                content:
+                    application/json:
+                        schema:
+                            description: User object
+                            type: object
+                            required:
+                                - name
+                                - email
+                                - password
+                            properties:
+                                name:
+                                    type: string
+                                    description: The name of the user.
+                                    example: "John Doe"
+                                    x-oapi-codegen-extra-tags:
+                                        validate: "required,min=1,max=50"
+                                email:
+                                    type: string
+                                    format: email
+                                    description: The email of the user.
+                                    example: "user@example.com"
+                                    x-oapi-codegen-extra-tags:
+                                        validate: "required,max=255"
+                                password:
+                                    type: string
+                                    format: password
+                                    description: The password of the user.
+                                    example: "my p@55w0rd"
+                                    x-oapi-codegen-extra-tags:
+                                        validate: "required,min=8,max=50"
+            responses:
+                "201":
+                    description: Successfully created the user
+                "400":
+                    $ref: "#/components/responses/ParamError"
+                "403":
+                    $ref: "#/components/responses/AlreadyLoggedIn"
+                "409":
+                    description: The email is already being used
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                            examples:
+                                example-1:
+                                    value:
+                                        message: "already in use"
+                                        field: "email"
+                "500":
+                    description: Something wrong happened
+                "503":
+                    description: The endpoint has been disabled
+    /auth/users/{id}:
+        parameters:
+            - name: id
+              x-go-name: ID
+              in: path
+              required: true
+              description: The ID of the user to retrieve, or "me".
+              schema:
+                type: string
+                pattern: "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})|me$"
+        get:
+            description: Get a user by ID. `me` can also be used. Right now it will only return the current user itself.
+            summary: Get a user by ID.
+            operationId: getUserById
+            security:
+                - ApiKeyAuth: []
+            tags:
+                - users
+            responses:
+                "200":
+                    description: Successfully retrieved the user
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/User"
+                            examples:
+                                example-1:
+                                    $ref: "#/components/examples/UserExample"
+                "401":
+                    description: Unauthorized access - User must be logged in to make the request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                            examples:
+                                example-1:
+                                    value:
+                                        message: "user not logged in"
+                "500":
+                    description: Something wrong happened
+    /auth/sessions:
+        post:
+            description: Create a new user session that should be used to authenticate the user.
+            summary: Create a new session.
+            operationId: createSession
+            tags:
+                - auth
+            requestBody:
+                required: true
+                description: Data that is needed to create a new session.
+                content:
+                    application/json:
+                        schema:
+                            description: Data that is needed to create a new session
+                            type: object
+                            required:
+                                - email
+                                - password
+                            properties:
+                                email:
+                                    type: string
+                                    format: email
+                                    description: The email of the user.
+                                    example: "user@example.com"
+                                password:
+                                    type: string
+                                    format: password
+                                    description: The password of the user.
+                                    example: "my p@55w0rd"
+            responses:
+                "201":
+                    description: Successfully created the session
+                    content:
+                        application/json:
+                            schema:
+                                description: Session object
+                                type: object
+                                required:
+                                    - session
+                                    - me
+                                properties:
+                                    session:
+                                        $ref: "#/components/schemas/Session"
+                                    me:
+                                        $ref: "#/components/schemas/User"
+                            examples:
+                                example-1:
+                                    value:
+                                        me:
+                                            id: "123e4567-e89b-12d3-a456-426614174000"
+                                            name: "John Doe"
+                                            email: "user@example.com"
+                                        session:
+                                            token: "123e4567-e89b-12d3-a456-426614174000"
+                                            userId: "259d9d82-bdd7-4a8a-be4f-76b156b46203"
+                                            refreshToken: "da315121-65f2-4661-9ad2-fdf40d494998"
+                                            expiresAt: "2023-10-31T23:59:59Z"
+                "400":
+                    $ref: "#/components/responses/ParamError"
+                "403":
+                    $ref: "#/components/responses/AlreadyLoggedIn"
+                "500":
+                    description: Something wrong happened
+        delete:
+            description: Delete a user session.
+            summary: Delete a session.
+            operationId: deleteSession
+            tags:
+                - auth
+            security:
+                - ApiKeyAuth: []
+            responses:
+                "204":
+                    description: Successfully deleted the session
+                "401":
+                    $ref: "#/components/responses/NotLoggedIn"
+                "500":
+                    description: Something went wrong
+    /blog/posts:
+        get:
+            description: Retrieve a list of blog posts.
+            summary: Get blog posts.
+            operationId: getBlogPosts
+            tags:
+                - blog
+            parameters:
+                - in: query
+                  name: after
+                  schema:
+                    type: string
+                    format: date-time
+                    x-go-type: pgtype.Timestamptz
+                    x-go-type-import:
+                        path: github.com/jackc/pgx/v5/pgtype
+                        name: pgtype
+                  description: All the posts should have been published after this date.
+                - in: query
+                  name: before
+                  schema:
+                    type: string
+                    format: date-time
+                    x-go-type: pgtype.Timestamptz
+                    x-go-type-import:
+                        path: github.com/jackc/pgx/v5/pgtype
+                        name: pgtype
+                  description: All the posts should have been published before this date.
+            responses:
+                "200":
+                    description: Successfully retrieved a list of post
+                    content:
+                        application/json:
+                            schema:
+                                description: List of posts
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/BlogPost"
+                            example:
+                                - id: "123e4567-e89b-12d3-a456-426614174000"
+                                  title: "My awesome blog post"
+                                  slug: "my-awesome-blog-post"
+                                  description: "This post explains how to ..."
+                                  thumbnailUrl: "https://picsum.photos/200/300"
+                                  publishedAt: "2023-10-31T23:59:59Z"
+                                  contentJson:
+                                    attributes:
+                                        - name: "version"
+                                          type: "string"
+                                          description: "The version of the post"
+                                        - name: "time"
+                                          type: "integer"
+                                          description: "Time at which it has been last edited"
+                                        - name: "blocks"
+                                          type: "array"
+                                          description: "Content of the post"
+                "400":
+                    $ref: "#/components/responses/ParamError"
+                "500":
+                    description: Something wrong happened
+                "503":
+                    description: The endpoint has been disabled
+        post:
+            description: Create a blog post.
+            summary: Create a new blog post.
+            operationId: createBlogPost
+            security:
+                - ApiKeyAuth: []
+            tags:
+                - blog
+            requestBody:
+                required: true
+                description: Data that is needed to create a new blog post.
+                content:
+                    application/json:
+                        schema:
+                            description: Data that is needed to create a new blog post
+                            type: object
+                            required:
+                                - title
+                                - contentJson
+                            properties:
+                                title:
+                                    type: string
+                                    description: Title of the blog post.
+                                    example: "My awesome blog post"
+                                    minLength: 1
+                                    maxLength: 100
+                                slug:
+                                    type: string
+                                    description: slug of the blog post.
+                                    example: "my-awesome-blog-post"
+                                    minLength: 1
+                                    maxLength: 105
+                                contentJson:
+                                    $ref: "#/components/schemas/EditorJS"
+                                    x-go-name: contentJSON
+                                description:
+                                    type: string
+                                    description: Short description of the blog post.
+                                    example: "some description"
+                                    minLength: 1
+                                    maxLength: 130
+                                thumbnailUrl:
+                                    x-go-name: thumbnailURL
+                                    type: string
+                                    format: url
+                                    description: URL of the thumbnail to display.
+                                    example: "https://picsum.photos/200/300"
+                                    minLength: 1
+                                    maxLength: 255
+                                publish:
+                                    type: boolean
+                                    description: publish the post.
+                                    example: true
+            responses:
+                "201":
+                    description: Successfully created a new blog post
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/BlogPost"
+                            examples:
+                                example-1:
+                                    $ref: "#/components/examples/BlogPostExample"
+                "400":
+                    $ref: "#/components/responses/ParamError"
+                "401":
+                    $ref: "#/components/responses/NotLoggedIn"
+                "404":
+                    description: The post does not exist
+                "409":
+                    description: The slug, or another unique data is already being used
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                            examples:
+                                example-1:
+                                    value:
+                                        message: "already in use"
+                                        field: "slug"
+                "500":
+                    description: Something wrong happened
+                "503":
+                    description: The endpoint has been disabled
+    /blog/posts/{id}:
+        parameters:
+            - name: id
+              x-go-name: ID
+              in: path
+              required: true
+              description: The ID of the blog post.
+              schema:
+                type: string
+                format: uuid
+        patch:
+            description: Update a blog post.
+            summary: Update a new blog post.
+            operationId: updateBlogPost
+            security:
+                - ApiKeyAuth: []
+            tags:
+                - blog
+            requestBody:
+                required: true
+                description: Data that is available to update a blog post.
+                content:
+                    application/json:
+                        schema:
+                            description: Data that is needed to create a new blog post
+                            type: object
+                            properties:
+                                title:
+                                    type: string
+                                    description: Title of the blog post.
+                                    example: "My awesome blog post"
+                                    minLength: 1
+                                    maxLength: 100
+                                slug:
+                                    type: string
+                                    description: slug of the blog post.
+                                    example: "my-awesome-blog-post"
+                                    minLength: 1
+                                    maxLength: 105
+                                contentJson:
+                                    $ref: "#/components/schemas/EditorJS"
+                                description:
+                                    type: string
+                                    description: Short description of the blog post.
+                                    example: "some description"
+                                    minLength: 1
+                                    maxLength: 130
+                                thumbnailUrl:
+                                    x-go-name: thumbnailURL
+                                    type: string
+                                    format: url
+                                    description: URL of the thumbnail to display.
+                                    example: "https://picsum.photos/200/300"
+                                    minLength: 1
+                                    maxLength: 255
+                                publish:
+                                    type: boolean
+                                    description: publish the post.
+                                    example: true
+            responses:
+                "200":
+                    description: Successfully updated the blog post
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/BlogPost"
+                            examples:
+                                example-1:
+                                    $ref: "#/components/examples/BlogPostExample"
+                "400":
+                    $ref: "#/components/responses/ParamError"
+                "401":
+                    $ref: "#/components/responses/NotLoggedIn"
+                "409":
+                    description: The slug, or another unique data is already being used
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                            examples:
+                                example-1:
+                                    value:
+                                        message: "already in use"
+                                        field: "slug"
+                "500":
+                    description: Something wrong happened
+                "503":
+                    description: The endpoint has been disabled
+        delete:
+            description: Delete a blog post.
+            summary: Delete a blog post.
+            operationId: deleteBlogPost
+            security:
+                - ApiKeyAuth: []
+            tags:
+                - blog
+            responses:
+                "204":
+                    description: Successfully deleted the blog post
+                "400":
+                    $ref: "#/components/responses/ParamError"
+                "401":
+                    $ref: "#/components/responses/NotLoggedIn"
+                "500":
+                    description: Something wrong happened
+                "503":
+                    description: The endpoint has been disabled
+    /blog/posts/{id-or-slug}:
+        parameters:
+            - name: id-or-slug
+              in: path
+              required: true
+              description: The ID or slug of the blog post
+              schema:
+                type: string
+        get:
+            description: Retrieve a list of blog posts.
+            summary: Get blog posts.
+            operationId: getBlogPost
+            tags:
+                - blog
+            responses:
+                "200":
+                    description: Successfully retrieved a post
+                    content:
+                        application/json:
+                            schema:
+                                description: A blog post
+                                type: object
+                                $ref: "#/components/schemas/BlogPost"
+                            example:
+                                - id: "123e4567-e89b-12d3-a456-426614174000"
+                                  title: "My awesome blog post"
+                                  slug: "my-awesome-blog-post"
+                                  description: "This post explains how to ..."
+                                  thumbnailUrl: "https://picsum.photos/200/300"
+                                  publishedAt: "2023-10-31T23:59:59Z"
+                                  contentJson:
+                                    attributes:
+                                        - name: "version"
+                                          type: "string"
+                                          description: "The version of the post"
+                                        - name: "time"
+                                          type: "integer"
+                                          description: "Time at which it has been last edited"
+                                        - name: "blocks"
+                                          type: "array"
+                                          description: "Content of the post"
+                "400":
+                    $ref: "#/components/responses/ParamError"
+                "404":
+                    description: Blog post not found
+                "500":
+                    description: Something wrong happened
+                "503":
+                    description: The endpoint has been disabled

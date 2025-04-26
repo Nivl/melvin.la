@@ -1,0 +1,8 @@
+ErrorResponse:
+  $ref: "./ErrorResponse.yml"
+User:
+  $ref: "./User.yml"
+Session:
+  $ref: "./Session.yml"
+BlogPost:
+  $ref: "./BlogPost.yml"

@@ -38,6 +38,7 @@ tasks:
     cmds:
       - migrate -database ${API_POSTGRES_URL} -path database/migrations {{.CLI_ARGS}}
       - pg_dump -d ${API_POSTGRES_URL} -C | awk 'RS="";/(CREATE TABLE|INDEX)|(ALTER TABLE)[^;]*;/' > database/schemas/public.sql
+      - task: generate
 
   # usage: task new-migration -- name_of_the_migration
   new-migration:
@@ -50,7 +51,10 @@ tasks:
       - migrate -database ${API_POSTGRES_URL} -path database/migrations up
       - psql "${API_POSTGRES_URL}" < database/fixtures/fixtures.sql
 
-  lint: golangci-lint run ./...
+  lint:
+    cmds:
+      - golangci-lint run ./...
+      - go tool github.com/daveshanley/vacuum lint internal/gen/openapi.yml -q -d -n warn
 
   generate:
     cmds:
@@ -61,5 +65,11 @@ tasks:
     cmds:
       - go get -t -u ./...
       - go mod tidy
+
+  tidy:
+    cmds:
+      - go mod tidy
+      - go tool github.com/daveshanley/vacuum bundle -q -p openapi/ openapi/openapi.yml internal/gen/openapi.yml
+      - go generate ./...
 
   test: go test -race ./...

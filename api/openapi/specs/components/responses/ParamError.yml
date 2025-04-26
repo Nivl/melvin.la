@@ -1,0 +1,10 @@
+description: The paths/body/query/header contains missing or invalid data
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/_index.yml#/ErrorResponse"
+    examples:
+      example-1:
+        value:
+          message: "name is required"
+          field: "name"
