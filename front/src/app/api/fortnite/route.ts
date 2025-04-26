@@ -6,15 +6,8 @@ export async function GET(request: Request) {
     return Response.json({ error: 'name is missing' }, { status: 400 });
   }
 
-  let accountType = searchParams.get('accountType');
-  if (!accountType) {
-    accountType = 'epic';
-  }
-
-  let timeWindow = searchParams.get('timeWindow');
-  if (!timeWindow) {
-    timeWindow = 'lifetime';
-  }
+  const accountType = searchParams.get('accountType') ?? 'epic';
+  const timeWindow = searchParams.get('timeWindow') ?? 'lifetime';
 
   const res = await fetch(
     `https://fortnite-api.com/v2/stats/br/v2?name=${name}&accountType=${accountType}&timeWindow=${timeWindow}`,
