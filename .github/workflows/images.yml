@@ -41,7 +41,7 @@ jobs:
           filters: |
             go-service-image-dev:
               - 'docker/go-service-image-dev/**'
-              - '.github/workflows/go-service-image-dev.yml'
+              - '.github/workflows/images.yml'
 
   go-service-image-dev:
     if: ${{ needs.perpare-env.outputs.go-service-image-dev == 'true' }}
