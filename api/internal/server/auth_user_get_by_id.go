@@ -10,7 +10,7 @@ import (
 
 // GetUserById is a user-facing HTTP endpoint used to retrieve a user by their ID
 // Or "me" to get the currently authenticated user
-func (s *Server) GetUserById(ctx context.Context, input api.GetUserByIdRequestObject) (api.GetUserByIdResponseObject, error) {
+func (s *Server) GetUserById(ctx context.Context, input api.GetUserByIdRequestObject) (api.GetUserByIdResponseObject, error) { //nolint:revive // can't change the name, it's auto generated
 	c := s.GetServiceContext(ctx)
 	if c.User() == nil {
 		return nil, httperror.NewAuthenticationError("user not authenticated")

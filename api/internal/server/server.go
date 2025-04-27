@@ -1,3 +1,4 @@
+// Package server contains the implementation for the API's OAS
 package server
 
 import (

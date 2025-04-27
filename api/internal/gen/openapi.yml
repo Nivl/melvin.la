@@ -533,7 +533,6 @@ paths:
                                     maxLength: 105
                                 contentJson:
                                     $ref: "#/components/schemas/EditorJS"
-                                    x-go-name: contentJSON
                                 description:
                                     type: string
                                     description: Short description of the blog post.

@@ -14,6 +14,9 @@ import (
 	"github.com/google/uuid"
 )
 
+// GetBlogPost is a user-facing HTTP endpoint used to retrieve a blog post by
+// their ID or slug
+// To get a blog post by ID, the user must be authenticated
 func (s *Server) GetBlogPost(ctx context.Context, input api.GetBlogPostRequestObject) (api.GetBlogPostResponseObject, error) {
 	c := s.GetServiceContext(ctx)
 

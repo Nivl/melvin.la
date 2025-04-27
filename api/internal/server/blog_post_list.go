@@ -28,6 +28,8 @@ func getBlogPostsInputValidation(input api.GetBlogPostsRequestObject) error {
 	return nil
 }
 
+// GetBlogPosts is a user-facing HTTP endpoint used to retrieve list of blog
+// posts
 func (s *Server) GetBlogPosts(ctx context.Context, input api.GetBlogPostsRequestObject) (api.GetBlogPostsResponseObject, error) {
 	c := s.GetServiceContext(ctx)
 

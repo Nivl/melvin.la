@@ -9,6 +9,8 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/httperror"
 )
 
+// DeleteBlogPost is a user-facing HTTP endpoint used to delete a blog post by
+// their ID
 func (s *Server) DeleteBlogPost(ctx context.Context, input api.DeleteBlogPostRequestObject) (api.DeleteBlogPostResponseObject, error) {
 	c := s.GetServiceContext(ctx)
 
