@@ -41,7 +41,7 @@ type ServerInterface interface {
 	// (POST /blog/posts)
 	CreateBlogPost(ctx echo.Context) error
 	// Get blog posts.
-	// (GET /blog/posts/{id-or-slug})
+	// (GET /blog/posts/{idOrSlug})
 	GetBlogPost(ctx echo.Context, idOrSlug string) error
 	// Delete a blog post.
 	// (DELETE /blog/posts/{id})
@@ -148,12 +148,12 @@ func (w *ServerInterfaceWrapper) CreateBlogPost(ctx echo.Context) error {
 // GetBlogPost converts echo context to params.
 func (w *ServerInterfaceWrapper) GetBlogPost(ctx echo.Context) error {
 	var err error
-	// ------------- Path parameter "id-or-slug" -------------
+	// ------------- Path parameter "idOrSlug" -------------
 	var idOrSlug string
 
-	err = runtime.BindStyledParameterWithOptions("simple", "id-or-slug", ctx.Param("id-or-slug"), &idOrSlug, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "idOrSlug", ctx.Param("idOrSlug"), &idOrSlug, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return httperror.NewValidationErrorWithLoc("id-or-slug", "missing or invalid value", "path")
+		return httperror.NewValidationErrorWithLoc("idOrSlug", "missing or invalid value", "path")
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
@@ -231,7 +231,7 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	router.GET(baseURL+"/auth/users/:id", wrapper.GetUserById)
 	router.GET(baseURL+"/blog/posts", wrapper.GetBlogPosts)
 	router.POST(baseURL+"/blog/posts", wrapper.CreateBlogPost)
-	router.GET(baseURL+"/blog/posts/:id-or-slug", wrapper.GetBlogPost)
+	router.GET(baseURL+"/blog/posts/:idOrSlug", wrapper.GetBlogPost)
 	router.DELETE(baseURL+"/blog/posts/:id", wrapper.DeleteBlogPost)
 	router.PATCH(baseURL+"/blog/posts/:id", wrapper.UpdateBlogPost)
 
@@ -525,7 +525,7 @@ func (response CreateBlogPost503Response) VisitCreateBlogPostResponse(w http.Res
 }
 
 type GetBlogPostRequestObject struct {
-	IdOrSlug string `json:"id-or-slug"`
+	IdOrSlug string `json:"idOrSlug"`
 }
 
 type GetBlogPostResponseObject interface {
@@ -712,7 +712,7 @@ type StrictServerInterface interface {
 	// (POST /blog/posts)
 	CreateBlogPost(ctx context.Context, request CreateBlogPostRequestObject) (CreateBlogPostResponseObject, error)
 	// Get blog posts.
-	// (GET /blog/posts/{id-or-slug})
+	// (GET /blog/posts/{idOrSlug})
 	GetBlogPost(ctx context.Context, request GetBlogPostRequestObject) (GetBlogPostResponseObject, error)
 	// Delete a blog post.
 	// (DELETE /blog/posts/{id})

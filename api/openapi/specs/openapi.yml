@@ -599,9 +599,9 @@ paths:
         "503":
           description: The endpoint has been disabled
 
-  /blog/posts/{id-or-slug}:
+  /blog/posts/{idOrSlug}:
     parameters:
-      - name: id-or-slug
+      - name: idOrSlug
         in: path
         required: true
         description: The ID or slug of the blog post
