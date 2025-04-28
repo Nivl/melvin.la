@@ -11,7 +11,6 @@ import (
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/httperror"
 	"github.com/Nivl/melvin.la/api/internal/payload"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
@@ -19,16 +18,16 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func createSessionInputValidation(input *api.CreateSessionRequestObject) error {
+func createSessionInputValidation(input *api.CreateSessionRequestObject) *api.ErrorResponse {
 	// emails are stored lowercase in the DB to avoid issues with case
 	input.Body.Email = types.Email(strings.TrimSpace(string(input.Body.Email)))
 
 	// validate
 	if input.Body.Password == "" {
-		return httperror.NewValidationError("password", "password is required")
+		return NewErrorResponse("password", "password is required", api.Body)
 	}
 	if input.Body.Email == "" {
-		return httperror.NewValidationError("email", "email is required")
+		return NewErrorResponse("email", "email is required", api.Body)
 	}
 	return nil
 }
@@ -36,24 +35,28 @@ func createSessionInputValidation(input *api.CreateSessionRequestObject) error {
 // CreateSession is a user-facing HTTP endpoint used to create a user session
 // This is used to log a user in
 func (s *Server) CreateSession(ctx context.Context, input api.CreateSessionRequestObject) (api.CreateSessionResponseObject, error) {
-	if err := createSessionInputValidation(&input); err != nil {
-		return nil, err
-	}
 	c := s.GetServiceContext(ctx)
+
+	if c.User() == nil {
+		return api.CreateSession403Response{}, nil
+	}
+
+	if errorResponse := createSessionInputValidation(&input); errorResponse != nil {
+		return api.CreateSession400JSONResponse(*errorResponse), nil
+	}
 
 	// We first check if the email is valid, while retrieving the hashed
 	// password
 	user, err := c.DB().GetUserByEmail(ctx, string(input.Body.Email))
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return nil, httperror.NewValidationError("_", "Invalid email or password")
+			return api.CreateSession400JSONResponse(*NewErrorResponse("_", "Invalid email or password", api.Body)), nil
 		}
 		return nil, fmt.Errorf("could not get user: %w", err)
 	}
 	// With the hashed password we can now check if the provided one is valid
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Body.Password))
-	if err != nil {
-		return nil, httperror.NewValidationError("_", "Invalid email or password")
+	if bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Body.Password)) != nil {
+		return api.CreateSession400JSONResponse(*NewErrorResponse("_", "Invalid email or password", api.Body)), nil //nolint:nilerr // The error is returned in the response (user-error), and not as an error (system-error)
 	}
 
 	var ipPrefix netip.Prefix

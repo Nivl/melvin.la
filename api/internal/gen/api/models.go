@@ -110,15 +110,6 @@ type User struct {
 	Name string `json:"name"`
 }
 
-// AlreadyLoggedIn Object returned to any query that fails with an error code that expects a body (400, 409, ...)
-type AlreadyLoggedIn = ErrorResponse
-
-// NotLoggedIn Object returned to any query that fails with an error code that expects a body (400, 409, ...)
-type NotLoggedIn = ErrorResponse
-
-// ParamError Object returned to any query that fails with an error code that expects a body (400, 409, ...)
-type ParamError = ErrorResponse
-
 // CreateSessionJSONBody defines parameters for CreateSession.
 type CreateSessionJSONBody struct {
 	// Email The email of the user.

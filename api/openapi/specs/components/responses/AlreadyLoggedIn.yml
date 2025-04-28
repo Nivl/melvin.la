@@ -1,9 +1,0 @@
-description: The user is already logged in
-content:
-  application/json:
-    schema:
-      $ref: "../schemas/_index.yml#/ErrorResponse"
-    examples:
-      example-1:
-        value:
-          message: "user is already logged in"

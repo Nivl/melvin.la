@@ -5,7 +5,6 @@ import (
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/httperror"
 )
 
 // BlogPostInput is a generic input struct used to validate and sanitize
@@ -26,7 +25,7 @@ func hasValue(incoming, existing *string) bool {
 	return existing != nil && *existing != ""
 }
 
-func blogPostInputSanitizerAndValidation(input *BlogPostInput, existingPost dbpublic.BlogPost) error {
+func blogPostInputSanitizerAndValidation(input *BlogPostInput, existingPost dbpublic.BlogPost) *api.ErrorResponse {
 	// Sanitize
 	if input.Title != nil {
 		*input.Title = strings.TrimSpace(*input.Title)
@@ -44,23 +43,23 @@ func blogPostInputSanitizerAndValidation(input *BlogPostInput, existingPost dbpu
 	// Validate
 	if input.Title != nil {
 		if *input.Title == "" {
-			return httperror.NewValidationError("title", "title is required")
+			return NewErrorResponse("title", "title is required", api.Body)
 		}
 		if len(*input.Title) > 100 {
-			return httperror.NewValidationError("title", "title must be 100 chars or less")
+			return NewErrorResponse("title", "title must be 100 chars or less", api.Body)
 		}
 	}
 	if input.Slug != nil && len(*input.Slug) > 105 {
-		return httperror.NewValidationError("slug", "slug must be 105 chars or less")
+		return NewErrorResponse("slug", "slug must be 105 chars or less", api.Body)
 	}
 	if input.Description != nil && len(*input.Description) > 130 {
-		return httperror.NewValidationError("description", "description must be 130 chars or less")
+		return NewErrorResponse("description", "description must be 130 chars or less", api.Body)
 	}
 	if input.ThumbnailURL != nil && len(*input.ThumbnailURL) > 255 {
-		return httperror.NewValidationError("thumbnail_url", "thumbnail_url must be 255 chars or less")
+		return NewErrorResponse("thumbnailUrl", "thumbnailUrl must be 255 chars or less", api.Body)
 	}
 	if input.ContentJSON != nil && len(input.ContentJSON.Blocks) == 0 {
-		return httperror.NewValidationError("contentJson", "required")
+		return NewErrorResponse("contentJson", "required", api.Body)
 	}
 
 	// If the post is meant to be published, or is currently published
@@ -69,14 +68,14 @@ func blogPostInputSanitizerAndValidation(input *BlogPostInput, existingPost dbpu
 	willBePublished := input.Publish != nil && *input.Publish
 	if isPublished || willBePublished {
 		if !hasValue(input.ThumbnailURL, existingPost.ThumbnailURL) {
-			return httperror.NewValidationError("thumbnailUrl", "required when publishing")
+			return NewErrorResponse("thumbnailUrl", "required when publishing", api.Body)
 		}
 		if !hasValue(input.ThumbnailURL, existingPost.ThumbnailURL) ||
 			(input.ContentJSON != nil && len(input.ContentJSON.Blocks) == 0) {
-			return httperror.NewValidationError("contentJson", "required when publishing")
+			return NewErrorResponse("contentJson", "required when publishing", api.Body)
 		}
 		if !hasValue(input.Description, existingPost.Description) {
-			return httperror.NewValidationError("description", "required when publishing")
+			return NewErrorResponse("description", "required when publishing", api.Body)
 		}
 	}
 	return nil

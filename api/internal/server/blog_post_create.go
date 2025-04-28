@@ -9,7 +9,6 @@ import (
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/httperror"
 	"github.com/Nivl/melvin.la/api/internal/lib/stringutil"
 	"github.com/Nivl/melvin.la/api/internal/payload"
 	"github.com/google/uuid"
@@ -27,14 +26,14 @@ func (s *Server) CreateBlogPost(ctx context.Context, input api.CreateBlogPostReq
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableBlog, false) {
-		return nil, httperror.NewNotAvailable()
+		return api.CreateBlogPost503Response{}, nil
 	}
 
 	if c.User() == nil {
-		return nil, httperror.NewAuthenticationError("User not authenticated")
+		return api.CreateBlogPost401Response{}, nil
 	}
 
-	err := blogPostInputSanitizerAndValidation(&BlogPostInput{
+	errorResponse := blogPostInputSanitizerAndValidation(&BlogPostInput{
 		ContentJSON:  &input.Body.ContentJson,
 		Description:  input.Body.Description,
 		Publish:      input.Body.Publish,
@@ -42,8 +41,8 @@ func (s *Server) CreateBlogPost(ctx context.Context, input api.CreateBlogPostReq
 		ThumbnailURL: input.Body.ThumbnailURL,
 		Title:        &input.Body.Title,
 	}, dbpublic.BlogPost{}) //nolint:exhaustruct // we explicitly want an empty object with no values
-	if err != nil {
-		return nil, err
+	if errorResponse != nil {
+		return api.CreateBlogPost400JSONResponse(*errorResponse), nil
 	}
 
 	var publishedAt pgtype.Timestamptz
@@ -73,9 +72,9 @@ func (s *Server) CreateBlogPost(ctx context.Context, input api.CreateBlogPostReq
 		if errors.As(err, &dbErr) {
 			switch dbErr.Code {
 			case pgerrcode.UniqueViolation:
-				return nil, httperror.NewConflictError(dbErr.ColumnName, "already in use")
+				return api.CreateBlogPost409JSONResponse(*NewErrorResponse(dbErr.ColumnName, "already in use", api.Body)), nil
 			case pgerrcode.CheckViolation:
-				return nil, httperror.NewValidationError(dbErr.ColumnName, "either too short or too long")
+				return api.CreateBlogPost400JSONResponse(*NewErrorResponse(dbErr.ColumnName, "either too short or too long", api.Body)), nil
 			}
 		}
 		return nil, fmt.Errorf("couldn't create new post: %w", err)

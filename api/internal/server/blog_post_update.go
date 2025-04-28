@@ -11,7 +11,6 @@ import (
 	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/lib/errutil"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/httperror"
 	"github.com/Nivl/melvin.la/api/internal/payload"
 	"github.com/google/uuid"
 	"github.com/jackc/pgerrcode"
@@ -24,22 +23,22 @@ func (s *Server) UpdateBlogPost(ctx context.Context, input api.UpdateBlogPostReq
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableBlog, false) {
-		return nil, httperror.NewNotAvailable()
+		return api.UpdateBlogPost503Response{}, nil
 	}
 
 	if c.User() == nil {
-		return nil, httperror.NewAuthenticationError("User not authenticated")
+		return api.UpdateBlogPost401Response{}, nil
 	}
 
 	post, err := c.DB().GetBlogPostForUpdate(ctx, input.ID)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return nil, httperror.NewNotFoundError()
+			return api.UpdateBlogPost404Response{}, nil
 		}
 		return nil, fmt.Errorf("could not retrieve post %s: %w", input.ID, err)
 	}
 
-	err = blogPostInputSanitizerAndValidation(&BlogPostInput{
+	errorResponse := blogPostInputSanitizerAndValidation(&BlogPostInput{
 		ContentJSON:  input.Body.ContentJson,
 		Description:  input.Body.Description,
 		Publish:      input.Body.Publish,
@@ -47,8 +46,8 @@ func (s *Server) UpdateBlogPost(ctx context.Context, input api.UpdateBlogPostReq
 		ThumbnailURL: input.Body.ThumbnailURL,
 		Title:        input.Body.Title,
 	}, *post)
-	if err != nil {
-		return nil, err
+	if errorResponse != nil {
+		return api.UpdateBlogPost400JSONResponse(*errorResponse), nil
 	}
 
 	hasUpdates := false
@@ -115,9 +114,9 @@ func (s *Server) UpdateBlogPost(ctx context.Context, input api.UpdateBlogPostReq
 			if errors.As(err, &dbErr) {
 				switch dbErr.Code {
 				case pgerrcode.UniqueViolation:
-					return nil, httperror.NewConflictError(dbErr.ColumnName, "already in use")
+					return api.UpdateBlogPost409JSONResponse(*NewErrorResponse(dbErr.ColumnName, "already in use", api.Body)), nil
 				case pgerrcode.CheckViolation:
-					return nil, httperror.NewValidationError(dbErr.ColumnName, "either too short or too long")
+					return api.UpdateBlogPost400JSONResponse(*NewErrorResponse(dbErr.ColumnName, "either too short or too long", api.Body)), nil
 				}
 			}
 			return nil, fmt.Errorf("could not create revision for %s: %w", post.ID, err)

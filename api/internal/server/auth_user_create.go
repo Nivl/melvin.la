@@ -9,26 +9,25 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/httperror"
 	"github.com/google/uuid"
 	"github.com/jackc/pgerrcode"
 	"github.com/jackc/pgx/v5/pgconn"
 	"golang.org/x/crypto/bcrypt"
 )
 
-func createUserInputValidation(input *api.CreateUserRequestObject) error {
+func createUserInputValidation(input *api.CreateUserRequestObject) *api.ErrorResponse {
 	// Sanitize
 	input.Body.Name = strings.TrimSpace(input.Body.Name)
 
 	// validate
 	if input.Body.Name == "" {
-		return httperror.NewValidationError("name", "name is required")
+		return NewErrorResponse("name", "name is required", api.Body)
 	}
 	if input.Body.Email == "" {
-		return httperror.NewValidationError("email", "email is required")
+		return NewErrorResponse("email", "email is required", api.Body)
 	}
 	if input.Body.Password == "" {
-		return httperror.NewValidationError("password", "password is required")
+		return NewErrorResponse("password", "password is required", api.Body)
 	}
 	return nil
 }
@@ -40,15 +39,15 @@ func (s *Server) CreateUser(ctx context.Context, input api.CreateUserRequestObje
 
 	// Most of the time we don't want people to sign up
 	if c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableSignUps, false) {
-		return nil, httperror.NewNotAvailable()
+		return api.CreateUser503Response{}, nil
 	}
 
 	if c.User() != nil {
-		return nil, httperror.NewForbiddenError("user is already logged in")
+		return api.CreateUser403Response{}, nil
 	}
 
-	if err := createUserInputValidation(&input); err != nil {
-		return nil, err
+	if errorResponse := createUserInputValidation(&input); errorResponse != nil {
+		return api.CreateUser400JSONResponse(*errorResponse), nil
 	}
 
 	// for sanity reasons, we store the emails lowercase, that'll be much
@@ -72,9 +71,9 @@ func (s *Server) CreateUser(ctx context.Context, input api.CreateUserRequestObje
 		if errors.As(err, &dbErr) {
 			switch dbErr.Code {
 			case pgerrcode.UniqueViolation:
-				return nil, httperror.NewConflictError(dbErr.ColumnName, "already in use")
+				return api.CreateUser409JSONResponse(*NewErrorResponse(dbErr.ColumnName, "already in use", api.Body)), nil
 			case pgerrcode.CheckViolation:
-				return nil, httperror.NewValidationError(dbErr.ColumnName, "either too short or too long")
+				return api.CreateUser400JSONResponse(*NewErrorResponse(dbErr.ColumnName, "either too short or too long", api.Body)), nil
 			}
 		}
 		return nil, fmt.Errorf("couldn't create new user: %w", err)

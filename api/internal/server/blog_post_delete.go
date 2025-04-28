@@ -6,7 +6,6 @@ import (
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/httperror"
 )
 
 // DeleteBlogPost is a user-facing HTTP endpoint used to delete a blog post by
@@ -16,11 +15,11 @@ func (s *Server) DeleteBlogPost(ctx context.Context, input api.DeleteBlogPostReq
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableBlog, false) {
-		return nil, httperror.NewNotAvailable()
+		return api.DeleteBlogPost503Response{}, nil
 	}
 
 	if c.User() == nil {
-		return nil, httperror.NewAuthenticationError("User not authenticated")
+		return api.DeleteBlogPost401Response{}, nil
 	}
 
 	if err := c.DB().DeleteBlogPost(ctx, input.ID); err != nil {

@@ -7,12 +7,11 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/httperror"
 	"github.com/Nivl/melvin.la/api/internal/payload"
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-func getBlogPostsInputValidation(input api.GetBlogPostsRequestObject) error {
+func getBlogPostsInputValidation(input api.GetBlogPostsRequestObject) *api.ErrorResponse {
 	// Workaround due to a bug in the generated code: https://github.com/oapi-codegen/oapi-codegen/pull/1957
 	if input.Params.After == nil {
 		input.Params.After = &pgtype.Timestamptz{}
@@ -23,7 +22,7 @@ func getBlogPostsInputValidation(input api.GetBlogPostsRequestObject) error {
 
 	// Validate
 	if !input.Params.After.Valid && !input.Params.Before.Valid {
-		return httperror.NewValidationError("after", "after and before cannot be used together")
+		return NewErrorResponse("after", "after and before cannot be used together", api.Query)
 	}
 	return nil
 }
@@ -35,11 +34,11 @@ func (s *Server) GetBlogPosts(ctx context.Context, input api.GetBlogPostsRequest
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableBlog, false) {
-		return nil, httperror.NewNotAvailable()
+		return api.GetBlogPosts503Response{}, nil
 	}
 
-	if err := getBlogPostsInputValidation(input); err != nil {
-		return nil, err
+	if errorResponse := getBlogPostsInputValidation(input); errorResponse != nil {
+		return api.GetBlogPosts400JSONResponse(*errorResponse), nil
 	}
 
 	var err error

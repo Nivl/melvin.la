@@ -19,39 +19,6 @@ tags:
       and revisions.
 
 components:
-  responses:
-    ParamError:
-      description: The paths/body/query/header contains missing or invalid data
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorResponse"
-          examples:
-            example-1:
-              value:
-                message: "name is required"
-                field: "name"
-    AlreadyLoggedIn:
-      description: The user is not logged in
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorResponse"
-          examples:
-            example-1:
-              value:
-                message: "user not authenticated"
-    NotLoggedIn:
-      description: The user is already logged in
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorResponse"
-          examples:
-            example-1:
-              value:
-                message: "user is already logged in"
-
   examples:
     UserExample:
       $ref: "./components/examples/UserExample.yml"
@@ -168,9 +135,19 @@ paths:
         "201":
           description: Successfully created the user
         "400":
-          $ref: "#/components/responses/ParamError"
+          description: The path/body/query/header contains missing or invalid data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    message: "name is required"
+                    field: "name"
+                    location: "body"
         "403":
-          $ref: "#/components/responses/AlreadyLoggedIn"
+          description: The user is already logged in
         "409":
           description: The email is already being used
           content:
@@ -219,14 +196,8 @@ paths:
                   $ref: "#/components/examples/UserExample"
         "401":
           description: Unauthorized access - User must be logged in to make the request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-              examples:
-                example-1:
-                  value:
-                    message: "user not logged in"
+        "404":
+          description: User not found
         "500":
           description: Something wrong happened
 
@@ -289,9 +260,19 @@ paths:
                       refreshToken: "da315121-65f2-4661-9ad2-fdf40d494998"
                       expiresAt: "2023-10-31T23:59:59Z"
         "400":
-          $ref: "#/components/responses/ParamError"
+          description: The path/body/query/header contains missing or invalid data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    message: "email is required"
+                    field: "email"
+                    location: "body"
         "403":
-          $ref: "#/components/responses/AlreadyLoggedIn"
+          description: The user is already logged in
         "500":
           description: Something wrong happened
 
@@ -307,7 +288,7 @@ paths:
         "204":
           description: Successfully deleted the session
         "401":
-          $ref: "#/components/responses/NotLoggedIn"
+          description: Unauthorized access - User must be logged in to make the request
         "500":
           description: Something went wrong
 
@@ -374,7 +355,17 @@ paths:
                         description: "Content of the post"
 
         "400":
-          $ref: "#/components/responses/ParamError"
+          description: The path/body/query/header contains missing or invalid data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    message: "invalid date format"
+                    field: "after"
+                    location: "query"
         "500":
           description: Something wrong happened
         "503":
@@ -443,9 +434,19 @@ paths:
                 example-1:
                   $ref: "#/components/examples/BlogPostExample"
         "400":
-          $ref: "#/components/responses/ParamError"
+          description: The path/body/query/header contains missing or invalid data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    message: "title is required"
+                    field: "title"
+                    location: "body"
         "401":
-          $ref: "#/components/responses/NotLoggedIn"
+          description: Unauthorized access - User must be logged in to make the request
         "404":
           description: The post does not exist
         "409":
@@ -536,9 +537,21 @@ paths:
                 example-1:
                   $ref: "#/components/examples/BlogPostExample"
         "400":
-          $ref: "#/components/responses/ParamError"
+          description: The path/body/query/header contains missing or invalid data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    message: "title is required"
+                    field: "title"
+                    location: "body"
+        "404":
+          description: Theblog post was not found
         "401":
-          $ref: "#/components/responses/NotLoggedIn"
+          description: Unauthorized access - User must be logged in to make the request
         "409":
           description: The slug, or another unique data is already
             being used
@@ -568,9 +581,19 @@ paths:
         "204":
           description: Successfully deleted the blog post
         "400":
-          $ref: "#/components/responses/ParamError"
+          description: The path/body/query/header contains missing or invalid data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    message: "id invalid format"
+                    field: "id"
+                    location: "path"
         "401":
-          $ref: "#/components/responses/NotLoggedIn"
+          description: Unauthorized access - User must be logged in to make the request
         "500":
           description: Something wrong happened
         "503":
@@ -619,7 +642,17 @@ paths:
                         description: "Content of the post"
 
         "400":
-          $ref: "#/components/responses/ParamError"
+          description: The path/body/query/header contains missing or invalid data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    message: "idOrSlug invalid format"
+                    field: "idOrSlug"
+                    location: "path"
         "404":
           description: Blog post not found
         "500":
