@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint --max-warnings=0",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "oapi-gen": "openapi-typescript ../api/internal/gen/openapi.yml -o ./src/gen/api.d.ts --root-types --root-types-no-schema-prefix"
   },
   "dependencies": {
     "@calumk/editorjs-codecup": "1.2.0",
@@ -22,8 +23,8 @@
     "@editorjs/paragraph": "2.11.6",
     "@editorjs/quote": "2.7.2",
     "@editorjs/table": "2.4.2",
-    "@internationalized/date": "3.7.0",
     "@heroui/react": "2.7.6",
+    "@internationalized/date": "3.7.0",
     "@radix-ui/react-toggle-group": "1.1.7",
     "@tanstack/react-query": "5.74.4",
     "@vercel/analytics": "1.5.0",
@@ -36,6 +37,8 @@
     "msw": "2.7.5",
     "next": "15.3.1",
     "next-themes": "0.4.6",
+    "openapi-fetch": "0.13.5",
+    "openapi-react-query": "0.3.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "7.56.1",
@@ -74,6 +77,7 @@
     "eslint-plugin-react-hooks": "5.2.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-storybook": "0.12.0",
+    "openapi-typescript": "7.6.1",
     "postcss": "8.5.3",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.11",

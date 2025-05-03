@@ -19,7 +19,8 @@ jobs:
     name: detect what files changed
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:main
+      # replace with variable https://github.com/actions/runner/issues/1182
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-ef3636d
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}

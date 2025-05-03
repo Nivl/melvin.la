@@ -1,8 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
-
-import { errorWrapper, post } from '#backend/request';
-import { HttpError } from '#backend/types';
-import { RequestError } from '#error';
+import { $api, baseHeaders, operations } from '#backend/api';
 
 export type Input = {
   email: string;
@@ -11,21 +7,26 @@ export type Input = {
 };
 
 export const useSignUp = () => {
-  const mutation = useMutation<unknown, Error | RequestError, Input>({
-    mutationFn: errorWrapper(async (input: Input) => {
-      const res = await post('/users', input);
-      if (!res.ok) {
-        const errInfo = (await res.json()) as HttpError;
-        throw new RequestError(errInfo, res);
-      }
-    }),
-  });
+  const { isPending, error, isSuccess, mutateAsync } = $api.useMutation(
+    'post',
+    '/auth/users',
+  );
 
   return {
-    isPending: mutation.isPending,
-    error: mutation.error,
-    isSuccess: mutation.isSuccess,
-    signUpAsync: mutation.mutateAsync,
-    signUp: mutation.mutate,
+    isPending: isPending,
+    error: error,
+    isSuccess: isSuccess,
+    // Temporary workaround until openapi-typescript supports securitySchemes
+    // https://github.com/openapi-ts/openapi-typescript/issues/922
+    signUpAsync: async (
+      input: operations['createUser']['requestBody']['content']['application/json'],
+    ) => {
+      return mutateAsync({
+        body: input,
+        headers: {
+          ...baseHeaders(),
+        },
+      });
+    },
   };
 };

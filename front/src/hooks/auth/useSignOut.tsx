@@ -1,31 +1,15 @@
-import { useMutation } from '@tanstack/react-query';
 import { useContext, useEffect } from 'react';
 
-import { del, deleteToken, errorWrapper } from '#backend/request';
-import { HttpError } from '#backend/types';
+import { $api, baseHeaders, deleteToken } from '#backend/api';
 import { MeContext } from '#contexts/MeContext';
-import { RequestError } from '#error';
-
-export type Input = {
-  skipNetwork: boolean;
-};
 
 export const useSignOut = () => {
   const { me, setMe } = useContext(MeContext);
 
-  const { isPending, isSuccess, mutateAsync, mutate, error } = useMutation({
-    mutationFn: errorWrapper(async (input?: Input) => {
-      if (input?.skipNetwork) {
-        return;
-      }
-
-      const res = await del('/auth/sessions');
-      if (!res.ok) {
-        const errInfo = (await res.json()) as HttpError;
-        throw new RequestError(errInfo, res);
-      }
-    }),
-  });
+  const { isPending, isSuccess, mutateAsync, error } = $api.useMutation(
+    'delete',
+    '/auth/sessions',
+  );
 
   useEffect(() => {
     if (isSuccess) {
@@ -42,7 +26,14 @@ export const useSignOut = () => {
     isPending,
     error,
     isSuccess,
-    signOut: mutate,
-    signOutAsync: mutateAsync,
+    // Temporary workaround until openapi-typescript supports securitySchemes
+    // https://github.com/openapi-ts/openapi-typescript/issues/922
+    signOutAsync: async () => {
+      return mutateAsync({
+        headers: {
+          ...baseHeaders(),
+        },
+      });
+    },
   };
 };
