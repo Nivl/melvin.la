@@ -9,6 +9,7 @@ import (
 // NewBaseRouter returns a new router with the default middlewares
 func NewBaseRouter(deps *app.Dependencies) *echo.Echo {
 	e := echo.New()
+	e.HTTPErrorHandler = HTTPErrorHandler(e)
 	e.Use(middleware.ServiceContext(deps))
 	e.Use(middleware.LogRequests())
 	e.Use(middleware.BodyLimit("5K"))

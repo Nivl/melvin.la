@@ -22,8 +22,8 @@ type Config struct {
 
 // LoadConfig loads the configuration from the environment
 func LoadConfig(ctx context.Context) (*Config, error) {
-	var cfg *Config
-	if err := envconfig.Process(ctx, &cfg); err != nil {
+	cfg := &Config{}
+	if err := envconfig.Process(ctx, cfg); err != nil {
 		return nil, fmt.Errorf("couldn't parse the env: %w", err)
 	}
 	return cfg, nil

@@ -1,4 +1,11 @@
-export type { operations } from '../gen/api';
+export type {
+  BlogPost,
+  EditorJs,
+  ErrorResponse,
+  operations,
+  Session,
+  User,
+} from '../gen/api';
 import { HeadersOptions } from 'openapi-fetch';
 import createFetchClient from 'openapi-fetch';
 import createClient from 'openapi-react-query';
@@ -13,7 +20,9 @@ export const $api = createClient(fetchClient);
 export const userAccessTokenKey = 'user_access_token';
 
 export const baseHeaders = () => {
-  const headers: HeadersOptions = {};
+  const headers: HeadersOptions = {
+    'Content-Type': 'application/json',
+  };
 
   const token = window.localStorage.getItem(userAccessTokenKey);
   if (token) {

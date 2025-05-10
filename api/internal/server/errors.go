@@ -10,15 +10,17 @@ func stringPtr(s string) *string {
 }
 
 // NewShortErrorResponse returns an ErrorResponse with only a message.
-func NewShortErrorResponse(message string) *api.ErrorResponse {
+func NewShortErrorResponse(code int, message string) *api.ErrorResponse {
 	return &api.ErrorResponse{ //nolint:exhaustruct // we only want a message
+		Code:    code,
 		Message: message,
 	}
 }
 
 // NewErrorResponse returns an ErrorResponse
-func NewErrorResponse(field, message string, loc api.ErrorResponseLocation) *api.ErrorResponse {
+func NewErrorResponse(code int, field, message string, loc api.ErrorResponseLocation) *api.ErrorResponse {
 	return &api.ErrorResponse{
+		Code:     code,
 		Message:  message,
 		Field:    stringPtr(stringutil.ToCamelCase(field)),
 		Location: &loc,

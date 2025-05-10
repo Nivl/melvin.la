@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
@@ -21,13 +22,13 @@ func createUserInputValidation(input *api.CreateUserRequestObject) *api.ErrorRes
 
 	// validate
 	if input.Body.Name == "" {
-		return NewErrorResponse("name", "name is required", api.Body)
+		return NewErrorResponse(http.StatusBadRequest, "name", "name is required", api.Body)
 	}
 	if input.Body.Email == "" {
-		return NewErrorResponse("email", "email is required", api.Body)
+		return NewErrorResponse(http.StatusBadRequest, "email", "email is required", api.Body)
 	}
 	if input.Body.Password == "" {
-		return NewErrorResponse("password", "password is required", api.Body)
+		return NewErrorResponse(http.StatusBadRequest, "password", "password is required", api.Body)
 	}
 	return nil
 }
@@ -39,11 +40,11 @@ func (s *Server) CreateUser(ctx context.Context, input api.CreateUserRequestObje
 
 	// Most of the time we don't want people to sign up
 	if c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableSignUps, false) {
-		return api.CreateUser503Response{}, nil
+		return api.CreateUser503JSONResponse(*NewShortErrorResponse(http.StatusServiceUnavailable, "Service Unavailable")), nil
 	}
 
 	if c.User() != nil {
-		return api.CreateUser403Response{}, nil
+		return api.CreateUser403JSONResponse(*NewShortErrorResponse(http.StatusForbidden, "Forbidden")), nil
 	}
 
 	if errorResponse := createUserInputValidation(&input); errorResponse != nil {
@@ -71,9 +72,9 @@ func (s *Server) CreateUser(ctx context.Context, input api.CreateUserRequestObje
 		if errors.As(err, &dbErr) {
 			switch dbErr.Code {
 			case pgerrcode.UniqueViolation:
-				return api.CreateUser409JSONResponse(*NewErrorResponse(dbErr.ColumnName, "already in use", api.Body)), nil
+				return api.CreateUser409JSONResponse(*NewErrorResponse(409, dbErr.ColumnName, "already in use", api.Body)), nil
 			case pgerrcode.CheckViolation:
-				return api.CreateUser400JSONResponse(*NewErrorResponse(dbErr.ColumnName, "either too short or too long", api.Body)), nil
+				return api.CreateUser400JSONResponse(*NewErrorResponse(400, dbErr.ColumnName, "either too short or too long", api.Body)), nil
 			}
 		}
 		return nil, fmt.Errorf("couldn't create new user: %w", err)

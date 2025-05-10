@@ -1,6 +1,7 @@
 package server
 
 import (
+	"net/http"
 	"strings"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
@@ -43,23 +44,23 @@ func blogPostInputSanitizerAndValidation(input *BlogPostInput, existingPost dbpu
 	// Validate
 	if input.Title != nil {
 		if *input.Title == "" {
-			return NewErrorResponse("title", "title is required", api.Body)
+			return NewErrorResponse(http.StatusBadRequest, "title", "title is required", api.Body)
 		}
 		if len(*input.Title) > 100 {
-			return NewErrorResponse("title", "title must be 100 chars or less", api.Body)
+			return NewErrorResponse(http.StatusBadRequest, "title", "title must be 100 chars or less", api.Body)
 		}
 	}
 	if input.Slug != nil && len(*input.Slug) > 105 {
-		return NewErrorResponse("slug", "slug must be 105 chars or less", api.Body)
+		return NewErrorResponse(http.StatusBadRequest, "slug", "slug must be 105 chars or less", api.Body)
 	}
 	if input.Description != nil && len(*input.Description) > 130 {
-		return NewErrorResponse("description", "description must be 130 chars or less", api.Body)
+		return NewErrorResponse(http.StatusBadRequest, "description", "description must be 130 chars or less", api.Body)
 	}
 	if input.ThumbnailURL != nil && len(*input.ThumbnailURL) > 255 {
-		return NewErrorResponse("thumbnailUrl", "thumbnailUrl must be 255 chars or less", api.Body)
+		return NewErrorResponse(http.StatusBadRequest, "thumbnailUrl", "thumbnailUrl must be 255 chars or less", api.Body)
 	}
 	if input.ContentJSON != nil && len(input.ContentJSON.Blocks) == 0 {
-		return NewErrorResponse("contentJson", "required", api.Body)
+		return NewErrorResponse(http.StatusBadRequest, "contentJson", "required", api.Body)
 	}
 
 	// If the post is meant to be published, or is currently published
@@ -68,14 +69,14 @@ func blogPostInputSanitizerAndValidation(input *BlogPostInput, existingPost dbpu
 	willBePublished := input.Publish != nil && *input.Publish
 	if isPublished || willBePublished {
 		if !hasValue(input.ThumbnailURL, existingPost.ThumbnailURL) {
-			return NewErrorResponse("thumbnailUrl", "required when publishing", api.Body)
+			return NewErrorResponse(http.StatusBadRequest, "thumbnailUrl", "required when publishing", api.Body)
 		}
 		if !hasValue(input.ThumbnailURL, existingPost.ThumbnailURL) ||
 			(input.ContentJSON != nil && len(input.ContentJSON.Blocks) == 0) {
-			return NewErrorResponse("contentJson", "required when publishing", api.Body)
+			return NewErrorResponse(http.StatusBadRequest, "contentJson", "required when publishing", api.Body)
 		}
 		if !hasValue(input.Description, existingPost.Description) {
-			return NewErrorResponse("description", "required when publishing", api.Body)
+			return NewErrorResponse(http.StatusBadRequest, "description", "required when publishing", api.Body)
 		}
 	}
 	return nil

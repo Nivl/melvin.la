@@ -252,20 +252,22 @@ func (response DeleteSession204Response) VisitDeleteSessionResponse(w http.Respo
 	return nil
 }
 
-type DeleteSession401Response struct {
-}
+type DeleteSession401JSONResponse ErrorResponse
 
-func (response DeleteSession401Response) VisitDeleteSessionResponse(w http.ResponseWriter) error {
+func (response DeleteSession401JSONResponse) VisitDeleteSessionResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(401)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type DeleteSession500Response struct {
-}
+type DeleteSession500JSONResponse ErrorResponse
 
-func (response DeleteSession500Response) VisitDeleteSessionResponse(w http.ResponseWriter) error {
+func (response DeleteSession500JSONResponse) VisitDeleteSessionResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(500)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 type CreateSessionRequestObject struct {
@@ -300,20 +302,22 @@ func (response CreateSession400JSONResponse) VisitCreateSessionResponse(w http.R
 	return json.NewEncoder(w).Encode(response)
 }
 
-type CreateSession403Response struct {
-}
+type CreateSession403JSONResponse ErrorResponse
 
-func (response CreateSession403Response) VisitCreateSessionResponse(w http.ResponseWriter) error {
+func (response CreateSession403JSONResponse) VisitCreateSessionResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(403)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type CreateSession500Response struct {
-}
+type CreateSession500JSONResponse ErrorResponse
 
-func (response CreateSession500Response) VisitCreateSessionResponse(w http.ResponseWriter) error {
+func (response CreateSession500JSONResponse) VisitCreateSessionResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(500)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 type CreateUserRequestObject struct {
@@ -341,12 +345,13 @@ func (response CreateUser400JSONResponse) VisitCreateUserResponse(w http.Respons
 	return json.NewEncoder(w).Encode(response)
 }
 
-type CreateUser403Response struct {
-}
+type CreateUser403JSONResponse ErrorResponse
 
-func (response CreateUser403Response) VisitCreateUserResponse(w http.ResponseWriter) error {
+func (response CreateUser403JSONResponse) VisitCreateUserResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(403)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 type CreateUser409JSONResponse ErrorResponse
@@ -358,20 +363,22 @@ func (response CreateUser409JSONResponse) VisitCreateUserResponse(w http.Respons
 	return json.NewEncoder(w).Encode(response)
 }
 
-type CreateUser500Response struct {
-}
+type CreateUser500JSONResponse ErrorResponse
 
-func (response CreateUser500Response) VisitCreateUserResponse(w http.ResponseWriter) error {
+func (response CreateUser500JSONResponse) VisitCreateUserResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(500)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type CreateUser503Response struct {
-}
+type CreateUser503JSONResponse ErrorResponse
 
-func (response CreateUser503Response) VisitCreateUserResponse(w http.ResponseWriter) error {
+func (response CreateUser503JSONResponse) VisitCreateUserResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(503)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 type GetUserByIdRequestObject struct {
@@ -391,28 +398,31 @@ func (response GetUserById200JSONResponse) VisitGetUserByIdResponse(w http.Respo
 	return json.NewEncoder(w).Encode(response)
 }
 
-type GetUserById401Response struct {
-}
+type GetUserById401JSONResponse ErrorResponse
 
-func (response GetUserById401Response) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+func (response GetUserById401JSONResponse) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(401)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type GetUserById404Response struct {
-}
+type GetUserById404JSONResponse ErrorResponse
 
-func (response GetUserById404Response) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+func (response GetUserById404JSONResponse) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(404)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type GetUserById500Response struct {
-}
+type GetUserById500JSONResponse ErrorResponse
 
-func (response GetUserById500Response) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+func (response GetUserById500JSONResponse) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(500)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 type GetBlogPostsRequestObject struct {
@@ -441,20 +451,22 @@ func (response GetBlogPosts400JSONResponse) VisitGetBlogPostsResponse(w http.Res
 	return json.NewEncoder(w).Encode(response)
 }
 
-type GetBlogPosts500Response struct {
-}
+type GetBlogPosts500JSONResponse ErrorResponse
 
-func (response GetBlogPosts500Response) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
+func (response GetBlogPosts500JSONResponse) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(500)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type GetBlogPosts503Response struct {
-}
+type GetBlogPosts503JSONResponse ErrorResponse
 
-func (response GetBlogPosts503Response) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
+func (response GetBlogPosts503JSONResponse) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(503)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 type CreateBlogPostRequestObject struct {
@@ -483,20 +495,22 @@ func (response CreateBlogPost400JSONResponse) VisitCreateBlogPostResponse(w http
 	return json.NewEncoder(w).Encode(response)
 }
 
-type CreateBlogPost401Response struct {
-}
+type CreateBlogPost401JSONResponse ErrorResponse
 
-func (response CreateBlogPost401Response) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+func (response CreateBlogPost401JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(401)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type CreateBlogPost404Response struct {
-}
+type CreateBlogPost404JSONResponse ErrorResponse
 
-func (response CreateBlogPost404Response) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+func (response CreateBlogPost404JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(404)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 type CreateBlogPost409JSONResponse ErrorResponse
@@ -508,20 +522,22 @@ func (response CreateBlogPost409JSONResponse) VisitCreateBlogPostResponse(w http
 	return json.NewEncoder(w).Encode(response)
 }
 
-type CreateBlogPost500Response struct {
-}
+type CreateBlogPost500JSONResponse ErrorResponse
 
-func (response CreateBlogPost500Response) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+func (response CreateBlogPost500JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(500)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type CreateBlogPost503Response struct {
-}
+type CreateBlogPost503JSONResponse ErrorResponse
 
-func (response CreateBlogPost503Response) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+func (response CreateBlogPost503JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(503)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 type GetBlogPostRequestObject struct {
@@ -550,28 +566,31 @@ func (response GetBlogPost400JSONResponse) VisitGetBlogPostResponse(w http.Respo
 	return json.NewEncoder(w).Encode(response)
 }
 
-type GetBlogPost404Response struct {
-}
+type GetBlogPost404JSONResponse ErrorResponse
 
-func (response GetBlogPost404Response) VisitGetBlogPostResponse(w http.ResponseWriter) error {
+func (response GetBlogPost404JSONResponse) VisitGetBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(404)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type GetBlogPost500Response struct {
-}
+type GetBlogPost500JSONResponse ErrorResponse
 
-func (response GetBlogPost500Response) VisitGetBlogPostResponse(w http.ResponseWriter) error {
+func (response GetBlogPost500JSONResponse) VisitGetBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(500)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type GetBlogPost503Response struct {
-}
+type GetBlogPost503JSONResponse ErrorResponse
 
-func (response GetBlogPost503Response) VisitGetBlogPostResponse(w http.ResponseWriter) error {
+func (response GetBlogPost503JSONResponse) VisitGetBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(503)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 type DeleteBlogPostRequestObject struct {
@@ -599,28 +618,31 @@ func (response DeleteBlogPost400JSONResponse) VisitDeleteBlogPostResponse(w http
 	return json.NewEncoder(w).Encode(response)
 }
 
-type DeleteBlogPost401Response struct {
-}
+type DeleteBlogPost401JSONResponse ErrorResponse
 
-func (response DeleteBlogPost401Response) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
+func (response DeleteBlogPost401JSONResponse) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(401)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type DeleteBlogPost500Response struct {
-}
+type DeleteBlogPost500JSONResponse ErrorResponse
 
-func (response DeleteBlogPost500Response) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
+func (response DeleteBlogPost500JSONResponse) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(500)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type DeleteBlogPost503Response struct {
-}
+type DeleteBlogPost503JSONResponse ErrorResponse
 
-func (response DeleteBlogPost503Response) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
+func (response DeleteBlogPost503JSONResponse) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(503)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 type UpdateBlogPostRequestObject struct {
@@ -650,20 +672,22 @@ func (response UpdateBlogPost400JSONResponse) VisitUpdateBlogPostResponse(w http
 	return json.NewEncoder(w).Encode(response)
 }
 
-type UpdateBlogPost401Response struct {
-}
+type UpdateBlogPost401JSONResponse ErrorResponse
 
-func (response UpdateBlogPost401Response) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+func (response UpdateBlogPost401JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(401)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type UpdateBlogPost404Response struct {
-}
+type UpdateBlogPost404JSONResponse ErrorResponse
 
-func (response UpdateBlogPost404Response) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+func (response UpdateBlogPost404JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(404)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 type UpdateBlogPost409JSONResponse ErrorResponse
@@ -675,20 +699,22 @@ func (response UpdateBlogPost409JSONResponse) VisitUpdateBlogPostResponse(w http
 	return json.NewEncoder(w).Encode(response)
 }
 
-type UpdateBlogPost500Response struct {
-}
+type UpdateBlogPost500JSONResponse ErrorResponse
 
-func (response UpdateBlogPost500Response) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+func (response UpdateBlogPost500JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(500)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
-type UpdateBlogPost503Response struct {
-}
+type UpdateBlogPost503JSONResponse ErrorResponse
 
-func (response UpdateBlogPost503Response) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+func (response UpdateBlogPost503JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(503)
-	return nil
+
+	return json.NewEncoder(w).Encode(response)
 }
 
 // StrictServerInterface represents all server handlers.

@@ -1,9 +1,9 @@
 'use client';
 
 import EditorJS from '@editorjs/editorjs';
-import { Input, Textarea } from '@nextui-org/input';
-import { Button } from '@nextui-org/react';
-import { Switch } from '@nextui-org/switch';
+import { Input, Textarea } from '@heroui/input';
+import { Button } from '@heroui/react';
+import { Switch } from '@heroui/switch';
 import { useRef } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
@@ -11,17 +11,23 @@ import {
   PiEyeLight as PublishedIcon,
 } from 'react-icons/pi';
 
+import { BlogPost } from '#backend/api';
 import { Editor } from '#components/Admin/blog/Editor';
 import { Footer } from '#components/Home/Footer';
 import { Section } from '#components/Home/Section';
-import { ServerErrors } from '#error';
 import { Input as CreatePostEndpointInput } from '#hooks/blog/useCreateNewPost';
 import { Input as UpdatePostEndpointInput } from '#hooks/blog/useUpdatePost';
 type FormInputs =
   | Omit<CreatePostEndpointInput, 'contentJson' | 'publish'>
   | Omit<UpdatePostEndpointInput, 'contentJson' | 'publish'>;
 
-import { Post } from '#backend/types';
+export type ErrorFields =
+  | 'title'
+  | 'slug'
+  | 'thumbnailUrl'
+  | 'description'
+  | '_';
+export type ServerError = Partial<Record<ErrorFields, string>>;
 
 type OnSave = (
   data: CreatePostEndpointInput | UpdatePostEndpointInput,
@@ -33,8 +39,8 @@ export const PostForm = ({
   serverErrors,
   cta,
 }: {
-  post?: Post;
-  serverErrors: ServerErrors;
+  post?: BlogPost;
+  serverErrors: ServerError;
   onSave: OnSave;
   cta: {
     isDisabled: boolean;
@@ -55,11 +61,14 @@ export const PostForm = ({
     Omit<FormInputs, 'description'>
   > = async data => {
     try {
-      await onSave({
-        ...data,
-        contentJson: await editorRef.current?.save(),
-        publish: publishRef.current?.checked,
-      });
+      const contentJson = await editorRef.current?.save();
+      if (contentJson) {
+        await onSave({
+          ...data,
+          contentJson,
+          publish: publishRef.current?.checked,
+        });
+      }
     } catch (_) {
       // we can just return here because the sign up error will be handled
       // by the useSignUp hook
@@ -96,8 +105,8 @@ export const PostForm = ({
                     (formErrors.title &&
                       ((formErrors.title.type == 'maxLength' &&
                         'Name should be less or equal to 100 chars') ||
-                        'Invalid')) ||
-                    (serverErrors['title'] && serverErrors['title'][0])
+                        'Invalid')) ??
+                    serverErrors.title
                   }
                 />
 
@@ -117,8 +126,8 @@ export const PostForm = ({
                     (formErrors.slug &&
                       ((formErrors.slug.type == 'maxLength' &&
                         'Name should be less or equal to 105 chars') ||
-                        'Invalid')) ||
-                    (serverErrors['slug'] && serverErrors['slug'][0])
+                        'Invalid')) ??
+                    serverErrors.slug
                   }
                 />
 
@@ -138,9 +147,8 @@ export const PostForm = ({
                     (formErrors.thumbnailUrl &&
                       ((formErrors.thumbnailUrl.type == 'maxLength' &&
                         'Name should be less or equal to 255 chars') ||
-                        'Invalid')) ||
-                    (serverErrors['thumbnailUrl'] &&
-                      serverErrors['thumbnailUrl'][0])
+                        'Invalid')) ??
+                    (serverErrors.thumbnailUrl && serverErrors.thumbnailUrl[0])
                   }
                 />
 
@@ -157,9 +165,8 @@ export const PostForm = ({
                     (formErrors.description &&
                       ((formErrors.description.type == 'maxLength' &&
                         'Name should be less or equal to 130 chars') ||
-                        'Invalid')) ||
-                    (serverErrors['description'] &&
-                      serverErrors['description'][0])
+                        'Invalid')) ??
+                    (serverErrors.description && serverErrors.description[0])
                   }
                 />
               </div>
@@ -175,7 +182,7 @@ export const PostForm = ({
           <div className="editor">
             <Editor
               initialData={
-                post?.contentJson || {
+                post?.contentJson ?? {
                   time: new Date().getTime(),
                   blocks: [
                     {

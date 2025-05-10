@@ -2,8 +2,13 @@ description: Object returned to any query that fails with an
   error code that expects a body (400, 409, ...)
 type: object
 required:
+  - code
   - message
 properties:
+  code:
+    type: integer
+    description: Error Code
+    example: 400
   message:
     type: string
     description: Descriptive error message

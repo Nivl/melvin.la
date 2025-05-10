@@ -13,6 +13,7 @@ import (
 // error.
 func NewValidationError(field, message string) *echo.HTTPError {
 	return echo.NewHTTPError(http.StatusBadRequest, echo.Map{
+		"code":    http.StatusBadRequest,
 		"message": message,
 		"field":   stringutil.ToCamelCase(field),
 	})
@@ -23,6 +24,7 @@ func NewValidationError(field, message string) *echo.HTTPError {
 // TODO(melvin): use an enum for the location
 func NewValidationErrorWithLoc(field, message, location string) *echo.HTTPError {
 	return echo.NewHTTPError(http.StatusBadRequest, echo.Map{
+		"code":     http.StatusBadRequest,
 		"message":  message,
 		"field":    stringutil.ToCamelCase(field),
 		"location": location,
@@ -33,6 +35,7 @@ func NewValidationErrorWithLoc(field, message, location string) *echo.HTTPError 
 // request.
 func NewBadRequestError(message string) *echo.HTTPError {
 	return echo.NewHTTPError(http.StatusBadRequest, echo.Map{
+		"code":    http.StatusBadRequest,
 		"message": message,
 	})
 }
@@ -41,6 +44,7 @@ func NewBadRequestError(message string) *echo.HTTPError {
 // formed request.
 func NewBadRequestErrorWithLoc(message, location string) *echo.HTTPError {
 	return echo.NewHTTPError(http.StatusBadRequest, echo.Map{
+		"code":     http.StatusBadRequest,
 		"message":  message,
 		"location": location,
 	})
@@ -49,6 +53,7 @@ func NewBadRequestErrorWithLoc(message, location string) *echo.HTTPError {
 // NewConflictError returns a error representing a data conflict.
 func NewConflictError(field, message string) *echo.HTTPError {
 	return echo.NewHTTPError(http.StatusConflict, echo.Map{
+		"code":    http.StatusConflict,
 		"message": message,
 		"field":   stringutil.ToCamelCase(field),
 	})
@@ -57,6 +62,7 @@ func NewConflictError(field, message string) *echo.HTTPError {
 // NewAuthenticationError returns a error representing an authentication error.
 func NewAuthenticationError(message string) *echo.HTTPError {
 	return echo.NewHTTPError(http.StatusUnauthorized, echo.Map{
+		"code":    http.StatusUnauthorized,
 		"message": message,
 	})
 }
@@ -64,16 +70,23 @@ func NewAuthenticationError(message string) *echo.HTTPError {
 // NewForbiddenError returns a error representing a permission error.
 func NewForbiddenError(message string) *echo.HTTPError {
 	return echo.NewHTTPError(http.StatusForbidden, echo.Map{
+		"code":    http.StatusForbidden,
 		"message": message,
 	})
 }
 
 // NewNotFoundError returns a error representing a resource not found.
 func NewNotFoundError() error {
-	return echo.NewHTTPError(http.StatusNotFound)
+	return echo.NewHTTPError(http.StatusNotFound, echo.Map{
+		"code":    http.StatusNotFound,
+		"message": "Not Found",
+	})
 }
 
 // NewNotAvailable returns a error representing a resource not available.
 func NewNotAvailable() error {
-	return echo.NewHTTPError(http.StatusServiceUnavailable)
+	return echo.NewHTTPError(http.StatusServiceUnavailable, echo.Map{
+		"code":    http.StatusServiceUnavailable,
+		"message": "Service Unavailable",
+	})
 }

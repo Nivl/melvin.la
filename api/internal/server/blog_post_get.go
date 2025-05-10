@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"net/http"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
@@ -20,7 +21,7 @@ func (s *Server) GetBlogPost(ctx context.Context, input api.GetBlogPostRequestOb
 	c := s.GetServiceContext(ctx)
 
 	if !c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableBlog, false) {
-		return api.GetBlogPost503Response{}, nil
+		return api.GetBlogPost503JSONResponse(*NewShortErrorResponse(http.StatusServiceUnavailable, "Service Unavailable")), nil
 	}
 
 	var post *dbpublic.BlogPost
@@ -35,7 +36,7 @@ func (s *Server) GetBlogPost(ctx context.Context, input api.GetBlogPostRequestOb
 		post, err = c.DB().GetPublishedBlogPost(ctx, input.IdOrSlug)
 	} else {
 		if uuid.Validate(input.IdOrSlug) != nil {
-			return api.GetBlogPost400JSONResponse(*NewErrorResponse("idOrSlug", "expects a UUID", api.Path)), nil //nolint:nilerr // The error is returned in the response (user-error), and not as an error (system-error)
+			return api.GetBlogPost400JSONResponse(*NewErrorResponse(http.StatusBadRequest, "idOrSlug", "expects a UUID", api.Path)), nil //nolint:nilerr // The error is returned in the response (user-error), and not as an error (system-error)
 		}
 
 		var id uuid.UUID
@@ -48,7 +49,7 @@ func (s *Server) GetBlogPost(ctx context.Context, input api.GetBlogPostRequestOb
 
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return api.GetBlogPost404Response{}, nil
+			return api.GetBlogPost404JSONResponse(*NewShortErrorResponse(http.StatusNotFound, "Not Found")), nil
 		}
 		return nil, fmt.Errorf("could not retrieve post: %w", err)
 	}

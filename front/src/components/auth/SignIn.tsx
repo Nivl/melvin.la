@@ -7,13 +7,15 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { FLAG_SIGN_UP_ALLOWED } from '#backend/flags';
-import { RequestError, ServerErrors } from '#error';
 import { Input, useSignIn } from '#hooks/auth/useSignIn';
 
 import { Divider } from './Divider';
 import { InputEmail } from './InputEmail';
 import { InputPassword } from './InputPassword';
 import { Layout } from './Layout';
+
+type ErrorFields = 'email' | 'password' | '_';
+type ServerError = Partial<Record<ErrorFields, string>>;
 
 export const SignIn = () => {
   const router = useRouter();
@@ -31,14 +33,20 @@ export const SignIn = () => {
   const { errors: formErrors, isValid: formIsValid } = formState;
 
   // Parse the server errors
-  const [serverError, setServerError] = useState<ServerErrors>({});
+  const [serverError, setServerError] = useState<ServerError>({});
   useEffect(() => {
     if (signInError) {
-      const errors: ServerErrors = {};
-      if (signInError instanceof RequestError) {
-        errors[signInError.info.field ?? '_'] = [signInError.info.message];
-      } else if (signInError instanceof Error) {
-        errors._ = [signInError.message || 'Unknown server error'];
+      const errors: ServerError = {};
+      switch (signInError.field) {
+        case 'email':
+          errors.email = signInError.message;
+          break;
+        case 'password':
+          errors.password = signInError.message;
+          break;
+        default:
+          errors._ = signInError.message;
+          break;
       }
       setServerError(errors);
     }
@@ -72,9 +80,7 @@ export const SignIn = () => {
     <Layout title="Log in to your account to continue">
       {serverError._ && (
         <div className="mb-4 flex flex-col text-center text-sm text-danger">
-          {serverError._.map(e => (
-            <span key={e}>{e}</span>
-          ))}
+          <span key={serverError._}>{serverError._}</span>
         </div>
       )}
       <form

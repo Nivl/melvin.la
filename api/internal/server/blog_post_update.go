@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
@@ -23,17 +24,17 @@ func (s *Server) UpdateBlogPost(ctx context.Context, input api.UpdateBlogPostReq
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableBlog, false) {
-		return api.UpdateBlogPost503Response{}, nil
+		return api.UpdateBlogPost503JSONResponse(*NewShortErrorResponse(http.StatusServiceUnavailable, "Service Unavailable")), nil
 	}
 
 	if c.User() == nil {
-		return api.UpdateBlogPost401Response{}, nil
+		return api.UpdateBlogPost401JSONResponse(*NewShortErrorResponse(http.StatusUnauthorized, "Unauthorized")), nil
 	}
 
 	post, err := c.DB().GetBlogPostForUpdate(ctx, input.ID)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return api.UpdateBlogPost404Response{}, nil
+			return api.UpdateBlogPost404JSONResponse(*NewShortErrorResponse(http.StatusNotFound, "Not Found")), nil
 		}
 		return nil, fmt.Errorf("could not retrieve post %s: %w", input.ID, err)
 	}
@@ -114,9 +115,9 @@ func (s *Server) UpdateBlogPost(ctx context.Context, input api.UpdateBlogPostReq
 			if errors.As(err, &dbErr) {
 				switch dbErr.Code {
 				case pgerrcode.UniqueViolation:
-					return api.UpdateBlogPost409JSONResponse(*NewErrorResponse(dbErr.ColumnName, "already in use", api.Body)), nil
+					return api.UpdateBlogPost409JSONResponse(*NewErrorResponse(409, dbErr.ColumnName, "already in use", api.Body)), nil
 				case pgerrcode.CheckViolation:
-					return api.UpdateBlogPost400JSONResponse(*NewErrorResponse(dbErr.ColumnName, "either too short or too long", api.Body)), nil
+					return api.UpdateBlogPost400JSONResponse(*NewErrorResponse(400, dbErr.ColumnName, "either too short or too long", api.Body)), nil
 				}
 			}
 			return nil, fmt.Errorf("could not create revision for %s: %w", post.ID, err)

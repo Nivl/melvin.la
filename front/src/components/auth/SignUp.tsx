@@ -12,7 +12,6 @@ import {
 } from 'react-icons/pi';
 
 import { FLAG_SIGN_UP_ALLOWED } from '#backend/flags';
-import { RequestError, ServerErrors } from '#error';
 import { useSignIn } from '#hooks/auth/useSignIn';
 import { Input as SignUpInput, useSignUp } from '#hooks/auth/useSignUp';
 
@@ -24,6 +23,9 @@ import { Layout } from './Layout';
 type Inputs = SignUpInput & {
   passwordAgain: string;
 };
+
+type ErrorFields = 'email' | 'name' | 'password' | '_';
+type ServerError = Partial<Record<ErrorFields, string>>;
 
 export const SignUp = () => {
   const router = useRouter();
@@ -54,14 +56,23 @@ export const SignUp = () => {
   }, [trigger, password]);
 
   // Parse the server errors
-  const [serverError, setServerError] = useState<ServerErrors>({});
+  const [serverError, setServerError] = useState<ServerError>({});
   useEffect(() => {
     if (signUpError) {
-      const errors: ServerErrors = {};
-      if (signUpError instanceof RequestError) {
-        errors[signUpError.info.field ?? '_'] = [signUpError.info.message];
-      } else if (signUpError instanceof Error) {
-        errors._ = [signUpError.message || 'Unknown server error'];
+      const errors: ServerError = {};
+      switch (signUpError.field) {
+        case 'email':
+          errors.email = signUpError.message;
+          break;
+        case 'password':
+          errors.password = signUpError.message;
+          break;
+        case 'name':
+          errors.name = signUpError.message;
+          break;
+        default:
+          errors._ = signUpError.message;
+          break;
       }
       setServerError(errors);
     }
@@ -97,9 +108,7 @@ export const SignUp = () => {
     <Layout title="Create your account to get started">
       {serverError._ && (
         <div className="mb-4 flex flex-col text-center text-sm text-danger">
-          {serverError._.map(e => (
-            <span key={e}>{e}</span>
-          ))}
+          <span key={serverError._}>{serverError._}</span>
         </div>
       )}
 
@@ -129,7 +138,7 @@ export const SignUp = () => {
                 (formErrors.name.type == 'maxLength' &&
                   'Name should be less or equal to 50 chars') ||
                 'Invalid')) ??
-            (serverError.name && serverError.name[0])
+            serverError.name
           }
         />
 

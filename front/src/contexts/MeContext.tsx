@@ -3,20 +3,20 @@ import { useLDClient } from 'launchdarkly-react-client-sdk';
 import { createContext } from 'react';
 import { ReactNode, useEffect, useState } from 'react';
 
-import { deleteToken, get, hasToken } from '#backend/request';
-import { Me } from '#backend/types';
+import { deleteToken, hasToken, User } from '#backend/api';
+import { unsafeGetRequest } from '#backend/unsafe_api';
 import { useWindow } from '#hooks/useWindow';
 
 export type MeContextInterface = {
-  me: Me | null;
+  me: User | null;
   isLoading: boolean;
   isError: boolean;
   error?: unknown;
-  setMe: (_: Me | null) => void;
+  setMe: (_: User | null) => void;
 };
 
 export const MeProvider = ({ children }: { children: ReactNode }) => {
-  const [me, setMe] = useState<Me | null>(null);
+  const [me, setMe] = useState<User | null>(null);
   const [win] = useWindow();
   const ldClient = useLDClient();
 
@@ -29,7 +29,7 @@ export const MeProvider = ({ children }: { children: ReactNode }) => {
     retry: false,
     enabled: !!win && hasToken() && !me,
     queryFn: async () => {
-      const res = await get('/users/me');
+      const res = await unsafeGetRequest('/auth/users/me');
       if (!res.ok) {
         // we're not expecting any errors since the query should
         // not be made if the user has no token.
@@ -42,9 +42,10 @@ export const MeProvider = ({ children }: { children: ReactNode }) => {
         }
         throw new Error('unexpected network error');
       }
-      return (await res.json()) as Me;
+      return (await res.json()) as User;
     },
   });
+
   useEffect(() => {
     if (data) {
       setMe(data);
@@ -70,8 +71,8 @@ export const MeProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const MeContext = createContext<{
-  me: Me | null;
-  setMe: (_: Me | null) => void;
+  me: User | null;
+  setMe: (_: User | null) => void;
   isLoading: boolean;
   isError: boolean;
   error?: unknown;

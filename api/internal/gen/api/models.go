@@ -55,21 +55,27 @@ type EditorJS struct {
 		Data map[string]interface{} `json:"data"`
 
 		// ID Id of the block
-		ID string `json:"id"`
+		ID *string `json:"id,omitempty"`
+
+		// Tunes Tunes of the block
+		Tunes *map[string]interface{} `json:"tunes,omitempty"`
 
 		// Type Type of the block (e.g., paragraph, header)
 		Type string `json:"type"`
 	} `json:"blocks"`
 
 	// Time Time at which it has been last edited
-	Time int `json:"time"`
+	Time *int `json:"time,omitempty"`
 
 	// Version The version of the post
-	Version string `json:"version"`
+	Version *string `json:"version,omitempty"`
 }
 
 // ErrorResponse Object returned to any query that fails with an error code that expects a body (400, 409, ...)
 type ErrorResponse struct {
+	// Code Error Code
+	Code int `json:"code"`
+
 	// Field The name of the field/param that caused the error
 	Field *string `json:"field,omitempty"`
 

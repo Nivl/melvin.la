@@ -1,4 +1,4 @@
-import { $api } from '#backend/api';
+import { $api, baseHeaders } from '#backend/api';
 
 export const useGetPost = ({
   slug,
@@ -13,6 +13,11 @@ export const useGetPost = ({
     {
       params: {
         path: { idOrSlug: slug },
+        // Temporary workaround until openapi-typescript supports securitySchemes
+        // https://github.com/openapi-ts/openapi-typescript/issues/922
+        headers: {
+          ...baseHeaders(),
+        },
       },
     },
     {

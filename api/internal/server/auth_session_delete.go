@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 )
@@ -12,7 +13,7 @@ import (
 func (s *Server) DeleteSession(ctx context.Context, _ api.DeleteSessionRequestObject) (api.DeleteSessionResponseObject, error) {
 	c := s.GetServiceContext(ctx)
 	if c.User() == nil {
-		return api.DeleteSession401Response{}, nil
+		return api.DeleteSession401JSONResponse(*NewShortErrorResponse(http.StatusUnauthorized, "Unauthorized")), nil
 	}
 
 	err := c.DB().DeleteUserSession(ctx, c.SessionToken())

@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
@@ -15,11 +16,11 @@ func (s *Server) DeleteBlogPost(ctx context.Context, input api.DeleteBlogPostReq
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableBlog, false) {
-		return api.DeleteBlogPost503Response{}, nil
+		return api.DeleteBlogPost503JSONResponse(*NewShortErrorResponse(http.StatusServiceUnavailable, "Service Unavailable")), nil
 	}
 
 	if c.User() == nil {
-		return api.DeleteBlogPost401Response{}, nil
+		return api.DeleteBlogPost401JSONResponse(*NewShortErrorResponse(http.StatusUnauthorized, "Unauthorized")), nil
 	}
 
 	if err := c.DB().DeleteBlogPost(ctx, input.ID); err != nil {

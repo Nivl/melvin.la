@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"net/http"
 	"net/netip"
 	"strings"
 	"time"
@@ -24,10 +25,10 @@ func createSessionInputValidation(input *api.CreateSessionRequestObject) *api.Er
 
 	// validate
 	if input.Body.Password == "" {
-		return NewErrorResponse("password", "password is required", api.Body)
+		return NewErrorResponse(http.StatusBadRequest, "password", "password is required", api.Body)
 	}
 	if input.Body.Email == "" {
-		return NewErrorResponse("email", "email is required", api.Body)
+		return NewErrorResponse(http.StatusBadRequest, "email", "email is required", api.Body)
 	}
 	return nil
 }
@@ -37,8 +38,8 @@ func createSessionInputValidation(input *api.CreateSessionRequestObject) *api.Er
 func (s *Server) CreateSession(ctx context.Context, input api.CreateSessionRequestObject) (api.CreateSessionResponseObject, error) {
 	c := s.GetServiceContext(ctx)
 
-	if c.User() == nil {
-		return api.CreateSession403Response{}, nil
+	if c.User() != nil {
+		return api.CreateSession403JSONResponse(*NewShortErrorResponse(http.StatusForbidden, "Forbidden")), nil
 	}
 
 	if errorResponse := createSessionInputValidation(&input); errorResponse != nil {
@@ -50,13 +51,13 @@ func (s *Server) CreateSession(ctx context.Context, input api.CreateSessionReque
 	user, err := c.DB().GetUserByEmail(ctx, string(input.Body.Email))
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return api.CreateSession400JSONResponse(*NewErrorResponse("_", "Invalid email or password", api.Body)), nil
+			return api.CreateSession400JSONResponse(*NewErrorResponse(http.StatusBadRequest, "_", "Invalid email or password", api.Body)), nil
 		}
 		return nil, fmt.Errorf("could not get user: %w", err)
 	}
 	// With the hashed password we can now check if the provided one is valid
 	if bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Body.Password)) != nil {
-		return api.CreateSession400JSONResponse(*NewErrorResponse("_", "Invalid email or password", api.Body)), nil //nolint:nilerr // The error is returned in the response (user-error), and not as an error (system-error)
+		return api.CreateSession400JSONResponse(*NewErrorResponse(http.StatusBadRequest, "_", "Invalid email or password", api.Body)), nil //nolint:nilerr // The error is returned in the response (user-error), and not as an error (system-error)
 	}
 
 	var ipPrefix netip.Prefix

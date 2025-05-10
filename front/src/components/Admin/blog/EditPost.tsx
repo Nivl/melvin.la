@@ -2,35 +2,43 @@
 import { useEffect, useState } from 'react';
 
 import { Section } from '#components/Home/Section';
-import { RequestError, ServerErrors } from '#error';
 import { useGetPost } from '#hooks/blog/useGetPost';
 import {
   Input as UpdatePostEndpointInput,
   useUpdatePost,
 } from '#hooks/blog/useUpdatePost';
 
-import { PostForm } from './PostForm';
+import { PostForm, ServerError } from './PostForm';
 
 export const EditPost = ({ id }: { id: string }) => {
-  const { data: post, isLoading, error } = useGetPost({ slug: id });
+  // TODO(melvin): Handle 404s
+  const { data: post, isLoading } = useGetPost({ slug: id });
   const {
     isPending: isCreatingPost,
     error: createPostError,
     updatePostAsync,
   } = useUpdatePost(id);
 
-  // TODO(melvin): Handle 404s
-
-  const [serverError, setServerError] = useState<ServerErrors>({});
+  const [serverError, setServerError] = useState<ServerError>({});
   useEffect(() => {
     if (createPostError) {
-      const errors: ServerErrors = {};
-      if (createPostError instanceof RequestError) {
-        errors[createPostError.info.field ?? '_'] = [
-          createPostError.info.message,
-        ];
-      } else if (createPostError instanceof Error) {
-        errors['_'] = [createPostError.message ?? 'Unknown server error'];
+      const errors: ServerError = {};
+      switch (createPostError.field) {
+        case 'title':
+          errors.title = createPostError.message;
+          break;
+        case 'slug':
+          errors.slug = createPostError.message;
+          break;
+        case 'thumbnailUrl':
+          errors.thumbnailUrl = createPostError.message;
+          break;
+        case 'description':
+          errors.description = createPostError.message;
+          break;
+        default:
+          errors._ = createPostError.message;
+          break;
       }
       setServerError(errors);
     }

@@ -56,7 +56,12 @@ requestBody:
                       example: "paragraph"
                     data:
                       type: object
+                      additionalProperties: true
                       description: Data of the block
+                    tunes:
+                      type: object
+                      additionalProperties: true
+                      description: Tunes of the block
                 example:
                   - id: "1"
                     type: "paragraph"

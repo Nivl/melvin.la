@@ -1,9 +1,7 @@
 type: object
 description: The content of the blog post in JSON format.
 required:
-  - version
   - blocks
-  - time
 properties:
   version:
     type: string
@@ -19,7 +17,6 @@ properties:
     items:
       type: object
       required:
-        - id
         - type
         - data
       properties:
@@ -34,7 +31,12 @@ properties:
           example: "paragraph"
         data:
           type: object
+          additionalProperties: true
           description: Data of the block
+        tunes:
+          type: object
+          additionalProperties: true
+          description: Tunes of the block
     example:
       - id: "1"
         type: "paragraph"

@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
@@ -22,7 +23,7 @@ func getBlogPostsInputValidation(input api.GetBlogPostsRequestObject) *api.Error
 
 	// Validate
 	if !input.Params.After.Valid && !input.Params.Before.Valid {
-		return NewErrorResponse("after", "after and before cannot be used together", api.Query)
+		return NewErrorResponse(http.StatusBadRequest, "after", "after and before cannot be used together", api.Query)
 	}
 	return nil
 }
@@ -34,7 +35,7 @@ func (s *Server) GetBlogPosts(ctx context.Context, input api.GetBlogPostsRequest
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableBlog, false) {
-		return api.GetBlogPosts503Response{}, nil
+		return api.GetBlogPosts503JSONResponse(*NewShortErrorResponse(http.StatusServiceUnavailable, "Service Unavailable")), nil
 	}
 
 	if errorResponse := getBlogPostsInputValidation(input); errorResponse != nil {

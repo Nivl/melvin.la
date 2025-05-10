@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
 	"strings"
 	"time"
 
@@ -26,11 +27,11 @@ func (s *Server) CreateBlogPost(ctx context.Context, input api.CreateBlogPostReq
 
 	// TODO(melvin): Move this to a middleware after the refactor
 	if !c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableBlog, false) {
-		return api.CreateBlogPost503Response{}, nil
+		return api.CreateBlogPost503JSONResponse(*NewShortErrorResponse(http.StatusServiceUnavailable, "Service Unavailable")), nil
 	}
 
 	if c.User() == nil {
-		return api.CreateBlogPost401Response{}, nil
+		return api.CreateBlogPost401JSONResponse(*NewShortErrorResponse(http.StatusUnauthorized, "Unauthorized")), nil
 	}
 
 	errorResponse := blogPostInputSanitizerAndValidation(&BlogPostInput{
@@ -72,9 +73,9 @@ func (s *Server) CreateBlogPost(ctx context.Context, input api.CreateBlogPostReq
 		if errors.As(err, &dbErr) {
 			switch dbErr.Code {
 			case pgerrcode.UniqueViolation:
-				return api.CreateBlogPost409JSONResponse(*NewErrorResponse(dbErr.ColumnName, "already in use", api.Body)), nil
+				return api.CreateBlogPost409JSONResponse(*NewErrorResponse(409, dbErr.ColumnName, "already in use", api.Body)), nil
 			case pgerrcode.CheckViolation:
-				return api.CreateBlogPost400JSONResponse(*NewErrorResponse(dbErr.ColumnName, "either too short or too long", api.Body)), nil
+				return api.CreateBlogPost400JSONResponse(*NewErrorResponse(400, dbErr.ColumnName, "either too short or too long", api.Body)), nil
 			}
 		}
 		return nil, fmt.Errorf("couldn't create new post: %w", err)

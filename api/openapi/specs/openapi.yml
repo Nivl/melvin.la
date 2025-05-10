@@ -143,11 +143,21 @@ paths:
               examples:
                 example-1:
                   value:
+                    code: 400
                     message: "name is required"
                     field: "name"
                     location: "body"
         "403":
           description: The user is already logged in
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 403
+                    message: "User is already logged in"
         "409":
           description: The email is already being used
           content:
@@ -157,12 +167,31 @@ paths:
               examples:
                 example-1:
                   value:
+                    code: 409
                     message: "already in use"
                     field: "email"
         "500":
           description: Something wrong happened
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
         "503":
           description: The endpoint has been disabled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 503
+                    message: "Service unavailable"
 
   /auth/users/{id}:
     parameters:
@@ -196,10 +225,37 @@ paths:
                   $ref: "#/components/examples/UserExample"
         "401":
           description: Unauthorized access - User must be logged in to make the request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 401
+                    message: "Unauthorized"
         "404":
           description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 404
+                    message: "Not Found"
         "500":
           description: Something wrong happened
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
 
   /auth/sessions:
     post:
@@ -268,13 +324,32 @@ paths:
               examples:
                 example-1:
                   value:
+                    code: 400
                     message: "email is required"
                     field: "email"
                     location: "body"
         "403":
           description: The user is already logged in
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 403
+                    message: "User is already logged in"
         "500":
           description: Something wrong happened
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
 
     delete:
       description: Delete a user session.
@@ -289,8 +364,26 @@ paths:
           description: Successfully deleted the session
         "401":
           description: Unauthorized access - User must be logged in to make the request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 401
+                    message: "Unauthorized"
         "500":
           description: Something went wrong
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
 
   /blog/posts:
     get:
@@ -363,13 +456,32 @@ paths:
               examples:
                 example-1:
                   value:
+                    code: 400
                     message: "invalid date format"
                     field: "after"
                     location: "query"
         "500":
           description: Something wrong happened
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
         "503":
           description: The endpoint has been disabled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 503
+                    message: "Service unavailable"
 
     post:
       description: Create a blog post.
@@ -442,13 +554,32 @@ paths:
               examples:
                 example-1:
                   value:
+                    code: 400
                     message: "title is required"
                     field: "title"
                     location: "body"
         "401":
           description: Unauthorized access - User must be logged in to make the request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 401
+                    message: "Unauthorized"
         "404":
           description: The post does not exist
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 404
+                    message: "Not Found"
         "409":
           description: The slug, or another unique data is already
             being used
@@ -459,12 +590,31 @@ paths:
               examples:
                 example-1:
                   value:
+                    code: 409
                     message: "already in use"
                     field: "slug"
         "500":
           description: Something wrong happened
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
         "503":
           description: The endpoint has been disabled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 503
+                    message: "Service unavailable"
 
   /blog/posts/{id}:
     parameters:
@@ -545,13 +695,32 @@ paths:
               examples:
                 example-1:
                   value:
+                    code: 400
                     message: "title is required"
                     field: "title"
                     location: "body"
         "404":
-          description: Theblog post was not found
+          description: The blog post was not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 404
+                    message: "Not Found"
         "401":
           description: Unauthorized access - User must be logged in to make the request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 401
+                    message: "Unauthorized"
         "409":
           description: The slug, or another unique data is already
             being used
@@ -562,12 +731,31 @@ paths:
               examples:
                 example-1:
                   value:
+                    code: 409
                     message: "already in use"
                     field: "slug"
         "500":
           description: Something wrong happened
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
         "503":
           description: The endpoint has been disabled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 503
+                    message: "Service unavailable"
 
     delete:
       description: Delete a blog post.
@@ -589,15 +777,43 @@ paths:
               examples:
                 example-1:
                   value:
+                    code: 400
                     message: "id invalid format"
                     field: "id"
                     location: "path"
         "401":
           description: Unauthorized access - User must be logged in to make the request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 401
+                    message: "Unauthorized"
         "500":
           description: Something wrong happened
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
         "503":
           description: The endpoint has been disabled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 503
+                    message: "Service unavailable"
 
   /blog/posts/{idOrSlug}:
     parameters:
@@ -650,12 +866,40 @@ paths:
               examples:
                 example-1:
                   value:
+                    code: 400
                     message: "idOrSlug invalid format"
                     field: "idOrSlug"
                     location: "path"
         "404":
           description: Blog post not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 404
+                    message: "Not Found"
         "500":
           description: Something wrong happened
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 500
+                    message: "Internal Server Error"
         "503":
           description: The endpoint has been disabled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 503
+                    message: "Service unavailable"

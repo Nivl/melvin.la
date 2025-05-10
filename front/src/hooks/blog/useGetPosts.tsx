@@ -1,10 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
-
-import { get, queryErrorWrapper } from '#backend/request';
-import { HttpError, Post } from '#backend/types';
-import { RequestError } from '#error';
-
-type Response = Post[];
+import { $api, baseHeaders } from '#backend/api';
 
 export const useGetPosts = ({
   after = '',
@@ -15,19 +9,26 @@ export const useGetPosts = ({
   before?: string;
   disabled?: boolean;
 } = {}) => {
-  const { isLoading, data, error } = useQuery({
-    queryKey: ['blog', 'posts', after, before],
-    enabled: !disabled,
-    queryFn: queryErrorWrapper(async () => {
-      const res = await get('/blog/posts', { after, before });
-
-      if (!res.ok) {
-        const errInfo = (await res.json()) as HttpError;
-        throw new RequestError(errInfo, res);
-      }
-      return (await res.json()) as Response;
-    }),
-  });
+  const { isLoading, data, error } = $api.useQuery(
+    'get',
+    '/blog/posts',
+    {
+      params: {
+        query: {
+          after,
+          before,
+        },
+        // Temporary workaround until openapi-typescript supports securitySchemes
+        // https://github.com/openapi-ts/openapi-typescript/issues/922
+        headers: {
+          ...baseHeaders(),
+        },
+      },
+    },
+    {
+      enabled: !disabled,
+    },
+  );
 
   return {
     isLoading,
