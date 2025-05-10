@@ -84,6 +84,10 @@ jobs:
     - name: Setup
       uses: './.github/actions/node-setup'
     - run: pnpm run lint
+    - name: Lint open api
+      run: |
+        pnpm run oapi-gen
+        git
 
 
   # we only run this one after everything has run to save chromatic

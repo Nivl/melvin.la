@@ -8,7 +8,7 @@ import {
 
 type Props<T> = {
   fieldError: FieldError | undefined;
-  serverErrors: string[] | undefined;
+  serverErrors: string | undefined;
   register: T;
 };
 
@@ -55,7 +55,7 @@ export const InputPassword = <T,>({
             (fieldError.type == 'maxLength' &&
               'Password should be less or equal to 255 chars') ||
             'Invalid')) ??
-        serverErrors?.at(0)
+        serverErrors
       }
     />
   );

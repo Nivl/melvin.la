@@ -23,3 +23,12 @@ Source code of my personal website
 | NEXT_PUBLIC_GCP_MAP_API_KEY | required | string | | API Key for Google map |
 | NEXT_PUBLIC_LAUNCH_DARKLY_CLIENT_ID | required | string | | Client ID of Launch Darkly |
 | FORTNITE_API_KEY | required | required | string | | API Key for the Fortnite API |
+
+
+## Fixtures
+
+### Users
+
+| email | password | role |
+| --- | --- | --- |
+| test@domain.tld | test | admin |
