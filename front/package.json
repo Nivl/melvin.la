@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@10.11.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -66,8 +66,8 @@
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.11",
     "storybook": "8.6.12",
-    "tailwind-merge": "2.6.0",
-    "tailwindcss": "3.4.17",
+    "tailwind-merge": "3.3.0",
+    "tailwindcss": "4.1.6",
     "typescript": "5.8.3",
     "typescript-eslint": "8.32.0"
   },
