@@ -23,7 +23,7 @@
     "framer-motion": "12.12.1",
     "launchdarkly-react-client-sdk": "3.7.0",
     "moment-timezone": "0.5.48",
-    "msw": "2.8.4",
+    "msw": "2.7.6",
     "next": "15.3.2",
     "next-themes": "0.4.6",
     "react": "19.1.0",
