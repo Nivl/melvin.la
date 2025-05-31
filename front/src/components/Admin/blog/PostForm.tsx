@@ -21,11 +21,13 @@ type FormInputs =
   | Omit<CreatePostEndpointInput, 'contentJson' | 'publish'>
   | Omit<UpdatePostEndpointInput, 'contentJson' | 'publish'>;
 
-export type ErrorFields =
-  | 'title'
+type ErrorFields =
+  | 'contentJson'
+  | 'description'
+  | 'publish'
   | 'slug'
   | 'thumbnailUrl'
-  | 'description'
+  | 'title'
   | '_';
 export type ServerError = Partial<Record<ErrorFields, string>>;
 
@@ -78,7 +80,12 @@ export const PostForm = ({
 
   return (
     <>
-      <form>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          void handleSubmit(onSubmit)(e);
+        }}
+      >
         <Section className="flex flex-col items-center justify-center">
           <h2 className="mb-5 pb-5 text-center text-2xl font-black uppercase">
             Metadata
@@ -148,7 +155,7 @@ export const PostForm = ({
                       ((formErrors.thumbnailUrl.type == 'maxLength' &&
                         'Name should be less or equal to 255 chars') ||
                         'Invalid')) ??
-                    (serverErrors.thumbnailUrl && serverErrors.thumbnailUrl[0])
+                    serverErrors.thumbnailUrl
                   }
                 />
 
@@ -166,7 +173,7 @@ export const PostForm = ({
                       ((formErrors.description.type == 'maxLength' &&
                         'Name should be less or equal to 130 chars') ||
                         'Invalid')) ??
-                    (serverErrors.description && serverErrors.description[0])
+                    serverErrors.description
                   }
                 />
               </div>
@@ -228,7 +235,6 @@ export const PostForm = ({
               isLoading={cta.isPending}
               color="primary"
               type="submit"
-              onClick={(...args) => void handleSubmit(onSubmit)(...args)}
             >
               {cta.isPending ? cta.textWhenPending : cta.text}
             </Button>

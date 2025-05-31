@@ -7,7 +7,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from '@nextui-org/table';
+} from '@heroui/table';
 import { Key } from 'react';
 
 import type { Block as BlockData } from '#models/block';

@@ -1,6 +1,6 @@
 'use client';
 
-import { Spinner } from '@nextui-org/react';
+import { Spinner } from '@heroui/react';
 import { useFlags } from 'launchdarkly-react-client-sdk';
 import { useRouter } from 'next/navigation';
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   }
 
   if (!flags[FLAG_ENABLE_BLOG]) {
-    void router.replace('/');
+    router.replace('/');
   }
 
   return <>{children}</>;

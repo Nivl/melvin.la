@@ -48,14 +48,14 @@ func HTTPErrorHandler(e *echo.Echo) echo.HTTPErrorHandler {
 		switch m := he.Message.(type) {
 		case string:
 			if e.Debug {
-				message = echo.Map{"code": 500, "message": m, "error": err.Error()}
+				message = echo.Map{"code": he.Code, "message": m, "error": err.Error()}
 			} else {
-				message = echo.Map{"code": 500, "message": m}
+				message = echo.Map{"code": he.Code, "message": m}
 			}
 		case json.Marshaler:
 			// do nothing - this type knows how to format itself to JSON
 		case error:
-			message = echo.Map{"code": 500, "message": m.Error()}
+			message = echo.Map{"code": he.Code, "message": m.Error()}
 		}
 
 		// Send response

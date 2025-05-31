@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Link } from '@nextui-org/react';
+import { Button, Link } from '@heroui/react';
 import { FaFeatherPointed as NewPostIcon } from 'react-icons/fa6';
 
 import { ListPostPreviews } from '#components/blog/ListPostPreviews';

@@ -50,7 +50,7 @@ func StartAndWaitWithCb(ctx context.Context, logger *zap.Logger, e *echo.Echo, o
 			err = e.StartTLS(":"+opts.Port, path.Join(opts.CertsPath, "cert.pem"), path.Join(opts.CertsPath, "key.pem"))
 		}
 		if err != nil && !errors.Is(err, http.ErrServerClosed) {
-			logger.Error("could not close the server.", zap.Error(err))
+			logger.Error("could not either start or stop the server.", zap.Error(err))
 		}
 	}()
 

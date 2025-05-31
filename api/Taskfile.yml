@@ -11,8 +11,9 @@ vars:
 tasks:
   build:
     cmds:
-      - rm -rf {{.BIN_OUT}}
       - CGO_ENABLED=0 go build -v -o {{.BIN_OUT}} github.com/Nivl/melvin.la/api/cmd/api
+    generates:
+      - "{{.BIN_OUT}}"
 
   start:
     deps: [build]
@@ -21,6 +22,7 @@ tasks:
 
   dev:
     deps: [build]
+    watch: true
     cmds:
       - "{{.BIN_OUT}}"
     sources:
@@ -28,8 +30,6 @@ tasks:
       - ./**/*.env
       - ./**/*.mod
       - ./**/*.sum
-      - go.mod
-      - go.sum
     generates:
       - "{{.BIN_OUT}}"
 

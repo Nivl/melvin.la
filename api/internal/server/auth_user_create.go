@@ -39,7 +39,7 @@ func (s *Server) CreateUser(ctx context.Context, input api.CreateUserRequestObje
 	c := s.GetServiceContext(ctx)
 
 	// Most of the time we don't want people to sign up
-	if c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableSignUps, false) {
+	if !c.FeatureFlag().IsEnabled(ctx, fflag.FlagEnableSignUps, false) {
 		return api.CreateUser503JSONResponse(*NewShortErrorResponse(http.StatusServiceUnavailable, "Service Unavailable")), nil
 	}
 

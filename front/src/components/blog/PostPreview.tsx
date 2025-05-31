@@ -1,4 +1,4 @@
-import { Card, CardBody } from '@nextui-org/card';
+import { Card, CardBody } from '@heroui/card';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -17,11 +17,11 @@ export const PostPreview = ({
     <Card
       isPressable
       className="relative flex w-full flex-none flex-col gap-3"
-      onPress={() =>
+      onPress={() => {
         router.push(
           isAdmin ? `/admin/blog/posts/${post.id}` : `/blog/${post.slug}`,
-        )
-      }
+        );
+      }}
     >
       <CardBody className="relative rounded-large bg-background p-0 shadow-none shadow-black/5">
         <div className="rounded-inherit relative overflow-hidden rounded-large">

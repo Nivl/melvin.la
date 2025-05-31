@@ -10,8 +10,11 @@ import (
 func NewBaseRouter(deps *app.Dependencies) *echo.Echo {
 	e := echo.New()
 	e.HTTPErrorHandler = HTTPErrorHandler(e)
+
+	// The order matters
+	e.Use(middleware.RequestID())
 	e.Use(middleware.ServiceContext(deps))
-	e.Use(middleware.LogRequests())
+	e.Use(middleware.LogRequests(e))
 	e.Use(middleware.BodyLimit("5K"))
 	e.Use(middleware.Recover())
 	return e
