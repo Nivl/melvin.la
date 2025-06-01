@@ -32,7 +32,7 @@ export const Block = ({ block, key }: { block: BlockData; key: Key }) => {
       return (
         <List
           className="mb-3"
-          key={`${key}-list-${block.id}`}
+          key={`${key.toString()}-list-${block.id}`}
           items={block.data.items}
           style={block.data.style}
         />
@@ -43,20 +43,24 @@ export const Block = ({ block, key }: { block: BlockData; key: Key }) => {
           <TableHeader>
             {block.data.content[0].map((col, itemIndex) => {
               return (
-                <TableColumn key={`${key}-table-${block.id}-0-${itemIndex}`}>
+                <TableColumn
+                  key={`${key.toString()}-table-${block.id}-0-${itemIndex.toString()}`}
+                >
                   {col}
                 </TableColumn>
               );
             })}
           </TableHeader>
           <TableBody>
-            {block.data.content.slice(1).map((rows, rowIndex) => {
+            {block.data.content.slice(1).map((_, rowIndex) => {
               return (
-                <TableRow key={`${key}-table-${block.id}-${rowIndex}`}>
+                <TableRow
+                  key={`${key.toString()}-table-${block.id}-${rowIndex.toString()}`}
+                >
                   {block.data.content[0].map((col, colIndex) => {
                     return (
                       <TableCell
-                        key={`${key}-table-${block.id}-${rowIndex}-${colIndex}`}
+                        key={`${key.toString()}-table-${block.id}-${rowIndex.toString()}-${colIndex.toString()}`}
                       >
                         {col}
                       </TableCell>

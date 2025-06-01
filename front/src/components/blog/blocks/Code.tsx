@@ -35,7 +35,7 @@ export const Code = ({
       showLineNumbers={showlinenumbers}
       showInlineLineNumbers={showlinenumbers}
       style={theme}
-      className={twMerge(`!rounded-lg !text-base ${className}`)}
+      className={twMerge(`!rounded-lg !text-base ${className ?? ''}`)}
     >
       {code}
     </SyntaxHighlighter>

@@ -18,12 +18,12 @@ export const List = ({
   const classname = `list-inside ${style === 'ordered' ? 'list-decimal' : 'list-disc'}`;
 
   return (
-    <Tag className={twMerge(`${classname} ${className}`)}>
+    <Tag className={twMerge(`${classname} ${className ?? ''}`)}>
       {items.map((item, itemIndex) => {
         if (typeof item === 'string') {
           return (
             <li
-              key={`${key}-${itemIndex}`}
+              key={`${key.toString()}-${itemIndex.toString()}`}
               dangerouslySetInnerHTML={{ __html: item }}
             ></li>
           );
@@ -32,12 +32,12 @@ export const List = ({
         // Potentially Nested list
         return (
           <li
-            key={`${key}-${itemIndex}`}
+            key={`${key.toString()}-${itemIndex.toString()}`}
             dangerouslySetInnerHTML={{ __html: item.content }}
           >
             {item.items && (
               <List
-                key={`${key}-${itemIndex}-sub`}
+                key={`${key.toString()}-${itemIndex.toString()}-sub`}
                 style={style}
                 items={item.items}
                 className={className}

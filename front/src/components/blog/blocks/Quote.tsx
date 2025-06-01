@@ -12,7 +12,7 @@ export const Quote = ({
   return (
     <blockquote
       className={twMerge(
-        `relative border-s-4 ps-4 dark:border-neutral-700 sm:ps-6 ${className}`,
+        `relative border-s-4 ps-4 dark:border-neutral-700 sm:ps-6 ${className ?? ''}`,
       )}
     >
       <p className="text-gray-800 dark:text-white sm:text-xl">

@@ -25,7 +25,7 @@ export const EditorJSWrapper = (
   // forwardedRef: Ref<EditorJS>,
 ) => {
   const ref = useRef<EditorJS>();
-  useImperativeHandle(editorRef, () => ref.current as EditorJS);
+  useImperativeHandle(editorRef, () => ref.current);
 
   //Initialize editorjs
   useEffect(() => {

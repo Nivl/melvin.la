@@ -226,7 +226,7 @@ export const TableDesktop = ({
   }, [data, category]);
 
   return (
-    <div className="flex flex-col items-center gap-11 sm:flex-row border-divider">
+    <div className="flex flex-col items-center gap-11 border-divider sm:flex-row">
       <div className="hidden xl:block">
         <div className="flex flex-col gap-6">{TableCategoriesSection}</div>
       </div>

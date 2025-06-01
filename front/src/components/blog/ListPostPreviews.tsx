@@ -1,11 +1,11 @@
-import { Post } from '#backend/types';
+import { BlogPost } from '#backend/api';
 import { PostPreview } from '#components/blog/PostPreview';
 
 export const ListPostPreviews = ({
   posts,
   isAdmin = false,
 }: {
-  posts: Post[];
+  posts: BlogPost[];
   isAdmin?: boolean;
 }) => {
   return (

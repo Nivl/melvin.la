@@ -1,7 +1,7 @@
-import { Me } from '#backend/types';
+import { User } from '#backend/api';
 
 type testUser = {
-  me: Me;
+  me: User;
   session: {
     token: string;
     refreshToken: string;
