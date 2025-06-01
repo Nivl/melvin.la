@@ -7,7 +7,7 @@ import (
 	"io"
 	"net"
 	"net/http"
-
+	"strings"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
@@ -47,8 +47,11 @@ func LogRequests(e *echo.Echo) echo.MiddlewareFunc {
 		return func(ec echo.Context) error {
 			c, _ := ec.(*request.Context)
 
+			// Sanitize the path to remove newline characters
+			sanitizedPath := strings.ReplaceAll(c.Request().URL.Path, "\n", "")
+			sanitizedPath = strings.ReplaceAll(sanitizedPath, "\r", "")
 			c.Log().Info("New incoming request",
-				zap.String("path", c.Request().URL.Path),
+				zap.String("path", sanitizedPath),
 				zap.String("method", c.Request().Method),
 			)
 
