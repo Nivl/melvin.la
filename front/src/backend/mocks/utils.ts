@@ -1,4 +1,4 @@
-import { HttpResponse, JsonBodyType, StrictResponse } from 'msw';
+import { HttpResponse, JsonBodyType } from 'msw';
 
 export type MaybePromise<ValueType = unknown> = ValueType | Promise<ValueType>;
 
@@ -20,7 +20,7 @@ export const isErrCode = (value: string): boolean => {
 export const errorCode = (
   value: string,
   field?: string,
-): MaybePromise<StrictResponse<JsonBodyType>> => {
+): MaybePromise<HttpResponse<JsonBodyType>> => {
   const match = codeMatchRegex.exec(value);
   if (!match) {
     throw new Error(`Not an error code: ${value}`);
