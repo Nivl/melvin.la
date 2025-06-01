@@ -87,7 +87,7 @@ jobs:
     - name: Lint open api
       run: |
         pnpm run oapi-gen
-        git
+        git diff --exit-code
 
 
   # we only run this one after everything has run to save chromatic
