@@ -34,7 +34,7 @@ func TestCheck(t *testing.T) {
 			},
 		}
 
-		errutil.CheckWithMessage(c.Close, &err, "wrapper")
+		errutil.RunAndSetError(c.Close, &err, "wrapper")
 		assert.True(t, closed, "Close() should have been called")
 		assert.Equal(t, expectedErrMsg, err.Error())
 	})
@@ -53,7 +53,7 @@ func TestCheck(t *testing.T) {
 			},
 		}
 
-		errutil.CheckWithMessage(c.Close, &err, "wrapper")
+		errutil.RunAndSetError(c.Close, &err, "wrapper")
 		assert.True(t, closed, "Close() should have been called")
 		assert.Equal(t, errToReturn, err)
 	})
@@ -73,7 +73,7 @@ func TestCheck(t *testing.T) {
 			},
 		}
 
-		errutil.CheckWithMessage(c.Close, &err, "wrapper")
+		errutil.RunAndSetError(c.Close, &err, "wrapper")
 		assert.True(t, closed, "Close() should have been called")
 		assert.Equal(t, expectedErrMsg, err.Error())
 	})
@@ -90,7 +90,7 @@ func TestCheck(t *testing.T) {
 			},
 		}
 
-		errutil.CheckWithMessage(c.Close, &err, "shouldn't show this")
+		errutil.RunAndSetError(c.Close, &err, "shouldn't show this")
 		assert.True(t, closed, "Close() should have been called")
 		assert.NoError(t, err)
 	})

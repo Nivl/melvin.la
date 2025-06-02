@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Me } from '#backend/types';
+import { User } from '#backend/api';
 import { useSignIn } from '#hooks/auth/useSignIn.mock';
 
 import page from './page';
@@ -47,9 +47,8 @@ export const Errors: Story = {
       return {
         isPending: false,
         isSuccess: false,
-        error: new Error('Something went wrong'),
-        signInAsync: () => Promise.resolve({} as Me),
-        signIn: () => {},
+        error: { code: 500, message: 'Something went wrong' },
+        signInAsync: () => Promise.resolve({} as User),
         data: undefined,
       };
     });

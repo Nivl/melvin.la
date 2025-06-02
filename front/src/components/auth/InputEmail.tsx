@@ -3,7 +3,7 @@ import { FieldError, UseFormRegister } from 'react-hook-form';
 
 type Props<T> = {
   fieldError: FieldError | undefined;
-  serverErrors: string[] | undefined;
+  serverErrors: string | undefined;
   register: T;
 };
 
@@ -35,7 +35,7 @@ export const InputEmail = <T,>({
             (fieldError.type == 'maxLength' &&
               'E-mail address should be less or equal to 255 chars') ||
             'Invalid')) ??
-        serverErrors?.at(0)
+        serverErrors
       }
     />
   );

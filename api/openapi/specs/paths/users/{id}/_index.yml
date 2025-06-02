@@ -1,0 +1,10 @@
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the user to retrieve, or "me".
+    schema:
+      type: string
+      pattern: "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})|me$"
+get:
+  $ref: "./get.yml"

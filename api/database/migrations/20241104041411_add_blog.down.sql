@@ -1,0 +1,6 @@
+BEGIN;
+
+DROP TABLE IF EXISTS blog_post_revs;
+DROP TABLE IF EXISTS blog_posts;
+
+COMMIT;

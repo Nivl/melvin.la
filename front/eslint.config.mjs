@@ -22,6 +22,7 @@ const compatRules = compat.extends("next/core-web-vitals")
 */
 
 export default tseslint.config(
+  { ignores: ['src/gen/**'] },
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,

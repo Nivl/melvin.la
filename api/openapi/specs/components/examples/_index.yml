@@ -1,0 +1,6 @@
+UserExample:
+  $ref: "./UserExample.yml"
+SessionExample:
+  $ref: "./SessionExample.yml"
+BlogPostExample:
+  $ref: "./BlogPostExample.yml"
