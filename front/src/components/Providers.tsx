@@ -6,7 +6,6 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 import { LaunchDarklyProvider } from '#/components/LaunchDarklyProvider';
 import { MswProvider } from '#/components/MswProvider';
-import { MeProvider } from '#contexts/MeContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,9 +27,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
           }}
         >
           <NextThemesProvider attribute="class">
-            <LaunchDarklyProvider>
-              <MeProvider>{children}</MeProvider>
-            </LaunchDarklyProvider>
+            <LaunchDarklyProvider>{children}</LaunchDarklyProvider>
           </NextThemesProvider>
         </HeroUIProvider>
       </QueryClientProvider>
