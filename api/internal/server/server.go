@@ -24,3 +24,4 @@ func NewServer() *Server {
 func (s *Server) GetServiceContext(ctx context.Context) *request.Context {
 	return ctx.Value(api.EchoContextKey).(*request.Context) //nolint:forcetypeassert // If it fails, the whole app is broken anyway
 }
+

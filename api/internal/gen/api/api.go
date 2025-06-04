@@ -17,38 +17,13 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/oapi-codegen/runtime"
 	strictecho "github.com/oapi-codegen/runtime/strictmiddleware/echo"
-	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
-	// Delete a session.
-	// (DELETE /auth/sessions)
-	DeleteSession(ctx echo.Context) error
-	// Create a new session.
-	// (POST /auth/sessions)
-	CreateSession(ctx echo.Context) error
-	// Create a new user.
-	// (POST /auth/users)
-	CreateUser(ctx echo.Context) error
-	// Get a user by ID.
-	// (GET /auth/users/{id})
-	GetUserById(ctx echo.Context, id string) error
-	// Get blog posts.
-	// (GET /blog/posts)
-	GetBlogPosts(ctx echo.Context, params GetBlogPostsParams) error
-	// Create a new blog post.
-	// (POST /blog/posts)
-	CreateBlogPost(ctx echo.Context) error
-	// Get blog posts.
-	// (GET /blog/posts/{idOrSlug})
-	GetBlogPost(ctx echo.Context, idOrSlug string) error
-	// Delete a blog post.
-	// (DELETE /blog/posts/{id})
-	DeleteBlogPost(ctx echo.Context, id openapi_types.UUID) error
-	// Update a new blog post.
-	// (PATCH /blog/posts/{id})
-	UpdateBlogPost(ctx echo.Context, id openapi_types.UUID) error
+	// Get Fortnite stats.
+	// (GET /fortnite/stats/{username}/{platform})
+	FortniteGetStats(ctx echo.Context, username string, platform FortniteGetStatsParamsPlatform, params FortniteGetStatsParams) error
 }
 
 //
@@ -62,138 +37,38 @@ type ServerInterfaceWrapper struct {
 	Handler ServerInterface
 }
 
-// DeleteSession converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteSession(ctx echo.Context) error {
+// FortniteGetStats converts echo context to params.
+func (w *ServerInterfaceWrapper) FortniteGetStats(ctx echo.Context) error {
 	var err error
+	// ------------- Path parameter "username" -------------
+	var username string
 
-	ctx.Set(ApiKeyAuthScopes, []string{})
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.DeleteSession(ctx)
-	return err
-}
-
-// CreateSession converts echo context to params.
-func (w *ServerInterfaceWrapper) CreateSession(ctx echo.Context) error {
-	var err error
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.CreateSession(ctx)
-	return err
-}
-
-// CreateUser converts echo context to params.
-func (w *ServerInterfaceWrapper) CreateUser(ctx echo.Context) error {
-	var err error
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.CreateUser(ctx)
-	return err
-}
-
-// GetUserById converts echo context to params.
-func (w *ServerInterfaceWrapper) GetUserById(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "id" -------------
-	var id string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "id", ctx.Param("id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	err = runtime.BindStyledParameterWithOptions("simple", "username", ctx.Param("username"), &username, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return httperror.NewValidationErrorWithLoc("id", "missing or invalid value", "path")
+		return httperror.NewValidationErrorWithLoc("username", "missing or invalid value", "path")
+	}
+
+	// ------------- Path parameter "platform" -------------
+	var platform FortniteGetStatsParamsPlatform
+
+	err = runtime.BindStyledParameterWithOptions("simple", "platform", ctx.Param("platform"), &platform, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
+	if err != nil {
+		return httperror.NewValidationErrorWithLoc("platform", "missing or invalid value", "path")
 	}
 
 	ctx.Set(ApiKeyAuthScopes, []string{})
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.GetUserById(ctx, id)
-	return err
-}
-
-// GetBlogPosts converts echo context to params.
-func (w *ServerInterfaceWrapper) GetBlogPosts(ctx echo.Context) error {
-	var err error
 
 	// Parameter object where we will unmarshal all parameters from the context
-	var params GetBlogPostsParams
-	// ------------- Optional query parameter "after" -------------
+	var params FortniteGetStatsParams
+	// ------------- Optional query parameter "timeWindow" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "after", ctx.QueryParams(), &params.After)
+	err = runtime.BindQueryParameter("form", true, false, "timeWindow", ctx.QueryParams(), &params.TimeWindow)
 	if err != nil {
-		return httperror.NewValidationErrorWithLoc("after", "missing or invalid value", "query")
-	}
-
-	// ------------- Optional query parameter "before" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "before", ctx.QueryParams(), &params.Before)
-	if err != nil {
-		return httperror.NewValidationErrorWithLoc("before", "missing or invalid value", "query")
+		return httperror.NewValidationErrorWithLoc("timeWindow", "missing or invalid value", "query")
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.GetBlogPosts(ctx, params)
-	return err
-}
-
-// CreateBlogPost converts echo context to params.
-func (w *ServerInterfaceWrapper) CreateBlogPost(ctx echo.Context) error {
-	var err error
-
-	ctx.Set(ApiKeyAuthScopes, []string{})
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.CreateBlogPost(ctx)
-	return err
-}
-
-// GetBlogPost converts echo context to params.
-func (w *ServerInterfaceWrapper) GetBlogPost(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "idOrSlug" -------------
-	var idOrSlug string
-
-	err = runtime.BindStyledParameterWithOptions("simple", "idOrSlug", ctx.Param("idOrSlug"), &idOrSlug, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return httperror.NewValidationErrorWithLoc("idOrSlug", "missing or invalid value", "path")
-	}
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.GetBlogPost(ctx, idOrSlug)
-	return err
-}
-
-// DeleteBlogPost converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteBlogPost(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "id" -------------
-	var id openapi_types.UUID
-
-	err = runtime.BindStyledParameterWithOptions("simple", "id", ctx.Param("id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return httperror.NewValidationErrorWithLoc("id", "missing or invalid value", "path")
-	}
-
-	ctx.Set(ApiKeyAuthScopes, []string{})
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.DeleteBlogPost(ctx, id)
-	return err
-}
-
-// UpdateBlogPost converts echo context to params.
-func (w *ServerInterfaceWrapper) UpdateBlogPost(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "id" -------------
-	var id openapi_types.UUID
-
-	err = runtime.BindStyledParameterWithOptions("simple", "id", ctx.Param("id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
-	if err != nil {
-		return httperror.NewValidationErrorWithLoc("id", "missing or invalid value", "path")
-	}
-
-	ctx.Set(ApiKeyAuthScopes, []string{})
-
-	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.UpdateBlogPost(ctx, id)
+	err = w.Handler.FortniteGetStats(ctx, username, platform, params)
 	return err
 }
 
@@ -225,527 +100,61 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 		Handler: si,
 	}
 
-	router.DELETE(baseURL+"/auth/sessions", wrapper.DeleteSession)
-	router.POST(baseURL+"/auth/sessions", wrapper.CreateSession)
-	router.POST(baseURL+"/auth/users", wrapper.CreateUser)
-	router.GET(baseURL+"/auth/users/:id", wrapper.GetUserById)
-	router.GET(baseURL+"/blog/posts", wrapper.GetBlogPosts)
-	router.POST(baseURL+"/blog/posts", wrapper.CreateBlogPost)
-	router.GET(baseURL+"/blog/posts/:idOrSlug", wrapper.GetBlogPost)
-	router.DELETE(baseURL+"/blog/posts/:id", wrapper.DeleteBlogPost)
-	router.PATCH(baseURL+"/blog/posts/:id", wrapper.UpdateBlogPost)
+	router.GET(baseURL+"/fortnite/stats/:username/:platform", wrapper.FortniteGetStats)
 
 }
 
-type DeleteSessionRequestObject struct {
+type FortniteGetStatsRequestObject struct {
+	Username string                         `json:"username"`
+	Platform FortniteGetStatsParamsPlatform `json:"platform"`
+	Params   FortniteGetStatsParams
 }
 
-type DeleteSessionResponseObject interface {
-	VisitDeleteSessionResponse(w http.ResponseWriter) error
+type FortniteGetStatsResponseObject interface {
+	VisitFortniteGetStatsResponse(w http.ResponseWriter) error
 }
 
-type DeleteSession204Response struct {
-}
+type FortniteGetStats200JSONResponse FortniteStats
 
-func (response DeleteSession204Response) VisitDeleteSessionResponse(w http.ResponseWriter) error {
-	w.WriteHeader(204)
-	return nil
-}
-
-type DeleteSession401JSONResponse ErrorResponse
-
-func (response DeleteSession401JSONResponse) VisitDeleteSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(401)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type DeleteSession500JSONResponse ErrorResponse
-
-func (response DeleteSession500JSONResponse) VisitDeleteSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(500)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateSessionRequestObject struct {
-	Body *CreateSessionJSONRequestBody
-}
-
-type CreateSessionResponseObject interface {
-	VisitCreateSessionResponse(w http.ResponseWriter) error
-}
-
-type CreateSession201JSONResponse struct {
-	// Me User object
-	Me User `json:"me"`
-
-	// Session User session object
-	Session Session `json:"session"`
-}
-
-func (response CreateSession201JSONResponse) VisitCreateSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(201)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateSession400JSONResponse ErrorResponse
-
-func (response CreateSession400JSONResponse) VisitCreateSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(400)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateSession403JSONResponse ErrorResponse
-
-func (response CreateSession403JSONResponse) VisitCreateSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(403)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateSession500JSONResponse ErrorResponse
-
-func (response CreateSession500JSONResponse) VisitCreateSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(500)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateUserRequestObject struct {
-	Body *CreateUserJSONRequestBody
-}
-
-type CreateUserResponseObject interface {
-	VisitCreateUserResponse(w http.ResponseWriter) error
-}
-
-type CreateUser201Response struct {
-}
-
-func (response CreateUser201Response) VisitCreateUserResponse(w http.ResponseWriter) error {
-	w.WriteHeader(201)
-	return nil
-}
-
-type CreateUser400JSONResponse ErrorResponse
-
-func (response CreateUser400JSONResponse) VisitCreateUserResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(400)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateUser403JSONResponse ErrorResponse
-
-func (response CreateUser403JSONResponse) VisitCreateUserResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(403)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateUser409JSONResponse ErrorResponse
-
-func (response CreateUser409JSONResponse) VisitCreateUserResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(409)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateUser500JSONResponse ErrorResponse
-
-func (response CreateUser500JSONResponse) VisitCreateUserResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(500)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateUser503JSONResponse ErrorResponse
-
-func (response CreateUser503JSONResponse) VisitCreateUserResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(503)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetUserByIdRequestObject struct {
-	ID string `json:"id"`
-}
-
-type GetUserByIdResponseObject interface {
-	VisitGetUserByIdResponse(w http.ResponseWriter) error
-}
-
-type GetUserById200JSONResponse User
-
-func (response GetUserById200JSONResponse) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+func (response FortniteGetStats200JSONResponse) VisitFortniteGetStatsResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
 
 	return json.NewEncoder(w).Encode(response)
 }
 
-type GetUserById401JSONResponse ErrorResponse
+type FortniteGetStats400JSONResponse ErrorResponse
 
-func (response GetUserById401JSONResponse) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+func (response FortniteGetStats400JSONResponse) VisitFortniteGetStatsResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(401)
+	w.WriteHeader(400)
 
 	return json.NewEncoder(w).Encode(response)
 }
 
-type GetUserById404JSONResponse ErrorResponse
+type FortniteGetStats404JSONResponse ErrorResponse
 
-func (response GetUserById404JSONResponse) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+func (response FortniteGetStats404JSONResponse) VisitFortniteGetStatsResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(404)
 
 	return json.NewEncoder(w).Encode(response)
 }
 
-type GetUserById500JSONResponse ErrorResponse
+type FortniteGetStats500JSONResponse ErrorResponse
 
-func (response GetUserById500JSONResponse) VisitGetUserByIdResponse(w http.ResponseWriter) error {
+func (response FortniteGetStats500JSONResponse) VisitFortniteGetStatsResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(500)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetBlogPostsRequestObject struct {
-	Params GetBlogPostsParams
-}
-
-type GetBlogPostsResponseObject interface {
-	VisitGetBlogPostsResponse(w http.ResponseWriter) error
-}
-
-type GetBlogPosts200JSONResponse []BlogPost
-
-func (response GetBlogPosts200JSONResponse) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetBlogPosts400JSONResponse ErrorResponse
-
-func (response GetBlogPosts400JSONResponse) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(400)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetBlogPosts500JSONResponse ErrorResponse
-
-func (response GetBlogPosts500JSONResponse) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(500)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetBlogPosts503JSONResponse ErrorResponse
-
-func (response GetBlogPosts503JSONResponse) VisitGetBlogPostsResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(503)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateBlogPostRequestObject struct {
-	Body *CreateBlogPostJSONRequestBody
-}
-
-type CreateBlogPostResponseObject interface {
-	VisitCreateBlogPostResponse(w http.ResponseWriter) error
-}
-
-type CreateBlogPost201JSONResponse BlogPost
-
-func (response CreateBlogPost201JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(201)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateBlogPost400JSONResponse ErrorResponse
-
-func (response CreateBlogPost400JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(400)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateBlogPost401JSONResponse ErrorResponse
-
-func (response CreateBlogPost401JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(401)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateBlogPost404JSONResponse ErrorResponse
-
-func (response CreateBlogPost404JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(404)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateBlogPost409JSONResponse ErrorResponse
-
-func (response CreateBlogPost409JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(409)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateBlogPost500JSONResponse ErrorResponse
-
-func (response CreateBlogPost500JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(500)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type CreateBlogPost503JSONResponse ErrorResponse
-
-func (response CreateBlogPost503JSONResponse) VisitCreateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(503)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetBlogPostRequestObject struct {
-	IdOrSlug string `json:"idOrSlug"`
-}
-
-type GetBlogPostResponseObject interface {
-	VisitGetBlogPostResponse(w http.ResponseWriter) error
-}
-
-type GetBlogPost200JSONResponse BlogPost
-
-func (response GetBlogPost200JSONResponse) VisitGetBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetBlogPost400JSONResponse ErrorResponse
-
-func (response GetBlogPost400JSONResponse) VisitGetBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(400)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetBlogPost404JSONResponse ErrorResponse
-
-func (response GetBlogPost404JSONResponse) VisitGetBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(404)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetBlogPost500JSONResponse ErrorResponse
-
-func (response GetBlogPost500JSONResponse) VisitGetBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(500)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetBlogPost503JSONResponse ErrorResponse
-
-func (response GetBlogPost503JSONResponse) VisitGetBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(503)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type DeleteBlogPostRequestObject struct {
-	ID openapi_types.UUID `json:"id"`
-}
-
-type DeleteBlogPostResponseObject interface {
-	VisitDeleteBlogPostResponse(w http.ResponseWriter) error
-}
-
-type DeleteBlogPost204Response struct {
-}
-
-func (response DeleteBlogPost204Response) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
-	w.WriteHeader(204)
-	return nil
-}
-
-type DeleteBlogPost400JSONResponse ErrorResponse
-
-func (response DeleteBlogPost400JSONResponse) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(400)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type DeleteBlogPost401JSONResponse ErrorResponse
-
-func (response DeleteBlogPost401JSONResponse) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(401)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type DeleteBlogPost500JSONResponse ErrorResponse
-
-func (response DeleteBlogPost500JSONResponse) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(500)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type DeleteBlogPost503JSONResponse ErrorResponse
-
-func (response DeleteBlogPost503JSONResponse) VisitDeleteBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(503)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type UpdateBlogPostRequestObject struct {
-	ID   openapi_types.UUID `json:"id"`
-	Body *UpdateBlogPostJSONRequestBody
-}
-
-type UpdateBlogPostResponseObject interface {
-	VisitUpdateBlogPostResponse(w http.ResponseWriter) error
-}
-
-type UpdateBlogPost200JSONResponse BlogPost
-
-func (response UpdateBlogPost200JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type UpdateBlogPost400JSONResponse ErrorResponse
-
-func (response UpdateBlogPost400JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(400)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type UpdateBlogPost401JSONResponse ErrorResponse
-
-func (response UpdateBlogPost401JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(401)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type UpdateBlogPost404JSONResponse ErrorResponse
-
-func (response UpdateBlogPost404JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(404)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type UpdateBlogPost409JSONResponse ErrorResponse
-
-func (response UpdateBlogPost409JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(409)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type UpdateBlogPost500JSONResponse ErrorResponse
-
-func (response UpdateBlogPost500JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(500)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type UpdateBlogPost503JSONResponse ErrorResponse
-
-func (response UpdateBlogPost503JSONResponse) VisitUpdateBlogPostResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(503)
 
 	return json.NewEncoder(w).Encode(response)
 }
 
 // StrictServerInterface represents all server handlers.
 type StrictServerInterface interface {
-	// Delete a session.
-	// (DELETE /auth/sessions)
-	DeleteSession(ctx context.Context, request DeleteSessionRequestObject) (DeleteSessionResponseObject, error)
-	// Create a new session.
-	// (POST /auth/sessions)
-	CreateSession(ctx context.Context, request CreateSessionRequestObject) (CreateSessionResponseObject, error)
-	// Create a new user.
-	// (POST /auth/users)
-	CreateUser(ctx context.Context, request CreateUserRequestObject) (CreateUserResponseObject, error)
-	// Get a user by ID.
-	// (GET /auth/users/{id})
-	GetUserById(ctx context.Context, request GetUserByIdRequestObject) (GetUserByIdResponseObject, error)
-	// Get blog posts.
-	// (GET /blog/posts)
-	GetBlogPosts(ctx context.Context, request GetBlogPostsRequestObject) (GetBlogPostsResponseObject, error)
-	// Create a new blog post.
-	// (POST /blog/posts)
-	CreateBlogPost(ctx context.Context, request CreateBlogPostRequestObject) (CreateBlogPostResponseObject, error)
-	// Get blog posts.
-	// (GET /blog/posts/{idOrSlug})
-	GetBlogPost(ctx context.Context, request GetBlogPostRequestObject) (GetBlogPostResponseObject, error)
-	// Delete a blog post.
-	// (DELETE /blog/posts/{id})
-	DeleteBlogPost(ctx context.Context, request DeleteBlogPostRequestObject) (DeleteBlogPostResponseObject, error)
-	// Update a new blog post.
-	// (PATCH /blog/posts/{id})
-	UpdateBlogPost(ctx context.Context, request UpdateBlogPostRequestObject) (UpdateBlogPostResponseObject, error)
+	// Get Fortnite stats.
+	// (GET /fortnite/stats/{username}/{platform})
+	FortniteGetStats(ctx context.Context, request FortniteGetStatsRequestObject) (FortniteGetStatsResponseObject, error)
 }
 
 //
@@ -772,268 +181,30 @@ type strictHandler struct {
 	middlewares []StrictMiddlewareFunc
 }
 
-// DeleteSession operation middleware
-func (sh *strictHandler) DeleteSession(ctx echo.Context) error {
-	var request DeleteSessionRequestObject
+// FortniteGetStats operation middleware
+func (sh *strictHandler) FortniteGetStats(ctx echo.Context, username string, platform FortniteGetStatsParamsPlatform, params FortniteGetStatsParams) error {
+	var request FortniteGetStatsRequestObject
 
-	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
-		return sh.ssi.DeleteSession(
-			context.WithValue(ctx.Request().Context(), EchoContextKey, ctx),
-			request.(DeleteSessionRequestObject),
-		)
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "DeleteSession")
-	}
-
-	response, err := handler(ctx, request)
-
-	if err != nil {
-		return err
-	} else if validResponse, ok := response.(DeleteSessionResponseObject); ok {
-		return validResponse.VisitDeleteSessionResponse(ctx.Response())
-	} else if response != nil {
-		return fmt.Errorf("unexpected response type: %T", response)
-	}
-	return nil
-}
-
-// CreateSession operation middleware
-func (sh *strictHandler) CreateSession(ctx echo.Context) error {
-	var request CreateSessionRequestObject
-
-	var body CreateSessionJSONRequestBody
-	if err := ctx.Bind(&body); err != nil {
-		return httperror.NewBadRequestErrorWithLoc("invalid format", "body")
-	}
-	request.Body = &body
-
-	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
-		return sh.ssi.CreateSession(
-			context.WithValue(ctx.Request().Context(), EchoContextKey, ctx),
-			request.(CreateSessionRequestObject),
-		)
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "CreateSession")
-	}
-
-	response, err := handler(ctx, request)
-
-	if err != nil {
-		return err
-	} else if validResponse, ok := response.(CreateSessionResponseObject); ok {
-		return validResponse.VisitCreateSessionResponse(ctx.Response())
-	} else if response != nil {
-		return fmt.Errorf("unexpected response type: %T", response)
-	}
-	return nil
-}
-
-// CreateUser operation middleware
-func (sh *strictHandler) CreateUser(ctx echo.Context) error {
-	var request CreateUserRequestObject
-
-	var body CreateUserJSONRequestBody
-	if err := ctx.Bind(&body); err != nil {
-		return httperror.NewBadRequestErrorWithLoc("invalid format", "body")
-	}
-	request.Body = &body
-
-	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
-		return sh.ssi.CreateUser(
-			context.WithValue(ctx.Request().Context(), EchoContextKey, ctx),
-			request.(CreateUserRequestObject),
-		)
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "CreateUser")
-	}
-
-	response, err := handler(ctx, request)
-
-	if err != nil {
-		return err
-	} else if validResponse, ok := response.(CreateUserResponseObject); ok {
-		return validResponse.VisitCreateUserResponse(ctx.Response())
-	} else if response != nil {
-		return fmt.Errorf("unexpected response type: %T", response)
-	}
-	return nil
-}
-
-// GetUserById operation middleware
-func (sh *strictHandler) GetUserById(ctx echo.Context, id string) error {
-	var request GetUserByIdRequestObject
-
-	request.ID = id
-
-	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
-		return sh.ssi.GetUserById(
-			context.WithValue(ctx.Request().Context(), EchoContextKey, ctx),
-			request.(GetUserByIdRequestObject),
-		)
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "GetUserById")
-	}
-
-	response, err := handler(ctx, request)
-
-	if err != nil {
-		return err
-	} else if validResponse, ok := response.(GetUserByIdResponseObject); ok {
-		return validResponse.VisitGetUserByIdResponse(ctx.Response())
-	} else if response != nil {
-		return fmt.Errorf("unexpected response type: %T", response)
-	}
-	return nil
-}
-
-// GetBlogPosts operation middleware
-func (sh *strictHandler) GetBlogPosts(ctx echo.Context, params GetBlogPostsParams) error {
-	var request GetBlogPostsRequestObject
-
+	request.Username = username
+	request.Platform = platform
 	request.Params = params
 
 	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
-		return sh.ssi.GetBlogPosts(
+		return sh.ssi.FortniteGetStats(
 			context.WithValue(ctx.Request().Context(), EchoContextKey, ctx),
-			request.(GetBlogPostsRequestObject),
+			request.(FortniteGetStatsRequestObject),
 		)
 	}
 	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "GetBlogPosts")
+		handler = middleware(handler, "FortniteGetStats")
 	}
 
 	response, err := handler(ctx, request)
 
 	if err != nil {
 		return err
-	} else if validResponse, ok := response.(GetBlogPostsResponseObject); ok {
-		return validResponse.VisitGetBlogPostsResponse(ctx.Response())
-	} else if response != nil {
-		return fmt.Errorf("unexpected response type: %T", response)
-	}
-	return nil
-}
-
-// CreateBlogPost operation middleware
-func (sh *strictHandler) CreateBlogPost(ctx echo.Context) error {
-	var request CreateBlogPostRequestObject
-
-	var body CreateBlogPostJSONRequestBody
-	if err := ctx.Bind(&body); err != nil {
-		return httperror.NewBadRequestErrorWithLoc("invalid format", "body")
-	}
-	request.Body = &body
-
-	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
-		return sh.ssi.CreateBlogPost(
-			context.WithValue(ctx.Request().Context(), EchoContextKey, ctx),
-			request.(CreateBlogPostRequestObject),
-		)
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "CreateBlogPost")
-	}
-
-	response, err := handler(ctx, request)
-
-	if err != nil {
-		return err
-	} else if validResponse, ok := response.(CreateBlogPostResponseObject); ok {
-		return validResponse.VisitCreateBlogPostResponse(ctx.Response())
-	} else if response != nil {
-		return fmt.Errorf("unexpected response type: %T", response)
-	}
-	return nil
-}
-
-// GetBlogPost operation middleware
-func (sh *strictHandler) GetBlogPost(ctx echo.Context, idOrSlug string) error {
-	var request GetBlogPostRequestObject
-
-	request.IdOrSlug = idOrSlug
-
-	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
-		return sh.ssi.GetBlogPost(
-			context.WithValue(ctx.Request().Context(), EchoContextKey, ctx),
-			request.(GetBlogPostRequestObject),
-		)
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "GetBlogPost")
-	}
-
-	response, err := handler(ctx, request)
-
-	if err != nil {
-		return err
-	} else if validResponse, ok := response.(GetBlogPostResponseObject); ok {
-		return validResponse.VisitGetBlogPostResponse(ctx.Response())
-	} else if response != nil {
-		return fmt.Errorf("unexpected response type: %T", response)
-	}
-	return nil
-}
-
-// DeleteBlogPost operation middleware
-func (sh *strictHandler) DeleteBlogPost(ctx echo.Context, id openapi_types.UUID) error {
-	var request DeleteBlogPostRequestObject
-
-	request.ID = id
-
-	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
-		return sh.ssi.DeleteBlogPost(
-			context.WithValue(ctx.Request().Context(), EchoContextKey, ctx),
-			request.(DeleteBlogPostRequestObject),
-		)
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "DeleteBlogPost")
-	}
-
-	response, err := handler(ctx, request)
-
-	if err != nil {
-		return err
-	} else if validResponse, ok := response.(DeleteBlogPostResponseObject); ok {
-		return validResponse.VisitDeleteBlogPostResponse(ctx.Response())
-	} else if response != nil {
-		return fmt.Errorf("unexpected response type: %T", response)
-	}
-	return nil
-}
-
-// UpdateBlogPost operation middleware
-func (sh *strictHandler) UpdateBlogPost(ctx echo.Context, id openapi_types.UUID) error {
-	var request UpdateBlogPostRequestObject
-
-	request.ID = id
-
-	var body UpdateBlogPostJSONRequestBody
-	if err := ctx.Bind(&body); err != nil {
-		return httperror.NewBadRequestErrorWithLoc("invalid format", "body")
-	}
-	request.Body = &body
-
-	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
-		return sh.ssi.UpdateBlogPost(
-			context.WithValue(ctx.Request().Context(), EchoContextKey, ctx),
-			request.(UpdateBlogPostRequestObject),
-		)
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "UpdateBlogPost")
-	}
-
-	response, err := handler(ctx, request)
-
-	if err != nil {
-		return err
-	} else if validResponse, ok := response.(UpdateBlogPostResponseObject); ok {
-		return validResponse.VisitUpdateBlogPostResponse(ctx.Response())
+	} else if validResponse, ok := response.(FortniteGetStatsResponseObject); ok {
+		return validResponse.VisitFortniteGetStatsResponse(ctx.Response())
 	} else if response != nil {
 		return fmt.Errorf("unexpected response type: %T", response)
 	}

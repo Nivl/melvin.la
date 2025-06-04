@@ -1,9 +1,0 @@
-parameters:
-  - name: id-or-slug
-    in: path
-    required: true
-    description: The ID or slug of the blog post
-    schema:
-      type: string
-get:
-  $ref: "./get.yml"

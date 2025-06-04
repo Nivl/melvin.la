@@ -1,10 +1,8 @@
 package middleware
 
 import (
-	dbpublic "github.com/Nivl/melvin.la/api/internal/gen/sql"
 	"github.com/Nivl/melvin.la/api/internal/lib/app"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
-	"github.com/Nivl/melvin.la/api/internal/lib/sqlutil"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 )
@@ -18,7 +16,6 @@ func ServiceContext(deps *app.Dependencies) echo.MiddlewareFunc {
 				Context: c,
 			}
 
-			cc.SetDB(sqlutil.NewQuerier(dbpublic.New(deps.DB), deps.DB))
 			cc.SetLog(deps.Logger)
 			cc.SetFeatureFlag(deps.FeatureFlag)
 

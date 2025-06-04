@@ -8,11 +8,9 @@ import (
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/Nivl/melvin.la/api/internal/lib/app"
-	"github.com/Nivl/melvin.la/api/internal/lib/errutil"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/middleware"
 	"github.com/Nivl/melvin.la/api/internal/server"
-	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/labstack/echo/v4"
 )
 
@@ -31,7 +29,6 @@ func run() (returnedErr error) {
 		return err
 	}
 	defer deps.Logger.Sync() //nolint:errcheck // Sync always returns an error on linux
-	defer errutil.RunAndSetErrorCtx(ctx, deps.DB.Close, &returnedErr, "couldn't close the database")
 
 	// Setup and start the server
 	e := httputil.NewBaseRouter(deps)
@@ -44,7 +41,6 @@ func run() (returnedErr error) {
 		AllowOrigins: origins,
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodDelete, http.MethodPatch, http.MethodOptions},
 	}))
-	e.Use(middleware.Auth())
 
 	srv := server.NewServer()
 	strictHandler := api.NewStrictHandler(srv, nil)

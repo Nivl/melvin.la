@@ -1,4 +1,0 @@
-post:
-  $ref: "./post.yml"
-delete:
-  $ref: "./delete.yml"

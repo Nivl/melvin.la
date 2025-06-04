@@ -33,24 +33,6 @@ tasks:
     generates:
       - "{{.BIN_OUT}}"
 
-  # usage: task migrate -- up
-  migrate:
-    cmds:
-      - migrate -database ${API_POSTGRES_URL} -path database/migrations {{.CLI_ARGS}}
-      - pg_dump -d ${API_POSTGRES_URL} -C | awk 'RS="";/(CREATE TABLE|INDEX)|(ALTER TABLE)[^;]*;/' > database/schemas/public.sql
-      - task: generate
-
-  # usage: task new-migration -- name_of_the_migration
-  new-migration:
-    cmds:
-      - migrate create -ext sql -dir database/migrations {{.CLI_ARGS}}
-
-  fixtures:
-    cmds:
-      - psql "${API_POSTGRES_URL}" < database/fixtures/drop.sql
-      - migrate -database ${API_POSTGRES_URL} -path database/migrations up
-      - psql "${API_POSTGRES_URL}" < database/fixtures/fixtures.sql
-
   lint:
     cmds:
       - golangci-lint run ./...

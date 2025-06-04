@@ -1,2 +1,0 @@
-ApiKeyAuth:
-  $ref: "./ApiKeyAuth.yml"

@@ -34,7 +34,6 @@ jobs:
         password: ${{ secrets.github_token }}
     outputs:
       code-changed: ${{ steps.changes.outputs.src }}
-      has-migrations: ${{ steps.changes.outputs.migrations }}
     steps:
       - uses: actions/checkout@v4
       - run: git config --global --add safe.directory /__w/melvin.la/melvin.la
@@ -60,15 +59,12 @@ jobs:
           filters: |
             src:
               - 'api/**/*.go'
-              - 'api/**/*.sql'
               - 'api/Taskfile_CI.yml'
               - 'api/go.sum'
               - 'api/go.mod'
               - 'api/Dockerfile'
               - '.github/workflows/api.yml'
               - '.github/actions/go-*/*.yml'
-            migrations:
-              - 'api/**/*.sql'
 
   build:
     if: needs.perpare-env.outputs.code-changed == 'true'
@@ -157,58 +153,6 @@ jobs:
           test-results: /tmp/test-results/results.json
           working-directory: api
 
-  test-migrations:
-    if: needs.perpare-env.outputs.has-migrations == 'true'
-    needs: [perpare-env]
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-ef3636d
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.github_token }}
-    services:
-      postgres:
-        image: postgres:16
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_USER: pguser
-          POSTGRES_PASSWORD: pguser
-          POSTGRES_DB: api-melvinla
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup
-        uses: './.github/actions/go-restore-cache'
-        with:
-          project-name: api
-
-      - name: Lint SQL files
-        uses: sbdchd/squawk-action@v2
-        with:
-          pattern: "api/database/migrations/*.sql"
-
-      - name: Run Up
-        run: task ci:migrate -- up
-        env:
-          API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
-
-      - name: Lint docs
-        run: task ci:lint-migrations-and-codegen
-        env:
-          API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
-
-      - name: Run Down
-        run: task ci:migrate -- down -all
-        env:
-          API_POSTGRES_URL: postgres://pguser:pguser@postgres:5432/api-melvinla?sslmode=disable
-
   build-image:
     if: |
       always() &&
@@ -219,7 +163,6 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - build
-      - test-migrations
     permissions:
       contents: read
       packages: read
@@ -252,7 +195,6 @@ jobs:
       - build
       - lint
       - test-code
-      - test-migrations
       - build-image
     permissions:
       contents: read
@@ -299,7 +241,7 @@ jobs:
       needs.perpare-env.outputs.code-changed == 'true' &&
       !contains(needs.*.result, 'failure') &&
       !contains(needs.*.result, 'cancelled')
-    name: Run migrations and deploy to prod
+    name: Deploy to prod
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-ef3636d
@@ -313,11 +255,6 @@ jobs:
 
       - name: Install flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
-
-      - name: Run migrations
-        run: task ci:migrate -- up
-        env:
-          API_POSTGRES_URL: ${{ secrets.PROD_API_POSTGRES_URL }}
 
       - name: Deploy
         run: flyctl deploy --image ${{ env.PROD_IMAGE_URI }}:latest --config ./fly.toml
@@ -334,7 +271,6 @@ jobs:
         build,
         lint,
         test-code,
-        test-migrations,
         build-image,
       ]
     # This is necessary since a failed/skipped dependent job would cause this job to be skipped
