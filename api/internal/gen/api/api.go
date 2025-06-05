@@ -22,8 +22,8 @@ import (
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 	// Get Fortnite stats.
-	// (GET /fortnite/stats/{username}/{platform})
-	FortniteGetStats(ctx echo.Context, username string, platform FortniteGetStatsParamsPlatform, params FortniteGetStatsParams) error
+	// (GET /fortnite/stats/{username}/{platform}/{timeWindow})
+	FortniteGetStats(ctx echo.Context, username string, platform FortniteGetStatsParamsPlatform, timeWindow FortniteGetStatsParamsTimeWindow) error
 }
 
 //
@@ -56,19 +56,18 @@ func (w *ServerInterfaceWrapper) FortniteGetStats(ctx echo.Context) error {
 		return httperror.NewValidationErrorWithLoc("platform", "missing or invalid value", "path")
 	}
 
-	ctx.Set(ApiKeyAuthScopes, []string{})
+	// ------------- Path parameter "timeWindow" -------------
+	var timeWindow FortniteGetStatsParamsTimeWindow
 
-	// Parameter object where we will unmarshal all parameters from the context
-	var params FortniteGetStatsParams
-	// ------------- Optional query parameter "timeWindow" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "timeWindow", ctx.QueryParams(), &params.TimeWindow)
+	err = runtime.BindStyledParameterWithOptions("simple", "timeWindow", ctx.Param("timeWindow"), &timeWindow, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true})
 	if err != nil {
-		return httperror.NewValidationErrorWithLoc("timeWindow", "missing or invalid value", "query")
+		return httperror.NewValidationErrorWithLoc("timeWindow", "missing or invalid value", "path")
 	}
 
+	ctx.Set(ApiKeyAuthScopes, []string{})
+
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.FortniteGetStats(ctx, username, platform, params)
+	err = w.Handler.FortniteGetStats(ctx, username, platform, timeWindow)
 	return err
 }
 
@@ -100,14 +99,14 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 		Handler: si,
 	}
 
-	router.GET(baseURL+"/fortnite/stats/:username/:platform", wrapper.FortniteGetStats)
+	router.GET(baseURL+"/fortnite/stats/:username/:platform/:timeWindow", wrapper.FortniteGetStats)
 
 }
 
 type FortniteGetStatsRequestObject struct {
-	Username string                         `json:"username"`
-	Platform FortniteGetStatsParamsPlatform `json:"platform"`
-	Params   FortniteGetStatsParams
+	Username   string                           `json:"username"`
+	Platform   FortniteGetStatsParamsPlatform   `json:"platform"`
+	TimeWindow FortniteGetStatsParamsTimeWindow `json:"timeWindow"`
 }
 
 type FortniteGetStatsResponseObject interface {
@@ -128,6 +127,15 @@ type FortniteGetStats400JSONResponse ErrorResponse
 func (response FortniteGetStats400JSONResponse) VisitFortniteGetStatsResponse(w http.ResponseWriter) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type FortniteGetStats403JSONResponse ErrorResponse
+
+func (response FortniteGetStats403JSONResponse) VisitFortniteGetStatsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(403)
 
 	return json.NewEncoder(w).Encode(response)
 }
@@ -153,7 +161,7 @@ func (response FortniteGetStats500JSONResponse) VisitFortniteGetStatsResponse(w 
 // StrictServerInterface represents all server handlers.
 type StrictServerInterface interface {
 	// Get Fortnite stats.
-	// (GET /fortnite/stats/{username}/{platform})
+	// (GET /fortnite/stats/{username}/{platform}/{timeWindow})
 	FortniteGetStats(ctx context.Context, request FortniteGetStatsRequestObject) (FortniteGetStatsResponseObject, error)
 }
 
@@ -182,12 +190,12 @@ type strictHandler struct {
 }
 
 // FortniteGetStats operation middleware
-func (sh *strictHandler) FortniteGetStats(ctx echo.Context, username string, platform FortniteGetStatsParamsPlatform, params FortniteGetStatsParams) error {
+func (sh *strictHandler) FortniteGetStats(ctx echo.Context, username string, platform FortniteGetStatsParamsPlatform, timeWindow FortniteGetStatsParamsTimeWindow) error {
 	var request FortniteGetStatsRequestObject
 
 	request.Username = username
 	request.Platform = platform
-	request.Params = params
+	request.TimeWindow = timeWindow
 
 	handler := func(ctx echo.Context, request interface{}) (interface{}, error) {
 		return sh.ssi.FortniteGetStats(

@@ -104,7 +104,7 @@ components:
       $ref: "./components/securitySchemes/ApiKeyAuth.yml"
 
 paths:
-  /fortnite/stats/{username}/{platform}:
+  /fortnite/stats/{username}/{platform}/{timeWindow}:
     get:
       description: Retrieve Fortnite stats for a player.
       summary: Get Fortnite stats.
@@ -128,7 +128,8 @@ paths:
             type: string
             enum: [epic, xbl, psn]
         - name: timeWindow
-          in: query
+          in: path
+          required: true
           description: Time window of the stats. Current season or lifetime.
           schema:
             type: string
@@ -155,6 +156,17 @@ paths:
                     message: "invalid value"
                     field: "platform"
                     location: "path"
+        "403":
+          description: The player's account is private
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 403
+                    message: "Account is private"
         "404":
           description: Cannot find the player on the given platform
           content:

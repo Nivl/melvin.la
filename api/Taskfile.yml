@@ -22,7 +22,6 @@ tasks:
 
   dev:
     deps: [build]
-    watch: true
     cmds:
       - "{{.BIN_OUT}}"
     sources:

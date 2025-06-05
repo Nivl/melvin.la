@@ -12,17 +12,17 @@ import (
 type Config struct {
 	Environment string `env:"ENVIRONMENT,default=dev"`
 	API         struct {
-		PostgresURL       secret.Secret `env:"POSTGRES_URL,required"`
-		LauchDarklySDKKey secret.Secret `env:"LAUNCH_DARKLY_SDK_KEY"`
-		Port              string        `env:"PORT,default=5000"`
-		SSLCertsDir       string        `env:"SSL_CERTS_DIR"`
-		ExtraCORSOrigins  []string      `env:"EXTRA_CORS_ORIGINS"`
+		FortniteAPIKey     secret.Secret `env:"FORTNITE_API_KEY,required"`
+		LaunchDarklySDKKey secret.Secret `env:"LAUNCH_DARKLY_SDK_KEY"`
+		Port               string        `env:"PORT,default=5000"`
+		SSLCertsDir        string        `env:"SSL_CERTS_DIR"`
+		ExtraCORSOrigins   []string      `env:"EXTRA_CORS_ORIGINS"`
 	} `env:",prefix=API_"`
 }
 
 // LoadConfig loads the configuration from the environment
 func LoadConfig(ctx context.Context) (*Config, error) {
-	cfg := &Config{}
+	cfg := &Config{} //nolint:exhaustruct // Will be filled by envconfig
 	if err := envconfig.Process(ctx, cfg); err != nil {
 		return nil, fmt.Errorf("couldn't parse the env: %w", err)
 	}

@@ -16,17 +16,17 @@ const (
 	Query  ErrorResponseLocation = "query"
 )
 
-// Defines values for FortniteGetStatsParamsTimeWindow.
-const (
-	Lifetime FortniteGetStatsParamsTimeWindow = "lifetime"
-	Season   FortniteGetStatsParamsTimeWindow = "season"
-)
-
 // Defines values for FortniteGetStatsParamsPlatform.
 const (
 	Epic FortniteGetStatsParamsPlatform = "epic"
 	Psn  FortniteGetStatsParamsPlatform = "psn"
 	Xbl  FortniteGetStatsParamsPlatform = "xbl"
+)
+
+// Defines values for FortniteGetStatsParamsTimeWindow.
+const (
+	Lifetime FortniteGetStatsParamsTimeWindow = "lifetime"
+	Season   FortniteGetStatsParamsTimeWindow = "season"
 )
 
 // ErrorResponse Object returned to any query that fails with an error code that expects a body (400, 409, ...)
@@ -170,14 +170,8 @@ type FortniteStatsDetails struct {
 	Wins int `json:"wins"`
 }
 
-// FortniteGetStatsParams defines parameters for FortniteGetStats.
-type FortniteGetStatsParams struct {
-	// TimeWindow Time window of the stats. Current season or lifetime.
-	TimeWindow *FortniteGetStatsParamsTimeWindow `form:"timeWindow,omitempty" json:"timeWindow,omitempty"`
-}
+// FortniteGetStatsParamsPlatform defines parameters for FortniteGetStats.
+type FortniteGetStatsParamsPlatform string
 
 // FortniteGetStatsParamsTimeWindow defines parameters for FortniteGetStats.
 type FortniteGetStatsParamsTimeWindow string
-
-// FortniteGetStatsParamsPlatform defines parameters for FortniteGetStats.
-type FortniteGetStatsParamsPlatform string

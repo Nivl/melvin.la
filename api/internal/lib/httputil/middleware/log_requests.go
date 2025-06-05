@@ -8,6 +8,7 @@ import (
 	"net"
 	"net/http"
 	"strings"
+
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
@@ -29,7 +30,7 @@ func (w *bodyResponseWriter) Write(b []byte) (int, error) {
 func (w *bodyResponseWriter) Flush() {
 	err := http.NewResponseController(w.ResponseWriter).Flush()
 	if err != nil && errors.Is(err, http.ErrNotSupported) {
-		panic(errors.New("response writer flushing is not supported"))
+		panic("response writer flushing is not supported")
 	}
 }
 

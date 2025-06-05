@@ -1,40 +1,23 @@
 export type {
-  BlogPost,
-  EditorJs,
   ErrorResponse,
+  FortniteStats,
+  FortniteStatsCategories,
+  FortniteStatsDetails,
   operations,
-  Session,
-  User,
 } from '../gen/api';
-import { HeadersOptions } from 'openapi-fetch';
 import createFetchClient from 'openapi-fetch';
 import createClient from 'openapi-react-query';
 
 import type { paths } from '../gen/api';
+import { operations } from '../gen/api';
+
+export type FortnitePlatform =
+  operations['fortniteGetStats']['parameters']['path']['platform'];
+
+export type FortniteTimeWindow =
+  operations['fortniteGetStats']['parameters']['path']['timeWindow'];
 
 const fetchClient = createFetchClient<paths>({
   baseUrl: process.env.NEXT_PUBLIC_API_URL,
 });
 export const $api = createClient(fetchClient);
-
-export const userAccessTokenKey = 'user_access_token';
-
-export const baseHeaders = () => {
-  const headers: HeadersOptions = {
-    'Content-Type': 'application/json',
-  };
-
-  const token = window.localStorage.getItem(userAccessTokenKey);
-  if (token) {
-    headers['X-Api-Key'] = token;
-  }
-  return headers;
-};
-
-export const hasToken = () => {
-  return !!window.localStorage.getItem(userAccessTokenKey);
-};
-
-export const deleteToken = () => {
-  window.localStorage.removeItem(userAccessTokenKey);
-};

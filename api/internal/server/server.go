@@ -3,20 +3,33 @@ package server
 
 import (
 	"context"
+	"net/http"
+	"time"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
+	"github.com/Nivl/melvin.la/api/internal/lib/secret"
 )
 
 // Server is the main server struct
-type Server struct{}
+// TODO(melvin): make a small Fortnite Client instead of using an HTTP client
+// and passing down an API key
+type Server struct {
+	http           http.Client
+	fortniteAPIKey secret.Secret
+}
 
 // we make sure the struct implements the interface
 var _ api.StrictServerInterface = (*Server)(nil)
 
 // NewServer creates a new server instance
-func NewServer() *Server {
-	return &Server{}
+func NewServer(fortniteAPIKey secret.Secret) *Server {
+	return &Server{
+		fortniteAPIKey: fortniteAPIKey,
+		http: http.Client{
+			Timeout: time.Duration(3 * time.Second),
+		},
+	}
 }
 
 // GetServiceContext extracts the service context from the a context.
@@ -24,4 +37,3 @@ func NewServer() *Server {
 func (s *Server) GetServiceContext(ctx context.Context) *request.Context {
 	return ctx.Value(api.EchoContextKey).(*request.Context) //nolint:forcetypeassert // If it fails, the whole app is broken anyway
 }
-

@@ -82,14 +82,6 @@
       "test": "./src/hooks/fortnite/useStats.mock.ts",
       "default": "./src/hooks/fortnite/useStats.tsx"
     },
-    "#hooks/auth/useSignUp": {
-      "test": "./src/hooks/auth/useSignUp.mock.ts",
-      "default": "./src/hooks/auth/useSignUp.tsx"
-    },
-    "#hooks/auth/useSignIn": {
-      "test": "./src/hooks/auth/useSignIn.mock.ts",
-      "default": "./src/hooks/auth/useSignIn.tsx"
-    },
     "#*": [
       "./src/*"
     ]

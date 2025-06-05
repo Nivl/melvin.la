@@ -2,6 +2,7 @@ package httputil
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -27,17 +28,19 @@ func HTTPErrorHandler(e *echo.Echo) echo.HTTPErrorHandler {
 			return
 		}
 
-		he, ok := err.(*echo.HTTPError)
-		if ok {
+		var he *echo.HTTPError
+		if errors.As(err, &he) {
 			if he.Internal != nil {
-				if herr, ok := he.Internal.(*echo.HTTPError); ok {
+				var herr *echo.HTTPError
+				if errors.As(he.Internal, &herr) {
 					he = herr
 				}
 			}
 		} else {
 			he = &echo.HTTPError{
-				Code:    http.StatusInternalServerError,
-				Message: http.StatusText(http.StatusInternalServerError),
+				Code:     http.StatusInternalServerError,
+				Message:  http.StatusText(http.StatusInternalServerError),
+				Internal: nil,
 			}
 		}
 
@@ -63,6 +66,9 @@ func HTTPErrorHandler(e *echo.Echo) echo.HTTPErrorHandler {
 			err = c.NoContent(he.Code)
 		} else {
 			err = c.JSON(code, message)
+		}
+		if err != nil {
+			e.Logger.Error(err)
 		}
 	}
 }

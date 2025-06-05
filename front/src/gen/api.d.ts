@@ -4,74 +4,7 @@
  */
 
 export interface paths {
-    "/auth/users": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Create a new user.
-         * @description Create a new user.
-         */
-        post: operations["createUser"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/auth/users/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description The ID of the user to retrieve, or "me". */
-                id: string;
-            };
-            cookie?: never;
-        };
-        /**
-         * Get a user by ID.
-         * @description Get a user by ID. `me` can also be used. Right now it will only return the current user itself.
-         */
-        get: operations["getUserById"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/auth/sessions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Create a new session.
-         * @description Create a new user session that should be used to authenticate the user.
-         */
-        post: operations["createSession"];
-        /**
-         * Delete a session.
-         * @description Delete a user session.
-         */
-        delete: operations["deleteSession"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/blog/posts": {
+    "/fortnite/stats/{username}/{platform}/{timeWindow}": {
         parameters: {
             query?: never;
             header?: never;
@@ -79,64 +12,10 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Get blog posts.
-         * @description Retrieve a list of blog posts.
+         * Get Fortnite stats.
+         * @description Retrieve Fortnite stats for a player.
          */
-        get: operations["getBlogPosts"];
-        put?: never;
-        /**
-         * Create a new blog post.
-         * @description Create a blog post.
-         */
-        post: operations["createBlogPost"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/blog/posts/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description The ID of the blog post. */
-                id: string;
-            };
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /**
-         * Delete a blog post.
-         * @description Delete a blog post.
-         */
-        delete: operations["deleteBlogPost"];
-        options?: never;
-        head?: never;
-        /**
-         * Update a new blog post.
-         * @description Update a blog post.
-         */
-        patch: operations["updateBlogPost"];
-        trace?: never;
-    };
-    "/blog/posts/{idOrSlug}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description The ID or slug of the blog post */
-                idOrSlug: string;
-            };
-            cookie?: never;
-        };
-        /**
-         * Get blog posts.
-         * @description Retrieve a list of blog posts.
-         */
-        get: operations["getBlogPost"];
+        get: operations["fortniteGetStats"];
         put?: never;
         post?: never;
         delete?: never;
@@ -173,142 +52,167 @@ export interface components {
              */
             location?: "query" | "path" | "body" | "header" | "cookie";
         };
-        /** @description User object */
-        User: {
+        /** @description represents the actual stats of a Fortnite player. */
+        FortniteStatsDetails: {
             /**
-             * Format: uuid
-             * @description The ID of the user.
-             * @example 123e4567-e89b-12d3-a456-426614174000
+             * @description Total score of the player.
+             * @example 4595929
              */
-            id: string;
+            score: number;
             /**
-             * @description The name of the user.
-             * @example John Doe
+             * Format: double
+             * @description Average score per minute played.
+             * @example 15.699
              */
-            name: string;
+            scorePerMin: number;
             /**
-             * Format: email
-             * @description The email of the user.
-             * @example user@example.com
+             * Format: double
+             * @description Average score per match played.
+             * @example 217.446
              */
-            email: string;
+            scorePerMatch: number;
+            /**
+             * Format: double
+             * @description Total amount of enemies killed.
+             * @example 77833
+             */
+            kills: number;
+            /**
+             * Format: double
+             * @description Average of enemies killed per minute.
+             * @example 0.256
+             */
+            killsPerMin: number;
+            /**
+             * Format: double
+             * @description Average of enemies killed per match.
+             * @example 3.682
+             */
+            killsPerMatch: number;
+            /**
+             * @description Total amount of time the player died.
+             * @example 18361
+             */
+            deaths: number;
+            /**
+             * Format: double
+             * @description kill/Death ratio.
+             * @example 4.239
+             */
+            kd: number;
+            /**
+             * @description Total amount of matches played.
+             * @example 21136
+             */
+            matches: number;
+            /**
+             * Format: double
+             * @description How often the player wins, in %.
+             * @example 13.129
+             */
+            winRate: number;
+            /**
+             * @description Total amount of minutes played.
+             * @example 292752
+             */
+            minutesPlayed: number;
+            /**
+             * @description Total amount of players outlived.
+             * @example 659524
+             */
+            playersOutlived: number;
+            /**
+             * @description Last time the player's stats were modified.
+             * @example 2025-05-10T00:56:28Z
+             */
+            lastModified: string;
+            /**
+             * @description Total amount of victory royales.
+             * @example 2775
+             */
+            wins: number;
+            /**
+             * @description Total amount of top 3 placements.
+             * @example 1401
+             */
+            top3?: number;
+            /**
+             * @description Total amount of top 5 placements.
+             * @example 1187
+             */
+            top5?: number;
+            /**
+             * @description Total amount of top 6 placements.
+             * @example 1885
+             */
+            top6?: number;
+            /**
+             * @description Total amount of top 10 placements.
+             * @example 958
+             */
+            top10?: number;
+            /**
+             * @description Total amount of top 12 placements.
+             * @example 1787
+             */
+            top12?: number;
+            /**
+             * @description Total amount of top 25 placements.
+             * @example 1673
+             */
+            top25?: number;
         };
-        /** @description User session object */
-        Session: {
-            /**
-             * Format: uuid
-             * @description The ID of the user.
-             * @example 123e4567-e89b-12d3-a456-426614174000
-             */
-            token: string;
-            /**
-             * Format: uuid
-             * @description Id of the user attached to this sessions.
-             * @example 259d9d82-bdd7-4a8a-be4f-76b156b46203
-             */
-            userId: string;
-            /**
-             * Format: uuid
-             * @description Token to use to refresh the session after it expired.
-             * @example da315121-65f2-4661-9ad2-fdf40d494998
-             */
-            refreshToken: string;
-            /**
-             * Format: date-time
-             * @description Date at which the session expires.
-             * @example 2023-10-31T23:59:59Z
-             */
-            expiresAt: string;
+        /** @description The categories holding stats. */
+        FortniteStatsCategories: {
+            overall: components["schemas"]["FortniteStatsDetails"];
+            solo?: components["schemas"]["FortniteStatsDetails"];
+            duo?: components["schemas"]["FortniteStatsDetails"];
+            squad?: components["schemas"]["FortniteStatsDetails"];
+            ltm?: components["schemas"]["FortniteStatsDetails"];
         };
-        /** @description The content of the blog post in JSON format. */
-        EditorJS: {
+        /** @description The content of the Stats endpoint. */
+        FortniteStats: {
             /**
-             * @description The version of the post
-             * @example 1.0
+             * @description HTTP Status of the response
+             * @example 200
              */
-            version?: string;
-            /**
-             * @description Time at which it has been last edited
-             * @example 1698796799
-             */
-            time?: number;
-            /**
-             * @description Content of the post
-             * @example [
-             *       {
-             *         "id": "1",
-             *         "type": "paragraph",
-             *         "data": {
-             *           "text": "This is a paragraph."
-             *         }
-             *       },
-             *       {
-             *         "id": "2",
-             *         "type": "header",
-             *         "data": {
-             *           "text": "This is a header.",
-             *           "level": 2
-             *         }
-             *       }
-             *     ]
-             */
-            blocks: {
-                /**
-                 * @description Id of the block
-                 * @example 1
-                 */
-                id?: string;
-                /**
-                 * @description Type of the block (e.g., paragraph, header)
-                 * @example paragraph
-                 */
-                type: string;
-                /** @description Data of the block */
-                data: {
-                    [key: string]: unknown;
+            status: number;
+            /** @description Data of the response */
+            data: {
+                /** @description information about the player's account */
+                account: {
+                    /**
+                     * @description ID of the account
+                     * @example 883abec4cded42f3bea87531ce0aa5c8
+                     */
+                    id: string;
+                    /**
+                     * @description Name of the account
+                     * @example M8 Nîkof
+                     */
+                    name: string;
                 };
-                /** @description Tunes of the block */
-                tunes?: {
-                    [key: string]: unknown;
+                /** @description information about the player's battle pass */
+                battlePass: {
+                    /**
+                     * @description Current level of the player
+                     * @example 43
+                     */
+                    level: number;
+                    /**
+                     * @description Progress in % toward the next level
+                     * @example 51
+                     */
+                    progress: number;
                 };
-            }[];
-        };
-        /** @description represents a blog post */
-        BlogPost: {
-            /**
-             * Format: uuid
-             * @description The ID of the blog post.
-             * @example 123e4567-e89b-12d3-a456-426614174000
-             */
-            id: string;
-            /**
-             * @description Title of the blog post.
-             * @example My awesome blog post
-             */
-            title: string;
-            /**
-             * @description slug of the blog post.
-             * @example my-awesome-blog-post
-             */
-            slug: string;
-            contentJson: components["schemas"]["EditorJS"];
-            /**
-             * @description Short description of the blog post.
-             * @example 123e4567-e89b-12d3-a456-426614174000
-             */
-            description?: string;
-            /**
-             * Format: url
-             * @description URL of the thumbnail to display.
-             * @example https://picsum.photos/200/300
-             */
-            thumbnailUrl?: string;
-            /**
-             * Format: date-time
-             * @description Date at which the post has been published.
-             * @example 2023-10-31T23:59:59Z
-             */
-            publishedAt?: string;
+                /** @description information about the player's battle pass */
+                stats: {
+                    all: components["schemas"]["FortniteStatsCategories"];
+                    keyboardMouse?: components["schemas"]["FortniteStatsCategories"];
+                    gamepad?: components["schemas"]["FortniteStatsCategories"];
+                    touch?: components["schemas"]["FortniteStatsCategories"];
+                };
+            };
         };
     };
     responses: never;
@@ -318,262 +222,23 @@ export interface components {
     pathItems: never;
 }
 export type ErrorResponse = components['schemas']['ErrorResponse'];
-export type User = components['schemas']['User'];
-export type Session = components['schemas']['Session'];
-export type EditorJs = components['schemas']['EditorJS'];
-export type BlogPost = components['schemas']['BlogPost'];
+export type FortniteStatsDetails = components['schemas']['FortniteStatsDetails'];
+export type FortniteStatsCategories = components['schemas']['FortniteStatsCategories'];
+export type FortniteStats = components['schemas']['FortniteStats'];
 export type $defs = Record<string, never>;
 export interface operations {
-    createUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Data that is needed to create a new user. */
-        requestBody: {
-            content: {
-                "application/json": {
-                    /**
-                     * @description The name of the user.
-                     * @example John Doe
-                     */
-                    name: string;
-                    /**
-                     * Format: email
-                     * @description The email of the user.
-                     * @example user@example.com
-                     */
-                    email: string;
-                    /**
-                     * Format: password
-                     * @description The password of the user.
-                     * @example my p@55w0rd
-                     */
-                    password: string;
-                };
-            };
-        };
-        responses: {
-            /** @description Successfully created the user */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The path/body/query/header contains missing or invalid data */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The user is already logged in */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The email is already being used */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Something wrong happened */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The endpoint has been disabled */
-            503: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getUserById: {
+    fortniteGetStats: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                /** @description The ID of the user to retrieve, or "me". */
-                id: string;
+                /** @description The username of the player */
+                username: string;
+                /** @description The platform the player plays on. */
+                platform: "epic" | "xbl" | "psn";
+                /** @description Time window of the stats. Current season or lifetime. */
+                timeWindow: "season" | "lifetime";
             };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successfully retrieved the user */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["User"];
-                };
-            };
-            /** @description Unauthorized access - User must be logged in to make the request */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description User not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Something wrong happened */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createSession: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Data that is needed to create a new session. */
-        requestBody: {
-            content: {
-                "application/json": {
-                    /**
-                     * Format: email
-                     * @description The email of the user.
-                     * @example user@example.com
-                     */
-                    email: string;
-                    /**
-                     * Format: password
-                     * @description The password of the user.
-                     * @example my p@55w0rd
-                     */
-                    password: string;
-                };
-            };
-        };
-        responses: {
-            /** @description Successfully created the session */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        session: components["schemas"]["Session"];
-                        me: components["schemas"]["User"];
-                    };
-                };
-            };
-            /** @description The path/body/query/header contains missing or invalid data */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The user is already logged in */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Something wrong happened */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    deleteSession: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successfully deleted the session */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized access - User must be logged in to make the request */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Something went wrong */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getBlogPosts: {
-        parameters: {
-            query?: {
-                /** @description All the posts should have been published after this date. */
-                after?: string;
-                /** @description All the posts should have been published before this date. */
-                before?: string;
-            };
-            header?: never;
-            path?: never;
             cookie?: never;
         };
         requestBody?: never;
@@ -584,7 +249,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["BlogPost"][];
+                    "application/json": components["schemas"]["FortniteStats"];
                 };
             };
             /** @description The path/body/query/header contains missing or invalid data */
@@ -596,331 +261,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
-            /** @description Something wrong happened */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The endpoint has been disabled */
-            503: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    createBlogPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Data that is needed to create a new blog post. */
-        requestBody: {
-            content: {
-                "application/json": {
-                    /**
-                     * @description Title of the blog post.
-                     * @example My awesome blog post
-                     */
-                    title: string;
-                    /**
-                     * @description slug of the blog post.
-                     * @example my-awesome-blog-post
-                     */
-                    slug?: string;
-                    contentJson: components["schemas"]["EditorJS"];
-                    /**
-                     * @description Short description of the blog post.
-                     * @example some description
-                     */
-                    description?: string;
-                    /**
-                     * Format: url
-                     * @description URL of the thumbnail to display.
-                     * @example https://picsum.photos/200/300
-                     */
-                    thumbnailUrl?: string;
-                    /**
-                     * @description publish the post.
-                     * @example true
-                     */
-                    publish?: boolean;
-                };
-            };
-        };
-        responses: {
-            /** @description Successfully created a new blog post */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["BlogPost"];
-                };
-            };
-            /** @description The path/body/query/header contains missing or invalid data */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Unauthorized access - User must be logged in to make the request */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The post does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The slug, or another unique data is already being used */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Something wrong happened */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The endpoint has been disabled */
-            503: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    deleteBlogPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description The ID of the blog post. */
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successfully deleted the blog post */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description The path/body/query/header contains missing or invalid data */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Unauthorized access - User must be logged in to make the request */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Something wrong happened */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The endpoint has been disabled */
-            503: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    updateBlogPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description The ID of the blog post. */
-                id: string;
-            };
-            cookie?: never;
-        };
-        /** @description Data that is available to update a blog post. */
-        requestBody: {
-            content: {
-                "application/json": {
-                    /**
-                     * @description Title of the blog post.
-                     * @example My awesome blog post
-                     */
-                    title?: string;
-                    /**
-                     * @description slug of the blog post.
-                     * @example my-awesome-blog-post
-                     */
-                    slug?: string;
-                    contentJson?: components["schemas"]["EditorJS"];
-                    /**
-                     * @description Short description of the blog post.
-                     * @example some description
-                     */
-                    description?: string;
-                    /**
-                     * Format: url
-                     * @description URL of the thumbnail to display.
-                     * @example https://picsum.photos/200/300
-                     */
-                    thumbnailUrl?: string;
-                    /**
-                     * @description publish the post.
-                     * @example true
-                     */
-                    publish?: boolean;
-                };
-            };
-        };
-        responses: {
-            /** @description Successfully updated the blog post */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["BlogPost"];
-                };
-            };
-            /** @description The path/body/query/header contains missing or invalid data */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Unauthorized access - User must be logged in to make the request */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The blog post was not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The slug, or another unique data is already being used */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Something wrong happened */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The endpoint has been disabled */
-            503: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
-    getBlogPost: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description The ID or slug of the blog post */
-                idOrSlug: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successfully retrieved a post */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["BlogPost"];
-                };
-            };
-            /** @description The path/body/query/header contains missing or invalid data */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description Blog post not found */
+            /** @description Cannot find the player on the given platform */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -931,15 +272,6 @@ export interface operations {
             };
             /** @description Something wrong happened */
             500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ErrorResponse"];
-                };
-            };
-            /** @description The endpoint has been disabled */
-            503: {
                 headers: {
                     [name: string]: unknown;
                 };

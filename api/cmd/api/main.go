@@ -42,7 +42,7 @@ func run() (returnedErr error) {
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodDelete, http.MethodPatch, http.MethodOptions},
 	}))
 
-	srv := server.NewServer()
+	srv := server.NewServer(cfg.API.FortniteAPIKey)
 	strictHandler := api.NewStrictHandler(srv, nil)
 	api.RegisterHandlers(e, strictHandler)
 

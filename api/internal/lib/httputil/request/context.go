@@ -2,7 +2,6 @@ package request
 
 import (
 	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
-	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 )
@@ -10,9 +9,8 @@ import (
 // Context represents the context and dependencies needed by all the requests
 type Context struct {
 	echo.Context
-	logger       *zap.Logger
-	featureFlag  fflag.FeatureFlag
-	sessionToken uuid.UUID
+	logger      *zap.Logger
+	featureFlag fflag.FeatureFlag
 }
 
 // Log returns the logger of the context
