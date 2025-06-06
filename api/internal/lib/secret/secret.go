@@ -16,7 +16,7 @@ import (
 )
 
 // Secret represents a secret string that is protected against accidental leaks
-type Secret struct { //nolint:recvcheck // It purposely use both pointer and value receiver to make sure to target everything
+type Secret struct {
 	secret *string
 }
 
@@ -29,6 +29,9 @@ func NewSecret(secret string) Secret {
 
 // Get returns the secret
 func (s Secret) Get() string {
+	if s.secret == nil {
+		panic("secret is not set")
+	}
 	return *s.secret
 }
 

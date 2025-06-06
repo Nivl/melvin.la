@@ -10,14 +10,14 @@ import { FaUser } from 'react-icons/fa';
 import { FaUserGroup } from 'react-icons/fa6';
 import { HiMiniUserGroup } from 'react-icons/hi2';
 
-import { Data } from '#models/fortnite';
+import { type FortniteData } from '#backend/api';
 import { humanizeDuration, rateStr } from '#utils';
 
 export const TableMobile = ({
   data,
   isLoading,
 }: {
-  data?: Data;
+  data?: FortniteData;
   isLoading: boolean;
 }) => {
   return (

@@ -1,0 +1,10 @@
+{
+    "ignore": [
+        "src/backend/api.ts",
+        "src/models/index.ts"
+    ],
+    "ignoreDependencies": [
+        "eslint-config-next",
+        "@next/eslint-plugin-next"
+    ]
+}

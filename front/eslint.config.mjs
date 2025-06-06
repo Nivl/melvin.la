@@ -1,14 +1,13 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import prettierPluginRecommended from 'eslint-plugin-prettier/recommended';
-import importPlugin from 'eslint-plugin-import';
 import simpleImportSort from "eslint-plugin-simple-import-sort";
+import storybook from 'eslint-plugin-storybook'
 
 /*
   START COMPAT
 */
 
-import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
 import { FlatCompat } from '@eslint/eslintrc'
 
 const compat = new FlatCompat({
@@ -22,9 +21,11 @@ const compatRules = compat.extends("next/core-web-vitals")
 */
 
 export default tseslint.config(
+  { ignores: ['src/gen/**', '!.storybook'] },
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
+  ...storybook.configs['flat/recommended'],
   ...compatRules,
   // Keep prettier last
   prettierPluginRecommended,

@@ -1,0 +1,105 @@
+description: represents the actual stats of a Fortnite player.
+type: object
+required:
+  - score
+  - scorePerMin
+  - scorePerMatch
+  - kills
+  - killsPerMin
+  - killsPerMatch
+  - deaths
+  - kd
+  - matches
+  - winRate
+  - minutesPlayed
+  - playersOutlived
+  - lastModified
+  - wins
+properties:
+  score:
+    type: integer
+    description: Total score of the player.
+    example: 4595929
+  scorePerMin:
+    type: number
+    format: double
+    description: Average score per minute played.
+    example: 15.699
+  scorePerMatch:
+    type: number
+    format: double
+    description: Average score per match played.
+    example: 217.446
+  kills:
+    type: number
+    format: double
+    description: Total amount of enemies killed.
+    example: 77833
+  killsPerMin:
+    type: number
+    format: double
+    description: Average of enemies killed per minute.
+    example: 0.256
+  killsPerMatch:
+    type: number
+    format: double
+    description: Average of enemies killed per match.
+    example: 3.682
+  deaths:
+    type: integer
+    description: Total amount of time the player died.
+    example: 18361
+  kd:
+    type: number
+    format: double
+    description: kill/Death ratio.
+    example: 4.239
+  matches:
+    type: integer
+    description: Total amount of matches played.
+    example: 21136
+  winRate:
+    type: number
+    format: double
+    description: How often the player wins, in %.
+    example: 13.129
+  minutesPlayed:
+    type: integer
+    description: Total amount of minutes played.
+    example: 292752
+  playersOutlived:
+    type: integer
+    description: Total amount of players outlived.
+    example: 659524
+  lastModified:
+    type: string
+    description: Last time the player's stats were modified.
+    example: "2025-05-10T00:56:28Z"
+  wins:
+    type: integer
+    description: Total amount of victory royales.
+    example: 2775
+  top3:
+    type: integer
+    description: Total amount of top 3 placements.
+    example: 1401
+  top5:
+    type: integer
+    description: Total amount of top 5 placements.
+    example: 1187
+  top6:
+    type: integer
+    description: Total amount of top 6 placements.
+    example: 1885
+  top10:
+    type: integer
+    description: Total amount of top 10 placements.
+    example: 958
+  top12:
+    type: integer
+    description: Total amount of top 12 placements.
+    example: 1787
+  top25:
+    type: integer
+    description: Total amount of top 25 placements.
+    example: 1673
