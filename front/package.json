@@ -10,9 +10,11 @@
     "lint": "next lint --max-warnings=0",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "oapi-gen": "openapi-typescript ../api/internal/gen/openapi.yml -o ./src/gen/api.d.ts --root-types --root-types-no-schema-prefix"
+    "oapi-gen": "openapi-typescript ../api/internal/gen/openapi.yml -o ./src/gen/api.d.ts --root-types --root-types-no-schema-prefix",
+    "knip": "knip"
   },
   "dependencies": {
+    "@heroui/chip": "2.2.16",
     "@heroui/react": "2.7.8",
     "@internationalized/date": "3.8.0",
     "@radix-ui/react-toggle-group": "1.1.10",
@@ -30,42 +32,32 @@
     "openapi-react-query": "0.3.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-hook-form": "7.56.4",
     "react-icons": "5.5.0",
-    "react-syntax-highlighter": "15.6.1",
     "use-debounce": "10.0.4"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "3.2.6",
-    "@eslint/compat": "1.2.9",
     "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.27.0",
     "@next/eslint-plugin-next": "15.3.2",
     "@storybook/addon-essentials": "8.6.14",
     "@storybook/addon-interactions": "8.6.14",
     "@storybook/addon-links": "8.6.14",
-    "@storybook/addon-styling-webpack": "1.0.1",
     "@storybook/addon-themes": "8.6.14",
-    "@storybook/blocks": "8.6.14",
     "@storybook/nextjs": "8.6.14",
     "@storybook/react": "8.6.14",
     "@storybook/test": "8.6.14",
-    "@types/eslint": "9.6.1",
     "@types/node": "22.15.23",
     "@types/react": "19.1.6",
     "@types/react-dom": "19.1.5",
-    "@types/react-syntax-highlighter": "15.5.13",
     "autoprefixer": "10.4.21",
-    "chromatic": "11.29.0",
     "eslint": "9.27.0",
     "eslint-config-next": "15.3.2",
     "eslint-config-prettier": "10.1.5",
-    "eslint-import-resolver-typescript": "4.4.1",
-    "eslint-plugin-import": "2.31.0",
     "eslint-plugin-prettier": "5.4.0",
-    "eslint-plugin-react-hooks": "5.2.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-storybook": "0.12.0",
+    "knip": "5.60.2",
     "openapi-typescript": "7.6.1",
     "postcss": "8.5.3",
     "prettier": "3.5.3",
@@ -83,11 +75,6 @@
     },
     "#*": [
       "./src/*"
-    ]
-  },
-  "msw": {
-    "workerDirectory": [
-      "public"
     ]
   }
 }

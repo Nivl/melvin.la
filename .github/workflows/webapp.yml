@@ -88,6 +88,9 @@ jobs:
       run: |
         pnpm run oapi-gen
         git diff --exit-code
+    - name: Lint package.json
+      run: |
+        pnpm run knip
 
 
   # we only run this one after everything has run to save chromatic

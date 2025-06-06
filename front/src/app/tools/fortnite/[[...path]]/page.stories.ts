@@ -107,7 +107,7 @@ export const ErrorInvalidAccount: Story = {
     useStats.mockImplementation(() => {
       return {
         isLoading: false,
-        error: { code: 400, message: 'Account does not exist' },
+        error: { code: 404, message: 'Account does not exist' },
         data: undefined,
       };
     });

@@ -1,15 +1,9 @@
 import { withThemeByClassName } from "@storybook/addon-themes";
 import type { Preview } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import React from 'react';
 import { allModes } from "./modes";
 
 import '../src/app/globals.css';
-
-if (typeof global.process === 'undefined') {
-  const enableMSW = require('../src/backend/mocks').enableMSW; // eslint-disable-line @typescript-eslint/no-var-requires
-  enableMSW();
-}
 
 const queryClient = new QueryClient({
   defaultOptions: {
