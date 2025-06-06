@@ -15,8 +15,8 @@ import (
 // TODO(melvin): make a small Fortnite Client instead of using an HTTP client
 // and passing down an API key
 type Server struct {
-	http           http.Client
 	fortniteAPIKey secret.Secret
+	http           http.Client
 }
 
 // we make sure the struct implements the interface
@@ -27,7 +27,7 @@ func NewServer(fortniteAPIKey secret.Secret) *Server {
 	return &Server{
 		fortniteAPIKey: fortniteAPIKey,
 		http: http.Client{
-			Timeout: time.Duration(3 * time.Second),
+			Timeout: 3 * time.Second,
 		},
 	}
 }

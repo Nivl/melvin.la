@@ -16,7 +16,7 @@ import { FaUser, FaUserGroup, FaUsers } from 'react-icons/fa6';
 import { GiSmartphone } from 'react-icons/gi';
 import { TfiInfinite } from 'react-icons/tfi';
 
-import { Data } from '#models/fortnite';
+import { type FortniteData } from '#backend/api';
 import { humanizeDuration, rateStr } from '#utils';
 
 import { Pill } from './Pill';
@@ -41,7 +41,7 @@ export const TableDesktop = ({
   data,
   isLoading,
 }: {
-  data?: Data;
+  data?: FortniteData;
   isLoading: boolean;
 }) => {
   const [category, setCategory] = useState<Category>('all');

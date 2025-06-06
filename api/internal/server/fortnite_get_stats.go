@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"strings"
 
@@ -12,8 +13,8 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/secret"
 )
 
-// CreateSession is a user-facing HTTP endpoint used to create a user session
-// This is used to log a user in
+// FortniteGetStats is a user-facing HTTP endpoint used to get a user's
+// Fortnite stats
 func (s *Server) FortniteGetStats(ctx context.Context, input api.FortniteGetStatsRequestObject) (response api.FortniteGetStatsResponseObject, err error) {
 	// Validate
 	input.Username = strings.TrimSpace(input.Username)
@@ -35,10 +36,11 @@ func (s *Server) FortniteGetStats(ctx context.Context, input api.FortniteGetStat
 	if err != nil {
 		return nil, err
 	}
-	res, err := s.http.Do(req)
+	res, err := s.http.Do(req) //nolint:bodyclose // We close the body in RunAndSetError
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch Fortnite stats: %w", err)
 	}
+	defer io.ReadAll(res.Body) //nolint:errcheck // We just want to flush it
 	defer errutil.RunAndSetError(res.Body.Close, &err, "failed to close response body")
 
 	// Process
@@ -54,12 +56,12 @@ func (s *Server) FortniteGetStats(ctx context.Context, input api.FortniteGetStat
 		}
 		return api.FortniteGetStats200JSONResponse(fortniteStats), nil
 	default:
-		return nil, fmt.Errorf("unexpected status code from fortnite-api: %d", res.StatusCode)
+		return nil, fmt.Errorf("unexpected status code from fortnite-api: %d", res.StatusCode) //nolint:err113 // no need for a custom error
 	}
 }
 
 func statsRequest(ctx context.Context, input api.FortniteGetStatsRequestObject, apiKey secret.Secret) (*http.Request, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://fortnite-api.com/v2/stats/br/v2", nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://fortnite-api.com/v2/stats/br/v2", http.NoBody)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
 	}

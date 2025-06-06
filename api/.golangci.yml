@@ -44,6 +44,7 @@ linters:
         - github.com/golang-migrate/migrate/v4/database/postgres\.Config$
         - github.com/sethvargo/go-envconfig\.Config$
         - github.com/jackc/pgx/v5/pgtype\.Timestamptz$
+        - net/http\.Client$
     gocritic:
       disabled-checks:
         - sloppyReassign
