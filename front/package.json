@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@10.11.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -48,7 +48,7 @@
     "@types/react": "19.1.6",
     "@types/react-dom": "19.1.6",
     "autoprefixer": "10.4.21",
-    "chromatic": "11.29.0",
+    "chromatic": "12.1.1",
     "eslint": "9.28.0",
     "eslint-config-next": "15.3.3",
     "eslint-config-prettier": "10.1.5",
