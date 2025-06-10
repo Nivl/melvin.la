@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 
 import { Me } from '#backend/types';
 import { useSignIn } from '#hooks/auth/useSignIn.mock';
