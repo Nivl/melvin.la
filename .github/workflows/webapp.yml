@@ -49,8 +49,8 @@ jobs:
           #    - 'front/**'
           #    - '!front/**/*.md'
           # Will match the whole codebase as it does:
-          #    - front/** (which includes the .md files)
-          #    - ** BUT NOT front/**/*.md (add the rest of the codebase)
+          #    - front/** => Everything including the .md files
+          #    - !front/**/*.md => Everything but the .md files
           filters: |
             src:
               - 'front/**/!(*.md)'
