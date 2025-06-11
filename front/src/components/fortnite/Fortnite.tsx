@@ -5,11 +5,11 @@ import { notFound } from 'next/navigation';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { Section } from '#components/Home/Section';
+import { Section } from '#components/layout/Section';
 import { useStats } from '#hooks/fortnite/useStats';
 import { humanizeDuration } from '#utils';
 
-import { Footer } from '../Home/Footer';
+import { Footer } from '../layout/Footer';
 import { AccountPresets, defaults, Preset } from './AccountPresets';
 import { AccountTypes, Form } from './Form';
 import { MainData } from './MainData';

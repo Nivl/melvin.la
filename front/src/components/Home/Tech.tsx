@@ -1,5 +1,5 @@
 import { Logo as LogoInfo } from '../../models';
-import { Heading } from './Heading';
+import { Heading } from '../layout/Heading';
 import { Logo } from './Logo';
 
 export const Tech = ({

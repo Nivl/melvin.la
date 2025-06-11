@@ -10,7 +10,7 @@ import {
   pulsarPreset,
 } from '#models/conway';
 
-import { Heading } from '../Home/Heading';
+import { Heading } from '../layout/Heading';
 import { Preset } from './Preset';
 
 const growBoard = (board: Board, newSize: number): Board => {

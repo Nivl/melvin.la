@@ -1,7 +1,7 @@
 import { PiHandPeaceLight as PeaceIcon } from 'react-icons/pi';
 
 import { CTA } from '../../models';
-import { Heading } from './Heading';
+import { Heading } from '../layout/Heading';
 
 export const About = ({
   title,
