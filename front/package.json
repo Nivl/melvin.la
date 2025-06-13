@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@10.11.1",
+  "packageManager": "pnpm@10.12.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,7 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@heroui/react": "2.7.9",
+    "@heroui/react": "2.7.10",
     "@internationalized/date": "3.8.1",
     "@radix-ui/react-toggle-group": "1.1.10",
     "@tanstack/react-query": "5.80.6",
@@ -23,14 +23,14 @@
     "framer-motion": "12.16.0",
     "launchdarkly-react-client-sdk": "3.8.1",
     "moment-timezone": "0.6.0",
-    "msw": "2.10.0",
+    "msw": "2.10.2",
     "next": "15.3.3",
     "next-themes": "0.4.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "7.57.0",
     "react-icons": "5.5.0",
-    "use-debounce": "10.0.4"
+    "use-debounce": "10.0.5"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "4.0.0",
@@ -38,17 +38,17 @@
     "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.28.0",
     "@next/eslint-plugin-next": "15.3.3",
-    "@storybook/addon-docs": "9.0.6",
-    "@storybook/addon-links": "9.0.6",
+    "@storybook/addon-docs": "9.0.8",
+    "@storybook/addon-links": "9.0.8",
     "@storybook/addon-styling-webpack": "2.0.0",
-    "@storybook/addon-themes": "9.0.6",
-    "@storybook/nextjs": "9.0.6",
+    "@storybook/addon-themes": "9.0.8",
+    "@storybook/nextjs": "9.0.8",
     "@types/eslint": "9.6.1",
-    "@types/node": "22.15.30",
-    "@types/react": "19.1.6",
+    "@types/node": "22.15.31",
+    "@types/react": "19.1.7",
     "@types/react-dom": "19.1.6",
     "autoprefixer": "10.4.21",
-    "chromatic": "12.1.1",
+    "chromatic": "12.2.0",
     "eslint": "9.28.0",
     "eslint-config-next": "15.3.3",
     "eslint-config-prettier": "10.1.5",
@@ -57,15 +57,15 @@
     "eslint-plugin-prettier": "5.4.1",
     "eslint-plugin-react-hooks": "5.2.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
-    "eslint-plugin-storybook": "9.0.6",
+    "eslint-plugin-storybook": "9.0.8",
     "postcss": "8.5.4",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "0.6.12",
-    "storybook": "9.0.6",
+    "storybook": "9.0.8",
     "tailwind-merge": "2.6.0",
     "tailwindcss": "3.4.17",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.33.1"
+    "typescript-eslint": "8.34.0"
   },
   "imports": {
     "#hooks/fortnite/useStats": {
