@@ -61,7 +61,7 @@ export const Side = ({
       <Switch
         size="lg"
         color="primary"
-        onClick={() => {
+        onChange={() => {
           setIsPlaying(!isPlaying);
         }}
         aria-label={isPlaying ? 'Pause' : 'Play'}

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 
 import { type FortniteData } from '#backend/api';
 import { useStats } from '#hooks/fortnite/useStats.mock';
