@@ -4,6 +4,9 @@
   "private": true,
   "packageManager": "pnpm@9.15.9",
   "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "predev": "tsx scripts/prebuild.ts",
     "dev": "next dev --turbopack",
