@@ -10,7 +10,7 @@ export const getAllBlogPosts = () => {
 export const getLatestBlogPosts = () => {
   const db = database();
   const stmt = db.prepare(
-    'SELECT * FROM blog_posts ORDER BY created_at DESC LIMIT 10',
+    'SELECT * FROM blog_posts ORDER BY createdAt DESC LIMIT 10',
   );
   return stmt.all() as BlogPost[];
 };
