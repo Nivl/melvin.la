@@ -1,6 +1,6 @@
 import { Melvin } from '#components/icons/Melvin';
 
-import { Heading } from './Heading';
+import { Heading } from '../layout/Heading';
 
 export const Header = () => {
   return (
