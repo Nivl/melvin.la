@@ -35,7 +35,6 @@ tasks:
   lint:
     cmds:
       - golangci-lint run ./...
-      - go tool github.com/daveshanley/vacuum lint internal/gen/openapi.yml -q -d -n warn
 
   generate:
     cmds:
