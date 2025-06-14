@@ -3,6 +3,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  transpilePackages: ['next-mdx-remote'],
   images: {
     remotePatterns: [
       {
@@ -41,4 +42,4 @@ const nextConfig = {
 }
 
 
-module.exports = nextConfig
+export default nextConfig

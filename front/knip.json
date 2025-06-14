@@ -5,6 +5,7 @@
     ],
     "ignoreDependencies": [
         "eslint-config-next",
-        "@next/eslint-plugin-next"
+        "@next/eslint-plugin-next",
+        "eslint-plugin-react-hooks"
     ]
 }
