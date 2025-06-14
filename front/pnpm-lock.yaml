@@ -90,9 +90,6 @@ importers:
       '@storybook/addon-links':
         specifier: 9.0.8
         version: 9.0.8(react@19.1.0)(storybook@9.0.8(@testing-library/dom@10.4.0)(prettier@3.5.3))
-      '@storybook/addon-styling-webpack':
-        specifier: 2.0.0
-        version: 2.0.0(storybook@9.0.8(@testing-library/dom@10.4.0)(prettier@3.5.3))(webpack@5.99.9(esbuild@0.25.5))
       '@storybook/addon-themes':
         specifier: 9.0.8
         version: 9.0.8(storybook@9.0.8(@testing-library/dom@10.4.0)(prettier@3.5.3))
@@ -2590,12 +2587,6 @@ packages:
     peerDependenciesMeta:
       react:
         optional: true
-
-  '@storybook/addon-styling-webpack@2.0.0':
-    resolution: {integrity: sha512-N8jWhWnk3/nbL4P9zl0OEV/47P0Cxn/kPzSHjdAClyDYnqj9jI6upeLsraZgIV9Ro3QSeqeIloeXb1zMasWpOw==}
-    peerDependencies:
-      storybook: ^9.0.0
-      webpack: ^5.0.0
 
   '@storybook/addon-themes@9.0.8':
     resolution: {integrity: sha512-YENoT09Z2X8H0llHpZLuAwqJBj7WLfvPgzxya0Ul5+ySv8o/ULsR2qw/ZC9M8QWqJ14E5SB6Kn6zedcWZ1UeLg==}
@@ -9774,11 +9765,6 @@ snapshots:
       storybook: 9.0.8(@testing-library/dom@10.4.0)(prettier@3.5.3)
     optionalDependencies:
       react: 19.1.0
-
-  '@storybook/addon-styling-webpack@2.0.0(storybook@9.0.8(@testing-library/dom@10.4.0)(prettier@3.5.3))(webpack@5.99.9(esbuild@0.25.5))':
-    dependencies:
-      storybook: 9.0.8(@testing-library/dom@10.4.0)(prettier@3.5.3)
-      webpack: 5.99.9(esbuild@0.25.5)
 
   '@storybook/addon-themes@9.0.8(storybook@9.0.8(@testing-library/dom@10.4.0)(prettier@3.5.3))':
     dependencies:
