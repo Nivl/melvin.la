@@ -1,22 +1,17 @@
 import { notFound } from 'next/navigation';
 import { use } from 'react';
 
-import { BlogPost } from '#components/Blog/BlogPost';
-import { getAllBlogPosts, getBlogPost, getLatestBlogPosts } from '#ssg/queries';
+import { Post } from '#components/Blog/Post';
+import { getAllBlogPosts, getBlogPost } from '#ssg/queries';
 
 export default function Home(props: { params: Promise<{ slug: string }> }) {
   const { slug } = use(props.params);
 
-  if (slug) {
-    const post = getBlogPost(slug);
-    if (!post) {
-      return notFound();
-    }
-    return <BlogPost content={post.content} />;
+  const post = getBlogPost(slug);
+  if (!post) {
+    return notFound();
   }
-
-  const posts = getLatestBlogPosts();
-  return <BlogPost content={posts[0].content} />;
+  return <Post content={post.content} />;
 }
 
 // We make sure that any unknown slug will result in a 404 error

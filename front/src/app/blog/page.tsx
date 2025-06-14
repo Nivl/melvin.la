@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { BlogPost as BlogPostC } from '#components/Blog/BlogPost';
+import { Post as BlogPostC } from '#components/Blog/Post';
 import { getLatestBlogPosts } from '#ssg/queries';
 
 export default function Home() {
