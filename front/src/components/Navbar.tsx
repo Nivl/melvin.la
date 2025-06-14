@@ -11,8 +11,7 @@ import {
   NavbarContent,
   NavbarItem,
 } from '@heroui/react';
-import { useFlags } from 'launchdarkly-react-client-sdk';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
@@ -22,14 +21,10 @@ import { IoMdMoon as NightIcon, IoMdSunny as LightIcon } from 'react-icons/io';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
-import { FLAG_ENABLE_BLOG } from '#backend/flags';
-
 export const Navbar = () => {
   const pathname = usePathname();
-  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-  const flags = useFlags();
 
   useEffect(() => {
     setMounted(true);
@@ -44,13 +39,11 @@ export const Navbar = () => {
           </Link>
         </NavbarItem>
 
-        {flags[FLAG_ENABLE_BLOG] && (
-          <NavbarItem isActive={pathname == '/blog'}>
-            <Link color="foreground" href="/blog">
-              Blog
-            </Link>
-          </NavbarItem>
-        )}
+        <NavbarItem isActive={pathname == '/blog'}>
+          <Link color="foreground" href="/blog">
+            Blog
+          </Link>
+        </NavbarItem>
 
         <Dropdown>
           <NavbarItem>
@@ -72,20 +65,12 @@ export const Navbar = () => {
             selectedKeys={
               pathname.startsWith('/games/conway') ? new Set(['conway']) : ''
             }
-            // remove once they fix href on DropdownItem -- https://github.com/heroui-inc/heroui/issues/4244
-            onAction={key => {
-              switch (key) {
-                case 'conway':
-                  router.push('/games/conway');
-                  break;
-              }
-            }}
           >
             <DropdownItem
               key="conway"
               description="Zero-player cellular automation game."
               startContent={<ConwayIcon className="h-5 w-5" />}
-              // href="/games/conway" -- https://github.com/heroui-inc/heroui/issues/4244
+              href="/games/conway"
             >
               Game of Life
             </DropdownItem>
@@ -116,22 +101,11 @@ export const Navbar = () => {
                   ? new Set(['timezones'])
                   : ''
             }
-            // remove once they fix href on DropdownItem -- https://github.com/heroui-inc/heroui/issues/4244
-            onAction={key => {
-              switch (key) {
-                case 'fortnite':
-                  router.push('/tools/fortnite');
-                  break;
-                case 'timezones':
-                  router.push('/tools/timezones');
-                  break;
-              }
-            }}
           >
             <DropdownItem
               key="fortnite"
               startContent={<FortniteIcon className="h-5 w-5" />}
-              // href="/tools/fortnite" -- https://github.com/heroui-inc/heroui/issues/4244
+              href="/tools/fortnite"
             >
               Fortnite Data
             </DropdownItem>
@@ -139,7 +113,7 @@ export const Navbar = () => {
             <DropdownItem
               key="timezones"
               startContent={<TimezoneIcon className="h-5 w-5" />}
-              // href="/tools/timezones" -- https://github.com/heroui-inc/heroui/issues/4244
+              href="/tools/timezones"
             >
               Timezone Convertor
             </DropdownItem>
