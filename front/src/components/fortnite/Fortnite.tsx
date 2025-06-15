@@ -9,7 +9,6 @@ import { Section } from '#components/layout/Section';
 import { useStats } from '#hooks/fortnite/useStats';
 import { humanizeDuration } from '#utils';
 
-import { Footer } from '../layout/Footer';
 import { AccountPresets, defaults, Preset } from './AccountPresets';
 import { AccountTypes, Form } from './Form';
 import { MainData } from './MainData';
@@ -151,10 +150,6 @@ export const Fortnite = ({
           </Section>
         </>
       )}
-
-      <Section className="mb-3 lg:mb-8">
-        <Footer />
-      </Section>
     </>
   );
 };

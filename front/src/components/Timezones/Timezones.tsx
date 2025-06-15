@@ -8,7 +8,6 @@ import moment from 'moment-timezone';
 import { useState } from 'react';
 import { MdDeleteForever as DeleteIcon } from 'react-icons/md';
 
-import { Footer } from '../layout/Footer';
 import { Section } from '../layout/Section';
 
 const sortedCities: City[] = Array(cityMapping.length) as City[];
@@ -198,10 +197,6 @@ export const Timezones = () => {
             </>
           )}
         </div>
-      </Section>
-
-      <Section className="mb-3 lg:mb-8">
-        <Footer />
       </Section>
     </>
   );
