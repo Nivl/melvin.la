@@ -30,7 +30,7 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
   );
 
   const stmt = db.prepare(
-    `INSERT INTO blog_posts (slug, title, content, excerpt, image, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO blog_posts (slug, title, content, excerpt, image, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?)`,
   );
 
   const files = await readdir(BLOG_POSTS_DIR, { withFileTypes: true });
