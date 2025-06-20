@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="188pt" height="188pt" viewBox="0.00 0.00 187.53 188.00">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>G</title>
+<!-- API Gateway -->
+<g id="node1" class="node">
+<title>API Gateway</title>
+<polygon fill="#a2d5c6" stroke="black" points="135.36,-180 43.55,-180 43.55,-144 135.36,-144 135.36,-180"/>
+<text text-anchor="middle" x="89.46" y="-157.8" font-family="Raleway" font-size="14.00" fill="#1b3b34">API Gateway</text>
+</g>
+<!-- Service A -->
+<g id="node2" class="node">
+<title>Service A</title>
+<polygon fill="#f4b183" stroke="black" points="81.25,-108 9.66,-108 9.66,-72 81.25,-72 81.25,-108"/>
+<text text-anchor="middle" x="45.46" y="-85.8" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Service A</text>
+</g>
+<!-- API Gateway&#45;&gt;Service A -->
+<g id="edge1" class="edge">
+<title>API Gateway-&gt;Service A</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M78.58,-143.7C73.79,-136.07 68.03,-126.92 62.68,-118.4"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="65.7,-116.63 57.42,-110.03 59.78,-120.36 65.7,-116.63"/>
+</g>
+<!-- Service B -->
+<g id="node3" class="node">
+<title>Service B</title>
+<polygon fill="#f4b183" stroke="black" points="171.87,-108 101.05,-108 101.05,-72 171.87,-72 171.87,-108"/>
+<text text-anchor="middle" x="136.46" y="-85.8" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Service B</text>
+</g>
+<!-- API Gateway&#45;&gt;Service B -->
+<g id="edge2" class="edge">
+<title>API Gateway-&gt;Service B</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M101.08,-143.7C106.25,-135.98 112.48,-126.71 118.25,-118.11"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="121.04,-120.24 123.71,-109.99 115.23,-116.34 121.04,-120.24"/>
+</g>
+<!-- Database A -->
+<g id="node4" class="node">
+<title>Database A</title>
+<polygon fill="#d9c2e6" stroke="black" points="80.91,-36 0,-36 0,0 80.91,0 80.91,-36"/>
+<text text-anchor="middle" x="40.46" y="-13.8" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Database A</text>
+</g>
+<!-- Service A&#45;&gt;Database A -->
+<g id="edge3" class="edge">
+<title>Service A-&gt;Database A</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M44.22,-71.7C43.71,-64.58 43.11,-56.13 42.54,-48.11"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="46.04,-48.09 41.84,-38.37 39.06,-48.59 46.04,-48.09"/>
+</g>
+<!-- Database B -->
+<g id="node5" class="node">
+<title>Database B</title>
+<polygon fill="#d9c2e6" stroke="black" points="179.53,-36 99.39,-36 99.39,0 179.53,0 179.53,-36"/>
+<text text-anchor="middle" x="139.46" y="-13.8" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Database B</text>
+</g>
+<!-- Service B&#45;&gt;Database B -->
+<g id="edge4" class="edge">
+<title>Service B-&gt;Database B</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M137.2,-71.7C137.5,-64.58 137.87,-56.13 138.21,-48.11"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="141.7,-48.51 138.63,-38.37 134.7,-48.21 141.7,-48.51"/>
+</g>
+</g>
+</svg>

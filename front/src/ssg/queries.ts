@@ -7,11 +7,10 @@ export const getAllBlogPosts = () => {
   return stmt.all() as BlogPost[];
 };
 
+// TODO(melvin): Add pagination
 export const getLatestBlogPosts = () => {
   const db = database();
-  const stmt = db.prepare(
-    'SELECT * FROM blog_posts ORDER BY createdAt DESC LIMIT 10',
-  );
+  const stmt = db.prepare('SELECT * FROM blog_posts ORDER BY createdAt DESC');
   return stmt.all() as BlogPost[];
 };
 

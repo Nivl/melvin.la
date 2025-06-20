@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { Post as BlogPostC } from '#components/Blog/Post';
+import { List } from '#components/blog/List';
 import { getLatestBlogPosts } from '#ssg/queries';
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
     return notFound();
   }
 
-  return <BlogPostC content={posts[0].content} />;
+  return <List posts={posts} />;
 }
 
 export const dynamic = 'force-static';

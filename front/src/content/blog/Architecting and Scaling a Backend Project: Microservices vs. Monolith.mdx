@@ -2,13 +2,10 @@
 title: "Architecting and Scaling a Backend Project: Microservices vs. Monolith"
 slug: "architecting-and-scaling-a-backend-project-microservices-vs-monolith"
 excerpt: "Discover the key differences between monolith and microservices architectures—and find out which fits your project best."
-image: "monorepo-vs-microservices.png"
+image: "cover.avif"
 createdAt: "2025-06-12"
 updatedAt: "2025-06-12"
 ---
-
-# Architecting and Scaling a Backend Project: Microservices vs. Monolith
-
 In the fast-evolving landscape of software development, the architecture of your backend project plays a pivotal role in determining its success. As applications grow in complexity and scale, the choice of architecture becomes increasingly critical. This article delves into two prominent architectural approaches: **Microservices** and **Monolith**. We will explore their respective advantages and disadvantages, provide insights on when to use each, and introduce a hybrid approach that combines the strengths of both.
 
 ## 1. Understanding the Architectures
@@ -25,22 +22,39 @@ In the fast-evolving landscape of software development, the architecture of your
 Microservices are particularly well-suited for large-scale applications where different teams can work on various services simultaneously. This architecture promotes a culture of continuous delivery and integration, allowing organizations to respond swiftly to market demands.
 
 #### Diagram: Microservices Architecture
+```hidden
+digraph G {
+  bgcolor="transparent";
+  node [shape=box style=filled fontname="Raleway" fontsize=14 fontcolor="#222222"];
 
+
+  // Nodes with muted fill colors
+  "API Gateway" [fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+  "Service A"   [fillcolor="#f4b183", fontcolor="#4a2c0f"];
+  "Service B"   [fillcolor="#f4b183", fontcolor="#4a2c0f"];
+  "Database A"  [fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+  "Database B"  [fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+
+  // Arrow style
+  edge [color="#6a8caf", penwidth=1.5];
+
+  // Edges
+  "API Gateway" -> "Service A";
+  "API Gateway" -> "Service B";
+  "Service A"   -> "Database A";
+  "Service B"   -> "Database B";
+}
 ```
-+-------------------+
-|   API Gateway     |
-+-------------------+
-         |
-         |--------------------+
-         |                    |
-+----------------+   +----------------+
-|  Service A     |   |  Service B     |
-+----------------+   +----------------+
-         |                    |
-+----------------+   +----------------+
-|  Database A    |   |  Database B    |
-+----------------+   +----------------+
-```
+
+<Image src={"/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-microservice.svg"}
+  priority={true}
+  width={372}
+  height={300}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
+
+
 
 ### Monolith Architecture
 
@@ -55,23 +69,40 @@ Monoliths are advantageous for small to medium-sized applications where rapid de
 
 #### Diagram: Monolith Architecture
 
+```hidden
+digraph Monolith {
+  bgcolor="transparent";
+  node [shape=box, style=filled, fontname="Raleway", fontsize=14 fontcolor="#222222"];
+
+  subgraph cluster_monolith {
+    label="Monolith";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style
+    edge [color="#6a8caf", penwidth=1.5];
+
+    UserInterface [label="User Interface", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    BusinessLogic [label="Business Logic", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    DataAccessLayer [label="Data Access Layer", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    Database [label="Database", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+
+    UserInterface -> BusinessLogic -> DataAccessLayer -> Database;
+  }
+}
 ```
-+----------------------------------+
-|            Monolith              |
-| +------------------------------+ |
-| |          User Interface      | |
-| +------------------------------+ |
-| +------------------------------+ |
-| |        Business Logic        | |
-| +------------------------------+ |
-| +------------------------------+ |
-| |        Data Access Layer     | |
-| +------------------------------+ |
-| +------------------------------+ |
-| |          Database            | |
-| +------------------------------+ |
-+----------------------------------+
-```
+
+<Image src={"/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-monolith.svg"}
+  priority={true}
+  width={307}
+  height={600}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
 
 ## 2. Pros and Cons
 
@@ -119,55 +150,91 @@ As projects evolve and grow, monoliths can become unwieldy, leading to challenge
 
 ### Key Steps in the Hybrid Approach:
 
-1. **Identify Boundaries**:
-   - Conduct a thorough analysis of the monolith to identify logical boundaries between services. Look for components that can be decoupled based on functionality or business capabilities.
-
-2. **Create Smaller Services**:
-   - Begin by extracting smaller services from the monolith. These services can be developed and deployed independently, allowing for greater agility while still sharing common libraries.
-
-3. **Gradual Splitting**:
-   - As these smaller services grow and their responsibilities expand, consider further splitting them into even smaller services. This can be done iteratively, allowing teams to manage complexity over time while ensuring that the architecture remains flexible.
-
-4. **Maintain Shared Libraries**:
-   - While splitting services, ensure that shared libraries or components are maintained to avoid code duplication. This helps keep the codebase DRY (Don't Repeat Yourself) and promotes reusability.
-
-5. **Monitor and Adapt**:
-   - Continuously monitor the performance and complexity of the services. Be prepared to adapt the architecture as the application evolves and requirements change. Regularly assess whether services need to be further split or consolidated based on their growth and usage patterns.
+1. **Identify Boundaries**: Conduct a thorough analysis of the monolith to identify logical boundaries between services. Look for components that can be decoupled based on functionality or business capabilities.
+2. **Create Smaller Services**: Begin by extracting smaller services from the monolith. These services can be developed and deployed independently, allowing for greater agility while still sharing common libraries.
+3. **Gradual Splitting**: As these smaller services grow and their responsibilities expand, consider further splitting them into even smaller services. This can be done iteratively, allowing teams to manage complexity over time while ensuring that the architecture remains flexible.
+4. **Maintain Shared Libraries**: While splitting services, ensure that shared libraries or components are maintained to avoid code duplication. This helps keep the codebase DRY (Don't Repeat Yourself) and promotes reusability.
+5. **Monitor and Adapt**: Continuously monitor the performance and complexity of the services. Be prepared to adapt the architecture as the application evolves and requirements change. Regularly assess whether services need to be further split or consolidated based on their growth and usage patterns.
 
 ### Diagram: Hybrid Approach
 
+```hidden
+digraph Architecture {
+  bgcolor="transparent";
+  compound=true;
+  node [shape=box, style=filled, fontname="Raleway", fontsize=14, fontcolor="#222222"];
+
+  // Arrow style
+  edge [color="#6a8caf", penwidth=1.5];
+
+  // Monolith cluster
+  subgraph cluster_monolith {
+    label="Monolith";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style inside cluster
+    edge [color="#3a5a7c", penwidth=1.2];
+
+    UserInterface [label="User Interface", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    BusinessLogic [label="Business Logic", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    DataAccessLayer [label="Data Access Layer", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    Database [label="Database", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+
+    UserInterface -> BusinessLogic -> DataAccessLayer -> Database;
+  }
+
+  // API Gateway node
+  APIGateway [label="API Gateway", shape=box, style=filled, fillcolor="#3a5a7c", fontcolor="#f0f0f0"];
+
+  // Services cluster
+  subgraph cluster_services {
+    label="Services";
+    style=rounded;
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style inside cluster
+    edge [color="#3a5a7c", penwidth=1.2];
+
+    MediumServiceA [label="Medium Service A\nUser Management\nSub, Auth, etc.", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MonolithServiceA [label="Monolith Service A\nMonolith for app 1", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MonolithServiceB [label="Monolith Service B\nMonolith for app 2", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MicroserviceA [label="Micro service A\nAnalytics", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    DatabaseA [label="Database A", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseB [label="Database B", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseC [label="Database C", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseD [label="Database D", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+
+    MediumServiceA -> DatabaseA;
+    MonolithServiceA -> DatabaseB;
+    MonolithServiceB -> DatabaseC;
+    MicroserviceA -> DatabaseD;
+  }
+
+  // Connections
+  Database -> APIGateway [label="Splitting", style=dashed, color="#6a8caf", fontcolor="#6a8caf", ltail=cluster_monolith];
+  APIGateway -> MediumServiceA;
+  APIGateway -> MonolithServiceA;
+  APIGateway -> MonolithServiceB;
+  APIGateway -> MicroserviceA;
+}
 ```
-+----------------------------------+
-|            Monolith              |
-| +------------------------------+ |
-| |          User Interface      | |
-| +------------------------------+ |
-| +------------------------------+ |
-| |        Business Logic        | |
-| +------------------------------+ |
-| +------------------------------+ |
-| |        Data Access Layer     | |
-| +------------------------------+ |
-| +------------------------------+ |
-| |          Database            | |
-| +------------------------------+ |
-+----------------------------------+
-         |
-         | Splitting
-         |
-+--------------------------+
-|      Smaller Services    |
-| +----------------------+  |
-| |   Service A1        |  |
-| +----------------------+  |
-| +----------------------+  |
-| |   Service A2        |  |
-| +----------------------+  |
-| +----------------------+  |
-| |   Service B1        |  |
-| +----------------------+  |
-+--------------------------+
-```
+
+<Image src={"/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-hybrid.svg"}
+  priority={true}
+  width={615}
+  height={1200}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
 
 ## Conclusion
 

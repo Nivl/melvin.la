@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { use } from 'react';
 
-import { Post } from '#components/Blog/Post';
+import { Post } from '#components/blog/Post';
 import { getAllBlogPosts, getBlogPost } from '#ssg/queries';
 
 export default function Home(props: { params: Promise<{ slug: string }> }) {
@@ -11,7 +11,7 @@ export default function Home(props: { params: Promise<{ slug: string }> }) {
   if (!post) {
     return notFound();
   }
-  return <Post content={post.content} />;
+  return <Post post={post} />;
 }
 
 // We make sure that any unknown slug will result in a 404 error

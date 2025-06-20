@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176pt" height="331pt" viewBox="0.00 0.00 176.00 330.80">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 326.8)">
+<title>Monolith</title>
+<g id="clust1" class="cluster">
+<title>cluster_monolith</title>
+<path fill="#c9daf8" stroke="#3a5a7c" d="M20,-8C20,-8 148,-8 148,-8 154,-8 160,-14 160,-20 160,-20 160,-302.8 160,-302.8 160,-308.8 154,-314.8 148,-314.8 148,-314.8 20,-314.8 20,-314.8 14,-314.8 8,-308.8 8,-302.8 8,-302.8 8,-20 8,-20 8,-14 14,-8 20,-8"/>
+<text text-anchor="middle" x="84" y="-298.2" font-family="Raleway" font-size="14.00" fill="#3a5a7c">Monolith</text>
+</g>
+<!-- UserInterface -->
+<g id="node1" class="node">
+<title>UserInterface</title>
+<polygon fill="#a2d5c6" stroke="black" points="131.83,-275 36.17,-275 36.17,-239 131.83,-239 131.83,-275"/>
+<text text-anchor="middle" x="84" y="-252.8" font-family="Raleway" font-size="14.00" fill="#1b3b34">User Interface</text>
+</g>
+<!-- BusinessLogic -->
+<g id="node2" class="node">
+<title>BusinessLogic</title>
+<polygon fill="#a2d5c6" stroke="black" points="134.97,-203 33.03,-203 33.03,-167 134.97,-167 134.97,-203"/>
+<text text-anchor="middle" x="84" y="-180.8" font-family="Raleway" font-size="14.00" fill="#1b3b34">Business Logic</text>
+</g>
+<!-- UserInterface&#45;&gt;BusinessLogic -->
+<g id="edge1" class="edge">
+<title>UserInterface-&gt;BusinessLogic</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M84,-238.7C84,-231.58 84,-223.13 84,-215.11"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="87.5,-215.37 84,-205.37 80.5,-215.37 87.5,-215.37"/>
+</g>
+<!-- DataAccessLayer -->
+<g id="node3" class="node">
+<title>DataAccessLayer</title>
+<polygon fill="#a2d5c6" stroke="black" points="144.86,-131 23.14,-131 23.14,-95 144.86,-95 144.86,-131"/>
+<text text-anchor="middle" x="84" y="-108.8" font-family="Raleway" font-size="14.00" fill="#1b3b34">Data Access Layer</text>
+</g>
+<!-- BusinessLogic&#45;&gt;DataAccessLayer -->
+<g id="edge2" class="edge">
+<title>BusinessLogic-&gt;DataAccessLayer</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M84,-166.7C84,-159.58 84,-151.13 84,-143.11"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="87.5,-143.37 84,-133.37 80.5,-143.37 87.5,-143.37"/>
+</g>
+<!-- Database -->
+<g id="node4" class="node">
+<title>Database</title>
+<polygon fill="#a2d5c6" stroke="black" points="117.65,-59 50.35,-59 50.35,-23 117.65,-23 117.65,-59"/>
+<text text-anchor="middle" x="84" y="-36.8" font-family="Raleway" font-size="14.00" fill="#1b3b34">Database</text>
+</g>
+<!-- DataAccessLayer&#45;&gt;Database -->
+<g id="edge3" class="edge">
+<title>DataAccessLayer-&gt;Database</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M84,-94.7C84,-87.58 84,-79.13 84,-71.11"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="87.5,-71.37 84,-61.37 80.5,-71.37 87.5,-71.37"/>
+</g>
+</g>
+</svg>
