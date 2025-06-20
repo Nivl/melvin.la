@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { use } from 'react';
 
-import { Post } from '#components/blog/Post';
+import { Post } from '#components/blogg/Post';
 import { getAllBlogPosts, getBlogPost } from '#ssg/queries';
 
 export default function Home(props: { params: Promise<{ slug: string }> }) {

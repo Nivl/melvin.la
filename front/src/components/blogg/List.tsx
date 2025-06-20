@@ -1,4 +1,4 @@
-import { PostDetails } from '#components/blog/PostDetails';
+import { PostDetails } from '#components/blogg/PostDetails';
 import { Heading } from '#components/layout/Heading';
 import { Section } from '#components/layout/Section';
 import { BlogPost } from '#models/blog/post';
