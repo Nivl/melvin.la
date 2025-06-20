@@ -12,11 +12,10 @@ import (
 type Config struct {
 	Environment string `env:"ENVIRONMENT,default=dev"`
 	API         struct {
-		FortniteAPIKey     secret.Secret `env:"FORTNITE_API_KEY,required"`
-		LaunchDarklySDKKey secret.Secret `env:"LAUNCH_DARKLY_SDK_KEY"`
-		Port               string        `env:"PORT,default=5000"`
-		SSLCertsDir        string        `env:"SSL_CERTS_DIR"`
-		ExtraCORSOrigins   []string      `env:"EXTRA_CORS_ORIGINS"`
+		FortniteAPIKey   secret.Secret `env:"FORTNITE_API_KEY,required"`
+		Port             string        `env:"PORT,default=5000"`
+		SSLCertsDir      string        `env:"SSL_CERTS_DIR"`
+		ExtraCORSOrigins []string      `env:"EXTRA_CORS_ORIGINS"`
 	} `env:",prefix=API_"`
 }
 

@@ -1,4 +1,4 @@
-import { Chip } from '@heroui/chip';
+import { Chip } from '@heroui/react';
 
 export const Preset = ({
   name,

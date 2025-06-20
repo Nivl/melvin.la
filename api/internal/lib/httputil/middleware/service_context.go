@@ -17,7 +17,6 @@ func ServiceContext(deps *app.Dependencies) echo.MiddlewareFunc {
 			}
 
 			cc.SetLog(deps.Logger)
-			cc.SetFeatureFlag(deps.FeatureFlag)
 
 			reqID := c.Response().Header().Get(echo.HeaderXRequestID)
 			if reqID != "" {

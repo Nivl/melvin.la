@@ -4,8 +4,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
-import { LaunchDarklyProvider } from '#/components/LaunchDarklyProvider';
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -24,9 +22,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
           router.push(...args);
         }}
       >
-        <NextThemesProvider attribute="class">
-          <LaunchDarklyProvider>{children}</LaunchDarklyProvider>
-        </NextThemesProvider>
+        <NextThemesProvider attribute="class">{children}</NextThemesProvider>
       </HeroUIProvider>
     </QueryClientProvider>
   );

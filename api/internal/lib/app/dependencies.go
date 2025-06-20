@@ -8,14 +8,12 @@ import (
 	"strings"
 
 	"github.com/Nivl/melvin.la/api/internal/lib/errutil"
-	"github.com/Nivl/melvin.la/api/internal/lib/fflag"
 	"go.uber.org/zap"
 )
 
 // Dependencies represents the app dependencies
 type Dependencies struct {
-	Logger      *zap.Logger
-	FeatureFlag fflag.FeatureFlag
+	Logger *zap.Logger
 }
 
 // NewDependencies create a Dependency object from the app config by
@@ -30,13 +28,7 @@ func NewDependencies(_ context.Context, cfg *Config) (deps *Dependencies, return
 	}
 	defer errutil.RunOnErr(logger.Sync, returnedErr, "could not sync the logger")
 
-	featureFlag, err := fflag.NewLD(cfg.API.LaunchDarklySDKKey.Get(), logger)
-	if err != nil {
-		return nil, fmt.Errorf("couldn't create the Launch Darkly client: %w", err)
-	}
-
 	return &Dependencies{
-		Logger:      logger,
-		FeatureFlag: featureFlag,
+		Logger: logger,
 	}, nil
 }
