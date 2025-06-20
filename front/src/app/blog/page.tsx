@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { List } from '#components/blogg/List';
+import { List } from '#components/blog/List';
 import { getLatestBlogPosts } from '#ssg/queries';
 
 export default function Home() {
