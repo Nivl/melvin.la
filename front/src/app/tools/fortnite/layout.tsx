@@ -1,8 +1,14 @@
 import type { Metadata } from 'next';
 
+import { getMetadata } from '#utils/metadata';
+
 export const metadata: Metadata = {
-  title: 'Fortnite Data',
-  description: 'All the data from Fortnite',
+  ...getMetadata({
+    pageUrl: '/tools/fortnite',
+    title: 'Fortnite Data',
+    description: 'All the data from Fortnite',
+    imageURL: '/assets/tools/fortnite/og.jpg',
+  }),
 };
 
 export default function RootLayout({

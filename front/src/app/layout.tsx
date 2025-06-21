@@ -6,11 +6,10 @@ import type { Metadata } from 'next';
 
 import { Navbar } from '#components/Navbar';
 import { Providers } from '#components/Providers';
+import { getMetadata } from '#utils/metadata';
 
 export const metadata: Metadata = {
-  title: 'Melvin Laplanche',
-  description:
-    'Personal Website of Melvin Laplanche, nothing really interesting in there',
+  ...getMetadata({}),
 };
 
 export default function RootLayout({

@@ -1,5 +1,5 @@
-import { Data } from '#models/fortnite';
-import { rate } from '#utils';
+import { type FortniteData } from '#backend/api';
+import { rate } from '#utils/fortnite';
 
 import { StatCard } from './StatCard';
 
@@ -7,7 +7,7 @@ export const MainData = ({
   data,
   isLoading,
 }: {
-  data?: Data;
+  data?: FortniteData;
   isLoading: boolean;
 }) => {
   return (

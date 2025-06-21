@@ -25,6 +25,7 @@ const config: Config = {
         'sans-serif',
       ],
       fortnite: ['Burbank Big Condensed Bold'],
+      monospace: ['Fira Code', 'monospace'],
     },
     extend: {
       colors: {

@@ -1,7 +1,11 @@
+import type { Metadata } from 'next';
 import { use } from 'react';
 
 import { AccountTypes } from '#components/fortnite/Form';
 import { Fortnite } from '#components/fortnite/Fortnite';
+import { getMetadata } from '#utils/metadata';
+
+import { metadata as fortniteMetadata } from '../layout';
 
 export default function Home(props: { params: Promise<{ path?: string[] }> }) {
   const { path } = use(props.params);
@@ -13,4 +17,23 @@ export default function Home(props: { params: Promise<{ path?: string[] }> }) {
       />
     </>
   );
+}
+
+export async function generateMetadata(props: {
+  params: Promise<{ path?: string[] }>;
+}): Promise<Metadata> {
+  // read route params
+  const { path } = await props.params;
+  if (!path || path.length === 0) {
+    return fortniteMetadata;
+  }
+
+  return {
+    ...getMetadata({
+      pageUrl: `/tools/fortnite/${path?.join('/')}`,
+      title: `${path?.[0]}'s Fortnite Data`,
+      description: `All the Fortnite data of ${path?.[0]}`,
+      imageURL: `/assets/tools/fortnite/og.jpg`,
+    }),
+  };
 }

@@ -1,15 +1,15 @@
 'use client';
 
-import { DateInput, DateValue } from '@heroui/react';
-import { Autocomplete, AutocompleteItem } from '@heroui/react';
+import { Autocomplete, AutocompleteItem } from '@heroui/autocomplete';
+import { DateInput } from '@heroui/date-input';
+import { DateValue } from '@internationalized/date';
 import { getLocalTimeZone, now } from '@internationalized/date';
 import { CityData, cityMapping } from 'city-timezones';
 import moment from 'moment-timezone';
 import { useState } from 'react';
 import { MdDeleteForever as DeleteIcon } from 'react-icons/md';
 
-import { Footer } from '../Home/Footer';
-import { Section } from '../Home/Section';
+import { Section } from '../layout/Section';
 
 const sortedCities: City[] = Array(cityMapping.length) as City[];
 
@@ -198,10 +198,6 @@ export const Timezones = () => {
             </>
           )}
         </div>
-      </Section>
-
-      <Section className="mb-3 lg:mb-8">
-        <Footer />
       </Section>
     </>
   );

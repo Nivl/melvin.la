@@ -1,7 +1,7 @@
 FROM golang:1.24-alpine
 
 RUN apk update && apk upgrade
-RUN apk add curl git gcc musl-dev postgresql-client
+RUN apk add curl git gcc musl-dev
 # github.com/actions/cache requires a version of tar that supports --posix
 # The one installed by default doesn't support it
 RUN apk add --no-cache tar

@@ -1,4 +1,5 @@
-import { Slider, Switch } from '@heroui/react';
+import { Slider } from '@heroui/slider';
+import { Switch } from '@heroui/switch';
 import { FaPause as PauseIcon, FaPlay as Playicon } from 'react-icons/fa6';
 
 import {
@@ -10,7 +11,7 @@ import {
   pulsarPreset,
 } from '#models/conway';
 
-import { Heading } from '../Home/Heading';
+import { Heading } from '../layout/Heading';
 import { Preset } from './Preset';
 
 const growBoard = (board: Board, newSize: number): Board => {

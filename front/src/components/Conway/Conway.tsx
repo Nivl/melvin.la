@@ -4,9 +4,8 @@ import { useState } from 'react';
 
 import { Board, boardSizes, defaultPresets } from '#models/conway';
 
-import { Footer } from '../Home/Footer';
-import { Heading } from '../Home/Heading';
-import { Section } from '../Home/Section';
+import { Heading } from '../layout/Heading';
+import { Section } from '../layout/Section';
 import { Canvas } from './Canvas';
 import { Side } from './Side';
 
@@ -118,10 +117,6 @@ export const Conway = () => {
               />
             </div>
           </div>
-        </Section>
-
-        <Section className="mb-3 lg:mb-8">
-          <Footer />
         </Section>
       </div>
     </>
