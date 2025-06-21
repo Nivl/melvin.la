@@ -1,4 +1,5 @@
 import { Code } from '@heroui/code';
+import { Link } from '@heroui/link';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { isValidElement } from 'react';
@@ -58,6 +59,29 @@ export function Post({ post }: { post: BlogPost }) {
             strong: ({ children }) => (
               <strong className="font-bold">{children}</strong>
             ),
+            a: ({
+              children,
+              href,
+            }: {
+              children: React.ReactNode;
+              href?: string;
+            }) => {
+              if (!href) {
+                return <>{children}</>;
+              }
+              const isExternalLink = href.startsWith('http');
+              return (
+                <Link
+                  className="text-accent"
+                  href={href}
+                  underline="always"
+                  isExternal={isExternalLink}
+                  showAnchorIcon={isExternalLink}
+                >
+                  {children}
+                </Link>
+              );
+            },
             em: ({ children }) => <em className="font-italic">{children}</em>,
             code: ({ children }) => (
               <Code color="default" className="font-monospace">
