@@ -14,8 +14,6 @@ export default function Home() {
   return <List posts={posts} />;
 }
 
-export const dynamic = 'force-static';
-
 export const metadata: Metadata = {
   ...getMetadata({
     pageUrl: '/blog',
