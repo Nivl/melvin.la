@@ -26,11 +26,11 @@ const main = async () => {
 const createAndPopulatePosts = async (db: DatabaseSync) => {
   db.exec(
     `CREATE TABLE IF NOT EXISTS blog_posts
-    (slug TEXT, title TEXT, content TEXT, excerpt TEXT, image TEXT, createdAt TEXT, updatedAt TEXT)`,
+    (slug TEXT, title TEXT, content TEXT, excerpt TEXT, image TEXT, ogImage TEXT, createdAt TEXT, updatedAt TEXT)`,
   );
 
   const stmt = db.prepare(
-    `INSERT INTO blog_posts (slug, title, content, excerpt, image, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO blog_posts (slug, title, content, excerpt, image, ogImage, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
   );
 
   const files = await readdir(BLOG_POSTS_DIR, { withFileTypes: true });
@@ -40,11 +40,11 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
     const content = await readFile(join(file.parentPath, file.name), 'utf-8');
     const mdxSource = matter(content);
 
-    const { title, slug, createdAt, updatedAt, excerpt, image } =
+    const { title, slug, createdAt, updatedAt, excerpt, image, ogImage } =
       mdxSource.data as Frontmatter;
 
-    const createdAtDT = createdAt + ' 00:00:00.000';
-    const updatedAtDT = updatedAt ? updatedAt + ' 00:00:00.000' : createdAtDT;
+    const createdAtDT = createdAt + ' T8:00:00.000Z';
+    const updatedAtDT = updatedAt ? updatedAt + ' T8:00:00.000Z' : createdAtDT;
 
     stmt.run(
       slug,
@@ -52,6 +52,7 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
       mdxSource.content,
       excerpt,
       image,
+      ogImage,
       createdAtDT,
       updatedAtDT,
     );

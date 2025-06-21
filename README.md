@@ -19,5 +19,4 @@ Source code of my personal website
 | ENV | Required | Format | Default | Info |
 | --- | --- | --- | --- | --- |
 | NEXT_PUBLIC_API_URL | required | string | | Domain of the API |
-| NEXT_PUBLIC_API_MOCKING | optional | bool | flase | Whether or not use the mocked API |
 | NEXT_PUBLIC_GCP_MAP_API_KEY | required | string | | API Key for Google map |

@@ -1,10 +1,10 @@
-import { Code } from '@heroui/react';
+import { Code } from '@heroui/code';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { isValidElement } from 'react';
 
+import { BlogHeading } from '#components/blog/BlogHeading';
 import { CodeBlock } from '#components/layout/CodeBlock';
-import { Heading } from '#components/layout/Heading';
 import { Section } from '#components/layout/Section';
 import { BlogPost } from '#models/blog/post';
 
@@ -12,13 +12,13 @@ export function Post({ post }: { post: BlogPost }) {
   return (
     <>
       <Section>
-        <Heading level={1} className="text-justify">
+        <BlogHeading level={1} className="text-justify">
           {post.title}
-        </Heading>
+        </BlogHeading>
 
         <Image
           className="mt-4"
-          src={`/blog/${post.slug}/${post.image}`}
+          src={`/assets/blog/${post.slug}/${post.image}`}
           priority={true}
           width={1200}
           height={600}
@@ -29,12 +29,24 @@ export function Post({ post }: { post: BlogPost }) {
         <MDXRemote
           source={post.content}
           components={{
-            h1: ({ children }) => <Heading level={1}>{children}</Heading>,
-            h2: ({ children }) => <Heading level={2}>{children}</Heading>,
-            h3: ({ children }) => <Heading level={3}>{children}</Heading>,
-            h4: ({ children }) => <Heading level={4}>{children}</Heading>,
-            h5: ({ children }) => <Heading level={5}>{children}</Heading>,
-            h6: ({ children }) => <Heading level={6}>{children}</Heading>,
+            h1: ({ children }) => (
+              <BlogHeading level={1}>{children}</BlogHeading>
+            ),
+            h2: ({ children }) => (
+              <BlogHeading level={2}>{children}</BlogHeading>
+            ),
+            h3: ({ children }) => (
+              <BlogHeading level={3}>{children}</BlogHeading>
+            ),
+            h4: ({ children }) => (
+              <BlogHeading level={4}>{children}</BlogHeading>
+            ),
+            h5: ({ children }) => (
+              <BlogHeading level={5}>{children}</BlogHeading>
+            ),
+            h6: ({ children }) => (
+              <BlogHeading level={6}>{children}</BlogHeading>
+            ),
             p: ({ children }) => <p className="mb-3 lg:mb-8">{children}</p>,
             ul: ({ children }) => (
               <ul className="mb-3 ml-5 list-disc lg:mb-8">{children}</ul>

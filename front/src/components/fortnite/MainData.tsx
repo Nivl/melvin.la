@@ -1,5 +1,5 @@
 import { type FortniteData } from '#backend/api';
-import { rate } from '#utils';
+import { rate } from '#utils/fortnite';
 
 import { StatCard } from './StatCard';
 

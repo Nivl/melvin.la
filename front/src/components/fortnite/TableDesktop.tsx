@@ -8,8 +8,8 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-  Tooltip,
-} from '@heroui/react';
+} from '@heroui/table';
+import { Tooltip } from '@heroui/tooltip';
 import { useEffect, useMemo, useState } from 'react';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 import { FaUser, FaUserGroup, FaUsers } from 'react-icons/fa6';
@@ -17,7 +17,7 @@ import { GiSmartphone } from 'react-icons/gi';
 import { TfiInfinite } from 'react-icons/tfi';
 
 import { type FortniteData } from '#backend/api';
-import { humanizeDuration, rateStr } from '#utils';
+import { humanizeDuration, rateStr } from '#utils/fortnite';
 
 import { Pill } from './Pill';
 

@@ -5,7 +5,9 @@ import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
 import go from 'react-syntax-highlighter/dist/esm/languages/prism/go';
 import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
+import sql from 'react-syntax-highlighter/dist/esm/languages/prism/sql';
 import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
+import yaml from 'react-syntax-highlighter/dist/esm/languages/prism/yaml';
 import {
   materialLight as LightTheme,
   oneDark as DarkTheme,
@@ -16,6 +18,8 @@ SyntaxHighlighter.registerLanguage('typescript', typescript);
 SyntaxHighlighter.registerLanguage('jsx', jsx);
 SyntaxHighlighter.registerLanguage('go', go);
 SyntaxHighlighter.registerLanguage('bash', bash);
+SyntaxHighlighter.registerLanguage('sql', sql);
+SyntaxHighlighter.registerLanguage('yaml', yaml);
 
 export const CodeBlock = ({
   children,

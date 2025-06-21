@@ -1,7 +1,9 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { List } from '#components/blog/List';
 import { getLatestBlogPosts } from '#ssg/queries';
+import { getMetadata } from '#utils/metadata';
 
 export default function Home() {
   const posts = getLatestBlogPosts();
@@ -13,3 +15,11 @@ export default function Home() {
 }
 
 export const dynamic = 'force-static';
+
+export const metadata: Metadata = {
+  ...getMetadata({
+    pageUrl: '/blog',
+    title: 'Blog',
+    description: 'See the latest blog posts.',
+  }),
+};

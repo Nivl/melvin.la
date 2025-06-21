@@ -1,4 +1,5 @@
-import { Slider, Switch } from '@heroui/react';
+import { Slider } from '@heroui/slider';
+import { Switch } from '@heroui/switch';
 import { FaPause as PauseIcon, FaPlay as Playicon } from 'react-icons/fa6';
 
 import {

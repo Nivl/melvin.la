@@ -1,4 +1,5 @@
-import { Card, CardHeader, Skeleton } from '@heroui/react';
+import { Card, CardHeader } from '@heroui/card';
+import { Skeleton } from '@heroui/skeleton';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { MouseEvent } from 'react';
 import { twMerge } from 'tailwind-merge';

@@ -1,16 +1,14 @@
 'use client';
 
+import { Button } from '@heroui/button';
 import {
-  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Link,
-  Navbar as NuiNavbar,
-  NavbarContent,
-  NavbarItem,
-} from '@heroui/react';
+} from '@heroui/dropdown';
+import { Link } from '@heroui/link';
+import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';

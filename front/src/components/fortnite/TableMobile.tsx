@@ -5,13 +5,13 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from '@heroui/react';
+} from '@heroui/table';
 import { FaUser } from 'react-icons/fa';
 import { FaUserGroup } from 'react-icons/fa6';
 import { HiMiniUserGroup } from 'react-icons/hi2';
 
 import { type FortniteData } from '#backend/api';
-import { humanizeDuration, rateStr } from '#utils';
+import { humanizeDuration, rateStr } from '#utils/fortnite';
 
 export const TableMobile = ({
   data,

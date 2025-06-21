@@ -3,6 +3,7 @@ title: "Simplifying Backend Logic with Code Generation in Go"
 slug: "simplifying-backend-logic-with-code-generation-in-go"
 excerpt: "Discover how code generation tools can streamline backend development in Go."
 image: "cover.avif"
+ogImage: "cover.jpg"
 createdAt: "2025-06-20"
 updatedAt: "2025-06-20"
 ---
@@ -13,8 +14,6 @@ In this article, we'll explore how to simplify backend logic in Go by using two 
 - **[sqlc](https://sqlc.dev/)** for generating Go code from SQL queries
 - **[oapi-codegen](https://github.com/oapi-codegen/oapi-codegen)** for generating Go server code from OpenAPI specifications
 
----
-
 ## Why Use Code Generation?
 
 - **Reduce boilerplate:** Automate repetitive code writing.
@@ -22,13 +21,12 @@ In this article, we'll explore how to simplify backend logic in Go by using two 
 - **Improve maintainability:** Changes in SQL or API specs automatically propagate to code.
 - **Boost productivity:** Focus on business logic rather than plumbing.
 
----
 
 ## SQL Code Generation with sqlc
 
 ### What is sqlc?
 
-**sqlc** is a tool that generates Go code from SQL queries. You write your SQL queries in ```.sql``` files, and sqlc generates Go functions that execute those queries with type-safe parameters and results.
+**sqlc** is a tool that generates Go code from SQL queries. You write your SQL queries in `.sql` files, and sqlc generates Go functions that execute those queries with type-safe parameters and results.
 
 ### How to Use sqlc
 
@@ -92,8 +90,6 @@ fmt.Println("User:", user.Name)
 ```
 
 This eliminates manual SQL string handling and scanning rows, making your code cleaner and safer.
-
----
 
 ## Server Code Generation with oapi-codegen
 
@@ -190,7 +186,6 @@ router := api.NewRouter(&ServerImpl{db: dbQueries})
 http.ListenAndServe(":8080", router)
 ```
 
----
 
 ## Benefits of Combining sqlc and oapi-codegen
 
@@ -199,7 +194,6 @@ http.ListenAndServe(":8080", router)
 - **Faster development:** Focus on implementing business logic, not plumbing.
 - **Easier refactoring:** Change SQL or API spec, regenerate code, and fix minimal code.
 
----
 
 ## Conclusion
 
