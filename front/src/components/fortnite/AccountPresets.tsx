@@ -1,4 +1,5 @@
-import { Avatar, Tooltip } from '@heroui/react';
+import { Avatar } from '@heroui/avatar';
+import { Tooltip } from '@heroui/tooltip';
 import { useMemo } from 'react';
 
 import { AccountTypes, TimeWindow } from './Form';

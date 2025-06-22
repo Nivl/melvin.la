@@ -3,6 +3,23 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  transpilePackages: ['next-mdx-remote'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/drrzzmmic/image/upload/**',
+      },
+    ],
+  },
   async redirects() {
     return [
       {
@@ -25,4 +42,4 @@ const nextConfig = {
 }
 
 
-module.exports = nextConfig
+export default nextConfig

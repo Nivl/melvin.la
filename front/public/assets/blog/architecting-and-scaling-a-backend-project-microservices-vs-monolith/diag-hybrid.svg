@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="591pt" height="626pt" viewBox="0.00 0.00 591.00 625.80">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 621.8)">
+<title>Architecture</title>
+<g id="clust1" class="cluster">
+<title>cluster_monolith</title>
+<path fill="#c9daf8" stroke="#3a5a7c" d="M205,-300C205,-300 333,-300 333,-300 339,-300 345,-306 345,-312 345,-312 345,-597.8 345,-597.8 345,-603.8 339,-609.8 333,-609.8 333,-609.8 205,-609.8 205,-609.8 199,-609.8 193,-603.8 193,-597.8 193,-597.8 193,-312 193,-312 193,-306 199,-300 205,-300"/>
+<text text-anchor="middle" x="269" y="-593.2" font-family="Raleway" font-size="14.00" fill="#3a5a7c">Monolith</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_services</title>
+<path fill="#c9daf8" stroke="black" d="M20,-8C20,-8 563,-8 563,-8 569,-8 575,-14 575,-20 575,-20 575,-182.2 575,-182.2 575,-188.2 569,-194.2 563,-194.2 563,-194.2 20,-194.2 20,-194.2 14,-194.2 8,-188.2 8,-182.2 8,-182.2 8,-20 8,-20 8,-14 14,-8 20,-8"/>
+<text text-anchor="middle" x="291.5" y="-177.6" font-family="Raleway" font-size="14.00" fill="#3a5a7c">Services</text>
+</g>
+<!-- UserInterface -->
+<g id="node1" class="node">
+<title>UserInterface</title>
+<polygon fill="#a2d5c6" stroke="black" points="316.83,-570 221.17,-570 221.17,-534 316.83,-534 316.83,-570"/>
+<text text-anchor="middle" x="269" y="-547.8" font-family="Raleway" font-size="14.00" fill="#1b3b34">User Interface</text>
+</g>
+<!-- BusinessLogic -->
+<g id="node2" class="node">
+<title>BusinessLogic</title>
+<polygon fill="#a2d5c6" stroke="black" points="319.97,-497 218.03,-497 218.03,-461 319.97,-461 319.97,-497"/>
+<text text-anchor="middle" x="269" y="-474.8" font-family="Raleway" font-size="14.00" fill="#1b3b34">Business Logic</text>
+</g>
+<!-- UserInterface&#45;&gt;BusinessLogic -->
+<g id="edge1" class="edge">
+<title>UserInterface-&gt;BusinessLogic</title>
+<path fill="none" stroke="#3a5a7c" stroke-width="1.2" d="M269,-533.81C269,-526.31 269,-517.31 269,-508.83"/>
+<polygon fill="#3a5a7c" stroke="#3a5a7c" stroke-width="1.2" points="272.5,-508.85 269,-498.85 265.5,-508.85 272.5,-508.85"/>
+</g>
+<!-- DataAccessLayer -->
+<g id="node3" class="node">
+<title>DataAccessLayer</title>
+<polygon fill="#a2d5c6" stroke="black" points="329.86,-424 208.14,-424 208.14,-388 329.86,-388 329.86,-424"/>
+<text text-anchor="middle" x="269" y="-401.8" font-family="Raleway" font-size="14.00" fill="#1b3b34">Data Access Layer</text>
+</g>
+<!-- BusinessLogic&#45;&gt;DataAccessLayer -->
+<g id="edge2" class="edge">
+<title>BusinessLogic-&gt;DataAccessLayer</title>
+<path fill="none" stroke="#3a5a7c" stroke-width="1.2" d="M269,-460.81C269,-453.31 269,-444.31 269,-435.83"/>
+<polygon fill="#3a5a7c" stroke="#3a5a7c" stroke-width="1.2" points="272.5,-435.85 269,-425.85 265.5,-435.85 272.5,-435.85"/>
+</g>
+<!-- Database -->
+<g id="node4" class="node">
+<title>Database</title>
+<polygon fill="#a2d5c6" stroke="black" points="302.65,-351 235.35,-351 235.35,-315 302.65,-315 302.65,-351"/>
+<text text-anchor="middle" x="269" y="-328.8" font-family="Raleway" font-size="14.00" fill="#1b3b34">Database</text>
+</g>
+<!-- DataAccessLayer&#45;&gt;Database -->
+<g id="edge3" class="edge">
+<title>DataAccessLayer-&gt;Database</title>
+<path fill="none" stroke="#3a5a7c" stroke-width="1.2" d="M269,-387.81C269,-380.31 269,-371.31 269,-362.83"/>
+<polygon fill="#3a5a7c" stroke="#3a5a7c" stroke-width="1.2" points="272.5,-362.85 269,-352.85 265.5,-362.85 272.5,-362.85"/>
+</g>
+<!-- APIGateway -->
+<g id="node5" class="node">
+<title>APIGateway</title>
+<polygon fill="#3a5a7c" stroke="black" points="314.91,-257.2 223.09,-257.2 223.09,-221.2 314.91,-221.2 314.91,-257.2"/>
+<text text-anchor="middle" x="269" y="-235" font-family="Raleway" font-size="14.00" fill="#f0f0f0">API Gateway</text>
+</g>
+<!-- Database&#45;&gt;APIGateway -->
+<g id="edge8" class="edge">
+<title>Database-&gt;APIGateway</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" stroke-dasharray="5,2" d="M269,-300C269,-290.12 269,-279.29 269,-269.59"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="272.5,-269.66 269,-259.66 265.5,-269.66 272.5,-269.66"/>
+<text text-anchor="middle" x="293.12" y="-279.4" font-family="Times,serif" font-size="14.00" fill="#6a8caf">Splitting</text>
+</g>
+<!-- MediumServiceA -->
+<g id="node6" class="node">
+<title>MediumServiceA</title>
+<polygon fill="#f4b183" stroke="black" points="145.27,-154.4 22.73,-154.4 22.73,-96 145.27,-96 145.27,-154.4"/>
+<text text-anchor="middle" x="84" y="-137.8" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Medium Service A</text>
+<text text-anchor="middle" x="84" y="-121" font-family="Raleway" font-size="14.00" fill="#4a2c0f">User Management</text>
+<text text-anchor="middle" x="84" y="-104.2" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Sub, Auth, etc.</text>
+</g>
+<!-- APIGateway&#45;&gt;MediumServiceA -->
+<g id="edge9" class="edge">
+<title>APIGateway-&gt;MediumServiceA</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M222.75,-225.27C200.91,-218.01 175.08,-207.66 154,-194.2 140.7,-185.71 127.82,-174.4 116.81,-163.45"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="119.46,-161.16 109.98,-156.43 114.44,-166.04 119.46,-161.16"/>
+</g>
+<!-- MonolithServiceA -->
+<g id="node7" class="node">
+<title>MonolithServiceA</title>
+<polygon fill="#f4b183" stroke="black" points="290.6,-146 163.4,-146 163.4,-104.4 290.6,-104.4 290.6,-146"/>
+<text text-anchor="middle" x="227" y="-129.4" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Monolith Service A</text>
+<text text-anchor="middle" x="227" y="-112.6" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Monolith for app 1</text>
+</g>
+<!-- APIGateway&#45;&gt;MonolithServiceA -->
+<g id="edge10" class="edge">
+<title>APIGateway-&gt;MonolithServiceA</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M262.62,-221.19C256.33,-204.41 246.56,-178.36 238.84,-157.78"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="242.16,-156.67 235.38,-148.54 235.61,-159.13 242.16,-156.67"/>
+</g>
+<!-- MonolithServiceB -->
+<g id="node8" class="node">
+<title>MonolithServiceB</title>
+<polygon fill="#f4b183" stroke="black" points="435.22,-146 308.78,-146 308.78,-104.4 435.22,-104.4 435.22,-146"/>
+<text text-anchor="middle" x="372" y="-129.4" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Monolith Service B</text>
+<text text-anchor="middle" x="372" y="-112.6" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Monolith for app 2</text>
+</g>
+<!-- APIGateway&#45;&gt;MonolithServiceB -->
+<g id="edge11" class="edge">
+<title>APIGateway-&gt;MonolithServiceB</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M284.64,-221.19C300.72,-203.71 326.06,-176.15 345.32,-155.22"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="347.68,-157.81 351.88,-148.08 342.53,-153.07 347.68,-157.81"/>
+</g>
+<!-- MicroserviceA -->
+<g id="node9" class="node">
+<title>MicroserviceA</title>
+<polygon fill="#f4b183" stroke="black" points="560.48,-146 453.52,-146 453.52,-104.4 560.48,-104.4 560.48,-146"/>
+<text text-anchor="middle" x="507" y="-129.4" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Micro service A</text>
+<text text-anchor="middle" x="507" y="-112.6" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Analytics</text>
+</g>
+<!-- APIGateway&#45;&gt;MicroserviceA -->
+<g id="edge12" class="edge">
+<title>APIGateway-&gt;MicroserviceA</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M315.24,-233.88C352.21,-228.77 404.25,-217.76 444,-194.2 460.27,-184.56 474.87,-169.45 485.91,-155.91"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="488.51,-158.27 491.9,-148.23 482.99,-153.97 488.51,-158.27"/>
+</g>
+<!-- DatabaseA -->
+<g id="node10" class="node">
+<title>DatabaseA</title>
+<polygon fill="#d9c2e6" stroke="black" points="124.46,-59 43.54,-59 43.54,-23 124.46,-23 124.46,-59"/>
+<text text-anchor="middle" x="84" y="-36.8" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Database A</text>
+</g>
+<!-- MediumServiceA&#45;&gt;DatabaseA -->
+<g id="edge4" class="edge">
+<title>MediumServiceA-&gt;DatabaseA</title>
+<path fill="none" stroke="#3a5a7c" stroke-width="1.2" d="M84,-95.91C84,-87.77 84,-78.88 84,-70.72"/>
+<polygon fill="#3a5a7c" stroke="#3a5a7c" stroke-width="1.2" points="87.5,-70.88 84,-60.88 80.5,-70.88 87.5,-70.88"/>
+</g>
+<!-- DatabaseB -->
+<g id="node11" class="node">
+<title>DatabaseB</title>
+<polygon fill="#d9c2e6" stroke="black" points="267.07,-59 186.93,-59 186.93,-23 267.07,-23 267.07,-59"/>
+<text text-anchor="middle" x="227" y="-36.8" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Database B</text>
+</g>
+<!-- MonolithServiceA&#45;&gt;DatabaseB -->
+<g id="edge5" class="edge">
+<title>MonolithServiceA-&gt;DatabaseB</title>
+<path fill="none" stroke="#3a5a7c" stroke-width="1.2" d="M227,-104.3C227,-94.36 227,-82.14 227,-71.16"/>
+<polygon fill="#3a5a7c" stroke="#3a5a7c" stroke-width="1.2" points="230.5,-71.3 227,-61.3 223.5,-71.3 230.5,-71.3"/>
+</g>
+<!-- DatabaseC -->
+<g id="node12" class="node">
+<title>DatabaseC</title>
+<polygon fill="#d9c2e6" stroke="black" points="412.07,-59 331.93,-59 331.93,-23 412.07,-23 412.07,-59"/>
+<text text-anchor="middle" x="372" y="-36.8" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Database C</text>
+</g>
+<!-- MonolithServiceB&#45;&gt;DatabaseC -->
+<g id="edge6" class="edge">
+<title>MonolithServiceB-&gt;DatabaseC</title>
+<path fill="none" stroke="#3a5a7c" stroke-width="1.2" d="M372,-104.3C372,-94.36 372,-82.14 372,-71.16"/>
+<polygon fill="#3a5a7c" stroke="#3a5a7c" stroke-width="1.2" points="375.5,-71.3 372,-61.3 368.5,-71.3 375.5,-71.3"/>
+</g>
+<!-- DatabaseD -->
+<g id="node13" class="node">
+<title>DatabaseD</title>
+<polygon fill="#d9c2e6" stroke="black" points="547.46,-59 466.54,-59 466.54,-23 547.46,-23 547.46,-59"/>
+<text text-anchor="middle" x="507" y="-36.8" font-family="Raleway" font-size="14.00" fill="#4a2c0f">Database D</text>
+</g>
+<!-- MicroserviceA&#45;&gt;DatabaseD -->
+<g id="edge7" class="edge">
+<title>MicroserviceA-&gt;DatabaseD</title>
+<path fill="none" stroke="#3a5a7c" stroke-width="1.2" d="M507,-104.3C507,-94.36 507,-82.14 507,-71.16"/>
+<polygon fill="#3a5a7c" stroke="#3a5a7c" stroke-width="1.2" points="510.5,-71.3 507,-61.3 503.5,-71.3 510.5,-71.3"/>
+</g>
+</g>
+</svg>

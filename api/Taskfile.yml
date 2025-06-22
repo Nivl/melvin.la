@@ -11,8 +11,9 @@ vars:
 tasks:
   build:
     cmds:
-      - rm -rf {{.BIN_OUT}}
       - CGO_ENABLED=0 go build -v -o {{.BIN_OUT}} github.com/Nivl/melvin.la/api/cmd/api
+    generates:
+      - "{{.BIN_OUT}}"
 
   start:
     deps: [build]
@@ -28,23 +29,12 @@ tasks:
       - ./**/*.env
       - ./**/*.mod
       - ./**/*.sum
-      - go.mod
-      - go.sum
     generates:
       - "{{.BIN_OUT}}"
 
-  # usage: task migrate -- up
-  migrate:
+  lint:
     cmds:
-      - migrate -database ${API_POSTGRES_URL} -path database/migrations {{.CLI_ARGS}}
-      - pg_dump -d ${API_POSTGRES_URL} -C | awk 'RS="";/(CREATE TABLE|INDEX)|(ALTER TABLE)[^;]*;/' > docs/db_schema.sql
-
-  # usage: task new-migration -- name_of_the_migration
-  new-migration:
-    cmds:
-      - migrate create -ext sql -dir database/migrations {{.CLI_ARGS}}
-
-  lint: golangci-lint run ./...
+      - golangci-lint run ./...
 
   generate:
     cmds:
@@ -55,5 +45,11 @@ tasks:
     cmds:
       - go get -t -u ./...
       - go mod tidy
+
+  tidy:
+    cmds:
+      - go mod tidy
+      - go tool github.com/daveshanley/vacuum bundle -q -p openapi/ openapi/openapi.yml internal/gen/openapi.yml
+      - go generate ./...
 
   test: go test -race ./...

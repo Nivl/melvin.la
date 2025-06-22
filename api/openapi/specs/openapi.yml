@@ -1,0 +1,191 @@
+openapi: "3.0.0"
+
+servers:
+  - url: "https://api.melvin.la"
+
+info:
+  version: 1.0.0
+  title: melvin.la API specs
+  description: This is the API specification for melvin.la.
+
+tags:
+  - name: fortnite
+    description: This is the fortnite API. It is used to manage fortnite-related data.
+
+components:
+  schemas:
+    ErrorResponse:
+      $ref: "./components/schemas/ErrorResponse.yml"
+    FortniteStatsDetails:
+      $ref: "./components/schemas/FortniteStatsDetails.yml"
+    FortniteStatsCategories:
+      type: object
+      description: The categories holding stats.
+      required:
+        - overall
+      properties:
+        overall:
+          $ref: "#/components/schemas/FortniteStatsDetails"
+        solo:
+          $ref: "#/components/schemas/FortniteStatsDetails"
+        duo:
+          $ref: "#/components/schemas/FortniteStatsDetails"
+        squad:
+          $ref: "#/components/schemas/FortniteStatsDetails"
+        ltm:
+          $ref: "#/components/schemas/FortniteStatsDetails"
+    FortniteStats:
+      type: object
+      description: The content of the Stats endpoint.
+      required:
+        - status
+        - data
+      properties:
+        status:
+          type: integer
+          description: HTTP Status of the response
+          example: 200
+        data:
+          type: object
+          description: Data of the response
+          required:
+            - account
+            - battlePass
+            - stats
+          properties:
+            account:
+              type: object
+              description: information about the player's account
+              required:
+                - id
+                - name
+              properties:
+                id:
+                  x-go-name: ID
+                  type: string
+                  description: ID of the account
+                  example: "883abec4cded42f3bea87531ce0aa5c8"
+                name:
+                  type: string
+                  description: Name of the account
+                  example: "M8 Nîkof"
+            battlePass:
+              type: object
+              description: information about the player's battle pass
+              required:
+                - level
+                - progress
+              properties:
+                level:
+                  type: integer
+                  description: Current level of the player
+                  example: 43
+                progress:
+                  type: integer
+                  description: Progress in % toward the next level
+                  example: 51
+            stats:
+              type: object
+              description: information about the player's battle pass
+              required:
+                - all
+              properties:
+                all:
+                  $ref: "#/components/schemas/FortniteStatsCategories"
+                keyboardMouse:
+                  $ref: "#/components/schemas/FortniteStatsCategories"
+                gamepad:
+                  $ref: "#/components/schemas/FortniteStatsCategories"
+                touch:
+                  $ref: "#/components/schemas/FortniteStatsCategories"
+
+  securitySchemes:
+    ApiKeyAuth:
+      $ref: "./components/securitySchemes/ApiKeyAuth.yml"
+
+paths:
+  /fortnite/stats/{username}/{platform}/{timeWindow}:
+    get:
+      description: Retrieve Fortnite stats for a player.
+      summary: Get Fortnite stats.
+      operationId: fortniteGetStats
+      security:
+        - ApiKeyAuth: []
+      tags:
+        - fortnite
+      parameters:
+        - name: username
+          in: path
+          required: true
+          description: The username of the player
+          schema:
+            type: string
+        - name: platform
+          in: path
+          required: true
+          description: The platform the player plays on.
+          schema:
+            type: string
+            enum: [epic, xbl, psn]
+        - name: timeWindow
+          in: path
+          required: true
+          description: Time window of the stats. Current season or lifetime.
+          schema:
+            type: string
+            enum: [season, lifetime]
+
+      responses:
+        "200":
+          description: Successfully retrieved a list of post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FortniteStats"
+
+        "400":
+          description: The path/body/query/header contains missing or invalid data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 400
+                    message: "invalid value"
+                    field: "platform"
+                    location: "path"
+        "403":
+          description: The player's account is private
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 403
+                    message: "Account is private"
+        "404":
+          description: Cannot find the player on the given platform
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 404
+                    message: "not found"
+        "500":
+          description: Something wrong happened
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                example-1:
+                  value:
+                    code: 500
+                    message: "Internal Server Error"

@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import {
-  ErrCode,
-  ErrorWithCode,
-  useStats,
-} from '#hooks/fortnite/useStats.mock';
-import { Data } from '#models/fortnite';
+import { type FortniteData } from '#backend/api';
+import { useStats } from '#hooks/fortnite/useStats.mock';
 
 import validData from '../../../../../.storybook/fixtures/valid_fortnite_data.json';
 import page from './page';
@@ -58,7 +54,7 @@ export const Profile: Story = {
       return {
         isLoading: false,
         error: null,
-        data: validData.data as unknown as Data,
+        data: validData.data as unknown as FortniteData,
       };
     });
   },
@@ -91,33 +87,6 @@ export const Loading: Story = {
   },
 };
 
-export const ErrorInvalidApiKey: Story = {
-  parameters: {
-    nextjs: {
-      appDirectory: true,
-      navigation: {
-        segments: ['fortnite', 'M8%20Nîkof', 'epic'],
-      },
-    },
-  },
-  args: {
-    params: new Promise(resolve => {
-      resolve({
-        path: ['M8%20Nîkof', 'epic'],
-      });
-    }),
-  },
-  beforeEach() {
-    useStats.mockImplementation(() => {
-      return {
-        isLoading: false,
-        error: new ErrorWithCode('Invalid API Key', ErrCode.InvalidAPIKey),
-        data: undefined,
-      };
-    });
-  },
-};
-
 export const ErrorInvalidAccount: Story = {
   parameters: {
     nextjs: {
@@ -138,10 +107,7 @@ export const ErrorInvalidAccount: Story = {
     useStats.mockImplementation(() => {
       return {
         isLoading: false,
-        error: new ErrorWithCode(
-          'Account does not exist',
-          ErrCode.AccountNotFound,
-        ),
+        error: { code: 404, message: 'Account does not exist' },
         data: undefined,
       };
     });
@@ -168,7 +134,7 @@ export const ErrorPrivateAccount: Story = {
     useStats.mockImplementation(() => {
       return {
         isLoading: false,
-        error: new ErrorWithCode('Account is private', ErrCode.AccountPrivate),
+        error: { code: 403, message: 'Account is private' },
         data: undefined,
       };
     });
@@ -195,10 +161,7 @@ export const ErrorInternalError: Story = {
     useStats.mockImplementation(() => {
       return {
         isLoading: false,
-        error: new ErrorWithCode(
-          'Something went wrong',
-          ErrCode.SomethingWentWrong,
-        ),
+        error: { code: 500, message: 'Something went wrong' },
         data: undefined,
       };
     });

@@ -1,15 +1,14 @@
 'use client';
 
-import { Skeleton } from '@heroui/react';
+import { Skeleton } from '@heroui/skeleton';
 import { notFound } from 'next/navigation';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { Section } from '#components/Home/Section';
-import { ErrCode, ErrorWithCode, useStats } from '#hooks/fortnite/useStats';
-import { humanizeDuration } from '#utils';
+import { Section } from '#components/layout/Section';
+import { useStats } from '#hooks/fortnite/useStats';
+import { humanizeDuration } from '#utils/fortnite';
 
-import { Footer } from '../Home/Footer';
 import { AccountPresets, defaults, Preset } from './AccountPresets';
 import { AccountTypes, Form } from './Form';
 import { MainData } from './MainData';
@@ -99,15 +98,10 @@ export const Fortnite = ({
       {!isLoading && error && (
         <Section className="text-center text-xl font-black text-red-400 sm:text-4xl">
           <div>
-            {error instanceof ErrorWithCode &&
-            error.code === ErrCode.AccountPrivate ? (
+            {error.code === 403 ? (
               <>This gamer doesn&apos;t want you to see their data </>
-            ) : error instanceof ErrorWithCode &&
-              error.code === ErrCode.AccountNotFound ? (
+            ) : error.code === 404 ? (
               <>Nobody goes by this name, on this platform</>
-            ) : error instanceof ErrorWithCode &&
-              error.code === ErrCode.InvalidAPIKey ? (
-              <>Shit is broken, sorry</>
             ) : (
               <>
                 Looks like the data aren&apos;t available right now. Try again
@@ -156,10 +150,6 @@ export const Fortnite = ({
           </Section>
         </>
       )}
-
-      <Section className="mb-3 lg:mb-8">
-        <Footer />
-      </Section>
     </>
   );
 };

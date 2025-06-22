@@ -1,0 +1,200 @@
+---
+title: "Simplifying Backend Logic with Code Generation in Go"
+slug: "simplifying-backend-logic-with-code-generation-in-go"
+excerpt: "Discover how code generation tools can streamline backend development in Go."
+image: "cover.avif"
+ogImage: "cover.jpg"
+createdAt: "2025-06-20"
+updatedAt: "2025-06-20"
+---
+Backend development often involves repetitive boilerplate code, especially when dealing with database queries and API server implementations. Writing and maintaining this code manually can be error-prone and time-consuming. Code generation (codegen) tools help automate these tasks by generating type-safe, efficient, and maintainable code from declarative specifications.
+
+In this article, we'll explore how to simplify backend logic in Go by using two popular codegen tools:
+
+- **[sqlc](https://sqlc.dev/)** for generating Go code from SQL queries
+- **[oapi-codegen](https://github.com/oapi-codegen/oapi-codegen)** for generating Go server code from OpenAPI specifications
+
+## Why Use Code Generation?
+
+- **Reduce boilerplate:** Automate repetitive code writing.
+- **Increase type safety:** Avoid runtime errors by generating strongly typed code.
+- **Improve maintainability:** Changes in SQL or API specs automatically propagate to code.
+- **Boost productivity:** Focus on business logic rather than plumbing.
+
+
+## SQL Code Generation with sqlc
+
+### What is sqlc?
+
+**sqlc** is a tool that generates Go code from SQL queries. You write your SQL queries in `.sql` files, and sqlc generates Go functions that execute those queries with type-safe parameters and results.
+
+### How to Use sqlc
+
+1. Write your SQL schema and queries.
+2. Configure `sqlc.yaml` to specify input/output.
+3. Run `sqlc generate` to produce Go code.
+
+### Example
+
+Suppose you have a simple `users` table:
+
+```sql
+-- schema.sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL
+);
+```
+
+And a query to get a user by email:
+
+```sql
+-- queries.sql
+-- name: GetUserByEmail :one
+SELECT id, name, email FROM users WHERE email = $1;
+```
+
+Your `sqlc.yaml` config:
+
+```yaml
+version: "1"
+packages:
+  - name: "db"
+    path: "./db"
+    queries: "./queries.sql"
+    schema: "./schema.sql"
+    engine: "postgresql"
+```
+
+Run:
+
+```bash
+sqlc generate
+```
+
+This generates Go code with a method like:
+
+```go
+func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error)
+```
+
+You can use it in your backend:
+
+```go
+user, err := dbQueries.GetUserByEmail(ctx, "alice@example.com")
+if err != nil {
+    // handle error
+}
+fmt.Println("User:", user.Name)
+```
+
+This eliminates manual SQL string handling and scanning rows, making your code cleaner and safer.
+
+## Server Code Generation with oapi-codegen
+
+### What is oapi-codegen?
+
+**oapi-codegen** generates Go server (and client) code from an OpenAPI (Swagger) specification. It creates interfaces and request/response types, so you can focus on implementing business logic.
+
+### How to Use oapi-codegen
+
+1. Define your API in an OpenAPI YAML or JSON file.
+2. Run `oapi-codegen` to generate Go server code.
+3. Implement the generated interface methods.
+
+### Example
+
+Consider a simple OpenAPI spec `api.yaml`:
+
+```yaml
+openapi: 3.0.0
+info:
+  title: User API
+  version: 1.0.0
+paths:
+  /users/{email}:
+    get:
+      summary: Get user by email
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+```
+
+Generate server code:
+
+```bash
+oapi-codegen -generate types,server -package api -o api.gen.go api.yaml
+```
+
+This generates:
+
+- Go types for requests/responses (`User` struct)
+- An interface `ServerInterface` with method:
+
+```go
+GetUsersEmail(ctx context.Context, email string) (api.User, error)
+```
+
+Implement the interface:
+
+```go
+type ServerImpl struct {
+    db *db.Queries
+}
+
+func (s *ServerImpl) GetUsersEmail(ctx context.Context, email string) (api.User, error) {
+    user, err := s.db.GetUserByEmail(ctx, email)
+    if err != nil {
+        return api.User{}, err
+    }
+    return api.User{
+        Id:    int64(user.ID),
+        Name:  user.Name,
+        Email: user.Email,
+    }, nil
+}
+```
+
+Wire up the server:
+
+```go
+router := api.NewRouter(&ServerImpl{db: dbQueries})
+http.ListenAndServe(":8080", router)
+```
+
+
+## Benefits of Combining sqlc and oapi-codegen
+
+- **End-to-end type safety:** From database to API layer.
+- **Clear separation:** SQL queries and API specs are declarative and separate from logic.
+- **Faster development:** Focus on implementing business logic, not plumbing.
+- **Easier refactoring:** Change SQL or API spec, regenerate code, and fix minimal code.
+
+
+## Conclusion
+
+Using **sqlc** and **oapi-codegen** together can greatly simplify backend development in Go by automating the generation of database access and API server code. This approach reduces boilerplate, improves safety, and accelerates development, allowing you to focus on what matters most: your application's core logic.

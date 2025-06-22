@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
 
 /*
 Fortnite font:
@@ -25,3 +26,7 @@ the font using `http` and not `https`. So we have to do that ourselves.
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#blog-post-page a {
+    @apply text-accent;
+}

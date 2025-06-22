@@ -8,16 +8,16 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-  Tooltip,
-} from '@heroui/react';
+} from '@heroui/table';
+import { Tooltip } from '@heroui/tooltip';
 import { useEffect, useMemo, useState } from 'react';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 import { FaUser, FaUserGroup, FaUsers } from 'react-icons/fa6';
 import { GiSmartphone } from 'react-icons/gi';
 import { TfiInfinite } from 'react-icons/tfi';
 
-import { Data } from '#models/fortnite';
-import { humanizeDuration, rateStr } from '#utils';
+import { type FortniteData } from '#backend/api';
+import { humanizeDuration, rateStr } from '#utils/fortnite';
 
 import { Pill } from './Pill';
 
@@ -41,7 +41,7 @@ export const TableDesktop = ({
   data,
   isLoading,
 }: {
-  data?: Data;
+  data?: FortniteData;
   isLoading: boolean;
 }) => {
   const [category, setCategory] = useState<Category>('all');
@@ -226,7 +226,7 @@ export const TableDesktop = ({
   }, [data, category]);
 
   return (
-    <div className="flex flex-col items-center gap-11 sm:flex-row">
+    <div className="flex flex-col items-center gap-11 border-divider sm:flex-row">
       <div className="hidden xl:block">
         <div className="flex flex-col gap-6">{TableCategoriesSection}</div>
       </div>

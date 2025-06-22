@@ -1,5 +1,5 @@
 import { Contact as ContactModel } from '../../models';
-import { Heading } from './Heading';
+import { Heading } from '../layout/Heading';
 import { Map } from './Map';
 
 export const Contact = ({

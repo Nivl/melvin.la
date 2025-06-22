@@ -1,11 +1,7 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Chip,
-  CircularProgress,
-  Skeleton,
-} from '@heroui/react';
+import { Card, CardBody, CardFooter } from '@heroui/card';
+import { Chip } from '@heroui/chip';
+import { CircularProgress } from '@heroui/progress';
+import { Skeleton } from '@heroui/skeleton';
 import { twMerge } from 'tailwind-merge';
 
 export const StatCard = ({
