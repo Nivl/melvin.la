@@ -137,23 +137,25 @@ export const Timezones = () => {
               {zones.length > 0 && (
                 <div className="mt-20 flex flex-col content-center gap-4 text-center">
                   {zones.map((zone, i) => (
-                    <div key={i}>
-                      <div className="">
+                    <div key={i} className="flex justify-center gap-3">
+                      <div>
+                        {' '}
+                        {/* used to break out of the flex container to not have a gap around the city name */}
                         In <span className="font-bold">{zone.city}</span>{' '}
                         it&apos;s{' '}
                         {date
                           .clone()
                           .tz(zone.timezone)
-                          .format('dddd, MMMM Do YYYY, h:mm:ss a')}{' '}
-                        <a
-                          className="cursor-pointer"
-                          onClick={() => {
-                            setZones(zones => zones.toSpliced(i, 1));
-                          }}
-                        >
-                          <DeleteIcon className="inline" />
-                        </a>
+                          .format('dddd, MMMM Do YYYY, h:mm:ss a')}
                       </div>
+                      <a
+                        className="cursor-pointer"
+                        onClick={() => {
+                          setZones(zones => zones.toSpliced(i, 1));
+                        }}
+                      >
+                        <DeleteIcon className="h-full" />
+                      </a>
                     </div>
                   ))}
                 </div>
