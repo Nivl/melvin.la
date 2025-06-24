@@ -54,9 +54,8 @@ export const Timestamp = () => {
             <div className="mt-20 flex flex-col content-center gap-4 text-center">
               {timestamps.map((timestamp, i) => (
                 <div key={i} className="flex justify-center gap-3">
+                  {/* used to break out of the flex container to not have a gap around bold text */}
                   <div>
-                    {' '}
-                    {/* used to break out of the flex container to not have a gap around bold text */}
                     {Math.floor(timestamp.getTime() / 1000)} is{' '}
                     <span className="font-bold">
                       {timestamp.getUTCFullYear().toString()}/
