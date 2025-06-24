@@ -138,9 +138,8 @@ export const Timezones = () => {
                 <div className="mt-20 flex flex-col content-center gap-4 text-center">
                   {zones.map((zone, i) => (
                     <div key={i} className="flex justify-center gap-3">
+                      {/* used to break out of the flex container to not have a gap around the city name */}
                       <div>
-                        {' '}
-                        {/* used to break out of the flex container to not have a gap around the city name */}
                         In <span className="font-bold">{zone.city}</span>{' '}
                         it&apos;s{' '}
                         {date
