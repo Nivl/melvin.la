@@ -13,6 +13,7 @@ import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
+import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
 import { FiMonitor as SystemIcon } from 'react-icons/fi';
 import { GiConwayLifeGlider as ConwayIcon } from 'react-icons/gi';
 import { IoMdMoon as NightIcon, IoMdSunny as LightIcon } from 'react-icons/io';
@@ -24,6 +25,8 @@ export const Navbar = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
+  // This is used to display data that can only be rendered
+  // client-side, such as the theme picker.
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -51,7 +54,13 @@ export const Navbar = () => {
                 className={`cursor-pointer bg-transparent p-0 text-medium text-foreground antialiased transition-opacity tap-highlight-transparent hover:opacity-80 active:opacity-disabled data-[hover=true]:bg-transparent ${pathname.startsWith('/games') ? 'font-semibold' : ''}`}
                 radius="sm"
                 variant="flat"
-                endContent={<DownIcon />}
+                endContent={
+                  <DownIcon
+                    className={
+                      !pathname.startsWith('/games') ? 'opacity-70' : ''
+                    }
+                  />
+                }
               >
                 Games
               </Button>
@@ -61,7 +70,9 @@ export const Navbar = () => {
             aria-label="games"
             selectionMode="single"
             selectedKeys={
-              pathname.startsWith('/games/conway') ? new Set(['conway']) : ''
+              pathname.startsWith('/games')
+                ? new Set([pathname.split('/')[2] ?? ''])
+                : ''
             }
           >
             <DropdownItem
@@ -83,7 +94,13 @@ export const Navbar = () => {
                 className={`cursor-pointer bg-transparent p-0 text-medium text-foreground antialiased transition-opacity tap-highlight-transparent hover:opacity-80 active:opacity-disabled data-[hover=true]:bg-transparent ${pathname.startsWith('/tools') ? 'font-semibold' : ''}`}
                 radius="sm"
                 variant="flat"
-                endContent={<DownIcon />}
+                endContent={
+                  <DownIcon
+                    className={
+                      !pathname.startsWith('/tools') ? 'opacity-70' : ''
+                    }
+                  />
+                }
               >
                 Tools
               </Button>
@@ -93,11 +110,9 @@ export const Navbar = () => {
             aria-label="tools"
             selectionMode="single"
             selectedKeys={
-              pathname.startsWith('/tools/fortnite')
-                ? new Set(['fortnite'])
-                : pathname.startsWith('/tools/timezones')
-                  ? new Set(['timezones'])
-                  : ''
+              pathname.startsWith('/tools')
+                ? new Set([pathname.split('/')[2] ?? ''])
+                : ''
             }
           >
             <DropdownItem
@@ -114,6 +129,14 @@ export const Navbar = () => {
               href="/tools/timezones"
             >
               Timezone Convertor
+            </DropdownItem>
+
+            <DropdownItem
+              key="timestamp"
+              startContent={<TimestampIcon className="h-5 w-5" />}
+              href="/tools/timestamp"
+            >
+              Timestamp Lookup
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
