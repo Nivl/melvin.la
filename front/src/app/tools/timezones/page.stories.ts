@@ -18,7 +18,7 @@ export const Default: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['timezones'],
+        segments: ['tools', 'timezones'],
       },
     },
   },
