@@ -22,7 +22,7 @@ export const Default: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['fortnite'],
+        segments: ['tools', 'fortnite'],
       },
     },
   },
@@ -38,7 +38,7 @@ export const Profile: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['fortnite', 'M8%20Nîkof', 'epic'],
+        segments: ['tools', 'fortnite', 'M8%20Nîkof', 'epic'],
       },
     },
   },
@@ -65,7 +65,7 @@ export const Loading: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['fortnite', 'M8%20Nîkof', 'xbl'],
+        segments: ['tools', 'fortnite', 'M8%20Nîkof', 'xbl'],
       },
     },
   },
@@ -92,7 +92,7 @@ export const ErrorInvalidAccount: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['fortnite', 'M8%20Nîkof', 'psn'],
+        segments: ['tools', 'fortnite', 'M8%20Nîkof', 'psn'],
       },
     },
   },
@@ -119,7 +119,7 @@ export const ErrorPrivateAccount: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['fortnite', 'M8%20Nîkof', 'xbl'],
+        segments: ['tools', 'fortnite', 'M8%20Nîkof', 'xbl'],
       },
     },
   },
@@ -146,7 +146,7 @@ export const ErrorInternalError: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['fortnite', 'M8%20Nîkof', 'xbl'],
+        segments: ['tools', 'fortnite', 'M8%20Nîkof', 'xbl'],
       },
     },
   },
