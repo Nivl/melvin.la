@@ -6,12 +6,12 @@ runs:
   steps:
     - uses: pnpm/action-setup@v3
       with:
-        package_json_file: "front/package.json"
+        package_json_file: "web/front/package.json"
     - uses: actions/setup-node@v4
       with:
-        node-version-file: "front/.nvmrc"
+        node-version-file: "web/front/.nvmrc"
         cache: "pnpm"
-        cache-dependency-path: front/pnpm-lock.yaml
+        cache-dependency-path: web/front/pnpm-lock.yaml
     - name: install deps
       shell: bash
-      run: cd front && pnpm install --frozen-lockfile
+      run: cd web/front && pnpm install --frozen-lockfile
