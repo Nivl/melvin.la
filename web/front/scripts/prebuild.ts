@@ -6,8 +6,8 @@ import { type DatabaseSync } from 'node:sqlite';
 
 import { BlogPost } from '#models/blog/post';
 
-import { database } from '../src/ssg/database';
-import { BLOG_POSTS_DIR, BUILD_DIR } from '../src/ssg/paths';
+import { database } from '#ssg/database';
+import { BLOG_POSTS_DIR, BUILD_DIR } from '#ssg/paths';
 import { setup } from './utils';
 
 type Frontmatter = Omit<BlogPost, 'updatedAt'> & {

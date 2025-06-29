@@ -1,7 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "resolvePackageJsonImports": true,
     "lib": [
       "dom",
       "dom.iterable",
@@ -11,11 +10,13 @@
   "include": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
-    ".storybook/**/*.ts",
-    ".storybook/**/*.tsx",
-    ".storybook/**/*.json",
+    "./scripts/**/*.ts",
+    "./scripts/**/*.tsx",
   ],
   "exclude": [
-    "node_modules"
-  ]
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/*.stories.ts",
+    "src/**/*.stories.js"
+  ],
 }
