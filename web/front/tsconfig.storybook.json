@@ -1,0 +1,30 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "resolvePackageJsonImports": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    // Used because:
+    // Node subpath imports are:
+    //    Not working in vscode as of 2024-06-25
+    //    Not working in with next build as of 2024-06-25
+    "paths": {
+      "#*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx",
+    ".storybook/**/*.json",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

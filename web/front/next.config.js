@@ -1,3 +1,5 @@
+/* eslint-disable import/no-default-export */
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -20,7 +22,7 @@ const nextConfig = {
       },
     ],
   },
-  async redirects() {
+  redirects() {
     return [
       {
         source: '/conway',
@@ -37,9 +39,8 @@ const nextConfig = {
         destination: '/tools/fortnite',
         permanent: true,
       },
-    ]
+    ];
   },
-}
+};
 
-
-export default nextConfig
+export default nextConfig;

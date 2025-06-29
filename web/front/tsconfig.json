@@ -1,24 +1,12 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "target": "es6",
+    "noEmit": true,
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowImportingTsExtensions": true,
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
     "plugins": [
       {
         "name": "next"
@@ -28,21 +16,39 @@
     // Node subpath imports are:
     //    Not working in vscode as of 2024-06-25
     //    Not working in with next build as of 2024-06-25
-    // When fixed, the tsconfig.json from storybook should be
-    // the default one
     "paths": {
       "#*": [
         "./src/*"
       ]
     }
   },
+  "types": [
+    "node"
+  ],
+  "files": [
+    "tailwind.config.ts"
+  ],
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "scripts/**/*.ts",
+    ".next/types/**/*.ts",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    ".next",
+    "src/**/*.stories.ts",
+    "src/**/*.stories.js"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.configs.json"
+    },
+    {
+      "path": "./tsconfig.storybook.json"
+    }
   ]
 }

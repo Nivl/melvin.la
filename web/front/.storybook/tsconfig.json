@@ -1,9 +1,4 @@
 {
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "resolvePackageJsonImports": true,
-    "paths": null,
-  },
+  // this file is required otherwise storybook's mocks wont work
+  "extends": "../tsconfig.storybook.json",
 }

@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+  },
+  "files": [
+    "postcss.config.cjs",
+    "next.config.js",
+    "eslint.config.mjs"
+  ],
+}
