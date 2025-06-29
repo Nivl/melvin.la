@@ -153,10 +153,12 @@ export const Canvas = ({
       const interval = setInterval(() => {
         updateBoard();
       }, refreshRate);
+
       return () => {
         clearInterval(interval);
       };
     }
+    return;
   }, [isPlaying, speed, updateBoard]);
 
   return (
