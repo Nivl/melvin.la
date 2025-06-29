@@ -1,3 +1,5 @@
+/* eslint-disable import/no-default-export */
+
 import { heroui } from '@heroui/react';
 import type { Config } from 'tailwindcss';
 

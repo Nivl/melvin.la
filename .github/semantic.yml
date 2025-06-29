@@ -1,6 +1,6 @@
 titleOnly: true
 types:
-  - build # Changes that affect the build system or external dependencies (yarn, go mod, ...)
+  - build # Changes that affect the build system or external dependencies (pnpm, go mod, typescripts, next, ...)
   - ci # Changes to our CI configuration files and scripts (github actions, renovate, ...)
   - dev # Changes to the dev environment
   - docs # Documentation only changes
