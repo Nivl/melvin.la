@@ -1,4 +1,0 @@
-{
-  // this file is required otherwise storybook's mocks wont work
-  "extends": "../tsconfig.storybook.json",
-}

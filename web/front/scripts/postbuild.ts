@@ -1,7 +1,7 @@
 import { rm } from 'node:fs/promises';
 
-import { database } from '../src/ssg/database';
-import { BUILD_DIR } from '../src/ssg/paths';
+import { database } from '#ssg/database';
+import { BUILD_DIR } from '#ssg/paths';
 import { setup } from './utils';
 
 const main = async () => {
