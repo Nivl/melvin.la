@@ -8,6 +8,10 @@ on:
     branches:
     - main
 
+permissions:
+  contents: read
+  packages: write
+
 # Don't run more than one workflow for the same branch at a time
 # This is to save credits on the CI provider
 concurrency:
@@ -49,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
+      packages: write # required to publish or update container images in the GitHub Container Registry.
 
     steps:
       - name: Checkout

@@ -8,6 +8,9 @@ on:
     branches:
     - main
 
+permissions:
+  contents: read
+
 # Don't run more than one workflow for the same branch at a time
 # This is to save credits on the CI provider
 concurrency:
