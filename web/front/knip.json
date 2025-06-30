@@ -2,7 +2,6 @@
     "ignore": [
         "src/backend/api.ts",
         "src/models/index.ts",
-        "src/ssg/paths.ts",
         "tsconfig.base.json"
     ],
     "ignoreDependencies": [
