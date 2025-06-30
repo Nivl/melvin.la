@@ -1,8 +1,7 @@
 {
     "ignore": [
         "src/backend/api.ts",
-        "src/models/index.ts",
-        "src/ssg/paths.ts"
+        "src/models/index.ts"
     ],
     "ignoreDependencies": [
         "eslint-config-next",
