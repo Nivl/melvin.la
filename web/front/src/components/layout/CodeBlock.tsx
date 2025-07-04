@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
+import c from 'react-syntax-highlighter/dist/esm/languages/prism/c';
 import go from 'react-syntax-highlighter/dist/esm/languages/prism/go';
 import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
 import sql from 'react-syntax-highlighter/dist/esm/languages/prism/sql';
@@ -21,6 +22,7 @@ SyntaxHighlighter.registerLanguage('go', go);
 SyntaxHighlighter.registerLanguage('bash', bash);
 SyntaxHighlighter.registerLanguage('sql', sql);
 SyntaxHighlighter.registerLanguage('yaml', yaml);
+SyntaxHighlighter.registerLanguage('c', c);
 
 export const CodeBlock = ({
   children,
