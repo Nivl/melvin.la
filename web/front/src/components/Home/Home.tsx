@@ -6,9 +6,9 @@ import { Header } from '#components/Home/Header';
 import { Tech } from '#components/Home/Tech';
 import { Footer } from '#components/layout/Footer';
 import { Section } from '#components/layout/Section';
-import { Pages } from '#models';
+import { Sections } from '#models';
 
-export function Home({ pages }: { pages: Pages }) {
+export function Home({ sections }: { sections: Sections }) {
   return (
     <div id="home-page">
       <Section>
@@ -17,34 +17,34 @@ export function Home({ pages }: { pages: Pages }) {
 
       <Section>
         <About
-          title={pages.about.title}
-          content={pages.about.content}
-          cta={pages.about.cta}
+          title={sections.about.title}
+          content={sections.about.content}
+          cta={sections.about.cta}
         />
       </Section>
 
       <Section>
         <Tech
-          title={pages.backendOps.title}
-          content={pages.backendOps.content}
-          logos={pages.backendOps.logos}
+          title={sections.backendOps.title}
+          content={sections.backendOps.content}
+          logos={sections.backendOps.logos}
         />
       </Section>
 
       <Section>
         <Tech
-          title={pages.clientTech.title}
-          content={pages.clientTech.content}
-          logos={pages.clientTech.logos}
+          title={sections.clientTech.title}
+          content={sections.clientTech.content}
+          logos={sections.clientTech.logos}
           inverted={true}
         />
       </Section>
 
       <Section fullScreen={true}>
         <Contact
-          email={pages.contact.email}
-          linkedInHandle={pages.contact.linkedInHandle}
-          githubHandle={pages.contact.githubHandle}
+          email={sections.contact.email}
+          linkedInHandle={sections.contact.linkedInHandle}
+          githubHandle={sections.contact.githubHandle}
         />
       </Section>
 
