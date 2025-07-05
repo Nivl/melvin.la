@@ -14,24 +14,31 @@
 // /!\/!\/!\
 export const supportedModes = {
   xsmall: {
+    theme: 'dark',
     viewport: 'xsmall',
   },
   // small: {
+  //   theme: 'dark',
   //   viewport: 'small',
   // },
   // medium: {
+  //   theme: 'dark',
   //   viewport: 'medium',
   // },
   // large: {
+  //   theme: 'dark',
   //   viewport: 'large',
   // },
   // xlarge: {
+  //   theme: 'dark',
   //   viewport: 'xlarge',
   // },
   xxlarge: {
+    theme: 'dark',
     viewport: 'xxlarge',
   },
   FourK: {
+    theme: 'dark',
     viewport: 'FourK',
   },
   // dark: {
