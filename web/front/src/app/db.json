@@ -1,14 +1,11 @@
 {
-  "pages": {
+  "sections": {
     "about": {
       "title": "About Me",
-      "content": "Hey, I'm Melvin, a Software Engineer based in Los Angeles! I started programming in C back in 2004 while in middle-school and haven't stopped since. During those years, I got to play with many different languages and technologies. I love to learn new things, and try to spend some of my free-time experimenting with new languages or technologies. I have a passion for clean architectures and well-tested code.",
-      "resumeUrl": "https://github.com/Nivl/resume/raw/master/cv-melvin-laplanche.pdf",
-      "linkedInUrl": "https://www.linkedin.com/in/melvinlaplanche",
-      "pictureUrl": "/images/melvin.jpg",
+      "content": "Hello, I'm Melvin, a Software Engineer based in Los Angeles. I began programming in C in 2004 while in middle school and have been passionate about it ever since. Over the years, I've explored various programming languages and technologies. I enjoy learning new concepts and often spend my free time experimenting with emerging tools and frameworks. I am dedicated to clean architecture and well-tested code.",
       "cta": {
         "url": "https://github.com/Nivl",
-        "text": "Checkout my Github"
+        "text": "Check out my Github"
       }
     },
     "contact": {
@@ -19,7 +16,7 @@
     "backendOps": {
       "title": "Backend / Ops technologies",
       "content": [
-        "Like most web engineers from the pre-AngularJS era, backend is the first part of the stack I learned. I started with raw PHP back when it was still the hot tech to build websites, then jumped on the new trends: Rails, Django, Symfony 2, Node, Go, etc. I usually try to keep myself up to date with the evolution of the backend techs while trying to understand all the pros and cons before taking the decision on moving forward with them. I also spent a few years playing with C and C++."
+        "Like many web engineers from the pre-AngularJS era, I began my journey with backend development. I started with raw PHP when it was a leading technology for building websites, then embraced new trends such as Rails, Django, Symfony 2, Node, and Go. I strive to stay current with the evolution of backend technologies, carefully weighing their pros and cons before adopting them. Additionally, I have spent several years working with C and C++."
       ],
       "logos": [
         {
@@ -82,8 +79,8 @@
     "clientTech": {
       "title": "CLIENT TECHNOLOGIES",
       "content": [
-        "Backend is fun, but nowadays a backend doesn't do much beside treating data and returning more data to the clients. So naturally, I got interested in learning the client side of the stack. I'm convinced that writing client code made me a better backend engineer as I know the pain and struggle of dealing with undocumented APIs, or poorly built APIs that only partially return the data you need.",
-        "I professionally worked on a bit of everything: native mobile apps (iOS and Android), hybrid mobile apps, regular Electron apps, Electron apps with a local Go backend to do all the heavy lifting (with some cgo to use native Windows and macOS libraries), SPAs using angular, react, etc."
+        "While I find backend development enjoyable, modern backends primarily focus on processing and returning data to clients. This reality sparked my interest in client-side development. I believe that writing client code has made me a better backend engineer, as I understand the challenges of working with undocumented or poorly designed APIs that only partially deliver the required data.",
+        "Professionally, I have experience across a variety of platforms, including native mobile apps (iOS and Android), hybrid mobile apps, standard Electron apps, Electron apps with a local Go backend for heavy lifting (utilizing cgo for native Windows and macOS libraries), and Single Page Applications (SPAs) using Angular, React, and more."
       ],
       "logos": [
         {

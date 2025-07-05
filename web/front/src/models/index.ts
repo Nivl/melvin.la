@@ -1,8 +1,8 @@
 export type Result = {
-  pages: Pages;
+  sections: Sections;
 };
 
-export type Pages = {
+export type Sections = {
   about: About;
   contact: Contact;
   backendOps: Tech;
@@ -12,9 +12,6 @@ export type Pages = {
 export type About = {
   title: string;
   content: string;
-  resumeUrl: string;
-  linkedInUrl: string;
-  pictureUrl: string;
   cta: CTA;
 };
 
