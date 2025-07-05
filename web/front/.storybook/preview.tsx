@@ -2,10 +2,10 @@
 
 import '../src/app/globals.css';
 
-import { withThemeByClassName } from '@storybook/addon-themes';
 import type { Preview } from '@storybook/nextjs';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+import { withNextThemes } from './decorators/withNextThemes';
 import { supportedModes } from './modes';
 
 const queryClient = new QueryClient({
@@ -48,22 +48,25 @@ const preview: Preview = {
     },
   },
   decorators: [
-    withThemeByClassName({
-      themes: {
-        light: '',
-        dark: 'dark',
-      },
-      defaultTheme: 'dark',
-    }),
+    Story => {
+      window.localStorage.clear();
+      return <Story />;
+    },
     Story => (
       <QueryClientProvider client={queryClient}>
         <Story />
       </QueryClientProvider>
     ),
-    (Story, _) => {
-      window.localStorage.clear();
-      return <Story />;
-    },
+    withNextThemes({
+      themes: {
+        light: 'light',
+        dark: 'dark',
+        system: 'system',
+      },
+      defaultTheme: 'system',
+      enableSystem: true,
+      attribute: 'class',
+    }),
   ],
 };
 
