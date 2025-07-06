@@ -1,5 +1,6 @@
 titleOnly: true
 types:
+  - security # Changes that affect the security of the project (vulnerabilities, secrets, ...)
   - build # Changes that affect the build system or external dependencies (pnpm, go mod, typescripts, next, ...)
   - ci # Changes to our CI configuration files and scripts (github actions, renovate, ...)
   - dev # Changes to the dev environment (.vscode, .editorconfig, ...)
