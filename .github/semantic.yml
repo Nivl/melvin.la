@@ -2,7 +2,7 @@ titleOnly: true
 types:
   - build # Changes that affect the build system or external dependencies (pnpm, go mod, typescripts, next, ...)
   - ci # Changes to our CI configuration files and scripts (github actions, renovate, ...)
-  - dev # Changes to the dev environment
+  - dev # Changes to the dev environment (.vscode, .editorconfig, ...)
   - docs # Documentation only changes
   - feat # A new feature
   - fix # A bug fix
