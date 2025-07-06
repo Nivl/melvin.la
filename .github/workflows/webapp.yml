@@ -37,7 +37,7 @@ jobs:
       - run: git config --global --add safe.directory /__w/melvin.la/melvin.la
 
       - name: Check for file changes
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36
         id: changes
         with:
           token: ${{ github.token }}
@@ -116,7 +116,7 @@ jobs:
         uses: './.github/actions/node-setup'
 
       - name: Run Chromatic
-        uses: chromaui/action@latest
+        uses: chromaui/action@4d8ebd13658d795114f8051e25c28d66f14886c6
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: ./web/front
