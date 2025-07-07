@@ -21,12 +21,6 @@ jobs:
   perpare-env:
     name: detect what files changed
     runs-on: ubuntu-latest
-    container:
-      # replace with variable https://github.com/actions/runner/issues/1182
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-6b2bdce
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.github_token }}
     outputs:
       renovate: ${{ steps.changes.outputs.renovate }}
     steps:
