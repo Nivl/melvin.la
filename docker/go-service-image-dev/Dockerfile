@@ -37,6 +37,8 @@ RUN curl -L -o gotestsum.tar.gz https://github.com/gotestyourself/gotestsum/rele
 
 
 # https://github.com/daveshanley/vacuum/releases
+# Needs to also be updated in api/Taskfile.yml once the CI gets updated
+# to the new image.
 ARG VACUUM_VERSION=0.17.2
 ARG VACUUM_SHASUM="a34828f82f1f672a06997ddfd45cbc5c7f27146b4473d1ff04f323708c353d64  vacuum.tar.gz"
 RUN curl -L -o vacuum.tar.gz https://github.com/daveshanley/vacuum/releases/download/v${VACUUM_VERSION}/vacuum_${VACUUM_VERSION}_linux_x86_64.tar.gz && \
@@ -48,5 +50,8 @@ RUN curl -L -o vacuum.tar.gz https://github.com/daveshanley/vacuum/releases/down
 
 # The api codegen team has not released a new version in a while,
 # but they merge PRs regularly, so we'll go with commit based versioning.
+#
+# Needs to also be updated in api/Taskfile.yml once the CI gets updated
+# to the new image.
 ARG OAPI_CODEGEN_COMMIT_HASH="aae687ce8fe987714a5c6ba1e18a704dc4503209"
 RUN GOBIN=/usr/local/bin go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@${OAPI_CODEGEN_COMMIT_HASH}
