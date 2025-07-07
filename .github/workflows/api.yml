@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       # replace with variable https://github.com/actions/runner/issues/1182
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-ef3636d
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-6b2bdce
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
@@ -73,7 +73,7 @@ jobs:
     needs: [perpare-env]
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-ef3636d
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-6b2bdce
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
@@ -99,7 +99,7 @@ jobs:
     needs: [perpare-env]
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-ef3636d
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-6b2bdce
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
@@ -116,7 +116,7 @@ jobs:
     needs: [perpare-env]
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-ef3636d
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-6b2bdce
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
@@ -229,7 +229,7 @@ jobs:
     name: Deploy to prod
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-ef3636d
+      image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-6b2bdce
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}

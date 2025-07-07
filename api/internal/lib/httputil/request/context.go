@@ -8,6 +8,7 @@ import (
 // Context represents the context and dependencies needed by all the requests
 type Context struct {
 	echo.Context
+
 	logger *zap.Logger
 }
 
