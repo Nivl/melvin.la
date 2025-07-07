@@ -9,6 +9,11 @@ vars:
   BIN_OUT: "./bin/api"
 
 tasks:
+  install-deps:
+    cmds:
+      - go install github.com/daveshanley/vacuum@v0.17.2
+      - go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@aae687ce8fe987714a5c6ba1e18a704dc4503209
+
   build:
     cmds:
       - CGO_ENABLED=0 go build -v -o {{.BIN_OUT}} github.com/Nivl/melvin.la/api/cmd/api
@@ -49,7 +54,7 @@ tasks:
   tidy:
     cmds:
       - go mod tidy
-      - go tool github.com/daveshanley/vacuum bundle -q -p openapi/ openapi/openapi.yml internal/gen/openapi.yml
+      - vacuum bundle -q -p openapi/ openapi/openapi.yml internal/gen/openapi.yml
       - go generate ./...
 
   test: go test -race ./...
