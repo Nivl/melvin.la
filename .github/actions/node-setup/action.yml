@@ -7,11 +7,23 @@ runs:
     - uses: pnpm/action-setup@v3
       with:
         package_json_file: "web/front/package.json"
+
     - uses: actions/setup-node@v4
       with:
         node-version-file: "web/front/.nvmrc"
         cache: "pnpm"
         cache-dependency-path: web/front/pnpm-lock.yaml
+
+    - name: Restore Next.js cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ${{ github.workspace }}/web/front/.next/cache
+        key: ${{ runner.os }}-web-front-nextjs-${{ hashFiles('./web/front/pnpm-lock.yaml') }}-${{ hashFiles('./web/front/**/*.js', './web/front/**/*.jsx', './web/front/**/*.ts', './web/front/**/*.tsx') }}
+        restore-keys: |
+          ${{ runner.os }}-web-front-nextjs-${{ hashFiles('./web/front/pnpm-lock.yaml') }}-
+          ${{ runner.os }}-web-front-nextjs-
+
     - name: install deps
       shell: bash
       run: cd web/front && pnpm install --frozen-lockfile
