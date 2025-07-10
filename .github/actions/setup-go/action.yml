@@ -1,5 +1,5 @@
-name: Restore Go cache
-description: "Restore the Go cache if possible"
+name: Go setup
+description: "Sets up the Go environment"
 
 inputs:
   project-name:
@@ -9,10 +9,10 @@ inputs:
 outputs:
   cache-key:
     description: "Contains key of the cache"
-    value: ${{ steps.go-mod-restore-cache.outputs.cache-primary-key }}
+    value: ${{ steps.go-mod-cache.outputs.cache-primary-key }}
   is-cache-hit:
     description: '"true" if the cache got hit for go.mod'
-    value: ${{ steps.go-mod-restore-cache.outputs.cache-hit }}
+    value: ${{ steps.go-mod-cache.outputs.cache-hit }}
 
 runs:
   using: composite
@@ -25,9 +25,11 @@ runs:
     - run: git config --global --add safe.directory /__w/melvin.la/melvin.la
       shell: sh
 
-    - name: Restore Go mod cache
-      id: go-mod-restore-cache
-      uses: actions/cache/restore@v4
+    - name: Restore & Update Go cache
+      id: go-mod-cache
+      uses: actions/cache@v4
       with:
         path: ${{ steps.go-cache-path.outputs.go-mod }}
         key: ${{ runner.os }}-${{ inputs.project-name }}-go-mod-${{ hashFiles(format('./{0}/go.sum',inputs.project-name)) }}
+        restore-keys: |
+          ${{ runner.os }}-${{ inputs.project-name }}-go-mod-
