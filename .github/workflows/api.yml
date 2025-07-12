@@ -48,7 +48,7 @@ jobs:
       - name: Update cache if needed
         shell: sh
         if: steps.restore-cache.outputs.is-cache-hit != 'true'
-        run: cd ./api && go mod download
+        run: go mod download
 
       - name: Check for file changes
         uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36
