@@ -26,10 +26,16 @@ const config: Config = {
         'Helvetica Neue',
         'sans-serif',
       ],
+      condensed: ['Baikal Trial Ultra Condensed'],
       fortnite: ['Burbank Big Condensed Bold'],
       monospace: ['Fira Code', 'monospace'],
     },
     extend: {
+      lineHeight: {
+        'tight-xl': '6rem',
+        'tight-sm': '4.75rem',
+        'tight-xs': '3rem',
+      },
       colors: {
         accent: '#26ace6',
         brands: {
