@@ -30,12 +30,20 @@ export const Timestamp = () => {
               className="chromatic-ignore max-w-[284px]"
               errorMessage={'Invalid timestamp'}
               isInvalid={hasError}
+              description={`Automatically detects milliseconds, microseconds, and nanoseconds`}
               value={value}
+              // We don't go above 20 digits because what's the point?
+              // Also when you reach 21 digits, you start having the ability to
+              // input incorrect timestamps
+              maxLength={20}
               onValueChange={value => {
                 // NaN is used when the input is empty
                 if (!isNaN(value)) {
-                  if (value.toString().length <= 10) {
+                  const len = value.toString().length;
+                  if (len <= 10) {
                     value = value * 1000; // Convert seconds to milliseconds
+                  } else if (len > 13) {
+                    value = value / Math.pow(10, len - 13); // Convert anything else to milliseconds
                   }
                   const date = new Date(value);
                   const invalid = isNaN(date.getTime());
