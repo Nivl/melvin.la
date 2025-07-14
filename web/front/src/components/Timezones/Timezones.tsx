@@ -80,8 +80,8 @@ export const Timezones = () => {
   return (
     <>
       <Section>
-        <h1 className="mb-5 pb-5 text-center text-3xl font-black uppercase">
-          Timezone convertor
+        <h1 className="font-condensed xl:leading-tight-xl leading-tight-xs sm:leading-tight-sm text-center text-6xl uppercase sm:text-8xl xl:text-9xl">
+          Timezone converter
         </h1>
       </Section>
 

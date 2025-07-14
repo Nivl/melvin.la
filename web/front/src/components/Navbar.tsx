@@ -128,7 +128,7 @@ export const Navbar = () => {
               startContent={<TimezoneIcon className="h-5 w-5" />}
               href="/tools/timezones"
             >
-              Timezone Convertor
+              Timezone Converter
             </DropdownItem>
 
             <DropdownItem
