@@ -13,7 +13,7 @@ const config: Config = {
   theme: {
     fontFamily: {
       sans: [
-        'Raleway',
+        'var(--font-raleway)',
         '-apple-system',
         'BlinkMacSystemFont',
         'Segoe UI',
@@ -26,9 +26,9 @@ const config: Config = {
         'Helvetica Neue',
         'sans-serif',
       ],
-      condensed: ['Baikal Trial Ultra Condensed'],
-      fortnite: ['Burbank Big Condensed Bold'],
-      monospace: ['Fira Code', 'monospace'],
+      condensed: ['var(--font-baikal)'],
+      fortnite: ['var(--font-burbank)'],
+      monospace: ['var(--font-fira-code)', 'monospace'],
     },
     extend: {
       lineHeight: {
