@@ -18,12 +18,12 @@ const firaCode = Fira_Code({
 });
 
 const baikal = localFont({
-  src: '../fonts/baikal_trial_ultra_condensed.woff2',
+  src: '../bundled_static/fonts/baikal_trial_ultra_condensed.woff2',
   variable: '--font-baikal',
 });
 
 const burbank = localFont({
-  src: '../fonts/burbank_big_condensed_bold.woff2',
+  src: '../bundled_static/fonts/burbank_big_condensed_bold.woff2',
   variable: '--font-burbank',
 });
 
