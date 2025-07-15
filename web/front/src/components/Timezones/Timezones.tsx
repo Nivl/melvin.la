@@ -25,8 +25,31 @@ type City = {
   data: CityData;
 };
 
+const colors = [
+  'bg-pink-300',
+  'bg-green-400',
+  'bg-blue-400',
+  'bg-amber-400',
+  'bg-teal-300',
+  'bg-sky-300',
+  'bg-indigo-300',
+  'bg-violet-300',
+  'bg-rose-300',
+] as const;
+
+type Color = (typeof colors)[number];
+
+type CityDataWithColor = CityData & {
+  color: Color;
+};
+
+const getColor = (skip?: Color): Color => {
+  const availableColors = colors.filter(color => color !== skip);
+  return availableColors[Math.floor(Math.random() * availableColors.length)];
+};
+
 export const Timezones = () => {
-  const [zones, setZones] = useState<CityData[]>([]);
+  const [zones, setZones] = useState<CityDataWithColor[]>([]);
   const [baseZone, setBaseZone] = useState<CityData>();
   const [baseSearchValue, setBaseSearchValue] = useState<string>('');
   const [baseSearchItems, setBaseSearchItems] = useState<City[]>([]);
@@ -38,14 +61,14 @@ export const Timezones = () => {
 
   const date = dateTime
     ? moment.tz(
-        // using the proper `dateTime.toDate('utc')` creates issues
-        // on some days where daylight saving time kicks off.
-        // For example, Saturday March 25th 1989 at 5pm in Paris
-        // Shows as 4pm in... Paris. It's off by one hour in every
-        // other timezones as well.
-        dateTime.toString().slice(0, 19),
-        baseZone?.timezone ?? getLocalTimeZone(),
-      )
+      // using the proper `dateTime.toDate('utc')` creates issues
+      // on some days where daylight saving time kicks off.
+      // For example, Saturday March 25th 1989 at 5pm in Paris
+      // Shows as 4pm in... Paris. It's off by one hour in every
+      // other timezones as well.
+      dateTime.toString().slice(0, 19),
+      baseZone?.timezone ?? getLocalTimeZone(),
+    )
     : moment();
 
   const search = (value: string): City[] => {
@@ -137,10 +160,15 @@ export const Timezones = () => {
               {zones.length > 0 && (
                 <div className="mt-20 flex flex-col content-center gap-4 text-center">
                   {zones.map((zone, i) => (
-                    <div key={i} className="flex justify-center gap-3">
-                      {/* used to break out of the flex container to not have a gap around the city name */}
-                      <div>
-                        In <span className="font-bold">{zone.city}</span>{' '}
+                    <div key={i} className="group flex justify-center gap-3">
+                      {/* empty div so we break out of the flex container to not have a gap around the city name */}
+                      <div
+                        className={`${zone.color} rounded-full p-3 text-black`}
+                      >
+                        In{' '}
+                        <div className="inline font-bold">
+                          <span>{zone.city}</span>
+                        </div>{' '}
                         it&apos;s{' '}
                         {date
                           .clone()
@@ -174,7 +202,11 @@ export const Timezones = () => {
                   inputValue={searchValue}
                   onSelectionChange={e => {
                     if (typeof e === 'string' && ~~e < sortedCities.length) {
-                      setZones([...zones, sortedCities[~~e].data]);
+                      const newZone: CityDataWithColor = {
+                        ...sortedCities[~~e].data,
+                        color: getColor(zones[zones.length - 1]?.color),
+                      };
+                      setZones([...zones, newZone]);
                       setSearchItems([]);
                       setSearchValue('');
                     }
