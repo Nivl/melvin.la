@@ -90,7 +90,7 @@ export const AccountPresets = ({
           radius="lg"
           name={preset.name}
           src={preset.picture}
-          className="h-20 w-20 cursor-pointer text-large"
+          className="text-large h-20 w-20 cursor-pointer"
         />
       </Tooltip>
     ));

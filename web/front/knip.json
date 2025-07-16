@@ -2,11 +2,13 @@
     "ignore": [
         "src/backend/api.ts",
         "src/models/index.ts",
-        "tsconfig.base.json"
+        "tsconfig.base.json",
+        "src/app/heroui.ts"
     ],
     "ignoreDependencies": [
         "eslint-config-next",
         "@next/eslint-plugin-next",
-        "eslint-plugin-react-hooks"
+        "eslint-plugin-react-hooks",
+        "tailwindcss"
     ]
 }

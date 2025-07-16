@@ -49,7 +49,7 @@ export default function RootLayout({
       lang="en"
       className={`bg-background text-foreground ${fonts.map(font => font.variable).join(' ')}`}
     >
-      <body className="h-full font-sans text-base font-light lining-nums leading-relaxed antialiased xl:text-xl xl:leading-relaxed">
+      <body className="h-full font-sans text-base leading-relaxed font-light lining-nums antialiased xl:text-xl xl:leading-relaxed">
         <Providers>
           <Navbar />
           {children}

@@ -16,9 +16,6 @@
   "types": [
     "node"
   ],
-  "files": [
-    "tailwind.config.ts"
-  ],
   "include": [
     "next-env.d.ts",
     "src/**/*.ts",

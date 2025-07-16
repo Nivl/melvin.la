@@ -22,7 +22,7 @@ export const StatCard = ({
     <Card
       {...delegated}
       className={twMerge(
-        `h-[240px] w-[240px] border-none bg-gradient-to-br from-violet-500 to-fuchsia-500 ${className}`,
+        `h-[240px] w-[240px] border-none bg-linear-to-br from-violet-500 to-fuchsia-500 ${className}`,
       )}
     >
       <CardBody className="items-center justify-center pb-0">
@@ -51,7 +51,7 @@ export const StatCard = ({
       <CardFooter className="items-center justify-center pt-0">
         <Chip
           classNames={{
-            base: 'border-1 border-white/30',
+            base: 'border border-white/30',
             content: 'text-white/90 text-small font-semibold',
           }}
           variant="bordered"

@@ -49,7 +49,7 @@ export const Pill = ({
             }
       }
       className={twMerge(
-        `group relative w-72 dark:bg-neutral-950 ${isSelected ? 'bg-gradient-to-br from-[#2753ad] to-[#418eff] dark:to-[#052d67]' : 'border-1 border-neutral-200 dark:border-neutral-800'} ${className}`,
+        `group relative w-72 dark:bg-neutral-950 ${isSelected ? 'bg-linear-to-br from-[#2753ad] to-[#418eff] dark:to-[#052d67]' : 'border border-neutral-200 dark:border-neutral-800'} ${className}`,
       )}
       isPressable={!isLoading}
     >
@@ -60,7 +60,7 @@ export const Pill = ({
         />
       )}
       <CardHeader
-        className={`h-12 text-start text-base font-semibold dark:text-foreground ${isSelected ? 'text-white' : ''}`}
+        className={`dark:text-foreground h-12 text-start text-base font-semibold ${isSelected ? 'text-white' : ''}`}
       >
         <Skeleton isLoaded={!isLoading}>{icon}</Skeleton>
         <Skeleton

@@ -21,7 +21,7 @@ export const Tech = ({
           : 'flex-col-reverse md:flex-row'
       }`}
     >
-      <div className="grid grid-cols-2 px-5 md:grid-cols-3 md:pl-5 md:pr-10">
+      <div className="grid grid-cols-2 px-5 md:grid-cols-3 md:pr-10 md:pl-5">
         {logos.map(logo => (
           <a
             key={logo.name}
@@ -33,7 +33,7 @@ export const Tech = ({
             }`}
           >
             <Logo
-              className="h-16 w-16 fill-neutral-700 dark:fill-foreground"
+              className="dark:fill-foreground h-16 w-16 fill-neutral-700"
               name={logo.img}
             />
           </a>

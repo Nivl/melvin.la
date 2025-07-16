@@ -1,7 +1,44 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin './heroui.ts';
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans: var(--font-raleway), '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    --font-condensed: var(--font-baikal);
+    --font-fortnite: var(--font-burbank);
+    --font-monospace: var(--font-fira-code), "monospace";
+
+    --color-accent: #26ace6;
+    --color-brands-playstation: #006FCD;
+    --color-brands-xbox: #2ca243;
+
+    --leading-tight-xl: 6rem;
+    --leading-tight-sm: 4.75rem;
+    --leading-tight-xs: 3rem;
+
+    --animate-levitate: levitate 1s ease-in-out infinite;
+
+    @keyframes levitate {
+
+        0%,
+        100% {
+            transform: translateY(-5px);
+        }
+
+        50% {
+            transform: translateY(5px);
+        }
+    }
+}
+
 
 #blog-post-page a {
     @apply text-accent;
+}
+
+#home-page p {
+    @apply mb-3;
+    @apply lg:mb-8;
 }
