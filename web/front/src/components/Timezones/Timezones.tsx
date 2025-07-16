@@ -156,11 +156,12 @@ export const Timezones = () => {
               {zones.length > 0 && (
                 <div className="mt-20 flex flex-col gap-4">
                   {zones.map((zone, i) => (
-                    <div key={i} className="group flex justify-center gap-3">
+                    <div
+                      key={i}
+                      className={`flex justify-center gap-3 ${zone.color} rounded-full p-7 text-black sm:p-4`}
+                    >
                       {/* empty div so we break out of the flex container to not have a gap around the city name */}
-                      <div
-                        className={`${zone.color} rounded-full p-7 text-black sm:p-4`}
-                      >
+                      <div>
                         In{' '}
                         <div className="inline font-bold">
                           <span>{zone.city}</span>
