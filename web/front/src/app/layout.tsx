@@ -27,6 +27,11 @@ const burbank = localFont({
   variable: '--font-burbank',
 });
 
+// Adding a new font?
+//
+// You'll need to add your fonts to:
+// - Tailwind's tailwind.config.ts file
+// - Storybook's fonts.css file
 const fonts = [raleway, firaCode, baikal, burbank];
 
 export const metadata: Metadata = {
