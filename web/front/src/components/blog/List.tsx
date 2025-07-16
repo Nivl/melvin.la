@@ -6,7 +6,7 @@ export function List({ posts }: { posts: BlogPost[] }) {
   return (
     <>
       <Section>
-        <h1 className="font-condensed xl:leading-tight-xl leading-tight-xs sm:leading-tight-sm text-center text-6xl uppercase sm:text-8xl xl:text-9xl">
+        <h1 className="text-center font-condensed text-6xl uppercase leading-tight-xs sm:text-8xl sm:leading-tight-sm xl:text-9xl xl:leading-tight-xl">
           Blog Posts
         </h1>
       </Section>
