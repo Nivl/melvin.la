@@ -71,7 +71,7 @@ export const Fortnite = ({
     <>
       <Section>
         <header className="flex flex-col gap-10 sm:flex-row sm:gap-0">
-          <h1 className="basis-full text-center text-2xl font-black sm:text-start sm:text-5xl">
+          <h1 className="basis-full text-center text-2xl font-extrabold sm:text-start sm:text-5xl">
             See how well you are doing in{' '}
             <span className="bg-gradient-to-b from-[#1c78ff] to-[#4983f8] bg-clip-text font-fortnite text-3xl uppercase text-transparent sm:text-6xl">
               Fortnite
@@ -96,7 +96,7 @@ export const Fortnite = ({
       )}
 
       {!isLoading && error && (
-        <Section className="text-center text-xl font-black text-red-400 sm:text-4xl">
+        <Section className="text-center text-xl font-extrabold text-red-400 sm:text-4xl">
           <div>
             {error.code === 403 ? (
               <>This gamer doesn&apos;t want you to see their data </>
@@ -114,7 +114,7 @@ export const Fortnite = ({
 
       {!error && name && (
         <>
-          <Section className="text-center text-xl font-black leading-inherit sm:text-4xl">
+          <Section className="text-center text-xl font-extrabold leading-inherit sm:text-4xl">
             <div className="animate-[levitate_3s_ease-in-out_infinite]">
               {isLoading || !data ? (
                 <>

@@ -98,7 +98,7 @@ export const AccountPresets = ({
 
   return (
     <>
-      <h2 className="text-center text-2xl font-black">
+      <h2 className="text-center text-2xl font-extrabold">
         Or pick a famous content creator
       </h2>
       <div className="flex flex-col items-center justify-center gap-10 sm:flex-row">

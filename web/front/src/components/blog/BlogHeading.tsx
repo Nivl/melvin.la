@@ -19,7 +19,7 @@ export const BlogHeading = ({
 
   switch (level) {
     case 1:
-      classname = `mb-5 pb-5 text-center text-3xl font-black uppercase`;
+      classname = `mb-5 pb-5 text-center text-3xl font-extrabold uppercase`;
       break;
     case 2:
       classname = `${classname} uppercase text-xl md:text-2xl xl:text-3xl border-b-accent border-solid border-b mb-2 md:mb-4 xl:mb-5`;
