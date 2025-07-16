@@ -1,6 +1,7 @@
 /* eslint-disable import/no-default-export */
 
 import '../src/app/globals.css';
+import './fonts.css';
 
 import type { Preview } from '@storybook/nextjs';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

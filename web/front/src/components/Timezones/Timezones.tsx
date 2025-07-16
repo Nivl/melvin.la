@@ -25,8 +25,31 @@ type City = {
   data: CityData;
 };
 
+const colors = [
+  'bg-pink-300',
+  'bg-green-400',
+  'bg-blue-400',
+  'bg-amber-400',
+  'bg-teal-300',
+  'bg-sky-300',
+  'bg-indigo-300',
+  'bg-violet-300',
+  'bg-rose-300',
+] as const;
+
+type Color = (typeof colors)[number];
+
+type CityDataWithColor = CityData & {
+  color: Color;
+};
+
+const getColor = (skip?: Color): Color => {
+  const availableColors = colors.filter(color => color !== skip);
+  return availableColors[Math.floor(Math.random() * availableColors.length)];
+};
+
 export const Timezones = () => {
-  const [zones, setZones] = useState<CityData[]>([]);
+  const [zones, setZones] = useState<CityDataWithColor[]>([]);
   const [baseZone, setBaseZone] = useState<CityData>();
   const [baseSearchValue, setBaseSearchValue] = useState<string>('');
   const [baseSearchItems, setBaseSearchItems] = useState<City[]>([]);
@@ -80,67 +103,69 @@ export const Timezones = () => {
   return (
     <>
       <Section>
-        <h1 className="mb-5 pb-5 text-center text-3xl font-black uppercase">
-          Timezone convertor
+        <h1 className="text-center font-condensed text-6xl uppercase leading-tight-xs sm:text-8xl sm:leading-tight-sm xl:text-9xl xl:leading-tight-xl">
+          Timezone converter
         </h1>
       </Section>
 
       <Section>
-        <div className="flex flex-col justify-center gap-4">
-          <div className="flex flex-row items-center justify-center gap-4">
-            <div className="w-20 text-center">When in</div>
-            <Autocomplete
-              label="Search for a city"
-              className="max-w-[284px]"
-              aria-label="Search for a city"
-              defaultItems={[]}
-              onInputChange={e => {
-                searchBaseCity(e);
-              }}
-              items={baseSearchItems}
-              inputValue={baseSearchValue}
-              onSelectionChange={e => {
-                if (typeof e === 'string' && ~~e < sortedCities.length) {
-                  setBaseZone(sortedCities[~~e].data);
-                }
-              }}
-              allowsEmptyCollection={false}
-              allowsCustomValue
-              multiple={false}
-              menuTrigger="input"
-            >
-              {item => (
-                <AutocompleteItem
-                  key={item.entryIndex.toString()}
-                  className="capitalize"
-                  textValue={`${item.data.city}, ${item.data.country} (${item.data.timezone})`}
-                >
-                  {item.data.city}, {item.data.country} ({item.data.timezone})
-                </AutocompleteItem>
-              )}
-            </Autocomplete>
-          </div>
-          <div className="flex flex-row items-center justify-center gap-4">
-            <div className="w-20 text-center">it&apos;s</div>
-            <DateInput
-              label="Time to convert"
-              className="chromatic-ignore max-w-[284px]"
-              hideTimeZone
-              value={dateTime}
-              onChange={setDateTime}
-              granularity="minute"
-            />
-          </div>
+        <div className="flex flex-col items-center gap-4">
+          <Autocomplete
+            label="When in"
+            className="max-w-[400px]"
+            size="lg"
+            aria-label="Search for a city"
+            defaultItems={[]}
+            onInputChange={e => {
+              searchBaseCity(e);
+            }}
+            items={baseSearchItems}
+            inputValue={baseSearchValue}
+            onSelectionChange={e => {
+              if (typeof e === 'string' && ~~e < sortedCities.length) {
+                setBaseZone(sortedCities[~~e].data);
+              }
+            }}
+            allowsEmptyCollection={false}
+            allowsCustomValue
+            multiple={false}
+            menuTrigger="input"
+          >
+            {item => (
+              <AutocompleteItem
+                key={item.entryIndex.toString()}
+                className="capitalize"
+                textValue={`${item.data.city}, ${item.data.country} (${item.data.timezone})`}
+              >
+                {item.data.city}, {item.data.country} ({item.data.timezone})
+              </AutocompleteItem>
+            )}
+          </Autocomplete>
+          <DateInput
+            label="it's"
+            size="lg"
+            className="chromatic-ignore max-w-[400px]"
+            hideTimeZone
+            value={dateTime}
+            onChange={setDateTime}
+            granularity="minute"
+          />
 
           {!!baseZone && (
             <>
               {zones.length > 0 && (
-                <div className="mt-20 flex flex-col content-center gap-4 text-center">
+                <div className="mt-20 flex flex-col gap-4">
                   {zones.map((zone, i) => (
-                    <div key={i} className="flex justify-center gap-3">
-                      {/* used to break out of the flex container to not have a gap around the city name */}
+                    <div
+                      key={i}
+                      className={`flex justify-center gap-3 ${zone.color} rounded-full p-7 text-black sm:p-4`}
+                    >
+                      {/* empty div so we break out of the flex container to not have a gap around the city name */}
                       <div>
-                        In <span className="font-bold">{zone.city}</span>{' '}
+                        In{' '}
+                        <div className="inline font-bold">
+                          <span>{zone.city}</span>
+                        </div>{' '}
                         it&apos;s{' '}
                         {date
                           .clone()
@@ -159,43 +184,43 @@ export const Timezones = () => {
                   ))}
                 </div>
               )}
-
-              <div className="mt-20 flex flex-row items-center justify-center gap-4">
-                See what day and time it was in
-                <Autocomplete
-                  label="Search for a city"
-                  className="max-w-[284px]"
-                  aria-label="Search for a city"
-                  defaultItems={[]}
-                  onInputChange={e => {
-                    searchTargetCity(e);
-                  }}
-                  items={searchItems}
-                  inputValue={searchValue}
-                  onSelectionChange={e => {
-                    if (typeof e === 'string' && ~~e < sortedCities.length) {
-                      setZones([...zones, sortedCities[~~e].data]);
-                      setSearchItems([]);
-                      setSearchValue('');
-                    }
-                  }}
-                  allowsEmptyCollection={false}
-                  allowsCustomValue
-                  multiple={false}
-                  menuTrigger="input"
-                >
-                  {item => (
-                    <AutocompleteItem
-                      key={item.entryIndex.toString()}
-                      className="capitalize"
-                      textValue={`${item.data.city}, ${item.data.country} (${item.data.timezone})`}
-                    >
-                      {item.data.city}, {item.data.country} (
-                      {item.data.timezone})
-                    </AutocompleteItem>
-                  )}
-                </Autocomplete>
-              </div>
+              <Autocomplete
+                label="See what day and time it was in"
+                className="mt-20 max-w-[400px]"
+                size="lg"
+                aria-label="Search for a city"
+                defaultItems={[]}
+                onInputChange={e => {
+                  searchTargetCity(e);
+                }}
+                items={searchItems}
+                inputValue={searchValue}
+                onSelectionChange={e => {
+                  if (typeof e === 'string' && ~~e < sortedCities.length) {
+                    const newZone: CityDataWithColor = {
+                      ...sortedCities[~~e].data,
+                      color: getColor(zones[zones.length - 1]?.color),
+                    };
+                    setZones([...zones, newZone]);
+                    setSearchItems([]);
+                    setSearchValue('');
+                  }
+                }}
+                allowsEmptyCollection={false}
+                allowsCustomValue
+                multiple={false}
+                menuTrigger="input"
+              >
+                {item => (
+                  <AutocompleteItem
+                    key={item.entryIndex.toString()}
+                    className="capitalize"
+                    textValue={`${item.data.city}, ${item.data.country} (${item.data.timezone})`}
+                  >
+                    {item.data.city}, {item.data.country} ({item.data.timezone})
+                  </AutocompleteItem>
+                )}
+              </Autocomplete>
             </>
           )}
         </div>

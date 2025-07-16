@@ -25,7 +25,7 @@ export const Conway = () => {
 
       <div className="hidden lg:block">
         <Section>
-          <h1 className="mb-5 pb-5 text-center text-3xl font-black uppercase">
+          <h1 className="text-center font-condensed text-6xl uppercase leading-tight-xs sm:text-8xl sm:leading-tight-sm xl:text-9xl xl:leading-tight-xl">
             Conway&apos;s Game of Life
           </h1>
         </Section>

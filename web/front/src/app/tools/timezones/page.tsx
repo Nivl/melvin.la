@@ -10,7 +10,7 @@ export default function Home() {
 export const metadata: Metadata = {
   ...getMetadata({
     pageUrl: '/tools/timezones',
-    title: 'Timezone convertor',
+    title: 'Timezone converter',
     description: 'Compare timezones and convert time between them.',
   }),
 };

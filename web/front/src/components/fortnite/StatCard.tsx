@@ -40,7 +40,7 @@ export const StatCard = ({
             aria-label="Current level progression"
           />
         ) : (
-          <div className="text-center text-3xl font-black text-white sm:text-4xl">
+          <div className="text-center text-3xl font-extrabold text-white sm:text-4xl">
             <Skeleton className="light" isLoaded={!isLoading}>
               {stat}
             </Skeleton>
