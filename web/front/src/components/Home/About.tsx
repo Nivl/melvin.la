@@ -21,14 +21,14 @@ export const About = ({
           <div className="flex items-center justify-end text-base font-bold uppercase">
             <a
               href={cta.url}
-              className="border-none text-accent visited:text-accent"
+              className="text-accent visited:text-accent border-none"
             >
               {cta.text}
             </a>
           </div>
         </div>
-        <div className="ml-12 hidden dark:hidden md:block">
-          <PeaceIcon className="h-56 w-56 fill-neutral-700 drop-shadow-lg dark:fill-foreground" />
+        <div className="ml-12 hidden md:block dark:hidden">
+          <PeaceIcon className="dark:fill-foreground h-56 w-56 fill-neutral-700 drop-shadow-lg" />
         </div>
       </div>
     </div>

@@ -103,7 +103,7 @@ export const Timezones = () => {
   return (
     <>
       <Section>
-        <h1 className="text-center font-condensed text-6xl uppercase leading-tight-xs sm:text-8xl sm:leading-tight-sm xl:text-9xl xl:leading-tight-xl">
+        <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl uppercase sm:text-8xl xl:text-9xl">
           Timezone converter
         </h1>
       </Section>

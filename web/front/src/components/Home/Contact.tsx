@@ -9,18 +9,18 @@ export const Contact = ({
 }: ContactModel) => {
   return (
     <>
-      <div className="mx-auto my-0 mb-3 mt-16 w-5/6 md:mb-10 lg:mt-52 lg:max-w-7xl">
+      <div className="mx-auto my-0 mt-16 mb-3 w-5/6 md:mb-10 lg:mt-52 lg:max-w-7xl">
         <Heading level={2}> Get In Touch </Heading>
 
         <div className="flex flex-col md:flex-row">
-          <span className="flex-grow text-center">
+          <span className="grow text-center">
             <a className="border-none" href={`mailto:${email}`}>
               {email}
             </a>
           </span>
 
           {linkedInHandle && (
-            <span className="flex-grow text-center">
+            <span className="grow text-center">
               <a
                 className="border-none"
                 href={`https://linkedin.com/in/${linkedInHandle}`}
@@ -30,7 +30,7 @@ export const Contact = ({
             </span>
           )}
 
-          <span className="flex-grow text-center">
+          <span className="grow text-center">
             <a
               className="border-none"
               href={`https://github.com/${githubHandle}`}

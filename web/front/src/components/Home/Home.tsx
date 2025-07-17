@@ -1,5 +1,3 @@
-import './globals.css';
-
 import { About } from '#components/Home/About';
 import { Contact } from '#components/Home/Contact';
 import { Header } from '#components/Home/Header';
@@ -48,7 +46,7 @@ export function Home({ sections }: { sections: Sections }) {
         />
       </Section>
 
-      <div className="bg-[#63B7FF] pb-4 dark:bg-background">
+      <div className="dark:bg-background bg-[#63B7FF] pb-4">
         <Section className="mt-0 pt-16 sm:mt-0 sm:pt-40 xl:mt-0 xl:pt-52">
           <Footer />
         </Section>

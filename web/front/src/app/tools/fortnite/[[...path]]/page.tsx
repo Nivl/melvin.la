@@ -34,8 +34,8 @@ export async function generateMetadata(props: {
   return {
     ...getMetadata({
       pageUrl: `/tools/fortnite/${path?.join('/')}`,
-      title: `${path?.[0]}'s Fortnite Data`,
-      description: `All the Fortnite data of ${path?.[0]}`,
+      title: `${decodeURI(path?.[0])}'s Fortnite Data`,
+      description: `All the Fortnite data of ${decodeURI(path?.[0])}`,
       imageURL: `/assets/tools/fortnite/og.jpg`,
     }),
   };

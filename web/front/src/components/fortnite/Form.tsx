@@ -90,7 +90,7 @@ export const Form = ({
       />
 
       <div className="flex flex-row items-center justify-center">
-        <label className="text-sm font-medium leading-6" htmlFor="account-name">
+        <label className="text-sm leading-6 font-medium" htmlFor="account-name">
           Platform
         </label>
 
@@ -117,7 +117,7 @@ export const Form = ({
           </ToggleGroup.Item>
           <ToggleGroup.Item
             value={AccountTypes.PSN}
-            className="px-2 transition-colors hover:text-brands-playstation"
+            className="hover:text-brands-playstation px-2 transition-colors"
             aria-label="PlayStation"
           >
             <FaPlaystation
@@ -130,7 +130,7 @@ export const Form = ({
           </ToggleGroup.Item>
           <ToggleGroup.Item
             value={AccountTypes.Xbox}
-            className="px-2 transition-colors hover:text-brands-xbox"
+            className="hover:text-brands-xbox px-2 transition-colors"
             aria-label="Xbox"
           >
             <FaXbox
@@ -154,7 +154,7 @@ export const Form = ({
           base: 'flex-row-reverse',
         }}
       >
-        <span className="pr-2 text-sm text-foreground">
+        <span className="text-foreground pr-2 text-sm">
           Current season only
         </span>
       </Switch>

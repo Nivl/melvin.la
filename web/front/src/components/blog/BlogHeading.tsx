@@ -15,7 +15,7 @@ export const BlogHeading = ({
   }
 
   let classname =
-    'pb-2 md:pb-4 xl:pb-5 leading-none font-bold bg-gradient-to-b from-accent to-[#32c2ff] dark:to-[#066e9a] bg-clip-text text-transparent';
+    'pb-2 md:pb-4 xl:pb-5 leading-none font-bold bg-linear-to-b from-accent to-[#32c2ff] dark:to-[#066e9a] bg-clip-text text-transparent';
 
   switch (level) {
     case 1:

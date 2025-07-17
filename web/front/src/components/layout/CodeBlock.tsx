@@ -59,7 +59,7 @@ export const CodeBlock = ({
       showInlineLineNumbers={showlinenumbers}
       style={theme}
       className={twMerge(
-        `!rounded-lg !font-monospace !text-base ${className ?? ''}`,
+        `!font-monospace rounded-lg! text-base! ${className ?? ''}`,
       )}
       codeTagProps={{
         style: {
