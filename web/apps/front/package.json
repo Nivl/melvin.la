@@ -1,5 +1,5 @@
 {
-    "name": "front",
+    "name": "@melvinla/front",
     "version": "0.1.0",
     "private": true,
     "packageManager": "pnpm@10.12.4",
@@ -18,7 +18,7 @@
         "lint": "next lint --max-warnings=0",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
-        "oapi-gen": "openapi-typescript ../../api/internal/gen/openapi.yml -o ./src/gen/api.d.ts --root-types --root-types-no-schema-prefix",
+        "oapi-gen": "openapi-typescript ../../../api/internal/gen/openapi.yml -o ./src/gen/api.d.ts --root-types --root-types-no-schema-prefix",
         "knip": "knip"
     },
     "dependencies": {

@@ -13,7 +13,7 @@ permissions:
 
 defaults:
   run:
-    working-directory: ./web/front
+    working-directory: ./web/apps/front
 
 # Don't run more than one workflow for the same branch at a time
 # This is to save credits on the CI provider
@@ -38,20 +38,20 @@ jobs:
           token: ${{ github.token }}
           # Negation is kinda weird in paths-filter (picomatch).
           # If you want everything BUT markdown files, you cannot say:
-          #    - 'web/front/**'
-          #    - '!web/front/**/*.md'
+          #    - 'web/apps/front/**'
+          #    - '!web/apps/front/**/*.md'
           # The negation doesn't remove all the .md files that have been
           # matched. Instead it matches everything that is not a .md file.
           #
           # Which means that using:
-          #    - 'web/front/**'
-          #    - '!web/front/**/*.md'
+          #    - 'web/apps/front/**'
+          #    - '!web/apps/front/**/*.md'
           # Will match the whole codebase as it does:
-          #    - web/front/** => Everything including the .md files
-          #    - !web/front/**/*.md => Everything but the .md files
+          #    - web/apps/front/** => Everything including the .md files
+          #    - !web/apps/front/**/*.md => Everything but the .md files
           filters: |
             src:
-              - 'web/front/**/!(*.md)'
+              - 'web/apps/front/**/!(*.md)'
               - '.github/workflows/webapp.yml'
               - '.github/actions/node-setup/**'
 
@@ -66,11 +66,11 @@ jobs:
 
     - uses: actions/cache@v4
       with:
-        path: ${{ github.workspace }}/web/front/.next/cache
+        path: ${{ github.workspace }}/web/apps/front/.next/cache
         # Generate a new cache whenever packages or source files change.
-        key: ${{ runner.os }}-nextjs-${{ hashFiles('web/front/pnpm-lock.yaml') }}-${{ hashFiles('web/front/**.[jt]s', 'web/front/**.[jt]sx') }}
+        key: ${{ runner.os }}-nextjs-${{ hashFiles('web/apps/front/pnpm-lock.yaml') }}-${{ hashFiles('web/apps/front/**.[jt]s', 'web/apps/front/**.[jt]sx') }}
         restore-keys: |
-          ${{ runner.os }}-nextjs-${{ hashFiles('web/front/pnpm-lock.yaml') }}-
+          ${{ runner.os }}-nextjs-${{ hashFiles('web/apps/front/pnpm-lock.yaml') }}-
     - run: pnpm run build
 
   lint:
@@ -114,7 +114,7 @@ jobs:
         uses: chromaui/action@4d8ebd13658d795114f8051e25c28d66f14886c6
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: ./web/front
+          workingDir: ./web/apps/front
           exitZeroOnChanges: true
           autoAcceptChanges: main
           onlyChanged: true
