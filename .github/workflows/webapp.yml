@@ -90,6 +90,15 @@ jobs:
       run: |
         pnpm run knip
 
+  unit-test:
+    if: needs.perpare-env.outputs.code-changed == 'true'
+    needs: [perpare-env]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup
+      uses: './.github/actions/node-setup'
+    - run: pnpm run test:unit run
 
   # we only run this one after everything has run to save chromatic
   # credits
@@ -98,6 +107,7 @@ jobs:
     needs: [
       perpare-env,
       lint,
+      unit-test,
       build
     ]
     name: Run Chromatic
@@ -127,6 +137,7 @@ jobs:
         perpare-env,
         build,
         lint,
+        unit-test,
         chromatic,
       ]
     # This is necessary since a failed/skipped dependent job would cause this job to be skipped
