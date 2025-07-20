@@ -84,7 +84,7 @@ export const Side = ({
         defaultValue={speed}
         className="max-w-md"
         onChange={v => {
-          if (typeof v === 'number') {
+          if (typeof v === 'number' && !isNaN(v)) {
             setSpeed(v);
           }
         }}

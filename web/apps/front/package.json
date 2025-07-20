@@ -19,7 +19,8 @@
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "oapi-gen": "openapi-typescript ../../../api/internal/gen/openapi.yml -o ./src/gen/api.d.ts --root-types --root-types-no-schema-prefix",
-        "knip": "knip"
+        "knip": "knip",
+        "test:unit": "vitest"
     },
     "dependencies": {
         "@heroui/autocomplete": "2.3.25",
@@ -73,10 +74,14 @@
         "@storybook/addon-themes": "9.0.17",
         "@storybook/nextjs": "9.0.17",
         "@tailwindcss/postcss": "4.1.11",
+        "@testing-library/dom": "10.4.0",
+        "@testing-library/react": "16.3.0",
+        "@testing-library/user-event": "14.6.1",
         "@types/node": "22.16.4",
         "@types/react": "19.1.8",
         "@types/react-dom": "19.1.6",
         "@types/react-syntax-highlighter": "15.5.13",
+        "@vitejs/plugin-react": "4.7.0",
         "eslint": "9.31.0",
         "eslint-config-next": "15.4.1",
         "eslint-config-prettier": "10.1.5",
@@ -85,6 +90,7 @@
         "eslint-plugin-simple-import-sort": "12.1.1",
         "eslint-plugin-storybook": "9.0.17",
         "gray-matter": "4.0.3",
+        "jsdom": "26.1.0",
         "knip": "5.61.3",
         "openapi-typescript": "7.8.0",
         "postcss": "8.5.6",
@@ -95,7 +101,9 @@
         "tailwindcss": "4.1.11",
         "tsx": "4.20.3",
         "typescript": "5.8.3",
-        "typescript-eslint": "8.37.0"
+        "typescript-eslint": "8.37.0",
+        "vitest": "3.2.4",
+        "vitest-canvas-mock": "0.3.3"
     },
     "imports": {
         "#hooks/fortnite/useStats": {
