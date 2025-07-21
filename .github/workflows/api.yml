@@ -25,7 +25,7 @@ env:
    PROD_IMAGE_URI: registry.fly.io/melvinla-api-prod
 
 jobs:
-  perpare-env:
+  prepare-env:
     name: detect what files changed
     runs-on: ubuntu-latest
     container:
@@ -66,8 +66,8 @@ jobs:
               - '.github/actions/go-*/*.yml'
 
   build:
-    if: needs.perpare-env.outputs.code-changed == 'true'
-    needs: [perpare-env]
+    if: needs.prepare-env.outputs.code-changed == 'true'
+    needs: [prepare-env]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-6b2bdce
@@ -94,8 +94,8 @@ jobs:
           if-no-files-found: error
 
   lint:
-    if: needs.perpare-env.outputs.code-changed == 'true'
-    needs: [perpare-env]
+    if: needs.prepare-env.outputs.code-changed == 'true'
+    needs: [prepare-env]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-6b2bdce
@@ -114,8 +114,8 @@ jobs:
       - run: task ci:lint
 
   test-code:
-    if: needs.perpare-env.outputs.code-changed == 'true'
-    needs: [perpare-env]
+    if: needs.prepare-env.outputs.code-changed == 'true'
+    needs: [prepare-env]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/nivl/melvin.la-go-service-image-dev:sha-6b2bdce
@@ -145,7 +145,7 @@ jobs:
   build-image:
     if: |
       always() &&
-      needs.perpare-env.outputs.code-changed == 'true' &&
+      needs.prepare-env.outputs.code-changed == 'true' &&
       !contains(needs.*.result, 'failure') &&
       !contains(needs.*.result, 'cancelled')
     name: Build docker image
@@ -175,7 +175,7 @@ jobs:
     if: |
       always() &&
       github.event_name == 'push' && github.ref == 'refs/heads/main' &&
-      needs.perpare-env.outputs.code-changed == 'true' &&
+      needs.prepare-env.outputs.code-changed == 'true' &&
       !contains(needs.*.result, 'failure') &&
       !contains(needs.*.result, 'cancelled')
     name: Build and Publish image to registry
@@ -227,7 +227,7 @@ jobs:
     if: |
       always() &&
       github.event_name == 'push' && github.ref == 'refs/heads/main' &&
-      needs.perpare-env.outputs.code-changed == 'true' &&
+      needs.prepare-env.outputs.code-changed == 'true' &&
       !contains(needs.*.result, 'failure') &&
       !contains(needs.*.result, 'cancelled')
     name: Deploy to prod
@@ -256,7 +256,7 @@ jobs:
   api-required-check:
     needs:
       [
-        perpare-env,
+        prepare-env,
         build,
         lint,
         test-code,
