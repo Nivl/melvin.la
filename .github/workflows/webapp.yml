@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  perpare-env:
+  prepare-env:
     name: detect what files changed
     runs-on: ubuntu-latest
     outputs:
@@ -56,8 +56,8 @@ jobs:
               - '.github/actions/node-setup/**'
 
   build:
-    if: needs.perpare-env.outputs.code-changed == 'true'
-    needs: [perpare-env]
+    if: needs.prepare-env.outputs.code-changed == 'true'
+    needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -74,8 +74,8 @@ jobs:
     - run: pnpm run build
 
   lint:
-    if: needs.perpare-env.outputs.code-changed == 'true'
-    needs: [perpare-env]
+    if: needs.prepare-env.outputs.code-changed == 'true'
+    needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -91,8 +91,8 @@ jobs:
         pnpm run knip
 
   unit-test:
-    if: needs.perpare-env.outputs.code-changed == 'true'
-    needs: [perpare-env]
+    if: needs.prepare-env.outputs.code-changed == 'true'
+    needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -103,9 +103,9 @@ jobs:
   # we only run this one after everything has run to save chromatic
   # credits
   chromatic:
-    if: needs.perpare-env.outputs.code-changed == 'true'
+    if: needs.prepare-env.outputs.code-changed == 'true'
     needs: [
-      perpare-env,
+      prepare-env,
       lint,
       unit-test,
       build
@@ -134,7 +134,7 @@ jobs:
   webapp-required-check:
     needs:
       [
-        perpare-env,
+        prepare-env,
         build,
         lint,
         unit-test,

@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  perpare-env:
+  prepare-env:
     name: detect what files changed
     runs-on: ubuntu-latest
     outputs:
@@ -37,8 +37,8 @@ jobs:
               - '.github/renovate.json'
 
   renovate-lint:
-    if: ${{ needs.perpare-env.outputs.renovate == 'true' }}
-    needs: perpare-env
+    if: ${{ needs.prepare-env.outputs.renovate == 'true' }}
+    needs: prepare-env
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -50,7 +50,7 @@ jobs:
   tooling-required-check:
     needs:
       [
-        perpare-env,
+        prepare-env,
         renovate-lint,
       ]
     # This is necessary since a failed/skipped dependent job would cause this job to be skipped

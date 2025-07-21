@@ -23,7 +23,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}-go-service-image-dev
 
 jobs:
-  perpare-env:
+  prepare-env:
     name: detect what files changed
     runs-on: ubuntu-latest
     outputs:
@@ -43,8 +43,8 @@ jobs:
               - '.github/workflows/images.yml'
 
   go-service-image-dev:
-    if: ${{ needs.perpare-env.outputs.go-service-image-dev == 'true' }}
-    needs: perpare-env
+    if: ${{ needs.prepare-env.outputs.go-service-image-dev == 'true' }}
+    needs: prepare-env
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -84,7 +84,7 @@ jobs:
   images-required-check:
     needs:
       [
-        perpare-env,
+        prepare-env,
         go-service-image-dev,
       ]
     # This is necessary since a failed/skipped dependent job would cause this job to be skipped
