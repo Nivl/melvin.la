@@ -12,7 +12,7 @@ tasks:
   install-deps:
     cmds:
       - go install github.com/daveshanley/vacuum@v0.17.2
-      - go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@aae687ce8fe987714a5c6ba1e18a704dc4503209
+      - go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@702cc9178842ef30e8ea8b1ec3aeb9637fa3895f
 
   build:
     cmds:
