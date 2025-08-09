@@ -13,7 +13,7 @@ import {
 import { Board } from '#models/conway';
 
 const drawBoard = (ctx: CanvasRenderingContext2D, boardSize: number) => {
-  const cellSize = ~~(701 / boardSize);
+  const cellSize = Math.floor(701 / boardSize);
   ctx.clearRect(0, 0, 701, 701);
   ctx.fillStyle = '#838383';
   for (let x = 0; x < boardSize + 1; x++) {
@@ -26,17 +26,17 @@ const totalNeighbors = (board: Board, x: number, y: number) => {
   let total = 0;
   // Row above
   if (typeof board[y - 1] !== 'undefined') {
-    total += ~~board[y - 1][x - 1];
-    total += ~~board[y - 1][x];
-    total += ~~board[y - 1][x + 1];
+    total += board[y - 1][x - 1];
+    total += board[y - 1][x];
+    total += board[y - 1][x + 1];
   }
   // current row
-  total += ~~board[y][x - 1] + ~~board[y][x + 1];
+  total += board[y][x - 1] + board[y][x + 1];
   // row below
   if (typeof board[y + 1] !== 'undefined') {
-    total += ~~board[y + 1][x - 1];
-    total += ~~board[y + 1][x];
-    total += ~~board[y + 1][x + 1];
+    total += board[y + 1][x - 1];
+    total += board[y + 1][x];
+    total += board[y + 1][x + 1];
   }
   return total;
 };
@@ -49,7 +49,7 @@ const drawCell = (
   y: number,
   darkMode: boolean,
 ) => {
-  const cellSize = ~~(701 / boardSize);
+  const cellSize = Math.floor(701 / boardSize);
   const cursorX = x * cellSize + 1;
   const cursorY = y * cellSize + 1;
 
@@ -168,9 +168,9 @@ export const Canvas = ({
       onClick={(e: MouseEvent<HTMLElement>) => {
         const rect = canvas.current?.getBoundingClientRect();
         if (!isPlaying && rect) {
-          const cellSize = ~~(701 / boardSize);
-          const x = ~~((e.clientX - rect.left) / cellSize);
-          const y = ~~((e.clientY - rect.top) / cellSize);
+          const cellSize = Math.floor(701 / boardSize);
+          const x = Math.floor((e.clientX - rect.left) / cellSize);
+          const y = Math.floor((e.clientY - rect.top) / cellSize);
           const newBoard = [...board];
           newBoard[y][x] = newBoard[y][x] ? 0 : 1;
           setBoard(newBoard);
