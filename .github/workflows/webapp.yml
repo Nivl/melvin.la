@@ -28,7 +28,7 @@ jobs:
     outputs:
       code-changed: ${{ steps.changes.outputs.src }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: git config --global --add safe.directory /__w/melvin.la/melvin.la
 
       - name: Check for file changes
@@ -60,7 +60,7 @@ jobs:
     needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup
       uses: './.github/actions/node-setup'
 
@@ -78,7 +78,7 @@ jobs:
     needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup
       uses: './.github/actions/node-setup'
     - run: pnpm run lint
@@ -95,7 +95,7 @@ jobs:
     needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Setup
       uses: './.github/actions/node-setup'
     - run: pnpm run test:unit run
@@ -114,7 +114,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Setup

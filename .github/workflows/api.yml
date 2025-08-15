@@ -37,7 +37,7 @@ jobs:
     outputs:
       code-changed: ${{ steps.changes.outputs.src }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Go
         id: restore-cache
@@ -76,7 +76,7 @@ jobs:
         password: ${{ secrets.github_token }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Go
         id: restore-cache
@@ -103,7 +103,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Go
         id: restore-cache
@@ -124,7 +124,7 @@ jobs:
         password: ${{ secrets.github_token }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Go
         id: restore-cache
@@ -157,7 +157,7 @@ jobs:
       packages: read
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Restore Binary
         uses: actions/download-artifact@v5
@@ -190,7 +190,7 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Restore Binary
         uses: actions/download-artifact@v5
@@ -240,7 +240,7 @@ jobs:
     needs:
       - publish-image
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install flyctl
         uses: superfly/flyctl-actions/setup-flyctl@63da3ecc5e2793b98a3f2519b3d75d4f4c11cec2
