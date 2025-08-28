@@ -16,6 +16,7 @@ import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
 import { FiMonitor as SystemIcon } from 'react-icons/fi';
 import { GiConwayLifeGlider as ConwayIcon } from 'react-icons/gi';
+import { GiPerspectiveDiceSixFacesRandom as UuidIcon } from 'react-icons/gi';
 import { IoMdMoon as NightIcon, IoMdSunny as LightIcon } from 'react-icons/io';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
@@ -137,6 +138,14 @@ export const Navbar = () => {
               href="/tools/timestamp"
             >
               Timestamp Lookup
+            </DropdownItem>
+
+            <DropdownItem
+              key="uuid"
+              startContent={<UuidIcon className="h-5 w-5" />}
+              href="/tools/uuid"
+            >
+              UUID generator
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
