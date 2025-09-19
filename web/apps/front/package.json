@@ -93,7 +93,7 @@
         "eslint-plugin-simple-import-sort": "12.1.1",
         "eslint-plugin-storybook": "9.1.6",
         "gray-matter": "4.0.3",
-        "jsdom": "26.1.0",
+        "jsdom": "27.0.0",
         "knip": "5.63.1",
         "openapi-typescript": "7.9.1",
         "postcss": "8.5.6",
