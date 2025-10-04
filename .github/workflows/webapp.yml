@@ -121,7 +121,7 @@ jobs:
         uses: './.github/actions/node-setup'
 
       - name: Run Chromatic
-        uses: chromaui/action@070fa3e7f73b8dd89954690b292486462dbc739d
+        uses: chromaui/action@4ffe736a2a8262ea28067ff05a13b635ba31ec05
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: ./web/apps/front
