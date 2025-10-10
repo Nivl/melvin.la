@@ -46,7 +46,7 @@
         "@heroui/table": "2.2.27",
         "@heroui/theme": "2.4.23",
         "@heroui/tooltip": "2.2.24",
-        "@internationalized/date": "3.9.0",
+        "@internationalized/date": "3.10.0",
         "@radix-ui/react-toggle-group": "1.1.11",
         "@tanstack/react-query": "5.90.2",
         "@vercel/analytics": "1.5.0",
