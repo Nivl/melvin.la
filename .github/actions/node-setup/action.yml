@@ -8,7 +8,7 @@ runs:
       with:
         package_json_file: "web/apps/front/package.json"
 
-    - uses: actions/setup-node@v5
+    - uses: actions/setup-node@v6
       with:
         node-version-file: "web/apps/front/.nvmrc"
         cache: "pnpm"
