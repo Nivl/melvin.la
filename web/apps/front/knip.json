@@ -9,6 +9,7 @@
         "eslint-config-next",
         "@next/eslint-plugin-next",
         "eslint-plugin-react-hooks",
-        "tailwindcss"
+        "tailwindcss",
+        "@types/google.maps"
     ]
 }
