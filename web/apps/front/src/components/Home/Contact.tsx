@@ -42,7 +42,7 @@ export const Contact = ({
       </div>
       <Map
         className="h-[800px] w-full"
-        initialCenter={{ lat: 34.0218593, lng: -118.498265 }}
+        initialCenter={{ lat: 34.021_859_3, lng: -118.498_265 }}
       />
     </>
   );

@@ -13,7 +13,4 @@ const main = async () => {
   await rm(BUILD_DIR, { recursive: true, force: true });
 };
 
-main().catch((error: unknown) => {
-  process.stderr.write(`Error during postbuild: ${error}\n`);
-  process.exit(1);
-});
+await main();

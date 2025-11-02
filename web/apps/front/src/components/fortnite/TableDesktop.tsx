@@ -10,7 +10,7 @@ import {
   TableRow,
 } from '@heroui/table';
 import { Tooltip } from '@heroui/tooltip';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 import { FaUser, FaUserGroup, FaUsers } from 'react-icons/fa6';
 import { GiSmartphone } from 'react-icons/gi';
@@ -46,18 +46,20 @@ export const TableDesktop = ({
 }) => {
   const [category, setCategory] = useState<Category>('all');
 
-  // Sync the categories with the data, to make sure the current
-  // category is available with the new set of data
-  useEffect(() => {
+  // We need to sync the categories with the data, to make sure the
+  // current category is available with the new set of data
+  const [prevData, setPrevData] = useState<FortniteData | undefined>();
+  if (data !== prevData) {
+    setPrevData(data);
+
     // The 'all' category is only going to be displayed if there is more than
     // one category available.
     const availableCats: Record<string, boolean> = {};
-
-    categoryList.forEach(e => {
-      if (e !== 'all' && data?.stats[e]?.overall) {
-        availableCats[e] = true;
+    for (const cat of categoryList) {
+      if (cat !== 'all' && data?.stats[cat]?.overall) {
+        availableCats[cat] = true;
       }
-    });
+    }
 
     // if the current category is not available for the current set of data
     // we switch to either 'all' or to the only available category
@@ -66,10 +68,9 @@ export const TableDesktop = ({
         Object.keys(availableCats).length === 1
           ? (Object.keys(availableCats)[0] as Category)
           : 'all';
-
       setCategory(newCat);
     }
-  }, [data, category]);
+  }
 
   // Create the categories pills
   const TableCategoriesSection = useMemo(() => {

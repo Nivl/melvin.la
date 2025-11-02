@@ -44,15 +44,12 @@ const availableNamespaces = [
   },
 ];
 
-const namespaceKeyToUuid = availableNamespaces.reduce<Record<string, string>>(
-  (acc, { key, uuid }) => {
-    if (uuid) {
-      acc[key] = uuid;
-    }
-    return acc;
-  },
-  {},
-);
+const namespaceKeyToUuid: Record<string, string> = {};
+for (const ns of availableNamespaces) {
+  if (ns.uuid) {
+    namespaceKeyToUuid[ns.key] = ns.uuid;
+  }
+}
 
 const availableUuidTypes = [
   {
@@ -99,12 +96,13 @@ const availableUuidTypes = [
   },
 ];
 
-const uuidKeyToGenerate = availableUuidTypes.reduce<
-  Record<string, (name: string, namespace: string) => string>
->((acc, { key, generate }) => {
-  acc[key] = generate;
-  return acc;
-}, {});
+const uuidKeyToGenerate: Record<
+  string,
+  (name: string, namespace: string) => string
+> = {};
+for (const ns of availableUuidTypes) {
+  uuidKeyToGenerate[ns.key] = ns.generate;
+}
 
 export const Uuid = () => {
   const [uuids, setUuids] = useState<string[]>([]);
@@ -152,9 +150,11 @@ export const Uuid = () => {
             items={availableUuidTypes}
             selectedKeys={new Set([version])}
             onSelectionChange={key => {
-              const v = Array.from(key)[0] as string;
-              setVersion(v);
-              if (['v3', 'v5'].includes(v)) {
+              if (!key.currentKey) {
+                return;
+              }
+              setVersion(key.currentKey);
+              if (['v3', 'v5'].includes(key.currentKey)) {
                 setCount(1);
               }
             }}
@@ -184,8 +184,10 @@ export const Uuid = () => {
                 items={availableNamespaces}
                 selectedKeys={new Set([namespace])}
                 onSelectionChange={key => {
-                  const ns = Array.from(key)[0] as string;
-                  setNamespace(ns);
+                  if (!key.currentKey) {
+                    return;
+                  }
+                  setNamespace(key.currentKey);
                 }}
               >
                 {namespace => <SelectItem>{namespace.label}</SelectItem>}

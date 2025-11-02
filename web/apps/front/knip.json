@@ -6,9 +6,6 @@
         "src/app/heroui.ts"
     ],
     "ignoreDependencies": [
-        "eslint-config-next",
-        "@next/eslint-plugin-next",
-        "eslint-plugin-react-hooks",
         "tailwindcss",
         "@types/google.maps"
     ]

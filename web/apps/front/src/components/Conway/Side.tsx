@@ -5,6 +5,7 @@ import { FaPause as PauseIcon, FaPlay as Playicon } from 'react-icons/fa6';
 import {
   Board,
   boardSizes,
+  BoardValue,
   gliderPreset,
   HeavyweightPreset,
   PentadecathlonPreset,
@@ -14,20 +15,29 @@ import {
 import { Heading } from '../layout/Heading';
 import { Preset } from './Preset';
 
-const growBoard = (board: Board, newSize: number): Board => {
+const newRow = (size: number): BoardValue[] => {
+  return Array.from<BoardValue>({ length: size }).fill(0);
+};
+
+const resizeBoard = (board: Board, newSize: number): Board => {
   const boardSize = board.length;
   if (newSize === boardSize) {
     return board;
   }
+  // Shrinks the board
   if (newSize < boardSize) {
-    throw new Error('cannot reduce board size');
+    return board.slice(0, newSize).map(row => {
+      return row.slice(0, newSize);
+    });
   }
 
-  const newBoard = board.map(row => {
-    return row.concat(Array(newSize - boardSize).fill(0));
+  // Extends the existing rows
+  const newBoard: Board = board.map(row => {
+    return [...row, ...newRow(newSize - boardSize)];
   });
+  // Adds extra rows
   for (let i = 0; i < newSize - boardSize; i++) {
-    newBoard.push(Array(newSize).fill(0) as Board[0]);
+    newBoard.push(newRow(newSize));
   }
   return newBoard;
 };
@@ -52,7 +62,7 @@ export const Side = ({
   setBoardSize: (_: number) => void;
 }) => {
   const setPreset = (preset: Board) => {
-    setBoard(growBoard(preset, boardSize));
+    setBoard(resizeBoard(preset, boardSize));
   };
 
   return (
@@ -84,7 +94,7 @@ export const Side = ({
         defaultValue={speed}
         className="max-w-md"
         onChange={v => {
-          if (typeof v === 'number' && !isNaN(v)) {
+          if (typeof v === 'number' && !Number.isNaN(v)) {
             setSpeed(v);
           }
         }}
@@ -107,23 +117,7 @@ export const Side = ({
             return;
           }
 
-          if (newSize < boardSize) {
-            const newBoard = board.slice(0, newSize).map(row => {
-              return row.slice(0, newSize);
-            });
-
-            setBoardSize(newSize);
-            setBoard(newBoard);
-            return;
-          }
-
-          const newBoard = board.map(row => {
-            return row.concat(Array(newSize - boardSize).fill(0));
-          });
-          for (let i = 0; i < newSize - boardSize; i++) {
-            newBoard.push(Array(newSize).fill(0) as Board[0]);
-          }
-
+          const newBoard = resizeBoard(board, newSize);
           setBoardSize(newSize);
           setBoard(newBoard);
         }}

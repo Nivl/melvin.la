@@ -11,7 +11,7 @@ import { Link } from '@heroui/link';
 import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
 import { FiMonitor as SystemIcon } from 'react-icons/fi';
@@ -21,16 +21,19 @@ import { IoMdMoon as NightIcon, IoMdSunny as LightIcon } from 'react-icons/io';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
+const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
+
 export const Navbar = () => {
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
   // This is used to display data that can only be rendered
   // client-side, such as the theme picker.
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const didMount = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
 
   return (
     <NuiNavbar position="static">
@@ -58,7 +61,7 @@ export const Navbar = () => {
                 endContent={
                   <DownIcon
                     className={
-                      !pathname.startsWith('/games') ? 'opacity-70' : ''
+                      pathname.startsWith('/games') ? '' : 'opacity-70'
                     }
                   />
                 }
@@ -98,7 +101,7 @@ export const Navbar = () => {
                 endContent={
                   <DownIcon
                     className={
-                      !pathname.startsWith('/tools') ? 'opacity-70' : ''
+                      pathname.startsWith('/tools') ? '' : 'opacity-70'
                     }
                   />
                 }
@@ -151,7 +154,7 @@ export const Navbar = () => {
         </Dropdown>
       </NavbarContent>
 
-      {mounted && (
+      {didMount && (
         <NavbarContent justify="end">
           <Dropdown>
             <NavbarItem>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
 import c from 'react-syntax-highlighter/dist/esm/languages/prism/c';
@@ -24,6 +24,8 @@ SyntaxHighlighter.registerLanguage('sql', sql);
 SyntaxHighlighter.registerLanguage('yaml', yaml);
 SyntaxHighlighter.registerLanguage('c', c);
 
+const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
+
 export const CodeBlock = ({
   children,
   language,
@@ -35,19 +37,20 @@ export const CodeBlock = ({
   showlinenumbers: boolean;
   className?: string;
 }) => {
-  const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
 
   // Prevents hydration mismatch by ensuring the component is only rendered
   // after the theme is resolved.
   // Not doing so results in a mismatch between this component's theme
   // and the user's theme (white codeblock in dark mode).
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const didMount = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
 
-  if (!mounted) {
-    return null;
+  if (!didMount) {
+    return;
   }
 
   const theme = resolvedTheme === 'dark' ? DarkTheme : LightTheme;
@@ -59,7 +62,7 @@ export const CodeBlock = ({
       showInlineLineNumbers={showlinenumbers}
       style={theme}
       className={twMerge(
-        `!font-monospace rounded-lg! text-base! ${className ?? ''}`,
+        `font-monospace! rounded-lg! text-base! ${className ?? ''}`,
       )}
       codeTagProps={{
         style: {

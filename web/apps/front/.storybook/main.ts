@@ -1,4 +1,4 @@
-/* eslint-disable import/no-default-export */
+/* <disabled>-eslint-disable import/no-default-export */
 
 import type { StorybookConfig } from '@storybook/nextjs';
 
