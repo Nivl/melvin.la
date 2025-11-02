@@ -61,7 +61,8 @@ export const Navbar = () => {
                 endContent={
                   <DownIcon
                     className={
-                      pathname.startsWith('/games') ? '' : 'opacity-70'
+                      'ease-spring-soft transition duration-700 group-aria-expanded:-rotate-180 motion-reduce:transition-none ' +
+                      (pathname.startsWith('/games') ? '' : 'opacity-70')
                     }
                   />
                 }
@@ -101,7 +102,8 @@ export const Navbar = () => {
                 endContent={
                   <DownIcon
                     className={
-                      pathname.startsWith('/tools') ? '' : 'opacity-70'
+                      'ease-spring-soft transition duration-700 group-aria-expanded:-rotate-180 motion-reduce:transition-none ' +
+                      (pathname.startsWith('/tools') ? '' : 'opacity-70')
                     }
                   />
                 }
