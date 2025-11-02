@@ -57,7 +57,7 @@ export const Navbar = () => {
                 disableRipple
                 className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent ${pathname.startsWith('/games') ? 'font-semibold' : ''}`}
                 radius="sm"
-                variant="flat"
+                variant="light"
                 endContent={
                   <DownIcon
                     className={
@@ -73,7 +73,7 @@ export const Navbar = () => {
           </NavbarItem>
           <DropdownMenu
             aria-label="games"
-            selectionMode="single"
+            variant="flat"
             selectedKeys={
               pathname.startsWith('/games')
                 ? new Set([pathname.split('/')[2] ?? ''])
@@ -98,7 +98,7 @@ export const Navbar = () => {
                 disableRipple
                 className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent ${pathname.startsWith('/tools') ? 'font-semibold' : ''}`}
                 radius="sm"
-                variant="flat"
+                variant="light"
                 endContent={
                   <DownIcon
                     className={
@@ -114,7 +114,7 @@ export const Navbar = () => {
           </NavbarItem>
           <DropdownMenu
             aria-label="tools"
-            selectionMode="single"
+            variant="flat"
             selectedKeys={
               pathname.startsWith('/tools')
                 ? new Set([pathname.split('/')[2] ?? ''])
@@ -161,7 +161,12 @@ export const Navbar = () => {
           <Dropdown>
             <NavbarItem>
               <DropdownTrigger>
-                <Button variant="light" isIconOnly>
+                <Button
+                  disableRipple
+                  className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent ${pathname.startsWith('/games') ? 'font-semibold' : ''}`}
+                  variant="light"
+                  isIconOnly
+                >
                   {theme === 'system' && <SystemIcon />}
                   {theme === 'light' && <LightIcon />}
                   {theme === 'dark' && <NightIcon />}
@@ -170,7 +175,7 @@ export const Navbar = () => {
             </NavbarItem>
             <DropdownMenu
               aria-label="theme"
-              selectionMode="single"
+              variant="flat"
               selectedKeys={theme ? new Set([theme]) : ''}
             >
               <DropdownItem
