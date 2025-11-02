@@ -33,7 +33,7 @@ const getColor = (skip?: Color): Color => {
 export const Timestamp = () => {
   const [timestamps, setTimestamps] = useState<Data[]>([]);
   const [hasError, setHasError] = useState(false);
-  const [value, setValue] = useState(NaN);
+  const [value, setValue] = useState(Number.NaN);
 
   return (
     <>
@@ -62,7 +62,7 @@ export const Timestamp = () => {
             maxLength={20}
             onValueChange={value => {
               // NaN is used when the input is empty
-              if (!isNaN(value)) {
+              if (!Number.isNaN(value)) {
                 const len = value.toString().length;
                 if (len <= 10) {
                   value = value * 1000; // Convert seconds to milliseconds
@@ -70,7 +70,7 @@ export const Timestamp = () => {
                   value = value / Math.pow(10, len - 13); // Convert anything else to milliseconds
                 }
                 const date = new Date(value);
-                const invalid = isNaN(date.getTime());
+                const invalid = Number.isNaN(date.getTime());
                 setHasError(invalid);
                 if (invalid) {
                   return;
@@ -79,10 +79,10 @@ export const Timestamp = () => {
                   ...timestamps,
                   {
                     date,
-                    color: getColor(timestamps[timestamps.length - 1]?.color),
+                    color: getColor(timestamps.at(-1)?.color),
                   },
                 ]);
-                setValue(NaN);
+                setValue(Number.NaN);
               }
             }}
           />

@@ -48,7 +48,7 @@ export async function generateMetadata(props: {
         type: 'article',
         publishedTime: post.createdAt,
         modifiedTime:
-          post.createdAt !== post.updatedAt ? post.updatedAt : undefined,
+          post.createdAt === post.updatedAt ? undefined : post.updatedAt,
       },
     }),
   };

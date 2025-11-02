@@ -1,4 +1,4 @@
-/* eslint-disable import/no-default-export */
+/* <disabled>-eslint-disable import/no-default-export */
 
 import { heroui } from '@heroui/react';
 import plugin from 'tailwindcss/plugin.js';

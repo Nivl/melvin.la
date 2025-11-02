@@ -1,13 +1,13 @@
 import matter from 'gray-matter';
 import { rm } from 'node:fs/promises';
 import { readdir, readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import path from 'node:path';
 import { type DatabaseSync } from 'node:sqlite';
 
 import { BlogPost } from '#models/blog/post';
-
 import { database } from '#ssg/database';
 import { BLOG_POSTS_DIR, BUILD_DIR } from '#ssg/paths';
+
 import { setup } from './utils';
 
 type Frontmatter = Omit<BlogPost, 'updatedAt'> & {
@@ -37,7 +37,10 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
   for (const file of files) {
     if (!file.isFile() || !file.name.endsWith('.mdx')) return;
 
-    const content = await readFile(join(file.parentPath, file.name), 'utf-8');
+    const content = await readFile(
+      path.join(file.parentPath, file.name),
+      'utf8',
+    );
     const mdxSource = matter(content);
 
     const { title, slug, createdAt, updatedAt, excerpt, image, ogImage } =
@@ -59,7 +62,4 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
   }
 };
 
-main().catch((error: unknown) => {
-  process.stderr.write(`Error during prebuild: ${error}\n`);
-  process.exit(1);
-});
+await main();

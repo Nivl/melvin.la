@@ -38,12 +38,6 @@ export const Form = ({
   const debounceName = useDebouncedCallback((name: string) => {
     setName(name);
   }, 1000);
-  // When it's value change, we redraw the form and update the default
-  // value of the name input. We have to do this to display the presets
-  // in the input.
-  // This is because we cannot use 'name' as it is debounced, and
-  // debounceName doesn't contains the current value being debounced.
-  const [nameKey, setNameKey] = useState('');
 
   const [accountType, setAccountType] = useState(defaultAccountType);
   const [timeWindow, setTimeWindow] = useState(defaultTimeWindow);
@@ -56,16 +50,6 @@ export const Form = ({
     onAccountTypeChange(accountType);
   }, [accountType, onAccountTypeChange]);
 
-  // Used when the user picks a preset
-  useEffect(() => {
-    if (defaultAccountName) {
-      setName(defaultAccountName);
-      setNameKey(defaultAccountName);
-      setAccountType(defaultAccountType);
-      setTimeWindow(defaultTimeWindow);
-    }
-  }, [defaultAccountName, defaultAccountType, defaultTimeWindow]);
-
   return (
     <form
       className="flex basis-full flex-col items-center gap-3"
@@ -74,7 +58,7 @@ export const Form = ({
       }}
     >
       <Input
-        key={nameKey}
+        key={name}
         className="w-auto"
         type="text"
         label="Account Name"

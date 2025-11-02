@@ -18,13 +18,13 @@ export const humanizeDuration = (minutes: number) => {
   const h = Math.floor((minutes % 1440) / 60);
   const m = minutes % 60;
   if (d > 0) {
-    output += `${d.toFixed()} day${d > 1 ? 's' : ''} `;
+    output += `${d.toFixed(0)} day${d > 1 ? 's' : ''} `;
   }
   if (h > 0) {
-    output += `${h.toFixed()} hour${h > 1 ? 's' : ''} `;
+    output += `${h.toFixed(0)} hour${h > 1 ? 's' : ''} `;
   }
   if (m > 0) {
-    output += `${m.toFixed()} minute${m > 1 ? 's' : ''} `;
+    output += `${m.toFixed(0)} minute${m > 1 ? 's' : ''} `;
   }
   return output;
 };

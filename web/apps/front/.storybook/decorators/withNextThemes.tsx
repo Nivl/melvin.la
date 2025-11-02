@@ -50,7 +50,7 @@ export const withNextThemes = ({
   defaultTheme,
   ...props
 }: NextThemesDecorator) => {
-  initializeThemeState([...Object.keys(themes)], defaultTheme);
+  initializeThemeState(Object.keys(themes), defaultTheme);
 
   const decorator: DecoratorFunction<ReactRenderer> = (Story, context) => {
     const selectedTheme = pluckThemeFromContext(context);

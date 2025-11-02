@@ -11,10 +11,11 @@ import { MdDeleteForever as DeleteIcon } from 'react-icons/md';
 
 import { Section } from '../layout/Section';
 
-const sortedCities: City[] = Array(cityMapping.length) as City[];
+const sortedCities: City[] = Array.from({
+  length: cityMapping.length,
+});
 
-for (let i = 0; i < cityMapping.length; i++) {
-  const city = cityMapping[i];
+for (const [i, city] of cityMapping.entries()) {
   const lcName = city.city.toLocaleLowerCase();
   sortedCities[i] = { lcName, data: city, entryIndex: i };
 }
@@ -199,7 +200,7 @@ export const Timezones = () => {
                   if (typeof e === 'string' && ~~e < sortedCities.length) {
                     const newZone: CityDataWithColor = {
                       ...sortedCities[~~e].data,
-                      color: getColor(zones[zones.length - 1]?.color),
+                      color: getColor(zones.at(-1)?.color),
                     };
                     setZones([...zones, newZone]);
                     setSearchItems([]);

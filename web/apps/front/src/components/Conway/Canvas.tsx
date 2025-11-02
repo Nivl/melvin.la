@@ -25,7 +25,7 @@ const drawBoard = (ctx: CanvasRenderingContext2D, boardSize: number) => {
 const totalNeighbors = (board: Board, x: number, y: number) => {
   let total = 0;
   // Row above
-  if (typeof board[y - 1] !== 'undefined') {
+  if (board[y - 1] !== undefined) {
     total += board[y - 1][x - 1];
     total += board[y - 1][x];
     total += board[y - 1][x + 1];
@@ -33,7 +33,7 @@ const totalNeighbors = (board: Board, x: number, y: number) => {
   // current row
   total += board[y][x - 1] + board[y][x + 1];
   // row below
-  if (typeof board[y + 1] !== 'undefined') {
+  if (board[y + 1] !== undefined) {
     total += board[y + 1][x - 1];
     total += board[y + 1][x];
     total += board[y + 1][x + 1];
@@ -130,9 +130,9 @@ export const Canvas = ({
       if (ctx) {
         drawBoard(ctx, boardSize);
 
-        for (let y = 0; y < board.length; y++) {
-          for (let x = 0; x < board[y].length; x++) {
-            drawCell(ctx, boardSize, board[y][x], x, y, isDarkMode);
+        for (const [y, row] of board.entries()) {
+          for (const [x, cellState] of row.entries()) {
+            drawCell(ctx, boardSize, cellState, x, y, isDarkMode);
           }
         }
       }

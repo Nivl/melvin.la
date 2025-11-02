@@ -1,4 +1,4 @@
-/* eslint-disable import/no-default-export */
+/* <disabled>-eslint-disable import/no-default-export */
 
 import '../src/app/globals.css';
 import './fonts.css';
@@ -50,7 +50,7 @@ const preview: Preview = {
   },
   decorators: [
     Story => {
-      window.localStorage.clear();
+      globalThis.window.localStorage.clear();
       return <Story />;
     },
     Story => (

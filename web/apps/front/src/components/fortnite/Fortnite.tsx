@@ -85,6 +85,7 @@ export const Fortnite = ({
             defaultTimeWindow={preset.timeWindow}
             defaultAccountType={preset.accountType}
             defaultAccountName={preset.accountName}
+            key={`${preset.accountName}-${preset.accountType}-${preset.timeWindow}`}
           />
         </header>
       </Section>
