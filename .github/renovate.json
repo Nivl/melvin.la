@@ -11,13 +11,13 @@
       ]
     },
     {
-      "matchPackagePatterns": [
-        "node"
-      ],
-      "updateTypes": [
+      "matchUpdateTypes": [
         "major"
       ],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "/node/"
+      ]
     }
   ]
 }
