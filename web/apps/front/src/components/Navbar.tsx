@@ -11,7 +11,7 @@ import { Link } from '@heroui/link';
 import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { useSyncExternalStore } from 'react';
+import { ReactNode, useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
 import { FiMonitor as SystemIcon } from 'react-icons/fi';
@@ -22,6 +22,50 @@ import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
 const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
+
+type Item = {
+  key: string;
+  label: string;
+  path: string;
+  description?: string;
+  logo: ReactNode;
+};
+
+const tools: Item[] = [
+  {
+    key: 'fortnite',
+    label: 'Fortnite Data',
+    path: '/fortnite',
+    logo: <FortniteIcon className="h-5 w-5" />,
+  },
+  {
+    key: 'timezones',
+    label: 'Timezone Converter',
+    path: '/timezones',
+    logo: <TimezoneIcon className="h-5 w-5" />,
+  },
+  {
+    key: 'timestamp',
+    label: 'Timestamp Lookup',
+    path: '/timestamp',
+    logo: <TimestampIcon className="h-5 w-5" />,
+  },
+  {
+    key: 'uuid',
+    label: 'UUID generator',
+    path: '/uuid',
+    logo: <UuidIcon className="h-5 w-5" />,
+  },
+];
+
+const games: Item[] = [
+  {
+    key: 'conway',
+    label: 'Game of Life',
+    path: '/conway',
+    logo: <ConwayIcon className="h-5 w-5" />,
+  },
+];
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -74,20 +118,22 @@ export const Navbar = () => {
           <DropdownMenu
             aria-label="games"
             variant="flat"
+            items={games}
             selectedKeys={
               pathname.startsWith('/games')
                 ? new Set([pathname.split('/')[2] ?? ''])
                 : ''
             }
           >
-            <DropdownItem
-              key="conway"
-              description="Zero-player cellular automation game."
-              startContent={<ConwayIcon className="h-5 w-5" />}
-              href="/games/conway"
-            >
-              Game of Life
-            </DropdownItem>
+            {item => (
+              <DropdownItem
+                key={item.key}
+                startContent={item.logo}
+                href={`/games/${item.path}`}
+              >
+                {item.label}
+              </DropdownItem>
+            )}
           </DropdownMenu>
         </Dropdown>
 
@@ -115,43 +161,22 @@ export const Navbar = () => {
           <DropdownMenu
             aria-label="tools"
             variant="flat"
+            items={tools}
             selectedKeys={
               pathname.startsWith('/tools')
                 ? new Set([pathname.split('/')[2] ?? ''])
                 : ''
             }
           >
-            <DropdownItem
-              key="fortnite"
-              startContent={<FortniteIcon className="h-5 w-5" />}
-              href="/tools/fortnite"
-            >
-              Fortnite Data
-            </DropdownItem>
-
-            <DropdownItem
-              key="timezones"
-              startContent={<TimezoneIcon className="h-5 w-5" />}
-              href="/tools/timezones"
-            >
-              Timezone Converter
-            </DropdownItem>
-
-            <DropdownItem
-              key="timestamp"
-              startContent={<TimestampIcon className="h-5 w-5" />}
-              href="/tools/timestamp"
-            >
-              Timestamp Lookup
-            </DropdownItem>
-
-            <DropdownItem
-              key="uuid"
-              startContent={<UuidIcon className="h-5 w-5" />}
-              href="/tools/uuid"
-            >
-              UUID generator
-            </DropdownItem>
+            {item => (
+              <DropdownItem
+                key={item.key}
+                startContent={item.logo}
+                href={`/tools/${item.path}`}
+              >
+                {item.label}
+              </DropdownItem>
+            )}
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
