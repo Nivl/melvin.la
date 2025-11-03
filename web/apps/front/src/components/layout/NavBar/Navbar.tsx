@@ -10,18 +10,15 @@ import {
 import { Link } from '@heroui/link';
 import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
 import { usePathname } from 'next/navigation';
-import { useTheme } from 'next-themes';
-import { ReactNode, useSyncExternalStore } from 'react';
+import { ReactNode } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
-import { FiMonitor as SystemIcon } from 'react-icons/fi';
 import { GiConwayLifeGlider as ConwayIcon } from 'react-icons/gi';
 import { GiPerspectiveDiceSixFacesRandom as UuidIcon } from 'react-icons/gi';
-import { IoMdMoon as NightIcon, IoMdSunny as LightIcon } from 'react-icons/io';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
-const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 type Item = {
   key: string;
@@ -69,15 +66,6 @@ const games: Item[] = [
 
 export const Navbar = () => {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
-
-  // This is used to display data that can only be rendered
-  // client-side, such as the theme picker.
-  const didMount = useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false,
-  );
 
   return (
     <NuiNavbar position="static">
@@ -181,59 +169,7 @@ export const Navbar = () => {
         </Dropdown>
       </NavbarContent>
 
-      {didMount && (
-        <NavbarContent justify="end">
-          <Dropdown>
-            <NavbarItem>
-              <DropdownTrigger>
-                <Button
-                  disableRipple
-                  className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent ${pathname.startsWith('/games') ? 'font-semibold' : ''}`}
-                  variant="light"
-                  isIconOnly
-                >
-                  {theme === 'system' && <SystemIcon />}
-                  {theme === 'light' && <LightIcon />}
-                  {theme === 'dark' && <NightIcon />}
-                </Button>
-              </DropdownTrigger>
-            </NavbarItem>
-            <DropdownMenu
-              aria-label="theme"
-              variant="flat"
-              selectedKeys={theme ? new Set([theme]) : ''}
-            >
-              <DropdownItem
-                key="light"
-                startContent={<LightIcon />}
-                onPress={() => {
-                  setTheme('light');
-                }}
-              >
-                Light
-              </DropdownItem>
-              <DropdownItem
-                key="dark"
-                startContent={<NightIcon />}
-                onPress={() => {
-                  setTheme('dark');
-                }}
-              >
-                Night
-              </DropdownItem>
-              <DropdownItem
-                key="system"
-                startContent={<SystemIcon />}
-                onPress={() => {
-                  setTheme('system');
-                }}
-              >
-                System
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        </NavbarContent>
-      )}
+      <ThemeSwitcher />
     </NuiNavbar>
   );
 };

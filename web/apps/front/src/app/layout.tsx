@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 import { Fira_Code, Raleway } from 'next/font/google';
 import localFont from 'next/font/local';
 
-import { Navbar } from '#components/Navbar';
+import { Navbar } from '#components/layout/NavBar/Navbar.tsx';
 import { Providers } from '#components/Providers';
 import { getMetadata } from '#utils/metadata';
 
