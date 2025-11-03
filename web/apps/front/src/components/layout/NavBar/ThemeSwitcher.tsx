@@ -6,14 +6,17 @@ import {
   DropdownTrigger,
 } from '@heroui/dropdown';
 import { NavbarContent, NavbarItem } from '@heroui/navbar';
+import {
+  Moon as DarkThemeIcon,
+  Palette as SystemThemeIcon,
+  Sun as LightThemeIcon,
+} from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState, useSyncExternalStore } from 'react';
-import { FiMonitor as SystemIcon } from 'react-icons/fi';
-import { IoMdMoon as NightIcon, IoMdSunny as LightIcon } from 'react-icons/io';
 
 import { usePrefersReducedMotion } from '#hooks/usePrefersReducedMotion.ts';
 
-const emptySubscribe = () => () => { }; // eslint-disable-line @typescript-eslint/no-empty-function
+const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
@@ -65,9 +68,9 @@ export const ThemeSwitcher = () => {
               <span
                 className={`boop-animation ${isBooped ? 'rotate-15' : 'rotate-0'}`}
               >
-                {theme === 'system' && <SystemIcon />}
-                {theme === 'light' && <LightIcon />}
-                {theme === 'dark' && <NightIcon />}
+                {theme === 'system' && <SystemThemeIcon />}
+                {theme === 'light' && <LightThemeIcon />}
+                {theme === 'dark' && <DarkThemeIcon />}
               </span>
             </Button>
           </DropdownTrigger>
@@ -79,7 +82,7 @@ export const ThemeSwitcher = () => {
         >
           <DropdownItem
             key="light"
-            startContent={<LightIcon />}
+            startContent={<LightThemeIcon width={20} />}
             onPress={() => {
               setTheme('light');
             }}
@@ -88,7 +91,7 @@ export const ThemeSwitcher = () => {
           </DropdownItem>
           <DropdownItem
             key="dark"
-            startContent={<NightIcon />}
+            startContent={<DarkThemeIcon width={20} />}
             onPress={() => {
               setTheme('dark');
             }}
@@ -97,7 +100,7 @@ export const ThemeSwitcher = () => {
           </DropdownItem>
           <DropdownItem
             key="system"
-            startContent={<SystemIcon />}
+            startContent={<SystemThemeIcon width={20} />}
             onPress={() => {
               setTheme('system');
             }}
