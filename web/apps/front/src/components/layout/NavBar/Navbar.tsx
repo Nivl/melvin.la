@@ -10,7 +10,7 @@ import {
 import { Link } from '@heroui/link';
 import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
 import { usePathname } from 'next/navigation';
-import { ReactNode } from 'react';
+import { ReactNode, useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
 import { GiConwayLifeGlider as ConwayIcon } from 'react-icons/gi';
@@ -64,8 +64,18 @@ const games: Item[] = [
   },
 ];
 
+const emptySubscribe = () => () => { }; // eslint-disable-line @typescript-eslint/no-empty-function
+
 export const Navbar = () => {
   const pathname = usePathname();
+
+  // This is used to display data that can only be rendered
+  // client-side, such as the theme picker.
+  const didMount = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
 
   return (
     <NuiNavbar position="static">
@@ -169,7 +179,7 @@ export const Navbar = () => {
         </Dropdown>
       </NavbarContent>
 
-      <ThemeSwitcher />
+      {didMount && <ThemeSwitcher />}
     </NuiNavbar>
   );
 };

@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@heroui/button';
 import {
   Dropdown,
@@ -12,11 +14,9 @@ import {
   Sun as LightThemeIcon,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { useEffect, useState, useSyncExternalStore } from 'react';
+import { useEffect, useState } from 'react';
 
 import { usePrefersReducedMotion } from '#hooks/usePrefersReducedMotion.ts';
-
-const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
@@ -37,18 +37,6 @@ export const ThemeSwitcher = () => {
     };
   }, [isBooped]);
 
-  // This is used to display data that can only be rendered
-  // client-side, such as the theme picker.
-  const didMount = useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false,
-  );
-
-  if (!didMount) {
-    return;
-  }
-
   return (
     <NavbarContent justify="end">
       <Dropdown>
@@ -68,9 +56,9 @@ export const ThemeSwitcher = () => {
               <span
                 className={`boop-animation ${isBooped ? 'rotate-15' : 'rotate-0'}`}
               >
-                {theme === 'system' && <SystemThemeIcon />}
-                {theme === 'light' && <LightThemeIcon />}
-                {theme === 'dark' && <DarkThemeIcon />}
+                {theme === 'system' && <SystemThemeIcon width={20} />}
+                {theme === 'light' && <LightThemeIcon width={20} />}
+                {theme === 'dark' && <DarkThemeIcon width={20} />}
               </span>
             </Button>
           </DropdownTrigger>
