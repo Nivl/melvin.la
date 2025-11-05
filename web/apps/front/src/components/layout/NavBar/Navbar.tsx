@@ -64,7 +64,7 @@ const games: Item[] = [
   },
 ];
 
-const emptySubscribe = () => () => { }; // eslint-disable-line @typescript-eslint/no-empty-function
+const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
 
 export const Navbar = () => {
   const pathname = usePathname();

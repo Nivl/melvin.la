@@ -7,7 +7,8 @@ import { getLocalTimeZone, now } from '@internationalized/date';
 import { CityData, cityMapping } from 'city-timezones';
 import moment from 'moment-timezone';
 import { useState } from 'react';
-import { MdDeleteForever as DeleteIcon } from 'react-icons/md';
+
+import { Color, colors, LargePill } from '#components/layout/LargePill.tsx';
 
 import { Section } from '../layout/Section';
 
@@ -26,22 +27,9 @@ type City = {
   data: CityData;
 };
 
-const colors = [
-  'bg-pink-300',
-  'bg-green-400',
-  'bg-blue-400',
-  'bg-amber-400',
-  'bg-teal-300',
-  'bg-sky-300',
-  'bg-indigo-300',
-  'bg-violet-300',
-  'bg-rose-300',
-] as const;
-
-type Color = (typeof colors)[number];
-
 type CityDataWithColor = CityData & {
   color: Color;
+  content: React.ReactNode;
 };
 
 const getColor = (skip?: Color): Color => {
@@ -157,31 +145,13 @@ export const Timezones = () => {
               {zones.length > 0 && (
                 <div className="mt-20 flex flex-col gap-4">
                   {zones.map((zone, i) => (
-                    <div
+                    <LargePill
                       key={i}
-                      className={`flex justify-center gap-3 ${zone.color} rounded-full p-7 text-black sm:p-4`}
-                    >
-                      {/* empty div so we break out of the flex container to not have a gap around the city name */}
-                      <div>
-                        In{' '}
-                        <div className="inline font-bold">
-                          <span>{zone.city}</span>
-                        </div>{' '}
-                        it&apos;s{' '}
-                        {date
-                          .clone()
-                          .tz(zone.timezone)
-                          .format('dddd, MMMM Do YYYY, h:mm:ss a')}
-                      </div>
-                      <a
-                        className="cursor-pointer"
-                        onClick={() => {
-                          setZones(zones => zones.toSpliced(i, 1));
-                        }}
-                      >
-                        <DeleteIcon className="h-full" />
-                      </a>
-                    </div>
+                      item={zone}
+                      onDelete={() => {
+                        setZones(zones => zones.toSpliced(i, 1));
+                      }}
+                    />
                   ))}
                 </div>
               )}
@@ -201,6 +171,19 @@ export const Timezones = () => {
                     const newZone: CityDataWithColor = {
                       ...sortedCities[~~e].data,
                       color: getColor(zones.at(-1)?.color),
+                      content: (
+                        <>
+                          In{' '}
+                          <div className="inline font-bold">
+                            <span>{sortedCities[~~e].data.city}</span>
+                          </div>{' '}
+                          it&apos;s{' '}
+                          {date
+                            .clone()
+                            .tz(sortedCities[~~e].data.timezone)
+                            .format('dddd, MMMM Do YYYY, h:mm:ss a')}
+                        </>
+                      ),
                     };
                     setZones([...zones, newZone]);
                     setSearchItems([]);

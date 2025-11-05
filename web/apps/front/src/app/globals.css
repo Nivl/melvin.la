@@ -35,6 +35,23 @@
             transform: translateY(5px);
         }
     }
+
+    --animate-bring-back: bring-back 1000ms var(--ease-spring-heavy) forwards,
+    show 200ms linear forwards;
+
+    @keyframes bring-back {
+        to {
+            translate: 0px 0px;
+        }
+    }
+
+    --animate-show: show 400ms linear forwards;
+
+    @keyframes show {
+        to {
+            opacity: 100%;
+        }
+    }
 }
 
 .boop-animation {

@@ -2,27 +2,25 @@
 
 import { NumberInput } from '@heroui/number-input';
 import { useState } from 'react';
-import { MdDeleteForever as DeleteIcon } from 'react-icons/md';
+
+import { Color, colors, LargePill } from '#components/layout/LargePill.tsx';
 
 import { Section } from '../layout/Section';
-
-const colors = [
-  'bg-pink-300',
-  'bg-green-400',
-  'bg-blue-400',
-  'bg-amber-400',
-  'bg-teal-300',
-  'bg-sky-300',
-  'bg-indigo-300',
-  'bg-violet-300',
-  'bg-rose-300',
-] as const;
-
-type Color = (typeof colors)[number];
 
 type Data = {
   date: Date;
   color: Color;
+  content: React.ReactNode;
+};
+
+const formatDate = (date: Date) => {
+  const year = date.getUTCFullYear().toString();
+  const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+  const day = date.getUTCDate().toString().padStart(2, '0');
+  const hours = date.getUTCHours().toString().padStart(2, '0');
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+  const seconds = date.getUTCSeconds().toString().padStart(2, '0');
+  return `${year}/${month}/${day} ${hours}:${minutes}:${seconds} UTC`;
 };
 
 const getColor = (skip?: Color): Color => {
@@ -80,6 +78,12 @@ export const Timestamp = () => {
                   {
                     date,
                     color: getColor(timestamps.at(-1)?.color),
+                    content: (
+                      <>
+                        {Math.floor(date.getTime() / 1000)} is{' '}
+                        <span className="font-bold">{formatDate(date)}</span>
+                      </>
+                    ),
                   },
                 ]);
                 setValue(Number.NaN);
@@ -89,43 +93,14 @@ export const Timestamp = () => {
 
           {timestamps.length > 0 && (
             <div className="mt-20 flex flex-col gap-4">
-              {timestamps.map((timestamp, i) => (
-                <div
+              {timestamps.map((item, i) => (
+                <LargePill
                   key={i}
-                  className={`${timestamp.color} flex justify-center gap-3 rounded-full p-7 text-black sm:p-4`}
-                >
-                  {/* used to break out of the flex container to not have a gap around bold text */}
-                  <div>
-                    {Math.floor(timestamp.date.getTime() / 1000)} is{' '}
-                    <span className="font-bold">
-                      {timestamp.date.getUTCFullYear().toString()}/
-                      {(timestamp.date.getUTCMonth() + 1)
-                        .toString()
-                        .padStart(2, '0')}
-                      /{timestamp.date.getUTCDate().toString().padStart(2, '0')}{' '}
-                      {timestamp.date.getUTCHours().toString().padStart(2, '0')}
-                      :
-                      {timestamp.date
-                        .getUTCMinutes()
-                        .toString()
-                        .padStart(2, '0')}
-                      :
-                      {timestamp.date
-                        .getUTCSeconds()
-                        .toString()
-                        .padStart(2, '0')}{' '}
-                      UTC
-                    </span>
-                  </div>
-                  <a
-                    className="cursor-pointer"
-                    onClick={() => {
-                      setTimestamps(timestamps => timestamps.toSpliced(i, 1));
-                    }}
-                  >
-                    <DeleteIcon className="h-full" />
-                  </a>
-                </div>
+                  item={item}
+                  onDelete={() => {
+                    setTimestamps(timestamps => timestamps.toSpliced(i, 1));
+                  }}
+                />
               ))}
             </div>
           )}
