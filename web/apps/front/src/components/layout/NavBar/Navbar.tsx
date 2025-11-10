@@ -64,7 +64,7 @@ const games: Item[] = [
   },
 ];
 
-const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
+const emptySubscribe = () => () => { }; // eslint-disable-line @typescript-eslint/no-empty-function
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -115,6 +115,7 @@ export const Navbar = () => {
           </NavbarItem>
           <DropdownMenu
             aria-label="games"
+            selectionMode="single"
             variant="flat"
             items={games}
             selectedKeys={
@@ -158,6 +159,7 @@ export const Navbar = () => {
           </NavbarItem>
           <DropdownMenu
             aria-label="tools"
+            selectionMode="single"
             variant="flat"
             items={tools}
             selectedKeys={

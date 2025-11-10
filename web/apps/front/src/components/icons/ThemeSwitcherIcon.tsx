@@ -26,7 +26,7 @@ export const ThemeSwitcherIcon = ({
           className={`${theme === 'dark' ? 'ease-spring-soft delay-200' : ''} transition-all duration-500`}
           cx="16"
           cy="16"
-          r={theme === 'dark' ? 12 : 5}
+          r={theme === 'dark' ? 12 : 8}
           fill="white"
           stroke="currentColor"
         />
@@ -48,10 +48,9 @@ export const ThemeSwitcherIcon = ({
         cx="16"
         cy="16"
         r={theme === 'dark' ? 12 : 6}
-        fill="none"
         stroke="currentColor"
       />
-      {/* inside of the moon */}
+      {/* inside of the moon. */}
       <circle
         className={`${theme === 'dark' ? 'ease-spring-soft delay-200' : ''} transition-all duration-500`}
         cx="24"
@@ -68,7 +67,6 @@ export const ThemeSwitcherIcon = ({
       cy="16"
       r={14}
       stroke="currentColor"
-      fill="none"
       strokeWidth="4"
       strokeDasharray="0,11"
       strokeLinecap="round"

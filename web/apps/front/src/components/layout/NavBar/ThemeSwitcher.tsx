@@ -68,6 +68,7 @@ export const ThemeSwitcher = () => {
         </NavbarItem>
         <DropdownMenu
           aria-label="theme"
+          selectionMode="single"
           selectedKeys={theme ? new Set([theme]) : new Set(['light'])}
           variant="flat"
         >
