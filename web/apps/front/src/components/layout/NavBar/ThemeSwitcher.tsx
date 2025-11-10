@@ -16,10 +16,11 @@ import {
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
+import { ThemeSwitcherIcon } from '#components/icons/ThemeSwitcherIcon.tsx';
 import { usePrefersReducedMotion } from '#hooks/usePrefersReducedMotion.ts';
 
 export const ThemeSwitcher = () => {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, theme, setTheme } = useTheme();
   const [isBooped, setIsBooped] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
 
@@ -56,17 +57,19 @@ export const ThemeSwitcher = () => {
               <span
                 className={`boop-animation ${isBooped ? 'rotate-15' : 'rotate-0'}`}
               >
-                {theme === 'system' && <SystemThemeIcon width={20} />}
-                {theme === 'light' && <LightThemeIcon width={20} />}
-                {theme === 'dark' && <DarkThemeIcon width={20} />}
+                <ThemeSwitcherIcon
+                  theme={resolvedTheme as 'light' | 'dark'}
+                  width={24}
+                  height={24}
+                />
               </span>
             </Button>
           </DropdownTrigger>
         </NavbarItem>
         <DropdownMenu
           aria-label="theme"
+          selectedKeys={theme ? new Set([theme]) : new Set(['light'])}
           variant="flat"
-          selectedKeys={theme ? new Set([theme]) : ''}
         >
           <DropdownItem
             key="light"
