@@ -45,7 +45,7 @@ export const LargePill = ({
 
   return (
     <div
-      className={`animate-bring-back translate-y-20 opacity-0 ${item.color} flex justify-center gap-3 rounded-full p-7 text-black motion-reduce:translate-0 motion-reduce:animate-none motion-reduce:opacity-100 sm:p-4`}
+      className={`${item.color} flex justify-center gap-3 rounded-full p-7 text-black motion-reduce:translate-0 motion-reduce:animate-none motion-reduce:opacity-100 sm:p-4`}
     >
       <div>{item.content}</div>
 
