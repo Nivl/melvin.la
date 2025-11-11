@@ -44,6 +44,16 @@
     @apply motion-reduce:transition-none;
 }
 
+.transition-theme-switch-light {
+    transition: scale 1000ms 500ms var(--ease-spring-soft),
+        opacity 300ms 600ms linear;
+}
+
+.transition-theme-switch-dark {
+    transition: opacity 300ms linear,
+        scale 1000ms 200ms var(--ease-spring-soft);
+}
+
 #blog-post-page a {
     @apply text-accent;
 }
