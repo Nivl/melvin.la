@@ -64,7 +64,7 @@ const games: Item[] = [
   },
 ];
 
-const emptySubscribe = () => () => { }; // eslint-disable-line @typescript-eslint/no-empty-function
+const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -78,7 +78,7 @@ export const Navbar = () => {
   );
 
   return (
-    <NuiNavbar position="static">
+    <NuiNavbar position="static" className="bg-transparent">
       <NavbarContent>
         <NavbarItem isActive={pathname == '/'}>
           <Link color="foreground" href="/">

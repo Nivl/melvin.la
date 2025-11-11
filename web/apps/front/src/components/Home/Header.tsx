@@ -13,7 +13,8 @@ export const Header = () => {
           <Melvin className="dark:fill-foreground w-24 fill-neutral-700 drop-shadow-lg sm:w-28 xl:w-36" />
         </span>
         <div className="flex flex-col uppercase">
-          <span>MELVIN</span> <span className="text-foreground">LAPLANCHE</span>
+          <span>MELVIN</span>{' '}
+          <span className="text-foreground duration-150">LAPLANCHE</span>
         </div>
       </Heading>
       <div className="mx-auto my-0 text-center text-sm font-normal uppercase sm:text-base xl:text-xl">

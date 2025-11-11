@@ -55,7 +55,7 @@ export const ThemeSwitcher = () => {
               }}
             >
               <span
-                className={`boop-animation ${isBooped ? 'rotate-15' : 'rotate-0'}`}
+                className={`boop-animation text-amber-400 ${isBooped ? 'rotate-15' : 'rotate-0'}`}
               >
                 <ThemeSwitcherIcon
                   theme={resolvedTheme as 'light' | 'dark'}

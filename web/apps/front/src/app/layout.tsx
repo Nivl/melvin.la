@@ -47,9 +47,9 @@ export default function RootLayout({
     <html
       suppressHydrationWarning
       lang="en"
-      className={`bg-background text-foreground ${fonts.map(font => font.variable).join(' ')}`}
+      className={`bg-background text-foreground transition-colors duration-300 ${fonts.map(font => font.variable).join(' ')}`}
     >
-      <body className="h-full font-sans text-base leading-relaxed font-light lining-nums antialiased xl:text-xl xl:leading-relaxed">
+      <body className="h-full font-sans text-base leading-relaxed font-light lining-nums antialiased transition-colors xl:text-xl xl:leading-relaxed">
         <Providers>
           <Navbar />
           {children}
