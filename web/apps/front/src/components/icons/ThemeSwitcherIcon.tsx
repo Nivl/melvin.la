@@ -28,6 +28,7 @@ export const ThemeSwitcherIcon = ({
           cy="16"
           r={theme === 'dark' ? 12 : 8}
           fill="white"
+          strokeWidth="0"
           stroke="currentColor"
         />
         {/* hidden part */}
@@ -48,6 +49,7 @@ export const ThemeSwitcherIcon = ({
         cx="16"
         cy="16"
         r={theme === 'dark' ? 12 : 8}
+        strokeWidth="5"
         stroke="currentColor"
       />
       {/* inside of the moon. */}
@@ -57,6 +59,7 @@ export const ThemeSwitcherIcon = ({
         cy="8"
         r={theme === 'dark' ? 9 : 0}
         stroke="currentColor"
+        strokeWidth="3"
       />
     </g>
 
