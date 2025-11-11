@@ -23,7 +23,7 @@ export const ThemeSwitcherIcon = ({
       <mask id="mask">
         {/* visible part */}
         <circle
-          className={`${theme === 'dark' ? 'ease-spring-soft delay-200' : ''} transition-all duration-500`}
+          className={`${theme === 'dark' ? 'ease-spring-soft delay-200' : ''} transition-all duration-1000`}
           cx="16"
           cy="16"
           r={theme === 'dark' ? 12 : 8}
@@ -32,7 +32,7 @@ export const ThemeSwitcherIcon = ({
         />
         {/* hidden part */}
         <circle
-          className={`${theme === 'dark' ? 'ease-spring-soft delay-200' : ''} transition-all duration-500`}
+          className={`${theme === 'dark' ? 'ease-spring-soft delay-200' : ''} transition-all duration-1000`}
           cx="24"
           cy="8"
           r={theme === 'dark' ? 8 : 0}
@@ -44,15 +44,15 @@ export const ThemeSwitcherIcon = ({
     <g mask="url(#mask)">
       {/* outside of the moon */}
       <circle
-        className={`${theme === 'dark' ? 'ease-spring-soft delay-200' : ''} transition-all duration-500`}
+        className={`${theme === 'dark' ? 'ease-spring-soft delay-200' : ''} transition-all duration-1000`}
         cx="16"
         cy="16"
-        r={theme === 'dark' ? 12 : 6}
+        r={theme === 'dark' ? 12 : 8}
         stroke="currentColor"
       />
       {/* inside of the moon. */}
       <circle
-        className={`${theme === 'dark' ? 'ease-spring-soft delay-200' : ''} transition-all duration-500`}
+        className={`${theme === 'dark' ? 'ease-spring-soft delay-200' : ''} transition-all duration-1000`}
         cx="24"
         cy="8"
         r={theme === 'dark' ? 9 : 0}
@@ -62,7 +62,7 @@ export const ThemeSwitcherIcon = ({
 
     {/* Rays  */}
     <circle
-      className={`${theme === 'dark' ? 'scale-0 opacity-0' : 'ease-spring-soft scale-100 opacity-100 delay-200'} origin-center transition-all duration-500`}
+      className={`${theme === 'dark' ? 'scale-0 opacity-0' : 'ease-spring-soft scale-100 opacity-100 delay-200'} origin-center transition-all duration-1000`}
       cx="16"
       cy="16"
       r={14}
