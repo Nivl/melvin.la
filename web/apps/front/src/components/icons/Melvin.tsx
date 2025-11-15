@@ -1,141 +1,62 @@
 'use client';
-import { random } from 'es-toolkit';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-type bobaCoordinate = { x: string; y: string };
+import {
+  BobaCoordinate,
+  defaultBobaCoordinates,
+  generateBalls,
+  updateBallAt,
+} from '#utils/boba.ts';
 
-const defaultBobaCoordinates: bobaCoordinate[] = [
-  { x: '716.945', y: '2326.95' },
-  { x: '874.945', y: '2171.95' },
-  { x: '605.945', y: '2129.95' },
-  { x: '1010.95', y: '2319.95' },
-  { x: '1253.95', y: '2211.95' },
-  { x: '1075.95', y: '2106.95' },
-  { x: '439.945', y: '2254.95' },
-];
-
-const bobaAnimationDurationMs = 1500;
-
-// AI generated (and manually cleaned up) because fuck doing this
-// by hand.
-//
-// Prompt was:
-//
-// Write a typescript function that does the following:
-// We have a map, the X coordinate starts at 439 and ends at 1381.
-// The Y coordinate starts at 1800 and ends at 2400.
-//
-// On this map we want to place 7 balls randomly.
-// The balls radius is 65.5.
-//
-// - The balls should fully fit on the map
-// - The balls should not overlap
-// - It should avoid creating clusters
 const generateBobaCoordinates = () => {
-  const bobaRadius = 65.5;
-  const bobaDiameter = bobaRadius * 2;
-  const bobaMinPositionX = 439;
-  const bobaMaxPositionX = 1300;
-  const bobaMinPositionY = 1800;
-  const bobaMaxPositionY = 2400;
-  const separationDistance = 1.5 * bobaDiameter;
-
-  const bobas: { x: number; y: number }[] = [];
-
-  for (let i = 0; i < 7; i++) {
-    let x: number,
-      y: number,
-      ok: boolean,
-      tries = 0;
-
-    do {
-      x = random(bobaMinPositionX + bobaRadius, bobaMaxPositionX - bobaRadius);
-      y = random(bobaMinPositionY + bobaRadius, bobaMaxPositionY - bobaRadius);
-      ok = true;
-
-      for (const b of bobas) {
-        const dx = b.x - x,
-          dy = b.y - y;
-        if (dx * dx + dy * dy < separationDistance * separationDistance) {
-          ok = false;
-          break;
-        }
-      }
-    } while (!ok && ++tries < 5000);
-
-    if (!ok) {
-      let bestX = 0;
-      let bestY = 0;
-      let minOverlap = Infinity;
-
-      for (let k = 0; k < 1000; k++) {
-        const tx = random(
-          bobaMinPositionX + bobaRadius,
-          bobaMaxPositionX - bobaRadius,
-        );
-        const ty = random(
-          bobaMinPositionY + bobaRadius,
-          bobaMaxPositionY - bobaRadius,
-        );
-        let overlap = 0;
-        for (const b of bobas) {
-          const dx = b.x - tx;
-          const dy = b.y - ty;
-          const d2 = dx * dx + dy * dy;
-
-          if (d2 < bobaDiameter * bobaDiameter) {
-            overlap += bobaDiameter - Math.sqrt(d2);
-          }
-        }
-        if (overlap < minOverlap) {
-          minOverlap = overlap;
-          bestX = tx;
-          bestY = ty;
-        }
-      }
-      x = bestX;
-      y = bestY;
-    }
-    bobas.push({ x, y });
-  }
-  return bobas.map(b => ({ x: b.x.toFixed(3), y: b.y.toFixed(3) }));
+  return generateBalls();
 };
 
 export const Melvin = ({ className }: { className: string }) => {
   const [isAnimationStopping, setIsAnimationStopping] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [bobaCoordinates, setBobaCoordinates] = useState<bobaCoordinate[]>([
+  const [bobaCoordinates, setBobaCoordinates] = useState<BobaCoordinate[]>([
     ...defaultBobaCoordinates,
   ]);
 
-  useEffect(() => {
-    if (!isAnimating) {
-      return;
-    }
+  if (bobaCoordinates.length !== defaultBobaCoordinates.length) {
+    throw new Error('The amount of coordinates must be static');
+  }
 
-    const interval = setInterval(() => {
-      setBobaCoordinates(generateBobaCoordinates());
-    }, bobaAnimationDurationMs);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [isAnimating]);
+  for (const [i, boba] of bobaCoordinates.entries()) {
+    useEffect(() => {
+      if (!isAnimating) {
+        return;
+      }
 
-  useEffect(() => {
-    if (!isAnimationStopping) {
-      return;
-    }
+      const interval = setInterval(() => {
+        setBobaCoordinates(coordinates => {
+          const updatedCoordinates = [...coordinates];
+          updateBallAt(i, updatedCoordinates);
+          return updatedCoordinates;
+        });
+      }, boba.durationMs);
+      return () => {
+        clearInterval(interval);
+      };
+    }, [isAnimating, boba, i]);
 
-    const timeout = setTimeout(() => {
-      setIsAnimationStopping(false);
-    }, bobaAnimationDurationMs);
+    useEffect(() => {
+      if (!isAnimationStopping) {
+        return;
+      }
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [isAnimationStopping]);
+      const timeout = setTimeout(() => {
+        setIsAnimationStopping(false);
+      }, boba.durationMs);
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }, [isAnimationStopping, boba, i]);
+  }
 
   return (
     <svg
@@ -151,6 +72,7 @@ export const Melvin = ({ className }: { className: string }) => {
         } else {
           setBobaCoordinates(generateBobaCoordinates());
         }
+
         setIsAnimating(!isAnimating);
       }}
     >
@@ -198,8 +120,6 @@ export const Melvin = ({ className }: { className: string }) => {
 
       {/* Mouth */}
 
-      {/* <circle cx="830.109" cy="1724.95" r="65.5" className="fill-accent" /> */}
-
       <motion.path
         initial={false}
         strokeWidth="81"
@@ -237,7 +157,7 @@ export const Melvin = ({ className }: { className: string }) => {
           fill="currentColor"
           style={
             {
-              '--boba-moving-duration': `${bobaAnimationDurationMs.toString()}ms`,
+              '--boba-moving-duration': `${boba.durationMs.toString()}ms`,
             } as React.CSSProperties
           }
           className={
