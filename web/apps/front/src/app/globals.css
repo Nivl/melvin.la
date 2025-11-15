@@ -35,12 +35,56 @@
             transform: translateY(5px);
         }
     }
+
+    --animate-shake: shake 100ms ease-in-out infinite alternate;
+
+    @keyframes shake {
+        0% {
+            transform: rotate(-5deg);
+        }
+
+        100% {
+            transform: rotate(5deg);
+        }
+    }
+
+    --animate-boba-hard-shake: boba-hard-shake 400ms ease-in-out infinite alternate;
+
+    @keyframes boba-hard-shake {
+        0% {
+            translate: 100px;
+        }
+
+        100% {
+            translate: -100px;
+        }
+    }
+
+    --animate-boba-soft-shake: boba-hard-shake 400ms ease-in-out infinite alternate;
+
+    @keyframes boba-hard-shake {
+        0% {
+            translate: 30px;
+        }
+
+        100% {
+            translate: -30px;
+        }
+    }
 }
 
 .boop-animation {
     @apply ease-spring-boop;
     @apply duration-1000;
     @apply transform;
+    @apply motion-reduce:transition-none;
+}
+
+.boba-animation {
+    transition-property: cy, cx;
+    transition-timing-function: linear;
+    /* --boba-moving-duration is set by the component at runtime */
+    transition-duration: var(--boba-moving-duration);
     @apply motion-reduce:transition-none;
 }
 
