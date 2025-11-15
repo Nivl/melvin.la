@@ -60,15 +60,14 @@
         }
     }
 
-    --animate-boba-soft-shake: boba-hard-shake 400ms ease-in-out infinite alternate;
-
-    @keyframes boba-hard-shake {
+    /* All the variables are set at runtime */
+    @keyframes boba-soft-shake {
         0% {
-            translate: 30px;
+            translate: var(--boba-soft-shake-offset, 30px);
         }
 
         100% {
-            translate: -30px;
+            translate: -(var(--boba-soft-shake-offset, 30px));
         }
     }
 }
@@ -78,6 +77,13 @@
     @apply duration-1000;
     @apply transform;
     @apply motion-reduce:transition-none;
+}
+
+.boba-soft-shake {
+    /* All the variables are set at runtime */
+    animation: boba-soft-shake var(--boba-soft-shake-duration) ease-in-out var(--boba-soft-shake-iterations) alternate;
+
+    @apply motion-reduce:animate-none;
 }
 
 .boba-animation {
