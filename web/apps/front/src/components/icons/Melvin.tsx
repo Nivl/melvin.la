@@ -185,6 +185,7 @@ export const Melvin = ({ className }: { className: string }) => {
           Z"
         className="fill-accent"
       />
+
       {/* Right Eye */}
       <path
         d="M1075.45 1493.95
@@ -194,24 +195,30 @@ export const Melvin = ({ className }: { className: string }) => {
         C 996.945 1528.88 1032.09 1493.95 1075.45 1493.95Z"
         className="fill-accent"
       />
+
       {/* Mouth */}
 
-      {/* o */}
+      {/* <circle cx="830.109" cy="1724.95" r="65.5" className="fill-accent" /> */}
+
       <motion.path
         initial={false}
         strokeWidth="81"
         strokeLinecap="round"
-        className="stroke-accent"
-        transition={{ ease: 'easeOut', duration: 0.2 }}
+        className={`stroke-accent`}
+        transition={{ ease: 'easeInOut', duration: 0.2, delay: 0 }}
         animate={{
           d: isAnimating
             ? `
-              M 759.109 1724.95
-              C 784.109 1668.45 891.109 1668.45 920.109 1724.95
+              M 739.109 1718.45
+              C 784.109 1793.45 891.109 1794.95 940.109 1718.45
+              M 739.109 1718.45
+              L 940.109 1718.45
             `
             : `
-              M 759.109 1668.45
-              C 784.109 1723.45 891.109 1724.95 920.109 1668.45
+              M 759.109 1718.45
+              C 784.109 1773.45 891.109 1774.95 920.109 1718.45
+              M 840 1760
+              L 840 1760
             `,
         }}
       />
