@@ -48,6 +48,7 @@ export const ThemeSwitcher = () => {
               className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent`}
               variant="light"
               isIconOnly
+              aria-label="Switch theme"
               onMouseEnter={() => {
                 if (!reducedMotion) {
                   setIsBooped(true);

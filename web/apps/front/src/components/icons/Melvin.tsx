@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 import {
@@ -24,6 +24,7 @@ export const Melvin = ({ className }: { className: string }) => {
   const [bobaCoordinates, setBobaCoordinates] = useState<BobaCoordinate[]>([
     ...defaultBobaCoordinates,
   ]);
+  const strawMaskId = useId();
 
   if (bobaCoordinates.length !== defaultBobaCoordinates.length) {
     throw new Error('The amount of coordinates must be static');
@@ -89,7 +90,7 @@ export const Melvin = ({ className }: { className: string }) => {
           This is the actual straw, that we use as mask for the lid
           So we can hide the part of the lid that is behind the straw
          */}
-        <mask id="straw-mask">
+        <mask id={strawMaskId}>
           <rect width="1684" height="2532" fill="white" />
           <path
             d="M 680.016 104.739
@@ -228,7 +229,7 @@ export const Melvin = ({ className }: { className: string }) => {
         stroke="currentColor"
       />
       {/* Lid */}
-      <g mask="url(#straw-mask)">
+      <g mask={`url(#${strawMaskId})`}>
         <path
           d="M 842 425.996
             C 1068.96 425.996 1272.44 477.107 1417.74 557.694
