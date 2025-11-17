@@ -1,6 +1,6 @@
 'use client';
 
-import { useMediaQuery } from '@uidotdev/usehooks';
+import { useMediaQuery } from './useMediaQuery';
 
 export const usePrefersReducedMotion = () => {
   return !useMediaQuery('(prefers-reduced-motion: no-preference)');

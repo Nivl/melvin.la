@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { useEffect, useId, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+import { usePrefersReducedMotion } from '#hooks/usePrefersReducedMotion.ts';
 import {
   BobaCoordinate,
   bobaMaxAnimationDuration,
@@ -25,6 +26,7 @@ export const Melvin = ({ className }: { className: string }) => {
     ...defaultBobaCoordinates,
   ]);
   const strawMaskId = useId();
+  const reducedMotion = usePrefersReducedMotion();
 
   if (bobaCoordinates.length !== defaultBobaCoordinates.length) {
     throw new Error('The amount of coordinates must be static');
@@ -69,12 +71,18 @@ export const Melvin = ({ className }: { className: string }) => {
 
   return (
     <svg
-      className={twMerge((isAnimating ? `animate-shake ` : ` `) + className)}
+      className={twMerge(
+        (isAnimating ? `motion-safe:animate-shake ` : ` `) + className,
+      )}
       width="1684"
       height="2532"
       viewBox="0 0 1684 2532"
       fill="none"
       onClick={() => {
+        if (reducedMotion) {
+          return;
+        }
+
         if (isAnimating) {
           setBobaCoordinates([...defaultBobaCoordinates]);
           setIsAnimationStopping(true);
@@ -176,7 +184,7 @@ export const Melvin = ({ className }: { className: string }) => {
           }
           className={
             (isAnimating
-              ? `animate-boba-hard-shake`
+              ? `motion-safe:animate-boba-hard-shake`
               : isAnimationStopping
                 ? `boba-soft-shake`
                 : '') + ' boba-animation'

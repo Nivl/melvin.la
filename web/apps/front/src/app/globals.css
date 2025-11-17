@@ -73,16 +73,14 @@
 }
 
 .boop-animation {
-    @apply ease-spring-boop;
-    @apply duration-1000;
-    @apply transform;
-    @apply motion-reduce:transition-none;
+    @apply motion-safe:ease-spring-boop;
+    @apply motion-safe:duration-1000;
+    @apply motion-safe:transform;
 }
 
 .boba-soft-shake {
     /* All the variables are set at runtime */
     animation: boba-soft-shake var(--boba-soft-shake-duration) ease-in-out var(--boba-soft-shake-iterations) alternate;
-
     @apply motion-reduce:animate-none;
 }
 
