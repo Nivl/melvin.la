@@ -49,7 +49,8 @@ export const LargePill = ({
     >
       <div>{item.content}</div>
 
-      <a
+      <button
+        aria-label="Remove"
         className="cursor-pointer"
         onMouseEnter={() => {
           if (!reducedMotion) {
@@ -63,7 +64,7 @@ export const LargePill = ({
         <DeleteIcon
           className={`boop-animation ${isBooped ? 'rotate-15' : 'rotate-0'} h-full`}
         />
-      </a>
+      </button>
     </div>
   );
 };
