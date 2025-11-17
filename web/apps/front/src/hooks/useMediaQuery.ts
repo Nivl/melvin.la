@@ -33,7 +33,7 @@ export function useMediaQuery(
     return () => {
       mediaQueryList.removeEventListener('change', listener);
     };
-  }, []);
+  }, [query]);
 
   return queryValue;
 }
