@@ -81,7 +81,7 @@ export const defaultBobaCoordinates: BobaCoordinate[] = [
   },
 ];
 
-// roundOdd takes a number and rounds it to the nearest odd integer.
+// roundOdd takes a number, rounds it, and ensures it's odd.
 export const roundOdd = (n: number) => {
   const r = Math.round(n);
   return r % 2 === 1 ? r : r + 1;

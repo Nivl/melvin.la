@@ -67,7 +67,7 @@
         }
 
         100% {
-            translate: -(var(--boba-soft-shake-offset, 30px));
+            translate: calc(-1 * var(--boba-soft-shake-offset, 30px));
         }
     }
 }
