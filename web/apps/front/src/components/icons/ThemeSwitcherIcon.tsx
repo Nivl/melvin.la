@@ -71,7 +71,7 @@ export const ThemeSwitcherIcon = ({
 
       {/* Rays  */}
       <circle
-        className={`${theme === 'dark' ? 'transition-theme-switch-dark scale-0 opacity-0' : 'transition-theme-switch-light scale-100 opacity-100'} origin-center`}
+        className={`${theme === 'dark' ? 'cls-transition-theme-switch-dark scale-0 opacity-0' : 'cls-transition-theme-switch-light scale-100 opacity-100'} origin-center`}
         cx="16"
         cy="16"
         r={14}

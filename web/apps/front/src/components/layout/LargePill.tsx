@@ -45,7 +45,7 @@ export const LargePill = ({
 
   return (
     <div
-      className={`${item.color} flex justify-center gap-3 rounded-full p-7 text-black motion-reduce:translate-0 motion-reduce:animate-none motion-reduce:opacity-100 sm:p-4`}
+      className={`${item.color} flex justify-center gap-3 rounded-full p-7 text-black sm:p-4`}
     >
       <div>{item.content}</div>
 
@@ -62,7 +62,7 @@ export const LargePill = ({
         }}
       >
         <DeleteIcon
-          className={`boop-animation ${isBooped ? 'rotate-15' : 'rotate-0'} h-full`}
+          className={`cls-boop-animation ${isBooped ? 'rotate-15' : 'rotate-0'} h-full`}
         />
       </button>
     </div>

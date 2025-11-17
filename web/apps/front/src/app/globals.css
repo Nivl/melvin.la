@@ -72,19 +72,19 @@
     }
 }
 
-.boop-animation {
+.cls-boop-animation {
     @apply motion-safe:ease-spring-boop;
     @apply motion-safe:duration-1000;
     @apply motion-safe:transform;
 }
 
-.boba-soft-shake {
+.cls-boba-soft-shake {
     /* All the variables are set at runtime */
     animation: boba-soft-shake var(--boba-soft-shake-duration) ease-in-out var(--boba-soft-shake-iterations) alternate;
     @apply motion-reduce:animate-none;
 }
 
-.boba-animation {
+.cls-boba-animation {
     transition-property: cy, cx;
     transition-timing-function: linear;
     /* --boba-moving-duration is set by the component at runtime */
@@ -92,12 +92,12 @@
     @apply motion-reduce:transition-none;
 }
 
-.transition-theme-switch-light {
+.cls-transition-theme-switch-light {
     transition: scale 1000ms 500ms var(--ease-spring-soft),
         opacity 300ms 600ms linear;
 }
 
-.transition-theme-switch-dark {
+.cls-transition-theme-switch-dark {
     transition: opacity 300ms linear,
         scale 1000ms 200ms var(--ease-spring-soft);
 }

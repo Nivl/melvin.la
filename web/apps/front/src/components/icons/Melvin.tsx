@@ -186,8 +186,8 @@ export const Melvin = ({ className }: { className: string }) => {
             (isAnimating
               ? `motion-safe:animate-boba-hard-shake`
               : isAnimationStopping
-                ? `boba-soft-shake`
-                : '') + ' boba-animation'
+                ? `cls-boba-soft-shake`
+                : '') + ' cls-boba-animation'
           }
         />
       ))}
