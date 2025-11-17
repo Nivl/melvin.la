@@ -6,7 +6,6 @@
         "src/app/heroui.ts"
     ],
     "ignoreDependencies": [
-        "tailwindcss",
         "@types/google.maps"
     ]
 }

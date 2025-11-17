@@ -2,13 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-export type UseMediaQueryOptions = {
-  fallback?: boolean | undefined;
-};
-
 export function useMediaQuery(
   query: string,
-  options: UseMediaQueryOptions = {},
+  options: { fallback?: boolean | undefined } = {},
 ): boolean {
   const { fallback } = options;
 
@@ -33,7 +29,7 @@ export function useMediaQuery(
     return () => {
       mediaQueryList.removeEventListener('change', listener);
     };
-  }, []);
+  }, [query]);
 
   return queryValue;
 }
