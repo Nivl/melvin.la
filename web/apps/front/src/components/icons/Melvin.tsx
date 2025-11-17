@@ -32,16 +32,14 @@ export const Melvin = ({ className }: { className: string }) => {
     throw new Error('The amount of coordinates must be static');
   }
 
-  for (const [i, boba] of bobaCoordinates.entries()) {
-    // This is inside the loop on purpose to capture each boba correctly
-    // This is weird and unconventional, but as long as we make sure
-    // to keep the amount of boba static and in order, it's ok.
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (!isAnimating) {
-        return;
-      }
+  useEffect(() => {
+    if (!isAnimating) {
+      return;
+    }
 
+    const intervals: NodeJS.Timeout[] = [];
+
+    for (const [i, boba] of bobaCoordinates.entries()) {
       const interval = setInterval(() => {
         setBobaCoordinates(coordinates => {
           const updatedCoordinates = [...coordinates];
@@ -49,11 +47,15 @@ export const Melvin = ({ className }: { className: string }) => {
           return updatedCoordinates;
         });
       }, boba.durationMs);
-      return () => {
+      intervals.push(interval);
+    }
+
+    return () => {
+      for (const interval of intervals) {
         clearInterval(interval);
-      };
-    }, [isAnimating, boba, i]);
-  }
+      }
+    };
+  }, [isAnimating, bobaCoordinates]);
 
   useEffect(() => {
     if (!isAnimationStopping) {
