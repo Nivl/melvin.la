@@ -39,7 +39,10 @@ export const Melvin = ({ className }: { className: string }) => {
 
     const intervals: NodeJS.Timeout[] = [];
 
-    for (const [i, boba] of bobaCoordinates.entries()) {
+    // Capture the current coordinates at the time animation starts
+    const startCoordinates = bobaCoordinates;
+
+    for (const [i, boba] of startCoordinates.entries()) {
       const interval = setInterval(() => {
         setBobaCoordinates(coordinates => {
           const updatedCoordinates = [...coordinates];
@@ -55,7 +58,9 @@ export const Melvin = ({ className }: { className: string }) => {
         clearInterval(interval);
       }
     };
-  }, [isAnimating, bobaCoordinates]);
+    // Only restart intervals when animation starts/stops, not when coordinates change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAnimating]);
 
   useEffect(() => {
     if (!isAnimationStopping) {
