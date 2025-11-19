@@ -48,26 +48,38 @@
         }
     }
 
-    --animate-boba-hard-shake: boba-hard-shake 400ms ease-in-out infinite alternate;
+    --animate-boba-hard-shake: boba-hard-shake 400ms linear infinite forwards;
 
     @keyframes boba-hard-shake {
-        0% {
-            translate: 100px;
+
+        0%,
+        100% {
+            translate: 0px;
         }
 
-        100% {
-            translate: -100px;
+        25% {
+            translate: -50px;
+        }
+
+        75% {
+            translate: 50px;
         }
     }
 
     /* All the variables are set at runtime */
     @keyframes boba-soft-shake {
-        0% {
-            translate: var(--boba-soft-shake-offset, 30px);
+
+        0%,
+        100% {
+            translate: 0px;
         }
 
-        100% {
+        25% {
             translate: calc(-1 * var(--boba-soft-shake-offset, 30px));
+        }
+
+        75% {
+            translate: var(--boba-soft-shake-offset, 30px);
         }
     }
 }
@@ -80,7 +92,7 @@
 
 .cls-boba-soft-shake {
     /* All the variables are set at runtime */
-    animation: boba-soft-shake var(--boba-soft-shake-duration) ease-in-out var(--boba-soft-shake-iterations) alternate;
+    animation: boba-soft-shake var(--boba-soft-shake-duration) linear var(--boba-soft-shake-delay) var(--boba-soft-shake-iterations) forwards;
     @apply motion-reduce:animate-none;
 }
 

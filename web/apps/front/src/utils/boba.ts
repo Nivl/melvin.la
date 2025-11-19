@@ -17,6 +17,7 @@ const bobaMinPositionY = 1800;
 const bobaMaxPositionY = 2400;
 const bobaMinAnimationDuration = 3000;
 export const bobaMaxAnimationDuration = 5000;
+export const bobaSoftShakeDuration = 800;
 
 const X_MIN = bobaMinPositionX,
   X_MAX = bobaMaxPositionX,
@@ -34,49 +35,49 @@ export const defaultBobaCoordinates: BobaCoordinate[] = [
     x: 716.945,
     y: 2326.95,
     durationMs: randomDuration(),
-    shakeDelayMs: randomInt(0, 1000),
+    shakeDelayMs: randomInt(0, 500),
     shakeOffset: randomInt(20, 50),
   },
   {
     x: 874.945,
     y: 2171.95,
     durationMs: randomDuration(),
-    shakeDelayMs: randomInt(0, 1000),
+    shakeDelayMs: randomInt(0, 500),
     shakeOffset: randomInt(20, 50),
   },
   {
     x: 605.945,
     y: 2129.95,
     durationMs: randomDuration(),
-    shakeDelayMs: randomInt(0, 1000),
+    shakeDelayMs: randomInt(0, 500),
     shakeOffset: randomInt(20, 50),
   },
   {
     x: 1010.95,
     y: 2319.95,
     durationMs: randomDuration(),
-    shakeDelayMs: randomInt(0, 1000),
+    shakeDelayMs: randomInt(0, 500),
     shakeOffset: randomInt(20, 50),
   },
   {
     x: 1253.95,
     y: 2211.95,
     durationMs: randomDuration(),
-    shakeDelayMs: randomInt(0, 1000),
+    shakeDelayMs: randomInt(0, 500),
     shakeOffset: randomInt(20, 50),
   },
   {
     x: 1075.95,
     y: 2106.95,
     durationMs: randomDuration(),
-    shakeDelayMs: randomInt(0, 1000),
+    shakeDelayMs: randomInt(0, 500),
     shakeOffset: randomInt(20, 50),
   },
   {
     x: 439.945,
     y: 2254.95,
     durationMs: randomDuration(),
-    shakeDelayMs: randomInt(0, 1000),
+    shakeDelayMs: randomInt(0, 500),
     shakeOffset: randomInt(20, 50),
   },
 ];

@@ -7,13 +7,12 @@ import { usePrefersReducedMotion } from '#hooks/usePrefersReducedMotion.ts';
 import {
   BobaCoordinate,
   bobaMaxAnimationDuration,
+  bobaSoftShakeDuration,
   defaultBobaCoordinates,
   generateBalls,
   roundOdd,
   updateBallAt,
 } from '#utils/boba.ts';
-
-const bobaSoftShakeDuration = 400;
 
 const generateBobaCoordinates = () => {
   return generateBalls();
@@ -177,6 +176,7 @@ export const Melvin = ({ className }: { className: string }) => {
               '--boba-moving-duration': `${boba.durationMs.toString()}ms`,
               '--boba-soft-shake-duration': `${bobaSoftShakeDuration.toString()}ms`,
               '--boba-soft-shake-offset': `${(boba.shakeOffset ?? 30)?.toString()}px`,
+              '--boba-soft-shake-delay': `${(boba.shakeDelayMs ?? 0)?.toString()}ms`,
               '--boba-soft-shake-iterations': roundOdd(
                 boba.durationMs / bobaSoftShakeDuration,
               ),
