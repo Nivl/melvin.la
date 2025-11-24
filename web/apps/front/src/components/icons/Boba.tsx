@@ -19,7 +19,7 @@ const generateBobaCoordinates = () => {
   return generateBalls();
 };
 
-export const Melvin = ({ className }: { className: string }) => {
+export const Boba = ({ className }: { className: string }) => {
   const [isAnimationStopping, setIsAnimationStopping] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [bobaCoordinates, setBobaCoordinates] = useState<BobaCoordinate[]>([
