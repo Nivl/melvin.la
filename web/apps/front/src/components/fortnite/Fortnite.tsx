@@ -1,8 +1,7 @@
 'use client';
 
 import { Skeleton } from '@heroui/skeleton';
-import { notFound } from 'next/navigation';
-import { usePathname, useRouter } from 'next/navigation';
+import { notFound, usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { Section } from '#components/layout/Section';

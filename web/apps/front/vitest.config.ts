@@ -1,4 +1,4 @@
-/* <disabled>-eslint-disable import/no-default-export */
+/* eslint-disable import/no-default-export */
 
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';

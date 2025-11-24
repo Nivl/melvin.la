@@ -28,7 +28,7 @@ jobs:
     outputs:
       code-changed: ${{ steps.changes.outputs.src }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - run: git config --global --add safe.directory /__w/melvin.la/melvin.la
 
       - name: Check for file changes
@@ -60,7 +60,7 @@ jobs:
     needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Setup
       uses: './.github/actions/node-setup'
 
@@ -78,7 +78,7 @@ jobs:
     needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Setup
       uses: './.github/actions/node-setup'
     - run: pnpm run lint
@@ -95,7 +95,7 @@ jobs:
     needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Setup
       uses: './.github/actions/node-setup'
     - run: pnpm run test:unit run
@@ -114,14 +114,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Setup
         uses: './.github/actions/node-setup'
 
       - name: Run Chromatic
-        uses: chromaui/action@ac86f2ff0a458ffbce7b40698abd44c0fa34d4b6
+        uses: chromaui/action@4c20b95e9d3209ecfdf9cd6aace6bbde71ba1694
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: ./web/apps/front

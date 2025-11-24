@@ -13,8 +13,10 @@ import { usePathname } from 'next/navigation';
 import { ReactNode, useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
-import { GiConwayLifeGlider as ConwayIcon } from 'react-icons/gi';
-import { GiPerspectiveDiceSixFacesRandom as UuidIcon } from 'react-icons/gi';
+import {
+  GiConwayLifeGlider as ConwayIcon,
+  GiPerspectiveDiceSixFacesRandom as UuidIcon,
+} from 'react-icons/gi';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
@@ -64,7 +66,7 @@ const games: Item[] = [
   },
 ];
 
-const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
+const emptySubscribe = () => () => { }; // eslint-disable-line @typescript-eslint/no-empty-function
 
 export const Navbar = () => {
   const pathname = usePathname();

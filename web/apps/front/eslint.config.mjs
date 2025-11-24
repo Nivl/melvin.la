@@ -1,3 +1,6 @@
+/* eslint-disable import/no-default-export */
+
+import { FlatCompat } from '@eslint/eslintrc';
 import eslint from '@eslint/js';
 import eslintNextPlugin from '@next/eslint-plugin-next';
 import { defineConfig, globalIgnores } from 'eslint/config';
@@ -8,9 +11,18 @@ import storybook from 'eslint-plugin-storybook';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import tseslint from 'typescript-eslint';
 
-// Uncomment when this is fixed: https://github.com/import-js/eslint-plugin-import/pull/3213
-// also replace `<disabled>-eslint-disable` with `eslint-disable` in the code
-// import importPlugin from 'eslint-plugin-import';
+// Remove the compat mode when this is merged:
+// https://github.com/import-js/eslint-plugin-import/pull/3213
+
+const compat = new FlatCompat({
+  baseDirectory: import.meta.dirname,
+});
+
+const eslintImport = [
+  ...compat.config({
+    extends: ['plugin:import/recommended', 'plugin:import/typescript'],
+  }),
+];
 
 export default defineConfig(
   eslint.configs.recommended,
@@ -19,22 +31,22 @@ export default defineConfig(
   ...storybook.configs['flat/recommended'],
   eslintPluginUnicorn.configs.recommended,
   eslintNextPlugin.configs.recommended,
-  ...nextVitals, // eslint-disable-line @typescript-eslint/no-unsafe-argument
+  ...nextVitals,
+  ...eslintImport,
   // Keep prettier last
   prettierPluginRecommended,
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
     },
-    // Uncomment when this is fixed: https://github.com/import-js/eslint-plugin-import/pull/3213
-    // settings: {
-    //   'import/resolver': {
-    //     typescript: {
-    //       alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
-    //       project: import.meta.dirname,
-    //     },
-    //   },
-    // },
+    settings: {
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+          project: import.meta.dirname,
+        },
+      },
+    },
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -63,11 +75,11 @@ export default defineConfig(
           ],
         },
       ],
-      // Uncomment when this is fixed: https://github.com/import-js/eslint-plugin-import/pull/3213
-      // 'import/no-default-export': 'error',
+      'import/no-default-export': 'error',
+      'import/no-duplicates': 'error',
+      'import/no-named-as-default-member': 'off',
       'prettier/prettier': 'error',
       'no-console': 'error',
-
       '@typescript-eslint/explicit-module-boundary-types': 0,
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -92,8 +104,7 @@ export default defineConfig(
   {
     files: ['src/app/**/*.tsx', 'src/**/*.stories.ts'],
     rules: {
-      // Uncomment when this is fixed: https://github.com/import-js/eslint-plugin-import/pull/3213
-      // "import/no-default-export": "off",
+      'import/no-default-export': 'off',
       '@typescript-eslint/no-empty-function': 'off',
     },
   },
@@ -101,6 +112,12 @@ export default defineConfig(
     files: ['src/**/*.stories.ts'],
     rules: {
       'unicorn/no-null': 'off',
+    },
+  },
+  {
+    files: ['src/**/*.mock.ts'],
+    rules: {
+      'import/export': 'off',
     },
   },
   { ignores: ['!.storybook'] },
