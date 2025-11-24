@@ -1,6 +1,5 @@
 import matter from 'gray-matter';
-import { rm } from 'node:fs/promises';
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { type DatabaseSync } from 'node:sqlite';
 

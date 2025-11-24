@@ -1,4 +1,4 @@
-/* <disabled>-eslint-disable import/no-default-export */
+/* eslint-disable import/no-default-export */
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
