@@ -1,4 +1,4 @@
-/* <disabled>-eslint-disable import/no-default-export */
+/* eslint-disable import/no-default-export */
 
 import '../src/app/globals.css';
 import './fonts.css';

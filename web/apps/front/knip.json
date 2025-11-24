@@ -6,7 +6,7 @@
         "src/app/heroui.ts"
     ],
     "ignoreDependencies": [
-        "tailwindcss",
+        "eslint-plugin-import",
         "@types/google.maps"
     ]
 }
