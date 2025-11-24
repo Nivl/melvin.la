@@ -19,7 +19,7 @@ export default defineConfig(
   ...storybook.configs['flat/recommended'],
   eslintPluginUnicorn.configs.recommended,
   eslintNextPlugin.configs.recommended,
-  ...nextVitals, // eslint-disable-line @typescript-eslint/no-unsafe-argument
+  ...nextVitals,
   // Keep prettier last
   prettierPluginRecommended,
   {
