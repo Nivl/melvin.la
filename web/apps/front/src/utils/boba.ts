@@ -4,8 +4,8 @@ export type BobaCoordinate = {
   x: number;
   y: number;
   durationMs: number;
-  shakeDelayMs?: number;
-  shakeOffset?: number;
+  shakeDelayMs: number;
+  shakeOffset: number;
 };
 
 const bobaRadius = 65.5;
@@ -26,55 +26,56 @@ const randomDuration = () =>
 const randomShakeOffset = () => randomInt(20, 30);
 const randomShakeDelayMs = () => randomInt(0, 500);
 
+// We hardcode everything to prevent hydration mismatches with SSR..
 export const defaultBobaCoordinates: BobaCoordinate[] = [
   {
     x: 716.945,
     y: 2326.95,
-    durationMs: randomDuration(),
-    shakeDelayMs: randomShakeDelayMs(),
-    shakeOffset: randomShakeOffset(),
+    durationMs: 3784,
+    shakeDelayMs: 56,
+    shakeOffset: 25,
   },
   {
     x: 874.945,
     y: 2171.95,
-    durationMs: randomDuration(),
-    shakeDelayMs: randomShakeDelayMs(),
-    shakeOffset: randomShakeOffset(),
+    durationMs: 4357,
+    shakeDelayMs: 383,
+    shakeOffset: 21,
   },
   {
     x: 605.945,
     y: 2129.95,
-    durationMs: randomDuration(),
-    shakeDelayMs: randomShakeDelayMs(),
-    shakeOffset: randomShakeOffset(),
+    durationMs: 3194,
+    shakeDelayMs: 399,
+    shakeOffset: 26,
   },
   {
     x: 1010.95,
     y: 2319.95,
-    durationMs: randomDuration(),
-    shakeDelayMs: randomShakeDelayMs(),
-    shakeOffset: randomShakeOffset(),
+    durationMs: 4147,
+    shakeDelayMs: 389,
+    shakeOffset: 28,
   },
   {
     x: 1253.95,
     y: 2211.95,
-    durationMs: randomDuration(),
-    shakeDelayMs: randomShakeDelayMs(),
-    shakeOffset: randomShakeOffset(),
+    durationMs: 4981,
+    shakeDelayMs: 365,
+    shakeOffset: 26,
   },
   {
     x: 1075.95,
     y: 2106.95,
-    durationMs: randomDuration(),
-    shakeDelayMs: randomShakeDelayMs(),
-    shakeOffset: randomShakeOffset(),
+    durationMs: 4099,
+    shakeDelayMs: 199,
+    shakeOffset: 23,
   },
   {
     x: 439.945,
     y: 2254.95,
-    durationMs: randomDuration(),
-    shakeDelayMs: randomShakeDelayMs(),
-    shakeOffset: randomShakeOffset(),
+    durationMs: 3764,
+    shakeDelayMs: 18,
+    shakeOffset: 23,
   },
 ];
 
@@ -174,7 +175,13 @@ export const generateBalls = () => {
       x = bestX;
       y = bestY;
     }
-    balls.push({ x, y, durationMs: randomDuration() });
+    balls.push({
+      x,
+      y,
+      durationMs: randomDuration(),
+      shakeDelayMs: randomShakeDelayMs(),
+      shakeOffset: randomShakeOffset(),
+    });
   }
   return balls;
 };
@@ -227,5 +234,11 @@ export const updateBallAt = (index: number, balls: BobaCoordinate[]): void => {
     x = bestX;
     y = bestY;
   }
-  balls[index] = { x, y, durationMs: randomDuration() };
+  balls[index] = {
+    x,
+    y,
+    durationMs: randomDuration(),
+    shakeDelayMs: randomShakeDelayMs(),
+    shakeOffset: randomShakeOffset(),
+  };
 };
