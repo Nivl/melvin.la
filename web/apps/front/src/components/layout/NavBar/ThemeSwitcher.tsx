@@ -21,6 +21,9 @@ import { usePrefersReducedMotion } from '#hooks/usePrefersReducedMotion.ts';
 
 export const ThemeSwitcher = () => {
   const { resolvedTheme, theme, setTheme } = useTheme();
+  const [animationFocus, setAnimationFocus] = useState<'boop' | 'themeChange'>(
+    'boop',
+  );
   const [isBooped, setIsBooped] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
 
@@ -52,16 +55,17 @@ export const ThemeSwitcher = () => {
               onMouseEnter={() => {
                 if (!reducedMotion) {
                   setIsBooped(true);
+                  setAnimationFocus('boop');
                 }
               }}
             >
-              <span
-                className={`cls-boop-animation text-amber-400 ${isBooped ? 'rotate-15' : 'rotate-0'}`}
-              >
+              <span className={`text-amber-400`}>
                 <ThemeSwitcherIcon
                   theme={resolvedTheme as 'light' | 'dark'}
+                  animationFocus={animationFocus}
                   width={24}
                   height={24}
+                  isBooped={isBooped}
                 />
               </span>
             </Button>
@@ -78,6 +82,7 @@ export const ThemeSwitcher = () => {
             startContent={<LightThemeIcon width={20} />}
             onPress={() => {
               setTheme('light');
+              setAnimationFocus('themeChange');
             }}
           >
             Light
@@ -87,6 +92,7 @@ export const ThemeSwitcher = () => {
             startContent={<DarkThemeIcon width={20} />}
             onPress={() => {
               setTheme('dark');
+              setAnimationFocus('themeChange');
             }}
           >
             Night
@@ -96,6 +102,7 @@ export const ThemeSwitcher = () => {
             startContent={<SystemThemeIcon width={20} />}
             onPress={() => {
               setTheme('system');
+              setAnimationFocus('themeChange');
             }}
           >
             System
