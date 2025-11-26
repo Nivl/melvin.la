@@ -26,17 +26,18 @@ const totalNeighbors = (board: Board, x: number, y: number) => {
   let total = 0;
   // Row above
   if (board[y - 1] !== undefined) {
-    total += board[y - 1][x - 1];
+    total += board[y - 1][x - 1] || 0;
     total += board[y - 1][x];
-    total += board[y - 1][x + 1];
+    total += board[y - 1][x + 1] || 0;
   }
   // current row
-  total += board[y][x - 1] + board[y][x + 1];
+  total += board[y][x - 1] || 0;
+  total += board[y][x + 1] || 0;
   // row below
   if (board[y + 1] !== undefined) {
-    total += board[y + 1][x - 1];
+    total += board[y + 1][x - 1] || 0;
     total += board[y + 1][x];
-    total += board[y + 1][x + 1];
+    total += board[y + 1][x + 1] || 0;
   }
   return total;
 };
