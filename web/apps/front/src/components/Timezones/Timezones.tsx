@@ -5,6 +5,7 @@ import { DateInput } from '@heroui/date-input';
 import { DateValue, getLocalTimeZone, now } from '@internationalized/date';
 import { CityData, cityMapping } from 'city-timezones';
 import moment from 'moment-timezone';
+import { AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 
 import { Color, colors, LargePill } from '#components/layout/LargePill.tsx';
@@ -26,8 +27,9 @@ type City = {
   data: CityData;
 };
 
-type CityDataWithColor = CityData & {
+type CityDataWithExtras = CityData & {
   color: Color;
+  id: string;
   content: React.ReactNode;
 };
 
@@ -37,7 +39,7 @@ const getColor = (skip?: Color): Color => {
 };
 
 export const Timezones = () => {
-  const [zones, setZones] = useState<CityDataWithColor[]>([]);
+  const [zones, setZones] = useState<CityDataWithExtras[]>([]);
   const [baseZone, setBaseZone] = useState<CityData>();
   const [baseSearchValue, setBaseSearchValue] = useState<string>('');
   const [baseSearchItems, setBaseSearchItems] = useState<City[]>([]);
@@ -141,19 +143,19 @@ export const Timezones = () => {
 
           {!!baseZone && (
             <>
-              {zones.length > 0 && (
-                <div className="mt-20 flex flex-col gap-4">
+              <div className="mt-20 flex flex-col">
+                <AnimatePresence initial={false}>
                   {zones.map((zone, i) => (
                     <LargePill
-                      key={i}
+                      key={zone.id}
                       item={zone}
                       onDelete={() => {
                         setZones(zones => zones.toSpliced(i, 1));
                       }}
                     />
                   ))}
-                </div>
-              )}
+                </AnimatePresence>
+              </div>
               <Autocomplete
                 label="See what day and time it was in"
                 className="mt-20 max-w-[400px]"
@@ -167,8 +169,9 @@ export const Timezones = () => {
                 inputValue={searchValue}
                 onSelectionChange={e => {
                   if (typeof e === 'string' && ~~e < sortedCities.length) {
-                    const newZone: CityDataWithColor = {
+                    const newZone: CityDataWithExtras = {
                       ...sortedCities[~~e].data,
+                      id: crypto.randomUUID(),
                       color: getColor(zones.at(-1)?.color),
                       content: (
                         <>

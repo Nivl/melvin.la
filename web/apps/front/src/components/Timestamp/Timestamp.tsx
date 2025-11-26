@@ -1,6 +1,7 @@
 'use client';
 
 import { NumberInput } from '@heroui/number-input';
+import { AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 
 import { Color, colors, LargePill } from '#components/layout/LargePill.tsx';
@@ -11,6 +12,7 @@ type Data = {
   date: Date;
   color: Color;
   content: React.ReactNode;
+  id: string;
 };
 
 const formatDate = (date: Date) => {
@@ -77,6 +79,7 @@ export const Timestamp = () => {
                   ...timestamps,
                   {
                     date,
+                    id: crypto.randomUUID(),
                     color: getColor(timestamps.at(-1)?.color),
                     content: (
                       <>
@@ -91,19 +94,19 @@ export const Timestamp = () => {
             }}
           />
 
-          {timestamps.length > 0 && (
-            <div className="mt-20 flex flex-col gap-4">
+          <div className="mt-20 flex flex-col">
+            <AnimatePresence initial={false}>
               {timestamps.map((item, i) => (
                 <LargePill
-                  key={i}
+                  key={item.id}
                   item={item}
                   onDelete={() => {
                     setTimestamps(timestamps => timestamps.toSpliced(i, 1));
                   }}
                 />
               ))}
-            </div>
-          )}
+            </AnimatePresence>
+          </div>
         </div>
       </Section>
     </>
