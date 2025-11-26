@@ -50,13 +50,13 @@ export const LargePill = forwardRef(
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: 'auto', opacity: 1 }}
         exit={{ height: 0, opacity: 0 }}
-        transition={{ duration: 0.3, ease: 'easeOut' }}
+        transition={{ duration: reducedMotion ? 0 : 0.3, ease: 'easeOut' }}
       >
         <motion.div
-          initial={{ opacity: 0, filter: 'blur(5px)' }}
-          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          initial={reducedMotion ? false : { opacity: 0, filter: 'blur(5px)' }}
+          animate={reducedMotion ? false : { opacity: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, filter: 'blur(5px)' }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
+          transition={{ duration: reducedMotion ? 0 : 0.3, ease: 'easeOut' }}
         >
           <div
             className={`${item.color} mt-4 flex justify-center gap-3 rounded-full p-7 text-black sm:p-4`}

@@ -13,6 +13,8 @@ import { useEffect, useState } from 'react';
 import { LuGithub as Github, LuLinkedin as Linkedin } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
 
+import { usePrefersReducedMotion } from '#hooks/usePrefersReducedMotion.ts';
+
 import { Heading } from '../layout/Heading';
 import { Map } from './Map';
 
@@ -38,7 +40,7 @@ export const Contact = () => {
         setIsModalOpen(true);
         setModalTitle(':(');
         setModalContent(
-          'Too many shady companies scrapped my LinkedIn data to create profiles on their websites and sell everything to recruiters. I made the decision to remove my LinkedIn account.',
+          'Too many shady companies scraped my LinkedIn data to create profiles on their websites and sell everything to recruiters. I made the decision to remove my LinkedIn account.',
         );
       },
       className:
@@ -118,6 +120,7 @@ const BoopableLink = ({
   onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }) => {
   const [isBooped, setIsBooped] = useState(false);
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     if (!isBooped) {
@@ -136,6 +139,9 @@ const BoopableLink = ({
   return (
     <a
       onMouseEnter={() => {
+        if (reduceMotion) {
+          return;
+        }
         setIsBooped(true);
       }}
       onClick={onClick}

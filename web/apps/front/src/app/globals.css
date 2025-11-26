@@ -107,11 +107,13 @@
 .cls-transition-theme-switch-light {
     transition: scale 1000ms 500ms var(--ease-spring-soft),
         opacity 300ms 600ms linear;
+    @apply motion-reduce:transition-none;
 }
 
 .cls-transition-theme-switch-dark {
     transition: opacity 300ms linear,
         scale 1000ms 200ms var(--ease-spring-soft);
+    @apply motion-reduce:transition-none;
 }
 
 #blog-post-page a {

@@ -17,11 +17,11 @@ export const ThemeSwitcherIcon = ({
   const maskId = useId();
 
   // Classes that applies to everything BUT the rays
-  const baseClassName = 'transition-all duration-1000 ';
-  const darkClassName = 'ease-spring-soft delay-400 ';
-  const darkBoopedClassName = 'ease-spring-boop ';
+  const baseClassName = 'motion-safe:transition-all motion-safe:duration-1000 ';
+  const darkClassName = 'motion-safe:ease-spring-soft motion-safe:delay-400 ';
+  const darkBoopedClassName = 'motion-safe:ease-spring-boop ';
   const lightClassName = ' ';
-  const lightBoopedClassName = 'ease-spring-boop ';
+  const lightBoopedClassName = 'motion-safe:ease-spring-boop ';
   const className =
     baseClassName +
     (theme === 'dark'
@@ -39,9 +39,7 @@ export const ThemeSwitcherIcon = ({
   const rayLightBaseClassName = 'scale-100 opacity-100 ';
   const rayLightClassName = 'cls-transition-theme-switch-light ';
   const rayLightBoopedClassName =
-    'ease-spring-boop transition-all duration-1000 ';
-  // const rayLightBoopedClassName =
-  //   'ease-spring-boop transition-all duration-1000 ';
+    'motion-safe:ease-spring-boop motion-safe:transition-all motion-safe:duration-1000 ';
 
   const rayClassName =
     rayBaseClassName +
