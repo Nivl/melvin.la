@@ -88,7 +88,7 @@ export const Navbar = () => {
           </Link>
         </NavbarItem>
 
-        <NavbarItem isActive={pathname == '/blog'}>
+        <NavbarItem isActive={pathname.startsWith('/blog')}>
           <Link color="foreground" href="/blog">
             Blog
           </Link>
