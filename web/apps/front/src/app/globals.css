@@ -18,6 +18,10 @@
     --leading-tight-sm: 4.75rem;
     --leading-tight-xs: 3rem;
 
+    --ease-spring-soft: linear(0, 0.009 1.1%, 0.033 2.2%, 0.131 4.7%, 0.263 7.1%, 0.681 13.9%, 0.893 18.2%, 0.967 20.2%, 1.028 22.3%, 1.074 24.5%, 1.104 26.7%, 1.122 29.8%, 1.118 33.4%, 1.018 48.3%, 0.988 57.2%, 1);
+    --ease-spring-heavy: linear(0, 0.013 0.6%, 0.05 1.2%, 0.2 2.5%, 0.949 6.7%, 1.2 8.4%, 1.286 9.2%, 1.35 10%, 1.392 10.8%, 1.411 11.6%, 1.411 12.2%, 1.401 12.8%, 1.343 14.2%, 1.258 15.5%, 1.016 18.7%, 0.914 20.4%, 0.856 21.9%, 0.831 23.5%, 0.834 24.7%, 0.858 26.1%, 0.996 30.7%, 1.037 32.4%, 1.06 33.9%, 1.07 35.4%, 1.061 37.7%, 0.989 43.8%, 0.971 47.2%, 1.012 59.1%, 0.995 70.8%, 1);
+    --ease-spring-boop: linear(0, 0.011, 0.045 1.4%, 0.184 3%, 0.913 8.2%, 1.156, 1.304 12.3%, 1.345, 1.365, 1.367, 1.359 15.8%, 1.31 17.5%, 1.027 23.1%, 0.937 25.3%, 0.888 27.1%, 0.873, 0.866 29%, 0.867, 0.88, 0.905 33.5%, 0.982 37.5%, 1.014 39.4%, 1.038, 1.049 43.7% 45.2%, 1.044 46.7%, 0.995 54.2%, 0.986, 0.982 58.4%, 0.984 61.5%, 1.002 68.9%, 1.006 72.9%, 0.998 87.3%, 1.001);
+
     --animate-levitate: levitate 1s ease-in-out infinite;
 
     @keyframes levitate {
@@ -31,8 +35,86 @@
             transform: translateY(5px);
         }
     }
+
+    --animate-shake: shake 100ms ease-in-out infinite alternate;
+
+    @keyframes shake {
+        0% {
+            transform: rotate(-5deg);
+        }
+
+        100% {
+            transform: rotate(5deg);
+        }
+    }
+
+    --animate-boba-hard-shake: boba-hard-shake 400ms linear infinite forwards;
+
+    @keyframes boba-hard-shake {
+
+        0%,
+        100% {
+            translate: 0px;
+        }
+
+        25% {
+            translate: -50px;
+        }
+
+        75% {
+            translate: 50px;
+        }
+    }
+
+    /* All the variables are set at runtime */
+    @keyframes boba-soft-shake {
+
+        0%,
+        100% {
+            translate: 0px;
+        }
+
+        25% {
+            translate: calc(-1 * var(--boba-soft-shake-offset));
+        }
+
+        75% {
+            translate: var(--boba-soft-shake-offset);
+        }
+    }
 }
 
+.cls-boop-animation {
+    @apply motion-safe:ease-spring-boop;
+    @apply motion-safe:duration-1000;
+    @apply motion-safe:transform;
+}
+
+.cls-boba-soft-shake {
+    /* All the variables are set at runtime */
+    animation: boba-soft-shake var(--boba-soft-shake-duration) linear var(--boba-soft-shake-delay) var(--boba-soft-shake-iterations) forwards;
+    @apply motion-reduce:animate-none;
+}
+
+.cls-boba-animation {
+    transition-property: cy, cx;
+    transition-timing-function: linear;
+    /* --boba-moving-duration is set by the component at runtime */
+    transition-duration: var(--boba-moving-duration);
+    @apply motion-reduce:transition-none;
+}
+
+.cls-transition-theme-switch-light {
+    transition: scale 1000ms 500ms var(--ease-spring-soft),
+        opacity 300ms 600ms linear;
+    @apply motion-reduce:transition-none;
+}
+
+.cls-transition-theme-switch-dark {
+    transition: opacity 300ms linear,
+        scale 1000ms 200ms var(--ease-spring-soft);
+    @apply motion-reduce:transition-none;
+}
 
 #blog-post-page a {
     @apply text-accent;

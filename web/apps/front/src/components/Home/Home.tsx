@@ -39,11 +39,7 @@ export function Home({ sections }: { sections: Sections }) {
       </Section>
 
       <Section fullScreen={true}>
-        <Contact
-          email={sections.contact.email}
-          linkedInHandle={sections.contact.linkedInHandle}
-          githubHandle={sections.contact.githubHandle}
-        />
+        <Contact />
       </Section>
 
       <div className="dark:bg-background bg-[#63B7FF] pb-4">
