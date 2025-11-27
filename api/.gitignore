@@ -2,3 +2,4 @@ bin/
 .task/
 .env
 .env.local
+AGENTS.local.md
