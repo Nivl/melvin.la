@@ -9,15 +9,6 @@
       "matchPackageNames": [
         "@internationalized/date"
       ]
-    },
-    {
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "enabled": false,
-      "matchPackageNames": [
-        "/node/"
-      ]
     }
   ]
 }
