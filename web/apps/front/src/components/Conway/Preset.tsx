@@ -7,5 +7,9 @@ export const Preset = ({
   name: string;
   onClick: () => void;
 }) => {
-  return <Chip onClick={onClick}>{name}</Chip>;
+  return (
+    <Chip className="cursor-pointer" onClick={onClick}>
+      {name}
+    </Chip>
+  );
 };
