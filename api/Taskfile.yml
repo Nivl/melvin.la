@@ -54,7 +54,6 @@ tasks:
   tidy:
     cmds:
       - go mod tidy
-      - vacuum bundle -q -p openapi/ openapi/openapi.yml internal/gen/openapi.yml
       - go generate ./...
 
   test: go test -race ./...
