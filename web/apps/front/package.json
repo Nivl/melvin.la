@@ -111,7 +111,7 @@
         "typescript": "5.9.3",
         "typescript-eslint": "8.48.0",
         "vitest": "4.0.13",
-        "vitest-canvas-mock": "0.3.3"
+        "vitest-canvas-mock": "1.1.2"
     },
     "imports": {
         "#hooks/fortnite/useStats": {
