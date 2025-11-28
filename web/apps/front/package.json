@@ -49,7 +49,7 @@
         "@heroui/tooltip": "2.2.24",
         "@internationalized/date": "3.10.0",
         "@radix-ui/react-toggle-group": "1.1.11",
-        "@tanstack/react-query": "5.90.10",
+        "@tanstack/react-query": "5.90.11",
         "@vercel/analytics": "1.5.0",
         "@vercel/speed-insights": "1.2.0",
         "@vis.gl/react-google-maps": "1.7.1",
@@ -110,7 +110,7 @@
         "tsx": "4.20.6",
         "typescript": "5.9.3",
         "typescript-eslint": "8.48.0",
-        "vitest": "4.0.13",
+        "vitest": "4.0.14",
         "vitest-canvas-mock": "1.1.2"
     },
     "imports": {
