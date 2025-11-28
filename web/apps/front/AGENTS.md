@@ -108,7 +108,7 @@ updatedAt: "2025-07-03"  # optional
 **Development** (`.env.development` - committed):
 ```
 NEXT_PUBLIC_API_URL=http://localhost
-NEXT_PUBLIC_BASE_URL=http://localhost  
+NEXT_PUBLIC_BASE_URL=http://localhost:3000  
 NEXT_PUBLIC_GCP_MAP_API_KEY=
 ```
 
