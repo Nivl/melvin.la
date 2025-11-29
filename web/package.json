@@ -1,0 +1,13 @@
+{
+  "name": "@melvinla/core",
+  "sideEffects": false,
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.23.0",
+  "devDependencies": {
+    "nx": "catalog:"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm"
+  }
+}
