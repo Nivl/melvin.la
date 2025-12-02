@@ -72,10 +72,8 @@
     "uuid": "catalog:"
   },
   "devDependencies": {
+    "@melvinla/eslint-config": "workspace:*",
     "@chromatic-com/storybook": "catalog:",
-    "@eslint/eslintrc": "catalog:",
-    "@eslint/js": "catalog:",
-    "@next/eslint-plugin-next": "catalog:",
     "@storybook/addon-docs": "catalog:",
     "@storybook/addon-links": "catalog:",
     "@storybook/addon-themes": "catalog:",
@@ -91,13 +89,6 @@
     "@types/react-syntax-highlighter": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "eslint": "catalog:",
-    "eslint-config-next": "catalog:",
-    "eslint-config-prettier": "catalog:",
-    "eslint-plugin-import": "catalog:",
-    "eslint-plugin-prettier": "catalog:",
-    "eslint-plugin-simple-import-sort": "catalog:",
-    "eslint-plugin-storybook": "catalog:",
-    "eslint-plugin-unicorn": "catalog:",
     "gray-matter": "catalog:",
     "jsdom": "catalog:",
     "knip": "catalog:",
@@ -110,7 +101,6 @@
     "tailwindcss": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "vitest": "catalog:",
     "vitest-canvas-mock": "catalog:"
   },

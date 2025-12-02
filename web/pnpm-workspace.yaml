@@ -32,6 +32,7 @@ catalog:
   '@heroui/tooltip': 2.2.24
   '@internationalized/date': 3.10.0
   '@next/eslint-plugin-next': 16.0.4
+  '@nx/js': ^22.1.3
   '@radix-ui/react-toggle-group': 1.1.11
   '@storybook/addon-docs': 10.0.8
   '@storybook/addon-links': 10.0.8
