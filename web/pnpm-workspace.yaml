@@ -1,6 +1,6 @@
 packages:
   - apps/*
-  - packages/*
+  - libs/*
 
 catalog:
   '@chromatic-com/storybook': 4.1.3
