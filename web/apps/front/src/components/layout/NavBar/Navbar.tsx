@@ -17,6 +17,7 @@ import {
   GiConwayLifeGlider as ConwayIcon,
   GiPerspectiveDiceSixFacesRandom as UuidIcon,
 } from 'react-icons/gi';
+import { MdOutlineTextFields as StringLengthIcon } from 'react-icons/md';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
@@ -36,6 +37,12 @@ const tools: Item[] = [
     label: 'Fortnite Data',
     path: '/fortnite',
     logo: <FortniteIcon className="h-5 w-5" />,
+  },
+  {
+    key: 'count',
+    label: 'String Length',
+    path: '/count',
+    logo: <StringLengthIcon className="h-5 w-5" />,
   },
   {
     key: 'timezones',
