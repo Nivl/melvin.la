@@ -3,10 +3,10 @@ name: webapp
 on:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
-    - main
+      - main
 
 permissions:
   contents: read
@@ -60,56 +60,57 @@ jobs:
     needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
-    - name: Setup
-      uses: './.github/actions/node-setup'
+      - uses: actions/checkout@v6
+      - name: Setup
+        uses: "./.github/actions/node-setup"
 
-    - uses: actions/cache@v5
-      with:
-        path: ${{ github.workspace }}/web/apps/front/.next/cache
-        # Generate a new cache whenever packages or source files change.
-        key: ${{ runner.os }}-nextjs-${{ hashFiles('web/apps/front/pnpm-lock.yaml') }}-${{ hashFiles('web/apps/front/**.[jt]s', 'web/apps/front/**.[jt]sx') }}
-        restore-keys: |
-          ${{ runner.os }}-nextjs-${{ hashFiles('web/apps/front/pnpm-lock.yaml') }}-
-    - run: pnpm run build
+      - uses: actions/cache@v5
+        with:
+          path: ${{ github.workspace }}/web/apps/front/.next/cache
+          # Generate a new cache whenever packages or source files change.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('web/apps/front/pnpm-lock.yaml') }}-${{ hashFiles('web/apps/front/**.[jt]s', 'web/apps/front/**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('web/apps/front/pnpm-lock.yaml') }}-
+      - run: pnpm run build
 
   lint:
     if: needs.prepare-env.outputs.code-changed == 'true'
     needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
-    - name: Setup
-      uses: './.github/actions/node-setup'
-    - run: pnpm run lint
-    - name: Lint open api
-      run: |
-        pnpm run oapi-gen
-        git diff --exit-code
-    - name: Lint package.json
-      run: |
-        pnpm run knip
+      - uses: actions/checkout@v6
+      - name: Setup
+        uses: "./.github/actions/node-setup"
+      - name: Validate TS types
+        run: pnpm run check-types
+
+      - name: Lint the code
+        run: pnpm run lint
+
+      - name: Lint open api
+        run: |
+          pnpm run oapi-gen
+          git diff --exit-code
+
+      - name: Lint package.json
+        run: |
+          pnpm run knip
 
   unit-test:
     if: needs.prepare-env.outputs.code-changed == 'true'
     needs: [prepare-env]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
-    - name: Setup
-      uses: './.github/actions/node-setup'
-    - run: pnpm run test:unit run
+      - uses: actions/checkout@v6
+      - name: Setup
+        uses: "./.github/actions/node-setup"
+      - run: pnpm run test:unit run
 
   # we only run this one after everything has run to save chromatic
   # credits
   chromatic:
     if: needs.prepare-env.outputs.code-changed == 'true'
-    needs: [
-      prepare-env,
-      lint,
-      unit-test,
-      build
-    ]
+    needs: [prepare-env, lint, unit-test, build]
     name: Run Chromatic
     runs-on: ubuntu-latest
     steps:
@@ -118,7 +119,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup
-        uses: './.github/actions/node-setup'
+        uses: "./.github/actions/node-setup"
 
       - name: Run Chromatic
         uses: chromaui/action@4c20b95e9d3209ecfdf9cd6aace6bbde71ba1694
@@ -132,14 +133,7 @@ jobs:
   # This job is what github action will check to see if a PR is ready to
   # be merged.
   webapp-required-check:
-    needs:
-      [
-        prepare-env,
-        build,
-        lint,
-        unit-test,
-        chromatic,
-      ]
+    needs: [prepare-env, build, lint, unit-test, chromatic]
     # This is necessary since a failed/skipped dependent job would cause this job to be skipped
     if: always()
     runs-on: ubuntu-latest
