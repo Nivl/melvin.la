@@ -39,9 +39,9 @@ const tools: Item[] = [
     logo: <FortniteIcon className="h-5 w-5" />,
   },
   {
-    key: 'count',
+    key: 'string-length',
     label: 'String Length',
-    path: '/count',
+    path: '/string-length',
     logo: <StringLengthIcon className="h-5 w-5" />,
   },
   {
