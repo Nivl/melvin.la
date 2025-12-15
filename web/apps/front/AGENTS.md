@@ -5,22 +5,6 @@
 **PROJECT**: Next.js frontend app deployed to Vercel at https://melvin.la
 **WORKING DIRECTORY**: This current directory
 
-## ARCHITECTURE
-
-**Framework**: Latest version of Next.js with App Router
-**Language**: TypeScript
-**Styling**: Tailwind CSS + HeroUI components
-**Package Manager**: pnpm
-**Routing**: App Router (`src/app/` directory structure)
-
-### Key Dependencies
-- `next-mdx-remote`: MDX content rendering
-- `@tanstack/react-query`: Server state management
-- `openapi-react-query`: Generated API client hooks
-- `@heroui/react`: UI component library
-- `motion`: Animations
-- `next-themes`: Theme switching
-
 ## FILE STRUCTURE
 
 ```
@@ -38,6 +22,26 @@ src/
 │   └── content/blog/     # MDX blog posts
 └── utils/                # Utility functions
 ```
+
+## ARCHITECTURE
+
+**Framework**: Latest version of Next.js with App Router
+**Language**: TypeScript
+**Styling**: Tailwind CSS + HeroUI components
+**Package Manager**: pnpm
+**Routing**: App Router (`src/app/` directory structure)
+
+### Key Dependencies
+- `next-mdx-remote`: MDX content rendering
+- `@tanstack/react-query`: Server state management
+- `openapi-react-query`: Generated API client hooks
+- `@heroui/react`: UI component library
+- `motion`: Animations
+- `next-themes`: Theme switching
+
+### Code Organization
+
+The app directory should only contains routing and layout files. All reusable components should go into `src/components/` and all hooks into `src/hooks/`.
 
 ## IMPORT CONVENTIONS
 
@@ -119,6 +123,7 @@ NEXT_PUBLIC_GCP_MAP_API_KEY=
 ```bash
 pnpm run dev          # Start dev server
 pnpm run build        # Production build
+pnpm run check-types  # TypeScript type check
 pnpm run lint         # ESLint check
 pnpm run test:unit    # Run all tests
 pnpm run knip         # Check unused dependencies
@@ -129,8 +134,9 @@ pnpm oapi-gen         # Generate API client
 
 **Before Commit**:
 1. `pnpm run lint --fix` (must pass)
-2. `pnpm run test:unit` (must pass)
-3. `pnpm run knip` (must pass)
+2. `pnpm run check-types` (must pass)
+3. `pnpm run test:unit` (must pass)
+4. `pnpm run knip` (must pass)
 
 **New Component Checklist**:
 - [ ] Component implementation
