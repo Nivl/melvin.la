@@ -113,6 +113,7 @@ export const Uuid = () => {
   const [customNamespace, setCustomNamespace] = useState<string>('');
 
   const needsExtraFields = ['v3', 'v5'].includes(version);
+  const uniqueUUID = ['null', 'v3', 'v5'].includes(version);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -154,7 +155,7 @@ export const Uuid = () => {
                 return;
               }
               setVersion(key.currentKey);
-              if (['v3', 'v5'].includes(key.currentKey)) {
+              if (['null', 'v3', 'v5'].includes(key.currentKey)) {
                 setCount(1);
               }
             }}
@@ -210,7 +211,7 @@ export const Uuid = () => {
             </>
           )}
 
-          {!needsExtraFields && (
+          {!uniqueUUID && (
             <NumberInput
               isRequired
               className="max-w-[400px]"
