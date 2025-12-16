@@ -30,6 +30,7 @@ src/
 **Styling**: Tailwind CSS + HeroUI components
 **Package Manager**: pnpm
 **Routing**: App Router (`src/app/` directory structure)
+**Testing**: Vitest + React Testing Library + helpers in `src/utils/test.ts`
 
 ### Key Dependencies
 - `next-mdx-remote`: MDX content rendering
@@ -132,7 +133,9 @@ pnpm oapi-gen         # Generate API client
 
 ## QUALITY REQUIREMENTS
 
-**Before Commit**:
+**Eslint**: must not disable any rules unless absolutely necessary.
+
+**Any new code is only deemed valid after running the following**:
 1. `pnpm run lint --fix` (must pass)
 2. `pnpm run check-types` (must pass)
 3. `pnpm run test:unit` (must pass)
