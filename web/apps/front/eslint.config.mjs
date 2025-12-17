@@ -5,6 +5,7 @@ import eslint from '@eslint/js';
 import eslintNextPlugin from '@next/eslint-plugin-next';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import nextVitals from 'eslint-config-next/core-web-vitals';
+import playwright from 'eslint-plugin-playwright';
 import prettierPluginRecommended from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import storybook from 'eslint-plugin-storybook';
@@ -120,7 +121,10 @@ export default defineConfig(
       'import/export': 'off',
     },
   },
-  { ignores: ['!.storybook'] },
+  {
+    files: ['e2e/**'],
+    extends: [playwright.configs['flat/recommended']],
+  },
   globalIgnores([
     // Default ignores of eslint-config-next:
     '.next/**',
