@@ -106,11 +106,48 @@ jobs:
         uses: "./.github/actions/node-setup"
       - run: pnpm run test:unit run
 
+  resolve-playwright-version:
+    if: needs.prepare-env.outputs.code-changed == 'true'
+    needs: [prepare-env]
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps['resolve-playwright-version'].outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: resolve-playwright-version
+        id: resolve-playwright-version
+        run: |
+          version="$(yq -r '.devDependencies["@playwright/test"] // .dependencies["@playwright/test"] // ""' package.json)"
+          test -n "$version" || { echo "No @playwright/test version found in package.json"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+  e2e-test:
+    if: needs.prepare-env.outputs.code-changed == 'true'
+    needs: [resolve-playwright-version]
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v${{ needs['resolve-playwright-version'].outputs.version }}
+      options: --user 1001
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup
+        uses: "./.github/actions/node-setup"
+      - run: pnpm run test:e2e
+      - name: Upload Playwright Reports
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-reports
+          path: "playwright-report/" # Set your reports path here
+          retention-days: 3
+
   # we only run this one after everything has run to save chromatic
   # credits
   chromatic:
     if: needs.prepare-env.outputs.code-changed == 'true'
-    needs: [prepare-env, lint, unit-test, build]
+    needs: [prepare-env, lint, unit-test, e2e-test, build]
     name: Run Chromatic
     runs-on: ubuntu-latest
     steps:
@@ -133,7 +170,7 @@ jobs:
   # This job is what github action will check to see if a PR is ready to
   # be merged.
   webapp-required-check:
-    needs: [prepare-env, build, lint, unit-test, chromatic]
+    needs: [prepare-env, build, lint, unit-test, e2e-test, chromatic]
     # This is necessary since a failed/skipped dependent job would cause this job to be skipped
     if: always()
     runs-on: ubuntu-latest
