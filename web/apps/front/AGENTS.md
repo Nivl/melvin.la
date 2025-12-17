@@ -8,6 +8,10 @@
 ## FILE STRUCTURE
 
 ```
+.storybook/               # Storybook configuration
+e2e/                      # Playwright end-to-end tests
+├── blog.spec.ts          # Blog e2e tests
+└── home.spec.ts          # Home page e2e tests
 src/
 ├── app/                  # Next.js App Router pages
 │   └── globals.css       # Global styles + Tailwind config
@@ -30,7 +34,10 @@ src/
 **Styling**: Tailwind CSS + HeroUI components
 **Package Manager**: pnpm
 **Routing**: App Router (`src/app/` directory structure)
-**Testing**: Vitest + React Testing Library + helpers in `src/utils/test.ts`
+**Testing**:
+- unit-test: Vitest + React Testing Library + helpers in `src/utils/test.ts`
+- end-to-end: Playwright
+- Visual regression: Storybook + Chromatic
 
 ### Key Dependencies
 - `next-mdx-remote`: MDX content rendering
@@ -126,7 +133,8 @@ pnpm run dev          # Start dev server
 pnpm run build        # Production build
 pnpm run check-types  # TypeScript type check
 pnpm run lint         # ESLint check
-pnpm run test:unit    # Run all tests
+pnpm run test:unit    # Run all unit tests
+pnpm run test:e2e     # Run all end-to-end tests
 pnpm run knip         # Check unused dependencies
 pnpm oapi-gen         # Generate API client
 ```
@@ -135,17 +143,22 @@ pnpm oapi-gen         # Generate API client
 
 **Eslint**: must not disable any rules unless absolutely necessary.
 
+**critical**: Always make sure this file is up to date with the latest standards and code architecture when changing any piece of code.
+
 **Any new code is only deemed valid after running the following**:
 1. `pnpm run lint --fix` (must pass)
 2. `pnpm run check-types` (must pass)
 3. `pnpm run test:unit` (must pass)
-4. `pnpm run knip` (must pass)
+4. `pnpm run test:e2e` (must pass)
+5. `pnpm run knip` (must pass)
 
 **New Component Checklist**:
 - [ ] Component implementation
 - [ ] Unit tests (.test.tsx)
+- [ ] Updated end-to-end tests if applicable
 - [ ] Storybook stories (.stories.tsx)
 - [ ] Proper imports using `#` prefix
+- [ ] Documentation (this file) updated if applicable
 
 ## COMMIT STANDARDS
 

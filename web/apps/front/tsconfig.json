@@ -31,6 +31,9 @@
     ".storybook/**/*.ts",
     ".storybook/**/*.tsx",
     ".storybook/**/*.json",
+    // playwright
+    "e2e/**/*.ts",
+    "playwright.config.ts",
     // tools
     "postcss.config.cjs",
     "next.config.js",
