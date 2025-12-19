@@ -142,6 +142,7 @@ components:
                     example: 1673
         FortniteStatsCategories:
             type: object
+            nullable: true
             description: The categories holding stats.
             required:
                 - overall

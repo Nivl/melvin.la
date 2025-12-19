@@ -20,6 +20,7 @@ components:
       $ref: "./components/schemas/FortniteStatsDetails.yml"
     FortniteStatsCategories:
       type: object
+      nullable: true
       description: The categories holding stats.
       required:
         - overall

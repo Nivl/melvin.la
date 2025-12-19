@@ -1,6 +1,6 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './helpers';
 
-test('Blog loads article and navigates to them', async ({ page }) => {
+test('Blog loads article list and navigates to them', async ({ page }) => {
   await page.goto('/blog');
 
   // Expect a title "to contain" a substring.
@@ -14,15 +14,3 @@ test('Blog loads article and navigates to them', async ({ page }) => {
   // Expects page to have loaded.
   await expect(page).toHaveTitle(new RegExp(articleTitle));
 });
-
-// test('get started link', async ({ page }) => {
-//   await page.goto('https://playwright.dev/');
-
-//   // Click the get started link.
-//   await page.getByRole('link', { name: 'Get started' }).click();
-
-//   // Expects page to have a heading with the name of Installation.
-//   await expect(
-//     page.getByRole('heading', { name: 'Installation' }),
-//   ).toBeVisible();
-// });

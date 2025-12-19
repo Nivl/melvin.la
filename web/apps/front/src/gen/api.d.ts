@@ -169,7 +169,7 @@ export interface components {
             duo?: components["schemas"]["FortniteStatsDetails"];
             squad?: components["schemas"]["FortniteStatsDetails"];
             ltm?: components["schemas"]["FortniteStatsDetails"];
-        };
+        } | null;
         /** @description The content of the Stats endpoint. */
         FortniteStats: {
             /**

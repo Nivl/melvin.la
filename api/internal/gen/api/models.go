@@ -72,16 +72,16 @@ type FortniteStats struct {
 		// Stats information about the player's battle pass
 		Stats struct {
 			// All The categories holding stats.
-			All FortniteStatsCategories `json:"all"`
+			All *FortniteStatsCategories `json:"all"`
 
 			// Gamepad The categories holding stats.
-			Gamepad *FortniteStatsCategories `json:"gamepad,omitempty"`
+			Gamepad *FortniteStatsCategories `json:"gamepad"`
 
 			// KeyboardMouse The categories holding stats.
-			KeyboardMouse *FortniteStatsCategories `json:"keyboardMouse,omitempty"`
+			KeyboardMouse *FortniteStatsCategories `json:"keyboardMouse"`
 
 			// Touch The categories holding stats.
-			Touch *FortniteStatsCategories `json:"touch,omitempty"`
+			Touch *FortniteStatsCategories `json:"touch"`
 		} `json:"stats"`
 	} `json:"data"`
 

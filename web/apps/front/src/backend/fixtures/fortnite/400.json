@@ -1,0 +1,6 @@
+{
+    "code": 400,
+    "message": "invalid value",
+    "field": "username",
+    "location": "path"
+}
