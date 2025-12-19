@@ -72,16 +72,16 @@ type FortniteStats struct {
 		// Stats information about the player's battle pass
 		Stats struct {
 			// All The categories holding stats.
-			All *FortniteStatsCategories `json:"all"`
+			All FortniteStatsCategories `json:"all"`
 
 			// Gamepad The categories holding stats.
-			Gamepad *FortniteStatsCategories `json:"gamepad"`
+			Gamepad *NullableFortniteStatsCategories `json:"gamepad"`
 
 			// KeyboardMouse The categories holding stats.
-			KeyboardMouse *FortniteStatsCategories `json:"keyboardMouse"`
+			KeyboardMouse *NullableFortniteStatsCategories `json:"keyboardMouse"`
 
 			// Touch The categories holding stats.
-			Touch *FortniteStatsCategories `json:"touch"`
+			Touch *NullableFortniteStatsCategories `json:"touch"`
 		} `json:"stats"`
 	} `json:"data"`
 
@@ -168,6 +168,24 @@ type FortniteStatsDetails struct {
 
 	// Wins Total amount of victory royales.
 	Wins int `json:"wins"`
+}
+
+// NullableFortniteStatsCategories The categories holding stats.
+type NullableFortniteStatsCategories struct {
+	// Duo represents the actual stats of a Fortnite player.
+	Duo *FortniteStatsDetails `json:"duo,omitempty"`
+
+	// Ltm represents the actual stats of a Fortnite player.
+	Ltm *FortniteStatsDetails `json:"ltm,omitempty"`
+
+	// Overall represents the actual stats of a Fortnite player.
+	Overall FortniteStatsDetails `json:"overall"`
+
+	// Solo represents the actual stats of a Fortnite player.
+	Solo *FortniteStatsDetails `json:"solo,omitempty"`
+
+	// Squad represents the actual stats of a Fortnite player.
+	Squad *FortniteStatsDetails `json:"squad,omitempty"`
 }
 
 // FortniteGetStatsParamsPlatform defines parameters for FortniteGetStats.
