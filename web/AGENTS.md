@@ -116,7 +116,7 @@ updatedAt: "2025-07-03"  # optional
 
 **API Server**: Must be running for Fortnite features (see `../../../api/AGENTS.md`)
 **Client Generation**: `pnpm oapi-gen` → generates `src/gen/api.d.ts`
-**OpenAPI Spec**: `../../../api/internal/gen/openapi.yml`
+**OpenAPI Spec**: `../api/internal/gen/openapi.yml`
 
 ## Testing
 
