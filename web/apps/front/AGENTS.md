@@ -10,6 +10,7 @@
 ```
 .storybook/               # Storybook configuration
 e2e/                      # Playwright end-to-end tests
+├── helpers.ts            # Playwright helpers, most imports should be made from here
 ├── blog.spec.ts          # Blog e2e tests
 └── home.spec.ts          # Home page e2e tests
 src/
@@ -22,6 +23,7 @@ src/
 ├── hooks/                # Custom React hooks
 ├── gen/                  # Generated API client (run: pnpm oapi-gen)
 ├── backend/              # API integration utilities
+│   └── mocks/            # Mock data and utilities for backend
 ├── bundled_static/       # Static content processed at build time
 │   └── content/blog/     # MDX blog posts
 └── utils/                # Utility functions
@@ -38,6 +40,7 @@ src/
 - unit-test: Vitest + React Testing Library + helpers in `src/utils/test.ts`
 - end-to-end: Playwright
 - Visual regression: Storybook + Chromatic
+- Mock API: MSW (in `src/backend/mocks/`)
 
 ### Key Dependencies
 - `next-mdx-remote`: MDX content rendering
@@ -114,6 +117,16 @@ updatedAt: "2025-07-03"  # optional
 **API Server**: Must be running for Fortnite features (see `../../../api/AGENTS.md`)
 **Client Generation**: `pnpm oapi-gen` → generates `src/gen/api.d.ts`
 **OpenAPI Spec**: `../../../api/internal/gen/openapi.yml`
+
+## Testing
+
+- API endpoints are mocked using MSW in `src/backend/mocks/`.
+- API Fixtures are located in `src/backend/fixtures/`.
+- Any API changes require updating the mocks accordingly.
+- New API endpoints must have corresponding mocks for testing.
+- Mocks should allow easy triggering of error states for testing purposes.
+- Playwright tests should import helpers from `e2e/helpers.ts`.
+
 
 ## ENVIRONMENT VARIABLES
 

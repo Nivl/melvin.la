@@ -170,6 +170,14 @@ export interface components {
             squad?: components["schemas"]["FortniteStatsDetails"];
             ltm?: components["schemas"]["FortniteStatsDetails"];
         };
+        /** @description The categories holding stats. */
+        NullableFortniteStatsCategories: {
+            overall: components["schemas"]["FortniteStatsDetails"];
+            solo?: components["schemas"]["FortniteStatsDetails"];
+            duo?: components["schemas"]["FortniteStatsDetails"];
+            squad?: components["schemas"]["FortniteStatsDetails"];
+            ltm?: components["schemas"]["FortniteStatsDetails"];
+        } | null;
         /** @description The content of the Stats endpoint. */
         FortniteStats: {
             /**
@@ -208,9 +216,9 @@ export interface components {
                 /** @description information about the player's battle pass */
                 stats: {
                     all: components["schemas"]["FortniteStatsCategories"];
-                    keyboardMouse?: components["schemas"]["FortniteStatsCategories"];
-                    gamepad?: components["schemas"]["FortniteStatsCategories"];
-                    touch?: components["schemas"]["FortniteStatsCategories"];
+                    keyboardMouse?: components["schemas"]["NullableFortniteStatsCategories"];
+                    gamepad?: components["schemas"]["NullableFortniteStatsCategories"];
+                    touch?: components["schemas"]["NullableFortniteStatsCategories"];
                 };
             };
         };
@@ -224,6 +232,7 @@ export interface components {
 export type ErrorResponse = components['schemas']['ErrorResponse'];
 export type FortniteStatsDetails = components['schemas']['FortniteStatsDetails'];
 export type FortniteStatsCategories = components['schemas']['FortniteStatsCategories'];
+export type NullableFortniteStatsCategories = components['schemas']['NullableFortniteStatsCategories'];
 export type FortniteStats = components['schemas']['FortniteStats'];
 export type $defs = Record<string, never>;
 export interface operations {

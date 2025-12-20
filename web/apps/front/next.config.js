@@ -3,6 +3,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['next-mdx-remote'],
+  experimental: {
+    testProxy: true,
+  },
 };
 
 export default nextConfig;

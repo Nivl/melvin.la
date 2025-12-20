@@ -1,6 +1,4 @@
-import { expect, test } from '@playwright/test';
-
-import { expectToBeThruthy } from './helpers';
+import { expect, expectToBeThruthy, test } from './helpers';
 
 test.describe('Timezones Tool', () => {
   test.beforeEach(async ({ page }) => {

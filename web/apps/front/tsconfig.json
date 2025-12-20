@@ -34,6 +34,8 @@
     // playwright
     "e2e/**/*.ts",
     "playwright.config.ts",
+    // MSW
+    "public/mockServiceWorker.js",
     // tools
     "postcss.config.cjs",
     "next.config.js",

@@ -156,6 +156,23 @@ components:
                     $ref: "#/components/schemas/FortniteStatsDetails"
                 ltm:
                     $ref: "#/components/schemas/FortniteStatsDetails"
+        NullableFortniteStatsCategories:
+            type: object
+            description: The categories holding stats.
+            nullable: true
+            required:
+                - overall
+            properties:
+                overall:
+                    $ref: "#/components/schemas/FortniteStatsDetails"
+                solo:
+                    $ref: "#/components/schemas/FortniteStatsDetails"
+                duo:
+                    $ref: "#/components/schemas/FortniteStatsDetails"
+                squad:
+                    $ref: "#/components/schemas/FortniteStatsDetails"
+                ltm:
+                    $ref: "#/components/schemas/FortniteStatsDetails"
         FortniteStats:
             type: object
             description: The content of the Stats endpoint.
@@ -215,11 +232,11 @@ components:
                                 all:
                                     $ref: "#/components/schemas/FortniteStatsCategories"
                                 keyboardMouse:
-                                    $ref: "#/components/schemas/FortniteStatsCategories"
+                                    $ref: "#/components/schemas/NullableFortniteStatsCategories"
                                 gamepad:
-                                    $ref: "#/components/schemas/FortniteStatsCategories"
+                                    $ref: "#/components/schemas/NullableFortniteStatsCategories"
                                 touch:
-                                    $ref: "#/components/schemas/FortniteStatsCategories"
+                                    $ref: "#/components/schemas/NullableFortniteStatsCategories"
     securitySchemes:
         ApiKeyAuth:
             type: apiKey
