@@ -30,7 +30,7 @@ src/
 ### Environment Files Structure
 
 ```
-web/apps/front/
+web/
 ├── .env.development   # Development defaults (committed)
 └── .env.local         # Local overrides (gitignored)
 ```

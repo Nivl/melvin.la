@@ -3,4 +3,4 @@
 Source code of my personal website
 
 - For the API, read [api/README.md](api/README.md).
-- For the Frontend, read [web/apps/front/README.md](web/apps/front/README.md).
+- For the Frontend, read [web/README.md](web/README.md).

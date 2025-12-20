@@ -2,6 +2,6 @@
   "$schema": "https://www.chromatic.com/config-file.schema.json",
   "onlyChanged": true,
   "projectId": "Project:6678cddeabd71b94f44b3d72",
-  "storybookBaseDir": "web/apps/front",
+  "storybookBaseDir": "web",
   "zip": true
 }
