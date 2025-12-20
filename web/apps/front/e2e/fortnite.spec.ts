@@ -1,7 +1,7 @@
 import { expect, test } from './helpers';
 
 test.describe('Fortnite Tool', () => {
-  test('main page loads correctly', async ({ page, network }) => {
+  test('main page loads correctly', async ({ page }) => {
     await page.goto('/tools/fortnite');
 
     await expect(page).toHaveTitle(/Fortnite Data/);
@@ -17,7 +17,6 @@ test.describe('Fortnite Tool', () => {
 
   test('clicking on a preset correctly loads a page with content', async ({
     page,
-    network,
   }) => {
     await page.goto('/tools/fortnite');
 
@@ -35,7 +34,6 @@ test.describe('Fortnite Tool', () => {
 
   test('searching for user "200" correctly loads a page with content', async ({
     page,
-    network,
   }) => {
     await page.goto('/tools/fortnite');
 
@@ -44,7 +42,7 @@ test.describe('Fortnite Tool', () => {
     await input.fill('200');
 
     // Wait for debounce and URL update
-    await page.waitForTimeout(2000);
+    await page.waitForURL(/.*200.*/);
 
     // Wait for content to load - this is the main indicator that data was fetched successfully
     await expect(
@@ -54,8 +52,6 @@ test.describe('Fortnite Tool', () => {
 
   test('searching for user "400" displays data unavailable error', async ({
     page,
-    network,
-    browserName,
   }) => {
     await page.goto('/tools/fortnite');
 
@@ -64,7 +60,7 @@ test.describe('Fortnite Tool', () => {
     await input.fill('400');
 
     // Wait for debounce and URL update
-    await page.waitForTimeout(2000);
+    await page.waitForURL(/.*400.*/);
 
     // Check for error message
     await expect(
@@ -74,8 +70,6 @@ test.describe('Fortnite Tool', () => {
 
   test('searching for user "403" displays private account error', async ({
     page,
-    network,
-    browserName,
   }) => {
     await page.goto('/tools/fortnite');
 
@@ -84,7 +78,7 @@ test.describe('Fortnite Tool', () => {
     await input.fill('403');
 
     // Wait for debounce and URL update
-    await page.waitForTimeout(2000);
+    await page.waitForURL(/.*403.*/);
 
     // Check for error message
     await expect(
@@ -94,7 +88,6 @@ test.describe('Fortnite Tool', () => {
 
   test('searching for user "404" displays user not found error', async ({
     page,
-    network,
   }) => {
     await page.goto('/tools/fortnite');
 
@@ -103,7 +96,7 @@ test.describe('Fortnite Tool', () => {
     await input.fill('404');
 
     // Wait for debounce and URL update
-    await page.waitForTimeout(2000);
+    await page.waitForURL(/.*404.*/);
 
     // Wait for error message
     await expect(
