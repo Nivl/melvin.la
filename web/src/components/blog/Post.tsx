@@ -1,6 +1,7 @@
 import { Code } from '@heroui/code';
 import { Link } from '@heroui/link';
 import Image from 'next/image';
+import NextLink from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { isValidElement } from 'react';
 
@@ -74,6 +75,7 @@ export function Post({ post }: { post: BlogPost }) {
                 <Link
                   className="text-accent"
                   href={href}
+                  as={NextLink}
                   underline="always"
                   isExternal={isExternalLink}
                   showAnchorIcon={isExternalLink}

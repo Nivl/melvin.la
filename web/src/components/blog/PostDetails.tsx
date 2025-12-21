@@ -7,10 +7,7 @@ import { BlogPost } from '#models/blog/post';
 export function PostDetails({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`}>
-      <Card
-        isPressable
-        className="relative flex h-full w-full flex-none flex-col"
-      >
+      <Card className="relative flex h-full w-full flex-none flex-col">
         <CardHeader className="bg-background relative p-0 shadow-none shadow-black/5">
           <div className="relative overflow-hidden">
             <Image
