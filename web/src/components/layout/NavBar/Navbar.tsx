@@ -9,6 +9,7 @@ import {
 } from '@heroui/dropdown';
 import { Link } from '@heroui/link';
 import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
+import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode, useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
@@ -90,13 +91,13 @@ export const Navbar = () => {
     <NuiNavbar position="static" className="bg-transparent">
       <NavbarContent>
         <NavbarItem isActive={pathname == '/'}>
-          <Link color="foreground" href="/">
+          <Link color="foreground" href="/" as={NextLink}>
             Home
           </Link>
         </NavbarItem>
 
         <NavbarItem isActive={pathname.startsWith('/blog')}>
-          <Link color="foreground" href="/blog">
+          <Link color="foreground" href="/blog" as={NextLink}>
             Blog
           </Link>
         </NavbarItem>
@@ -138,6 +139,7 @@ export const Navbar = () => {
                 key={item.key}
                 startContent={item.logo}
                 href={`/games/${item.path}`}
+                as={NextLink}
               >
                 {item.label}
               </DropdownItem>
@@ -182,6 +184,7 @@ export const Navbar = () => {
                 key={item.key}
                 startContent={item.logo}
                 href={`/tools/${item.path}`}
+                as={NextLink}
               >
                 {item.label}
               </DropdownItem>

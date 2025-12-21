@@ -75,7 +75,7 @@ export function Post({ post }: { post: BlogPost }) {
                 <Link
                   className="text-accent"
                   href={href}
-                  as={NextLink}
+                  as={isExternalLink ? undefined : NextLink}
                   underline="always"
                   isExternal={isExternalLink}
                   showAnchorIcon={isExternalLink}
