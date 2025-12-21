@@ -1,5 +1,6 @@
 titleOnly: true
 types:
+  - ai # Change that affects AI Agents or their configuration
   - build # Changes that affect the build system or external dependencies (pnpm, go mod, typescripts, next, ...)
   - ci # Changes to our CI configuration files and scripts (github actions, renovate, ...)
   - content # Change to the content (text, images, ...) of the website
