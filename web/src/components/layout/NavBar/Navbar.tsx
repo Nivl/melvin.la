@@ -11,6 +11,7 @@ import { Link } from '@heroui/link';
 import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { ReactNode, useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
@@ -78,6 +79,7 @@ const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint
 
 export const Navbar = () => {
   const pathname = usePathname();
+  const t = useTranslations();
 
   // This is used to display data that can only be rendered
   // client-side, such as the theme picker.
@@ -119,7 +121,7 @@ export const Navbar = () => {
                   />
                 }
               >
-                Games
+                {t('games')}
               </Button>
             </DropdownTrigger>
           </NavbarItem>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 
 import { StringLength } from '#components/StringLength';
 import { getMetadata } from '#utils/metadata';
@@ -12,6 +13,12 @@ export const metadata: Metadata = {
   }),
 };
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return <StringLength />;
 }

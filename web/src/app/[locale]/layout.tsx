@@ -1,14 +1,19 @@
-import './globals.css';
+import '../globals.css';
 
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { Fira_Code, Raleway } from 'next/font/google';
 import localFont from 'next/font/local';
+import { notFound } from 'next/navigation';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 
 import { Navbar } from '#components/layout/NavBar/Navbar.tsx';
 import { Providers } from '#components/Providers';
 import { getMetadata } from '#utils/metadata';
+
+import { type Locales, routing } from '../../i18n/routing';
 
 const raleway = Raleway({ subsets: ['latin'], variable: '--font-raleway' });
 
@@ -18,12 +23,12 @@ const firaCode = Fira_Code({
 });
 
 const baikal = localFont({
-  src: '../bundled_static/fonts/baikal_trial_ultra_condensed.woff2',
+  src: '../../bundled_static/fonts/baikal_trial_ultra_condensed.woff2',
   variable: '--font-baikal',
 });
 
 const burbank = localFont({
-  src: '../bundled_static/fonts/burbank_big_condensed_bold.woff2',
+  src: '../../bundled_static/fonts/burbank_big_condensed_bold.woff2',
   variable: '--font-burbank',
 });
 
@@ -38,22 +43,42 @@ export const metadata: Metadata = {
   ...getMetadata({}),
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return routing.locales.map(locale => ({ locale }));
+}
+
+export default async function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+
+  // Ensure that the incoming `locale` is valid
+  if (!routing.locales.includes(locale as Locales)) {
+    return notFound();
+  }
+
+  // Enable static rendering
+  setRequestLocale(locale);
+
+  const msg = await getMessages();
+
   return (
     <html
       suppressHydrationWarning
-      lang="en"
+      lang={locale}
       className={`bg-background text-foreground transition-colors duration-300 ${fonts.map(font => font.variable).join(' ')}`}
     >
       <body className="h-full font-sans text-base leading-relaxed font-light lining-nums antialiased transition-colors xl:text-xl xl:leading-relaxed">
-        <Providers>
-          <Navbar />
-          {children}
-        </Providers>
+        <NextIntlClientProvider messages={msg}>
+          <Providers>
+            <Navbar />
+            {children}
+          </Providers>
+        </NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />
       </body>

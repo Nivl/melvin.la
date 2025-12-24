@@ -132,5 +132,6 @@ export default defineConfig(
     'build/**',
     'next-env.d.ts',
     'src/gen/**',
+    'messages/**.ts',
   ]),
 );

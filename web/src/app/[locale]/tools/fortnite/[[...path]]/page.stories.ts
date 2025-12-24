@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { type FortniteData } from '#backend/api';
 import { useStats } from '#hooks/fortnite/useStats.mock';
 
-import validData from '../../../../../.storybook/fixtures/valid_fortnite_data.json';
+import validData from '../../../../../../.storybook/fixtures/valid_fortnite_data.json';
 import page from './page';
 
 const meta = {
@@ -28,7 +28,9 @@ export const Default: Story = {
   },
   args: {
     params: new Promise(resolve => {
-      resolve({});
+      resolve({
+        locale: 'en',
+      });
     }),
   },
 };
@@ -45,6 +47,7 @@ export const Profile: Story = {
   args: {
     params: new Promise(resolve => {
       resolve({
+        locale: 'en',
         path: ['M8%20Nîkof', 'epic'],
       });
     }),
@@ -72,6 +75,7 @@ export const Loading: Story = {
   args: {
     params: new Promise(resolve => {
       resolve({
+        locale: 'en',
         path: ['M8%20Nîkof', 'xbl'],
       });
     }),
@@ -99,6 +103,7 @@ export const ErrorInvalidAccount: Story = {
   args: {
     params: new Promise(resolve => {
       resolve({
+        locale: 'en',
         path: ['M8%20Nîkof', 'psn'],
       });
     }),
@@ -126,6 +131,7 @@ export const ErrorPrivateAccount: Story = {
   args: {
     params: new Promise(resolve => {
       resolve({
+        locale: 'en',
         path: ['M8%20Nîkof', 'xbl'],
       });
     }),
@@ -153,6 +159,7 @@ export const ErrorInternalError: Story = {
   args: {
     params: new Promise(resolve => {
       resolve({
+        locale: 'en',
         path: ['M8%20Nîkof', 'xbl'],
       });
     }),

@@ -13,6 +13,7 @@ e2e/                      # Playwright end-to-end tests
 ├── helpers.ts            # Playwright helpers, most imports should be made from here
 ├── blog.spec.ts          # Blog e2e tests
 └── home.spec.ts          # Home page e2e tests
+messages/                 # i18n files
 src/
 ├── app/                  # Next.js App Router pages
 │   └── globals.css       # Global styles + Tailwind config
@@ -41,6 +42,7 @@ src/
 - end-to-end: Playwright
 - Visual regression: Storybook + Chromatic
 - Mock API: MSW (in `src/backend/mocks/`)
+**Internationalization**: `next-intl`
 
 ### Key Dependencies
 - `next-mdx-remote`: MDX content rendering
@@ -127,6 +129,33 @@ updatedAt: "2025-07-03"  # optional
 - Mocks should allow easy triggering of error states for testing purposes.
 - Playwright tests should import helpers from `e2e/helpers.ts`.
 
+
+## INTERNATIONALIZATION (i18n)
+
+**Configuration**: `src/i18n/`
+**Messages**: `messages/`
+
+### Adding a New Locale
+1.  Update `src/i18n/routing.ts`:
+    *   Add the new locale code to the `locales` array.
+2.  Create a new message file:
+    *   Create `messages/[locale].json` (e.g., `messages/es.json`).
+    *   Copy the structure from `messages/en.json` as a starting point.
+
+### Adding New Strings
+1.  Add the key-value pair to `messages/en.json` (source of truth).
+2.  Add the corresponding translation to all other `messages/[locale].json` files.
+3.  Use nested keys for organization (e.g., `"HomePage": { "title": "..." }`).
+
+### Usage in Components
+```typescript
+import { useTranslations } from 'next-intl';
+
+export function MyComponent() {
+  const t = useTranslations('HomePage');
+  return <h1>{t('title')}</h1>;
+}
+```
 
 ## ENVIRONMENT VARIABLES
 

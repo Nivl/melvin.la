@@ -21,6 +21,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     ".next/types/**/*.ts",
+    "messages/en.d.json.ts",
     // tests
     "vitest.config.ts",
     "vitest.setup.ts",
@@ -38,7 +39,7 @@
     "public/mockServiceWorker.js",
     // tools
     "postcss.config.cjs",
-    "next.config.js",
+    "next.config.ts",
     "eslint.config.mjs"
   ],
   "exclude": [
