@@ -1,16 +1,9 @@
 import type { Metadata } from 'next';
-import { setRequestLocale } from 'next-intl/server';
 
 import { Conway } from '#components/Conway';
 import { getMetadata } from '#utils/metadata';
 
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default function Home() {
   return <Conway />;
 }
 

@@ -2,6 +2,19 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
-    "games": "Games"
+    "games": "Games",
+    "navbar": {
+        "home": "Home",
+        "about": "About",
+        "blog": "Blog",
+        "games": "Games",
+        "projects": "Projects",
+        "contact": "Contact"
+    },
+    "homepage": {
+        "metadata": {
+            "description": "Personal Website of Melvin Laplanche, nothing really interesting in there"
+        }
+    }
 };
 export default messages;

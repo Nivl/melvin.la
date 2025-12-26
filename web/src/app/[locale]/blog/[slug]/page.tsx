@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { setRequestLocale } from 'next-intl/server';
 import { use } from 'react';
 
 import { Post } from '#components/blog/Post';
@@ -9,11 +8,8 @@ import { getMetadata } from '#utils/metadata';
 
 import { metadata as blogRootMetadata } from '../page';
 
-export default function Home(props: {
-  params: Promise<{ slug: string; locale: string }>;
-}) {
-  const { slug, locale } = use(props.params);
-  setRequestLocale(locale);
+export default function Home(props: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(props.params);
 
   const post = getBlogPost(slug);
   if (!post) {
@@ -35,7 +31,7 @@ export async function generateMetadata(props: {
   params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
   // read route params
-  const { slug } = await props.params;
+  const { slug, locale } = await props.params;
 
   const post = getBlogPost(slug);
   if (!post) {
@@ -43,7 +39,8 @@ export async function generateMetadata(props: {
   }
 
   return {
-    ...getMetadata({
+    ...(await getMetadata({
+      locale,
       pageUrl: `/blog/${slug}`,
       title: post.title,
       description: post.excerpt,
@@ -54,6 +51,6 @@ export async function generateMetadata(props: {
         modifiedTime:
           post.createdAt === post.updatedAt ? undefined : post.updatedAt,
       },
-    }),
+    })),
   };
 }

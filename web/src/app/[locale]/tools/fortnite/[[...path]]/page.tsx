@@ -1,16 +1,12 @@
 import type { Metadata } from 'next';
-import { setRequestLocale } from 'next-intl/server';
 import { use } from 'react';
 
 import { AccountTypes } from '#components/fortnite/Form';
 import { Fortnite } from '#components/fortnite/Fortnite';
 import { getMetadata } from '#utils/metadata';
 
-export default function Home(props: {
-  params: Promise<{ path?: string[]; locale: string }>;
-}) {
-  const { path, locale } = use(props.params);
-  setRequestLocale(locale);
+export default function Home(props: { params: Promise<{ path?: string[] }> }) {
+  const { path } = use(props.params);
   return (
     <Fortnite
       providedName={path?.[0]}
