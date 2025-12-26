@@ -39,9 +39,14 @@ const burbank = localFont({
 // - Storybook's fonts.css file
 const fonts = [raleway, firaCode, baikal, burbank];
 
-export const metadata: Metadata = {
-  ...getMetadata({}),
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return await getMetadata({ locale });
+}
 
 export function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }));

@@ -19,24 +19,26 @@ export async function generateMetadata(props: {
   params: Promise<{ path?: string[]; locale: string }>;
 }): Promise<Metadata> {
   // read route params
-  const { path } = await props.params;
+  const { path, locale } = await props.params;
   if (!path || path.length === 0) {
     return {
-      ...getMetadata({
+      ...(await getMetadata({
+        locale,
         pageUrl: '/tools/fortnite',
         title: 'Fortnite Data',
         description: 'All the data from Fortnite',
         imageURL: '/assets/tools/fortnite/og.jpg',
-      }),
+      })),
     };
   }
 
   return {
-    ...getMetadata({
+    ...(await getMetadata({
+      locale,
       pageUrl: `/tools/fortnite/${path?.join('/')}`,
       title: `${decodeURI(path?.[0])}'s Fortnite Data`,
       description: `All the Fortnite data of ${decodeURI(path?.[0])}`,
       imageURL: `/assets/tools/fortnite/og.jpg`,
-    }),
+    })),
   };
 }

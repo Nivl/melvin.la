@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 import { use } from 'react';
 
 import { Post } from '#components/blog/Post';
 import { getAllBlogPosts, getBlogPost } from '#ssg/queries';
 import { getMetadata } from '#utils/metadata';
-
-import { metadata as blogRootMetadata } from '../page';
 
 export default function Home(props: { params: Promise<{ slug: string }> }) {
   const { slug } = use(props.params);
@@ -32,10 +31,16 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   // read route params
   const { slug, locale } = await props.params;
+  const t = await getTranslations({ locale, namespace: 'blog.metadata' });
 
   const post = getBlogPost(slug);
   if (!post) {
-    return blogRootMetadata;
+    return await getMetadata({
+      locale,
+      pageUrl: '/blog',
+      title: t('title'),
+      description: t('description'),
+    });
   }
 
   return {

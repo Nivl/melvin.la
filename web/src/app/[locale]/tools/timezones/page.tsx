@@ -7,10 +7,16 @@ export default function Home() {
   return <Timezones />;
 }
 
-export const metadata: Metadata = {
-  ...getMetadata({
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return await getMetadata({
+    locale,
     pageUrl: '/tools/timezones',
     title: 'Timezone converter',
     description: 'Compare timezones and convert time between them.',
-  }),
-};
+  });
+}

@@ -2,19 +2,48 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "blog": "Blog",
     "games": "Games",
-    "navbar": {
-        "home": "Home",
-        "about": "About",
-        "blog": "Blog",
-        "games": "Games",
-        "projects": "Projects",
-        "contact": "Contact"
+    "tools": "Tools",
+    "contact": "Contact"
+  },
+  "home": {
+    "metadata": {
+      "description": "Personal Website of Melvin Laplanche, nothing really interesting in there"
     },
-    "homepage": {
-        "metadata": {
-            "description": "Personal Website of Melvin Laplanche, nothing really interesting in there"
-        }
+    "header": {
+      "subtitle": "Full stack engineer with a love for backend and system dev"
+    },
+    "aboutme": {
+      "title": "About Me",
+      "content": "Hello, I'm Melvin, a software engineer based in Los Angeles. I began programming in C in 2004 while in middle school and have been passionate about it ever since. Over the years, I've explored various programming languages and technologies. I enjoy learning new concepts and often spend my free time experimenting with emerging tools and frameworks. I am dedicated to clean architecture and well-tested code.",
+      "cta": "Check out my Github"
+    },
+    "tech": {
+      "backend": {
+        "title": "Backend / Ops technologies",
+        "content": "Like many web engineers from the pre-AngularJS era, I began my journey with backend development. I started with raw PHP when it was a leading technology for building websites, then embraced new trends such as Rails, Django, Symfony 2, Node, and Go. I strive to stay current with the evolution of backend technologies, carefully weighing their pros and cons before adopting them. Additionally, I have spent several years working with C and C++."
+      },
+      "client": {
+        "title": "Client technologies",
+        "content1": "While I find backend development enjoyable, modern backends primarily focus on processing and returning data to clients. This reality sparked my interest in client-side development. I believe that writing client code has made me a better backend engineer, as I understand the challenges of working with undocumented or poorly designed APIs that only partially deliver the required data.",
+        "content2": "Professionally, I have experience across a variety of platforms, including native mobile apps (iOS and Android), hybrid mobile apps, standard Electron apps, Electron apps with a local Go backend for heavy lifting (utilizing cgo for native Windows and macOS libraries), and Single Page Applications (SPAs) using Angular, React, and more."
+      }
+    },
+    "contact": {
+      "title": "Get in touch",
+      "linkedinModalContent": "Too many shady companies scraped my LinkedIn data to create profiles on their websites and sell everything to recruiters. I made the decision to remove my LinkedIn account.",
+      "linkedinModalClose": "Close"
+    },
+    "blog": {
+      "metadata": {
+        "title": "Blog",
+        "description": "See the latest blog posts"
+      }
     }
+  }
 };
 export default messages;

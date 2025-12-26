@@ -79,7 +79,7 @@ const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint
 
 export const Navbar = () => {
   const pathname = usePathname();
-  const t = useTranslations();
+  const t = useTranslations('navbar');
 
   // This is used to display data that can only be rendered
   // client-side, such as the theme picker.

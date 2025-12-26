@@ -173,12 +173,14 @@ NEXT_PUBLIC_GCP_MAP_API_KEY=
 ```bash
 pnpm run dev          # Start dev server
 pnpm run build        # Production build
-pnpm run check-types  # TypeScript type check
+pnpm run typecheck    # TypeScript type check
 pnpm run lint         # ESLint check
 pnpm run test:unit    # Run all unit tests
 pnpm run test:e2e     # Run all end-to-end tests
 pnpm run knip         # Check unused dependencies
 pnpm oapi-gen         # Generate API client
+pnpm i18n:check       # Check i18n consistency
+pnpm validate-code    # Validate code quality
 ```
 
 ## QUALITY REQUIREMENTS
@@ -189,10 +191,9 @@ pnpm oapi-gen         # Generate API client
 
 **Any new code is only deemed valid after running the following**:
 1. `pnpm run lint --fix` (must pass)
-2. `pnpm run check-types` (must pass)
+2. `pnpm run validate-code` (must pass)
 3. `pnpm run test:unit` (must pass)
 4. `pnpm run test:e2e` (must pass)
-5. `pnpm run knip` (must pass)
 
 **New Component Checklist**:
 - [ ] Component implementation

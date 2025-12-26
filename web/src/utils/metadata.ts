@@ -16,7 +16,7 @@ export const getMetadata = async ({
   extraOg?: Metadata['openGraph'];
   locale: string;
 }): Promise<Metadata> => {
-  const t = await getTranslations({ locale, namespace: 'Homepage' });
+  const t = await getTranslations({ locale, namespace: 'home.metadata' });
 
   const images = [{ url: imageURL ?? '/assets/og.jpg' }];
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://melvin.la';
@@ -25,7 +25,7 @@ export const getMetadata = async ({
   return {
     metadataBase: new URL(baseURL),
     title: (title ?? 'Melvin Laplanche') + ' - melvin.la',
-    description: description ?? t('homepage.metadata.description'),
+    description: description ?? t('description'),
     keywords: [],
     authors: [
       {

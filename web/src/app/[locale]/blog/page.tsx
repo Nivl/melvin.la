@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 
 import { List } from '#components/blog/List';
 import { getLatestBlogPosts } from '#ssg/queries';
@@ -14,10 +15,18 @@ export default function Home() {
   return <List posts={posts} />;
 }
 
-export const metadata: Metadata = {
-  ...getMetadata({
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'blog.metadata' });
+
+  return await getMetadata({
+    locale,
     pageUrl: '/blog',
-    title: 'Blog',
-    description: 'See the latest blog posts.',
-  }),
-};
+    title: t('title'),
+    description: t('description'),
+  });
+}

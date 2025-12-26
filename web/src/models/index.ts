@@ -3,15 +3,8 @@ export type Result = {
 };
 
 export type Sections = {
-  about: About;
   backendOps: Tech;
   clientTech: Tech;
-};
-
-export type About = {
-  title: string;
-  content: string;
-  cta: CTA;
 };
 
 export type Logo = {
