@@ -132,6 +132,7 @@ export default defineConfig(
     'build/**',
     'next-env.d.ts',
     'src/gen/**',
+    'public/mockServiceWorker.js',
     'messages/**.ts',
   ]),
 );
