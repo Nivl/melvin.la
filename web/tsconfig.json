@@ -39,7 +39,11 @@
     // tools
     "postcss.config.cjs",
     "next.config.js",
-    "eslint.config.mjs"
+    "eslint.config.mjs",
+    // sentry
+    "sentry.edge.config.ts",
+    "sentry.server.config.ts",
+    "sentry.default.config.ts"
   ],
   "exclude": [
     "node_modules",

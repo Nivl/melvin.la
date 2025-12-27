@@ -1,5 +1,9 @@
 {
   "servers": {
+    "Sentry": {
+      "url": "https://mcp.sentry.dev/mcp/melvinla/webapp",
+      "type": "http"
+    },
     "oraios/serena": {
       "type": "stdio",
       "command": "uvx",
