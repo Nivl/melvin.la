@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import { use } from 'react';
 
 import { AccountTypes } from '#components/fortnite/Form';
@@ -20,13 +21,15 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   // read route params
   const { path, locale } = await props.params;
+  const t = await getTranslations({ locale, namespace: 'fortnite.metadata' });
+
   if (!path || path.length === 0) {
     return {
       ...(await getMetadata({
         locale,
         pageUrl: '/tools/fortnite',
-        title: 'Fortnite Data',
-        description: 'All the data from Fortnite',
+        title: t('title'),
+        description: t('description'),
         imageURL: '/assets/tools/fortnite/og.jpg',
       })),
     };
@@ -36,8 +39,8 @@ export async function generateMetadata(props: {
     ...(await getMetadata({
       locale,
       pageUrl: `/tools/fortnite/${path?.join('/')}`,
-      title: `${decodeURI(path?.[0])}'s Fortnite Data`,
-      description: `All the Fortnite data of ${decodeURI(path?.[0])}`,
+      title: t('focusTitle', { username: decodeURI(path?.[0]) }),
+      description: t('focusDescription', { username: decodeURI(path?.[0]) }),
       imageURL: `/assets/tools/fortnite/og.jpg`,
     })),
   };

@@ -8,5 +8,5 @@ export default createMiddleware(routing);
 export const config = {
   // Match only internationalized pathnames
   // eslint-disable-next-line unicorn/prefer-string-raw
-  matcher: '/((?!api|_next|_vercel|.*\\..*).*)',
+  matcher: '/((?!api|monitoring|_next|_vercel|.*\\..*).*)',
 };

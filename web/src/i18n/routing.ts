@@ -1,8 +1,7 @@
 import { createNavigation } from 'next-intl/navigation';
 import { defineRouting } from 'next-intl/routing';
 
-const locales = ['en', 'fr'] as const;
-export type Locales = (typeof locales)[number];
+import { locales } from './locales.ts';
 
 export const routing = defineRouting({
   // A list of all locales that are supported

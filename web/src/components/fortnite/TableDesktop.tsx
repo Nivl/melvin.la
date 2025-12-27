@@ -10,6 +10,7 @@ import {
   TableRow,
 } from '@heroui/table';
 import { Tooltip } from '@heroui/tooltip';
+import { useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 import { FaUser, FaUserGroup, FaUsers } from 'react-icons/fa6';
@@ -45,6 +46,8 @@ export const TableDesktop = ({
   isLoading: boolean;
 }) => {
   const [category, setCategory] = useState<Category>('all');
+  const rootT = useTranslations();
+  const t = useTranslations('fortnite.data');
 
   // We need to sync the categories with the data, to make sure the
   // current category is available with the new set of data
@@ -80,7 +83,7 @@ export const TableDesktop = ({
     if (isLoading || data?.stats.keyboardMouse?.overall) {
       categories.push({
         key: 'score-keyboard',
-        title: 'Keyboard / Mouse',
+        title: t('kbm'),
         selected: category === 'keyboardMouse',
         icon: <FaKeyboard />,
         isLoading,
@@ -92,7 +95,7 @@ export const TableDesktop = ({
     if (isLoading || data?.stats.gamepad?.overall) {
       categories.push({
         key: 'score-gamepad',
-        title: 'Gamepad',
+        title: t('gamepad'),
         icon: <FaGamepad />,
         selected: category === 'gamepad',
         isLoading,
@@ -104,7 +107,7 @@ export const TableDesktop = ({
     if (isLoading || data?.stats.touch?.overall) {
       categories.push({
         key: 'score-mobile',
-        title: 'Mobile',
+        title: t('mobile'),
         selected: category === 'touch',
         icon: <GiSmartphone />,
         isLoading,
@@ -118,7 +121,7 @@ export const TableDesktop = ({
     if (categories.length !== 1) {
       categories.unshift({
         key: 'score-all',
-        title: 'All',
+        title: t('all-categories'),
         selected: category === 'all',
         icon: <TfiInfinite />,
         isLoading,
@@ -140,7 +143,7 @@ export const TableDesktop = ({
         />
       );
     });
-  }, [data, category, isLoading]);
+  }, [data, category, isLoading, t]);
 
   const tableData = useMemo(() => {
     const out: TableEntry[] = [];
@@ -149,9 +152,9 @@ export const TableDesktop = ({
     if (soloData) {
       const solo = {
         key: crypto.randomUUID(),
-        mode: 'Solo',
+        mode: t('solo'),
         icon: <FaUser />,
-        timePlayed: humanizeDuration(soloData.minutesPlayed),
+        timePlayed: humanizeDuration(rootT, soloData.minutesPlayed),
         gamePlayed: soloData.matches,
         wins: soloData.wins,
         winRate: rateStr(soloData.wins, soloData.matches),
@@ -166,9 +169,9 @@ export const TableDesktop = ({
     if (duoData) {
       const duo = {
         key: crypto.randomUUID(),
-        mode: 'Duo',
+        mode: t('duo'),
         icon: <FaUserGroup />,
-        timePlayed: humanizeDuration(duoData.minutesPlayed),
+        timePlayed: humanizeDuration(rootT, duoData.minutesPlayed),
         gamePlayed: duoData.matches,
         wins: duoData.wins,
         winRate: rateStr(duoData.wins, duoData.matches),
@@ -183,9 +186,9 @@ export const TableDesktop = ({
     if (squadData) {
       const squad = {
         key: crypto.randomUUID(),
-        mode: 'Trio / Squad',
+        mode: t('squad'),
         icon: <FaUsers />,
-        timePlayed: humanizeDuration(squadData.minutesPlayed),
+        timePlayed: humanizeDuration(rootT, squadData.minutesPlayed),
         gamePlayed: squadData.matches,
         wins: squadData.wins,
         winRate: rateStr(squadData.wins, squadData.matches),
@@ -201,9 +204,9 @@ export const TableDesktop = ({
     if (out.length !== 1 && overallData) {
       const overall = {
         key: crypto.randomUUID(),
-        mode: 'Overall',
+        mode: t('overall'),
         icon: <TfiInfinite />,
-        timePlayed: humanizeDuration(overallData.minutesPlayed),
+        timePlayed: humanizeDuration(rootT, overallData.minutesPlayed),
         gamePlayed: overallData.matches,
         wins: overallData.wins,
         winRate: rateStr(overallData.wins, overallData.matches),
@@ -224,7 +227,7 @@ export const TableDesktop = ({
       out.unshift(overall);
     }
     return out;
-  }, [data, category]);
+  }, [data, category, t, rootT]);
 
   return (
     <div className="border-divider flex flex-col items-center gap-11 sm:flex-row">
@@ -232,7 +235,7 @@ export const TableDesktop = ({
         <div className="flex flex-col gap-6">{TableCategoriesSection}</div>
       </div>
       <Table
-        aria-label="Table with all the stats"
+        aria-label={t('statsTable')}
         removeWrapper
         classNames={{
           th: 'bg-transparent text-default-500 border-b border-divider',
@@ -240,39 +243,27 @@ export const TableDesktop = ({
       >
         <TableHeader>
           <TableColumn key="mode">{''}</TableColumn>
-          <TableColumn key="gamePlayed">Game Played</TableColumn>
-          <TableColumn key="wins">Wins</TableColumn>
-          <TableColumn key="winRate">Win Rate</TableColumn>
+          <TableColumn key="gamePlayed">{t('gamePlayed')}</TableColumn>
+          <TableColumn key="wins">{t('wins')}</TableColumn>
+          <TableColumn key="winRate">{t('winRate')}</TableColumn>
           <TableColumn key="kd">
-            <Tooltip
-              closeDelay={0}
-              delay={0}
-              content="How many people you kill for each time you die"
-            >
-              <span>Kill/Death ratio</span>
+            <Tooltip closeDelay={0} delay={0} content={t('kdHelp')}>
+              <span>{t('kd')}</span>
             </Tooltip>
           </TableColumn>
           <TableColumn key="top10rate">
-            <Tooltip
-              closeDelay={0}
-              delay={0}
-              content="How often you are one of the last 10 players alive"
-            >
-              <span>Top 10% rate</span>
+            <Tooltip closeDelay={0} delay={0} content={t('top10rateHelp')}>
+              <span>{t('top10rate')}</span>
             </Tooltip>
           </TableColumn>
           <TableColumn key="top25rate">
-            <Tooltip
-              closeDelay={0}
-              delay={0}
-              content="How often you are one of the last 25 players alive"
-            >
-              <span>Top 25% rate</span>
+            <Tooltip closeDelay={0} delay={0} content={t('top25rateHelp')}>
+              <span>{t('top25rate')}</span>
             </Tooltip>
           </TableColumn>
-          <TableColumn key="timePlayed">Time Played</TableColumn>
+          <TableColumn key="timePlayed">{t('timePlayed')}</TableColumn>
         </TableHeader>
-        <TableBody emptyContent={'No data to display.'} items={tableData}>
+        <TableBody emptyContent={t('noData')} items={tableData}>
           {item => (
             <TableRow key={item.key}>
               {columnKey => (

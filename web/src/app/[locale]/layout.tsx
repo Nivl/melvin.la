@@ -6,7 +6,6 @@ import type { Metadata } from 'next';
 import { Fira_Code, Raleway } from 'next/font/google';
 import localFont from 'next/font/local';
 import { notFound } from 'next/navigation';
-import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 
 import { Navbar } from '#components/layout/NavBar/Navbar.tsx';
@@ -78,12 +77,10 @@ export default async function RootLayout({
       className={`bg-background text-foreground transition-colors duration-300 ${fonts.map(font => font.variable).join(' ')}`}
     >
       <body className="h-full font-sans text-base leading-relaxed font-light lining-nums antialiased transition-colors xl:text-xl xl:leading-relaxed">
-        <NextIntlClientProvider messages={msg}>
-          <Providers>
-            <Navbar />
-            {children}
-          </Providers>
-        </NextIntlClientProvider>
+        <Providers locale={locale} messages={msg}>
+          <Navbar />
+          {children}
+        </Providers>
         <Analytics />
         <SpeedInsights />
       </body>

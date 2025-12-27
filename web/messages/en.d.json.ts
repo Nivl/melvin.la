@@ -2,12 +2,22 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
+  "errorPages": {
+    "404": {
+      "metadata": {
+        "title": "404 - Page Not Found :: Melvin Laplanche",
+        "description": "This page doesn't exist, sorry about that."
+      },
+      "title": "Page not found"
+    }
+  },
   "navbar": {
     "home": "Home",
     "blog": "Blog",
     "games": "Games",
     "conway": "Game of Life",
     "tools": "Tools",
+    "fortnite": "Fortnite Data",
     "string-length": "String Length",
     "timezones": "Timezone Converter",
     "timestamp": "Timestamp Lookup",
@@ -40,13 +50,159 @@ declare const messages: {
       "title": "Get in touch",
       "linkedinModalContent": "Too many shady companies scraped my LinkedIn data to create profiles on their websites and sell everything to recruiters. I made the decision to remove my LinkedIn account.",
       "linkedinModalClose": "Close"
+    }
+  },
+  "blog": {
+    "metadata": {
+      "title": "Blog",
+      "description": "See the latest blog posts"
+    }
+  },
+  "conway": {
+    "metadata": {
+      "title": "Game of Life",
+      "description": "Conway's Game of Life"
     },
-    "blog": {
-      "metadata": {
-        "title": "Blog",
-        "description": "See the latest blog posts"
+    "title": "Conway's Game of Life",
+    "needLargeScreen": "A device with a large screen is needed to access this page",
+    "whatIsIt": "The Game of Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970. It is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration and observing how it evolves. It is Turing complete and can simulate a universal constructor or any other Turing machine. — ",
+    "quoteUrl": "https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life",
+    "quoteBy": "Wikipedia",
+    "howToPlay": "How to play",
+    "rules": {
+      "header": "The universe of the Game of Life is a two-dimensional orthogonal grid of square cells, each of which is in one of two possible states, live or dead. Every cell interacts with its eight neighbors, which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, the following transitions occur:",
+      "rule1": "Any live cell with fewer than two live neighbours dies, as if caused by under-population.",
+      "rule2": "Any live cell with two or three live neighbours lives on to the next generation.",
+      "rule3": "Any live cell with more than three live neighbours dies, as if by over-population.",
+      "rule4": "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.",
+      "footer": "The initial pattern constitutes the seed of the system. The first generation is created by applying the above rules simultaneously to every cell in the seed, live or dead; births and deaths occur simultaneously. Each generation is a pure function of the preceding one. The rules continue to be applied repeatedly to create further generations."
+    },
+    "gridInfo": "The grid has been pre-filled with random cells. You can edit the grid by clicking on a cell to change its state.",
+    "controls": {
+      "title": "Controls",
+      "play": "Play",
+      "pause": "Pause",
+      "speed": "Speed",
+      "boardSize": "Board Size",
+      "presets": {
+        "title": "Presets",
+        "glider": "Glider",
+        "pulsar": "Pulsar",
+        "pentadecathlon": "Penta-decathlon",
+        "heavySpaceship": "Heavy spaceship"
       }
     }
+  },
+  "fortnite": {
+    "metadata": {
+      "title": "Fortnite Data",
+      "description": "All the data from Fortnite",
+      "focusTitle": "{username}'s Fortnite Data",
+      "focusDescription": "All the Fortnite data of {username}"
+    },
+    "title": "See how well you are doing in <name>Fortnite</name>",
+    "errors": {
+      "accountPrivate": "This gamer doesn't want you to see their data.",
+      "notFound": "Nobody goes by this name, on this platform.",
+      "serverError": "Looks like the data aren't available right now. Try again later."
+    },
+    "presets": "Or pick a famous content creator",
+    "daysSpent": "{days, plural, =0 {0 days} one {1 day} other {# days}}",
+    "hoursSpent": "{hours, plural, =0 {0 hours} one {1 hour} other {# hours}}",
+    "minutesSpent": "{minutes, plural, =0 {0 minutes} one {1 minute} other {# minutes}}",
+    "timeSpent": "That's how long you've spent in the game.",
+    "overallWinRate": "Overall win rate",
+    "overallKd": "Overall Kill/Death ratio",
+    "currentLevel": "Level {level}",
+    "currentLevelProgression": "Current level progression",
+    "form": {
+      "accountName": "Account Name",
+      "platform": "Platform",
+      "platformEpic": "Epic Games",
+      "platformXbox": "Xbox",
+      "platformPlaystation": "PlayStation",
+      "currentSeasonOnly": "Current season only"
+    },
+    "data": {
+      "statsTable": "Table with all the stats",
+      "gamePlayed": "Games Played",
+      "wins": "Wins",
+      "winRate": "Win Rate",
+      "kd": "Kill/Death ratio",
+      "kdHelp": "How many people you kill for each time you die",
+      "top10rate": "Top 10% rate",
+      "top10rateHelp": "How often you are one of the last 10 players alive",
+      "top25rate": "Top 25% rate",
+      "top25rateHelp": "How often you are one of the last 25 players alive",
+      "timePlayed": "Time Played",
+      "noData": "No data to display.",
+      "kbm": "Keyboard & Mouse",
+      "gamepad": "Gamepad",
+      "mobile": "Mobile",
+      "all-categories": "All",
+      "solo": "Solo",
+      "duo": "Duo",
+      "squad": "Trio / Squad",
+      "overall": "Overall",
+      "stat": "Stat",
+      "value": "Value"
+    }
+  },
+  "stringLength": {
+    "metadata": {
+      "title": "String Length",
+      "description": "Count characters and bytes in your text with our free online string length tool. Supports Unicode characters correctly."
+    },
+    "title": "String Length",
+    "inputLabel": "Enter your text",
+    "inputPlaceholder": "Type or paste your text here…",
+    "characterCount": "Characters",
+    "word-count": "Words",
+    "wordCountTooltip": "Only supports space-based languages (e.g. English, Spanish, French). Languages without spaces (e.g. Chinese, Japanese, Korean) are not accurately counted.",
+    "byteCount": "Bytes (UTF-8)"
+  },
+  "timestamp": {
+    "metadata": {
+      "title": "Timestamp lookup",
+      "description": "Turn timestamps into real date."
+    },
+    "title": "Timestamp Lookup",
+    "inputLabel": "Timestamp",
+    "inputError": "Invalid timestamp",
+    "inputDescription": "Automatically detects milliseconds, microseconds, and nanoseconds",
+    "output": "{timestamp} is <date>{utcDate}</date>"
+  },
+  "uuid": {
+    "metadata": {
+      "title": "UUID Generator",
+      "description": "Generate UUIDs easily with our free online UUID generator tool. Create unique identifiers for your projects in seconds."
+    },
+    "title": "UUID Generator",
+    "versionLabel": "UUID Version",
+    "versionPlaceholder": "Select a UUID version",
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter a name",
+    "namespaceLabel": "Namespace",
+    "namespacePlaceholder": "Select a namespace",
+    "customNamespaceLabel": "Custom Namespace",
+    "customNamespacePlaceholder": "Enter the namespace",
+    "customNamespaceError": "Please enter a valid UUID",
+    "countLabel": "How many to generate",
+    "actionGenerate": "Generate"
+  },
+  "timezones": {
+    "metadata": {
+      "title": "Timezone converter",
+      "description": "Compare timezones and convert time between them."
+    },
+    "title": "Timezone Converter",
+    "fromLabel": "When in",
+    "fromAriaLabel": "Search for a city to convert from",
+    "dateTimeLabel": "it's",
+    "dateTimeAriaLabel": "pick a time to convert from",
+    "toLabel": "See what day and time it was in",
+    "toAriaLabel": "Search for a city to convert to",
+    "output": "In <cityWrapper>{city}</cityWrapper>, it's {time}"
   }
 };
 export default messages;

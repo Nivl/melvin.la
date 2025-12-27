@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import { Timestamp } from '#components/Timestamp';
 import { getMetadata } from '#utils/metadata';
@@ -9,11 +10,17 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+
+  const t = await getTranslations({
+    locale,
+    namespace: 'timestamp.metadata',
+  });
+
   return await getMetadata({
     locale,
     pageUrl: '/tools/timestamp',
-    title: 'Timestamp lookup',
-    description: 'Turn timestamps into real date.',
+    title: t('title'),
+    description: t('description'),
   });
 }
 

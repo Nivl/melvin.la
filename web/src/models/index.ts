@@ -19,7 +19,5 @@ export type CTA = {
 };
 
 export type Tech = {
-  title: string;
-  content: string[];
   logos: Logo[];
 };

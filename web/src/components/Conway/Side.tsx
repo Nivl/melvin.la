@@ -1,5 +1,6 @@
 import { Slider } from '@heroui/slider';
 import { Switch } from '@heroui/switch';
+import { useTranslations } from 'next-intl';
 import { FaPause as PauseIcon, FaPlay as Playicon } from 'react-icons/fa6';
 
 import {
@@ -64,18 +65,18 @@ export const Side = ({
   const setPreset = (preset: Board) => {
     setBoard(resizeBoard(preset, boardSize));
   };
+  const t = useTranslations('conway.controls');
 
   return (
     <>
-      <Heading level={3}>Controls</Heading>
-
+      <Heading level={3}>{t('title')}</Heading>
       <Switch
         size="lg"
         color="primary"
         onChange={() => {
           setIsPlaying(!isPlaying);
         }}
-        aria-label={isPlaying ? 'Pause' : 'Play'}
+        aria-label={isPlaying ? t('pause') : t('play')}
         thumbIcon={({ isSelected }) =>
           isSelected ? (
             <Playicon className="text-gray-700" />
@@ -86,7 +87,7 @@ export const Side = ({
       ></Switch>
 
       <Slider
-        label="Speed"
+        label={t('speed')}
         getValue={speed => `${speed.toString()}x`}
         step={0.25}
         maxValue={5}
@@ -101,7 +102,7 @@ export const Side = ({
       />
 
       <Slider
-        label="Grid Size"
+        label={t('boardSize')}
         minValue={0}
         maxValue={boardSizes.length - 1}
         className="max-w-md"
@@ -123,32 +124,32 @@ export const Side = ({
         }}
       />
 
-      <Heading level={3}>Presets</Heading>
+      <Heading level={3}>{t('presets.title')}</Heading>
 
       <div className="flex w-56 flex-wrap justify-center gap-4">
         <Preset
-          name="Glider"
+          name={t('presets.glider')}
           onClick={() => {
             setPreset(gliderPreset);
           }}
         />
 
         <Preset
-          name="Pulsar"
+          name={t('presets.pulsar')}
           onClick={() => {
             setPreset(pulsarPreset);
           }}
         />
 
         <Preset
-          name="Penta-decathlon"
+          name={t('presets.pentadecathlon')}
           onClick={() => {
             setPreset(PentadecathlonPreset);
           }}
         />
 
         <Preset
-          name="Heavy spaceship"
+          name={t('presets.heavySpaceship')}
           onClick={() => {
             setPreset(HeavyweightPreset);
           }}

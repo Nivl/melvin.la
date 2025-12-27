@@ -1,17 +1,27 @@
 /* eslint-disable import/no-default-export */
 
+import { SentryBuildOptions, withSentryConfig } from '@sentry/nextjs';
+import MomentLocalesPlugin from 'moment-locales-webpack-plugin';
 import { type NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
-import { withSentryConfig, SentryBuildOptions } from '@sentry/nextjs';
+import { locales } from "./src/i18n/locales.ts";
 
 const withNextIntl = createNextIntlPlugin({
   experimental: {
     createMessagesDeclaration: './messages/en.json',
   },
-});
+}); 
 
 const nextConfig: NextConfig = {
   transpilePackages: ['next-mdx-remote'],
+  webpack: (config) => {
+    config.plugins.push(
+      new MomentLocalesPlugin({
+        localesToKeep: [...locales],
+      })
+    );
+    return config;
+  }
 };
 
 const sentryOption: SentryBuildOptions = {
@@ -42,7 +52,6 @@ const sentryOption: SentryBuildOptions = {
       removeDebugLogging: true,
     },
   },
-}
+};
 
 export default withSentryConfig(withNextIntl(nextConfig), sentryOption);
- 

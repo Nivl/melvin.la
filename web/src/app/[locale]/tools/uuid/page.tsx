@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import { Uuid } from '#components/Uuid/Uuid.tsx';
 import { getMetadata } from '#utils/metadata';
@@ -13,11 +14,16 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+
+  const t = await getTranslations({
+    locale,
+    namespace: 'uuid.metadata',
+  });
+
   return await getMetadata({
     locale,
     pageUrl: '/tools/uuid',
-    title: 'UUID Generator',
-    description:
-      'Generate UUIDs easily with our free online UUID generator tool. Create unique identifiers for your projects in seconds.',
+    title: t('title'),
+    description: t('description'),
   });
 }
