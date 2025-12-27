@@ -37,12 +37,21 @@
       "title": "Get in touch",
       "linkedinModalContent": "Too many shady companies scraped my LinkedIn data to create profiles on their websites and sell everything to recruiters. I made the decision to remove my LinkedIn account.",
       "linkedinModalClose": "Close"
-    },
-    "blog": {
-      "metadata": {
-        "title": "Blog",
-        "description": "See the latest blog posts"
-      }
     }
+  },
+  "blog": {
+    "metadata": {
+      "title": "Blog",
+      "description": "See the latest blog posts"
+    }
+  },
+  "conway": {
+    "metadata": {
+      "title": "Game of Life",
+      "description": "Explore Conway's Game of Life"
+    },
+    "title": "Conway's Game of Life",
+    "needLargeScreen": "A device with a large screen is needed to access this page",
+    "whatIsIt": "The Game of Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970. It is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input. One interacts with the Game of Life by creating an initial configuration and observing how it evolves. It is Turing complete and can simulate a universal constructor or any other Turing machine. —",
   }
 }

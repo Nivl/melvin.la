@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { Board, boardSizes, defaultPresets } from '#models/conway';
@@ -14,19 +15,18 @@ export const Conway = () => {
   const [speed, setSpeed] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [boardSize, setBoardSize] = useState(boardSizes[0]);
+  const t = useTranslations('conway');
 
   return (
     <>
       <Section className="lg:hidden">
-        <div className="text-center">
-          A device with a large screen is needed to access this page
-        </div>
+        <div className="text-center">{t('needLargeScreen')}</div>
       </Section>
 
       <div className="hidden lg:block">
         <Section>
           <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl uppercase sm:text-8xl xl:text-9xl">
-            Conway&apos;s Game of Life
+            {t('title')}
           </h1>
         </Section>
 
