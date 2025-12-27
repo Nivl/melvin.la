@@ -1,11 +1,14 @@
 {
     "navbar": {
         "home": "Accueil",
-        "about": "À propos",
         "blog": "Blog",
         "games": "Jeux",
+        "conway": "Jeu de la vie",
         "tools": "Outils",
-        "contact": "Contact"
+        "string-length": "Longueur de chaîne",
+        "timezones": "Convertisseur de fuseaux horaires",
+        "timestamp": "Recherche de timestamp",
+        "uuid": "Générateur UUID"
     },
     "home": {
         "metadata": {

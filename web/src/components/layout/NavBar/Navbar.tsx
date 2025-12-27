@@ -36,31 +36,31 @@ type Item = {
 const tools: Item[] = [
   {
     key: 'fortnite',
-    label: 'Fortnite Data',
+    label: 'fortnite',
     path: '/fortnite',
     logo: <FortniteIcon className="h-5 w-5" />,
   },
   {
     key: 'string-length',
-    label: 'String Length',
+    label: 'string-length',
     path: '/string-length',
     logo: <StringLengthIcon className="h-5 w-5" />,
   },
   {
     key: 'timezones',
-    label: 'Timezone Converter',
+    label: 'timezones',
     path: '/timezones',
     logo: <TimezoneIcon className="h-5 w-5" />,
   },
   {
     key: 'timestamp',
-    label: 'Timestamp Lookup',
+    label: 'timestamp',
     path: '/timestamp',
     logo: <TimestampIcon className="h-5 w-5" />,
   },
   {
     key: 'uuid',
-    label: 'UUID generator',
+    label: 'uuid',
     path: '/uuid',
     logo: <UuidIcon className="h-5 w-5" />,
   },
@@ -69,7 +69,7 @@ const tools: Item[] = [
 const games: Item[] = [
   {
     key: 'conway',
-    label: 'Game of Life',
+    label: 'conway',
     path: '/conway',
     logo: <ConwayIcon className="h-5 w-5" />,
   },
@@ -94,13 +94,13 @@ export const Navbar = () => {
       <NavbarContent>
         <NavbarItem isActive={pathname == '/'}>
           <Link color="foreground" href="/" as={NextLink}>
-            Home
+            {t('home')}
           </Link>
         </NavbarItem>
 
         <NavbarItem isActive={pathname.startsWith('/blog')}>
           <Link color="foreground" href="/blog" as={NextLink}>
-            Blog
+            {t('blog')}
           </Link>
         </NavbarItem>
 
@@ -143,7 +143,7 @@ export const Navbar = () => {
                 href={`/games/${item.path}`}
                 as={NextLink}
               >
-                {item.label}
+                {t(item.label)}
               </DropdownItem>
             )}
           </DropdownMenu>
@@ -166,7 +166,7 @@ export const Navbar = () => {
                   />
                 }
               >
-                Tools
+                {t('tools')}
               </Button>
             </DropdownTrigger>
           </NavbarItem>
@@ -188,7 +188,7 @@ export const Navbar = () => {
                 href={`/tools/${item.path}`}
                 as={NextLink}
               >
-                {item.label}
+                {t(item.label)}
               </DropdownItem>
             )}
           </DropdownMenu>

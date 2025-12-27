@@ -4,11 +4,14 @@
 declare const messages: {
   "navbar": {
     "home": "Home",
-    "about": "About",
     "blog": "Blog",
     "games": "Games",
+    "conway": "Game of Life",
     "tools": "Tools",
-    "contact": "Contact"
+    "string-length": "String Length",
+    "timezones": "Timezone Converter",
+    "timestamp": "Timestamp Lookup",
+    "uuid": "UUID generator"
   },
   "home": {
     "metadata": {
