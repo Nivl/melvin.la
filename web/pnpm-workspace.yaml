@@ -1,2 +1,11 @@
+ignoredBuiltDependencies:
+  - canvas
+  - core-js-pure
+  - esbuild
+  - sharp
+  - unrs-resolver
+
 onlyBuiltDependencies:
+  - '@heroui/shared-utils'
   - '@vercel/speed-insights'
+  - msw
