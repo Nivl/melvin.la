@@ -50,7 +50,7 @@ const presetLists: {
     picture:
       'https://yt3.googleusercontent.com/AvhJUD0eAio7gb3a39GfSuf7Fpdf4cEZlCqSkvastLXOjBrdDR2t59h9_MRc3MEfvM8-SJ0d=s160-c-k-c0x00ffffff-no-rj',
     data: {
-      accountName: 'DIG Aussie',
+      accountName: 'DIG Aussie1X',
       accountType: AccountTypes.Epic,
       timeWindow: TimeWindow.Lifetime,
     },
