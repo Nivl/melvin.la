@@ -1,7 +1,7 @@
 import { Card, CardBody, CardHeader } from '@heroui/card';
 import Image from 'next/image';
-import Link from 'next/link';
 
+import { Link } from '#i18n/routing';
 import { BlogPost } from '#models/blog/post';
 
 export function PostDetails({ post }: { post: BlogPost }) {

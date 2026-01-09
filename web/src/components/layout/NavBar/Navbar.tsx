@@ -9,8 +9,6 @@ import {
 } from '@heroui/dropdown';
 import { Link } from '@heroui/link';
 import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
-import NextLink from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { ReactNode, useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
@@ -22,6 +20,8 @@ import {
 import { MdOutlineTextFields as StringLengthIcon } from 'react-icons/md';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
+
+import { Link as NextLink, usePathname } from '#i18n/routing';
 
 import { ThemeSwitcher } from './ThemeSwitcher';
 

@@ -1,12 +1,13 @@
 'use client';
 
 import { Skeleton } from '@heroui/skeleton';
-import { notFound, usePathname, useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import { Section } from '#components/layout/Section';
 import { useStats } from '#hooks/fortnite/useStats';
+import { usePathname, useRouter } from '#i18n/routing';
 import { humanizeDuration } from '#utils/fortnite';
 
 import { AccountPresets, defaults, Preset } from './AccountPresets';

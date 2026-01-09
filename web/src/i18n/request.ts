@@ -4,7 +4,8 @@ import * as Sentry from '@sentry/nextjs';
 import { getRequestConfig } from 'next-intl/server';
 
 import defaultLocalMessages from '../../messages/en.json';
-import { type Locales, routing } from './routing';
+import { type Locales } from './locales';
+import { routing } from './routing';
 
 export type MessagesType = { [key: string]: string | MessagesType };
 

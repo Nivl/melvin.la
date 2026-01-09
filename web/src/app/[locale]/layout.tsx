@@ -10,9 +10,8 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 
 import { Navbar } from '#components/layout/NavBar/Navbar.tsx';
 import { Providers } from '#components/Providers';
+import { type Locales, locales } from '#i18n/locales';
 import { getMetadata } from '#utils/metadata';
-
-import { type Locales, routing } from '../../i18n/routing';
 
 const raleway = Raleway({ subsets: ['latin'], variable: '--font-raleway' });
 
@@ -48,7 +47,7 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  return routing.locales.map(locale => ({ locale }));
+  return locales.map(locale => ({ locale }));
 }
 
 export default async function RootLayout({
@@ -61,7 +60,7 @@ export default async function RootLayout({
   const { locale } = await params;
 
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as Locales)) {
+  if (!locales.includes(locale as Locales)) {
     return notFound();
   }
 

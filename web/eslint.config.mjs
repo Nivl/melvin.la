@@ -29,7 +29,6 @@ export default defineConfig(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
-  ...storybook.configs['flat/recommended'],
   eslintPluginUnicorn.configs.recommended,
   eslintNextPlugin.configs.recommended,
   ...nextVitals,
@@ -66,13 +65,12 @@ export default defineConfig(
         'error',
         {
           groups: [
-            [String.raw`^\u0000`],
-            [String.raw`^@?\w`],
-            ['^'],
-            [
-              String.raw`^\.`,
-              '^(backend|components|contexts|hooks|pages|utils)',
-            ],
+            [String.raw`^\u0000`], // Side effect imports (i.e. `import "filename"`, and not "import xxx from yyy")
+            ['^node:'], // Node.js builtins
+            [String.raw`^@?\w`], // Things that start with a letter (or digit or underscore), or `@` followed by a letter.
+            ['^'], // Absolute imports and other imports such as Vue-style `@/foo`.
+            ['^#'], // Internal aliases
+            [String.raw`^\.`], // Anything that starts with a dot.
           ],
         },
       ],
@@ -81,6 +79,18 @@ export default defineConfig(
       'import/no-named-as-default-member': 'off',
       'prettier/prettier': 'error',
       'no-console': 'error',
+      'no-restricted-imports': [
+        'error',
+        {
+          name: 'next/link',
+          message: 'Use "#i18n/routing" instead (drop-in replacement)',
+        },
+        {
+          name: 'next/navigation',
+          importNames: ['redirect', 'useRouter', 'getPathname', 'usePathname'],
+          message: 'Use "#i18n/routing" instead (drop-in replacement)',
+        },
+      ],
       '@typescript-eslint/explicit-module-boundary-types': 0,
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -116,14 +126,18 @@ export default defineConfig(
     },
   },
   {
-    files: ['src/**/*.mock.ts'],
-    rules: {
-      'import/export': 'off',
-    },
+    files: ['.storybook/**', 'src/**/*.stories.ts'],
+    extends: [storybook.configs['flat/recommended']],
   },
   {
     files: ['e2e/**'],
     extends: [playwright.configs['flat/recommended']],
+  },
+  {
+    files: ['src/**/*.mock.ts'],
+    rules: {
+      'import/export': 'off',
+    },
   },
   globalIgnores([
     // Default ignores of eslint-config-next:

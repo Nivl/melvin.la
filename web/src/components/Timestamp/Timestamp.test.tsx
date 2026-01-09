@@ -2,6 +2,8 @@ import { cleanup, render } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { afterEach, expect, test } from 'vitest';
 
+import { testWrapper as wrapper } from '#utils/tests';
+
 import { Timestamp } from './Timestamp';
 
 afterEach(() => {
@@ -10,7 +12,7 @@ afterEach(() => {
 
 const setup = () => {
   const user = userEvent.setup();
-  const utils = render(<Timestamp />);
+  const utils = render(<Timestamp />, { wrapper });
   return {
     ...utils,
     user,

@@ -1,7 +1,8 @@
-import matter from 'gray-matter';
 import { readdir, readFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { type DatabaseSync } from 'node:sqlite';
+
+import matter from 'gray-matter';
 
 import { BlogPost } from '#models/blog/post';
 import { database } from '#ssg/database';

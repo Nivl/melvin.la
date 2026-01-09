@@ -6,7 +6,9 @@ import { AccountTypes } from '#components/fortnite/Form';
 import { Fortnite } from '#components/fortnite/Fortnite';
 import { getMetadata } from '#utils/metadata';
 
-export default function Home(props: { params: Promise<{ path?: string[] }> }) {
+export default function Home(props: {
+  params: Promise<{ path?: string[]; locale?: string }>;
+}) {
   const { path } = use(props.params);
   return (
     <Fortnite
