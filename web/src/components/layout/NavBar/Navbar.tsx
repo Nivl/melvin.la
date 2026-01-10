@@ -241,7 +241,7 @@ export const Navbar = () => {
                 className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent`}
                 variant="light"
                 isIconOnly
-                aria-label="Switch theme"
+                aria-label={t('changeLanguage')}
               >
                 <span className={`text-amber-400`}>
                   <LanguagesIcon width={24} height={24} />
@@ -250,7 +250,7 @@ export const Navbar = () => {
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
-            aria-label="theme"
+            aria-label={t('language')}
             selectionMode="single"
             variant="flat"
             onAction={key => {

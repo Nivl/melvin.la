@@ -18,7 +18,14 @@
     "string-length": "字符串长度",
     "timezones": "时区转换器",
     "timestamp": "时间戳查询",
-    "uuid": "UUID 生成器"
+    "uuid": "UUID 生成器",
+    "switchTheme": "切换主题",
+    "theme": "主题",
+    "themeLight": "亮色",
+    "themeDark": "暗色",
+    "themeSystem": "系统",
+    "changeLanguage": "更改语言",
+    "language": "语言"
   },
   "home": {
     "metadata": {
