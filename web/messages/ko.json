@@ -1,0 +1,204 @@
+{
+  "errorPages": {
+    "404": {
+      "metadata": {
+        "title": "404 - 페이지를 찾을 수 없음 :: Melvin Laplanche",
+        "description": "이 페이지는 존재하지 않습니다. 죄송합니다."
+      },
+      "title": "페이지를 찾을 수 없음"
+    }
+  },
+  "navbar": {
+    "home": "홈",
+    "blog": "블로그",
+    "games": "게임",
+    "conway": "생명 게임",
+    "tools": "도구",
+    "fortnite": "포트나이트 데이터",
+    "string-length": "문자열 길이",
+    "timezones": "시간대 변환기",
+    "timestamp": "타임스탬프 조회",
+    "uuid": "UUID 생성기"
+  },
+  "home": {
+    "metadata": {
+      "description": "Melvin Laplanche의 개인 웹사이트, 특별히 흥미로운 것은 없습니다"
+    },
+    "header": {
+      "subtitle": "백엔드 및 시스템 개발을 사랑하는 풀스택 엔지니어"
+    },
+    "aboutme": {
+      "title": "소개",
+      "content": "안녕하세요, 로스앤젤레스에 거주하는 소프트웨어 엔지니어 Melvin입니다. 중학생 때인 2004년에 C언어로 프로그래밍을 시작했고, 그 이후로 계속 열정을 가지고 있습니다. 수년 동안 다양한 프로그래밍 언어와 기술을 탐구했습니다. 새로운 개념을 배우는 것을 즐기며, 여가 시간에는 새로운 도구와 프레임워크를 실험하며 보냅니다. 클린 아키텍처와 잘 테스트된 코드에 전념하고 있습니다.",
+      "cta": "Github 확인하기"
+    },
+    "tech": {
+      "backend": {
+        "title": "백엔드 / Ops 기술",
+        "content": "AngularJS 이전 시대의 많은 웹 엔지니어들처럼 저도 백엔드 개발로 여정을 시작했습니다. 웹사이트 구축을 위한 선도적인 기술이었던 순수 PHP로 시작하여, 이후 Rails, Django, Symfony 2, Node, Go와 같은 새로운 트렌드를 받아들였습니다. 백엔드 기술의 진화를 따라가기 위해 노력하며, 도입하기 전에 장단점을 신중하게 따져봅니다. 또한 C와 C++로 작업하며 몇 년을 보냈습니다."
+      },
+      "client": {
+        "title": "클라이언트 기술",
+        "content1": "백엔드 개발도 즐겁지만, 현대의 백엔드는 주로 데이터를 처리하고 클라이언트에 반환하는 데 중점을 둡니다. 이러한 현실이 클라이언트 측 개발에 대한 관심을 불러일으켰습니다. 클라이언트 코드를 작성하는 것이 저를 더 나은 백엔드 엔지니어로 만들었다고 믿습니다. 필요한 데이터를 부분적으로만 제공하는 문서화되지 않았거나 잘못 설계된 API로 작업하는 어려움을 이해하게 되었기 때문입니다.",
+        "content2": "직업적으로는 네이티브 모바일 앱(iOS 및 Android), 하이브리드 모바일 앱, 표준 Electron 앱, 무거운 작업을 위한 로컬 Go 백엔드가 있는 Electron 앱(네이티브 Windows 및 macOS 라이브러리용 cgo 활용), Angular, React 등을 사용한 단일 페이지 애플리케이션(SPA) 등 다양한 플랫폼에서 경험을 쌓았습니다."
+      }
+    },
+    "contact": {
+      "title": "연락하기",
+      "linkedinModalContent": "너무 많은 수상한 회사들이 제 LinkedIn 데이터를 스크랩하여 자신의 웹사이트에 프로필을 만들고 리크루터에게 판매했습니다. LinkedIn 계정을 삭제하기로 결정했습니다.",
+      "linkedinModalClose": "닫기"
+    }
+  },
+  "blog": {
+    "metadata": {
+      "title": "블로그",
+      "description": "최신 블로그 게시물 확인"
+    }
+  },
+  "conway": {
+    "metadata": {
+      "title": "생명 게임",
+      "description": "콘웨이의 생명 게임"
+    },
+    "title": "콘웨이의 생명 게임",
+    "needLargeScreen": "이 페이지에 액세스하려면 큰 화면의 기기가 필요합니다",
+    "whatIsIt": "생명 게임은 1970년 영국의 수학자 존 호튼 콘웨이가 고안한 세포 자동자입니다. 0인 게임으로, 초기 상태에 의해 진화가 결정되며 추가 입력이 필요하지 않습니다. 초기 구성을 만들고 진화하는 모습을 관찰하며 생명 게임과 상호 작용합니다. 튜링 완전하며 범용 생성기 또는 다른 튜링 머신을 시뮬레이션할 수 있습니다. — ",
+    "quoteUrl": "https://ko.wikipedia.org/wiki/라이프_게임",
+    "quoteBy": "위키백과",
+    "howToPlay": "게임 방법",
+    "rules": {
+      "header": "생명 게임의 우주는 살아있거나 죽어있는 두 가지 가능한 상태 중 하나인 사각형 세포의 2차원 직교 격자입니다. 모든 세포는 수평, 수직 또는 대각선으로 인접한 8개의 이웃과 상호 작용합니다. 각 시간 단계에서 다음 전환이 발생합니다:",
+      "rule1": "살아있는 이웃이 2개 미만인 살아있는 세포는 과소평가로 인해 죽습니다.",
+      "rule2": "살아있는 이웃이 2개 또는 3개인 살아있는 세포는 다음 세대까지 살아남습니다.",
+      "rule3": "살아있는 이웃이 3개보다 많은 살아있는 세포는 과밀로 인해 죽습니다.",
+      "rule4": "살아있는 이웃이 정확히 3개인 죽은 세포는 번식으로 인해 살아있는 세포가 됩니다.",
+      "footer": "초기 패턴은 시스템의 씨앗을 구성합니다. 첫 번째 세대는 위의 규칙을 씨앗의 모든 세포(살아있거나 죽은)에 동시에 적용하여 생성됩니다. 출생과 사망은 동시에 발생합니다. 각 세대는 이전 세대의 순수 함수입니다. 규칙은 더 많은 세대를 생성하기 위해 반복적으로 적용됩니다."
+    },
+    "gridInfo": "격자는 무작위 세포로 미리 채워져 있습니다. 세포를 클릭하여 상태를 변경하여 격자를 편집할 수 있습니다.",
+    "controls": {
+      "title": "컨트롤",
+      "play": "재생",
+      "pause": "일시 정지",
+      "speed": "속도",
+      "boardSize": "보드 크기",
+      "presets": {
+        "title": "프리셋",
+        "glider": "글라이더",
+        "pulsar": "펄서",
+        "pentadecathlon": "펜타데카슬론",
+        "heavySpaceship": "무거운 우주선"
+      }
+    }
+  },
+  "fortnite": {
+    "metadata": {
+      "title": "포트나이트 데이터",
+      "description": "포트나이트의 모든 데이터",
+      "focusTitle": "{username}의 포트나이트 데이터",
+      "focusDescription": "{username}의 모든 포트나이트 데이터"
+    },
+    "title": "<name>포트나이트</name>에서 얼마나 잘하고 있는지 확인하세요",
+    "errors": {
+      "accountPrivate": "이 게이머는 데이터를 공개하고 싶어하지 않습니다.",
+      "notFound": "이 플랫폼에는 해당 이름의 사용자가 없습니다.",
+      "serverError": "지금은 데이터를 사용할 수 없는 것 같습니다. 나중에 다시 시도해 주세요."
+    },
+    "presets": "또는 유명한 콘텐츠 크리에이터를 선택하세요",
+    "daysSpent": "{days, plural, =0 {0일} other {#일}}",
+    "hoursSpent": "{hours, plural, =0 {0시간} other {#시간}}",
+    "minutesSpent": "{minutes, plural, =0 {0분} other {#분}}",
+    "timeSpent": "그것이 게임에서 보낸 시간입니다.",
+    "overallWinRate": "전체 승률",
+    "overallKd": "전체 킬/데스 비율",
+    "currentLevel": "레벨 {level}",
+    "currentLevelProgression": "현재 레벨 진행 상황",
+    "form": {
+      "accountName": "계정 이름",
+      "platform": "플랫폼",
+      "platformEpic": "에픽게임즈",
+      "platformXbox": "Xbox",
+      "platformPlaystation": "PlayStation",
+      "currentSeasonOnly": "현재 시즌만"
+    },
+    "data": {
+      "statsTable": "모든 통계가 포함된 표",
+      "gamePlayed": "게임 플레이",
+      "wins": "승리",
+      "winRate": "승률",
+      "kd": "킬/데스 비율",
+      "kdHelp": "죽을 때마다 몇 명을 죽이는지",
+      "top10rate": "상위 10% 비율",
+      "top10rateHelp": "마지막 10명의 생존자 중 한 명이 되는 빈도",
+      "top25rate": "상위 25% 비율",
+      "top25rateHelp": "마지막 25명의 생존자 중 한 명이 되는 빈도",
+      "timePlayed": "플레이 시간",
+      "noData": "표시할 데이터가 없습니다.",
+      "kbm": "키보드 & 마우스",
+      "gamepad": "게임패드",
+      "mobile": "모바일",
+      "all-categories": "전체",
+      "solo": "솔로",
+      "duo": "듀오",
+      "squad": "트리오 / 스쿼드",
+      "overall": "전체",
+      "stat": "통계",
+      "value": "값"
+    }
+  },
+  "stringLength": {
+    "metadata": {
+      "title": "문자열 길이",
+      "description": "무료 온라인 문자열 길이 도구로 텍스트의 문자, 단어 및 바이트 수를 세어보세요. 유니코드 문자를 올바르게 지원합니다."
+    },
+    "title": "문자열 길이",
+    "inputLabel": "텍스트 입력",
+    "inputPlaceholder": "여기에 텍스트를 입력하거나 붙여넣으세요...",
+    "characterCount": "문자",
+    "word-count": "단어",
+    "wordCountTooltip": "공백 기반 언어(예: 영어, 스페인어, 프랑스어)만 지원합니다. 공백이 없는 언어(예: 중국어, 일본어, 한국어)는 정확하게 계산되지 않습니다.",
+    "byteCount": "바이트 (UTF-8)"
+  },
+  "timestamp": {
+    "metadata": {
+      "title": "타임스탬프 조회",
+      "description": "타임스탬프를 실제 날짜로 변환합니다."
+    },
+    "title": "타임스탬프 조회",
+    "inputLabel": "타임스탬프",
+    "inputError": "잘못된 타임스탬프",
+    "inputDescription": "밀리초, 마이크로초 및 나노초를 자동으로 감지합니다",
+    "output": "{timestamp}은(는) <date>{utcDate}</date>입니다"
+  },
+  "uuid": {
+    "metadata": {
+      "title": "UUID 생성기",
+      "description": "무료 온라인 UUID 생성기 도구로 UUID를 쉽게 생성하세요. 몇 초 만에 프로젝트를 위한 고유 식별자를 만드세요."
+    },
+    "title": "UUID 생성기",
+    "versionLabel": "UUID 버전",
+    "versionPlaceholder": "UUID 버전 선택",
+    "nameLabel": "이름",
+    "namePlaceholder": "이름 입력",
+    "namespaceLabel": "네임스페이스",
+    "namespacePlaceholder": "네임스페이스 선택",
+    "customNamespaceLabel": "사용자 지정 네임스페이스",
+    "customNamespacePlaceholder": "네임스페이스 입력",
+    "customNamespaceError": "유효한 UUID를 입력하세요",
+    "countLabel": "생성할 개수",
+    "actionGenerate": "생성"
+  },
+  "timezones": {
+    "metadata": {
+      "title": "시간대 변환기",
+      "description": "시간대를 비교하고 시간을 변환하세요."
+    },
+    "title": "시간대 변환기",
+    "fromLabel": "기준",
+    "fromAriaLabel": "변환할 도시 검색",
+    "dateTimeLabel": "시간",
+    "dateTimeAriaLabel": "변환할 시간 선택",
+    "toLabel": "확인할 도시",
+    "toAriaLabel": "변환될 도시 검색",
+    "output": "<cityWrapper>{city}</cityWrapper>에서는 {time}입니다"
+  }
+}
