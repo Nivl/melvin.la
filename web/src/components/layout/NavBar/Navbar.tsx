@@ -9,7 +9,8 @@ import {
 } from '@heroui/dropdown';
 import { Link } from '@heroui/link';
 import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
-import { useTranslations } from 'next-intl';
+import { LanguagesIcon } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 import { ReactNode, useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
@@ -21,7 +22,7 @@ import { MdOutlineTextFields as StringLengthIcon } from 'react-icons/md';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
-import { Link as NextLink, usePathname } from '#i18n/routing';
+import { Link as NextLink, usePathname, useRouter } from '#i18n/routing';
 
 import { ThemeSwitcher } from './ThemeSwitcher';
 
@@ -75,9 +76,43 @@ const games: Item[] = [
   },
 ];
 
+type Language = {
+  key: string;
+  label: string;
+};
+
+const languages: Language[] = [
+  {
+    key: 'en',
+    label: 'English',
+  },
+  {
+    key: 'fr',
+    label: 'Français',
+  },
+  {
+    key: 'es',
+    label: 'Español',
+  },
+  {
+    key: 'ko',
+    label: '한국어',
+  },
+  {
+    key: 'zh',
+    label: '中文 (简体)',
+  },
+  {
+    key: 'zh-tw',
+    label: '中文 (繁體)',
+  },
+];
+
 const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
 
 export const Navbar = () => {
+  const locale = useLocale();
+  const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations('navbar');
 
@@ -126,7 +161,7 @@ export const Navbar = () => {
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
-            aria-label="games"
+            aria-label={t('games')}
             selectionMode="single"
             variant="flat"
             items={games}
@@ -171,7 +206,7 @@ export const Navbar = () => {
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
-            aria-label="tools"
+            aria-label={t('tools')}
             selectionMode="single"
             variant="flat"
             items={tools}
@@ -195,7 +230,40 @@ export const Navbar = () => {
         </Dropdown>
       </NavbarContent>
 
-      {didMount && <ThemeSwitcher />}
+      <NavbarContent justify="end">
+        {didMount && <ThemeSwitcher />}
+
+        <Dropdown>
+          <NavbarItem>
+            <DropdownTrigger>
+              <Button
+                disableRipple
+                className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent`}
+                variant="light"
+                isIconOnly
+                aria-label="Switch theme"
+              >
+                <span className={`text-amber-400`}>
+                  <LanguagesIcon width={24} height={24} />
+                </span>
+              </Button>
+            </DropdownTrigger>
+          </NavbarItem>
+          <DropdownMenu
+            aria-label="theme"
+            selectionMode="single"
+            variant="flat"
+            onAction={key => {
+              router.push({ pathname }, { locale: key.toString() });
+            }}
+            selectedKeys={new Set([locale])}
+          >
+            {languages.map(lang => (
+              <DropdownItem key={lang.key}>{lang.label}</DropdownItem>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
+      </NavbarContent>
     </NuiNavbar>
   );
 };
