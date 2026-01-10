@@ -1,0 +1,204 @@
+{
+  "errorPages": {
+    "404": {
+      "metadata": {
+        "title": "404 - 找不到页面 :: Melvin Laplanche",
+        "description": "此页面不存在，很抱歉。"
+      },
+      "title": "找不到页面"
+    }
+  },
+  "navbar": {
+    "home": "首页",
+    "blog": "博客",
+    "games": "游戏",
+    "conway": "生命游戏",
+    "tools": "工具",
+    "fortnite": "Fortnite 数据",
+    "string-length": "字符串长度",
+    "timezones": "时区转换器",
+    "timestamp": "时间戳查询",
+    "uuid": "UUID 生成器"
+  },
+  "home": {
+    "metadata": {
+      "description": "Melvin Laplanche 的个人网站，这里没什么特别有趣的"
+    },
+    "header": {
+      "subtitle": "热爱后端和系统开发的全栈工程师"
+    },
+    "aboutme": {
+      "title": "关于我",
+      "content": "你好，我是 Melvin，一名常驻洛杉矶的软件工程师。我从 2004 年还在上中学时就开始用 C 语言编程，从此便一发不可收拾。多年来，我探索了各种编程语言和技术。我喜欢学习新概念，经常在业余时间尝试新兴的工具和框架。我致力于构建整洁的架构和经过充分测试的代码。",
+      "cta": "查看我的 Github"
+    },
+    "tech": {
+      "backend": {
+        "title": "后端 / 运维技术",
+        "content": "像许多 AngularJS 时代之前的 Web 工程师一样，我的职业生涯始于后端开发。我从原生 PHP 起步，当时它是构建网站的主流技术，后来拥抱了 Rails、Django、Symfony 2、Node 和 Go 等新趋势。我努力紧跟后端技术的演进，在采用之前仔细权衡利弊。此外，我有多年使用 C 和 C++ 的经验。"
+      },
+      "client": {
+        "title": "客户端技术",
+        "content1": "虽然我觉得后端开发很有趣，但现代后端主要专注于处理数据并将数据返回给客户端。这一现实激发了我对客户端开发的兴趣。我相信编写客户端代码让我成为了一名更好的后端工程师，因为我理解了在处理未记录或设计不佳、只能部分提供所需数据的 API 时所面临的挑战。",
+        "content2": "在职业方面，我在各种平台上都有经验，包括原生移动应用（iOS 和 Android）、混合移动应用、标准 Electron 应用、带有本地 Go 后端以处理繁重任务的 Electron 应用（利用 cgo 调用原生 Windows 和 macOS 库），以及使用 Angular、React 等构建的单页应用（SPA）。"
+      }
+    },
+    "contact": {
+      "title": "联系我",
+      "linkedinModalContent": "太多可疑的公司抓取我的 LinkedIn 数据在他们网站上创建个人资料并卖给招聘人员。我决定删除我的 LinkedIn 账号。",
+      "linkedinModalClose": "关闭"
+    }
+  },
+  "blog": {
+    "metadata": {
+      "title": "博客",
+      "description": "查看最新博文"
+    }
+  },
+  "conway": {
+    "metadata": {
+      "title": "生命游戏",
+      "description": "康威生命游戏"
+    },
+    "title": "康威生命游戏",
+    "needLargeScreen": "访问此页面需要大屏幕设备",
+    "whatIsIt": "生命游戏是英国数学家约翰·霍顿·康威在 1970 年设计的细胞自动机。它是一个零玩家游戏，意味着它的演变完全取决于其初始状态，无需进一步输入。通过创建初始配置并观察其演变来与生命游戏互动。它是图灵完备的，可以模拟通用构造器或任何其他图灵机。 — ",
+    "quoteUrl": "https://zh.wikipedia.org/wiki/康威生命游戏",
+    "quoteBy": "维基百科",
+    "howToPlay": "怎么玩",
+    "rules": {
+      "header": "生命游戏的宇宙是一个二维正交网格，由方形细胞组成，每个细胞处于两种可能状态之一：存活或死亡。每个细胞与其八个邻居（水平、垂直或对角相邻的细胞）进行交互。在每个时间步长，发生以下转换：",
+      "rule1": "任何周围活细胞少于两个的活细胞死亡，仿佛是由于人口过少。",
+      "rule2": "任何周围有两个或三个活细胞的活细胞在下一代中继续存活。",
+      "rule3": "任何周围有三个以上活细胞的活细胞死亡，仿佛是由于人口过剩。",
+      "rule4": "任何周围正好有三个活细胞的死细胞变成活细胞，仿佛是由于繁殖。",
+      "footer": "初始图案构成了系统的种子。第一代是通过将上述规则同时应用于种子中的每个细胞（无论存活还是死亡）而创建的；出生和死亡同时发生。每一代都是前一代的纯函数。规则继续重复应用以创造更多代。"
+    },
+    "gridInfo": "网格已预先填充了随机细胞。你可以通过点击细胞来改变其状态从而编辑网格。",
+    "controls": {
+      "title": "控制",
+      "play": "播放",
+      "pause": "暂停",
+      "speed": "速度",
+      "boardSize": "棋盘大小",
+      "presets": {
+        "title": "预设",
+        "glider": "滑翔机",
+        "pulsar": "脉冲星",
+        "pentadecathlon": "五体",
+        "heavySpaceship": "重型飞船"
+      }
+    }
+  },
+  "fortnite": {
+    "metadata": {
+      "title": "Fortnite 数据",
+      "description": "来自 Fortnite 的所有数据",
+      "focusTitle": "{username} 的 Fortnite 数据",
+      "focusDescription": "{username} 的所有 Fortnite 数据"
+    },
+    "title": "看看你在 <name>Fortnite</name> 中的表现如何",
+    "errors": {
+      "accountPrivate": "这位玩家不想让你看到他们的数据。",
+      "notFound": "在这个平台上没人叫这个名字。",
+      "serverError": "看起来现在无法获取数据。请稍后再试。"
+    },
+    "presets": "或者选择一位著名的内容创作者",
+    "daysSpent": "{days, plural, =0 {0 天} other {# 天}}",
+    "hoursSpent": "{hours, plural, =0 {0 小时} other {# 小时}}",
+    "minutesSpent": "{minutes, plural, =0 {0 分钟} other {# 分钟}}",
+    "timeSpent": "这就是你在游戏中花费的时间。",
+    "overallWinRate": "总胜率",
+    "overallKd": "总击杀/死亡比",
+    "currentLevel": "等级 {level}",
+    "currentLevelProgression": "当前等级进度",
+    "form": {
+      "accountName": "账户名称",
+      "platform": "平台",
+      "platformEpic": "Epic Games",
+      "platformXbox": "Xbox",
+      "platformPlaystation": "PlayStation",
+      "currentSeasonOnly": "仅当前赛季"
+    },
+    "data": {
+      "statsTable": "包含所有统计数据的表格",
+      "gamePlayed": "已玩场次",
+      "wins": "获胜",
+      "winRate": "胜率",
+      "kd": "击杀/死亡比",
+      "kdHelp": "你每死亡一次平均击杀多少人",
+      "top10rate": "前 10% 率",
+      "top10rateHelp": "你成为最后幸存的 10 名玩家之一的频率",
+      "top25rate": "前 25% 率",
+      "top25rateHelp": "你成为最后幸存的 25 名玩家之一的频率",
+      "timePlayed": "游戏时间",
+      "noData": "没有要显示的数据。",
+      "kbm": "键盘和鼠标",
+      "gamepad": "手柄",
+      "mobile": "移动端",
+      "all-categories": "全部",
+      "solo": "单人",
+      "duo": "双人",
+      "squad": "三人 / 四人",
+      "overall": "总体",
+      "stat": "统计",
+      "value": "数值"
+    }
+  },
+  "stringLength": {
+    "metadata": {
+      "title": "字符串长度",
+      "description": "使用我们的免费在线字符串长度工具计算文本中的字符、单词和字节数。正确支持 Unicode 字符。"
+    },
+    "title": "字符串长度",
+    "inputLabel": "输入你的文本",
+    "inputPlaceholder": "在此输入或粘贴你的文本...",
+    "characterCount": "字符",
+    "word-count": "单词",
+    "wordCountTooltip": "仅支持基于空格的语言（例如英语、西班牙语、法语）。不支持空格的语言（例如中文、日语、韩语）计数不准确。",
+    "byteCount": "字节 (UTF-8)"
+  },
+  "timestamp": {
+    "metadata": {
+      "title": "时间戳查询",
+      "description": "将时间戳转换为实际日期。"
+    },
+    "title": "时间戳查询",
+    "inputLabel": "时间戳",
+    "inputError": "无效的时间戳",
+    "inputDescription": "自动检测毫秒、微秒和纳秒",
+    "output": "{timestamp} 是 <date>{utcDate}</date>"
+  },
+  "uuid": {
+    "metadata": {
+      "title": "UUID 生成器",
+      "description": "使用我们的免费在线 UUID 生成器工具轻松生成 UUID。几秒钟内为你的项目创建唯一标识符。"
+    },
+    "title": "UUID 生成器",
+    "versionLabel": "UUID 版本",
+    "versionPlaceholder": "选择 UUID 版本",
+    "nameLabel": "名称",
+    "namePlaceholder": "输入名称",
+    "namespaceLabel": "命名空间",
+    "namespacePlaceholder": "选择命名空间",
+    "customNamespaceLabel": "自定义命名空间",
+    "customNamespacePlaceholder": "输入命名空间",
+    "customNamespaceError": "请输入有效的 UUID",
+    "countLabel": "生成数量",
+    "actionGenerate": "生成"
+  },
+  "timezones": {
+    "metadata": {
+      "title": "时区转换器",
+      "description": "比较时区并转换时间。"
+    },
+    "title": "时区转换器",
+    "fromLabel": "当在",
+    "fromAriaLabel": "搜索要转换的城市",
+    "dateTimeLabel": "是",
+    "dateTimeAriaLabel": "选择要转换的时间",
+    "toLabel": "查看在什么日期和时间是",
+    "toAriaLabel": "搜索转换到的城市",
+    "output": "在 <cityWrapper>{city}</cityWrapper>，现在是 {time}"
+  }
+}
