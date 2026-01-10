@@ -93,7 +93,7 @@ export const Form = ({
         >
           <ToggleGroup.Item
             value={AccountTypes.Epic}
-            className="hover:text-brands-epic px-2 transition-colors"
+            className="hover:text-foreground px-2 transition-colors"
             aria-label={t('platformEpic')}
           >
             <SiEpicgames
