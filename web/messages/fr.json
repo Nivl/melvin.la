@@ -18,7 +18,7 @@
     "string-length": "Longueur de chaîne",
     "timezones": "Convertisseur de fuseaux horaires",
     "timestamp": "Conversion de timestamp",
-    "uuid": "Générateur d'UUID"
+    "uuid": "Générateur de UUID"
   },
   "home": {
     "metadata": {
