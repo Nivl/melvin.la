@@ -21,7 +21,14 @@ declare const messages: {
     "string-length": "String Length",
     "timezones": "Timezone Converter",
     "timestamp": "Timestamp Lookup",
-    "uuid": "UUID generator"
+    "uuid": "UUID generator",
+    "switchTheme": "Switch theme",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "changeLanguage": "Change language",
+    "language": "Language"
   },
   "home": {
     "metadata": {

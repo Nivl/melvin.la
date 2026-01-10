@@ -18,7 +18,14 @@
     "string-length": "문자열 길이",
     "timezones": "시간대 변환기",
     "timestamp": "타임스탬프 조회",
-    "uuid": "UUID 생성기"
+    "uuid": "UUID 생성기",
+    "switchTheme": "테마 변경",
+    "theme": "테마",
+    "themeLight": "라이트",
+    "themeDark": "다크",
+    "themeSystem": "시스템",
+    "changeLanguage": "언어 변경",
+    "language": "언어"
   },
   "home": {
     "metadata": {

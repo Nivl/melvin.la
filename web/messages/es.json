@@ -18,7 +18,14 @@
     "string-length": "Longitud de cadena",
     "timezones": "Conversor de zonas horarias",
     "timestamp": "Conversión de timestamp",
-    "uuid": "Generador de UUID"
+    "uuid": "Generador de UUID",
+    "switchTheme": "Cambiar tema",
+    "theme": "Tema",
+    "themeLight": "Claro",
+    "themeDark": "Oscuro",
+    "themeSystem": "Sistema",
+    "changeLanguage": "Cambiar idioma",
+    "language": "Idioma"
   },
   "home": {
     "metadata": {

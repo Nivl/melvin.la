@@ -13,6 +13,7 @@ import {
   Palette as SystemThemeIcon,
   Sun as LightThemeIcon,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
@@ -20,6 +21,7 @@ import { ThemeSwitcherIcon } from '#components/icons/ThemeSwitcherIcon.tsx';
 import { usePrefersReducedMotion } from '#hooks/usePrefersReducedMotion.ts';
 
 export const ThemeSwitcher = () => {
+  const t = useTranslations('navbar');
   const { resolvedTheme, theme, setTheme } = useTheme();
   const [animationFocus, setAnimationFocus] = useState<'boop' | 'themeChange'>(
     'boop',
@@ -50,7 +52,7 @@ export const ThemeSwitcher = () => {
             className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent`}
             variant="light"
             isIconOnly
-            aria-label="Switch theme"
+            aria-label={t('switchTheme')}
             onMouseEnter={() => {
               if (!reducedMotion) {
                 setIsBooped(true);
@@ -71,7 +73,7 @@ export const ThemeSwitcher = () => {
         </DropdownTrigger>
       </NavbarItem>
       <DropdownMenu
-        aria-label="theme"
+        aria-label={t('theme')}
         selectionMode="single"
         selectedKeys={theme ? new Set([theme]) : new Set(['light'])}
         variant="flat"
@@ -84,7 +86,7 @@ export const ThemeSwitcher = () => {
             setAnimationFocus('themeChange');
           }}
         >
-          Light
+          {t('themeLight')}
         </DropdownItem>
         <DropdownItem
           key="dark"
@@ -94,7 +96,7 @@ export const ThemeSwitcher = () => {
             setAnimationFocus('themeChange');
           }}
         >
-          Night
+          {t('themeDark')}
         </DropdownItem>
         <DropdownItem
           key="system"
@@ -104,7 +106,7 @@ export const ThemeSwitcher = () => {
             setAnimationFocus('themeChange');
           }}
         >
-          System
+          {t('themeSystem')}
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>
