@@ -112,7 +112,7 @@ declare const messages: {
     "minutesSpent": "{minutes, plural, =0 {0 minutes} one {1 minute} other {# minutes}}",
     "timeSpent": "That's how long you've spent in the game.",
     "overallWinRate": "Overall win rate",
-    "overallKd": "Overall Kill/Death ratio",
+    "overallKd": "Overall kills/deaths ratio",
     "currentLevel": "Level {level}",
     "currentLevelProgression": "Current level progression",
     "form": {
@@ -128,7 +128,7 @@ declare const messages: {
       "gamePlayed": "Games Played",
       "wins": "Wins",
       "winRate": "Win Rate",
-      "kd": "Kill/Death ratio",
+      "kd": "kills/deaths ratio",
       "kdHelp": "How many people you kill for each time you die",
       "top10rate": "Top 10% rate",
       "top10rateHelp": "How often you are one of the last 10 players alive",
@@ -151,7 +151,7 @@ declare const messages: {
   "stringLength": {
     "metadata": {
       "title": "String Length",
-      "description": "Count characters and bytes in your text with our free online string length tool. Supports Unicode characters correctly."
+      "description": "Count characters, words and bytes in your text with our free online string length tool. Supports Unicode characters correctly."
     },
     "title": "String Length",
     "inputLabel": "Enter your text",
