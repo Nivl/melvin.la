@@ -25,6 +25,7 @@ export const dynamicParams = false;
 export function generateStaticParams() {
   return getAllBlogPosts().map(post => ({
     slug: post.key,
+    locale: post.language,
   }));
 }
 
