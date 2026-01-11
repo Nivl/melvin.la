@@ -23,8 +23,7 @@ const main = async () => {
   await createAndPopulatePosts(db);
 };
 
-// slug - unique identifier for the post
-// key - way to identify the post across different translations
+// slug - unique (per language) identifier for the post. Every post must have the same slug across languages
 // language - language code
 // title
 // content
@@ -36,11 +35,11 @@ const main = async () => {
 const createAndPopulatePosts = async (db: DatabaseSync) => {
   db.exec(
     `CREATE TABLE IF NOT EXISTS blog_posts
-    (slug TEXT, key TEXT, language TEXT, title TEXT, content TEXT, excerpt TEXT, image TEXT, ogImage TEXT, createdAt TEXT, updatedAt TEXT)`,
+    (slug TEXT TEXT, language TEXT, title TEXT, content TEXT, excerpt TEXT, image TEXT, ogImage TEXT, createdAt TEXT, updatedAt TEXT)`,
   );
 
   const stmt = db.prepare(
-    `INSERT INTO blog_posts (slug, key, language, title, content, excerpt, image, ogImage, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO blog_posts (slug, language, title, content, excerpt, image, ogImage, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   );
 
   const articlesDirs = await readdir(BLOG_POSTS_DIR, {
@@ -54,7 +53,7 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
       );
     }
     const articleDirPath = path.join(BLOG_POSTS_DIR, articleDir.name);
-    const key = articleDir.name;
+    const slug = articleDir.name;
 
     const files = await readdir(articleDirPath, { withFileTypes: true });
     for (const file of files) {
@@ -71,7 +70,7 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
       );
       const mdxSource = matter(content);
 
-      const { title, slug, createdAt, updatedAt, excerpt, image, ogImage } =
+      const { title, createdAt, updatedAt, excerpt, image, ogImage } =
         mdxSource.data as Frontmatter;
 
       const createdAtDT = createdAt + ' T8:00:00.000Z';
@@ -81,7 +80,6 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
 
       stmt.run(
         slug,
-        key,
         language,
         title,
         mdxSource.content,

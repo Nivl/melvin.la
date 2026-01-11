@@ -24,7 +24,7 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return getAllBlogPosts().map(post => ({
-    slug: post.key,
+    slug: post.slug,
     locale: post.language,
   }));
 }
@@ -52,7 +52,7 @@ export async function generateMetadata(props: {
       pageUrl: `/blog/${slug}`,
       title: post.title,
       description: post.excerpt,
-      imageURL: `/assets/blog/${post.key}/${post.ogImage}`,
+      imageURL: `/assets/blog/${post.slug}/${post.ogImage}`,
       extraOg: {
         type: 'article',
         publishedTime: post.createdAt,

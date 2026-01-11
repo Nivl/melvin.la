@@ -16,10 +16,10 @@ export const getLatestBlogPosts = (language: string) => {
   return stmt.all(language) as BlogPost[];
 };
 
-export const getBlogPost = (key: string, language: string) => {
+export const getBlogPost = (slug: string, language: string) => {
   const db = database();
   const stmt = db.prepare(
-    'SELECT * FROM blog_posts WHERE key = ? AND language = ?',
+    'SELECT * FROM blog_posts WHERE slug = ? AND language = ?',
   );
-  return stmt.get(key, language) as BlogPost | undefined;
+  return stmt.get(slug, language) as BlogPost | undefined;
 };
