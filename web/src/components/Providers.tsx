@@ -50,7 +50,8 @@ export const Providers = ({
   locale: string;
   messages: MessagesType;
 }) => {
-  moment.locale(locale);
+  const momentLocale = locale == 'zh' ? 'zh-cn' : locale;
+  moment.locale(momentLocale);
 
   return (
     <QueryClientProvider client={queryClient}>
