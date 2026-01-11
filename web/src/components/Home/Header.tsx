@@ -1,8 +1,12 @@
+import { useTranslations } from 'next-intl';
+
 import { Boba } from '#components/icons/Boba.tsx';
 
 import { Heading } from '../layout/Heading';
 
 export const Header = () => {
+  const t = useTranslations('home.header');
+
   return (
     <header className="flex w-full flex-col">
       <Heading
@@ -20,7 +24,7 @@ export const Header = () => {
         </div>
       </Heading>
       <div className="mx-auto my-0 text-center text-sm font-normal uppercase sm:text-base xl:text-xl">
-        FULL STACK ENGINEER WITH A LOVE FOR BACKEND AND SYSTEM DEV
+        {t('subtitle')}
       </div>
     </header>
   );

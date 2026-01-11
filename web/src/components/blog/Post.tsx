@@ -1,13 +1,13 @@
 import { Code } from '@heroui/code';
 import { Link } from '@heroui/link';
 import Image from 'next/image';
-import NextLink from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { isValidElement } from 'react';
 
 import { BlogHeading } from '#components/blog/BlogHeading';
 import { CodeBlock } from '#components/layout/CodeBlock';
 import { Section } from '#components/layout/Section';
+import { Link as NextLink } from '#i18n/routing';
 import { BlogPost } from '#models/blog/post';
 
 export function Post({ post }: { post: BlogPost }) {

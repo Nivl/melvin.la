@@ -1,11 +1,13 @@
 'use client';
 
 import { Skeleton } from '@heroui/skeleton';
-import { notFound, usePathname, useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import { Section } from '#components/layout/Section';
 import { useStats } from '#hooks/fortnite/useStats';
+import { usePathname, useRouter } from '#i18n/routing';
 import { humanizeDuration } from '#utils/fortnite';
 
 import { AccountPresets, defaults, Preset } from './AccountPresets';
@@ -37,6 +39,8 @@ export const Fortnite = ({
   const [timeWindow, setTimeWindow] = useState(preset.timeWindow);
   const router = useRouter();
   const pathname = usePathname();
+  const rootT = useTranslations();
+  const t = useTranslations('fortnite');
 
   const { data, error, isLoading } = useStats(
     name,
@@ -71,10 +75,13 @@ export const Fortnite = ({
       <Section>
         <header className="flex flex-col gap-10 sm:flex-row sm:gap-0">
           <h1 className="basis-full text-center text-2xl font-extrabold sm:text-start sm:text-5xl">
-            See how well you are doing in{' '}
-            <span className="font-fortnite bg-linear-to-b from-[#1c78ff] to-[#4983f8] bg-clip-text text-3xl text-transparent uppercase sm:text-6xl">
-              Fortnite
-            </span>
+            {t.rich('title', {
+              name: chunks => (
+                <span className="font-fortnite bg-linear-to-b from-[#1c78ff] to-[#4983f8] bg-clip-text text-3xl text-transparent uppercase sm:text-6xl">
+                  {chunks}
+                </span>
+              ),
+            })}
           </h1>
 
           <Form
@@ -99,14 +106,11 @@ export const Fortnite = ({
         <Section className="text-center text-xl font-extrabold text-red-400 sm:text-4xl">
           <div>
             {error.code === 403 ? (
-              <>This gamer doesn&apos;t want you to see their data </>
+              <>{t('errors.accountPrivate')}</>
             ) : error.code === 404 ? (
-              <>Nobody goes by this name, on this platform</>
+              <>{t('errors.notFound')}</>
             ) : (
-              <>
-                Looks like the data aren&apos;t available right now. Try again
-                later.
-              </>
+              <>{t('errors.serverError')}</>
             )}
           </div>
         </Section>
@@ -123,9 +127,12 @@ export const Fortnite = ({
                 </>
               ) : (
                 <>
-                  {humanizeDuration(data.stats.all.overall.minutesPlayed)}{' '}
+                  {humanizeDuration(
+                    rootT,
+                    data.stats.all.overall.minutesPlayed,
+                  )}{' '}
                   <br />
-                  That&apos;s how long you&apos;ve spent in the game.
+                  {t('timeSpent')}
                 </>
               )}
             </div>

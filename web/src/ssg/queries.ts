@@ -8,14 +8,18 @@ export const getAllBlogPosts = () => {
 };
 
 // TODO(melvin): Add pagination
-export const getLatestBlogPosts = () => {
+export const getLatestBlogPosts = (language: string) => {
   const db = database();
-  const stmt = db.prepare('SELECT * FROM blog_posts ORDER BY createdAt DESC');
-  return stmt.all() as BlogPost[];
+  const stmt = db.prepare(
+    'SELECT * FROM blog_posts WHERE language = ? ORDER BY createdAt DESC',
+  );
+  return stmt.all(language) as BlogPost[];
 };
 
-export const getBlogPost = (slug: string) => {
+export const getBlogPost = (slug: string, language: string) => {
   const db = database();
-  const stmt = db.prepare('SELECT * FROM blog_posts WHERE slug = ?');
-  return stmt.get(slug) as BlogPost | undefined;
+  const stmt = db.prepare(
+    'SELECT * FROM blog_posts WHERE slug = ? AND language = ?',
+  );
+  return stmt.get(slug, language) as BlogPost | undefined;
 };

@@ -9,8 +9,7 @@ import {
 } from '@heroui/dropdown';
 import { Link } from '@heroui/link';
 import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
-import NextLink from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { ReactNode, useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
@@ -22,6 +21,9 @@ import { MdOutlineTextFields as StringLengthIcon } from 'react-icons/md';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
+import { Link as NextLink, usePathname } from '#i18n/routing';
+
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
 type Item = {
@@ -35,31 +37,31 @@ type Item = {
 const tools: Item[] = [
   {
     key: 'fortnite',
-    label: 'Fortnite Data',
+    label: 'fortnite',
     path: '/fortnite',
     logo: <FortniteIcon className="h-5 w-5" />,
   },
   {
     key: 'string-length',
-    label: 'String Length',
+    label: 'string-length',
     path: '/string-length',
     logo: <StringLengthIcon className="h-5 w-5" />,
   },
   {
     key: 'timezones',
-    label: 'Timezone Converter',
+    label: 'timezones',
     path: '/timezones',
     logo: <TimezoneIcon className="h-5 w-5" />,
   },
   {
     key: 'timestamp',
-    label: 'Timestamp Lookup',
+    label: 'timestamp',
     path: '/timestamp',
     logo: <TimestampIcon className="h-5 w-5" />,
   },
   {
     key: 'uuid',
-    label: 'UUID generator',
+    label: 'uuid',
     path: '/uuid',
     logo: <UuidIcon className="h-5 w-5" />,
   },
@@ -68,7 +70,7 @@ const tools: Item[] = [
 const games: Item[] = [
   {
     key: 'conway',
-    label: 'Game of Life',
+    label: 'conway',
     path: '/conway',
     logo: <ConwayIcon className="h-5 w-5" />,
   },
@@ -78,6 +80,7 @@ const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint
 
 export const Navbar = () => {
   const pathname = usePathname();
+  const t = useTranslations('navbar');
 
   // This is used to display data that can only be rendered
   // client-side, such as the theme picker.
@@ -92,13 +95,13 @@ export const Navbar = () => {
       <NavbarContent>
         <NavbarItem isActive={pathname == '/'}>
           <Link color="foreground" href="/" as={NextLink}>
-            Home
+            {t('home')}
           </Link>
         </NavbarItem>
 
         <NavbarItem isActive={pathname.startsWith('/blog')}>
           <Link color="foreground" href="/blog" as={NextLink}>
-            Blog
+            {t('blog')}
           </Link>
         </NavbarItem>
 
@@ -119,12 +122,12 @@ export const Navbar = () => {
                   />
                 }
               >
-                Games
+                {t('games')}
               </Button>
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
-            aria-label="games"
+            aria-label={t('games')}
             selectionMode="single"
             variant="flat"
             items={games}
@@ -141,7 +144,7 @@ export const Navbar = () => {
                 href={`/games/${item.path}`}
                 as={NextLink}
               >
-                {item.label}
+                {t(item.label)}
               </DropdownItem>
             )}
           </DropdownMenu>
@@ -164,12 +167,12 @@ export const Navbar = () => {
                   />
                 }
               >
-                Tools
+                {t('tools')}
               </Button>
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
-            aria-label="tools"
+            aria-label={t('tools')}
             selectionMode="single"
             variant="flat"
             items={tools}
@@ -186,14 +189,17 @@ export const Navbar = () => {
                 href={`/tools/${item.path}`}
                 as={NextLink}
               >
-                {item.label}
+                {t(item.label)}
               </DropdownItem>
             )}
           </DropdownMenu>
         </Dropdown>
       </NavbarContent>
 
-      {didMount && <ThemeSwitcher />}
+      <NavbarContent justify="end">
+        {didMount && <ThemeSwitcher />}
+        {<LanguageSwitcher />}
+      </NavbarContent>
     </NuiNavbar>
   );
 };

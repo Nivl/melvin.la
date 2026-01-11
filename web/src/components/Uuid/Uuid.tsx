@@ -5,6 +5,7 @@ import { Form } from '@heroui/form';
 import { Input } from '@heroui/input';
 import { NumberInput } from '@heroui/number-input';
 import { Select, SelectItem } from '@heroui/select';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import {
   NIL as uuidNIL,
@@ -105,6 +106,8 @@ for (const ns of availableUuidTypes) {
 }
 
 export const Uuid = () => {
+  const t = useTranslations('uuid');
+
   const [uuids, setUuids] = useState<string[]>([]);
   const [count, setCount] = useState<number>(1);
   const [version, setVersion] = useState<string>('v4');
@@ -136,7 +139,7 @@ export const Uuid = () => {
     <>
       <Section>
         <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl uppercase sm:text-8xl xl:text-9xl">
-          UUID Generator
+          {t('title')}
         </h1>
       </Section>
 
@@ -146,8 +149,8 @@ export const Uuid = () => {
             isRequired
             className="max-w-[400px]"
             size="lg"
-            label="UUID Version"
-            placeholder="Select a UUID version"
+            label={t('versionLabel')}
+            placeholder={t('versionPlaceholder')}
             items={availableUuidTypes}
             selectedKeys={new Set([version])}
             onSelectionChange={key => {
@@ -169,8 +172,8 @@ export const Uuid = () => {
                 isRequired={needsExtraFields}
                 className="max-w-[400px]"
                 size="lg"
-                label="Name"
-                placeholder="Enter your name"
+                label={t('nameLabel')}
+                placeholder={t('namePlaceholder')}
                 type="text"
                 value={name}
                 onValueChange={setName}
@@ -180,8 +183,8 @@ export const Uuid = () => {
                 isRequired={needsExtraFields}
                 className="max-w-[400px]"
                 size="lg"
-                label="Namespace"
-                placeholder="Select a namespace"
+                label={t('namespaceLabel')}
+                placeholder={t('namespacePlaceholder')}
                 items={availableNamespaces}
                 selectedKeys={new Set([namespace])}
                 onSelectionChange={key => {
@@ -199,10 +202,10 @@ export const Uuid = () => {
                   isRequired={needsExtraFields && namespace === 'custom'}
                   className="max-w-[400px]"
                   size="lg"
-                  label="Custom Namespace"
-                  placeholder="Enter your namespace"
+                  label={t('customNamespaceLabel')}
+                  placeholder={t('customNamespacePlaceholder')}
                   pattern="^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-                  errorMessage="Please enter a valid UUID"
+                  errorMessage={t('customNamespaceError')}
                   type="text"
                   value={customNamespace}
                   onValueChange={setCustomNamespace}
@@ -216,7 +219,7 @@ export const Uuid = () => {
               isRequired
               className="max-w-[400px]"
               size="lg"
-              label="How many to generate"
+              label={t('countLabel')}
               maxValue={100}
               minValue={1}
               value={count}
@@ -225,7 +228,7 @@ export const Uuid = () => {
           )}
 
           <Button type="submit" variant="bordered">
-            Generate
+            {t('actionGenerate')}
           </Button>
         </Form>
 

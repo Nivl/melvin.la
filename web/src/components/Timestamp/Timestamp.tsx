@@ -2,6 +2,7 @@
 
 import { NumberInput } from '@heroui/number-input';
 import { AnimatePresence } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { Color, colors, LargePill } from '#components/layout/LargePill.tsx';
@@ -31,6 +32,8 @@ const getColor = (skip?: Color): Color => {
 };
 
 export const Timestamp = () => {
+  const t = useTranslations('timestamp');
+
   const [timestamps, setTimestamps] = useState<Data[]>([]);
   const [hasError, setHasError] = useState(false);
   const [value, setValue] = useState(Number.NaN);
@@ -39,7 +42,7 @@ export const Timestamp = () => {
     <>
       <Section>
         <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl uppercase sm:text-8xl xl:text-9xl">
-          Timestamp Lookup
+          {t('title')}
         </h1>
       </Section>
 
@@ -49,12 +52,12 @@ export const Timestamp = () => {
             hideStepper
             isWheelDisabled
             isClearable
-            label="Timestamp"
+            label={t('inputLabel')}
             size="lg"
             className="chromatic-ignore max-w-[400px]"
-            errorMessage={'Invalid timestamp'}
+            errorMessage={t('inputError')}
             isInvalid={hasError}
-            description={`Automatically detects milliseconds, microseconds, and nanoseconds`}
+            description={t('inputDescription')}
             value={value}
             // We don't go above 20 digits because what's the point?
             // Also when you reach 21 digits, you start having the ability to
@@ -83,8 +86,13 @@ export const Timestamp = () => {
                     color: getColor(timestamps.at(-1)?.color),
                     content: (
                       <>
-                        {Math.floor(date.getTime() / 1000)} is{' '}
-                        <span className="font-bold">{formatDate(date)}</span>
+                        {t.rich('output', {
+                          timestamp: Math.floor(date.getTime() / 1000),
+                          utcDate: formatDate(date),
+                          date: chunks => (
+                            <span className="font-bold">{chunks}</span>
+                          ),
+                        })}
                       </>
                     ),
                   },

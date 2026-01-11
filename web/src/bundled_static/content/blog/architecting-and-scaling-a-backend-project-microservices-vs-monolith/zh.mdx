@@ -1,0 +1,249 @@
+---
+title: "后端项目的架构与扩展：微服务 vs 单体架构"
+excerpt: "永恒的争论：应该构建单体应用，还是将所有内容拆分为微服务？答案一如既往是“视情况而定”。让我们来探讨其中的原因。"
+image: "cover.avif"
+ogImage: "cover.jpg"
+createdAt: "2025-06-12"
+updatedAt: "2025-06-12"
+---
+
+后端架构的选择往往决定了你的日常工作是痛苦还是愉快。随着应用程序的增长，最初选择的裂痕开始显现，你被迫做出决定：是坚持使用可靠的单体架构，还是将所有内容拆分为微服务？
+
+没有银弹。这两种方法都有一席之地，“正确”的选择往往更多地取决于你的团队结构和业务阶段，而不是纯粹的技术优势。让我们来看看这两个主要的竞争者，以及第三种通常最有效的务实中间路线。
+
+## 1. 竞争者
+
+### 微服务架构
+
+**微服务**背后的想法很简单：与其构建一个巨大的应用程序，不如构建一组小型、独立的服务。每个服务都专注于做好一件事。
+
+可以把它想象成一个去中心化的团队。每个服务管理自己的数据库，并且可以在准备好时随时部署，无需征求其他人的许可。如果计费团队想使用 Go，而认证团队喜欢 Rust，他们都可以按自己的方式行事。这种自主性促进了创新和速度——至少在理论上是这样。
+
+在实践中，这对于拥有 500 名开发人员的大型组织来说非常棒，因为协调单个版本的发布简直是一场噩梦。
+
+#### 图表：微服务架构
+```hidden
+digraph G {
+  bgcolor="transparent";
+  node [shape=box style=filled fontname="Raleway" fontsize=14 fontcolor="#222222"];
+
+
+  // Nodes with muted fill colors
+  "API Gateway" [fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+  "Service A"   [fillcolor="#f4b183", fontcolor="#4a2c0f"];
+  "Service B"   [fillcolor="#f4b183", fontcolor="#4a2c0f"];
+  "Database A"  [fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+  "Database B"  [fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+
+  // Arrow style
+  edge [color="#6a8caf", penwidth=1.5];
+
+  // Edges
+  "API Gateway" -> "Service A";
+  "API Gateway" -> "Service B";
+  "Service A"   -> "Database A";
+  "Service B"   -> "Database B";
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-microservice.svg"}
+  priority={true}
+  width={372}
+  height={300}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
+
+### 单体架构 (Monolith)
+
+**单体架构**是传统的方法：一个代码库，一个应用程序，一次部署。所有东西——从用户界面到业务逻辑和数据访问——都生活在一起。
+
+虽然“单体”在某些圈子里几乎成了一个脏话，但它具有不可否认的优势。它很简单。你不需要地图就能找到函数定义的位置。部署只是一个脚本。对于中小型团队来说，这种简单性是一种超能力。它让你能够快速行动，而不会陷入基础设施的复杂性中。
+
+#### 图表：单体架构
+
+```hidden
+digraph Monolith {
+  bgcolor="transparent";
+  node [shape=box, style=filled, fontname="Raleway", fontsize=14 fontcolor="#222222"];
+
+  subgraph cluster_monolith {
+    label="Monolith";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style
+    edge [color="#6a8caf", penwidth=1.5];
+
+    UserInterface [label="User Interface", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    BusinessLogic [label="Business Logic", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    DataAccessLayer [label="Data Access Layer", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    Database [label="Database", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+
+    UserInterface -> BusinessLogic -> DataAccessLayer -> Database;
+  }
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-monolith.svg"}
+  priority={true}
+  width={307}
+  height={600}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
+
+## 2. 权衡
+
+### 为什么要使用微服务？
+
+*   **按需扩展：** 如果你的视频处理功能占用了大量 CPU，但登录页面却很空闲，你可以只为视频服务增加更多服务器。
+*   **技术栈自由：** 你不会被 5 年前做出的技术选择所束缚。新服务可以使用现代工具。
+*   **弹性：** 理想情况下，如果“推荐”服务崩溃了，网站的其余部分（如“结账”）仍然可以正常工作。
+
+### 微服务的代价
+
+*   **运维复杂性：** 你是在用代码复杂性交换基础设施复杂性。现在你必须监控、记录和跟踪跨越数十个服务的请求。
+*   **延迟：** 内存中的函数调用是纳秒级的。对另一个服务的网络调用是毫秒级的。这会累积起来。
+*   **分布式系统很难：** 跨越多个服务的事务令人头疼。维护数据一致性需要仔细的设计。
+
+### 为什么要坚持单体架构？
+
+*   **简单至上：** 浏览代码很容易。像“转到定义”这样的 IDE 工具真的有效。
+*   **性能：** 内部调用没有网络开销。一切都在进程内发生。
+*   **易于测试：** 你可以在笔记本电脑上启动整个应用程序并运行端到端测试，而无需模拟整个互联网。
+
+### 单体架构的局限
+
+*   **扩展之痛：** 你必须扩展整个应用程序，即使只有一个部分是瓶颈。
+*   **耦合：** 很容易创建出“意大利面条式代码”，所有东西都依赖于其他所有东西。一次糟糕的提交可能会破坏整个应用程序。
+*   **部署恐惧：** 部署巨大的单体应用可能既缓慢又充满风险，导致“部署恐惧症”和更慢的发布周期。
+
+### “服务过多”的陷阱
+
+中小型公司中常见的一个反模式是，最终拥有的微服务数量超过了工程师的数量。我见过拥有 100 名工程师的组织试图维护 300 多个服务，结果绝对是混乱的。
+
+当你跨过这个门槛时，许多服务不再有明确的所有者，或者所有者继承了服务却因为组织重组而完全不了解上下文。你还会花费更多时间更新所有仓库中的依赖项以清除漏洞。为了有效地运行微服务，你需要一个专门的平台团队和对工具的大量投资。大多数初创公司根本没有资源来构建这种基础设施，将他们的“敏捷”架构变成了一场维护噩梦。
+
+## 3. 哪一个适合你？
+
+不要因为流行而选择某种架构。选择它是为了解决你当前的问题。
+
+**选择微服务，如果：**
+*   你有一个庞大的工程组织（比如 50+ 开发人员）并且需要解耦团队。
+*   你有资源需求截然不同的独特组件（例如，一个繁重的 ML 管道 vs 一个简单的 CRUD 应用）。
+*   你触及了单体架构根本无法处理的硬性扩展限制。
+
+**选择单体架构，如果：**
+*   你是一家初创公司或一个小团队。迭代速度是你最重要的指标。
+*   你的领域紧密集成。如果更改一个功能几乎总是需要更改另一个功能，那么拆分它们只会增加痛苦。
+*   你正在构建原型。你还不知道你的领域边界。过早拆分服务是一个经典的错误。
+
+## 4. 务实之路：模块化单体 & 渐进式拆分
+
+秘诀在于：你不必直接跳到微服务。事实上，你可能不应该这样做。
+
+**模块化单体 (Modular Monolith)** 是一个很好的中间地带。你构建一个可部署单元，但在内部，你在模块之间强制执行严格的边界。`模块 A` 中的代码不能直接导入 `模块 B` 中的代码；它必须通过定义的公共接口。这为你提供了微服务的代码组织优势，而没有基础设施的开销。
+
+随着应用程序的增长，你可以剥离那些*需要*独立的部分。
+
+### 如何演进：
+
+1.  **寻找接缝：** 识别应用程序中像独立产品一样运作的部分。“用户认证”或“图像处理”是常见的候选者。
+2.  **提取，不要重写：** 将该代码移动到一个单独的服务中。它仍然可以共享通用库（如日志记录或指标设置）以保持一致性。
+3.  **迭代：** 不要一次拆分所有内容。也许你只需要一个主单体应用和两个用于特定任务的小型微服务。
+4.  **当心共享代码：** 在服务之间共享数据库表是一个陷阱。如果你拆分一个服务，它理想情况下应该拥有自己的数据。
+
+### 图表：混合方法
+
+```hidden
+digraph Architecture {
+  bgcolor="transparent";
+  compound=true;
+  node [shape=box, style=filled, fontname="Raleway", fontsize=14, fontcolor="#222222"];
+
+  // Arrow style
+  edge [color="#6a8caf", penwidth=1.5];
+
+  // Monolith cluster
+  subgraph cluster_monolith {
+    label="Monolith";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style inside cluster
+    edge [color="#3a5a7c", penwidth=1.2];
+
+    UserInterface [label="User Interface", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    BusinessLogic [label="Business Logic", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    DataAccessLayer [label="Data Access Layer", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    Database [label="Database", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+
+    UserInterface -> BusinessLogic -> DataAccessLayer -> Database;
+  }
+
+  // API Gateway node
+  APIGateway [label="API Gateway", shape=box, style=filled, fillcolor="#3a5a7c", fontcolor="#f0f0f0"];
+
+  // Services cluster
+  subgraph cluster_services {
+    label="Services";
+    style=rounded;
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style inside cluster
+    edge [color="#3a5a7c", penwidth=1.2];
+
+    MediumServiceA [label="Medium Service A\nUser Management\nSub, Auth, etc.", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MonolithServiceA [label="Monolith Service A\nMonolith for app 1", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MonolithServiceB [label="Monolith Service B\nMonolith for app 2", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MicroserviceA [label="Micro service A\nAnalytics", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    DatabaseA [label="Database A", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseB [label="Database B", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseC [label="Database C", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseD [label="Database D", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+
+    MediumServiceA -> DatabaseA;
+    MonolithServiceA -> DatabaseB;
+    MonolithServiceB -> DatabaseC;
+    MicroserviceA -> DatabaseD;
+  }
+
+  // Connections
+  Database -> APIGateway [label="Splitting", style=dashed, color="#6a8caf", fontcolor="#6a8caf", ltail=cluster_monolith];
+  APIGateway -> MediumServiceA;
+  APIGateway -> MonolithServiceA;
+  APIGateway -> MonolithServiceB;
+  APIGateway -> MicroserviceA;
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-hybrid.svg"}
+  priority={true}
+  width={615}
+  height={1200}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
+
+## 结论
+
+“微服务 vs 单体架构”的辩论往往抓不住重点。重点不在于哪种架构在理论上更优越，而在于你现在可以接受哪一组权衡。
+
+*   **微服务**给你独立性和细粒度的扩展，但你需要为此付出复杂性的代价。
+*   **单体架构**给你简单性和速度，但在规模扩大时可能变得笨重。
+*   **混合/演进式**架构让你能够简单开始，并在必要时才增加复杂性。
+
+从一个结构良好的单体应用开始。当你感到痛苦时再进行拆分，而不是在那之前。未来的你（以及你的 DevOps 团队）会感谢你的。

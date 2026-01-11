@@ -1,0 +1,249 @@
+---
+title: "Architecting and Scaling a Backend Project: Microservices vs. Monolith"
+excerpt: "The eternal debate: should you build a monolith or split everything into microservices? The answer, as always, is 'it depends'. Let's explore why."
+image: "cover.avif"
+ogImage: "cover.jpg"
+createdAt: "2025-06-12"
+updatedAt: "2025-06-12"
+---
+
+The architecture of your backend often dictates how painful or pleasant your daily work will be. As your application grows, the cracks in your initial choices start to show, and you're forced to make a decision: do you stick with the trusty monolith, or do you break everything apart into microservices?
+
+There is no silver bullet. Both approaches have their place, and the "right" choice often depends more on your team structure and business stage than on purely technical merits. Let's look at the two main contenders, and a third, pragmatic middle ground that often works best.
+
+## 1. The Contenders
+
+### Microservices Architecture
+
+The idea behind **Microservices** is simple: instead of building one giant application, you build a collection of small, independent services. Each one does one thing well.
+
+Think of it like a decentralized team. Each service manages its own database and can be deployed whenever it's ready, without asking the others for permission. If the billing team wants to use Go while the auth team loves Rust, they can both have it their way. This autonomy fosters innovation and speed—at least in theory.
+
+In practice, this is great for large organizations where coordinating a single release across 500 developers is a nightmare.
+
+#### Diagram: Microservices Architecture
+```hidden
+digraph G {
+  bgcolor="transparent";
+  node [shape=box style=filled fontname="Raleway" fontsize=14 fontcolor="#222222"];
+
+
+  // Nodes with muted fill colors
+  "API Gateway" [fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+  "Service A"   [fillcolor="#f4b183", fontcolor="#4a2c0f"];
+  "Service B"   [fillcolor="#f4b183", fontcolor="#4a2c0f"];
+  "Database A"  [fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+  "Database B"  [fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+
+  // Arrow style
+  edge [color="#6a8caf", penwidth=1.5];
+
+  // Edges
+  "API Gateway" -> "Service A";
+  "API Gateway" -> "Service B";
+  "Service A"   -> "Database A";
+  "Service B"   -> "Database B";
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-microservice.svg"}
+  priority={true}
+  width={372}
+  height={300}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
+
+### Monolith Architecture
+
+**The Monolith** is the traditional approach: one codebase, one application, one deployment. Everything—from the user interface to the business logic and data access—lives together.
+
+While "monolith" has become almost a dirty word in some circles, it has undeniable advantages. It's simple. You don't need a map to find where a function is defined. Deployment is a single script. For small to medium teams, this simplicity is a superpower. It allows you to move fast without getting bogged down in infrastructure complexity.
+
+#### Diagram: Monolith Architecture
+
+```hidden
+digraph Monolith {
+  bgcolor="transparent";
+  node [shape=box, style=filled, fontname="Raleway", fontsize=14 fontcolor="#222222"];
+
+  subgraph cluster_monolith {
+    label="Monolith";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style
+    edge [color="#6a8caf", penwidth=1.5];
+
+    UserInterface [label="User Interface", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    BusinessLogic [label="Business Logic", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    DataAccessLayer [label="Data Access Layer", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    Database [label="Database", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+
+    UserInterface -> BusinessLogic -> DataAccessLayer -> Database;
+  }
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-monolith.svg"}
+  priority={true}
+  width={307}
+  height={600}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
+
+## 2. The Trade-offs
+
+### Why go Microservices?
+
+*   **Scale what needs scaling:** If your video processing feature is hammering the CPU but your login page is idle, you can throw more servers at just the video service.
+*   **Freedom of stack:** You aren't locked into the technology choices you made 5 years ago. New services can use modern tools.
+*   **Resilience:** Ideally, if the "Recommendations" service crashes, the rest of the site (like "Checkout") stays up.
+
+### The cost of Microservices
+
+*   **Ops Complexity:** You are trading code complexity for infrastructure complexity. You now have to monitor, log, and trace requests across dozens of services.
+*   **Latency:** A function call in memory is nanoseconds. A network call to another service is milliseconds. That adds up.
+*   **Distributed Systems are hard:** Transactions that span multiple services are a headache. Maintaining data consistency requires careful design.
+
+### Why stick with a Monolith?
+
+*   **Simplicity rules:** Navigating the code is easy. IDE tools like "Go to Definition" actually work.
+*   **Performance:** No network overhead for internal calls. Everything happens in-process.
+*   **Easy Testing:** You can spin up the whole app on your laptop and run end-to-end tests without mocking the entire internet.
+
+### The Monolith limit
+
+*   **Scaling pains:** You have to scale the whole app, even if only one part is the bottleneck.
+*   **Coupling:** It's easy to create spaghetti code where everything depends on everything else. One bad commit can break the whole app.
+*   **Deployment fear:** Deploying a massive monolith can be slow and risky, leading to "fear of deployment" and slower release cycles.
+
+### The "Too Many Services" Trap
+
+A common anti-pattern in small to medium-sized companies is ending up with more microservices than engineers. I've seen organizations with 100 engineers trying to maintain 300+ services, and the result is absolute chaos.
+
+When you cross that threshold, many services no longer have clear owners, or the owners have inherited the services and have no context on them due to reorgs. You also spend more time updating dependencies across all the repositories to clear them out of vulnerabilities. To make microservices work effectively, you need a dedicated platform team and significant investment in tooling. Most startups simply don't have the resources to build that infrastructure, turning their "agile" architecture into a maintenance nightmare.
+
+## 3. Which one fits you?
+
+Don't choose an architecture because it's trendy. Choose it because it solves your current problems.
+
+**Choose Microservices if:**
+*   You have a large engineering organization (think 50+ devs) and need to decouple teams.
+*   You have distinct components with wildly different resource requirements (e.g., a heavy ML pipeline vs. a simple CRUD app).
+*   You are hitting hard scaling limits that a monolith simply cannot handle.
+
+**Choose a Monolith if:**
+*   You are a startup or a small team. Speed of iteration is your most important metric.
+*   Your domain is tightly integrated. If changing one feature almost always requires changing another, splitting them will only add pain.
+*   You are prototyping. You don't know your domain boundaries yet. Prematurely splitting services is a classic mistake.
+
+## 4. The Pragmatic Path: The Modular Monolith & Gradual Splitting
+
+Here is the secret: you don't have to jump straight to microservices. In fact, you probably shouldn't.
+
+A **Modular Monolith** is a great middle ground. You build a single deployable unit, but internally, you enforce strict boundaries between modules. Code in `Module A` cannot import code from `Module B` directly; it must go through a defined public interface. This gives you the code organization benefits of microservices without the infrastructure overhead.
+
+As your application grows, you can peel off the parts that *need* to be independent.
+
+### How to evolve:
+
+1.  **Find the seams:** Identify parts of your app that act like separate products. "User Auth" or "Image Processing" are common candidates.
+2.  **Extract, don't rewrite:** Move that code into a separate service. It can still share common libraries (like your logging or metrics setup) to keep things consistent.
+3.  **Iterate:** Don't split everything at once. Maybe you just need one main monolith and two small microservices for specific tasks.
+4.  **Watch out for shared code:** Sharing database tables between services is a trap. If you split a service, it should ideally own its data.
+
+### Diagram: Hybrid Approach
+
+```hidden
+digraph Architecture {
+  bgcolor="transparent";
+  compound=true;
+  node [shape=box, style=filled, fontname="Raleway", fontsize=14, fontcolor="#222222"];
+
+  // Arrow style
+  edge [color="#6a8caf", penwidth=1.5];
+
+  // Monolith cluster
+  subgraph cluster_monolith {
+    label="Monolith";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style inside cluster
+    edge [color="#3a5a7c", penwidth=1.2];
+
+    UserInterface [label="User Interface", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    BusinessLogic [label="Business Logic", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    DataAccessLayer [label="Data Access Layer", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    Database [label="Database", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+
+    UserInterface -> BusinessLogic -> DataAccessLayer -> Database;
+  }
+
+  // API Gateway node
+  APIGateway [label="API Gateway", shape=box, style=filled, fillcolor="#3a5a7c", fontcolor="#f0f0f0"];
+
+  // Services cluster
+  subgraph cluster_services {
+    label="Services";
+    style=rounded;
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style inside cluster
+    edge [color="#3a5a7c", penwidth=1.2];
+
+    MediumServiceA [label="Medium Service A\nUser Management\nSub, Auth, etc.", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MonolithServiceA [label="Monolith Service A\nMonolith for app 1", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MonolithServiceB [label="Monolith Service B\nMonolith for app 2", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MicroserviceA [label="Micro service A\nAnalytics", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    DatabaseA [label="Database A", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseB [label="Database B", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseC [label="Database C", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseD [label="Database D", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+
+    MediumServiceA -> DatabaseA;
+    MonolithServiceA -> DatabaseB;
+    MonolithServiceB -> DatabaseC;
+    MicroserviceA -> DatabaseD;
+  }
+
+  // Connections
+  Database -> APIGateway [label="Splitting", style=dashed, color="#6a8caf", fontcolor="#6a8caf", ltail=cluster_monolith];
+  APIGateway -> MediumServiceA;
+  APIGateway -> MonolithServiceA;
+  APIGateway -> MonolithServiceB;
+  APIGateway -> MicroserviceA;
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-hybrid.svg"}
+  priority={true}
+  width={615}
+  height={1200}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
+
+## Conclusion
+
+The "Microservices vs. Monolith" debate often misses the point. It's not about which architecture is theoretically superior; it's about which set of trade-offs you can live with right now.
+
+*   **Microservices** give you independence and granular scaling, but you pay for it with complexity.
+*   **Monoliths** give you simplicity and velocity, but can become unwieldy at scale.
+*   **Hybrid/Evolutionary** architectures let you start simple and grow complex only when you have to.
+
+Start with a well-structured monolith. Split it when you feel the pain, not before. Your future self (and your DevOps team) will thank you.

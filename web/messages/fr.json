@@ -1,0 +1,212 @@
+{
+  "errorPages": {
+    "404": {
+      "metadata": {
+        "title": "404 - Page non trouvée :: Melvin Laplanche",
+        "description": "Cette page n'existe pas, désolé."
+      },
+      "title": "Page non trouvée"
+    }
+  },
+  "navbar": {
+    "home": "Accueil",
+    "blog": "Blog",
+    "games": "Jeux",
+    "conway": "Jeu de la vie",
+    "tools": "Outils",
+    "fortnite": "Stats Fortnite",
+    "string-length": "Longueur de chaîne",
+    "timezones": "Convertisseur de fuseaux horaires",
+    "timestamp": "Conversion de timestamp",
+    "uuid": "Générateur de UUID",
+    "switchTheme": "Changer de thème",
+    "theme": "Thème",
+    "themeLight": "Clair",
+    "themeDark": "Sombre",
+    "themeSystem": "Système",
+    "changeLanguage": "Changer de langue",
+    "language": "Langue"
+  },
+  "home": {
+    "metadata": {
+      "description": "Site personnel de Melvin Laplanche, rien de très intéressant ici"
+    },
+    "header": {
+      "subtitle": "Ingénieur Full Stack passionné par le backend et le développement système"
+    },
+    "aboutme": {
+      "title": "À propos de moi",
+      "content": "Bonjour, je suis Melvin, un ingénieur logiciel basé à Los Angeles. J'ai commencé à programmer en C en 2004 au collège et je suis passionné depuis. Au fil des ans, j'ai exploré divers langages de programmation et technologies. J'aime apprendre de nouveaux concepts et je passe souvent mon temps libre à expérimenter avec des outils et frameworks émergents. Je suis dévoué à une architecture propre et un code bien testé.",
+      "cta": "Consultez mon Github"
+    },
+    "tech": {
+      "backend": {
+        "title": "Technologies Backend / Ops",
+        "content": "Comme beaucoup d'ingénieurs web de l'ère pré-AngularJS, j'ai commencé mon parcours par le développement backend. J'ai débuté avec du PHP brut quand c'était une technologie de pointe pour créer des sites web, puis j'ai adopté de nouvelles tendances comme Rails, Django, Symfony 2, Node et Go. Je m'efforce de rester au courant de l'évolution des technologies backend, en pesant soigneusement leurs avantages et inconvénients avant de les adopter. De plus, j'ai passé plusieurs années à travailler avec C et C++."
+      },
+      "client": {
+        "title": "Technologies Client",
+        "content1": "Bien que je trouve le développement backend agréable, les backends modernes se concentrent principalement sur le traitement et le retour de données aux clients. Cette réalité a suscité mon intérêt pour le développement côté client. Je crois qu'écrire du code client a fait de moi un meilleur ingénieur backend, car je comprends les défis de travailler avec des API non documentées ou mal conçues qui ne fournissent que partiellement les données requises.",
+        "content2": "Professionnellement, j'ai de l'expérience sur une variété de plateformes, y compris les applications mobiles natives (iOS et Android), les applications mobiles hybrides, les applications Electron standard, les applications Electron avec un backend Go local pour les tâches lourdes (utilisant cgo pour les bibliothèques natives Windows et macOS), et les applications à page unique (SPA) utilisant Angular, React, et plus encore."
+      }
+    },
+    "contact": {
+      "title": "Me contacter",
+      "linkedinModalContent": "Trop d'entreprises louches ont scrappé mes données LinkedIn pour créer des profils sur leurs sites web et tout vendre aux recruteurs. J'ai pris la décision de supprimer mon compte LinkedIn.",
+      "linkedinModalClose": "Fermer"
+    }
+  },
+  "blog": {
+    "metadata": {
+      "title": "Blog",
+      "description": "Voir les derniers articles"
+    },
+    "listTitle": "Articles"
+  },
+  "conway": {
+    "metadata": {
+      "title": "Jeu de la vie",
+      "description": "Jeu de la vie de Conway"
+    },
+    "title": "Jeu de la vie de Conway",
+    "needLargeScreen": "Un appareil avec un grand écran est nécessaire pour accéder à cette page",
+    "whatIsIt": "Le Jeu de la vie est un automate cellulaire imaginé par le mathématicien britannique John Horton Conway en 1970. C'est un jeu à zéro joueur, ce qui signifie que son évolution est déterminée par son état initial, ne nécessitant aucune autre intervention. On interagit avec le Jeu de la vie en créant une configuration initiale et en observant comment elle évolue. Il est Turing-complet et peut simuler un constructeur universel ou toute autre machine de Turing.",
+    "quoteUrl": "",
+    "quoteBy": "",
+    "howToPlay": "Comment jouer",
+    "rules": {
+      "header": "L'univers du Jeu de la vie est une grille orthogonale bidimensionnelle de cellules carrées, chacune étant dans l'un des deux états possibles, vivante ou morte. Chaque cellule interagit avec ses huit voisins, qui sont les cellules adjacentes horizontalement, verticalement ou diagonalement. À chaque étape, les transitions suivantes se produisent :",
+      "rule1": "Toute cellule vivante avec moins de deux voisins vivants meurt, comme par sous-population.",
+      "rule2": "Toute cellule vivante avec deux ou trois voisins vivants vit jusqu'à la génération suivante.",
+      "rule3": "Toute cellule vivante avec plus de trois voisins vivants meurt, comme par surpopulation.",
+      "rule4": "Toute cellule morte avec exactement trois voisins vivants devient une cellule vivante, comme par reproduction.",
+      "footer": "Le motif initial constitue la graine du système. La première génération est créée en appliquant les règles ci-dessus simultanément à chaque cellule de la graine, vivante ou morte ; les naissances et les décès se produisent simultanément. Chaque génération est une fonction pure de la précédente. Les règles continuent d'être appliquées de manière répétée pour créer d'autres générations."
+    },
+    "gridInfo": "La grille a été pré-remplie avec des cellules aléatoires. Vous pouvez modifier la grille en cliquant sur une cellule pour changer son état.",
+    "controls": {
+      "title": "Contrôles",
+      "play": "Jouer",
+      "pause": "Pause",
+      "speed": "Vitesse",
+      "boardSize": "Taille du plateau",
+      "presets": {
+        "title": "Préréglages",
+        "glider": "Planeur",
+        "pulsar": "Pulsar",
+        "pentadecathlon": "Penta-décathlon",
+        "heavySpaceship": "Vaisseau lourd"
+      }
+    }
+  },
+  "fortnite": {
+    "metadata": {
+      "title": "Stats Fortnite",
+      "description": "Toutes les stats Fortnite",
+      "focusTitle": "Stats Fortnite de {username}",
+      "focusDescription": "Toutes les stats Fortnite de {username}"
+    },
+    "title": "Découvrez vos performances dans <name>Fortnite</name>",
+    "errors": {
+      "accountPrivate": "Ce joueur ne veut pas que vous voyiez ses données.",
+      "notFound": "Personne ne porte ce nom sur cette plateforme.",
+      "serverError": "Il semble que les données ne soient pas disponibles pour le moment. Réessayez plus tard."
+    },
+    "presets": "Ou choisissez un créateur de contenu célèbre",
+    "daysSpent": "{days, plural, =0 {0 jour} one {1 jour} other {# jours}}",
+    "hoursSpent": "{hours, plural, =0 {0 heure} one {1 heure} other {# heures}}",
+    "minutesSpent": "{minutes, plural, =0 {0 minute} one {1 minute} other {# minutes}}",
+    "timeSpent": "C'est le temps que vous avez passé dans le jeu.",
+    "overallWinRate": "Taux de victoire global",
+    "overallKd": "Ratio kills/deaths global",
+    "currentLevel": "Niveau {level}",
+    "currentLevelProgression": "Progression du niveau actuel",
+    "form": {
+      "accountName": "Nom du compte",
+      "platform": "Plateforme",
+      "platformEpic": "Epic Games",
+      "platformXbox": "Xbox",
+      "platformPlaystation": "PlayStation",
+      "currentSeasonOnly": "Saison actuelle uniquement"
+    },
+    "data": {
+      "statsTable": "Tableau avec toutes les statistiques",
+      "gamePlayed": "Parties jouées",
+      "wins": "Victoires",
+      "winRate": "Taux de victoire",
+      "kd": "Ratio kills/deaths",
+      "kdHelp": "Combien de personnes vous tuez pour chaque fois que vous mourez",
+      "top10rate": "Taux Top 10%",
+      "top10rateHelp": "Combien de fois vous êtes parmi les 10 derniers joueurs en vie",
+      "top25rate": "Taux Top 25%",
+      "top25rateHelp": "Combien de fois vous êtes parmi les 25 derniers joueurs en vie",
+      "timePlayed": "Temps joué",
+      "noData": "Aucune donnée à afficher.",
+      "kbm": "Clavier & Souris",
+      "gamepad": "Manette",
+      "mobile": "Mobile",
+      "all-categories": "Tout",
+      "solo": "Solo",
+      "duo": "Duo",
+      "squad": "Trio / Squad",
+      "overall": "Global",
+      "stat": "Statistique",
+      "value": "Valeur"
+    }
+  },
+  "stringLength": {
+    "metadata": {
+      "title": "Longueur de chaîne",
+      "description": "Comptez les caractères, mots, et octets dans votre texte avec notre outil gratuit de longueur de chaîne en ligne. Prend en charge correctement les caractères Unicode."
+    },
+    "title": "Longueur de chaîne",
+    "inputLabel": "Entrez votre texte",
+    "inputPlaceholder": "Tapez ou collez votre texte ici…",
+    "characterCount": "Caractères",
+    "word-count": "Mots",
+    "wordCountTooltip": "Prend en charge uniquement les langues basées sur les espaces (par exemple, anglais, espagnol, français). Les langues sans espaces (par exemple, chinois, japonais, coréen) ne sont pas comptées avec précision.",
+    "byteCount": "Octets (UTF-8)"
+  },
+  "timestamp": {
+    "metadata": {
+      "title": "Recherche de timestamp",
+      "description": "Convertissez des timestamps en dates réelles."
+    },
+    "title": "Recherche de timestamp",
+    "inputLabel": "Timestamp",
+    "inputError": "Timestamp invalide",
+    "inputDescription": "Détecte automatiquement les millisecondes, microsecondes et nanosecondes",
+    "output": "{timestamp} est le <date>{utcDate}</date>"
+  },
+  "uuid": {
+    "metadata": {
+      "title": "Générateur de UUID",
+      "description": "Générez des UUID facilement avec notre outil gratuit de génération d'UUID en ligne. Créez des identifiants uniques pour vos projets en quelques secondes."
+    },
+    "title": "Generateur de UUID",
+    "versionLabel": "Version UUID",
+    "versionPlaceholder": "Sélectionnez une version",
+    "nameLabel": "Nom",
+    "namePlaceholder": "Entrez un nom",
+    "namespaceLabel": "Namespace",
+    "namespacePlaceholder": "Sélectionnez un namespace",
+    "customNamespaceLabel": "Namespace personnalisé",
+    "customNamespacePlaceholder": "Entrez le namespace",
+    "customNamespaceError": "Veuillez entrer un UUID valide",
+    "countLabel": "Combien en générer",
+    "actionGenerate": "Générer"
+  },
+  "timezones": {
+    "metadata": {
+      "title": "Convertisseur de fuseaux horaires",
+      "description": "Comparez des fuseaux horaires et convertissez l'heure entre eux."
+    },
+    "title": "Convertisseur de fuseaux horaires",
+    "fromLabel": "Quand à",
+    "fromAriaLabel": "Rechercher une ville de départ",
+    "dateTimeLabel": "il est",
+    "dateTimeAriaLabel": "choisissez une heure de départ",
+    "toLabel": "Voir quel jour et quelle heure il était à",
+    "toAriaLabel": "Rechercher une ville de destination",
+    "output": "À <cityWrapper>{city}</cityWrapper>, il est {time}"
+  }
+}

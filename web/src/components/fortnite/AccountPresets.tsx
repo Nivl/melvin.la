@@ -1,5 +1,6 @@
 import { Avatar } from '@heroui/avatar';
 import { Tooltip } from '@heroui/tooltip';
+import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 
 import { AccountTypes, TimeWindow } from './Form';
@@ -73,6 +74,7 @@ export const AccountPresets = ({
 }: {
   setPreset: (p: Preset) => void;
 }) => {
+  const t = useTranslations('fortnite');
   const Presets = useMemo(() => {
     return presetLists.map(preset => (
       <Tooltip
@@ -98,9 +100,7 @@ export const AccountPresets = ({
 
   return (
     <>
-      <h2 className="text-center text-2xl font-extrabold">
-        Or pick a famous content creator
-      </h2>
+      <h2 className="text-center text-2xl font-extrabold">{t('presets')}</h2>
       <div className="flex flex-col items-center justify-center gap-10 sm:flex-row">
         {Presets}
       </div>

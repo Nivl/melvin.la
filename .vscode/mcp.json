@@ -1,4 +1,12 @@
 {
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "deepl-api-key",
+      "description": "Deepl API Key",
+      "password": true
+    }
+  ],
   "servers": {
     "Sentry": {
       "url": "https://mcp.sentry.dev/mcp/melvinla/webapp",
@@ -24,6 +32,24 @@
       "args": [
         "@playwright/mcp@latest"
       ]
+    },
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
+    },
+    "deepl": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "deepl-mcp-server"
+      ],
+      "env": {
+        "DEEPL_API_KEY": "${input:deepl-api-key}"
+      }
     }
   }
 }

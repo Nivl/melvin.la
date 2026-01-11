@@ -2,6 +2,7 @@ import { Card, CardBody, CardFooter } from '@heroui/card';
 import { Chip } from '@heroui/chip';
 import { CircularProgress } from '@heroui/progress';
 import { Skeleton } from '@heroui/skeleton';
+import { useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
 
 export const StatCard = ({
@@ -18,6 +19,8 @@ export const StatCard = ({
   className?: string;
   isLoading?: boolean;
 }) => {
+  const t = useTranslations('fortnite');
+
   return (
     <Card
       {...delegated}
@@ -37,7 +40,7 @@ export const StatCard = ({
             value={isLoading ? undefined : Number(stat) || ~~stat}
             strokeWidth={4}
             showValueLabel={true}
-            aria-label="Current level progression"
+            aria-label={t('currentLevelProgression')}
           />
         ) : (
           <div className="text-center text-3xl font-extrabold text-white sm:text-4xl">

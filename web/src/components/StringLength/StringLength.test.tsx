@@ -2,22 +2,24 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
+import { testWrapper as wrapper } from '#utils/tests';
+
 import { StringLength } from './StringLength';
 
 describe('StringLength', () => {
   it('renders without crashing', () => {
-    expect(() => render(<StringLength />)).not.toThrow();
+    expect(() => render(<StringLength />, { wrapper })).not.toThrow();
   });
 
   it('renders all count labels', () => {
-    render(<StringLength />);
+    render(<StringLength />, { wrapper });
     expect(screen.getAllByText('Characters').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Words').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Bytes (UTF-8)').length).toBeGreaterThan(0);
   });
 
   it('shows zero counts for empty input', () => {
-    render(<StringLength />);
+    render(<StringLength />, { wrapper });
 
     // Should show 0 for all counts initially
     const zeroElements = screen.getAllByText('0');
@@ -26,7 +28,7 @@ describe('StringLength', () => {
 
   it('can type in the textarea', async () => {
     const user = userEvent.setup();
-    render(<StringLength />);
+    render(<StringLength />, { wrapper });
 
     const textarea = screen.getAllByTestId(
       'string-input',
@@ -38,7 +40,7 @@ describe('StringLength', () => {
 
   it('updates display when typing', async () => {
     const user = userEvent.setup();
-    render(<StringLength />);
+    render(<StringLength />, { wrapper });
 
     const textarea = screen.getAllByTestId('string-input')[0];
     await user.type(textarea, 'test');
@@ -51,7 +53,7 @@ describe('StringLength', () => {
 
   it('has functional input element', async () => {
     const user = userEvent.setup();
-    render(<StringLength />);
+    render(<StringLength />, { wrapper });
 
     const textareas = screen.getAllByTestId('string-input');
     const textarea = textareas.at(-1) as HTMLTextAreaElement; // Get the last one to avoid interference
@@ -69,7 +71,7 @@ describe('StringLength', () => {
   describe('Multi-language string counting', () => {
     it('counts English text correctly', async () => {
       const user = userEvent.setup();
-      render(<StringLength />);
+      render(<StringLength />, { wrapper });
 
       const textarea = screen.getAllByTestId(
         'string-input',
@@ -100,7 +102,7 @@ describe('StringLength', () => {
 
     it('counts Korean text without spaces correctly', async () => {
       const user = userEvent.setup();
-      render(<StringLength />);
+      render(<StringLength />, { wrapper });
 
       const textarea = screen.getAllByTestId(
         'string-input',
@@ -128,7 +130,7 @@ describe('StringLength', () => {
 
     it('counts French text with accents correctly', async () => {
       const user = userEvent.setup();
-      render(<StringLength />);
+      render(<StringLength />, { wrapper });
 
       const textarea = screen.getAllByTestId(
         'string-input',
@@ -157,7 +159,7 @@ describe('StringLength', () => {
 
     it('counts Chinese text correctly', async () => {
       const user = userEvent.setup();
-      render(<StringLength />);
+      render(<StringLength />, { wrapper });
 
       const textarea = screen.getAllByTestId(
         'string-input',
@@ -185,7 +187,7 @@ describe('StringLength', () => {
 
     it('counts mixed language text correctly', async () => {
       const user = userEvent.setup();
-      render(<StringLength />);
+      render(<StringLength />, { wrapper });
 
       const textarea = screen.getAllByTestId(
         'string-input',
@@ -213,7 +215,7 @@ describe('StringLength', () => {
 
     it('handles empty text correctly', async () => {
       const user = userEvent.setup();
-      render(<StringLength />);
+      render(<StringLength />, { wrapper });
 
       const textarea = screen.getAllByTestId(
         'string-input',
@@ -228,7 +230,7 @@ describe('StringLength', () => {
 
     it('handles whitespace-only text correctly', async () => {
       const user = userEvent.setup();
-      render(<StringLength />);
+      render(<StringLength />, { wrapper });
 
       const textarea = screen.getAllByTestId(
         'string-input',
@@ -251,7 +253,7 @@ describe('StringLength', () => {
 
     it('counts Korean sentence without spaces correctly', async () => {
       const user = userEvent.setup();
-      render(<StringLength />);
+      render(<StringLength />, { wrapper });
 
       const textarea = screen.getAllByTestId(
         'string-input',

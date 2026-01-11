@@ -3,6 +3,7 @@
 import { Input } from '@heroui/input';
 import { Switch } from '@heroui/switch';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { FaPlaystation, FaXbox } from 'react-icons/fa';
 import { SiEpicgames } from 'react-icons/si';
@@ -42,6 +43,8 @@ export const Form = ({
   const [accountType, setAccountType] = useState(defaultAccountType);
   const [timeWindow, setTimeWindow] = useState(defaultTimeWindow);
 
+  const t = useTranslations('fortnite.form');
+
   useEffect(() => {
     onAccountNameChange(name);
   }, [name, onAccountNameChange]);
@@ -61,9 +64,9 @@ export const Form = ({
         key={name}
         className="w-auto"
         type="text"
-        label="Account Name"
+        label={t('accountName')}
         labelPlacement="outside-left"
-        placeholder="Account Name"
+        placeholder={t('accountName')}
         variant="bordered"
         defaultValue={name}
         onChange={e => debounceName(e.target.value)}
@@ -75,7 +78,7 @@ export const Form = ({
 
       <div className="flex flex-row items-center justify-center">
         <label className="text-sm leading-6 font-medium" htmlFor="account-name">
-          Platform
+          {t('platform')}
         </label>
 
         <ToggleGroup.Root
@@ -90,8 +93,8 @@ export const Form = ({
         >
           <ToggleGroup.Item
             value={AccountTypes.Epic}
-            className="hover:text-brands-epic px-2 transition-colors"
-            aria-label="Epic Games"
+            className="hover:text-foreground px-2 transition-colors"
+            aria-label={t('platformEpic')}
           >
             <SiEpicgames
               className={
@@ -102,7 +105,7 @@ export const Form = ({
           <ToggleGroup.Item
             value={AccountTypes.PSN}
             className="hover:text-brands-playstation px-2 transition-colors"
-            aria-label="PlayStation"
+            aria-label={t('platformPlaystation')}
           >
             <FaPlaystation
               className={
@@ -115,7 +118,7 @@ export const Form = ({
           <ToggleGroup.Item
             value={AccountTypes.Xbox}
             className="hover:text-brands-xbox px-2 transition-colors"
-            aria-label="Xbox"
+            aria-label={t('platformXbox')}
           >
             <FaXbox
               className={
@@ -139,7 +142,7 @@ export const Form = ({
         }}
       >
         <span className="text-foreground pr-2 text-sm">
-          Current season only
+          {t('currentSeasonOnly')}
         </span>
       </Switch>
     </form>

@@ -9,6 +9,7 @@ import {
   ModalHeader,
 } from '@heroui/modal';
 import { Mail } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { LuGithub as Github, LuLinkedin as Linkedin } from 'react-icons/lu';
 import { twMerge } from 'tailwind-merge';
@@ -22,6 +23,8 @@ export const Contact = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');
   const [modalTitle, setModalTitle] = useState('');
+
+  const t = useTranslations('home.contact');
 
   const contactInfos = [
     {
@@ -39,9 +42,7 @@ export const Contact = () => {
         e.preventDefault();
         setIsModalOpen(true);
         setModalTitle(':(');
-        setModalContent(
-          'Too many shady companies scraped my LinkedIn data to create profiles on their websites and sell everything to recruiters. I made the decision to remove my LinkedIn account.',
-        );
+        setModalContent(t('linkedinModalContent'));
       },
       className:
         'hover:text-red-400 motion-safe:transition-colors duration-300',
@@ -57,7 +58,7 @@ export const Contact = () => {
   return (
     <>
       <div className="mx-auto my-0 mt-16 mb-3 w-5/6 md:mb-10 lg:mt-52 lg:max-w-7xl">
-        <Heading level={2}> Get In Touch </Heading>
+        <Heading level={2}>{t('title')}</Heading>
 
         <div className="flex flex-col md:flex-row">
           {contactInfos.map(({ className, icon, label, link, onClick }) => (
@@ -90,7 +91,7 @@ export const Contact = () => {
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary" onPress={onClose}>
-                    Close
+                    {t('linkedinModalClose')}
                   </Button>
                 </ModalFooter>
               </>

@@ -3,6 +3,7 @@ import { userEvent } from '@testing-library/user-event';
 import { afterEach, expect, test, vi } from 'vitest';
 
 import { Board, boardSizes } from '#models/conway';
+import { testWrapper as wrapper } from '#utils/tests';
 
 import { Side } from './Side';
 
@@ -39,6 +40,7 @@ const setup = ({
       isPlaying={isPlaying}
       setIsPlaying={setIsPlaying}
     />,
+    { wrapper },
   );
   return {
     ...utils,
@@ -107,8 +109,8 @@ test('Can start/pause the game', () => {
     spies: { setBoardSize },
   } = setup();
 
-  const boardSizeInput = getByLabelText('Grid Size', { selector: 'input' });
-  expect(boardSizeInput, 'Grid Size input not found').toBeDefined();
+  const boardSizeInput = getByLabelText('Board Size', { selector: 'input' });
+  expect(boardSizeInput, 'Board Size input not found').toBeDefined();
 
   // user.type wont allow to pass a number, so we use fireEvent
   fireEvent.change(boardSizeInput, { target: { value: 1 } });

@@ -6,6 +6,7 @@ import { DateValue, getLocalTimeZone, now } from '@internationalized/date';
 import { CityData, cityMapping } from 'city-timezones';
 import moment from 'moment-timezone';
 import { AnimatePresence } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { Color, colors, LargePill } from '#components/layout/LargePill.tsx';
@@ -39,6 +40,8 @@ const getColor = (skip?: Color): Color => {
 };
 
 export const Timezones = () => {
+  const t = useTranslations('timezones');
+
   const [zones, setZones] = useState<CityDataWithExtras[]>([]);
   const [baseZone, setBaseZone] = useState<CityData>();
   const [baseSearchValue, setBaseSearchValue] = useState<string>('');
@@ -94,17 +97,17 @@ export const Timezones = () => {
     <>
       <Section>
         <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl uppercase sm:text-8xl xl:text-9xl">
-          Timezone converter
+          {t('title')}
         </h1>
       </Section>
 
       <Section>
         <div className="flex flex-col items-center gap-4">
           <Autocomplete
-            label="When in"
+            label={t('fromLabel')}
             className="max-w-[400px]"
             size="lg"
-            aria-label="Search for a city"
+            aria-label={t('fromAriaLabel')}
             defaultItems={[]}
             onInputChange={e => {
               searchBaseCity(e);
@@ -132,7 +135,8 @@ export const Timezones = () => {
             )}
           </Autocomplete>
           <DateInput
-            label="it's"
+            label={t('dateTimeLabel')}
+            aria-label={t('dateTimeAriaLabel')}
             size="lg"
             className="chromatic-ignore max-w-[400px]"
             hideTimeZone
@@ -157,10 +161,10 @@ export const Timezones = () => {
                 </AnimatePresence>
               </div>
               <Autocomplete
-                label="See what day and time it was in"
+                label={t('toLabel')}
                 className="mt-20 max-w-[400px]"
                 size="lg"
-                aria-label="Search for a city"
+                aria-label={t('toAriaLabel')}
                 defaultItems={[]}
                 onInputChange={e => {
                   searchTargetCity(e);
@@ -173,19 +177,18 @@ export const Timezones = () => {
                       ...sortedCities[~~e].data,
                       id: crypto.randomUUID(),
                       color: getColor(zones.at(-1)?.color),
-                      content: (
-                        <>
-                          In{' '}
+                      content: t.rich('output', {
+                        city: sortedCities[~~e].data.city,
+                        time: date
+                          .clone()
+                          .tz(sortedCities[~~e].data.timezone)
+                          .format('LLLL'),
+                        cityWrapper: chunk => (
                           <div className="inline font-bold">
-                            <span>{sortedCities[~~e].data.city}</span>
-                          </div>{' '}
-                          it&apos;s{' '}
-                          {date
-                            .clone()
-                            .tz(sortedCities[~~e].data.timezone)
-                            .format('dddd, MMMM Do YYYY, h:mm:ss a')}
-                        </>
-                      ),
+                            <span>{chunk}</span>
+                          </div>
+                        ),
+                      }),
                     };
                     setZones([...zones, newZone]);
                     setSearchItems([]);

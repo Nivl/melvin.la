@@ -10,5 +10,12 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
     exclude: [...configDefaults.exclude, 'e2e/*'],
+    server: {
+      deps: {
+        // https://next-intl.dev/docs/environments/testing#vitest
+        // https://github.com/vercel/next.js/issues/77200
+        inline: ['next-intl'],
+      },
+    },
   },
 });

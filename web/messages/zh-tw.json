@@ -1,0 +1,212 @@
+{
+  "errorPages": {
+    "404": {
+      "metadata": {
+        "title": "404 - 找不到頁面 :: Melvin Laplanche",
+        "description": "此頁面不存在，很抱歉。"
+      },
+      "title": "找不到頁面"
+    }
+  },
+  "navbar": {
+    "home": "首頁",
+    "blog": "部落格",
+    "games": "遊戲",
+    "conway": "生命遊戲",
+    "tools": "工具",
+    "fortnite": "Fortnite 數據",
+    "string-length": "字串長度",
+    "timezones": "時區轉換器",
+    "timestamp": "Timestamp 查詢",
+    "uuid": "UUID 產生器",
+    "switchTheme": "切換主題",
+    "theme": "主題",
+    "themeLight": "亮色",
+    "themeDark": "暗色",
+    "themeSystem": "系統",
+    "changeLanguage": "更改語言",
+    "language": "語言"
+  },
+  "home": {
+    "metadata": {
+      "description": "Melvin Laplanche 的個人網站，這裡沒什麼特別有趣的"
+    },
+    "header": {
+      "subtitle": "熱愛後端和系統開發的全端工程師"
+    },
+    "aboutme": {
+      "title": "關於我",
+      "content": "你好，我是 Melvin，一名常駐洛杉磯的軟體工程師。我從 2004 年還在上中學時就開始用 C 語言寫程式，從此便一發不可收拾。多年來，我探索了各種程式語言和技術。我喜歡學習新概念，經常在業餘時間嘗試新興的工具和框架。我致力於建構整潔的架構和經過充分測試的程式碼。",
+      "cta": "查看我的 Github"
+    },
+    "tech": {
+      "backend": {
+        "title": "後端 / 運維技術",
+        "content": "像許多 AngularJS 時代之前的 Web 工程師一樣，我的職業生涯始於後端開發。我從原生 PHP 起步，當時它是建構網站的主流技術，後來擁抱了 Rails、Django、Symfony 2、Node 和 Go 等新趨勢。我努力緊跟後端技術的演進，在採用之前仔細權衡利弊。此外，我有多年使用 C 和 C++ 的經驗。"
+      },
+      "client": {
+        "title": "客戶端技術",
+        "content1": "雖然我覺得後端開發很有趣，但現代後端主要專注於處理數據並將數據返回給客戶端。這一現實激發了我對客戶端開發的興趣。我相信編寫客戶端程式碼讓我成為了一名更好的後端工程師，因為我理解了在處理未記錄或設計不佳、只能部分提供所需數據的 API 時所面臨的挑戰。",
+        "content2": "在職業方面，我在各種平台上都有經驗，包括原生行動應用（iOS 和 Android）、混合行動應用、標準 Electron 應用、帶有本地 Go 後端以處理繁重任務的 Electron 應用（利用 cgo 呼叫原生 Windows 和 macOS 函式庫），以及使用 Angular、React 等建構的單頁應用（SPA）。"
+      }
+    },
+    "contact": {
+      "title": "聯絡我",
+      "linkedinModalContent": "太多可疑的公司抓取我的 LinkedIn 數據在他們網站上建立個人資料並賣給招聘人員。我決定刪除我的 LinkedIn 帳號。",
+      "linkedinModalClose": "關閉"
+    }
+  },
+  "blog": {
+    "metadata": {
+      "title": "部落格",
+      "description": "查看最新文章"
+    },
+    "listTitle": "部落格文章"
+  },
+  "conway": {
+    "metadata": {
+      "title": "生命遊戲",
+      "description": "康威生命遊戲"
+    },
+    "title": "康威生命遊戲",
+    "needLargeScreen": "訪問此頁面需要大螢幕裝置",
+    "whatIsIt": "生命遊戲是英國數學家約翰·霍頓·康威在 1970 年設計的細胞自動機。它是一個零玩家遊戲，意味著它的演變完全取決於其初始狀態，無需進一步輸入。通過建立初始配置並觀察其演變來與生命遊戲互動。它是圖靈完備的，可以模擬通用構造器或任何其他圖靈機。",
+    "quoteUrl": "https://zh.wikipedia.org/wiki/康威生命游戏",
+    "quoteBy": "",
+    "howToPlay": "怎麼玩",
+    "rules": {
+      "header": "生命遊戲的宇宙是一個二維正交網格，由方形細胞組成，每個細胞處於兩種可能狀態之一：存活或死亡。每個細胞與其八個鄰居（水平、垂直或對角相鄰的細胞）進行互動。在每個時間步長，發生以下轉換：",
+      "rule1": "任何周圍活細胞少於兩個的活細胞死亡，彷彿是由於人口過少。",
+      "rule2": "任何周圍有兩個或三個活細胞的活細胞在下一代中繼續存活。",
+      "rule3": "任何周圍有三個以上活細胞的活細胞死亡，彷彿是由於人口過剩。",
+      "rule4": "任何周圍正好有三個活細胞的死細胞變成活細胞，彷彿是由於繁殖。",
+      "footer": "初始圖案構成了系統的種子。第一代是通過將上述規則同時應用於種子中的每個細胞（無論存活還是死亡）而建立的；出生和死亡同時發生。每一代都是前一代的純函數。規則繼續重複應用以創造更多代。"
+    },
+    "gridInfo": "網格已預先填充了隨機細胞。你可以通過點擊細胞來改變其狀態從而編輯網格。",
+    "controls": {
+      "title": "控制",
+      "play": "播放",
+      "pause": "暫停",
+      "speed": "速度",
+      "boardSize": "棋盤大小",
+      "presets": {
+        "title": "預設",
+        "glider": "滑翔機",
+        "pulsar": "脈衝星",
+        "pentadecathlon": "五体",
+        "heavySpaceship": "重型飛船"
+      }
+    }
+  },
+  "fortnite": {
+    "metadata": {
+      "title": "Fortnite 數據",
+      "description": "來自 Fortnite 的所有數據",
+      "focusTitle": "{username} 的 Fortnite 數據",
+      "focusDescription": "{username} 的所有 Fortnite 數據"
+    },
+    "title": "看看你在 <name>Fortnite</name> 中的表現如何",
+    "errors": {
+      "accountPrivate": "這位玩家不想讓你看到他們的數據。",
+      "notFound": "在這個平台上沒人叫這個名字。",
+      "serverError": "看起來現在無法獲取數據。請稍後再試。"
+    },
+    "presets": "或者選擇一位著名的內容創作者",
+    "daysSpent": "{days, plural, =0 {0 天} other {# 天}}",
+    "hoursSpent": "{hours, plural, =0 {0 小時} other {# 小時}}",
+    "minutesSpent": "{minutes, plural, =0 {0 分鐘} other {# 分鐘}}",
+    "timeSpent": "這就是你在遊戲中花費的時間。",
+    "overallWinRate": "總勝率",
+    "overallKd": "總擊殺/死亡比",
+    "currentLevel": "等級 {level}",
+    "currentLevelProgression": "當前等級進度",
+    "form": {
+      "accountName": "帳戶名稱",
+      "platform": "平台",
+      "platformEpic": "Epic Games",
+      "platformXbox": "Xbox",
+      "platformPlaystation": "PlayStation",
+      "currentSeasonOnly": "僅當前賽季"
+    },
+    "data": {
+      "statsTable": "包含所有統計數據的表格",
+      "gamePlayed": "已玩場次",
+      "wins": "獲勝",
+      "winRate": "勝率",
+      "kd": "擊殺/死亡比",
+      "kdHelp": "你每死亡一次平均擊殺多少人",
+      "top10rate": "前 10% 率",
+      "top10rateHelp": "你成為最後倖存的 10 名玩家之一的頻率",
+      "top25rate": "前 25% 率",
+      "top25rateHelp": "你成為最後倖存的 25 名玩家之一的頻率",
+      "timePlayed": "遊戲時間",
+      "noData": "沒有要顯示的數據。",
+      "kbm": "鍵盤和滑鼠",
+      "gamepad": "手把",
+      "mobile": "行動端",
+      "all-categories": "全部",
+      "solo": "單人",
+      "duo": "雙人",
+      "squad": "三人 / 四人",
+      "overall": "總體",
+      "stat": "統計",
+      "value": "數值"
+    }
+  },
+  "stringLength": {
+    "metadata": {
+      "title": "字串長度",
+      "description": "使用我們的免費線上字串長度工具計算文字中的字元、單詞和位元組數。正確支援 Unicode 字元。"
+    },
+    "title": "字串長度",
+    "inputLabel": "輸入你的文字",
+    "inputPlaceholder": "在此輸入或貼上你的文字...",
+    "characterCount": "字元",
+    "word-count": "單詞",
+    "wordCountTooltip": "僅支援基於空格的語言（例如英語、西班牙語、法語）。不支援空格的語言（例如中文、日語、韓語）計數不準確。",
+    "byteCount": "位元組 (UTF-8)"
+  },
+  "timestamp": {
+    "metadata": {
+      "title": "Timestamp 查詢",
+      "description": "將 Timestamp 轉換為實際日期。"
+    },
+    "title": "Timestamp 查詢",
+    "inputLabel": "Timestamp",
+    "inputError": "無效的 Timestamp",
+    "inputDescription": "自動檢測毫秒、微秒和納秒",
+    "output": "{timestamp} 是 <date>{utcDate}</date>"
+  },
+  "uuid": {
+    "metadata": {
+      "title": "UUID 產生器",
+      "description": "使用我們的免費線上 UUID 產生器工具輕鬆生成 UUID。幾秒鐘內為你的專案建立唯一識別碼。"
+    },
+    "title": "UUID 產生器",
+    "versionLabel": "UUID 版本",
+    "versionPlaceholder": "選擇 UUID 版本",
+    "nameLabel": "名稱",
+    "namePlaceholder": "輸入名稱",
+    "namespaceLabel": "命名空間",
+    "namespacePlaceholder": "選擇命名空間",
+    "customNamespaceLabel": "自定義命名空間",
+    "customNamespacePlaceholder": "輸入命名空間",
+    "customNamespaceError": "請輸入有效的 UUID",
+    "countLabel": "生成數量",
+    "actionGenerate": "生成"
+  },
+  "timezones": {
+    "metadata": {
+      "title": "時區轉換器",
+      "description": "比較時區並轉換時間。"
+    },
+    "title": "時區轉換器",
+    "fromLabel": "當在",
+    "fromAriaLabel": "搜尋要轉換的城市",
+    "dateTimeLabel": "是",
+    "dateTimeAriaLabel": "選擇要轉換的時間",
+    "toLabel": "查看在什麼日期和時間是",
+    "toAriaLabel": "搜尋轉換到的城市",
+    "output": "在 <cityWrapper>{city}</cityWrapper>，現在是 {time}"
+  }
+}

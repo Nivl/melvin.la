@@ -3,7 +3,9 @@
         "src/backend/api.ts",
         "src/models/index.ts",
         "tsconfig.base.json",
-        "src/app/heroui.ts"
+        "src/app/heroui.ts",
+        "messages/en.d.json.ts",
+        "src/i18n/routing.ts"
     ],
     "ignoreDependencies": [
         "eslint-plugin-import",

@@ -1,29 +1,23 @@
+import { useTranslations } from 'next-intl';
 import { PiHandPeaceLight as PeaceIcon } from 'react-icons/pi';
 
-import { CTA } from '../../models';
 import { Heading } from '../layout/Heading';
 
-export const About = ({
-  title,
-  content,
-  cta,
-}: {
-  title: string;
-  content: string;
-  cta: CTA;
-}) => {
+export const About = () => {
+  const t = useTranslations('home.aboutme');
+
   return (
     <div>
       <div className="flex flex-col items-center md:flex-row">
         <div className="md:text-right">
-          <Heading level={2}>{title}</Heading>
-          <p> {content} </p>
+          <Heading level={2}>{t('title')}</Heading>
+          <p> {t('content')} </p>
           <div className="flex items-center justify-end text-base font-bold uppercase">
             <a
-              href={cta.url}
+              href="https://github.com/Nivl"
               className="text-accent visited:text-accent border-none"
             >
-              {cta.text}
+              {t('cta')}
             </a>
           </div>
         </div>
