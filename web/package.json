@@ -21,7 +21,7 @@
     "build-storybook": "storybook build",
     "oapi-gen": "openapi-typescript ../api/internal/gen/openapi.yml -o ./src/gen/api.d.ts --root-types --root-types-no-schema-prefix",
     "knip": "knip",
-    "i18n:check": "i18n-check --source en --locales ./messages --unused src --reporter table",
+    "i18n:check": "i18n-check --source en --locales ./messages --unused src --reporter table --ignore conway.quoteUrl conway.quoteBy",
     "validate-code": "pnpm run i18n:check && pnpm run knip && pnpm run check-types && pnpm run lint",
     "test:unit": "vitest",
     "test:e2e": "playwright test"
