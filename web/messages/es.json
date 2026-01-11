@@ -60,7 +60,8 @@
     "metadata": {
       "title": "Blog",
       "description": "Ver las últimas publicaciones del blog"
-    }
+    },
+    "listTitle": "Publicaciones"
   },
   "conway": {
     "metadata": {

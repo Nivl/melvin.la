@@ -7,10 +7,12 @@ import { Post } from '#components/blog/Post';
 import { getAllBlogPosts, getBlogPost } from '#ssg/queries';
 import { getMetadata } from '#utils/metadata';
 
-export default function Home(props: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(props.params);
+export default function Home(props: {
+  params: Promise<{ slug: string; locale: string }>;
+}) {
+  const { slug, locale } = use(props.params);
 
-  const post = getBlogPost(slug);
+  const post = getBlogPost(slug, locale);
   if (!post) {
     return notFound();
   }
@@ -22,7 +24,7 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return getAllBlogPosts().map(post => ({
-    slug: post.slug,
+    slug: post.key,
   }));
 }
 
@@ -33,7 +35,7 @@ export async function generateMetadata(props: {
   const { slug, locale } = await props.params;
   const t = await getTranslations({ locale, namespace: 'blog.metadata' });
 
-  const post = getBlogPost(slug);
+  const post = getBlogPost(slug, locale);
   if (!post) {
     return await getMetadata({
       locale,
@@ -49,7 +51,7 @@ export async function generateMetadata(props: {
       pageUrl: `/blog/${slug}`,
       title: post.title,
       description: post.excerpt,
-      imageURL: `/assets/blog/${post.slug}/${post.ogImage}`,
+      imageURL: `/assets/blog/${post.key}/${post.ogImage}`,
       extraOg: {
         type: 'article',
         publishedTime: post.createdAt,

@@ -63,7 +63,8 @@ declare const messages: {
     "metadata": {
       "title": "Blog",
       "description": "See the latest blog posts"
-    }
+    },
+    "listTitle": "Blog Posts"
   },
   "conway": {
     "metadata": {

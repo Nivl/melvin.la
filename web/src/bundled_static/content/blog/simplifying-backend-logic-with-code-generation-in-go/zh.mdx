@@ -1,0 +1,200 @@
+---
+title: "使用 Go 代码生成简化后端逻辑"
+slug: "simplifying-backend-logic-with-code-generation-in-go"
+excerpt: "探索代码生成工具如何简化 Go 后端开发。"
+image: "cover.avif"
+ogImage: "cover.jpg"
+createdAt: "2025-06-20"
+updatedAt: "2025-06-20"
+---
+后端开发通常涉及重复的样板代码，尤其是在处理数据库查询和 API 服务器实现时。手动编写和维护这些代码容易出错且耗时。代码生成（codegen）工具通过从声明性规范生成类型安全、高效且可维护的代码来帮助自动化这些任务。
+
+在本文中，我们将探讨如何通过使用两个流行的代码生成工具来简化 Go 中的后端逻辑：
+
+- **[sqlc](https://sqlc.dev/)** 用于从 SQL 查询生成 Go 代码
+- **[oapi-codegen](https://github.com/oapi-codegen/oapi-codegen)** 用于从 OpenAPI 规范生成 Go 服务器代码
+
+## 为什么使用代码生成？
+
+- **减少样板代码：** 自动化重复的代码编写。
+- **增加类型安全性：** 通过生成强类型代码来避免运行时错误。
+- **提高可维护性：** SQL 或 API 规范中的更改会自动传播到代码中。
+- **提高生产力：** 专注于业务逻辑而不是底层管道。
+
+
+## 使用 sqlc 进行 SQL 代码生成
+
+### 什么是 sqlc？
+
+**sqlc** 是一个从 SQL 查询生成 Go 代码的工具。您在 `.sql` 文件中编写 SQL 查询，sqlc 会生成执行这些查询的 Go 函数，并带有类型安全的参数和结果。
+
+### 如何使用 sqlc
+
+1. 编写 SQL 模式和查询。
+2. 配置 `sqlc.yaml` 以指定输入/输出。
+3. 运行 `sqlc generate` 生成 Go 代码。
+
+### 示例
+
+假设您有一个简单的 `users` 表：
+
+```sql
+-- schema.sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL
+);
+```
+
+以及一个通过电子邮件获取用户的查询：
+
+```sql
+-- queries.sql
+-- name: GetUserByEmail :one
+SELECT id, name, email FROM users WHERE email = $1;
+```
+
+您的 `sqlc.yaml` 配置：
+
+```yaml
+version: "1"
+packages:
+  - name: "db"
+    path: "./db"
+    queries: "./queries.sql"
+    schema: "./schema.sql"
+    engine: "postgresql"
+```
+
+运行：
+
+```bash
+sqlc generate
+```
+
+这将生成带有如下方法的 Go 代码：
+
+```go
+func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error)
+```
+
+您可以在后端中使用它：
+
+```go
+user, err := dbQueries.GetUserByEmail(ctx, "alice@example.com")
+if err != nil {
+    // 处理错误
+}
+fmt.Println("User:", user.Name)
+```
+
+这消除了手动 SQL 字符串处理和行扫描，使您的代码更清晰、更安全。
+
+## 使用 oapi-codegen 进行服务器代码生成
+
+### 什么是 oapi-codegen？
+
+**oapi-codegen** 从 OpenAPI (Swagger) 规范生成 Go 服务器（和客户端）代码。它创建接口和请求/响应类型，因此您可以专注于实现业务逻辑。
+
+### 如何使用 oapi-codegen
+
+1. 在 OpenAPI YAML 或 JSON 文件中定义您的 API。
+2. 运行 `oapi-codegen` 生成 Go 服务器代码。
+3. 实现生成的接口方法。
+
+### 示例
+
+考虑一个简单的 OpenAPI 规范 `api.yaml`：
+
+```yaml
+openapi: 3.0.0
+info:
+  title: User API
+  version: 1.0.0
+paths:
+  /users/{email}:
+    get:
+      summary: Get user by email
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+```
+
+生成服务器代码：
+
+```bash
+oapi-codegen -generate types,server -package api -o api.gen.go api.yaml
+```
+
+这将生成：
+
+- 请求/响应的 Go 类型 (`User` 结构体)
+- 一个带有以下方法的接口 `ServerInterface`：
+
+```go
+GetUsersEmail(ctx context.Context, email string) (api.User, error)
+```
+
+实现接口：
+
+```go
+type ServerImpl struct {
+    db *db.Queries
+}
+
+func (s *ServerImpl) GetUsersEmail(ctx context.Context, email string) (api.User, error) {
+    user, err := s.db.GetUserByEmail(ctx, email)
+    if err != nil {
+        return api.User{}, err
+    }
+    return api.User{
+        Id:    int64(user.ID),
+        Name:  user.Name,
+        Email: user.Email,
+    }, nil
+}
+```
+
+连接服务器：
+
+```go
+router := api.NewRouter(&ServerImpl{db: dbQueries})
+http.ListenAndServe(":8080", router)
+```
+
+
+## 结合使用 sqlc 和 oapi-codegen 的好处
+
+- **端到端类型安全：** 从数据库到 API 层。
+- **清晰分离：** SQL 查询和 API 规范是声明性的，与逻辑分离。
+- **更快的开发：** 专注于实现业务逻辑，而不是管道。
+- **更容易的重构：** 更改 SQL 或 API 规范，重新生成代码，并修复最少的代码。
+
+
+## 结论
+
+结合使用 **sqlc** 和 **oapi-codegen** 可以通过自动生成数据库访问和 API 服务器代码来极大地简化 Go 中的后端开发。这种方法减少了样板代码，提高了安全性，并加速了开发，使您能够专注于最重要的事情：应用程序的核心逻辑。

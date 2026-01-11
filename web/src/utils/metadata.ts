@@ -19,7 +19,8 @@ export const getMetadata = async ({
   const t = await getTranslations({ locale, namespace: 'home.metadata' });
 
   const images = [{ url: imageURL ?? '/assets/og.jpg' }];
-  const baseURL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://melvin.la';
+  const domain = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://melvin.la';
+  const baseURL = locale === 'en' ? domain : `${domain}/${locale}`;
   const url = pageUrl && pageUrl.startsWith('/') ? baseURL + pageUrl : pageUrl;
 
   return {

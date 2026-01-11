@@ -26,7 +26,7 @@ src/
 ├── backend/              # API integration utilities
 │   └── mocks/            # Mock data and utilities for backend
 ├── bundled_static/       # Static content processed at build time
-│   └── content/blog/     # MDX blog posts
+│   └── content/blog/     # MDX blog posts`
 └── utils/                # Utility functions
 ```
 
@@ -95,7 +95,7 @@ import { helper } from './helper'
 
 ## BLOG SYSTEM
 
-**Content Location**: `src/bundled_static/content/blog/*.mdx`
+**Content Location**: `src/bundled_static/content/blog/<article_key>/<language_code>.mdx`
 **Build Process**: 
 1. `scripts/prebuild.ts` - Processes MDX files into SQLite database
 2. `scripts/postbuild.ts` - Post-build cleanup
@@ -141,7 +141,8 @@ updatedAt: "2025-07-03"  # optional
     *   Add the new locale code to the `locales` array.
 2.  Create a new message file:
     *   Create `messages/[locale].json` (e.g., `messages/es.json`).
-    *   Copy the structure from `messages/en.json` as a starting point.
+    *   Fill out the file based off `messages/en.d.json.ts`.
+3.  Write all the blog articles for that locale (`src/bundled_static/content/blog/*/[locale].mdx`)
 
 ### Adding New Strings
 1.  Add the key-value pair to `messages/en.json` (source of truth).

@@ -18,32 +18,39 @@ import { usePathname, useRouter } from '#i18n/routing';
 type Language = {
   key: string;
   label: string;
+  isAI: boolean;
 };
 
 const languages: Language[] = [
   {
     key: 'en',
     label: 'English',
-  },
-  {
-    key: 'fr',
-    label: 'Français',
+    isAI: false,
   },
   {
     key: 'es',
     label: 'Español',
+    isAI: true,
+  },
+  {
+    key: 'fr',
+    label: 'Français',
+    isAI: true,
   },
   {
     key: 'ko',
     label: '한국어',
+    isAI: true,
   },
   {
     key: 'zh',
     label: '中文 (简体)',
+    isAI: true,
   },
   {
     key: 'zh-tw',
     label: '中文 (繁體)',
+    isAI: true,
   },
 ];
 
@@ -100,7 +107,9 @@ export const LanguageSwitcher = () => {
         selectedKeys={new Set([locale])}
       >
         {languages.map(lang => (
-          <DropdownItem key={lang.key}>{lang.label}</DropdownItem>
+          <DropdownItem key={lang.key} textValue={lang.label}>
+            {lang.label} {lang.isAI ? <sup> AI</sup> : ''}
+          </DropdownItem>
         ))}
       </DropdownMenu>
     </Dropdown>

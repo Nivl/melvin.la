@@ -1,0 +1,200 @@
+---
+title: "Simplifier la logique Backend avec la génération de code en Go"
+slug: "simplifying-backend-logic-with-code-generation-in-go"
+excerpt: "Découvrez comment les outils de génération de code peuvent rationaliser le développement backend en Go."
+image: "cover.avif"
+ogImage: "cover.jpg"
+createdAt: "2025-06-20"
+updatedAt: "2025-06-20"
+---
+Le développement backend implique souvent d'écrire du code répétitif, en particulier lors de la gestion des requêtes de base de données et des implémentations de serveurs API. Écrire et maintenir ce code manuellement peut être sujet aux erreurs et chronophage. Les outils de génération de code (codegen) aident à automatiser ces tâches en générant du code typé, efficace et maintenable à partir de spécifications déclaratives.
+
+Dans cet article, nous explorerons comment simplifier la logique backend en Go en utilisant deux outils de génération de code populaires :
+
+- **[sqlc](https://sqlc.dev/)** pour générer du code Go à partir de requêtes SQL
+- **[oapi-codegen](https://github.com/oapi-codegen/oapi-codegen)** pour générer du code serveur Go à partir de spécifications OpenAPI
+
+## Pourquoi utiliser la génération de code ?
+
+- **Réduire le boilerplate :** Automatisez l'écriture de code répétitif.
+- **Augmenter la sécurité de type :** Évitez les erreurs d'exécution en générant du code fortement typé.
+- **Améliorer la maintenabilité :** Les modifications dans les spécifications SQL ou API se propagent automatiquement au code.
+- **Booster la productivité :** Concentrez-vous sur la logique métier plutôt que sur la plomberie.
+
+
+## Génération de code SQL avec sqlc
+
+### Qu'est-ce que sqlc ?
+
+**sqlc** est un outil qui génère du code Go à partir de requêtes SQL. Vous écrivez vos requêtes SQL dans des fichiers `.sql`, et sqlc génère des fonctions Go qui exécutent ces requêtes avec des paramètres et des résultats typés.
+
+### Comment utiliser sqlc
+
+1. Écrivez votre schéma SQL et vos requêtes.
+2. Configurez `sqlc.yaml` pour spécifier les entrées/sorties.
+3. Exécutez `sqlc generate` pour produire le code Go.
+
+### Exemple
+
+Supposons que vous ayez une table `users` simple :
+
+```sql
+-- schema.sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL
+);
+```
+
+Et une requête pour obtenir un utilisateur par email :
+
+```sql
+-- queries.sql
+-- name: GetUserByEmail :one
+SELECT id, name, email FROM users WHERE email = $1;
+```
+
+Votre configuration `sqlc.yaml` :
+
+```yaml
+version: "1"
+packages:
+  - name: "db"
+    path: "./db"
+    queries: "./queries.sql"
+    schema: "./schema.sql"
+    engine: "postgresql"
+```
+
+Exécutez :
+
+```bash
+sqlc generate
+```
+
+Cela génère du code Go avec une méthode comme :
+
+```go
+func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error)
+```
+
+Vous pouvez l'utiliser dans votre backend :
+
+```go
+user, err := dbQueries.GetUserByEmail(ctx, "alice@example.com")
+if err != nil {
+    // gérer l'erreur
+}
+fmt.Println("User:", user.Name)
+```
+
+Cela élimine la manipulation manuelle des chaînes SQL et le scan des lignes, rendant votre code plus propre et plus sûr.
+
+## Génération de code serveur avec oapi-codegen
+
+### Qu'est-ce que oapi-codegen ?
+
+**oapi-codegen** génère du code serveur (et client) Go à partir d'une spécification OpenAPI (Swagger). Il crée des interfaces et des types de requêtes/réponses, vous permettant de vous concentrer sur l'implémentation de la logique métier.
+
+### Comment utiliser oapi-codegen
+
+1. Définissez votre API dans un fichier OpenAPI YAML ou JSON.
+2. Exécutez `oapi-codegen` pour générer le code serveur Go.
+3. Implémentez les méthodes de l'interface générée.
+
+### Exemple
+
+Considérez une spécification OpenAPI simple `api.yaml` :
+
+```yaml
+openapi: 3.0.0
+info:
+  title: User API
+  version: 1.0.0
+paths:
+  /users/{email}:
+    get:
+      summary: Get user by email
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+```
+
+Générez le code serveur :
+
+```bash
+oapi-codegen -generate types,server -package api -o api.gen.go api.yaml
+```
+
+Cela génère :
+
+- Des types Go pour les requêtes/réponses (struct `User`)
+- Une interface `ServerInterface` avec la méthode :
+
+```go
+GetUsersEmail(ctx context.Context, email string) (api.User, error)
+```
+
+Implémentez l'interface :
+
+```go
+type ServerImpl struct {
+    db *db.Queries
+}
+
+func (s *ServerImpl) GetUsersEmail(ctx context.Context, email string) (api.User, error) {
+    user, err := s.db.GetUserByEmail(ctx, email)
+    if err != nil {
+        return api.User{}, err
+    }
+    return api.User{
+        Id:    int64(user.ID),
+        Name:  user.Name,
+        Email: user.Email,
+    }, nil
+}
+```
+
+Connectez le serveur :
+
+```go
+router := api.NewRouter(&ServerImpl{db: dbQueries})
+http.ListenAndServe(":8080", router)
+```
+
+
+## Avantages de combiner sqlc et oapi-codegen
+
+- **Sécurité de type de bout en bout :** De la base de données à la couche API.
+- **Séparation claire :** Les requêtes SQL et les spécifications API sont déclaratives et séparées de la logique.
+- **Développement plus rapide :** Concentrez-vous sur l'implémentation de la logique métier, pas sur la plomberie.
+- **Refactoring plus facile :** Modifiez le SQL ou la spécification API, régénérez le code et corrigez le minimum de code.
+
+
+## Conclusion
+
+L'utilisation conjointe de **sqlc** et **oapi-codegen** peut grandement simplifier le développement backend en Go en automatisant la génération de l'accès à la base de données et du code serveur API. Cette approche réduit le boilerplate, améliore la sécurité et accélère le développement, vous permettant de vous concentrer sur ce qui compte le plus : la logique centrale de votre application.

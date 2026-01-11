@@ -1,0 +1,200 @@
+---
+title: "使用 Go 程式碼生成簡化後端邏輯"
+slug: "simplifying-backend-logic-with-code-generation-in-go"
+excerpt: "探索程式碼生成工具如何簡化 Go 後端開發。"
+image: "cover.avif"
+ogImage: "cover.jpg"
+createdAt: "2025-06-20"
+updatedAt: "2025-06-20"
+---
+後端開發通常涉及重複的樣板程式碼，尤其是在處理資料庫查詢和 API 伺服器實作時。手動編寫和維護這些程式碼容易出錯且耗時。程式碼生成（codegen）工具透過從聲明性規範生成類型安全、高效且可維護的程式碼來幫助自動化這些任務。
+
+在本文中，我們將探討如何透過使用兩個流行的程式碼生成工具來簡化 Go 中的後端邏輯：
+
+- **[sqlc](https://sqlc.dev/)** 用於從 SQL 查詢生成 Go 程式碼
+- **[oapi-codegen](https://github.com/oapi-codegen/oapi-codegen)** 用於從 OpenAPI 規範生成 Go 伺服器程式碼
+
+## 為什麼使用程式碼生成？
+
+- **減少樣板程式碼：** 自動化重複的程式碼編寫。
+- **增加類型安全性：** 透過生成強型別程式碼來避免執行時錯誤。
+- **提高可維護性：** SQL 或 API 規範中的更改會自動傳播到程式碼中。
+- **提高生產力：** 專注於業務邏輯而不是底層管道。
+
+
+## 使用 sqlc 進行 SQL 程式碼生成
+
+### 什麼是 sqlc？
+
+**sqlc** 是一個從 SQL 查詢生成 Go 程式碼的工具。您在 `.sql` 檔案中編寫 SQL 查詢，sqlc 會生成執行這些查詢的 Go 函數，並帶有類型安全的參數和結果。
+
+### 如何使用 sqlc
+
+1. 編寫 SQL 架構和查詢。
+2. 配置 `sqlc.yaml` 以指定輸入/輸出。
+3. 執行 `sqlc generate` 生成 Go 程式碼。
+
+### 範例
+
+假設您有一個簡單的 `users` 表：
+
+```sql
+-- schema.sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL
+);
+```
+
+以及一個透過電子郵件獲取使用者的查詢：
+
+```sql
+-- queries.sql
+-- name: GetUserByEmail :one
+SELECT id, name, email FROM users WHERE email = $1;
+```
+
+您的 `sqlc.yaml` 配置：
+
+```yaml
+version: "1"
+packages:
+  - name: "db"
+    path: "./db"
+    queries: "./queries.sql"
+    schema: "./schema.sql"
+    engine: "postgresql"
+```
+
+執行：
+
+```bash
+sqlc generate
+```
+
+這將生成帶有如下方法的 Go 程式碼：
+
+```go
+func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error)
+```
+
+您可以在後端中使用它：
+
+```go
+user, err := dbQueries.GetUserByEmail(ctx, "alice@example.com")
+if err != nil {
+    // 處理錯誤
+}
+fmt.Println("User:", user.Name)
+```
+
+這消除了手動 SQL 字串處理和行掃描，使您的程式碼更清晰、更安全。
+
+## 使用 oapi-codegen 進行伺服器程式碼生成
+
+### 什麼是 oapi-codegen？
+
+**oapi-codegen** 從 OpenAPI (Swagger) 規範生成 Go 伺服器（和客戶端）程式碼。它創建介面和請求/響應類型，因此您可以專注於實作業務邏輯。
+
+### 如何使用 oapi-codegen
+
+1. 在 OpenAPI YAML 或 JSON 檔案中定義您的 API。
+2. 執行 `oapi-codegen` 生成 Go 伺服器程式碼。
+3. 實作生成的介面方法。
+
+### 範例
+
+考慮一個簡單的 OpenAPI 規範 `api.yaml`：
+
+```yaml
+openapi: 3.0.0
+info:
+  title: User API
+  version: 1.0.0
+paths:
+  /users/{email}:
+    get:
+      summary: Get user by email
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+```
+
+生成伺服器程式碼：
+
+```bash
+oapi-codegen -generate types,server -package api -o api.gen.go api.yaml
+```
+
+這將生成：
+
+- 請求/響應的 Go 類型 (`User` 結構體)
+- 一個帶有以下方法的介面 `ServerInterface`：
+
+```go
+GetUsersEmail(ctx context.Context, email string) (api.User, error)
+```
+
+實作介面：
+
+```go
+type ServerImpl struct {
+    db *db.Queries
+}
+
+func (s *ServerImpl) GetUsersEmail(ctx context.Context, email string) (api.User, error) {
+    user, err := s.db.GetUserByEmail(ctx, email)
+    if err != nil {
+        return api.User{}, err
+    }
+    return api.User{
+        Id:    int64(user.ID),
+        Name:  user.Name,
+        Email: user.Email,
+    }, nil
+}
+```
+
+連接伺服器：
+
+```go
+router := api.NewRouter(&ServerImpl{db: dbQueries})
+http.ListenAndServe(":8080", router)
+```
+
+
+## 結合使用 sqlc 和 oapi-codegen 的好處
+
+- **端到端類型安全：** 從資料庫到 API 層。
+- **清晰分離：** SQL 查詢和 API 規範是聲明性的，與邏輯分離。
+- **更快的開發：** 專注於實作業務邏輯，而不是管道。
+- **更容易的重構：** 更改 SQL 或 API 規範，重新生成程式碼，並修復最少的程式碼。
+
+
+## 結論
+
+結合使用 **sqlc** 和 **oapi-codegen** 可以透過自動生成資料庫訪問和 API 伺服器程式碼來極大地簡化 Go 中的後端開發。這種方法減少了樣板程式碼，提高了安全性，並加速了開發，使您能夠專注於最重要的事情：應用程式的核心邏輯。

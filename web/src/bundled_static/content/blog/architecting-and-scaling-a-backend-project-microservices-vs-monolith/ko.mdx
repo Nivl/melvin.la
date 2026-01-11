@@ -1,0 +1,250 @@
+---
+title: "백엔드 프로젝트 아키텍처 및 확장: 마이크로서비스 vs 모놀리스"
+slug: "architecting-and-scaling-a-backend-project-microservices-vs-monolith"
+excerpt: "영원한 논쟁: 모놀리스를 구축해야 할까요, 아니면 모든 것을 마이크로서비스로 나누어야 할까요? 정답은 언제나 그렇듯 '상황에 따라 다릅니다'. 그 이유를 알아봅시다."
+image: "cover.avif"
+ogImage: "cover.jpg"
+createdAt: "2025-06-12"
+updatedAt: "2025-06-12"
+---
+
+백엔드 아키텍처는 종종 여러분의 하루 업무가 얼마나 고통스러울지, 아니면 즐거울지를 결정합니다. 애플리케이션이 성장함에 따라 초기 선택의 균열이 보이기 시작하고, 여러분은 결정을 내려야 합니다: 믿음직한 모놀리스를 고수할 것인가, 아니면 모든 것을 마이크로서비스로 쪼갤 것인가?
+
+만병통치약은 없습니다. 두 접근 방식 모두 장단점이 있으며, "올바른" 선택은 순수한 기술적 장점보다는 팀 구조와 비즈니스 단계에 더 많이 좌우됩니다. 두 가지 주요 경쟁자를 살펴보고, 종종 가장 효과적인 세 번째 실용적인 중도 방안을 알아보겠습니다.
+
+## 1. 경쟁자들
+
+### 마이크로서비스 아키텍처
+
+**마이크로서비스**의 아이디어는 간단합니다: 하나의 거대한 애플리케이션을 구축하는 대신, 작고 독립적인 서비스들의 집합을 구축하는 것입니다. 각 서비스는 한 가지 일을 잘 수행합니다.
+
+분산된 팀처럼 생각해보세요. 각 서비스는 자체 데이터베이스를 관리하며, 다른 서비스의 허락을 받을 필요 없이 준비되는 대로 배포할 수 있습니다. 결제 팀이 Go 언어를 사용하고 싶어 하고 인증 팀은 Rust를 좋아한다면, 두 팀 모두 원하는 대로 할 수 있습니다. 이러한 자율성은 혁신과 속도를 촉진합니다—적어도 이론상으로는요.
+
+실제로는, 500명의 개발자가 하나의 릴리스를 조정하는 것이 악몽과 같은 대규모 조직에 아주 좋습니다.
+
+#### 다이어그램: 마이크로서비스 아키텍처
+```hidden
+digraph G {
+  bgcolor="transparent";
+  node [shape=box style=filled fontname="Raleway" fontsize=14 fontcolor="#222222"];
+
+
+  // Nodes with muted fill colors
+  "API Gateway" [fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+  "Service A"   [fillcolor="#f4b183", fontcolor="#4a2c0f"];
+  "Service B"   [fillcolor="#f4b183", fontcolor="#4a2c0f"];
+  "Database A"  [fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+  "Database B"  [fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+
+  // Arrow style
+  edge [color="#6a8caf", penwidth=1.5];
+
+  // Edges
+  "API Gateway" -> "Service A";
+  "API Gateway" -> "Service B";
+  "Service A"   -> "Database A";
+  "Service B"   -> "Database B";
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-microservice.svg"}
+  priority={true}
+  width={372}
+  height={300}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
+
+### 모놀리스 아키텍처
+
+**모놀리스**는 전통적인 접근 방식입니다: 하나의 코드베이스, 하나의 애플리케이션, 하나의 배포. 사용자 인터페이스부터 비즈니스 로직, 데이터 액세스까지 모든 것이 함께 존재합니다.
+
+"모놀리스"가 일부 집단에서는 거의 금기어처럼 되었지만, 부정할 수 없는 장점들이 있습니다. 단순합니다. 함수가 어디에 정의되어 있는지 찾기 위해 지도가 필요하지 않습니다. 배포는 스크립트 하나면 됩니다. 중소규모 팀에게 이 단순함은 슈퍼파워입니다. 인프라 복잡성에 얽매이지 않고 빠르게 움직일 수 있게 해줍니다.
+
+#### 다이어그램: 모놀리스 아키텍처
+
+```hidden
+digraph Monolith {
+  bgcolor="transparent";
+  node [shape=box, style=filled, fontname="Raleway", fontsize=14 fontcolor="#222222"];
+
+  subgraph cluster_monolith {
+    label="Monolith";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style
+    edge [color="#6a8caf", penwidth=1.5];
+
+    UserInterface [label="User Interface", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    BusinessLogic [label="Business Logic", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    DataAccessLayer [label="Data Access Layer", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    Database [label="Database", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+
+    UserInterface -> BusinessLogic -> DataAccessLayer -> Database;
+  }
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-monolith.svg"}
+  priority={true}
+  width={307}
+  height={600}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
+
+## 2. 트레이드오프
+
+### 왜 마이크로서비스로 가나?
+
+*   **필요한 부분만 확장:** 비디오 처리 기능이 CPU를 많이 사용하지만 로그인 페이지는 한가하다면, 비디오 서비스에만 서버를 더 추가할 수 있습니다.
+*   **스택의 자유:** 5년 전에 내린 기술 선택에 갇히지 않습니다. 새로운 서비스는 최신 도구를 사용할 수 있습니다.
+*   **회복 탄력성:** 이상적으로는, "추천" 서비스가 충돌하더라도 사이트의 나머지 부분(예: "결제")은 계속 작동합니다.
+
+### 마이크로서비스의 비용
+
+*   **운영 복잡성:** 코드 복잡성을 인프라 복잡성과 맞바꾸는 것입니다. 이제 수십 개의 서비스에 걸친 요청을 모니터링하고, 로그를 남기고, 추적해야 합니다.
+*   **지연 시간(Latency):** 메모리 내 함수 호출은 나노초 단위입니다. 다른 서비스로의 네트워크 호출은 밀리초 단위입니다. 이것이 쌓입니다.
+*   **분산 시스템은 어렵다:** 여러 서비스에 걸친 트랜잭션은 골치 아픈 문제입니다. 데이터 일관성을 유지하려면 신중한 설계가 필요합니다.
+
+### 왜 모놀리스를 고수하나?
+
+*   **단순함이 최고:** 코드를 탐색하기 쉽습니다. "정의로 이동(Go to Definition)" 같은 IDE 도구가 실제로 작동합니다.
+*   **성능:** 내부 호출에 대한 네트워크 오버헤드가 없습니다. 모든 것이 프로세스 내에서 일어납니다.
+*   **쉬운 테스트:** 노트북에서 전체 앱을 실행하고 인터넷 전체를 모킹(mocking)하지 않고도 엔드투엔드 테스트를 실행할 수 있습니다.
+
+### 모놀리스의 한계
+
+*   **확장의 고통:** 한 부분만 병목이어도 전체 앱을 확장해야 합니다.
+*   **결합도(Coupling):** 모든 것이 다른 모든 것에 의존하는 스파게티 코드를 만들기 쉽습니다. 잘못된 커밋 하나가 전체 앱을 망가뜨릴 수 있습니다.
+*   **배포의 두려움:** 거대한 모놀리스를 배포하는 것은 느리고 위험할 수 있어, "배포 공포증"과 릴리스 주기 지연으로 이어집니다.
+
+### "너무 많은 서비스"의 함정
+
+중소규모 기업에서 흔히 볼 수 있는 안티 패턴은 엔지니어 수보다 더 많은 마이크로서비스를 갖게 되는 것입니다. 저는 100명의 엔지니어가 300개 이상의 서비스를 유지보수하려고 노력하는 조직을 보았는데, 결과는 완전한 혼돈이었습니다.
+
+임계점을 넘으면, 많은 서비스가 더 이상 명확한 소유자가 없거나, 소유자가 있더라도 조직 개편으로 인해 서비스를 물려받아 맥락을 전혀 모르는 경우가 생깁니다. 또한 모든 저장소의 의존성을 업데이트하여 취약점을 제거하는 데 더 많은 시간을 소비하게 됩니다. 마이크로서비스를 효과적으로 운영하려면 전담 플랫폼 팀과 도구에 대한 상당한 투자가 필요합니다. 대부분의 스타트업은 그런 인프라를 구축할 리소스가 없어, 그들의 "애자일" 아키텍처는 유지보수의 악몽으로 변합니다.
+
+## 3. 어떤 것이 당신에게 맞나?
+
+유행이라서 아키텍처를 선택하지 마세요. 현재의 문제를 해결해주기 때문에 선택하세요.
+
+**마이크로서비스를 선택하세요, 만약:**
+*   대규모 엔지니어링 조직(50명 이상의 개발자)이 있고 팀을 분리해야 할 때.
+*   리소스 요구 사항이 매우 다른 별개의 컴포넌트들이 있을 때(예: 무거운 ML 파이프라인 vs 간단한 CRUD 앱).
+*   모놀리스가 도저히 감당할 수 없는 하드 스케일링 한계에 부딪혔을 때.
+
+**모놀리스를 선택하세요, 만약:**
+*   스타트업이거나 소규모 팀일 때. 반복(iteration) 속도가 가장 중요한 지표입니다.
+*   도메인이 긴밀하게 통합되어 있을 때. 한 기능을 변경할 때 거의 항상 다른 기능을 변경해야 한다면, 분리하는 것은 고통만 더할 뿐입니다.
+*   프로토타이핑 중일 때. 아직 도메인 경계를 모릅니다. 섣불리 서비스를 나누는 것은 전형적인 실수입니다.
+
+## 4. 실용적인 길: 모듈형 모놀리스 & 점진적 분리
+
+비밀을 알려드리죠: 바로 마이크로서비스로 점프할 필요는 없습니다. 사실, 아마 그렇게 해서는 안 될 겁니다.
+
+**모듈형 모놀리스(Modular Monolith)**는 훌륭한 중도 방안입니다. 하나의 배포 가능한 단위를 구축하지만, 내부적으로는 모듈 간에 엄격한 경계를 강제합니다. `모듈 A`의 코드는 `모듈 B`의 코드를 직접 임포트할 수 없으며, 정의된 공개 인터페이스를 거쳐야 합니다. 이는 인프라 오버헤드 없이 마이크로서비스의 코드 조직화 이점을 제공합니다.
+
+애플리케이션이 성장함에 따라, 독립적이어야 *할* 필요가 있는 부분만 떼어내면 됩니다.
+
+### 진화하는 방법:
+
+1.  **이음새 찾기:** 별도의 제품처럼 동작하는 앱의 부분들을 식별하세요. "사용자 인증"이나 "이미지 처리"가 흔한 후보입니다.
+2.  **재작성이 아니라 추출하기:** 해당 코드를 별도의 서비스로 옮기세요. 일관성을 유지하기 위해 공통 라이브러리(로깅이나 지표 설정 같은)는 여전히 공유할 수 있습니다.
+3.  **반복하기:** 한 번에 모든 것을 나누지 마세요. 어쩌면 하나의 메인 모놀리스와 특정 작업을 위한 두 개의 작은 마이크로서비스만 필요할 수도 있습니다.
+4.  **공유 코드 주의:** 서비스 간에 데이터베이스 테이블을 공유하는 것은 함정입니다. 서비스를 분리한다면, 이상적으로는 그 서비스가 자신의 데이터를 소유해야 합니다.
+
+### 다이어그램: 하이브리드 접근 방식
+
+```hidden
+digraph Architecture {
+  bgcolor="transparent";
+  compound=true;
+  node [shape=box, style=filled, fontname="Raleway", fontsize=14, fontcolor="#222222"];
+
+  // Arrow style
+  edge [color="#6a8caf", penwidth=1.5];
+
+  // Monolith cluster
+  subgraph cluster_monolith {
+    label="Monolith";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style inside cluster
+    edge [color="#3a5a7c", penwidth=1.2];
+
+    UserInterface [label="User Interface", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    BusinessLogic [label="Business Logic", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    DataAccessLayer [label="Data Access Layer", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    Database [label="Database", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+
+    UserInterface -> BusinessLogic -> DataAccessLayer -> Database;
+  }
+
+  // API Gateway node
+  APIGateway [label="API Gateway", shape=box, style=filled, fillcolor="#3a5a7c", fontcolor="#f0f0f0"];
+
+  // Services cluster
+  subgraph cluster_services {
+    label="Services";
+    style=rounded;
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Raleway";
+    margin=15;
+
+    // Arrow style inside cluster
+    edge [color="#3a5a7c", penwidth=1.2];
+
+    MediumServiceA [label="Medium Service A\nUser Management\nSub, Auth, etc.", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MonolithServiceA [label="Monolith Service A\nMonolith for app 1", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MonolithServiceB [label="Monolith Service B\nMonolith for app 2", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MicroserviceA [label="Micro service A\nAnalytics", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    DatabaseA [label="Database A", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseB [label="Database B", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseC [label="Database C", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseD [label="Database D", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+
+    MediumServiceA -> DatabaseA;
+    MonolithServiceA -> DatabaseB;
+    MonolithServiceB -> DatabaseC;
+    MicroserviceA -> DatabaseD;
+  }
+
+  // Connections
+  Database -> APIGateway [label="Splitting", style=dashed, color="#6a8caf", fontcolor="#6a8caf", ltail=cluster_monolith];
+  APIGateway -> MediumServiceA;
+  APIGateway -> MonolithServiceA;
+  APIGateway -> MonolithServiceB;
+  APIGateway -> MicroserviceA;
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-hybrid.svg"}
+  priority={true}
+  width={615}
+  height={1200}
+  className="mx-auto mt-10 mb-10"
+  alt={"Microservices Architecture Diagram"}
+/>
+
+## 결론
+
+"마이크로서비스 vs 모놀리스" 논쟁은 종종 본질을 놓칩니다. 이론적으로 어떤 아키텍처가 우월한지가 중요한 것이 아니라, 현재 여러분이 감당할 수 있는 트레이드오프가 무엇인지가 중요합니다.
+
+*   **마이크로서비스**는 독립성과 세밀한 확장을 제공하지만, 복잡성이라는 대가를 치러야 합니다.
+*   **모놀리스**는 단순함과 속도를 제공하지만, 규모가 커지면 다루기 힘들어질 수 있습니다.
+*   **하이브리드/진화형** 아키텍처는 단순하게 시작해서 꼭 필요할 때만 복잡하게 성장할 수 있게 해줍니다.
+
+잘 구조화된 모놀리스로 시작하세요. 고통을 느낄 때 나누세요. 그 전에는 아닙니다. 미래의 당신(그리고 당신의 데브옵스 팀)이 고마워할 것입니다.
