@@ -5,7 +5,9 @@ import './fonts.css';
 
 import type { Preview } from '@storybook/nextjs';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { NextIntlClientProvider } from 'next-intl';
 
+import defaultMessages from '../messages/en.json';
 import { withNextThemes } from './decorators/withNextThemes';
 import { supportedModes } from './modes';
 
@@ -57,6 +59,11 @@ const preview: Preview = {
       <QueryClientProvider client={queryClient}>
         <Story />
       </QueryClientProvider>
+    ),
+    Story => (
+      <NextIntlClientProvider locale="en" messages={defaultMessages}>
+        <Story />
+      </NextIntlClientProvider>
     ),
     withNextThemes({
       themes: {
