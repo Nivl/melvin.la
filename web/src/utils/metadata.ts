@@ -1,8 +1,10 @@
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
+import { locales } from '#i18n/locales';
+
 export const getMetadata = async ({
-  pageUrl,
+  pageUrl = '',
   title,
   description,
   imageURL,
@@ -18,27 +20,44 @@ export const getMetadata = async ({
 }): Promise<Metadata> => {
   const t = await getTranslations({ locale, namespace: 'home.metadata' });
 
+  if (pageUrl && !pageUrl.startsWith('/')) {
+    pageUrl = '/' + pageUrl;
+  }
+
   const images = [{ url: imageURL ?? '/assets/og.jpg' }];
   const domain = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://melvin.la';
   const baseURL = locale === 'en' ? domain : `${domain}/${locale}`;
-  const url = pageUrl && pageUrl.startsWith('/') ? baseURL + pageUrl : pageUrl;
+  const url = pageUrl ? baseURL + pageUrl : baseURL;
+
+  // We list all languages for the alternate links, for SEO purposes
+  const languages: Record<string, string> = {
+    ['x-default']: domain + pageUrl,
+  };
+  for (const loc of locales) {
+    languages[loc] =
+      loc === 'en' ? domain + pageUrl : `${domain}/${loc}${pageUrl}`;
+  }
 
   return {
-    metadataBase: new URL(baseURL),
+    metadataBase: new URL(domain),
     title: (title ?? 'Melvin Laplanche') + ' - melvin.la',
     description: description ?? t('description'),
     keywords: [],
     authors: [
       {
         name: 'Melvin Laplanche',
-        url: baseURL,
+        url: domain,
       },
     ],
     robots: 'index, follow',
+    alternates: {
+      canonical: url,
+      languages,
+    },
     openGraph: {
       title,
       description,
-      url: url ?? baseURL,
+      url: url,
       siteName: 'melvin.la',
       images,
       type: 'website',
