@@ -27,7 +27,7 @@ export const getMetadata = async ({
   const images = [{ url: imageURL ?? '/assets/og.jpg' }];
   const domain = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://melvin.la';
   const baseURL = locale === 'en' ? domain : `${domain}/${locale}`;
-  const url = pageUrl ? baseURL + pageUrl : pageUrl;
+  const url = pageUrl ? baseURL + pageUrl : baseURL;
 
   // We list all languages for the alternate links, for SEO purposes
   const languages: Record<string, string> = {};
@@ -40,14 +40,14 @@ export const getMetadata = async ({
   }
 
   return {
-    metadataBase: new URL(baseURL),
+    metadataBase: new URL(domain),
     title: (title ?? 'Melvin Laplanche') + ' - melvin.la',
     description: description ?? t('description'),
     keywords: [],
     authors: [
       {
         name: 'Melvin Laplanche',
-        url: baseURL,
+        url: domain,
       },
     ],
     robots: 'index, follow',
@@ -58,7 +58,7 @@ export const getMetadata = async ({
     openGraph: {
       title,
       description,
-      url: url ?? baseURL,
+      url: url,
       siteName: 'melvin.la',
       images,
       type: 'website',
