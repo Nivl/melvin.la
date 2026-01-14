@@ -40,16 +40,6 @@
         "-y",
         "chrome-devtools-mcp@latest"
       ]
-    },
-    "deepl": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "deepl-mcp-server"
-      ],
-      "env": {
-        "DEEPL_API_KEY": "${input:deepl-api-key}"
-      }
     }
   }
 }
