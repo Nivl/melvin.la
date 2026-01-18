@@ -1,0 +1,18 @@
+type: environment
+model: environment
+id: ev_GHtecx9TmE
+workspaceId: wk_DCTV6geAwG
+createdAt: 2026-01-16T07:58:06.391355
+updatedAt: 2026-01-16T07:58:45.905366
+name: Production
+public: true
+base: false
+parentModel: environment
+parentId: null
+variables:
+- enabled: true
+  name: baseUrl
+  value: https://api.melvin.la
+  id: CyQq02UcGT
+color: var(--danger)
+sortPriority: 0.0

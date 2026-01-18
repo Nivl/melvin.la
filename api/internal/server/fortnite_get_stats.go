@@ -21,15 +21,6 @@ func (s *Server) FortniteGetStats(ctx context.Context, input api.FortniteGetStat
 	if input.Username == "" {
 		return api.FortniteGetStats404JSONResponse(*NewErrorResponse(http.StatusBadRequest, "username", "invalid value", api.Path)), nil
 	}
-	if input.Platform != api.Psn &&
-		input.Platform != api.Epic &&
-		input.Platform != api.Xbl {
-		return api.FortniteGetStats404JSONResponse(*NewErrorResponse(http.StatusBadRequest, "platform", "invalid value", api.Path)), nil
-	}
-	if input.TimeWindow != api.Lifetime &&
-		input.TimeWindow != api.Season {
-		return api.FortniteGetStats404JSONResponse(*NewErrorResponse(http.StatusBadRequest, "timeWindow", "invalid value", api.Path)), nil
-	}
 
 	// Fetch the data
 	req, err := statsRequest(ctx, input, s.fortniteAPIKey)

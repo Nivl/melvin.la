@@ -3,9 +3,11 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/Nivl/melvin.la/api/internal"
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/Nivl/melvin.la/api/internal/lib/app"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
@@ -22,6 +24,11 @@ func main() {
 
 func run() (returnedErr error) {
 	ctx := context.Background()
+
+	validator, err := internal.NewOpenAPISpecValidator()
+	if err != nil {
+		return fmt.Errorf("create an OpenAPI spec validator: %w", err)
+	}
 
 	// Load the config and build the deps
 	cfg, deps, err := app.New(ctx)
@@ -41,6 +48,7 @@ func run() (returnedErr error) {
 		AllowOrigins: origins,
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodDelete, http.MethodPatch, http.MethodOptions},
 	}))
+	e.Use(middleware.Validation(validator))
 
 	srv := server.NewServer(cfg.API.FortniteAPIKey)
 	strictHandler := api.NewStrictHandler(srv, nil)

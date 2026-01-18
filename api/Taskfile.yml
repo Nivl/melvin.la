@@ -11,7 +11,7 @@ vars:
 tasks:
   install-deps:
     cmds:
-      - go install github.com/daveshanley/vacuum@v0.17.2
+      - go install github.com/daveshanley/vacuumv0.23.2
       - go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@1401fbe26ce7e128e9963786742490ff444e3795
 
   build:
