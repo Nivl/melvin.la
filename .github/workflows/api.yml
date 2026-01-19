@@ -3,10 +3,10 @@ name: api
 on:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
-    - main
+      - main
 
 permissions:
   contents: read
@@ -22,15 +22,15 @@ concurrency:
   cancel-in-progress: true
 
 env:
-   PROD_IMAGE_URI: registry.fly.io/melvinla-api-prod
+  PROD_IMAGE_URI: registry.fly.io/melvinla-api-prod
+  GO_DEV_IMG: &service-images-go-dev ghcr.io/nivl/service-images-go-dev:sha-91ee9f6
 
 jobs:
   prepare-env:
     name: detect what files changed
     runs-on: ubuntu-latest
     container:
-      # replace with variable https://github.com/actions/runner/issues/1182
-      image: &service-images-go-dev ghcr.io/nivl/service-images-go-dev:sha-f8dbff4
+      image: *service-images-go-dev
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
@@ -41,7 +41,7 @@ jobs:
 
       - name: Setup Go
         id: restore-cache
-        uses: './.github/actions/setup-go'
+        uses: "./.github/actions/setup-go"
         with:
           project-name: api
 
@@ -80,7 +80,7 @@ jobs:
 
       - name: Setup Go
         id: restore-cache
-        uses: './.github/actions/setup-go'
+        uses: "./.github/actions/setup-go"
         with:
           project-name: api
 
@@ -107,7 +107,7 @@ jobs:
 
       - name: Setup Go
         id: restore-cache
-        uses: './.github/actions/setup-go'
+        uses: "./.github/actions/setup-go"
         with:
           project-name: api
 
@@ -128,7 +128,7 @@ jobs:
 
       - name: Setup Go
         id: restore-cache
-        uses: './.github/actions/setup-go'
+        uses: "./.github/actions/setup-go"
         with:
           project-name: api
 
@@ -254,14 +254,7 @@ jobs:
   # This job is what github action will check to see if a PR is ready to
   # be merged.
   api-required-check:
-    needs:
-      [
-        prepare-env,
-        build,
-        lint,
-        test-code,
-        build-image,
-      ]
+    needs: [prepare-env, build, lint, test-code, build-image]
     # This is necessary since a failed/skipped dependent job would cause this job to be skipped
     if: always()
     runs-on: ubuntu-latest
