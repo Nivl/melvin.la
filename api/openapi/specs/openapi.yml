@@ -14,10 +14,6 @@ tags:
 
 components:
   schemas:
-    ErrorResponse:
-      $ref: "./components/schemas/ErrorResponse.yml"
-    FortniteStatsDetails:
-      $ref: "./components/schemas/FortniteStatsDetails.yml"
     FortniteStatsCategories:
       type: object
       description: The categories holding stats.
@@ -25,15 +21,15 @@ components:
         - overall
       properties:
         overall:
-          $ref: "#/components/schemas/FortniteStatsDetails"
+          $ref: "./components/schemas/FortniteStatsDetails.yml"
         solo:
-          $ref: "#/components/schemas/FortniteStatsDetails"
+          $ref: "./components/schemas/FortniteStatsDetails.yml"
         duo:
-          $ref: "#/components/schemas/FortniteStatsDetails"
+          $ref: "./components/schemas/FortniteStatsDetails.yml"
         squad:
-          $ref: "#/components/schemas/FortniteStatsDetails"
+          $ref: "./components/schemas/FortniteStatsDetails.yml"
         ltm:
-          $ref: "#/components/schemas/FortniteStatsDetails"
+          $ref: "./components/schemas/FortniteStatsDetails.yml"
     NullableFortniteStatsCategories:
       type: object
       description: The categories holding stats.
@@ -42,15 +38,15 @@ components:
         - overall
       properties:
         overall:
-          $ref: "#/components/schemas/FortniteStatsDetails"
+          $ref: "./components/schemas/FortniteStatsDetails.yml"
         solo:
-          $ref: "#/components/schemas/FortniteStatsDetails"
+          $ref: "./components/schemas/FortniteStatsDetails.yml"
         duo:
-          $ref: "#/components/schemas/FortniteStatsDetails"
+          $ref: "./components/schemas/FortniteStatsDetails.yml"
         squad:
-          $ref: "#/components/schemas/FortniteStatsDetails"
+          $ref: "./components/schemas/FortniteStatsDetails.yml"
         ltm:
-          $ref: "#/components/schemas/FortniteStatsDetails"
+          $ref: "./components/schemas/FortniteStatsDetails.yml"
     FortniteStats:
       type: object
       description: The content of the Stats endpoint.
@@ -116,18 +112,12 @@ components:
                 touch:
                   $ref: "#/components/schemas/NullableFortniteStatsCategories"
 
-  securitySchemes:
-    ApiKeyAuth:
-      $ref: "./components/securitySchemes/ApiKeyAuth.yml"
-
 paths:
   /fortnite/stats/{username}/{platform}/{timeWindow}:
     get:
       description: Retrieve Fortnite stats for a player.
       summary: Get Fortnite stats.
       operationId: fortniteGetStats
-      security:
-        - ApiKeyAuth: []
       tags:
         - fortnite
       parameters:
@@ -165,7 +155,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: "./components/schemas/ErrorResponse.yml"
               examples:
                 example-1:
                   value:
@@ -178,7 +168,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: "./components/schemas/ErrorResponse.yml"
               examples:
                 example-1:
                   value:
@@ -189,7 +179,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: "./components/schemas/ErrorResponse.yml"
               examples:
                 example-1:
                   value:
@@ -200,7 +190,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: "./components/schemas/ErrorResponse.yml"
               examples:
                 example-1:
                   value:

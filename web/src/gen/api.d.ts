@@ -28,29 +28,65 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /** @description Object returned to any query that fails with an error code that expects a body (400, 409, ...) */
-        ErrorResponse: {
+        /** @description The categories holding stats. */
+        FortniteStatsCategories: {
+            overall: components["schemas"]["FortniteStatsDetails"];
+            solo?: components["schemas"]["FortniteStatsDetails"];
+            duo?: components["schemas"]["FortniteStatsDetails"];
+            squad?: components["schemas"]["FortniteStatsDetails"];
+            ltm?: components["schemas"]["FortniteStatsDetails"];
+        };
+        /** @description The categories holding stats. */
+        NullableFortniteStatsCategories: {
+            overall: components["schemas"]["FortniteStatsDetails"];
+            solo?: components["schemas"]["FortniteStatsDetails"];
+            duo?: components["schemas"]["FortniteStatsDetails"];
+            squad?: components["schemas"]["FortniteStatsDetails"];
+            ltm?: components["schemas"]["FortniteStatsDetails"];
+        } | null;
+        /** @description The content of the Stats endpoint. */
+        FortniteStats: {
             /**
-             * @description Error Code
-             * @example 400
+             * @description HTTP Status of the response
+             * @example 200
              */
-            code: number;
-            /**
-             * @description Descriptive error message
-             * @example user must be logged in to make the request
-             */
-            message: string;
-            /**
-             * @description The name of the field/param that caused the error
-             * @example id
-             */
-            field?: string;
-            /**
-             * @description Location of where the field/param was found
-             * @example body
-             * @enum {string}
-             */
-            location?: "query" | "path" | "body" | "header" | "cookie";
+            status: number;
+            /** @description Data of the response */
+            data: {
+                /** @description information about the player's account */
+                account: {
+                    /**
+                     * @description ID of the account
+                     * @example 883abec4cded42f3bea87531ce0aa5c8
+                     */
+                    id: string;
+                    /**
+                     * @description Name of the account
+                     * @example M8 Nîkof
+                     */
+                    name: string;
+                };
+                /** @description information about the player's battle pass */
+                battlePass: {
+                    /**
+                     * @description Current level of the player
+                     * @example 43
+                     */
+                    level: number;
+                    /**
+                     * @description Progress in % toward the next level
+                     * @example 51
+                     */
+                    progress: number;
+                };
+                /** @description information about the player's battle pass */
+                stats: {
+                    all: components["schemas"]["FortniteStatsCategories"];
+                    keyboardMouse?: components["schemas"]["NullableFortniteStatsCategories"];
+                    gamepad?: components["schemas"]["NullableFortniteStatsCategories"];
+                    touch?: components["schemas"]["NullableFortniteStatsCategories"];
+                };
+            };
         };
         /** @description represents the actual stats of a Fortnite player. */
         FortniteStatsDetails: {
@@ -162,65 +198,29 @@ export interface components {
              */
             top25?: number;
         };
-        /** @description The categories holding stats. */
-        FortniteStatsCategories: {
-            overall: components["schemas"]["FortniteStatsDetails"];
-            solo?: components["schemas"]["FortniteStatsDetails"];
-            duo?: components["schemas"]["FortniteStatsDetails"];
-            squad?: components["schemas"]["FortniteStatsDetails"];
-            ltm?: components["schemas"]["FortniteStatsDetails"];
-        };
-        /** @description The categories holding stats. */
-        NullableFortniteStatsCategories: {
-            overall: components["schemas"]["FortniteStatsDetails"];
-            solo?: components["schemas"]["FortniteStatsDetails"];
-            duo?: components["schemas"]["FortniteStatsDetails"];
-            squad?: components["schemas"]["FortniteStatsDetails"];
-            ltm?: components["schemas"]["FortniteStatsDetails"];
-        } | null;
-        /** @description The content of the Stats endpoint. */
-        FortniteStats: {
+        /** @description Object returned to any query that fails with an error code that expects a body (400, 409, ...) */
+        ErrorResponse: {
             /**
-             * @description HTTP Status of the response
-             * @example 200
+             * @description Error Code
+             * @example 400
              */
-            status: number;
-            /** @description Data of the response */
-            data: {
-                /** @description information about the player's account */
-                account: {
-                    /**
-                     * @description ID of the account
-                     * @example 883abec4cded42f3bea87531ce0aa5c8
-                     */
-                    id: string;
-                    /**
-                     * @description Name of the account
-                     * @example M8 Nîkof
-                     */
-                    name: string;
-                };
-                /** @description information about the player's battle pass */
-                battlePass: {
-                    /**
-                     * @description Current level of the player
-                     * @example 43
-                     */
-                    level: number;
-                    /**
-                     * @description Progress in % toward the next level
-                     * @example 51
-                     */
-                    progress: number;
-                };
-                /** @description information about the player's battle pass */
-                stats: {
-                    all: components["schemas"]["FortniteStatsCategories"];
-                    keyboardMouse?: components["schemas"]["NullableFortniteStatsCategories"];
-                    gamepad?: components["schemas"]["NullableFortniteStatsCategories"];
-                    touch?: components["schemas"]["NullableFortniteStatsCategories"];
-                };
-            };
+            code: number;
+            /**
+             * @description Descriptive error message
+             * @example user must be logged in to make the request
+             */
+            message: string;
+            /**
+             * @description The name of the field/param that caused the error
+             * @example id
+             */
+            field?: string;
+            /**
+             * @description Location of where the field/param was found
+             * @example body
+             * @enum {string}
+             */
+            location?: "query" | "path" | "body" | "header" | "cookie";
         };
     };
     responses: never;
@@ -229,11 +229,11 @@ export interface components {
     headers: never;
     pathItems: never;
 }
-export type ErrorResponse = components['schemas']['ErrorResponse'];
-export type FortniteStatsDetails = components['schemas']['FortniteStatsDetails'];
 export type FortniteStatsCategories = components['schemas']['FortniteStatsCategories'];
 export type NullableFortniteStatsCategories = components['schemas']['NullableFortniteStatsCategories'];
 export type FortniteStats = components['schemas']['FortniteStats'];
+export type FortniteStatsDetails = components['schemas']['FortniteStatsDetails'];
+export type ErrorResponse = components['schemas']['ErrorResponse'];
 export type $defs = Record<string, never>;
 export interface operations {
     fortniteGetStats: {

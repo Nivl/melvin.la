@@ -30,7 +30,6 @@ jobs:
     name: detect what files changed
     runs-on: ubuntu-latest
     container:
-      # replace with variable d
       image: *service-images-go-dev
       credentials:
         username: ${{ github.actor }}
