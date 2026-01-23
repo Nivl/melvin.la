@@ -7,7 +7,7 @@ import (
 	"runtime"
 
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 // Recover recovers a panic and logs it.

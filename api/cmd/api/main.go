@@ -11,7 +11,7 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/middleware"
 	"github.com/Nivl/melvin.la/api/internal/server"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package httputil
 import (
 	"github.com/Nivl/melvin.la/api/internal/lib/app"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/middleware"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 // NewBaseRouter returns a new router with the default middlewares

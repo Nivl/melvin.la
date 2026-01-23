@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	echomid "github.com/labstack/echo/v4/middleware"
+	echomid "github.com/labstack/echo/v5/middleware"
 
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 // CORSConfig defines the config for CORS middleware.
