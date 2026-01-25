@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/Nivl/melvin.la/api/internal/lib/secret"
 	"github.com/getsentry/sentry-go"
@@ -43,6 +44,7 @@ func New(ctx context.Context, releaseVersion string) (*Config, *Dependencies, er
 		EnableTracing: true,
 		EnableLogs:    true,
 		Release:       releaseVersion,
+		Debug:         !strings.EqualFold(cfg.Environment, "production"),
 	})
 	if err != nil {
 		return nil, nil, fmt.Errorf("initialize sentry: %w", err)

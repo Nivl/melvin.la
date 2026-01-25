@@ -11,7 +11,6 @@ import (
 
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
 	"github.com/labstack/echo/v4"
-	"go.uber.org/zap"
 )
 
 type bodyResponseWriter struct {
@@ -51,10 +50,10 @@ func LogRequests(e *echo.Echo) echo.MiddlewareFunc {
 			// Sanitize the path to remove newline characters
 			sanitizedPath := strings.ReplaceAll(c.Request().URL.Path, "\n", "")
 			sanitizedPath = strings.ReplaceAll(sanitizedPath, "\r", "")
-			c.Log().Info("New incoming request",
-				zap.String("path", sanitizedPath),
-				zap.String("method", c.Request().Method),
-			)
+			c.Log().Info().
+				String("path", sanitizedPath).
+				String("method", c.Request().Method).
+				Emit("New incoming request")
 
 			// Update the response body writer so we can read it
 			// back later without messing with the response itself.
@@ -74,7 +73,10 @@ func LogRequests(e *echo.Echo) echo.MiddlewareFunc {
 				if e.Debug || httpCode >= 400 {
 					response = resBody.String()
 				}
-				c.Log().Info("Request successful", zap.Int("status", httpCode), zap.String("response", response))
+				c.Log().Info().
+					Int("status", httpCode).
+					String("response", response).
+					Emit("Request successful")
 			default:
 				if httpCode == http.StatusOK {
 					httpCode = http.StatusInternalServerError
@@ -83,7 +85,10 @@ func LogRequests(e *echo.Echo) echo.MiddlewareFunc {
 				if errors.As(err, &e) {
 					httpCode = e.Code
 				}
-				c.Log().Info(err.Error(), zap.Int("status", httpCode))
+				c.Log().Info().
+					String("error", err.Error()).
+					Int("status", httpCode).
+					Emit("Request failed")
 			}
 
 			return err

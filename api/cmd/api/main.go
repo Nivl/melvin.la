@@ -5,12 +5,14 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/Nivl/melvin.la/api/internal/lib/app"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/middleware"
 	"github.com/Nivl/melvin.la/api/internal/server"
+	"github.com/getsentry/sentry-go"
 	"github.com/labstack/echo/v4"
 )
 
@@ -32,7 +34,7 @@ func run() (returnedErr error) {
 	if err != nil {
 		return err
 	}
-	defer deps.Logger.Sync() //nolint:errcheck // Sync always returns an error on linux
+	defer sentry.Flush(2 * time.Second)
 
 	// Setup and start the server
 	e := httputil.NewBaseRouter(deps)
