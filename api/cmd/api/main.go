@@ -14,6 +14,10 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// commitSHA is the git commit sha at build time, it is set using -ldflags
+// during build.
+var commitSHA string
+
 func main() {
 	if err := run(); err != nil {
 		log.Fatalln(err)
@@ -24,7 +28,7 @@ func run() (returnedErr error) {
 	ctx := context.Background()
 
 	// Load the config and build the deps
-	cfg, deps, err := app.New(ctx)
+	cfg, deps, err := app.New(ctx, commitSHA)
 	if err != nil {
 		return err
 	}

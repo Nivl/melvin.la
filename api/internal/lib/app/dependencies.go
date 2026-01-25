@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/Nivl/melvin.la/api/internal/lib/errutil"
+
 	"go.uber.org/zap"
 )
 

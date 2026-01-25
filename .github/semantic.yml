@@ -9,6 +9,7 @@ types:
   - feat # A new feature
   - fix # A bug fix
   - infra # Change to the infra (k8s, fly, ...)
+  - metrics # Change to the metrics (monitoring, logging, ...)
   - perf # A code change that improves performance
   - refactor # A code change that neither fixes a bug nor adds a feature (no effect on the user)
   - security # Changes that affect the security of the project (vulnerabilities, secrets, ...)
