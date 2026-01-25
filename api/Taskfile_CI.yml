@@ -2,7 +2,7 @@ version: "3"
 
 tasks:
   # This is only used by the CI, for the production build check the Dockerfile
-  build: CGO_ENABLED=0 go build -v -o ./bin/api github.com/Nivl/melvin.la/api/cmd/api
+  build: CGO_ENABLED=0 go build -v -ldflags="-X main.commitSHA=$(git rev-parse HEAD)" -o ./bin/api github.com/Nivl/melvin.la/api/cmd/api
 
   lint:
     cmds:

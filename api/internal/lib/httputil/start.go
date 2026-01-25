@@ -10,8 +10,8 @@ import (
 	"path"
 	"time"
 
+	"github.com/getsentry/sentry-go"
 	"github.com/labstack/echo/v4"
-	"go.uber.org/zap"
 )
 
 // StartAndWaitOpts is used to configure the HTTP server
@@ -29,7 +29,7 @@ type StartAndWaitOpts struct {
 // StartAndWaitWithCb starts the HTTP server and waits for a signal
 // to shutdown. Once the signal triggers, the provided callback function is
 // called.
-func StartAndWaitWithCb(ctx context.Context, logger *zap.Logger, e *echo.Echo, opts StartAndWaitOpts) error {
+func StartAndWaitWithCb(ctx context.Context, logger sentry.Logger, e *echo.Echo, opts StartAndWaitOpts) error {
 	if opts.Callback == nil {
 		opts.Callback = func() {}
 	}
@@ -50,14 +50,14 @@ func StartAndWaitWithCb(ctx context.Context, logger *zap.Logger, e *echo.Echo, o
 			err = e.StartTLS(":"+opts.Port, path.Join(opts.CertsPath, "cert.pem"), path.Join(opts.CertsPath, "key.pem"))
 		}
 		if err != nil && !errors.Is(err, http.ErrServerClosed) {
-			logger.Error("could not either start or stop the server.", zap.Error(err))
+			logger.Error().Emit("could not either start or stop the server: %s", err)
 		}
 	}()
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)
 	<-quit
-	logger.Info("shutting the server down...")
+	logger.Info().Emit("shutting the server down...")
 
 	opts.Callback()
 

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 	"runtime"
 
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
@@ -33,8 +34,7 @@ func Recover() echo.MiddlewareFunc {
 					stack := make([]byte, 4<<10) // 4kb
 					length := runtime.Stack(stack, true)
 					stack = stack[:length]
-					msg := fmt.Sprintf("[PANIC RECOVER] %v %s\n", err, stack[:length])
-					c.Log().Error(msg)
+					fmt.Fprintf(os.Stderr, "[PANIC RECOVER] %v %s\n", err, stack[:length])
 					returnedErr = err
 				}
 			})()
