@@ -7,7 +7,6 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
 	"github.com/labstack/echo/v4"
 )
 
@@ -15,8 +14,6 @@ import (
 func Recover() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(ec echo.Context) (returnedErr error) {
-			c, _ := ec.(*request.Context)
-
 			defer (func() {
 				if r := recover(); r != nil {
 					err, ok := r.(error)
@@ -39,7 +36,7 @@ func Recover() echo.MiddlewareFunc {
 				}
 			})()
 
-			return next(c)
+			return next(ec)
 		}
 	}
 }
