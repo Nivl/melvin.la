@@ -77,7 +77,7 @@ export const Fortnite = ({
           <h1 className="basis-full text-center text-2xl font-extrabold sm:text-start sm:text-5xl">
             {t.rich('title', {
               name: chunks => (
-                <span className="font-fortnite bg-linear-to-b from-[#1c78ff] to-[#4983f8] bg-clip-text text-3xl text-transparent uppercase sm:text-6xl">
+                <span className="font-fortnite-latin bg-linear-to-b from-[#1c78ff] to-[#4983f8] bg-clip-text text-3xl leading-normal text-transparent uppercase sm:text-6xl">
                   {chunks}
                 </span>
               ),

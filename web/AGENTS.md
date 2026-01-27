@@ -143,6 +143,11 @@ updatedAt: "2025-07-03"  # optional
     *   Create `messages/[locale].json` (e.g., `messages/es.json`).
     *   Fill out the file based off `messages/en.d.json.ts`.
 3.  Write all the blog articles for that locale (`src/bundled_static/content/blog/*/[locale].mdx`)
+4.  Configure Font:
+    *   Check if the language requires a specific Noto font (e.g., Noto Sans JP).
+    *   If needed, import and configure it in `src/app/[locale]/layout.tsx`.
+    *   Add the variable to `src/app/globals.css`.
+    *   Note: We provide Latin-specific font variables (e.g., `--font-condensed-latin`) in `globals.css` for cases where a specific Western font (like Baikal) must be used regardless of the locale. Use these specific variables/classes when the design demands it.
 
 ### Adding New Strings
 1.  Add the key-value pair to `messages/en.json` (source of truth).
