@@ -105,7 +105,7 @@
       "focusTitle": "{username}의 포트나이트 데이터",
       "focusDescription": "{username}의 모든 포트나이트 데이터"
     },
-    "title": "<name>포트나이트</name>에서 얼마나 잘하고 있는지 확인하세요",
+    "title": "<name>Fortnite</name>에서 얼마나 잘하고 있는지 확인하세요",
     "errors": {
       "accountPrivate": "이 게이머는 데이터를 공개하고 싶어하지 않습니다.",
       "notFound": "이 플랫폼에는 해당 이름의 사용자가 없습니다.",

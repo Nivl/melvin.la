@@ -5,10 +5,14 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-    --font-sans: var(--font-raleway), '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    --font-sans: var(--font-noto-sans), var(--font-noto-sans-kr), var(--font-noto-sans-sc), var(--font-noto-sans-tc), '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     --font-condensed: var(--font-baikal);
     --font-fortnite: var(--font-burbank);
     --font-monospace: var(--font-fira-code), "monospace";
+
+    --font-sans-latin: var(--font-noto-sans);
+    --font-condensed-latin: var(--font-baikal);
+    --font-fortnite-latin: var(--font-burbank);
 
     --color-accent: #26ace6;
     --color-brands-playstation: #006FCD;

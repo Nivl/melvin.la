@@ -32,6 +32,7 @@ export const Contact = () => {
       key: 'Email',
       link: 'mailto:jobs@melvin.la',
       label: 'jobs@melvin.la',
+      className: 'font-sans-latin',
     },
     {
       icon: <Linkedin className="inline-block" />,
@@ -45,13 +46,14 @@ export const Contact = () => {
         setModalContent(t('linkedinModalContent'));
       },
       className:
-        'hover:text-red-400 motion-safe:transition-colors duration-300',
+        'hover:text-red-400 motion-safe:transition-colors duration-300 font-sans-latin',
     },
     {
       icon: <Github className="inline-block" />,
       key: 'GitHub',
       link: 'https://github.com/Nivl',
       label: '@Nivl',
+      className: 'font-sans-latin',
     },
   ];
 
@@ -100,7 +102,7 @@ export const Contact = () => {
         </Modal>
       </div>
       <Map
-        className="h-[800px] w-full"
+        className="h-200 w-full"
         initialCenter={{ lat: 34.021_859_3, lng: -118.498_265 }}
       />
     </>
