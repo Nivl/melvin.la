@@ -3,10 +3,12 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
 
+	"github.com/Nivl/melvin.la/api/internal"
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/Nivl/melvin.la/api/internal/lib/app"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
@@ -36,6 +38,15 @@ func run() (returnedErr error) {
 	}
 	defer sentry.Flush(2 * time.Second)
 
+	validator, err := internal.NewOpenAPISpecValidator()
+	if err != nil {
+		fullErr := fmt.Errorf("create an OpenAPI spec validator: %w", err)
+		deps.Logger.Error().
+			String("error", fullErr.Error()).
+			Emit("failed to create OpenAPI spec validator")
+		return fullErr
+	}
+
 	// Setup and start the server
 	e := httputil.NewBaseRouter(deps)
 	e.IPExtractor = echo.ExtractIPDirect()
@@ -47,6 +58,7 @@ func run() (returnedErr error) {
 		AllowOrigins: origins,
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodDelete, http.MethodPatch, http.MethodOptions},
 	}))
+	e.Use(middleware.Validation(validator))
 
 	srv := server.NewServer(cfg.API.FortniteAPIKey)
 	strictHandler := api.NewStrictHandler(srv, nil)

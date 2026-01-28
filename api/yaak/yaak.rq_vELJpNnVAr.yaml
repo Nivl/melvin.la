@@ -1,0 +1,42 @@
+type: http_request
+model: http_request
+id: rq_vELJpNnVAr
+createdAt: 2026-01-16T07:53:42.265481
+updatedAt: 2026-01-19T02:27:26.514785
+workspaceId: wk_DCTV6geAwG
+folderId: null
+authentication:
+  disabled: true
+  key: ${[apiKey]}
+  location: header
+  value: X-Api-Key
+authenticationType: apikey
+body: {}
+bodyType: null
+description: '[object Object]'
+headers:
+- enabled: true
+  name: Accept
+  value: application/json
+  id: null
+method: GET
+name: Get Fortnite stats.
+sortPriority: 0.0
+url: ${[baseUrl]}/fortnite/stats/:username/:platform/:timeWindow
+urlParameters:
+- enabled: true
+  name: :username
+  value: M8 Nîkof
+  id: FxQAx9bIcq
+- enabled: true
+  name: :platform
+  value: epic
+  id: pZDk3H79IN
+- enabled: true
+  name: :timeWindow
+  value: lifetime
+  id: ANxeiSzfSv
+- enabled: true
+  name: ''
+  value: ''
+  id: bu2PbCKBJU

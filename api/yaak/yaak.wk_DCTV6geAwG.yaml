@@ -1,0 +1,14 @@
+type: workspace
+model: workspace
+id: wk_DCTV6geAwG
+createdAt: 2026-01-16T07:53:42.265114
+updatedAt: 2026-01-16T07:53:42.265115
+authentication: {}
+authenticationType: null
+description: This is the API specification for melvin.la.
+headers: []
+name: melvin.la API specs
+encryptionKeyChallenge: null
+settingValidateCertificates: true
+settingFollowRedirects: true
+settingRequestTimeout: 0
