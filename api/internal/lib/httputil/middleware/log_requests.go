@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
-	"fmt"
 	"io"
 	"net"
 	"net/http"
@@ -69,7 +68,6 @@ func LogRequests(e *echo.Echo) echo.MiddlewareFunc {
 
 			err := next(c)
 			httpCode := c.Response().Status
-			fmt.Printf("#### Status code: %d\n", httpCode)
 			switch err {
 			case nil:
 				response := "hidden for security reason"

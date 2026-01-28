@@ -6,11 +6,13 @@ import (
 	"net/http"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
+	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
 	"github.com/Nivl/melvin.la/api/internal/server"
 	"github.com/labstack/echo/v4"
 	validator "github.com/pb33f/libopenapi-validator"
 	verror "github.com/pb33f/libopenapi-validator/errors"
 	vhelpers "github.com/pb33f/libopenapi-validator/helpers"
+	"go.uber.org/zap"
 )
 
 func writeResponse(w http.ResponseWriter, code int, resp any) error {
@@ -23,6 +25,9 @@ func setError(validationErrors []*verror.ValidationError, w http.ResponseWriter)
 	// We only return the first error for simplicity
 	vErr := validationErrors[0]
 
+	// The location may be invalid (and it is in some cases)
+	// We'll try to fix that later on, but it's possible for it
+	// to still be wrong
 	location := api.ErrorResponseLocation(vErr.ValidationType)
 	field := vErr.ParameterName
 	userMessage := vErr.HowToFix
@@ -65,12 +70,20 @@ func setError(validationErrors []*verror.ValidationError, w http.ResponseWriter)
 func Validation(v validator.Validator) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(ec echo.Context) error {
+			c, _ := ec.(*request.Context)
+
 			isValid, validationErrors := v.ValidateHttpRequest(ec.Request())
 			if !isValid {
 				if len(validationErrors) == 0 {
 					return fmt.Errorf("request validation failed but no errors were returned")
 				}
-				return setError(validationErrors, ec.Response())
+				err := setError(validationErrors, ec.Response())
+				// We already wrote the response partially, so there is not much
+				// we can do but log the error.
+				if err != nil {
+					c.Log().Error("failed to write validation error response", zap.Error(err))
+				}
+				return nil
 			}
 
 			return next(ec)
