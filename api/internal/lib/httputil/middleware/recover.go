@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 	"runtime"
 
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
 	"github.com/labstack/echo/v4"
 )
 
@@ -14,8 +14,6 @@ import (
 func Recover() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(ec echo.Context) (returnedErr error) {
-			c, _ := ec.(*request.Context)
-
 			defer (func() {
 				if r := recover(); r != nil {
 					err, ok := r.(error)
@@ -33,13 +31,12 @@ func Recover() echo.MiddlewareFunc {
 					stack := make([]byte, 4<<10) // 4kb
 					length := runtime.Stack(stack, true)
 					stack = stack[:length]
-					msg := fmt.Sprintf("[PANIC RECOVER] %v %s\n", err, stack[:length])
-					c.Log().Error(msg)
+					fmt.Fprintf(os.Stderr, "[PANIC RECOVER] %v %s\n", err, stack[:length])
 					returnedErr = err
 				}
 			})()
 
-			return next(c)
+			return next(ec)
 		}
 	}
 }

@@ -1,3 +1,4 @@
+// Package internal provides various global internal utilities and configurations.
 package internal
 
 import (
@@ -9,9 +10,13 @@ import (
 	"github.com/pb33f/libopenapi-validator/config"
 )
 
+// OpenAPISpec contains the embedded OpenAPI specification.
+//
 //go:embed gen/openapi.yml
 var OpenAPISpec []byte
 
+// NewOpenAPISpecValidator creates a new OpenAPI specification validator
+// using the embedded OpenAPI specification.
 func NewOpenAPISpecValidator() (validator.Validator, error) {
 	document, err := libopenapi.NewDocument(OpenAPISpec)
 	if err != nil {

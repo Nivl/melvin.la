@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"encoding/json"
-	"fmt"
+	"errors"
 	"net/http"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
@@ -12,8 +12,10 @@ import (
 	validator "github.com/pb33f/libopenapi-validator"
 	verror "github.com/pb33f/libopenapi-validator/errors"
 	vhelpers "github.com/pb33f/libopenapi-validator/helpers"
-	"go.uber.org/zap"
 )
+
+// ErrNoErrorReturned is returned when validation fails but no errors are provided by the validator.
+var ErrNoErrorReturned = errors.New("request validation failed but no errors were returned")
 
 func writeResponse(w http.ResponseWriter, code int, resp any) error {
 	w.Header().Set("Content-Type", "application/json")
@@ -75,13 +77,13 @@ func Validation(v validator.Validator) echo.MiddlewareFunc {
 			isValid, validationErrors := v.ValidateHttpRequest(ec.Request())
 			if !isValid {
 				if len(validationErrors) == 0 {
-					return fmt.Errorf("request validation failed but no errors were returned")
+					return ErrNoErrorReturned
 				}
 				err := setError(validationErrors, ec.Response())
 				// We already wrote the response partially, so there is not much
 				// we can do but log the error.
 				if err != nil {
-					c.Log().Error("failed to write validation error response", zap.Error(err))
+					c.Log().Error().String("error", err.Error()).Emit("failed to write validation error response")
 				}
 				return nil
 			}

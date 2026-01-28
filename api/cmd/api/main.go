@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/Nivl/melvin.la/api/internal"
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
@@ -13,8 +14,13 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
 	"github.com/Nivl/melvin.la/api/internal/lib/httputil/middleware"
 	"github.com/Nivl/melvin.la/api/internal/server"
+	"github.com/getsentry/sentry-go"
 	"github.com/labstack/echo/v4"
 )
+
+// commitSHA is the git commit sha at build time, it is set using -ldflags
+// during build.
+var commitSHA string
 
 func main() {
 	if err := run(); err != nil {
@@ -25,17 +31,21 @@ func main() {
 func run() (returnedErr error) {
 	ctx := context.Background()
 
-	validator, err := internal.NewOpenAPISpecValidator()
-	if err != nil {
-		return fmt.Errorf("create an OpenAPI spec validator: %w", err)
-	}
-
 	// Load the config and build the deps
-	cfg, deps, err := app.New(ctx)
+	cfg, deps, err := app.New(ctx, commitSHA)
 	if err != nil {
 		return err
 	}
-	defer deps.Logger.Sync() //nolint:errcheck // Sync always returns an error on linux
+	defer sentry.Flush(2 * time.Second)
+
+	validator, err := internal.NewOpenAPISpecValidator()
+	if err != nil {
+		fullErr := fmt.Errorf("create an OpenAPI spec validator: %w", err)
+		deps.Logger.Error().
+			String("error", fullErr.Error()).
+			Emit("failed to create OpenAPI spec validator")
+		return fullErr
+	}
 
 	// Setup and start the server
 	e := httputil.NewBaseRouter(deps)

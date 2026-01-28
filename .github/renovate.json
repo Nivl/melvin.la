@@ -2,13 +2,5 @@
   "extends": [
     "github>Nivl/configs:renovate"
   ],
-  "automerge": true,
-  "packageRules": [
-    {
-      "enabled": false,
-      "matchPackageNames": [
-        "@internationalized/date"
-      ]
-    }
-  ]
+  "automerge": true
 }

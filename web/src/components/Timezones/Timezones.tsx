@@ -96,7 +96,7 @@ export const Timezones = () => {
   return (
     <>
       <Section>
-        <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl uppercase sm:text-8xl xl:text-9xl">
+        <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl font-bold uppercase sm:text-8xl xl:text-9xl">
           {t('title')}
         </h1>
       </Section>
@@ -105,7 +105,7 @@ export const Timezones = () => {
         <div className="flex flex-col items-center gap-4">
           <Autocomplete
             label={t('fromLabel')}
-            className="max-w-[400px]"
+            className="max-w-100"
             size="lg"
             aria-label={t('fromAriaLabel')}
             defaultItems={[]}
@@ -138,7 +138,7 @@ export const Timezones = () => {
             label={t('dateTimeLabel')}
             aria-label={t('dateTimeAriaLabel')}
             size="lg"
-            className="chromatic-ignore max-w-[400px]"
+            className="chromatic-ignore max-w-100"
             hideTimeZone
             value={dateTime}
             onChange={setDateTime}
@@ -162,7 +162,7 @@ export const Timezones = () => {
               </div>
               <Autocomplete
                 label={t('toLabel')}
-                className="mt-20 max-w-[400px]"
+                className="mt-20 max-w-100"
                 size="lg"
                 aria-label={t('toAriaLabel')}
                 defaultItems={[]}

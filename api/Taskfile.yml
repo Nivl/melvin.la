@@ -16,7 +16,7 @@ tasks:
 
   build:
     cmds:
-      - CGO_ENABLED=0 go build -v -o {{.BIN_OUT}} github.com/Nivl/melvin.la/api/cmd/api
+      - CGO_ENABLED=0 go build -v -ldflags="-X main.commitSHA=$(git rev-parse HEAD)" -o {{.BIN_OUT}} github.com/Nivl/melvin.la/api/cmd/api
     generates:
       - "{{.BIN_OUT}}"
 
