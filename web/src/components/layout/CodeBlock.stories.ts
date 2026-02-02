@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { CodeBlock } from './CodeBlock';
 
 const meta = {
-  title: 'Components/CodeBlock',
+  title: 'Components/Layout/CodeBlock',
   component: CodeBlock,
   parameters: {
     layout: 'fullscreen',

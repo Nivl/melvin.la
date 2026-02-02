@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { Navbar } from './Navbar';
 
 const meta = {
-  title: 'Components/Navbar',
+  title: 'Components/Layout/Navbar',
   component: Navbar,
   parameters: {
     layout: 'fullscreen',

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import page from './page';
 
 const meta = {
-  title: 'Conway/Home',
+  title: 'Pages/Games/Conway',
   component: page,
   parameters: {
     layout: 'fullscreen',

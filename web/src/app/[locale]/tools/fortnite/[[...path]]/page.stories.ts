@@ -7,7 +7,7 @@ import validData from '../../../../../../.storybook/fixtures/valid_fortnite_data
 import page from './page';
 
 const meta = {
-  title: 'Fortnite/Home',
+  title: 'Pages/Tools/Fortnite',
   component: page,
   parameters: {
     layout: 'fullscreen',
