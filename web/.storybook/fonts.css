@@ -1,13 +1,21 @@
 /* TODO(melvin): figure out how to use next/font with storybook */
 
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700;800&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
 @import url('https://db.onlinewebfonts.com/c/11262b7426692256424e79658ffc3395?family=Baikal+Trial+Ultra+Condensed');
 @import url('https://db.onlinewebfonts.com/c/800e985f75a5a56c2f7b4be502d286de?family=Burbank+Big+Condensed+Bold');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --font-raleway: "Raleway";
     --font-baikal: "Baikal Trial Ultra Condensed";
     --font-burbank: "Burbank Big Condensed Bold";
     --font-fira-code: "Fira Code";
+
+    --font-sans: "Noto Sans";
+    --font-condensed: var(--font-baikal);
+    --font-fortnite: var(--font-burbank);
+    --font-monospace: var(--font-fira-code), "monospace";
+
+    --font-sans-latin: var(--font-sans);
+    --font-condensed-latin: var(--font-baikal);
+    --font-fortnite-latin: var(--font-burbank);
 }
