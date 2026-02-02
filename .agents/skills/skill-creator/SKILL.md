@@ -199,16 +199,42 @@ Claude reads REDLINING.md or OOXML.md only when the user needs those features.
 - **Avoid deeply nested references** - Keep references one level deep from SKILL.md. All reference files should link directly from SKILL.md.
 - **Structure longer reference files** - For files longer than 100 lines, include a table of contents at the top so Claude can see the full scope when previewing.
 
+## Skill Directory Structure
+
+**CRITICAL**: All skills must be created in the `.agents/skills/` directory at the repository root. Other agent directories (`.claude/`, `.codex/`, `.gemini/`, `.github/`, etc.) contain symlinks pointing to the skills in `.agents/skills/`.
+
+```
+repository-root/
+├── .agents/
+│   └── skills/              ← Skills live here (source of truth)
+│       ├── skill-1/
+│       ├── skill-2/
+│       └── skill-3/
+├── .claude/
+│   └── skills/              ← Symlinks to .agents/skills/*
+├── .codex/
+│   └── skills/              ← Symlinks to .agents/skills/*
+├── .gemini/
+│   └── skills/              ← Symlinks to .agents/skills/*
+├── .github/
+│   └── skills/              ← Symlinks to .agents/skills/*
+└── .vibe/
+    └── skills/              ← Symlinks to .agents/skills/*
+```
+
+**When creating a new skill**: Always create the skill directory in `.agents/skills/` and then create symlinks from other agent directories.
+
 ## Skill Creation Process
 
 Skill creation involves these steps:
 
 1. Understand the skill with concrete examples
 2. Plan reusable skill contents (scripts, references, assets)
-3. Initialize the skill (run init_skill.py)
+3. Initialize the skill in `.agents/skills/` directory
 4. Edit the skill (implement resources and write SKILL.md)
-5. Package the skill (run package_skill.py)
-6. Iterate based on real usage
+5. Create symlinks in other agent directories
+6. Package the skill (run package_skill.py)
+7. Iterate based on real usage
 
 Follow these steps in order, skipping only if there is a clear reason why they are not applicable.
 
@@ -259,17 +285,25 @@ At this point, it is time to actually create the skill.
 
 Skip this step only if the skill being developed already exists, and iteration or packaging is needed. In this case, continue to the next step.
 
-When creating a new skill from scratch, always run the `init_skill.py` script. The script conveniently generates a new template skill directory that automatically includes everything a skill requires, making the skill creation process much more efficient and reliable.
+**IMPORTANT**: Skills must be created in the `.agents/skills/` directory at the repository root.
 
-Usage:
+When creating a new skill from scratch, either:
 
+**Option A: Manual creation** (recommended for understanding structure)
+1. Create the skill directory in `.agents/skills/`:
+   ```bash
+   mkdir -p .agents/skills/<skill-name>
+   ```
+2. Create SKILL.md with proper YAML frontmatter
+3. Create optional subdirectories: `scripts/`, `references/`, `assets/`
+
+**Option B: Using init_skill.py script** (if available)
 ```bash
-scripts/init_skill.py <skill-name> --path <output-directory>
+scripts/init_skill.py <skill-name> --path .agents/skills
 ```
 
 The script:
-
-- Creates the skill directory at the specified path
+- Creates the skill directory at `.agents/skills/<skill-name>`
 - Generates a SKILL.md template with proper frontmatter and TODO placeholders
 - Creates example resource directories: `scripts/`, `references/`, and `assets/`
 - Adds example files in each directory that can be customized or deleted
@@ -317,7 +351,36 @@ Do not include any other fields in YAML frontmatter.
 
 Write instructions for using the skill and its bundled resources.
 
-### Step 5: Packaging a Skill
+### Step 5: Creating Symlinks in Other Agent Directories
+
+After creating the skill in `.agents/skills/`, create symlinks in the other agent directories so all agents can access the skill.
+
+**Create symlinks for each agent:**
+
+```bash
+# From repository root
+ln -s ../../.agents/skills/<skill-name> .claude/skills/<skill-name>
+ln -s ../../.agents/skills/<skill-name> .codex/skills/<skill-name>
+ln -s ../../.agents/skills/<skill-name> .gemini/skills/<skill-name>
+ln -s ../../.agents/skills/<skill-name> .github/skills/<skill-name>
+ln -s ../../.agents/skills/<skill-name> .vibe/skills/<skill-name>
+```
+
+**Verify symlinks:**
+
+```bash
+ls -la .claude/skills/<skill-name>
+ls -la .codex/skills/<skill-name>
+ls -la .gemini/skills/<skill-name>
+ls -la .github/skills/<skill-name>
+ls -la .vibe/skills/<skill-name>
+```
+
+All symlinks should point to `../../.agents/skills/<skill-name>`.
+
+**Important**: Only create the actual skill directory once in `.agents/skills/`. All other directories get symlinks pointing to that source.
+
+### Step 6: Packaging a Skill
 
 Once development of the skill is complete, it must be packaged into a distributable .skill file that gets shared with the user. The packaging process automatically validates the skill first to ensure it meets all requirements:
 
@@ -344,7 +407,7 @@ The packaging script will:
 
 If validation fails, the script will report the errors and exit without creating a package. Fix any validation errors and run the packaging command again.
 
-### Step 6: Iterate
+### Step 7: Iterate
 
 After testing the skill, users may request improvements. Often this happens right after using the skill, with fresh context of how the skill performed.
 
@@ -353,4 +416,5 @@ After testing the skill, users may request improvements. Often this happens righ
 1. Use the skill on real tasks
 2. Notice struggles or inefficiencies
 3. Identify how SKILL.md or bundled resources should be updated
-4. Implement changes and test again
+4. Edit the skill in `.agents/skills/<skill-name>` (the changes automatically propagate through symlinks)
+5. Test again
