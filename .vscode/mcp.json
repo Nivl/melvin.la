@@ -8,6 +8,14 @@
     }
   ],
   "servers": {
+    "heroui-react": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@heroui/react-mcp@latest"
+      ]
+    },
     "Sentry": {
       "url": "https://mcp.sentry.dev/mcp/melvinla/webapp",
       "type": "http"

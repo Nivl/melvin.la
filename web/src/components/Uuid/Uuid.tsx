@@ -118,6 +118,9 @@ export const Uuid = () => {
   const needsExtraFields = ['v3', 'v5'].includes(version);
   const uniqueUUID = ['null', 'v3', 'v5'].includes(version);
 
+  // React.FormEvent is deprecated but still used by HeroUi v2
+  // if upgrading to V3, check if this can be replaced
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
