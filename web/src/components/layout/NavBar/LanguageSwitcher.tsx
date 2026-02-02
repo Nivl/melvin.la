@@ -38,6 +38,11 @@ const languages: Language[] = [
     isAI: true,
   },
   {
+    key: 'ja',
+    label: '日本語',
+    isAI: true,
+  },
+  {
     key: 'ko',
     label: '한국어',
     isAI: true,

@@ -1,0 +1,249 @@
+---
+title: "バックエンドプロジェクトのアーキテクチャ設計とスケーリング：マイクロサービス vs モノリス"
+excerpt: "永遠の議論：モノリスを構築すべきか、それともすべてをマイクロサービスに分割すべきか？答えはいつものように「場合による」です。その理由を探ってみましょう。"
+image: "cover.avif"
+ogImage: "cover.jpg"
+createdAt: "2025-06-12"
+updatedAt: "2025-06-12"
+---
+
+バックエンドのアーキテクチャは、日々の作業がどれほど苦痛か、あるいは快適かを決定づけることがよくあります。アプリケーションが成長するにつれて、初期の選択のひずみが見え始め、決断を迫られます。信頼できるモノリスを使い続けるか、それともすべてをバラバラにしてマイクロサービスにするか？
+
+特効薬はありません。どちらのアプローチにもそれぞれの場所があり、「正しい」選択は純粋な技術的メリットよりも、チーム構造やビジネスのステージに依存することがよくあります。2つの主要な候補と、多くの場合に最も機能する、実用的で中道的な第3の選択肢を見てみましょう。
+
+## 1. 候補者
+
+### マイクロサービスアーキテクチャ
+
+**マイクロサービス**の背後にある考え方は単純です。1つの巨大なアプリケーションを構築するのではなく、小さくて独立したサービスの集合体を構築します。それぞれが1つのことをうまく行います。
+
+分散型チームのように考えてみてください。各サービスは独自のデータベースを管理し、他からの許可を求めることなく、準備ができ次第いつでもデプロイできます。請求チームがGoを使いたいと思い、認証チームがRustを愛用している場合、両方とも思い通りにできます。この自律性は、少なくとも理論上は、イノベーションとスピードを促進します。
+
+実際には、500人の開発者全体で単一のリリースを調整するのが悪夢であるような大規模な組織にとって、これは素晴らしいことです。
+
+#### 図：マイクロサービスアーキテクチャ
+```hidden
+digraph G {
+  bgcolor="transparent";
+  node [shape=box style=filled fontname="Noto Sans" fontsize=14 fontcolor="#222222"];
+
+
+  // Nodes with muted fill colors
+  "API Gateway" [fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+  "Service A"   [fillcolor="#f4b183", fontcolor="#4a2c0f"];
+  "Service B"   [fillcolor="#f4b183", fontcolor="#4a2c0f"];
+  "Database A"  [fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+  "Database B"  [fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+
+  // Arrow style
+  edge [color="#6a8caf", penwidth=1.5];
+
+  // Edges
+  "API Gateway" -> "Service A";
+  "API Gateway" -> "Service B";
+  "Service A"   -> "Database A";
+  "Service B"   -> "Database B";
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-microservice.svg"}
+  priority={true}
+  width={372}
+  height={300}
+  className="mx-auto mt-10 mb-10"
+  alt={"マイクロサービスアーキテクチャ図"}
+/>
+
+### モノリスアーキテクチャ
+
+**モノリス**は伝統的なアプローチです。1つのコードベース、1つのアプリケーション、1つのデプロイメント。ユーザーインターフェースからビジネスロジック、データアクセスに至るまで、すべてが一緒に存在します。
+
+一部の界隈では「モノリス」という言葉がほとんど汚い言葉のようになっていますが、否定できない利点があります。シンプルです。関数がどこで定義されているかを見つけるために地図は必要ありません。デプロイは単一のスクリプトです。中小規模のチームにとって、このシンプルさはスーパーパワーです。インフラの複雑さに足を取られることなく、素早く動くことができます。
+
+#### 図：モノリスアーキテクチャ
+
+```hidden
+digraph Monolith {
+  bgcolor="transparent";
+  node [shape=box, style=filled, fontname="Noto Sans", fontsize=14 fontcolor="#222222"];
+
+  subgraph cluster_monolith {
+    label="Monolith";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Noto Sans";
+    margin=15;
+
+    // Arrow style
+    edge [color="#6a8caf", penwidth=1.5];
+
+    UserInterface [label="User Interface", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    BusinessLogic [label="Business Logic", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    DataAccessLayer [label="Data Access Layer", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    Database [label="Database", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+
+    UserInterface -> BusinessLogic -> DataAccessLayer -> Database;
+  }
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-monolith.svg"}
+  priority={true}
+  width={307}
+  height={600}
+  className="mx-auto mt-10 mb-10"
+  alt={"モノリスアーキテクチャ図"}
+/>
+
+## 2. トレードオフ
+
+### なぜマイクロサービスにするのか？
+
+*   **必要な部分だけをスケールする:** 動画処理機能がCPUを酷使しているのにログインページがアイドル状態なら、動画サービスだけにサーバーを追加できます。
+*   **スタックの自由:** 5年前に選択した技術に縛られることはありません。新しいサービスでは最新のツールを使用できます。
+*   **回復力:** 理想的には、「おすすめ」サービスがクラッシュしても、サイトの残りの部分（「チェックアウト」など）は稼働し続けます。
+
+### マイクロサービスのコスト
+
+*   **Opsの複雑さ:** コードの複雑さをインフラの複雑さと交換することになります。数十のサービスにまたがるリクエストを監視、ログ記録、トレースする必要があります。
+*   **レイテンシ:** メモリ内の関数呼び出しはナノ秒単位です。別のサービスへのネットワーク呼び出しはミリ秒単位です。これが積み重なります。
+*   **分散システムは難しい:** 複数のサービスにまたがるトランザクションは頭痛の種です。データの一貫性を維持するには慎重な設計が必要です。
+
+### なぜモノリスにこだわるのか？
+
+*   **シンプルさが支配する:** コードのナビゲーションが簡単です。「定義へ移動」のようなIDEツールが実際に機能します。
+*   **パフォーマンス:** 内部呼び出しにネットワークオーバーヘッドがありません。すべてがプロセス内で行われます。
+*   **簡単なテスト:** ラップトップ上でアプリ全体を起動し、インターネット全体をモックすることなくエンドツーエンドのテストを実行できます。
+
+### モノリスの限界
+
+*   **スケーリングの痛み:** ボトルネックが一部だけであっても、アプリ全体をスケールする必要があります。
+*   **結合:** すべてが他のすべてに依存するスパゲッティコードを作成するのは簡単です。1つの悪いコミットがアプリ全体を壊す可能性があります。
+*   **デプロイの恐怖:** 巨大なモノリスのデプロイは遅くて危険な場合があり、「デプロイの恐怖」やリリースサイクルの遅延につながります。
+
+### 「サービス多すぎ」の罠
+
+中小企業によく見られるアンチパターンは、エンジニアよりも多くのマイクロサービスを作ってしまうことです。100人のエンジニアが300以上のサービスを維持しようとしている組織を見たことがありますが、結果は完全なカオスです。
+
+その閾値を超えると、多くのサービスには明確な所有者がいなくなるか、所有者がサービスを引き継いだものの、組織再編のためにそのコンテキストを全く持っていない状態になります。また、脆弱性を排除するためにすべてのリポジトリの依存関係を更新することに多くの時間を費やすことになります。マイクロサービスを効果的に機能させるには、専任のプラットフォームチームとツーリングへの多大な投資が必要です。ほとんどのスタートアップにはそのインフラを構築するリソースがなく、「アジャイル」なアーキテクチャをメンテナンスの悪夢に変えてしまいます。
+
+## 3. どちらがあなたに合っていますか？
+
+トレンディだからという理由でアーキテクチャを選ばないでください。現在の問題を解決するから選ぶのです。
+
+**以下の場合、マイクロサービスを選択してください：**
+*   大規模なエンジニアリング組織（50人以上の開発者など）があり、チームを分離する必要がある場合。
+*   リソース要件が大きく異なるコンポーネントがある場合（例：重いMLパイプラインと単純なCRUDアプリ）。
+*   モノリスではどうしても処理できない厳しいスケーリングの限界に直面している場合。
+
+**以下の場合、モノリスを選択してください：**
+*   スタートアップや小規模なチームである場合。イテレーションの速度が最も重要な指標です。
+*   ドメインが密接に統合されている場合。ある機能を変更するとほぼ常にもう一方の変更が必要になるなら、それらを分割するのは苦痛を増やすだけです。
+*   プロトタイピングを行っている場合。まだドメインの境界がわかっていません。時期尚早にサービスを分割するのは古典的な間違いです。
+
+## 4. 実用的な道：モジュラーモノリスと段階的な分割
+
+ここに秘密があります：いきなりマイクロサービスに飛びつく必要はありません。実際、おそらくそうすべきではありません。
+
+**モジュラーモノリス**は素晴らしい中道案です。単一のデプロイ可能なユニットを構築しますが、内部的にはモジュール間に厳格な境界を強制します。`Module A`のコードは`Module B`のコードを直接インポートできず、定義されたパブリックインターフェースを経由する必要があります。これにより、インフラのオーバーヘッドなしにマイクロサービスのコード構成の利点が得られます。
+
+アプリケーションが成長するにつれて、独立させる*必要がある*部分を切り離すことができます。
+
+### 進化させる方法：
+
+1.  **継ぎ目を見つける:** アプリの中で、独立した製品のように振る舞う部分を特定します。「ユーザー認証」や「画像処理」は一般的な候補です。
+2.  **書き直さずに抽出する:** そのコードを別のサービスに移動します。共通のライブラリ（ログやメトリクスの設定など）は共有して、一貫性を保つことができます。
+3.  **反復する:** すべてを一度に分割しないでください。おそらく、1つのメインモノリスと、特定のタスク用の2つの小さなマイクロサービスが必要なだけかもしれません。
+4.  **共有コードに注意:** サービス間でデータベーステーブルを共有するのは罠です。サービスを分割する場合、理想的にはそのサービスがデータを所有すべきです。
+
+### 図：ハイブリッドアプローチ
+
+```hidden
+digraph Architecture {
+  bgcolor="transparent";
+  compound=true;
+  node [shape=box, style=filled, fontname="Noto Sans", fontsize=14, fontcolor="#222222"];
+
+  // Arrow style
+  edge [color="#6a8caf", penwidth=1.5];
+
+  // Monolith cluster
+  subgraph cluster_monolith {
+    label="Monolith";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Noto Sans";
+    margin=15;
+
+    // Arrow style inside cluster
+    edge [color="#3a5a7c", penwidth=1.2];
+
+    UserInterface [label="User Interface", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    BusinessLogic [label="Business Logic", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    DataAccessLayer [label="Data Access Layer", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    Database [label="Database", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+
+    UserInterface -> BusinessLogic -> DataAccessLayer -> Database;
+  }
+
+  // API Gateway node
+  APIGateway [label="API Gateway", shape=box, style=filled, fillcolor="#3a5a7c", fontcolor="#f0f0f0"];
+
+  // Services cluster
+  subgraph cluster_services {
+    label="Services";
+    style=rounded;
+    bgcolor="#c9daf8";
+    fontcolor="#3a5a7c";
+    fontname="Noto Sans";
+    margin=15;
+
+    // Arrow style inside cluster
+    edge [color="#3a5a7c", penwidth=1.2];
+
+    MediumServiceA [label="Medium Service A\nUser Management\nSub, Auth, etc.", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MonolithServiceA [label="Monolith Service A\nMonolith for app 1", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MonolithServiceB [label="Monolith Service B\nMonolith for app 2", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+    MicroserviceA [label="Micro service A\nAnalytics", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    DatabaseA [label="Database A", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseB [label="Database B", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseC [label="Database C", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+    DatabaseD [label="Database D", fillcolor="#d9c2e6", fontcolor="#4a2c0f"];
+
+    MediumServiceA -> DatabaseA;
+    MonolithServiceA -> DatabaseB;
+    MonolithServiceB -> DatabaseC;
+    MicroserviceA -> DatabaseD;
+  }
+
+  // Connections
+  Database -> APIGateway [label="Splitting", style=dashed, color="#6a8caf", fontcolor="#6a8caf", ltail=cluster_monolith];
+  APIGateway -> MediumServiceA;
+  APIGateway -> MonolithServiceA;
+  APIGateway -> MonolithServiceB;
+  APIGateway -> MicroserviceA;
+}
+```
+
+<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-hybrid.svg"}
+  priority={true}
+  width={615}
+  height={1200}
+  className="mx-auto mt-10 mb-10"
+  alt={"マイクロサービスアーキテクチャ図"}
+/>
+
+## 結論
+
+「マイクロサービス vs モノリス」の議論は、しばしば論点を見失っています。どのアーキテクチャが理論的に優れているかではなく、今現在、どのトレードオフのセットなら受け入れられるかが重要なのです。
+
+*   **マイクロサービス**は独立性ときめ細かいスケーリングを提供しますが、その代償として複雑さが増します。
+*   **モノリス**はシンプルさと速度を提供しますが、規模が大きくなると扱いにくくなる可能性があります。
+*   **ハイブリッド/進化的**アーキテクチャなら、シンプルに始めて、必要な場合にのみ複雑に成長させることができます。
+
+よく構成されたモノリスから始めましょう。痛みを感じたときに分割してください。それより前ではありません。未来の自分（そしてあなたのDevOpsチーム）は感謝するでしょう。

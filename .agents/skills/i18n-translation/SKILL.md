@@ -30,6 +30,7 @@ web/
     ├── en.d.json.ts             # TypeScript definitions
     ├── fr.json                  # French translations
     ├── es.json                  # Spanish translations
+    ├── ja.json                  # Japanese translations
     ├── ko.json                  # Korean translations
     ├── zh.json                  # Chinese Simplified translations
     └── zh-tw.json               # Chinese Traditional translations
@@ -41,6 +42,7 @@ Current supported locales are defined in `src/i18n/locales.ts`:
 - `en` - English (source of truth)
 - `fr` - French
 - `es` - Spanish
+- `ja` - Japanese
 - `ko` - Korean
 - `zh` - Chinese Simplified
 - `zh-tw` - Chinese Traditional
@@ -86,7 +88,12 @@ Follow these steps to add a new language to the application:
    - Add the font variable to `src/app/globals.css`
    - Note: Latin-specific fonts (like Baikal) have dedicated variables (e.g., `--font-condensed-latin`) for design-specific usage
 
-6. **Restart development server** for changes to take effect
+6. **Update this skill documentation** (`.agents/skills/i18n-translation/SKILL.md`):
+   - Add the new locale to the "Supported Locales" section
+   - Maintain alphabetical order by locale code for consistency
+   - Example: `- 'ja' - Japanese`
+
+7. **Restart development server** for changes to take effect
 
 ### Translating Existing Strings
 
