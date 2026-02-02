@@ -1,0 +1,212 @@
+{
+  "errorPages": {
+    "404": {
+      "metadata": {
+        "title": "404 - ページが見つかりません :: Melvin Laplanche",
+        "description": "申し訳ありませんが、このページは存在しません。"
+      },
+      "title": "ページが見つかりません"
+    }
+  },
+  "navbar": {
+    "home": "ホーム",
+    "blog": "ブログ",
+    "games": "ゲーム",
+    "conway": "ライフゲーム",
+    "tools": "ツール",
+    "fortnite": "フォートナイトデータ",
+    "string-length": "文字数カウント",
+    "timezones": "タイムゾーン変換",
+    "timestamp": "タイムスタンプ検索",
+    "uuid": "UUID生成",
+    "switchTheme": "テーマを切り替え",
+    "theme": "テーマ",
+    "themeLight": "ライト",
+    "themeDark": "ダーク",
+    "themeSystem": "システム",
+    "changeLanguage": "言語を変更",
+    "language": "言語"
+  },
+  "home": {
+    "metadata": {
+      "description": "Melvin Laplancheの個人ウェブサイト。特に面白いものはありません。"
+    },
+    "header": {
+      "subtitle": "バックエンドとシステム開発を愛するフルスタックエンジニア"
+    },
+    "aboutme": {
+      "title": "私について",
+      "content": "こんにちは、ロサンゼルスを拠点とするソフトウェアエンジニアのMelvinです。2004年、中学生の時にC言語でプログラミングを始め、それ以来ずっと情熱を注いでいます。長年にわたり、様々なプログラミング言語や技術を探求してきました。新しい概念を学ぶことを楽しみ、空いた時間はよく新しいツールやフレームワークの実験に費やしています。クリーンアーキテクチャと十分にテストされたコードに専念しています。",
+      "cta": "Githubをチェック"
+    },
+    "tech": {
+      "backend": {
+        "title": "バックエンド / Ops 技術",
+        "content": "AngularJS以前の時代の多くのWebエンジニアと同様に、私もバックエンド開発から旅を始めました。Webサイト構築の主要技術だった頃の生のPHPから始まり、Rails、Django、Symfony 2、Node、Goなどの新しいトレンドを取り入れてきました。バックエンド技術の進化に常に追従するよう努め、採用する前にその長所と短所を慎重に検討しています。さらに、CおよびC++を使用した数年間の経験もあります。"
+      },
+      "client": {
+        "title": "クライアント技術",
+        "content1": "バックエンド開発も楽しいですが、現代のバックエンドは主にデータの処理とクライアントへの返却に焦点を当てています。この現実がクライアントサイド開発への興味をかき立てました。クライアントコードを書くことで、必要なデータを部分的にしか提供しない、ドキュメント化されていない、または設計の悪いAPIを扱うことの難しさを理解できるようになり、より良いバックエンドエンジニアになれたと信じています。",
+        "content2": "専門的には、ネイティブモバイルアプリ（iOSおよびAndroid）、ハイブリッドモバイルアプリ、標準的なElectronアプリ、重い処理を行うためのローカルGoバックエンドを持つElectronアプリ（ネイティブWindowsおよびmacOSライブラリのためのcgoを利用）、そしてAngular、Reactなどを使用したシングルページアプリケーション（SPA）など、様々なプラットフォームでの経験があります。"
+      }
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "linkedinModalContent": "あまりにも多くの怪しい会社が私のLinkedInデータをスクレイピングして自社サイトにプロフィールを作成し、リクルーターにすべてを販売していました。私はLinkedInアカウントを削除することに決めました。",
+      "linkedinModalClose": "閉じる"
+    }
+  },
+  "blog": {
+    "metadata": {
+      "title": "ブログ",
+      "description": "最新のブログ記事を見る"
+    },
+    "listTitle": "ブログ記事"
+  },
+  "conway": {
+    "metadata": {
+      "title": "ライフゲーム",
+      "description": "コンウェイのライフゲーム"
+    },
+    "title": "コンウェイのライフゲーム",
+    "needLargeScreen": "このページにアクセスするには大画面のデバイスが必要です",
+    "whatIsIt": "ライフゲームは、1970年にイギリスの数学者ジョン・ホートン・コンウェイによって考案されたセル・オートマトンです。ゼロプレイヤーゲームであり、その進化は初期状態によって決定され、それ以上の入力は必要ありません。初期配置を作成し、それがどのように進化するかを観察することで、ライフゲームと対話します。チューリング完全であり、万能構築機やその他のチューリングマシンをシミュレートできます。 — ",
+    "quoteUrl": "https://ja.wikipedia.org/wiki/%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B2%E3%83%BC%E3%83%A0",
+    "quoteBy": "Wikipedia",
+    "howToPlay": "遊び方",
+    "rules": {
+      "header": "ライフゲームの世界は、正方形のセルの2次元直交グリッドであり、各セルは「生」または「死」の2つの状態のいずれかにあります。すべてのセルは、水平、垂直、または対角線上で隣接する8つの近傍セルと相互作用します。各時間ステップで、以下の遷移が発生します：",
+      "rule1": "生きているセルに隣接する生きているセルが2つ未満の場合、過疎により死滅します。",
+      "rule2": "生きているセルに隣接する生きているセルが2つまたは3つの場合、次世代でも生存します。",
+      "rule3": "生きているセルに隣接する生きているセルが3つを超える場合、過密により死滅します。",
+      "rule4": "死んでいるセルに隣接する生きているセルがちょうど3つの場合、繁殖により生きているセルになります。",
+      "footer": "初期パターンがシステムの「種」となります。最初の世代は、上記のルールを種（生または死）のすべてのセルに同時に適用することによって作成されます。誕生と死は同時に発生します。各世代は前の世代の純粋な関数です。ルールは繰り返し適用され、さらなる世代を作成します。"
+    },
+    "gridInfo": "グリッドはランダムなセルで事前に埋められています。セルの状態を変更するには、セルをクリックしてグリッドを編集できます。",
+    "controls": {
+      "title": "コントロール",
+      "play": "再生",
+      "pause": "一時停止",
+      "speed": "速度",
+      "boardSize": "ボードサイズ",
+      "presets": {
+        "title": "プリセット",
+        "glider": "グライダー",
+        "pulsar": "パルサー",
+        "pentadecathlon": "ペンタデカスロン",
+        "heavySpaceship": "重量級宇宙船"
+      }
+    }
+  },
+  "fortnite": {
+    "metadata": {
+      "title": "フォートナイトデータ",
+      "description": "フォートナイトの全データ",
+      "focusTitle": "{username}のフォートナイトデータ",
+      "focusDescription": "{username}の全フォートナイトデータ"
+    },
+    "title": "<name>Fortnite</name>の成績を確認",
+    "errors": {
+      "accountPrivate": "このゲーマーはデータを公開していません。",
+      "notFound": "このプラットフォームにはその名前のユーザーはいません。",
+      "serverError": "現在データを利用できないようです。後でもう一度お試しください。"
+    },
+    "presets": "または有名なコンテンツクリエイターを選ぶ",
+    "daysSpent": "{days, plural, =0 {0日} other {#日}}",
+    "hoursSpent": "{hours, plural, =0 {0時間} other {#時間}}",
+    "minutesSpent": "{minutes, plural, =0 {0分} other {#分}}",
+    "timeSpent": "これがあなたがゲームに費やした時間です。",
+    "overallWinRate": "全体勝率",
+    "overallKd": "全体キル/デス比",
+    "currentLevel": "レベル {level}",
+    "currentLevelProgression": "現在のレベル進行状況",
+    "form": {
+      "accountName": "アカウント名",
+      "platform": "プラットフォーム",
+      "platformEpic": "Epic Games",
+      "platformXbox": "Xbox",
+      "platformPlaystation": "PlayStation",
+      "currentSeasonOnly": "現在のシーズンのみ"
+    },
+    "data": {
+      "statsTable": "全統計テーブル",
+      "gamePlayed": "プレイ回数",
+      "wins": "勝利数",
+      "winRate": "勝率",
+      "kd": "キル/デス比",
+      "kdHelp": "死ぬまでに何人倒したか",
+      "top10rate": "トップ10率",
+      "top10rateHelp": "生存者ラスト10人に入った頻度",
+      "top25rate": "トップ25率",
+      "top25rateHelp": "生存者ラスト25人に入った頻度",
+      "timePlayed": "プレイ時間",
+      "noData": "表示するデータがありません。",
+      "kbm": "キーボード & マウス",
+      "gamepad": "ゲームパッド",
+      "mobile": "モバイル",
+      "all-categories": "すべて",
+      "solo": "ソロ",
+      "duo": "デュオ",
+      "squad": "トリオ / スクワッド",
+      "overall": "全体",
+      "stat": "統計",
+      "value": "値"
+    }
+  },
+  "stringLength": {
+    "metadata": {
+      "title": "文字数カウント",
+      "description": "無料のオンライン文字数カウントツールで、テキストの文字数、単語数、バイト数をカウントします。Unicode文字を正しくサポートしています。"
+    },
+    "title": "文字数カウント",
+    "inputLabel": "テキストを入力",
+    "inputPlaceholder": "ここにテキストを入力または貼り付け...",
+    "characterCount": "文字数",
+    "word-count": "単語数",
+    "wordCountTooltip": "スペースベースの言語（英語、スペイン語、フランス語など）のみサポートしています。スペースのない言語（中国語、日本語、韓国語など）は正確にカウントされません。",
+    "byteCount": "バイト数 (UTF-8)"
+  },
+  "timestamp": {
+    "metadata": {
+      "title": "タイムスタンプ検索",
+      "description": "タイムスタンプを実際の日付に変換します。"
+    },
+    "title": "タイムスタンプ検索",
+    "inputLabel": "タイムスタンプ",
+    "inputError": "無効なタイムスタンプ",
+    "inputDescription": "ミリ秒、マイクロ秒、ナノ秒を自動検出します",
+    "output": "{timestamp} は <date>{utcDate}</date> です"
+  },
+  "uuid": {
+    "metadata": {
+      "title": "UUID生成",
+      "description": "無料のオンラインUUID生成ツールで簡単にUUIDを生成します。プロジェクト用のユニークな識別子を数秒で作成できます。"
+    },
+    "title": "UUID生成",
+    "versionLabel": "UUIDバージョン",
+    "versionPlaceholder": "UUIDバージョンを選択",
+    "nameLabel": "名前",
+    "namePlaceholder": "名前を入力",
+    "namespaceLabel": "名前空間",
+    "namespacePlaceholder": "名前空間を選択",
+    "customNamespaceLabel": "カスタム名前空間",
+    "customNamespacePlaceholder": "名前空間を入力",
+    "customNamespaceError": "有効なUUIDを入力してください",
+    "countLabel": "生成数",
+    "actionGenerate": "生成"
+  },
+  "timezones": {
+    "metadata": {
+      "title": "タイムゾーン変換",
+      "description": "タイムゾーンを比較し、時間を変換します。"
+    },
+    "title": "タイムゾーン変換",
+    "fromLabel": "場所：",
+    "fromAriaLabel": "変換元の都市を検索",
+    "dateTimeLabel": "日時：",
+    "dateTimeAriaLabel": "変換元の日時を選択",
+    "toLabel": "以下の場所での日時を確認：",
+    "toAriaLabel": "変換先の都市を検索",
+    "output": "<cityWrapper>{city}</cityWrapper> では {time} です"
+  }
+}

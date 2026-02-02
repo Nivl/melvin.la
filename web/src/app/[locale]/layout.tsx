@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import {
   Fira_Code,
   Noto_Sans,
+  Noto_Sans_JP,
   Noto_Sans_KR,
   Noto_Sans_SC,
   Noto_Sans_TC,
@@ -22,6 +23,12 @@ import { getMetadata } from '#utils/metadata';
 const notoSans = Noto_Sans({
   subsets: ['latin'],
   variable: '--font-noto-sans',
+});
+
+const notoSansJP = Noto_Sans_JP({
+  subsets: ['latin'],
+  weight: 'variable',
+  variable: '--font-noto-sans-jp',
 });
 
 const notoSansKR = Noto_Sans_KR({
@@ -64,6 +71,7 @@ const burbank = localFont({
 // - Storybook's fonts.css file
 const fonts = [
   notoSans,
+  notoSansJP,
   notoSansKR,
   notoSansSC,
   notoSansTC,
@@ -84,6 +92,11 @@ function getFonts(locale: string) {
   // For other languages, we fallback to the appropriate Noto Sans font
   // to ensure characters are rendered correctly.
   switch (locale) {
+    case 'ja':
+      primarySans = 'var(--font-noto-sans-jp)';
+      condensed = 'var(--font-noto-sans-jp)';
+      fortnite = 'var(--font-noto-sans-jp)';
+      break;
     case 'ko':
       primarySans = 'var(--font-noto-sans-kr)';
       condensed = 'var(--font-noto-sans-kr)';
@@ -102,7 +115,7 @@ function getFonts(locale: string) {
   }
 
   return {
-    sans: `${primarySans}, var(--font-noto-sans), var(--font-noto-sans-kr), var(--font-noto-sans-sc), var(--font-noto-sans-tc), ${systemFonts}`,
+    sans: `${primarySans}, var(--font-noto-sans), var(--font-noto-sans-jp), var(--font-noto-sans-kr), var(--font-noto-sans-sc), var(--font-noto-sans-tc), ${systemFonts}`,
     condensed,
     fortnite,
   };

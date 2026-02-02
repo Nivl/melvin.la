@@ -9,6 +9,7 @@ This reference provides standard locale codes and naming conventions for interna
 | `en` | English | English | Source of truth |
 | `fr` | French | Français | |
 | `es` | Spanish | Español | |
+| `ja` | Japanese | 日本語 | Requires Noto Sans JP |
 | `ko` | Korean | 한국어 | Requires Noto Sans KR |
 | `zh` | Chinese (Simplified) | 简体中文 | Requires Noto Sans SC |
 | `zh-tw` | Chinese (Traditional) | 繁體中文 | Requires Noto Sans TC |
