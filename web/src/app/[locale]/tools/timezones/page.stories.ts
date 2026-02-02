@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import page from './page';
 
 const meta = {
-  title: 'Timezones/Home',
+  title: 'Pages/Tools/Timezones',
   component: page,
   parameters: {
     layout: 'fullscreen',
