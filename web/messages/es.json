@@ -50,6 +50,15 @@
         "content2": "Profesionalmente, tengo experiencia en una variedad de plataformas, incluyendo aplicaciones móviles nativas (iOS y Android), aplicaciones móviles híbridas, aplicaciones Electron estándar, aplicaciones Electron con un backend Go local para tareas pesadas (utilizando cgo para bibliotecas nativas de Windows y macOS), y aplicaciones de una sola página (SPA) utilizando Angular, React y más."
       }
     },
+    "skills": {
+      "title": "Habilidades",
+      "noSkillsFound": "No se encontraron habilidades que coincidan con sus filtros.",
+      "description": "Aquí hay una lista de algunas de las tecnologías que he utilizado desde que comencé a aprender ingeniería de software. No es exhaustiva, pero debería darle una idea de la amplitud de mi experiencia. Por defecto, solo muestra los últimos 5 años, pero puede cambiar eso con los filtros a continuación.",
+      "form": {
+        "nameFilter": "Filtrar por nombre",
+        "yearFilter": "Filtrar por rango de años"
+      }
+    },
     "contact": {
       "title": "Contáctame",
       "linkedinModalContent": "Demasiadas empresas sospechosas han extraído mis datos de LinkedIn para crear perfiles en sus sitios web y vender todo a los reclutadores. Tomé la decisión de eliminar mi cuenta de LinkedIn.",

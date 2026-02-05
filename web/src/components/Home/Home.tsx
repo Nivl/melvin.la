@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { About } from '#components/Home/About';
 import { Contact } from '#components/Home/Contact';
 import { Header } from '#components/Home/Header';
+import { Skills } from '#components/Home/Skills';
 import { Tech } from '#components/Home/Tech';
 import { Footer } from '#components/layout/Footer';
 import { Section } from '#components/layout/Section';
@@ -36,6 +37,10 @@ export function Home({ sections }: { sections: Sections }) {
           logos={sections.clientTech.logos}
           inverted={true}
         />
+      </Section>
+
+      <Section>
+        <Skills />
       </Section>
 
       <Section fullScreen={true}>

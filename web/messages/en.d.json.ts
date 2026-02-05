@@ -53,6 +53,15 @@ declare const messages: {
         "content2": "Professionally, I have experience across a variety of platforms, including native mobile apps (iOS and Android), hybrid mobile apps, standard Electron apps, Electron apps with a local Go backend for heavy lifting (utilizing cgo for native Windows and macOS libraries), and Single Page Applications (SPAs) using Angular, React, and more."
       }
     },
+    "skills": {
+      "title": "Skills",
+      "noSkillsFound": "No skills found matching your filters.",
+      "description": "Here's list of some of the technologies I have used since I started learning software engineering. It's not exhaustive, but it should give you an idea of the breadth of my experience. By default it only shows the last 5 years, but you can change that with the filters below.",
+      "form": {
+        "nameFilter": "Filter by name",
+        "yearFilter": "Filter by year range"
+      }
+    },
     "contact": {
       "title": "Get in touch",
       "linkedinModalContent": "Too many shady companies scraped my LinkedIn data to create profiles on their websites and sell everything to recruiters. I made the decision to remove my LinkedIn account.",

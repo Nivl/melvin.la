@@ -50,6 +50,15 @@
         "content2": "在職業方面，我在各種平台上都有經驗，包括原生行動應用（iOS 和 Android）、混合行動應用、標準 Electron 應用、帶有本地 Go 後端以處理繁重任務的 Electron 應用（利用 cgo 呼叫原生 Windows 和 macOS 函式庫），以及使用 Angular、React 等建構的單頁應用（SPA）。"
       }
     },
+    "skills": {
+      "title": "技能",
+      "noSkillsFound": "找不到符合您篩選條件的技能。",
+      "description": "這是我自從開始學習軟體工程以來使用過的一些技術的列表。它並不詳盡，但應該能讓您了解我的經驗廣度。預設情況下，它只顯示過去 5 年的內容，但您可以通過下面的過濾器進行更改。",
+      "form": {
+        "nameFilter": "按名稱篩選",
+        "yearFilter": "按年份範圍篩選"
+      }
+    },
     "contact": {
       "title": "聯絡我",
       "linkedinModalContent": "太多可疑的公司抓取我的 LinkedIn 數據在他們網站上建立個人資料並賣給招聘人員。我決定刪除我的 LinkedIn 帳號。",

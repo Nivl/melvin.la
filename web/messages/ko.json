@@ -50,6 +50,15 @@
         "content2": "직업적으로는 네이티브 모바일 앱(iOS 및 Android), 하이브리드 모바일 앱, 표준 Electron 앱, 무거운 작업을 위한 로컬 Go 백엔드가 있는 Electron 앱(네이티브 Windows 및 macOS 라이브러리용 cgo 활용), Angular, React 등을 사용한 단일 페이지 애플리케이션(SPA) 등 다양한 플랫폼에서 경험을 쌓았습니다."
       }
     },
+    "skills": {
+      "title": "기술",
+      "noSkillsFound": "필터와 일치하는 기술을 찾을 수 없습니다.",
+      "description": "소프트웨어 엔지니어링을 배우기 시작한 이후 사용해 온 기술 중 일부 목록입니다. 전체 목록은 아니지만 제 경험의 폭을 이해하는 데 도움이 될 것입니다. 기본적으로 최근 5년만 표시되지만 아래 필터를 사용하여 변경할 수 있습니다.",
+      "form": {
+        "nameFilter": "이름으로 필터링",
+        "yearFilter": "연도 범위로 필터링"
+      }
+    },
     "contact": {
       "title": "연락하기",
       "linkedinModalContent": "너무 많은 수상한 회사들이 제 LinkedIn 데이터를 스크랩하여 자신의 웹사이트에 프로필을 만들고 리크루터에게 판매했습니다. LinkedIn 계정을 삭제하기로 결정했습니다.",

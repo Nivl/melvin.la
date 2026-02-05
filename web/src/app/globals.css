@@ -28,6 +28,29 @@
 
     --animate-levitate: levitate 1s ease-in-out infinite;
 
+    /* tech brand colors, ordered alphabetically */
+    --fill-tech-amplitude: #1E61F0;
+    --fill-tech-android: #33a854;
+    --fill-tech-angular: #f21863;
+    --fill-tech-datadog: #622ca4;
+    --fill-tech-django: #073c2a;
+    --fill-tech-docker: #1c63ed;
+    --fill-tech-go: #1bffff;
+    --fill-tech-grpc: #244b5a;
+    --fill-tech-ionic: #4e8ef7;
+    --fill-tech-javascript: #f8e017;
+    --fill-tech-mongodb: #22a03c;
+    --fill-tech-mysql: #01758f;
+    --fill-tech-node: #5ea04e;
+    --fill-tech-php: #505b93;
+    --fill-tech-postgres: #2f6792;
+    --fill-tech-rails: #d30102;
+    --fill-tech-react: #0ed9fe;
+    --fill-tech-redis: #fe4236;
+    --fill-tech-ruby: #e2242a;
+    --fill-tech-sentry-light: #362c59;
+    --fill-tech-typescript: #3178c6;
+
     @keyframes levitate {
 
         0%,
