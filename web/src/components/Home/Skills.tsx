@@ -568,17 +568,6 @@ export const Skills = () => {
     setRandomizedSkills(shuffle(skillsData));
   }, []);
 
-  // Get all years for each skill that match the selected types
-  const getSkillYears = (skill: SkillData) => {
-    const allYears = new Set<number>();
-    for (const usage of skill.usages) {
-      for (const year of usage.years) {
-        allYears.add(year);
-      }
-    }
-    return [...allYears];
-  };
-
   // Filter skills based on name, and year range
   const filteredSkills = randomizedSkills.filter(skill => {
     // Filter by name
@@ -590,14 +579,8 @@ export const Skills = () => {
     }
 
     // Filter by year range
-    const skillYears = getSkillYears(skill);
-    // If no years match the selected types, filter out the skill
-    if (skillYears.length === 0) {
-      return false;
-    }
-
-    const hasYearInRange = skillYears.some(
-      year => year >= yearRange[0] && year <= yearRange[1],
+    const hasYearInRange = skill.usages.some(usage =>
+      usage.years.some(year => year >= yearRange[0] && year <= yearRange[1]),
     );
     return hasYearInRange;
   });
