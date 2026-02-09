@@ -305,7 +305,6 @@ const skillsData: SkillData[] = [
     name: 'Swift',
     url: 'https://developer.apple.com/swift',
     logo: 'swift',
-    logoColor: 'fill-tech-swift',
     usages: [
       {
         years: [...range(2014, 2016)],
@@ -444,7 +443,6 @@ const skillsData: SkillData[] = [
     name: 'New Relic',
     url: 'https://newrelic.com',
     logo: 'newrelic',
-    logoColor: 'fill-tech-newrelic',
     usages: [
       {
         years: [...range(2016, 2018)],
@@ -456,7 +454,6 @@ const skillsData: SkillData[] = [
     name: 'Electron',
     url: 'https://electronjs.org',
     logo: 'electron',
-    logoColor: 'fill-tech-electron',
     usages: [
       {
         years: [...range(2016, 2020)],
