@@ -597,6 +597,7 @@ export const Skills = () => {
           {/* Name filter */}
           <Input
             type="text"
+            aria-label={t('form.nameFilter')}
             placeholder={t('form.nameFilter')}
             variant="bordered"
             className="md:w-64"
@@ -611,6 +612,7 @@ export const Skills = () => {
           {/* Year range filter */}
           <Slider
             label={t('form.yearFilter')}
+            aria-label={t('form.yearFilter')}
             showSteps
             color="warning"
             size="sm"
