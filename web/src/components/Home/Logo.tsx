@@ -33,7 +33,7 @@ import { EmacsLisp } from '#components/icons/EmacsLisp';
 import { Grpc } from '#components/icons/Grpc';
 import { Java } from '#components/icons/Java';
 import { NewRelic } from '#components/icons/NewRelic';
-import { ObjectiveC } from '#components/icons/ObjectiveC.tsx';
+import { ObjectiveC } from '#components/icons/ObjectiveC';
 import { Python } from '#components/icons/Python';
 import { Swift } from '#components/icons/Swift';
 

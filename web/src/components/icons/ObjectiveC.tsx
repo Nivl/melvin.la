@@ -26,8 +26,8 @@ export const ObjectiveC = ({ className }: { className: string }) => {
       />
       <text
         transform="translate(205.981 1451.148)"
-        font-size="700"
-        font-family="OpenSans-Semibold"
+        fontSize="700"
+        fontFamily="OpenSans-Semibold"
         fill="#fff"
       >
         [ObjC]

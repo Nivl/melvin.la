@@ -9,7 +9,7 @@ import React from 'react';
 import { Heading } from '../layout/Heading';
 import { Logo } from './Logo';
 
-type usageType = 'professional' | 'personal' | 'openSource';
+type UsageType = 'professional' | 'personal' | 'openSource';
 
 type SkillData = {
   name: string;
@@ -18,7 +18,7 @@ type SkillData = {
   logoColor?: string;
   usages: {
     years: number[];
-    type: usageType;
+    type: UsageType;
   }[];
 };
 
@@ -52,7 +52,6 @@ const skillsData: SkillData[] = [
     name: 'Emacs Lisp',
     url: 'https://en.wikipedia.org/wiki/Emacs_Lisp',
     logo: 'emacslisp',
-    logoColor: 'fill-tech-emacslisp',
     usages: [
       {
         years: [...range(2010, 2013)],
