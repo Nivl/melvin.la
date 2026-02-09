@@ -590,7 +590,7 @@ export const Skills = () => {
 
       {/* Filters */}
       <div className="flex flex-col gap-10">
-        <div className="flex items-center justify-center gap-10">
+        <div className="flex flex-col items-center justify-center gap-10 lg:flex-row">
           {/* Name filter */}
           <Input
             type="text"
