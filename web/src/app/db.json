@@ -43,16 +43,6 @@
           "url": "https://www.datadoghq.com/"
         },
         {
-          "img": "googleCloud",
-          "name": "Google Cloud",
-          "url": "https://cloud.google.com/products/#cloud-computing"
-        },
-        {
-          "img": "aws",
-          "name": "AWS",
-          "url": "https://aws.amazon.com/"
-        },
-        {
           "img": "docker",
           "name": "Docker",
           "url": "https://docker.com"
@@ -72,21 +62,6 @@
           "url": "https://developer.apple.com"
         },
         {
-          "img": "electron",
-          "name": "Electron",
-          "url": "https://electronjs.org"
-        },
-        {
-          "img": "c",
-          "name": "C",
-          "url": "https://www.wikiwand.com/en/C_(programming_language)"
-        },
-        {
-          "img": "cpp",
-          "name": "C++",
-          "url": "https://www.wikiwand.com/en/C%2B%2B"
-        },
-        {
           "img": "javascript",
           "name": "JavaScript",
           "url": "https://www.wikiwand.com/en/JavaScript"
@@ -102,19 +77,14 @@
           "url": "https://reactjs.org"
         },
         {
-          "img": "java",
-          "name": "Java",
-          "url": "https://java.com"
+          "img": "angular",
+          "name": "Angular",
+          "url": "https://angular.dev"
         },
         {
-          "img": "swift",
-          "name": "Swift",
-          "url": "https://swift.org"
-        },
-        {
-          "img": "git",
-          "name": "Git internal",
-          "url": "https://git-scm.com/book/en/v2"
+          "img": "amplitude",
+          "name": "Amplitude",
+          "url": "https://amplitude.com"
         }
       ]
     }

@@ -50,6 +50,15 @@
         "content2": "在职业方面，我在各种平台上都有经验，包括原生移动应用（iOS 和 Android）、混合移动应用、标准 Electron 应用、带有本地 Go 后端以处理繁重任务的 Electron 应用（利用 cgo 调用原生 Windows 和 macOS 库），以及使用 Angular、React 等构建的单页应用（SPA）。"
       }
     },
+    "skills": {
+      "title": "技能",
+      "noSkillsFound": "未找到匹配您筛选条件的技能。",
+      "description": "这是我自从开始学习软件工程以来使用过的一些技术的列表。它并不详尽，但应该能让您了解我的经验广度。默认情况下，它只显示过去 5 年的内容，但您可以通过下面的过滤器进行更改。",
+      "form": {
+        "nameFilter": "按名称筛选",
+        "yearFilter": "按年份范围筛选"
+      }
+    },
     "contact": {
       "title": "联系我",
       "linkedinModalContent": "太多可疑的公司抓取我的 LinkedIn 数据在他们网站上创建个人资料并卖给招聘人员。我决定删除我的 LinkedIn 账号。",
