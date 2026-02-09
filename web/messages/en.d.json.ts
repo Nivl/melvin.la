@@ -56,7 +56,7 @@ declare const messages: {
     "skills": {
       "title": "Skills",
       "noSkillsFound": "No skills found matching your filters.",
-      "description": "Here's list of some of the technologies I have used since I started learning software engineering. It's not exhaustive, but it should give you an idea of the breadth of my experience. By default it only shows the last 5 years, but you can change that with the filters below.",
+      "description": "Here's a list of some of the technologies I have used since I started learning software engineering. It's not exhaustive, but it should give you an idea of the breadth of my experience. By default it only shows the last 5 years, but you can change that with the filters below.",
       "form": {
         "nameFilter": "Filter by name",
         "yearFilter": "Filter by year range"
