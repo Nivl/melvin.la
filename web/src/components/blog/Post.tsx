@@ -29,6 +29,7 @@ export function Post({ post }: { post: BlogPost }) {
       </Section>
       <Section className="text-justify">
         <MDXRemote
+          options={{ blockJS: false }}
           source={post.content}
           components={{
             h1: ({ children }) => (
