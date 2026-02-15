@@ -5,10 +5,6 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/stringutil"
 )
 
-func stringPtr(s string) *string {
-	return &s
-}
-
 // NewShortErrorResponse returns an ErrorResponse with only a message.
 func NewShortErrorResponse(code int, message string) *api.ErrorResponse {
 	return &api.ErrorResponse{ //nolint:exhaustruct // we only want a message
@@ -22,7 +18,7 @@ func NewErrorResponse(code int, field, message string, loc api.ErrorResponseLoca
 	return &api.ErrorResponse{
 		Code:     code,
 		Message:  message,
-		Field:    stringPtr(stringutil.ToCamelCase(field)),
+		Field:    new(stringutil.ToCamelCase(field)),
 		Location: &loc,
 	}
 }
