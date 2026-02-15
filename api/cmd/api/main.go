@@ -11,8 +11,8 @@ import (
 	"github.com/Nivl/melvin.la/api/internal"
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/Nivl/melvin.la/api/internal/lib/app"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/middleware"
+	"github.com/Nivl/melvin.la/api/internal/lib/httpserver"
+	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/middleware"
 	"github.com/Nivl/melvin.la/api/internal/server"
 	"github.com/getsentry/sentry-go"
 	"github.com/labstack/echo/v4"
@@ -48,7 +48,7 @@ func run() (returnedErr error) {
 	}
 
 	// Setup and start the server
-	e := httputil.NewBaseRouter(deps)
+	e := httpserver.NewBaseRouter(deps)
 	e.IPExtractor = echo.ExtractIPDirect()
 	origins := []string{"https://melvin.la"}
 	if len(cfg.API.ExtraCORSOrigins) > 0 {
@@ -64,7 +64,7 @@ func run() (returnedErr error) {
 	strictHandler := api.NewStrictHandler(srv, nil)
 	api.RegisterHandlers(e, strictHandler)
 
-	err = httputil.StartAndWaitWithCb(ctx, deps.Logger, e, httputil.StartAndWaitOpts{
+	err = httpserver.StartAndWaitWithCb(ctx, deps.Logger, e, httpserver.StartAndWaitOpts{
 		Port:      cfg.API.Port,
 		CertsPath: cfg.API.SSLCertsDir,
 		Callback:  nil,

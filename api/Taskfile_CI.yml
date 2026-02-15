@@ -13,6 +13,8 @@ tasks:
       - git diff --exit-code
       - go mod tidy
       - git diff --exit-code
+      - go fix ./...
+      - git diff --exit-code
 
   test:
     - mkdir -p {{.RESULTS_DIR}}

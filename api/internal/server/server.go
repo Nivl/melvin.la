@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
+	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/request"
 	"github.com/Nivl/melvin.la/api/internal/lib/secret"
 )
 

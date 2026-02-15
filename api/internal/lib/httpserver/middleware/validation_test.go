@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/middleware"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
+	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/middleware"
+	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/request"
 	"github.com/getsentry/sentry-go"
 	"github.com/labstack/echo/v4"
 	"github.com/pb33f/libopenapi"

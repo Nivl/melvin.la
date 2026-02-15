@@ -13,7 +13,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/httperror"
+	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/httperror"
 	"github.com/labstack/echo/v4"
 	"github.com/oapi-codegen/runtime"
 	strictecho "github.com/oapi-codegen/runtime/strictmiddleware/echo"

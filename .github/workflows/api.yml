@@ -23,7 +23,7 @@ concurrency:
 
 env:
   PROD_IMAGE_URI: registry.fly.io/melvinla-api-prod
-  GO_DEV_IMG: &service-images-go-dev ghcr.io/nivl/service-images-go-dev:sha-91ee9f6
+  GO_DEV_IMG: &service-images-go-dev ghcr.io/nivl/service-images-go-dev:sha-4074f8b
 
 jobs:
   prepare-env:
