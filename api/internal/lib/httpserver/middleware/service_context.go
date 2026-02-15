@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"github.com/Nivl/melvin.la/api/internal/lib/app"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
+	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/request"
 	"github.com/getsentry/sentry-go"
 	"github.com/getsentry/sentry-go/attribute"
 	"github.com/labstack/echo/v4"

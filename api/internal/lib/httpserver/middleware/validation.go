@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
+	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/request"
 	"github.com/Nivl/melvin.la/api/internal/server"
 	"github.com/labstack/echo/v4"
 	validator "github.com/pb33f/libopenapi-validator"

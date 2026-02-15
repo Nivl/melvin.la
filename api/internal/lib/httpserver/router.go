@@ -1,8 +1,8 @@
-package httputil
+package httpserver
 
 import (
 	"github.com/Nivl/melvin.la/api/internal/lib/app"
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/middleware"
+	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/middleware"
 	sentryecho "github.com/getsentry/sentry-go/echo"
 	"github.com/labstack/echo/v4"
 )

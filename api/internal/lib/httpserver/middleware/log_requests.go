@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Nivl/melvin.la/api/internal/lib/httputil/request"
+	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/request"
 	"github.com/labstack/echo/v4"
 )
 
