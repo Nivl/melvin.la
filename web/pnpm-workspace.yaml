@@ -13,40 +13,9 @@ onlyBuiltDependencies:
 
 minimumReleaseAge: 20160
 minimumReleaseAgeExclude:
-  # Remove Feb 15th 2026
-  - "@babel/core@7.29.0"
-  - "@babel/code-frame@7.29.0"
-  - "@babel/types@7.29.0"
-  - "@babel/generator@7.29.0"
-  - "@babel/traverse@7.29.0"
-  - "@babel/parser@7.29.0"
-  # Remove Feb 14th 2026
-  - "rollup@4.57.1"
-  - "@rollup/rollup-linux-loong64-musl@4.57.1"
-  - "@rollup/rollup-linux-ppc64-musl@4.57.1"
-  - "@rollup/rollup-linux-loong64-gnu@4.57.1"
-  - "@rollup/rollup-win32-x64-gnu@4.57.1"
-  - "@rollup/rollup-linux-ppc64-gnu@4.57.1"
-  - "@rollup/rollup-linux-riscv64-musl@4.57.1"
-  - "@rollup/rollup-openbsd-x64@4.57.1"
-  - "@rollup/rollup-freebsd-arm64@4.57.1"
-  - "@rollup/rollup-freebsd-x64@4.57.1"
-  - "@rollup/rollup-openharmony-arm64@4.57.1"
-  - "@rollup/rollup-android-arm-eabi@4.57.1"
-  - "@rollup/rollup-win32-arm64-msvc@4.57.1"
-  - "@rollup/rollup-linux-arm-musleabihf@4.57.1"
-  - "@rollup/rollup-linux-riscv64-gnu@4.57.1"
-  - "@rollup/rollup-linux-s390x-gnu@4.57.1"
-  - "@rollup/rollup-linux-arm64-musl@4.57.1"
-  - "@rollup/rollup-win32-ia32-msvc@4.57.1"
-  - "@rollup/rollup-linux-x64-gnu@4.57.1"
-  - "@rollup/rollup-linux-x64-musl@4.57.1"
-  - "@rollup/rollup-darwin-arm64@4.57.1"
-  - "@rollup/rollup-android-arm64@4.57.1"
-  - "@rollup/rollup-win32-x64-msvc@4.57.1"
-  - "@rollup/rollup-linux-arm-gnueabihf@4.57.1"
-  - "@rollup/rollup-darwin-x64@4.57.1"
-  - "@rollup/rollup-linux-arm64-gnu@4.57.1"
+  # Remove Feb 16th 2026
+  - "jsdom@28.0.0"
+  - "whatwg-url@16.0.0"
   # Remove Feb 17th 2026
   - "@sentry/bundler-plugin-core@4.9.0"
   - "@sentry/webpack-plugin@4.9.0"
@@ -56,5 +25,6 @@ minimumReleaseAgeExclude:
   - "use-intl@4.8.2"
   - "framer-motion@12.30.0"
   - "motion-dom@12.30.0"
+  - "data-urls@7.0.0"
   # Remove Feb 18th 2026
   - "next-mdx-remote@6.0.0"
