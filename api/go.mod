@@ -1,6 +1,6 @@
 module github.com/Nivl/melvin.la/api
 
-go 1.26
+go 1.26.0
 
 require (
 	github.com/getsentry/sentry-go v0.42.0
