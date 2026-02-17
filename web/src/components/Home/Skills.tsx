@@ -641,11 +641,11 @@ export const Skills = () => {
           <a
             key={skill.name}
             href={skill.url || '#'}
-            className="flex w-full flex-col items-center justify-center border-none pt-4 md:pt-8"
+            className="group flex w-full flex-col items-center justify-center border-none pt-4 group-hover:scale-150 md:pt-8"
             data-chromatic="ignore"
           >
             <Logo
-              className={`${skill.logoColor ?? 'dark:fill-foreground fill-neutral-700'} h-16 w-16`}
+              className={`${skill.logoColor ?? 'dark:fill-foreground fill-neutral-700'} cls-boop-animation h-16 w-16 transition-transform group-hover:scale-125`}
               name={skill.logo}
             />
             <span className="mt-2 text-center text-sm">{skill.name}</span>
