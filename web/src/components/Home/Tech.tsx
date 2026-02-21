@@ -26,14 +26,14 @@ export const Tech = ({
           <a
             key={logo.name}
             href={logo.url}
-            className={`grid w-28 border-none pt-4 md:w-40 md:pt-8 ${
+            className={`group grid w-28 border-none pt-4 md:w-40 md:pt-8 ${
               inverted
                 ? 'justify-center'
                 : 'justify-center md:justify-start lg:justify-center'
             }`}
           >
             <Logo
-              className="dark:fill-foreground h-16 w-16 fill-neutral-700"
+              className="cls-boop-animation dark:fill-foreground h-16 w-16 fill-neutral-700 transition-transform group-hover:scale-125"
               name={logo.img}
             />
           </a>
