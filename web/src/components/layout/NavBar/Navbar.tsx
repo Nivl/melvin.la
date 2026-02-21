@@ -9,6 +9,7 @@ import {
 } from '@heroui/dropdown';
 import { Link } from '@heroui/link';
 import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
+import { motion, MotionConfig } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { ReactNode, useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
@@ -92,109 +93,147 @@ export const Navbar = () => {
 
   return (
     <NuiNavbar position="static" className="bg-transparent">
-      <NavbarContent>
-        <NavbarItem isActive={pathname == '/'}>
-          <Link color="foreground" href="/" as={NextLink}>
-            {t('home')}
-          </Link>
-        </NavbarItem>
-
-        <NavbarItem isActive={pathname.startsWith('/blog')}>
-          <Link color="foreground" href="/blog" as={NextLink}>
-            {t('blog')}
-          </Link>
-        </NavbarItem>
-
-        <Dropdown>
-          <NavbarItem>
-            <DropdownTrigger>
-              <Button
-                disableRipple
-                className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent ${pathname.startsWith('/games') ? 'font-semibold' : ''}`}
-                radius="sm"
-                variant="light"
-                endContent={
-                  <DownIcon
-                    className={
-                      'ease-spring-soft transition duration-700 group-aria-expanded:-rotate-180 motion-reduce:transition-none ' +
-                      (pathname.startsWith('/games') ? '' : 'opacity-70')
-                    }
-                  />
-                }
-              >
-                {t('games')}
-              </Button>
-            </DropdownTrigger>
+      <MotionConfig reducedMotion="user">
+        <NavbarContent>
+          <NavbarItem isActive={pathname == '/'}>
+            <span className="inline-flex flex-col gap-1">
+              <Link color="foreground" href="/" as={NextLink}>
+                {t('home')}
+              </Link>
+              {pathname == '/' && (
+                <motion.span
+                  layoutId="nav-indicator"
+                  className="bg-accent h-0.5 w-full rounded-full"
+                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                />
+              )}
+            </span>
           </NavbarItem>
-          <DropdownMenu
-            aria-label={t('games')}
-            selectionMode="single"
-            variant="flat"
-            items={games}
-            selectedKeys={
-              pathname.startsWith('/games')
-                ? new Set([pathname.split('/')[2] ?? ''])
-                : ''
-            }
-          >
-            {item => (
-              <DropdownItem
-                key={item.key}
-                startContent={item.logo}
-                href={`/games/${item.path}`}
-                as={NextLink}
-              >
-                {t(item.label)}
-              </DropdownItem>
-            )}
-          </DropdownMenu>
-        </Dropdown>
 
-        <Dropdown>
-          <NavbarItem>
-            <DropdownTrigger>
-              <Button
-                disableRipple
-                className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent ${pathname.startsWith('/tools') ? 'font-semibold' : ''}`}
-                radius="sm"
-                variant="light"
-                endContent={
-                  <DownIcon
-                    className={
-                      'ease-spring-soft transition duration-700 group-aria-expanded:-rotate-180 motion-reduce:transition-none ' +
-                      (pathname.startsWith('/tools') ? '' : 'opacity-70')
-                    }
-                  />
-                }
-              >
-                {t('tools')}
-              </Button>
-            </DropdownTrigger>
+          <NavbarItem isActive={pathname.startsWith('/blog')}>
+            <span className="inline-flex flex-col gap-1">
+              <Link color="foreground" href="/blog" as={NextLink}>
+                {t('blog')}
+              </Link>
+              {pathname.startsWith('/blog') && (
+                <motion.span
+                  layoutId="nav-indicator"
+                  className="bg-accent h-0.5 w-full rounded-full"
+                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                />
+              )}
+            </span>
           </NavbarItem>
-          <DropdownMenu
-            aria-label={t('tools')}
-            selectionMode="single"
-            variant="flat"
-            items={tools}
-            selectedKeys={
-              pathname.startsWith('/tools')
-                ? new Set([pathname.split('/')[2] ?? ''])
-                : ''
-            }
-          >
-            {item => (
-              <DropdownItem
-                key={item.key}
-                startContent={item.logo}
-                href={`/tools/${item.path}`}
-                as={NextLink}
-              >
-                {t(item.label)}
-              </DropdownItem>
-            )}
-          </DropdownMenu>
-        </Dropdown>
-      </NavbarContent>
+
+          <Dropdown>
+            <NavbarItem>
+              <span className="inline-flex flex-col gap-1">
+                <DropdownTrigger>
+                  <Button
+                    disableRipple
+                    className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled !h-auto !min-h-0 cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent ${pathname.startsWith('/games') ? 'font-semibold' : ''}`}
+                    radius="sm"
+                    variant="light"
+                    endContent={
+                      <DownIcon
+                        className={
+                          'ease-spring-soft transition duration-700 group-aria-expanded:-rotate-180 motion-reduce:transition-none ' +
+                          (pathname.startsWith('/games') ? '' : 'opacity-70')
+                        }
+                      />
+                    }
+                  >
+                    {t('games')}
+                  </Button>
+                </DropdownTrigger>
+                {pathname.startsWith('/games') && (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="bg-accent h-0.5 w-full rounded-full"
+                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                  />
+                )}
+              </span>
+            </NavbarItem>
+            <DropdownMenu
+              aria-label={t('games')}
+              selectionMode="single"
+              variant="flat"
+              items={games}
+              selectedKeys={
+                pathname.startsWith('/games')
+                  ? new Set([pathname.split('/')[2] ?? ''])
+                  : ''
+              }
+            >
+              {item => (
+                <DropdownItem
+                  key={item.key}
+                  startContent={item.logo}
+                  href={`/games/${item.path}`}
+                  as={NextLink}
+                >
+                  {t(item.label)}
+                </DropdownItem>
+              )}
+            </DropdownMenu>
+          </Dropdown>
+
+          <Dropdown>
+            <NavbarItem>
+              <span className="inline-flex flex-col gap-1">
+                <DropdownTrigger>
+                  <Button
+                    disableRipple
+                    className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled !h-auto !min-h-0 cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent ${pathname.startsWith('/tools') ? 'font-semibold' : ''}`}
+                    radius="sm"
+                    variant="light"
+                    endContent={
+                      <DownIcon
+                        className={
+                          'ease-spring-soft transition duration-700 group-aria-expanded:-rotate-180 motion-reduce:transition-none ' +
+                          (pathname.startsWith('/tools') ? '' : 'opacity-70')
+                        }
+                      />
+                    }
+                  >
+                    {t('tools')}
+                  </Button>
+                </DropdownTrigger>
+                {pathname.startsWith('/tools') && (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="bg-accent h-0.5 w-full rounded-full"
+                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                  />
+                )}
+              </span>
+            </NavbarItem>
+            <DropdownMenu
+              aria-label={t('tools')}
+              selectionMode="single"
+              variant="flat"
+              items={tools}
+              selectedKeys={
+                pathname.startsWith('/tools')
+                  ? new Set([pathname.split('/')[2] ?? ''])
+                  : ''
+              }
+            >
+              {item => (
+                <DropdownItem
+                  key={item.key}
+                  startContent={item.logo}
+                  href={`/tools/${item.path}`}
+                  as={NextLink}
+                >
+                  {t(item.label)}
+                </DropdownItem>
+              )}
+            </DropdownMenu>
+          </Dropdown>
+        </NavbarContent>
+      </MotionConfig>
 
       <NavbarContent justify="end">
         {didMount && <ThemeSwitcher />}
