@@ -13,18 +13,5 @@ onlyBuiltDependencies:
 
 minimumReleaseAge: 20160
 minimumReleaseAgeExclude:
-  # Remove Feb 16th 2026
-  - "jsdom@28.0.0"
-  - "whatwg-url@16.0.0"
-  # Remove Feb 17th 2026
-  - "@sentry/bundler-plugin-core@4.9.0"
-  - "@sentry/webpack-plugin@4.9.0"
-  - "@sentry/babel-plugin-component-annotate@4.9.0"
-  - "icu-minify@4.8.2"
-  - "next-intl-swc-plugin-extractor@4.8.2"
-  - "use-intl@4.8.2"
-  - "framer-motion@12.30.0"
-  - "motion-dom@12.30.0"
-  - "data-urls@7.0.0"
-  # Remove Feb 18th 2026
+  # Remove Feb 25th 2026
   - "next-mdx-remote@6.0.0"
