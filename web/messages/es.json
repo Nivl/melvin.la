@@ -56,7 +56,8 @@
       "description": "Aquí hay una lista de algunas de las tecnologías que he utilizado desde que comencé a aprender ingeniería de software. No es exhaustiva, pero debería darle una idea de la amplitud de mi experiencia. Por defecto, solo muestra los últimos 5 años, pero puede cambiar eso con los filtros a continuación.",
       "form": {
         "nameFilter": "Filtrar por nombre",
-        "yearFilter": "Filtrar por rango de años"
+        "yearFilter": "Años activos",
+        "yearFilterCount": "{count, plural, one {Último año} other {Últimos # años}}"
       }
     },
     "contact": {

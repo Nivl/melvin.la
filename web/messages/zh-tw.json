@@ -56,7 +56,8 @@
       "description": "這是我自從開始學習軟體工程以來使用過的一些技術的列表。它並不詳盡，但應該能讓您了解我的經驗廣度。預設情況下，它只顯示過去 5 年的內容，但您可以通過下面的過濾器進行更改。",
       "form": {
         "nameFilter": "按名稱篩選",
-        "yearFilter": "按年份範圍篩選"
+        "yearFilter": "活躍年份",
+        "yearFilterCount": "最近 {count} 年"
       }
     },
     "contact": {
