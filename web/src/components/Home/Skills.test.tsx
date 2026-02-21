@@ -1,10 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { testWrapper as wrapper } from '#utils/tests';
 
 import { Skills } from './Skills';
+
+// Mock motion/react so AnimatePresence removes children synchronously in jsdom.
+// Without this, exit animations keep elements in the DOM forever (no RAF loop in jsdom).
+vi.mock('motion/react', async () => {
+  const { motionMock } = await import('#utils/mocks/motion');
+  return motionMock;
+});
 
 const setup = () => {
   const user = userEvent.setup();
@@ -67,26 +74,24 @@ describe('Skills Component', () => {
     expect(screen.queryByRole('link', { name: 'Go' })).toBeNull();
   });
 
-  it('displays year range slider', () => {
+  it('displays year from slider', () => {
     setup();
 
-    // Get all elements with the year range label
-    const yearSliders = screen.getAllByLabelText('Filter by year range');
+    // Get all elements with the year filter label
+    const yearSliders = screen.getAllByLabelText('Active years');
 
-    // Should have 3 elements (1 group + 2 range inputs)
-    expect(yearSliders.length).toBe(3);
+    // Should have 2 elements (1 group + 1 range input)
+    expect(yearSliders.length).toBe(2);
 
     // Filter to only range input elements
     const rangeInputs = yearSliders.filter(
       el => el.getAttribute('type') === 'range',
     );
-    expect(rangeInputs.length).toBe(2);
+    expect(rangeInputs.length).toBe(1);
 
-    // Check that the range inputs have correct attributes
-    for (const input of rangeInputs) {
-      expect(input.getAttribute('type')).toBe('range');
-      expect(input.tagName).toBe('INPUT');
-    }
+    // Check that the range input has correct attributes
+    expect(rangeInputs[0].getAttribute('type')).toBe('range');
+    expect(rangeInputs[0].tagName).toBe('INPUT');
 
     // Check that there's one group element
     const groupElements = yearSliders.filter(
@@ -159,5 +164,31 @@ describe('Skills Component', () => {
     // And that skills are displayed
     const links = screen.getAllByRole('link');
     expect(links.length).toBeGreaterThan(0);
+  });
+
+  it('skills from earliest year (2004) are shown at max slider value', async () => {
+    const { user } = setup();
+
+    // PHP and MySQL have usages in 2004 (the earliest year in the dataset).
+    // Regression test: the slider's maxValue must be currentYear - minYear + 1
+    // so that fromYear = minYear - 1 and the strict `year > fromYear` filter
+    // correctly includes 2004 data. A maxValue of currentYear - minYear would
+    // set fromYear = 2004 and `year > 2004` would wrongly exclude those skills.
+    const rangeInput = screen
+      .getAllByLabelText('Active years')
+      .find(el => el.getAttribute('type') === 'range');
+
+    if (!rangeInput) throw new Error('Slider range input not found');
+
+    // Set slider to its maximum value
+    const max = Number(rangeInput.getAttribute('max'));
+    await user.type(rangeInput, '{End}');
+    // Verify max attribute is currentYear - 2004 + 1 (not currentYear - 2004)
+    expect(max).toBe(new Date().getFullYear() - 2004 + 1);
+
+    // PHP has usage years starting from 2004 — must be visible at max slider
+    expect(screen.getByRole('link', { name: 'PHP' })).toBeDefined();
+    // Mysql also has usage from 2004
+    expect(screen.getByRole('link', { name: 'Mysql' })).toBeDefined();
   });
 });

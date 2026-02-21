@@ -56,7 +56,8 @@
       "description": "Voici une liste de certaines des technologies que j'ai utilisées depuis que j'ai commencé à apprendre l'ingénierie logicielle. Elle n'est pas exhaustive, mais elle devrait vous donner une idée de l'étendue de mon expérience. Par défaut, elle n'affiche que les 5 dernières années, mais vous pouvez changer cela avec les filtres ci-dessous.",
       "form": {
         "nameFilter": "Filtrer par nom",
-        "yearFilter": "Filtrer par plage d'années"
+        "yearFilter": "Années actives",
+        "yearFilterCount": "{count, plural, one {Dernière année} other {# dernières années}}"
       }
     },
     "contact": {

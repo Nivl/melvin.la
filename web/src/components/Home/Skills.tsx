@@ -3,6 +3,7 @@
 import { Input } from '@heroui/input';
 import { Slider } from '@heroui/slider';
 import { range as esRange, shuffle } from 'es-toolkit';
+import { AnimatePresence, motion, MotionConfig } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
@@ -551,11 +552,10 @@ export const Skills = () => {
   const t = useTranslations('home.skills');
 
   const currentYear = new Date().getFullYear();
+  const minYear = 2004;
   const [nameFilter, setNameFilter] = React.useState('');
-  const [yearRange, setYearRange] = React.useState<number[]>([
-    currentYear - 5,
-    currentYear,
-  ]);
+  const [yearsBack, setYearsBack] = React.useState(4);
+  const fromYear = currentYear - yearsBack;
 
   // Randomize skills order on each page visit (client-side only to avoid SSR mismatch)
   const [randomizedSkills, setRandomizedSkills] =
@@ -575,9 +575,9 @@ export const Skills = () => {
       return false;
     }
 
-    // Filter by year range
+    // Filter by year range: show skills active within the last yearsBack years
     const hasYearInRange = skill.usages.some(usage =>
-      usage.years.some(year => year >= yearRange[0] && year <= yearRange[1]),
+      usage.years.some(year => year > fromYear && year <= currentYear),
     );
     return hasYearInRange;
   });
@@ -589,69 +589,75 @@ export const Skills = () => {
       <div className="my-10">{t('description')}</div>
 
       {/* Filters */}
-      <div className="flex flex-col gap-10">
-        <div className="flex flex-col items-center justify-center gap-10 lg:flex-row">
-          {/* Name filter */}
-          <Input
-            type="text"
-            aria-label={t('form.nameFilter')}
-            placeholder={t('form.nameFilter')}
-            variant="bordered"
-            className="md:w-64"
-            isClearable
-            value={nameFilter}
-            onValueChange={setNameFilter}
-            onClear={() => {
-              setNameFilter('');
-            }}
-          />
+      <div className="flex flex-col items-center justify-center gap-10 lg:flex-row">
+        {/* Name filter */}
+        <Input
+          type="text"
+          aria-label={t('form.nameFilter')}
+          placeholder={t('form.nameFilter')}
+          variant="bordered"
+          className="md:w-64"
+          isClearable
+          value={nameFilter}
+          onValueChange={setNameFilter}
+          onClear={() => {
+            setNameFilter('');
+          }}
+        />
 
-          {/* Year range filter */}
-          <Slider
-            label={t('form.yearFilter')}
-            aria-label={t('form.yearFilter')}
-            showSteps
-            color="warning"
-            size="sm"
-            step={1}
-            minValue={2004}
-            maxValue={currentYear}
-            value={yearRange}
-            onChange={value => {
-              const newValue = Array.isArray(value)
-                ? value
-                : [value, currentYear];
-
-              // Ensure that the left slider doesn't go beyond the right
-              // slider, otherwise we're stuck
-              if (newValue[0] >= newValue[1] - 1) {
-                newValue[0] = newValue[1] - 1;
-              }
-              // Only allow changing the left value (start year)
-              setYearRange([newValue[0], currentYear]);
-            }}
-            className="max-w-md"
-            formatOptions={{ useGrouping: false }}
-          />
-        </div>
+        {/* Year from filter */}
+        <Slider
+          label={t('form.yearFilter')}
+          aria-label={t('form.yearFilter')}
+          showSteps
+          color="warning"
+          size="sm"
+          step={1}
+          minValue={1}
+          maxValue={currentYear - minYear + 1}
+          value={yearsBack}
+          onChange={value => {
+            setYearsBack(Array.isArray(value) ? value[0] : value);
+          }}
+          className="max-w-md"
+          formatOptions={{ useGrouping: false }}
+          renderValue={() => (
+            <div className="text-small">
+              {t('form.yearFilterCount', { count: yearsBack })}
+            </div>
+          )}
+        />
       </div>
+
       {/* Skills Grid */}
-      <div className="grid grid-cols-2 gap-4 px-5 md:grid-cols-4 lg:grid-cols-6">
-        {filteredSkills.map(skill => (
-          <a
-            key={skill.name}
-            href={skill.url || '#'}
-            className="group flex w-full flex-col items-center justify-center border-none pt-4 group-hover:scale-150 md:pt-8"
-            data-chromatic="ignore"
-          >
-            <Logo
-              className={`${skill.logoColor ?? 'dark:fill-foreground fill-neutral-700'} cls-boop-animation h-16 w-16 transition-transform group-hover:scale-125`}
-              name={skill.logo}
-            />
-            <span className="mt-2 text-center text-sm">{skill.name}</span>
-          </a>
-        ))}
-      </div>
+      <MotionConfig reducedMotion="user">
+        <div className="grid grid-cols-2 gap-4 px-5 md:grid-cols-4 lg:grid-cols-6">
+          <AnimatePresence mode="popLayout">
+            {filteredSkills.map(skill => (
+              <motion.a
+                key={skill.name}
+                layout
+                href={skill.url || '#'}
+                className="group flex w-full flex-col items-center justify-center border-none pt-4 md:pt-8"
+                data-chromatic="ignore"
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.85 }}
+                transition={{
+                  duration: 0.15,
+                  layout: { type: 'spring', stiffness: 280, damping: 30 },
+                }}
+              >
+                <Logo
+                  className={`${skill.logoColor ?? 'dark:fill-foreground fill-neutral-700'} cls-boop-animation h-16 w-16 transition-transform group-hover:scale-125`}
+                  name={skill.logo}
+                />
+                <span className="mt-2 text-center text-sm">{skill.name}</span>
+              </motion.a>
+            ))}
+          </AnimatePresence>
+        </div>
+      </MotionConfig>
       {/* No results message */}
       {filteredSkills.length === 0 && (
         <p className="text-center text-neutral-500">{t('noSkillsFound')}</p>

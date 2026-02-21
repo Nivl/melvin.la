@@ -56,7 +56,8 @@
       "description": "这是我自从开始学习软件工程以来使用过的一些技术的列表。它并不详尽，但应该能让您了解我的经验广度。默认情况下，它只显示过去 5 年的内容，但您可以通过下面的过滤器进行更改。",
       "form": {
         "nameFilter": "按名称筛选",
-        "yearFilter": "按年份范围筛选"
+        "yearFilter": "活跃年份",
+        "yearFilterCount": "最近 {count} 年"
       }
     },
     "contact": {
