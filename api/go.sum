@@ -43,10 +43,10 @@ github.com/oapi-codegen/runtime v1.1.2 h1:P2+CubHq8fO4Q6fV1tqDBZHCwpVpvPg7oKiYzQ
 github.com/oapi-codegen/runtime v1.1.2/go.mod h1:SK9X900oXmPWilYR5/WKPzt3Kqxn/uS/+lbpREv+eCg=
 github.com/pb33f/jsonpath v0.7.1 h1:dEp6oIZuJbpDSyuHAl9m7GonoDW4M20BcD5vT0tPYRE=
 github.com/pb33f/jsonpath v0.7.1/go.mod h1:zBV5LJW4OQOPatmQE2QdKpGQJvhDTlE5IEj6ASaRNTo=
-github.com/pb33f/libopenapi v0.33.0 h1:s0mZhtxNW4ko8npYzMKVOUYsEs5QqZdywxGlbUE52z0=
-github.com/pb33f/libopenapi v0.33.0/go.mod h1:e/dmd2Pf1nkjqkI0r7guFSyt9T5V0IIQKgs0L6B/3b0=
-github.com/pb33f/libopenapi-validator v0.11.0 h1:dH4O0G5n9Khv6mCACHWQypAFCC2RNvSNJb8DCxh0naA=
-github.com/pb33f/libopenapi-validator v0.11.0/go.mod h1:yql5bstFsVYme9lsj5qw9fGA4pasv3dTiOEvnYx/VKc=
+github.com/pb33f/libopenapi v0.33.5 h1:AzILVrOzMaawLFhQENmwmn7h/TIDH2QEgUd0PfxS2xE=
+github.com/pb33f/libopenapi v0.33.5/go.mod h1:e/dmd2Pf1nkjqkI0r7guFSyt9T5V0IIQKgs0L6B/3b0=
+github.com/pb33f/libopenapi-validator v0.11.1 h1:lTW738oB3lwpS9poDzmI3jpTPZSb5W46vklZqtyf7+Q=
+github.com/pb33f/libopenapi-validator v0.11.1/go.mod h1:7CfboslU/utKhiuQRuenriGYZ+HQLDOvARxjqRwd57w=
 github.com/pb33f/ordered-map/v2 v2.3.0 h1:k2OhVEQkhTCQMhAicQ3Z6iInzoZNQ7L9MVomwKBZ5WQ=
 github.com/pb33f/ordered-map/v2 v2.3.0/go.mod h1:oe5ue+6ZNhy7QN9cPZvPA23Hx0vMHnNVeMg4fGdCANw=
 github.com/pingcap/errors v0.11.4 h1:lFuQV/oaUMGcD2tqt+01ROSmJs75VG1ToEOkZIZ4nE4=

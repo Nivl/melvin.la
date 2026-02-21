@@ -7,8 +7,8 @@ require (
 	github.com/getsentry/sentry-go/echo v0.42.0
 	github.com/labstack/echo/v4 v4.15.0
 	github.com/oapi-codegen/runtime v1.1.2
-	github.com/pb33f/libopenapi v0.33.0
-	github.com/pb33f/libopenapi-validator v0.11.0
+	github.com/pb33f/libopenapi v0.33.5
+	github.com/pb33f/libopenapi-validator v0.11.1
 	github.com/sethvargo/go-envconfig v1.3.0
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/text v0.33.0
