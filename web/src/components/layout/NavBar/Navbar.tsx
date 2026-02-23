@@ -39,31 +39,31 @@ const tools: Item[] = [
   {
     key: 'fortnite',
     label: 'fortnite',
-    path: '/fortnite',
+    path: 'fortnite',
     logo: <FortniteIcon className="h-5 w-5" />,
   },
   {
     key: 'string-length',
     label: 'string-length',
-    path: '/string-length',
+    path: 'string-length',
     logo: <StringLengthIcon className="h-5 w-5" />,
   },
   {
     key: 'timezones',
     label: 'timezones',
-    path: '/timezones',
+    path: 'timezones',
     logo: <TimezoneIcon className="h-5 w-5" />,
   },
   {
     key: 'timestamp',
     label: 'timestamp',
-    path: '/timestamp',
+    path: 'timestamp',
     logo: <TimestampIcon className="h-5 w-5" />,
   },
   {
     key: 'uuid',
     label: 'uuid',
-    path: '/uuid',
+    path: 'uuid',
     logo: <UuidIcon className="h-5 w-5" />,
   },
 ];
@@ -72,7 +72,7 @@ const games: Item[] = [
   {
     key: 'conway',
     label: 'conway',
-    path: '/conway',
+    path: 'conway',
     logo: <ConwayIcon className="h-5 w-5" />,
   },
 ];
