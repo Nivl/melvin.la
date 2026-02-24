@@ -188,7 +188,7 @@ describe('Skills Component', () => {
 
     // PHP has usage years starting from 2004 — must be visible at max slider
     expect(screen.getByRole('link', { name: 'PHP' })).toBeDefined();
-    // Mysql also has usage from 2004
-    expect(screen.getByRole('link', { name: 'Mysql' })).toBeDefined();
+    // MySQL also has usage from 2004
+    expect(screen.getByRole('link', { name: 'MySQL' })).toBeDefined();
   });
 });
