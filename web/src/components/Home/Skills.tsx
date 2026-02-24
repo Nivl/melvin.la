@@ -507,7 +507,7 @@ const skillsData: SkillData[] = [
     ],
   },
   {
-    name: 'Mysql',
+    name: 'MySQL',
     url: 'https://www.mysql.com',
     logo: 'mysql',
     logoColor: 'fill-tech-mysql',
