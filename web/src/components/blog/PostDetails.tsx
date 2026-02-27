@@ -15,8 +15,8 @@ export function PostDetails({ post }: { post: BlogPost }) {
               className="rounded-t-large transition-transform-opacity relative z-10 aspect-auto w-full transform object-cover shadow-none shadow-black/5 duration-300! hover:scale-110 data-[loaded=true]:opacity-100 motion-reduce:transition-none"
               alt="Thumbnail of the article"
               priority={true}
-              width={300}
-              height={150}
+              width={1200}
+              height={600}
             />
           </div>
         </CardHeader>

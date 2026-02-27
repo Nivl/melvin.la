@@ -1,0 +1,116 @@
+---
+title: "Prompting AI Coding Agents the Right Way"
+excerpt: "Most developers prompt AI coding agents like they're sending a text message. Here's the technique that actually works — and why it starts by asking the AI what it needs."
+image: "cover.avif"
+ogImage: "cover.png"
+createdAt: "2026-02-26"
+---
+
+Here's how most developers use an AI coding agent: they open a chat window and type something like "add a dark mode toggle to the settings page." The agent produces something. It kind of works. There are rough edges. The developer spends the next twenty minutes going back and forth patching things up.
+
+Then they decide the model isn't that good.
+
+The model is fine. The prompt is the problem.
+
+## The Uncomfortable Reality of Vague Prompts
+
+Every ambiguity in your prompt is a decision the model makes without you. Should the dark mode preference persist across sessions? Should it respect the OS-level setting? Where does the preference get stored — localStorage, a user profile in the database, a cookie? Which component library is being used and how does theming work in it?
+
+You didn't say. So the model guesses. Sometimes it guesses right. Often it doesn't, and now you have code that works in one environment and breaks in another, or a component that ignores the user's existing preference, or a toggle that doesn't actually toggle anything because it's not connected to the right context.
+
+This isn't a model quality problem. It's an information problem.
+
+## The Technique: Let the Agent Build Its Own Prompt
+
+Here's what actually works, and what teams building serious AI-assisted development workflows have figured out: **the model knows what it needs to do a task well better than most developers know how to ask for it.**
+
+It has processed an enormous volume of well-specified engineering tasks. It knows what a complete feature request looks like. It knows what information is typically missing from a vague bug report. The trick is to make it tell you what's missing *before* you ask it to do anything.
+
+The flow looks like this:
+
+1. **Describe your goal loosely** — just enough for the agent to understand the problem space
+2. **Ask what it would need to do it properly** — "What information would you need to complete this task well? What ambiguities should I clarify? What should I specify that I haven't?"
+3. **Fill in the gaps** — answer its questions, provide the context it asked for
+4. **Now give it the task** — either incorporate its questions into your prompt, or ask it to rewrite your original request into a complete specification, then approve and execute
+
+That last step is optional but powerful. You can ask the agent: "Based on my answers, rewrite my original request as a complete task specification." What you get back is a prompt that the model itself considers complete enough to execute well. Then you submit that prompt as the actual task.
+
+This is what some people have started calling reverse prompt engineering for task execution — you're not writing the perfect prompt from scratch, you're using the model to surface what a perfect prompt would contain.
+
+## Example 1: Building a Feature
+
+Let's say you want to add a dark mode toggle to a settings page. Here's how the two approaches play out.
+
+**The naive approach:**
+
+> "Add a dark mode toggle to the settings page."
+
+The agent produces a component with a hardcoded toggle, stores the preference in component state (lost on refresh), doesn't connect it to any existing theme system, and uses inline styles instead of whatever CSS variables or theme tokens you're already using.
+
+You spend the next hour fixing it.
+
+**The reverse prompt approach:**
+
+You start with the same sentence, then ask: *"Before you start, what would you need to know to implement this properly? What should I clarify?"*
+
+The agent responds with something like:
+
+> - Where should the preference be persisted (localStorage, database, cookie)?
+> - Is there an existing theme system (next-themes, CSS variables, Tailwind dark: variant)?
+> - Should the toggle respect the user's OS-level dark mode preference as a default?
+> - Where in the settings page should this live — is there an existing "Appearance" section?
+> - Should the preference sync across sessions if the user is logged in?
+
+You answer these questions. You tell it the app uses `next-themes`, preferences are stored in the user's profile via an existing `PATCH /users/me` endpoint, and there's already an "Appearance" section in the settings page with other toggles that follow a specific component pattern.
+
+Now the agent has what it needs. The implementation it produces connects to the right theme provider, uses the existing API, matches the existing UI pattern, and handles the OS preference fallback. You don't need to fix anything.
+
+The difference in output quality is not subtle.
+
+## Example 2: Fixing a Bug
+
+Bug reports are where vague prompting causes the most damage, because a model that doesn't have enough context doesn't just produce mediocre code — it produces confident, wrong code.
+
+Imagine someone files a bug: *"The login button sometimes doesn't work."*
+
+**The naive approach:** You paste that into your agent. It starts scanning authentication code, spots a suspicious async/await pattern, decides that's probably it, rewrites the function, and opens a PR. The bug is still there. The function it changed was unrelated.
+
+**The reverse prompt approach:**
+
+You give the agent the bug report and ask: *"What would you need to know to diagnose this effectively? What questions would a senior engineer ask before touching any code?"*
+
+It responds:
+
+> - What does "doesn't work" mean — the button doesn't respond to clicks, the click fires but nothing happens, or an error is shown?
+> - Is this reproducible reliably or intermittent? Any pattern (specific browser, network conditions, user state)?
+> - Are there any console errors or network requests failing when it happens?
+> - Which component handles the button click, and which service handles the authentication?
+> - Has this always been broken or did it regress recently? If a regression, what changed?
+
+You go back to the person who filed the bug, get the answers: it's intermittent, only happens when the user has been on the page for more than ten minutes, no console errors, but the network request never fires. That's now a completely different bug — likely a token expiry issue or a stale closure in an event handler, not an async/await problem.
+
+You give the agent that information, and now it goes to the right place. It finds a `useCallback` with a stale dependency that captures an auth token from the initial render. One targeted fix, no collateral damage.
+
+## Why This Works
+
+The reason most AI-assisted coding feels like a negotiation — where you go back and forth refining the output over several rounds — is that the initial prompt leaves too many decisions to the model. Each round of revision is you correcting a guess the model made because you didn't specify.
+
+Reverse prompting collapses most of those rounds into one upfront conversation. The model's questions tell you exactly which decisions it would have made on its own. You make them instead. The output comes out right the first time because it had complete information.
+
+There's also a secondary benefit: the questions the model asks are a checklist. If you use the same technique consistently for similar tasks — adding new settings, fixing auth bugs, integrating a new API — the questions start to look familiar. Over time, you learn to include those details in your prompts without being asked, and your baseline prompt quality improves.
+
+## A Few Practical Notes
+
+This technique works best with agents that have tool use and file access — tools like Cursor, GitHub Copilot in agent mode, Claude, or similar. An agent that can read your codebase will ask much more specific questions than one working blind.
+
+The two-turn flow (what do you need → here it is → now do the task) does add a step. For small, clearly-defined tasks it's overkill. But for anything that touches multiple files, integrates with existing systems, or involves a non-obvious design decision, it consistently produces better results than going straight to the implementation.
+
+And the generated specification from step 3 is worth saving. It's a reusable template. The next time someone needs to add a setting that persists to the user profile, you already have a well-specified prompt for it.
+
+## The Bigger Point
+
+The way most developers prompt coding agents is optimized for speed at the expense of quality. A quick sentence in, a mediocre output out, then ten minutes of cleanup — repeated dozens of times a day.
+
+The reverse prompting approach flips that tradeoff. You spend a little more time upfront making sure the model has what it needs. In return, the output lands closer to what you actually wanted, and you spend less time fixing it.
+
+The best prompt for a task isn't the one you write in thirty seconds. It's the one the model tells you it needs.
