@@ -1,22 +1,22 @@
 ---
-title: "Comment bien parler aux agents de codage IA"
-excerpt: "La plupart des développeurs s'adressent aux agents de codage IA comme s'ils envoyaient un SMS. Voici la technique qui fonctionne vraiment — et pourquoi elle commence par demander à l'IA ce dont elle a besoin."
+title: "Prompter les agents de codage IA de la bonne manière"
+excerpt: "La plupart des développeurs promptent les agents de codage IA comme s'ils envoyaient un SMS. Voici la technique qui fonctionne vraiment — et pourquoi elle commence par demander à l'IA ce dont elle a besoin."
 image: "cover.avif"
 ogImage: "cover.png"
 createdAt: "2026-02-26"
 ---
 
-Voici comment la plupart des développeurs utilisent un agent de codage IA : ils ouvrent une fenêtre de chat et tapent quelque chose comme "ajoute un bouton de mode sombre à la page des paramètres". L'agent produit quelque chose. Ça fonctionne à peu près. Il y a des imperfections. Le développeur passe les vingt minutes suivantes à faire des allers-retours pour corriger les choses.
+Voici comment la plupart des développeurs utilisent un agent de codage IA : ils ouvrent une fenêtre de chat et tapent quelque chose comme "ajoute un toggle pour le mode sombre sur la page des réglages". L'agent produit quelque chose. Ça marche plus ou moins. Il y a des imperfections. Le développeur passe les vingt minutes suivantes à faire des allers-retours pour bricoler la solution.
 
-Ensuite, ils décident que le modèle n'est pas si bon.
+Puis il finit par conclure que le modèle n'est pas si bon que ça.
 
-Le modèle va très bien. C'est le prompt (l'invite) qui pose problème.
+Le modèle va très bien. C'est le prompt qui pose problème.
 
 ## La réalité inconfortable des prompts vagues
 
-Chaque ambiguïté dans votre prompt est une décision que le modèle prend sans vous. La préférence pour le mode sombre doit-elle persister d'une session à l'autre ? Doit-elle respecter le paramètre au niveau de l'OS ? Où la préférence est-elle stockée — dans le localStorage, un profil utilisateur dans la base de données, un cookie ? Quelle bibliothèque de composants est utilisée et comment fonctionne la thématisation (theming) avec celle-ci ?
+Chaque ambiguïté dans votre prompt est une décision que le modèle prend sans vous. La préférence pour le mode sombre doit-elle persister d'une session à l'autre ? Doit-elle respecter le réglage de l'OS ? Où la préférence est-elle stockée — dans le localStorage, un profil utilisateur en base de données, un cookie ? Quelle bibliothèque de composants est utilisée et comment le theming fonctionne-t-il avec celle-ci ?
 
-Vous ne l'avez pas précisé. Donc le modèle devine. Parfois il devine juste. Souvent non, et vous vous retrouvez avec un code qui fonctionne dans un environnement et plante dans un autre, ou un composant qui ignore la préférence existante de l'utilisateur, ou encore un bouton qui ne bascule rien du tout parce qu'il n'est pas connecté au bon contexte.
+Vous ne l'avez pas précisé. Donc le modèle devine. Parfois il devine juste. Souvent non, et vous vous retrouvez avec un code qui fonctionne dans un environnement et plante dans un autre, ou un composant qui ignore la préférence existante de l'utilisateur, ou encore un toggle qui ne bascule rien du tout parce qu'il n'est pas connecté au bon contexte.
 
 Ce n'est pas un problème de qualité du modèle. C'est un problème d'information.
 
@@ -28,14 +28,14 @@ Il a traité un volume énorme de tâches d'ingénierie bien spécifiées. Il sa
 
 Le flux de travail ressemble à ceci :
 
-1. **Décrivez votre objectif de manière approximative** — juste assez pour que l'agent comprenne l'espace du problème
-2. **Demandez-lui ce dont il aurait besoin pour le faire correctement** — "De quelles informations aurais-tu besoin pour bien accomplir cette tâche ? Quelles ambiguïtés dois-je clarifier ? Que devrais-je spécifier que je n'ai pas fait ?"
+1. **Décrivez votre objectif de manière approximative** — juste assez pour que l'agent comprenne la globalité du problème
+2. **Demandez-lui ce dont il aurait besoin pour le faire correctement** — "De quelles informations as-tu besoin pour bien accomplir cette tâche ? Quelles ambiguïtés dois-je clarifier ? Que dois-je spécifier que je n'ai pas encore fait ?"
 3. **Comblez les lacunes** — répondez à ses questions, fournissez le contexte qu'il a demandé
-4. **Maintenant, confiez-lui la tâche** — soit vous intégrez ses questions dans votre prompt, soit vous lui demandez de réécrire votre demande initiale en une spécification complète, puis vous validez et exécutez.
+4. **Maintenant, confiez-lui la tâche** — soit vous intégrez ses questions dans votre prompt, soit vous lui demandez de réécrire votre demande initiale sous la forme d'une spécification complète, que vous validez avant exécution.
 
-Cette dernière étape est facultative mais très puissante. Vous pouvez demander à l'agent : "Sur la base de mes réponses, réécris ma demande initiale sous la forme d'une spécification de tâche complète." Ce que vous obtenez en retour, c'est un prompt que le modèle lui-même considère comme suffisamment complet pour bien s'exécuter. Ensuite, vous soumettez ce prompt comme la véritable tâche.
+Cette dernière étape est facultative mais très puissante. Vous pouvez demander à l'agent : "Sur la base de mes réponses, réécris ma demande initiale sous la forme d'une spécification technique complète." Ce que vous obtenez en retour, c'est un prompt que le modèle lui-même considère comme suffisamment complet pour bien s'exécuter. Ensuite, vous soumettez ce prompt comme la véritable tâche.
 
-C'est ce que certains commencent à appeler l'ingénierie de prompt inversée (reverse prompt engineering) pour l'exécution des tâches — vous n'écrivez pas le prompt parfait de zéro, vous utilisez le modèle pour faire émerger ce qu'un prompt parfait devrait contenir.
+C'est ce que certains commencent à appeler du *reverse prompt engineering* pour l'exécution des tâches — vous n'écrivez pas le prompt parfait de zéro, vous utilisez le modèle pour faire émerger ce qu'un prompt parfait devrait contenir.
 
 ## Exemple 1 : Créer une fonctionnalité
 
@@ -63,9 +63,9 @@ L'agent répond avec quelque chose comme :
 
 Vous répondez à ces questions. Vous lui dites que l'application utilise `next-themes`, que les préférences sont stockées dans le profil de l'utilisateur via un endpoint `PATCH /users/me` existant, et qu'il y a déjà une section "Apparence" sur la page des paramètres avec d'autres boutons qui suivent un modèle de composant spécifique.
 
-Maintenant, l'agent a ce dont il a besoin. L'implémentation qu'il produit se connecte au bon fournisseur de thème, utilise l'API existante, correspond au modèle d'interface utilisateur en place et gère le repli (fallback) sur la préférence du système d'exploitation. Vous n'avez rien à corriger.
+Maintenant, l'agent a ce dont il a besoin. L'implémentation qu'il produit se connecte au bon provider de thème, utilise l'API existante, correspond au design de l'interface utilisateur en place et gère le fallback correctement. Vous n'avez rien à corriger.
 
-La différence dans la qualité du résultat n'est pas subtile.
+La différence de qualité du résultat est flagrante.
 
 ## Exemple 2 : Corriger un bug
 
@@ -87,9 +87,9 @@ Il répond :
 > - Quel composant gère le clic du bouton, et quel service gère l'authentification ?
 > - Est-ce que cela a toujours été cassé ou est-ce une régression récente ? Si c'est une régression, qu'est-ce qui a changé ?
 
-Vous retournez voir la personne qui a signalé le bug, vous obtenez les réponses : c'est intermittent, cela n'arrive que lorsque l'utilisateur est sur la page depuis plus de dix minutes, aucune erreur dans la console, mais la requête réseau ne se déclenche jamais. C'est maintenant un bug complètement différent — probablement un problème d'expiration de token ou une closure obsolète (stale closure) dans un gestionnaire d'événements, pas un problème async/await.
+Vous retournez voir la personne qui a signalé le bug, vous obtenez les réponses : c'est intermittent, cela n'arrive que lorsque l'utilisateur est sur la page depuis plus de dix minutes, aucune erreur dans la console, mais la requête réseau ne se déclenche jamais. C'est maintenant un bug complètement différent — probablement un problème d'expiration de token ou une *stale closure* dans un event handler, pas un problème d'async/await.
 
-Vous donnez cette information à l'agent, et maintenant il va au bon endroit. Il trouve un `useCallback` avec une dépendance obsolète qui capture un token d'authentification lors du rendu initial. Un correctif ciblé, pas de dommages collatéraux.
+Vous donnez cette information à l'agent, et maintenant il va au bon endroit. Il trouve un `useCallback` avec une dépendance obsolète qui capture un token d'authentification lors du rendu initial. Un fix ciblé, pas de dommages collatéraux.
 
 ## Pourquoi ça fonctionne
 
@@ -97,7 +97,7 @@ La raison pour laquelle la plupart du codage assisté par IA ressemble à une n�
 
 Le prompt inversé fusionne la plupart de ces étapes en une seule conversation préliminaire. Les questions du modèle vous indiquent exactement quelles décisions il aurait prises de lui-même. Vous les prenez à sa place. Le résultat est correct du premier coup car il disposait d'informations complètes.
 
-Il y a aussi un avantage secondaire : les questions que le modèle pose sont une liste de contrôle (checklist). Si vous utilisez systématiquement la même technique pour des tâches similaires — ajouter de nouveaux paramètres, corriger des bugs d'authentification, intégrer une nouvelle API — les questions commencent à vous sembler familières. Avec le temps, vous apprenez à inclure ces détails dans vos prompts sans qu'on vous le demande, et la qualité de base de vos prompts s'améliore.
+Il y a aussi un avantage secondaire : les questions que le modèle pose forment une véritable checklist. Si vous utilisez systématiquement la même approche pour des tâches similaires — ajouter de nouveaux paramètres, corriger des bugs d'authentification, intégrer une nouvelle API —, ces questions commenceront à vous sembler familières. Avec le temps, vous apprendrez à inclure ces détails dans vos prompts d'emblée, et la qualité globale de vos interactions s'améliorera.
 
 ## Quelques notes pratiques
 
@@ -109,8 +109,8 @@ Et la spécification générée à l'étape 3 vaut la peine d'être sauvegardée
 
 ## Le point essentiel
 
-La façon dont la plupart des développeurs interagissent avec les agents de codage privilégie la vitesse au détriment de la qualité. Une phrase rapide en entrée, un résultat médiocre en sortie, puis dix minutes de nettoyage — répété des dizaines de fois par jour.
+La façon dont la plupart des développeurs promptent les agents de codage privilégie la vitesse au détriment de la qualité. Une phrase rapide en entrée, un résultat médiocre en sortie, puis dix minutes de nettoyage — le tout répété des dizaines de fois par jour.
 
 L'approche du prompt inversé renverse ce compromis. Vous passez un peu plus de temps au début pour vous assurer que le modèle a ce dont il a besoin. En retour, le résultat se rapproche beaucoup plus de ce que vous vouliez vraiment, et vous passez moins de temps à le corriger.
 
-Le meilleur prompt pour une tâche n'est pas celui que vous écrivez en trente secondes. C'est celui que le modèle vous dit dont il a besoin.
+Le meilleur prompt pour une tâche n'est pas celui que vous écrivez en trente secondes. C'est celui dont le modèle vous dit avoir besoin.
