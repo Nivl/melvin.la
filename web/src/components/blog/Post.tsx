@@ -61,6 +61,11 @@ export function Post({ post }: { post: BlogPost }) {
             strong: ({ children }) => (
               <strong className="font-bold">{children}</strong>
             ),
+            blockquote: ({ children }) => (
+              <blockquote className="border-accent border-l-4 pl-4 italic">
+                {children}
+              </blockquote>
+            ),
             a: ({
               children,
               href,
