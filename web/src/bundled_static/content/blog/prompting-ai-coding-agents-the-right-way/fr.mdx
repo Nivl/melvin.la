@@ -1,0 +1,116 @@
+---
+title: "Comment bien parler aux agents de codage IA"
+excerpt: "La plupart des développeurs s'adressent aux agents de codage IA comme s'ils envoyaient un SMS. Voici la technique qui fonctionne vraiment — et pourquoi elle commence par demander à l'IA ce dont elle a besoin."
+image: "cover.avif"
+ogImage: "cover.png"
+createdAt: "2026-02-26"
+---
+
+Voici comment la plupart des développeurs utilisent un agent de codage IA : ils ouvrent une fenêtre de chat et tapent quelque chose comme "ajoute un bouton de mode sombre à la page des paramètres". L'agent produit quelque chose. Ça fonctionne à peu près. Il y a des imperfections. Le développeur passe les vingt minutes suivantes à faire des allers-retours pour corriger les choses.
+
+Ensuite, ils décident que le modèle n'est pas si bon.
+
+Le modèle va très bien. C'est le prompt (l'invite) qui pose problème.
+
+## La réalité inconfortable des prompts vagues
+
+Chaque ambiguïté dans votre prompt est une décision que le modèle prend sans vous. La préférence pour le mode sombre doit-elle persister d'une session à l'autre ? Doit-elle respecter le paramètre au niveau de l'OS ? Où la préférence est-elle stockée — dans le localStorage, un profil utilisateur dans la base de données, un cookie ? Quelle bibliothèque de composants est utilisée et comment fonctionne la thématisation (theming) avec celle-ci ?
+
+Vous ne l'avez pas précisé. Donc le modèle devine. Parfois il devine juste. Souvent non, et vous vous retrouvez avec un code qui fonctionne dans un environnement et plante dans un autre, ou un composant qui ignore la préférence existante de l'utilisateur, ou encore un bouton qui ne bascule rien du tout parce qu'il n'est pas connecté au bon contexte.
+
+Ce n'est pas un problème de qualité du modèle. C'est un problème d'information.
+
+## La technique : Laissez l'agent construire son propre prompt
+
+Voici ce qui fonctionne vraiment, et ce que les équipes qui construisent des flux de travail sérieux de développement assisté par IA ont compris : **le modèle sait mieux ce dont il a besoin pour bien accomplir une tâche que la plupart des développeurs ne savent le formuler.**
+
+Il a traité un volume énorme de tâches d'ingénierie bien spécifiées. Il sait à quoi ressemble une demande de fonctionnalité complète. Il sait quelles informations manquent généralement dans un rapport de bug vague. L'astuce consiste à lui faire dire ce qui manque *avant* de lui demander de faire quoi que ce soit.
+
+Le flux de travail ressemble à ceci :
+
+1. **Décrivez votre objectif de manière approximative** — juste assez pour que l'agent comprenne l'espace du problème
+2. **Demandez-lui ce dont il aurait besoin pour le faire correctement** — "De quelles informations aurais-tu besoin pour bien accomplir cette tâche ? Quelles ambiguïtés dois-je clarifier ? Que devrais-je spécifier que je n'ai pas fait ?"
+3. **Comblez les lacunes** — répondez à ses questions, fournissez le contexte qu'il a demandé
+4. **Maintenant, confiez-lui la tâche** — soit vous intégrez ses questions dans votre prompt, soit vous lui demandez de réécrire votre demande initiale en une spécification complète, puis vous validez et exécutez.
+
+Cette dernière étape est facultative mais très puissante. Vous pouvez demander à l'agent : "Sur la base de mes réponses, réécris ma demande initiale sous la forme d'une spécification de tâche complète." Ce que vous obtenez en retour, c'est un prompt que le modèle lui-même considère comme suffisamment complet pour bien s'exécuter. Ensuite, vous soumettez ce prompt comme la véritable tâche.
+
+C'est ce que certains commencent à appeler l'ingénierie de prompt inversée (reverse prompt engineering) pour l'exécution des tâches — vous n'écrivez pas le prompt parfait de zéro, vous utilisez le modèle pour faire émerger ce qu'un prompt parfait devrait contenir.
+
+## Exemple 1 : Créer une fonctionnalité
+
+Imaginons que vous vouliez ajouter un bouton de mode sombre à une page de paramètres. Voici comment se déroulent les deux approches.
+
+**L'approche naïve :**
+
+> "Ajoute un bouton de mode sombre à la page des paramètres."
+
+L'agent produit un composant avec un bouton codé en dur, stocke la préférence dans l'état du composant (perdue au rafraîchissement), ne le connecte à aucun système de thème existant, et utilise des styles en ligne au lieu des variables CSS ou des tokens de thème que vous utilisez déjà.
+
+Vous passez l'heure suivante à corriger cela.
+
+**L'approche du prompt inversé :**
+
+Vous commencez par la même phrase, puis vous demandez : *"Avant de commencer, que devrais-tu savoir pour implémenter cela correctement ? Que devrais-je clarifier ?"*
+
+L'agent répond avec quelque chose comme :
+
+> - Où la préférence doit-elle être conservée (localStorage, base de données, cookie) ?
+> - Existe-il un système de thème (next-themes, variables CSS, la variante dark: de Tailwind) ?
+> - Le bouton doit-il respecter la préférence de mode sombre de l'OS de l'utilisateur par défaut ?
+> - Où doit-il se trouver sur la page des paramètres — y a-t-il déjà une section "Apparence" ?
+> - La préférence doit-elle se synchroniser d'une session à l'autre si l'utilisateur est connecté ?
+
+Vous répondez à ces questions. Vous lui dites que l'application utilise `next-themes`, que les préférences sont stockées dans le profil de l'utilisateur via un endpoint `PATCH /users/me` existant, et qu'il y a déjà une section "Apparence" sur la page des paramètres avec d'autres boutons qui suivent un modèle de composant spécifique.
+
+Maintenant, l'agent a ce dont il a besoin. L'implémentation qu'il produit se connecte au bon fournisseur de thème, utilise l'API existante, correspond au modèle d'interface utilisateur en place et gère le repli (fallback) sur la préférence du système d'exploitation. Vous n'avez rien à corriger.
+
+La différence dans la qualité du résultat n'est pas subtile.
+
+## Exemple 2 : Corriger un bug
+
+Les rapports de bugs sont là où un prompt vague cause le plus de dégâts, car un modèle qui n'a pas assez de contexte ne se contente pas de produire un code médiocre — il produit un code dont il est sûr, mais qui est faux.
+
+Imaginez que quelqu'un signale un bug : *"Le bouton de connexion ne fonctionne parfois pas."*
+
+**L'approche naïve :** Vous collez cela dans votre agent. Il commence à analyser le code d'authentification, repère un motif async/await suspect, décide que c'est probablement ça, réécrit la fonction et ouvre une PR (Pull Request). Le bug est toujours là. La fonction qu'il a modifiée n'avait rien à voir.
+
+**L'approche du prompt inversé :**
+
+Vous donnez le rapport de bug à l'agent et demandez : *"De quoi aurais-tu besoin pour diagnostiquer cela efficacement ? Quelles questions poserait un ingénieur senior avant de toucher au moindre code ?"*
+
+Il répond :
+
+> - Que veut dire "ne fonctionne pas" — le bouton ne répond pas aux clics, le clic se déclenche mais rien ne se passe, ou une erreur s'affiche ?
+> - Est-ce reproductible de manière fiable ou intermittent ? Y a-t-il un schéma (navigateur spécifique, conditions réseau, état de l'utilisateur) ?
+> - Y a-t-il des erreurs dans la console ou des requêtes réseau qui échouent quand cela se produit ?
+> - Quel composant gère le clic du bouton, et quel service gère l'authentification ?
+> - Est-ce que cela a toujours été cassé ou est-ce une régression récente ? Si c'est une régression, qu'est-ce qui a changé ?
+
+Vous retournez voir la personne qui a signalé le bug, vous obtenez les réponses : c'est intermittent, cela n'arrive que lorsque l'utilisateur est sur la page depuis plus de dix minutes, aucune erreur dans la console, mais la requête réseau ne se déclenche jamais. C'est maintenant un bug complètement différent — probablement un problème d'expiration de token ou une closure obsolète (stale closure) dans un gestionnaire d'événements, pas un problème async/await.
+
+Vous donnez cette information à l'agent, et maintenant il va au bon endroit. Il trouve un `useCallback` avec une dépendance obsolète qui capture un token d'authentification lors du rendu initial. Un correctif ciblé, pas de dommages collatéraux.
+
+## Pourquoi ça fonctionne
+
+La raison pour laquelle la plupart du codage assisté par IA ressemble à une négociation — où l'on fait des allers-retours pour affiner le résultat — est que le prompt initial laisse trop de décisions au modèle. Chaque session de révision consiste pour vous à corriger une hypothèse que le modèle a faite parce que vous ne l'aviez pas précisée.
+
+Le prompt inversé fusionne la plupart de ces étapes en une seule conversation préliminaire. Les questions du modèle vous indiquent exactement quelles décisions il aurait prises de lui-même. Vous les prenez à sa place. Le résultat est correct du premier coup car il disposait d'informations complètes.
+
+Il y a aussi un avantage secondaire : les questions que le modèle pose sont une liste de contrôle (checklist). Si vous utilisez systématiquement la même technique pour des tâches similaires — ajouter de nouveaux paramètres, corriger des bugs d'authentification, intégrer une nouvelle API — les questions commencent à vous sembler familières. Avec le temps, vous apprenez à inclure ces détails dans vos prompts sans qu'on vous le demande, et la qualité de base de vos prompts s'améliore.
+
+## Quelques notes pratiques
+
+Cette technique fonctionne mieux avec les agents qui ont la possibilité d'utiliser des outils et d'accéder aux fichiers — des outils comme Cursor, GitHub Copilot en mode agent, Claude, etc. Un agent qui peut lire votre base de code posera des questions beaucoup plus spécifiques qu'un agent qui travaille à l'aveugle.
+
+Le flux en deux temps (de quoi as-tu besoin → voici les infos → maintenant fais la tâche) ajoute une étape. Pour les petites tâches clairement définies, c'est excessif. Mais pour tout ce qui touche à plusieurs fichiers, s'intègre à des systèmes existants ou implique une décision de conception non évidente, cela produit systématiquement de meilleurs résultats que de passer directement à l'implémentation.
+
+Et la spécification générée à l'étape 3 vaut la peine d'être sauvegardée. C'est un modèle réutilisable. La prochaine fois que quelqu'un devra ajouter un paramètre qui se conserve dans le profil utilisateur, vous aurez déjà un prompt bien spécifié pour cela.
+
+## Le point essentiel
+
+La façon dont la plupart des développeurs interagissent avec les agents de codage privilégie la vitesse au détriment de la qualité. Une phrase rapide en entrée, un résultat médiocre en sortie, puis dix minutes de nettoyage — répété des dizaines de fois par jour.
+
+L'approche du prompt inversé renverse ce compromis. Vous passez un peu plus de temps au début pour vous assurer que le modèle a ce dont il a besoin. En retour, le résultat se rapproche beaucoup plus de ce que vous vouliez vraiment, et vous passez moins de temps à le corriger.
+
+Le meilleur prompt pour une tâche n'est pas celui que vous écrivez en trente secondes. C'est celui que le modèle vous dit dont il a besoin.
