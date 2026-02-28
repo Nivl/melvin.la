@@ -15,7 +15,7 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/middleware"
 	"github.com/Nivl/melvin.la/api/internal/server"
 	"github.com/getsentry/sentry-go"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 // commitSHA is the git commit sha at build time, it is set using -ldflags

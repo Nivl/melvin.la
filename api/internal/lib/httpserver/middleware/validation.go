@@ -8,7 +8,7 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/gen/api"
 	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/request"
 	"github.com/Nivl/melvin.la/api/internal/server"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 	validator "github.com/pb33f/libopenapi-validator"
 	verror "github.com/pb33f/libopenapi-validator/errors"
 	vhelpers "github.com/pb33f/libopenapi-validator/helpers"

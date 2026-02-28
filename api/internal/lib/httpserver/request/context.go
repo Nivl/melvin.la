@@ -2,7 +2,7 @@ package request
 
 import (
 	"github.com/getsentry/sentry-go"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 // Context represents the context and dependencies needed by all the requests
