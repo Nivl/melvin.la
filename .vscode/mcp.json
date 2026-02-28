@@ -17,7 +17,7 @@
       ]
     },
     "Sentry": {
-      "url": "https://mcp.sentry.dev/mcp/melvinla/webapp",
+      "url": "https://mcp.sentry.dev/mcp",
       "type": "http"
     },
     "oraios/serena": {
