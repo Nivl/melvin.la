@@ -7,7 +7,7 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 // Recover recovers a panic and logs it.
