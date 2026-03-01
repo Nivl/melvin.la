@@ -25,7 +25,8 @@
     "themeDark": "Sombre",
     "themeSystem": "Système",
     "changeLanguage": "Changer de langue",
-    "language": "Langue"
+    "language": "Langue",
+    "pathfinding": "Visualiseur de chemin"
   },
   "home": {
     "metadata": {
@@ -218,5 +219,43 @@
     "toLabel": "Voir quel jour et quelle heure il était à",
     "toAriaLabel": "Rechercher une ville de destination",
     "output": "À <cityWrapper>{city}</cityWrapper>, il est {time}"
+  },
+  "pathfinding": {
+    "metadata": {
+      "title": "Visualiseur de recherche de chemin",
+      "description": "Visualisez des algorithmes de recherche de chemin comme A*, Dijkstra, BFS et DFS sur une grille interactive."
+    },
+    "title": "Visualiseur de recherche de chemin",
+    "needLargeScreen": "Un appareil avec un grand écran est nécessaire pour accéder à cette page",
+    "algorithmLabel": "Algorithme",
+    "speedLabel": "Vitesse",
+    "speedSlow": "Lente",
+    "speedMedium": "Moyenne",
+    "speedFast": "Rapide",
+    "rowsLabel": "Lignes",
+    "colsLabel": "Colonnes",
+    "visualizeButton": "Visualiser",
+    "stopButton": "Arrêter",
+    "resetButton": "Effacer le chemin",
+    "clearAllButton": "Tout effacer",
+    "drawWallsButton": "Murs",
+    "placeStartButton": "Départ",
+    "placeEndButton": "Arrivée",
+    "generateMazeButton": "Générer un labyrinthe",
+    "noPathFound": "Aucun chemin trouvé !",
+    "dfsWarning": "DFS ne garantit pas le chemin le plus court.",
+    "algorithms": {
+      "astar": "A* (Par défaut)",
+      "dijkstra": "Dijkstra",
+      "bfs": "BFS",
+      "dfs": "DFS"
+    },
+    "legend": {
+      "start": "Départ",
+      "end": "Arrivée",
+      "wall": "Mur",
+      "visited": "Visité",
+      "path": "Chemin le plus court"
+    }
   }
 }

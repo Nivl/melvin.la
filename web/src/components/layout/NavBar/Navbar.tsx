@@ -19,6 +19,7 @@ import {
   GiPerspectiveDiceSixFacesRandom as UuidIcon,
 } from 'react-icons/gi';
 import { MdOutlineTextFields as StringLengthIcon } from 'react-icons/md';
+import { PiPathBold as PathfindingIcon } from 'react-icons/pi';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
 
@@ -65,6 +66,12 @@ const tools: Item[] = [
     label: 'uuid',
     path: 'uuid',
     logo: <UuidIcon className="h-5 w-5" />,
+  },
+  {
+    key: 'pathfinding',
+    label: 'pathfinding',
+    path: 'pathfinding',
+    logo: <PathfindingIcon className="h-5 w-5" />,
   },
 ];
 
