@@ -25,7 +25,8 @@
     "themeDark": "다크",
     "themeSystem": "시스템",
     "changeLanguage": "언어 변경",
-    "language": "언어"
+    "language": "언어",
+    "pathfinding": "경로 탐색 시각화"
   },
   "home": {
     "metadata": {
@@ -218,5 +219,40 @@
     "toLabel": "확인할 도시",
     "toAriaLabel": "변환될 도시 검색",
     "output": "<cityWrapper>{city}</cityWrapper>에서는 {time}입니다"
+  },
+  "pathfinding": {
+    "metadata": {
+      "title": "경로 탐색 시각화",
+      "description": "Visualize pathfinding algorithms like A*, Dijkstra, BFS, and DFS on an interactive grid."
+    },
+    "title": "경로 탐색 시각화",
+    "needLargeScreen": "A device with a large screen is needed to access this page",
+    "algorithmLabel": "Algorithm",
+    "speedLabel": "Speed",
+    "speedSlow": "Slow",
+    "speedMedium": "Medium",
+    "speedFast": "Fast",
+    "rowsLabel": "Rows",
+    "colsLabel": "Columns",
+    "visualizeButton": "Visualize",
+    "stopButton": "Stop",
+    "resetButton": "Reset",
+    "clearAllButton": "Clear All",
+    "generateMazeButton": "Generate Maze",
+    "noPathFound": "No path found!",
+    "dfsWarning": "DFS does not guarantee the shortest path.",
+    "algorithms": {
+      "astar": "A* (Default)",
+      "dijkstra": "Dijkstra",
+      "bfs": "BFS",
+      "dfs": "DFS"
+    },
+    "legend": {
+      "start": "Start",
+      "end": "End",
+      "wall": "Wall",
+      "visited": "Visited",
+      "path": "Shortest Path"
+    }
   }
 }

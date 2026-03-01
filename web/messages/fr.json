@@ -25,7 +25,8 @@
     "themeDark": "Sombre",
     "themeSystem": "Système",
     "changeLanguage": "Changer de langue",
-    "language": "Langue"
+    "language": "Langue",
+    "pathfinding": "Visualiseur de chemin"
   },
   "home": {
     "metadata": {
@@ -218,5 +219,40 @@
     "toLabel": "Voir quel jour et quelle heure il était à",
     "toAriaLabel": "Rechercher une ville de destination",
     "output": "À <cityWrapper>{city}</cityWrapper>, il est {time}"
+  },
+  "pathfinding": {
+    "metadata": {
+      "title": "Visualiseur de chemin",
+      "description": "Visualize pathfinding algorithms like A*, Dijkstra, BFS, and DFS on an interactive grid."
+    },
+    "title": "Visualiseur de chemin",
+    "needLargeScreen": "A device with a large screen is needed to access this page",
+    "algorithmLabel": "Algorithm",
+    "speedLabel": "Speed",
+    "speedSlow": "Slow",
+    "speedMedium": "Medium",
+    "speedFast": "Fast",
+    "rowsLabel": "Rows",
+    "colsLabel": "Columns",
+    "visualizeButton": "Visualize",
+    "stopButton": "Stop",
+    "resetButton": "Reset",
+    "clearAllButton": "Clear All",
+    "generateMazeButton": "Generate Maze",
+    "noPathFound": "No path found!",
+    "dfsWarning": "DFS does not guarantee the shortest path.",
+    "algorithms": {
+      "astar": "A* (Default)",
+      "dijkstra": "Dijkstra",
+      "bfs": "BFS",
+      "dfs": "DFS"
+    },
+    "legend": {
+      "start": "Start",
+      "end": "End",
+      "wall": "Wall",
+      "visited": "Visited",
+      "path": "Shortest Path"
+    }
   }
 }

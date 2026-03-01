@@ -25,7 +25,8 @@
     "themeDark": "暗色",
     "themeSystem": "系统",
     "changeLanguage": "更改语言",
-    "language": "语言"
+    "language": "语言",
+    "pathfinding": "路径查找可视化"
   },
   "home": {
     "metadata": {
@@ -218,5 +219,40 @@
     "toLabel": "查看在什么日期和时间是",
     "toAriaLabel": "搜索转换到的城市",
     "output": "在 <cityWrapper>{city}</cityWrapper>，现在是 {time}"
+  },
+  "pathfinding": {
+    "metadata": {
+      "title": "路径查找可视化",
+      "description": "Visualize pathfinding algorithms like A*, Dijkstra, BFS, and DFS on an interactive grid."
+    },
+    "title": "路径查找可视化",
+    "needLargeScreen": "A device with a large screen is needed to access this page",
+    "algorithmLabel": "Algorithm",
+    "speedLabel": "Speed",
+    "speedSlow": "Slow",
+    "speedMedium": "Medium",
+    "speedFast": "Fast",
+    "rowsLabel": "Rows",
+    "colsLabel": "Columns",
+    "visualizeButton": "Visualize",
+    "stopButton": "Stop",
+    "resetButton": "Reset",
+    "clearAllButton": "Clear All",
+    "generateMazeButton": "Generate Maze",
+    "noPathFound": "No path found!",
+    "dfsWarning": "DFS does not guarantee the shortest path.",
+    "algorithms": {
+      "astar": "A* (Default)",
+      "dijkstra": "Dijkstra",
+      "bfs": "BFS",
+      "dfs": "DFS"
+    },
+    "legend": {
+      "start": "Start",
+      "end": "End",
+      "wall": "Wall",
+      "visited": "Visited",
+      "path": "Shortest Path"
+    }
   }
 }
