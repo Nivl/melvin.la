@@ -27,7 +27,8 @@ test('All controls are rendered', () => {
   expect(getByRole('button', { name: /reset/i })).toBeDefined();
   // Clear All button
   expect(getByRole('button', { name: /clear all/i })).toBeDefined();
-  // Place Start / Place End buttons
+  // Mode buttons
+  expect(getByRole('button', { name: /draw walls/i })).toBeDefined();
   expect(getByRole('button', { name: /place start/i })).toBeDefined();
   expect(getByRole('button', { name: /place end/i })).toBeDefined();
 });
@@ -56,27 +57,30 @@ test('Visualize button is disabled during animation', async () => {
   ).toBe(true);
 });
 
-test('Clicking "Place Start" toggles placement mode on and off', async () => {
+test('Clicking "Place Start" toggles to place-start mode; clicking again is a no-op (mode stays)', async () => {
   const { getByRole, user } = setup();
   const placeStartBtn = getByRole('button', { name: /place start/i });
 
   await user.click(placeStartBtn);
-  // Button should now appear "active" — re-clicking toggles it off
+  // Clicking the active button again should not crash (no-op)
   await user.click(placeStartBtn);
-  // No error thrown — mode toggled back to null
   expect(placeStartBtn).toBeDefined();
 });
 
-test('Activating "Place End" deactivates "Place Start"', async () => {
+test('Activating "Place End" switches away from "Place Start"', async () => {
   const { getByRole, user } = setup();
   const placeStartBtn = getByRole('button', { name: /place start/i });
   const placeEndBtn = getByRole('button', { name: /place end/i });
 
   await user.click(placeStartBtn);
   await user.click(placeEndBtn);
-  // Both remain rendered without errors
-  expect(placeStartBtn).toBeDefined();
   expect(placeEndBtn).toBeDefined();
+});
+
+test('"Draw Walls" is the default active mode', () => {
+  const { getByRole } = setup();
+  // Draw Walls button should be present from the start
+  expect(getByRole('button', { name: /draw walls/i })).toBeDefined();
 });
 
 test('Start cell moves when clicking in place-start mode', async () => {

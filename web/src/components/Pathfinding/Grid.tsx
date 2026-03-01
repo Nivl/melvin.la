@@ -86,7 +86,7 @@ export const PathfindingGrid = ({
       const [row, col] = coords;
 
       // Placement mode: move start or end node
-      if (placementMode) {
+      if (placementMode === 'place-start' || placementMode === 'place-end') {
         if (placementMode === 'place-start') {
           if (row === end[0] && col === end[1]) return;
           onStartChange([row, col]);
@@ -141,7 +141,7 @@ export const PathfindingGrid = ({
         gridTemplateColumns: `repeat(${String(cols)}, 1fr)`,
         aspectRatio: `${String(cols)} / ${String(rows)}`,
         width: '100%',
-        cursor: isAnimating ? 'not-allowed' : placementMode ? 'pointer' : 'crosshair',
+        cursor: isAnimating ? 'not-allowed' : placementMode !== 'draw-walls' ? 'pointer' : 'crosshair',
       }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}

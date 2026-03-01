@@ -238,6 +238,7 @@
     "stopButton": "Stop",
     "resetButton": "Reset",
     "clearAllButton": "Clear All",
+    "drawWallsButton": "壁を描く",
     "placeStartButton": "スタートを配置",
     "placeEndButton": "ゴールを配置",
     "generateMazeButton": "Generate Maze",

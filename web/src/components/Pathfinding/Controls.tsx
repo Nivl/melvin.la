@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@heroui/button';
+import { ButtonGroup } from '@heroui/button';
 import { Select, SelectItem } from '@heroui/select';
 import { Slider } from '@heroui/slider';
 import { useTranslations } from 'next-intl';
@@ -189,35 +190,30 @@ export const Controls = ({
         {t('clearAllButton')}
       </Button>
 
-      {/* Node placement */}
-      <div className="flex flex-col gap-2">
+      {/* Mode selector */}
+      <ButtonGroup fullWidth isDisabled={isAnimating} size="sm">
+        <Button
+          variant={placementMode === 'draw-walls' ? 'solid' : 'bordered'}
+          color="default"
+          onPress={() => onPlacementModeChange('draw-walls')}
+        >
+          {t('drawWallsButton')}
+        </Button>
         <Button
           variant={placementMode === 'place-start' ? 'solid' : 'bordered'}
           color="success"
-          onPress={() =>
-            onPlacementModeChange(
-              placementMode === 'place-start' ? null : 'place-start',
-            )
-          }
-          isDisabled={isAnimating}
-          size="sm"
+          onPress={() => onPlacementModeChange('place-start')}
         >
           {t('placeStartButton')}
         </Button>
         <Button
           variant={placementMode === 'place-end' ? 'solid' : 'bordered'}
           color="danger"
-          onPress={() =>
-            onPlacementModeChange(
-              placementMode === 'place-end' ? null : 'place-end',
-            )
-          }
-          isDisabled={isAnimating}
-          size="sm"
+          onPress={() => onPlacementModeChange('place-end')}
         >
           {t('placeEndButton')}
         </Button>
-      </div>
+      </ButtonGroup>
 
       {/* Legend */}
       <div className="border-default-200 flex flex-col gap-1.5 border-t pt-2">

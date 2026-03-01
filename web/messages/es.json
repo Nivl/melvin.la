@@ -238,6 +238,7 @@
     "stopButton": "Stop",
     "resetButton": "Reset",
     "clearAllButton": "Clear All",
+    "drawWallsButton": "Dibujar muros",
     "placeStartButton": "Colocar Inicio",
     "placeEndButton": "Colocar Fin",
     "generateMazeButton": "Generate Maze",

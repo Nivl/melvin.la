@@ -59,7 +59,7 @@ export const Pathfinding = () => {
   const [speed, setSpeed] = useState<number>(SPEED_VALUES.medium);
   const [isAnimating, setIsAnimating] = useState(false);
   const [noPath, setNoPath] = useState(false);
-  const [placementMode, setPlacementMode] = useState<PlacementMode>(null);
+  const [placementMode, setPlacementMode] = useState<PlacementMode>('draw-walls');
 
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
