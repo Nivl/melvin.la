@@ -198,7 +198,7 @@ export const Controls = ({
         ).map(([color, label]) => (
           <div key={label} className="flex items-center gap-2 text-xs">
             <span
-              className={`inline-block h-3 w-3 flex-shrink-0 rounded-sm ${color}`}
+              className={`inline-block h-3 w-3 shrink-0 rounded-sm ${color}`}
             />
             {label}
           </div>

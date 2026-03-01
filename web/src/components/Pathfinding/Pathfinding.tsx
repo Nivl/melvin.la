@@ -224,8 +224,6 @@ export const Pathfinding = () => {
               grid={grid}
               isAnimating={isAnimating}
               onGridChange={setGrid}
-              onStartChange={setStart}
-              onEndChange={setEnd}
               start={start}
               end={end}
             />
