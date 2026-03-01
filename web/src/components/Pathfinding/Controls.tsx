@@ -138,6 +138,17 @@ export const Controls = ({
         />
       </div>
 
+      {/* Generate Maze */}
+      <Button
+        variant="bordered"
+        onPress={onGenerateMaze}
+        isDisabled={isAnimating}
+        startContent={<MazeIcon />}
+        size="sm"
+      >
+        {t('generateMazeButton')}
+      </Button>
+
       {/* Visualize / Stop */}
       {isAnimating ? (
         <Button
@@ -158,17 +169,6 @@ export const Controls = ({
           {t('visualizeButton')}
         </Button>
       )}
-
-      {/* Generate Maze */}
-      <Button
-        variant="bordered"
-        onPress={onGenerateMaze}
-        isDisabled={isAnimating}
-        startContent={<MazeIcon />}
-        size="sm"
-      >
-        {t('generateMazeButton')}
-      </Button>
 
       {/* Clear Path */}
       {hasPath && (
