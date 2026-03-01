@@ -25,7 +25,8 @@
     "themeDark": "ダーク",
     "themeSystem": "システム",
     "changeLanguage": "言語を変更",
-    "language": "言語"
+    "language": "言語",
+    "pathfinding": "経路探索ビジュアライザー"
   },
   "home": {
     "metadata": {
@@ -218,5 +219,43 @@
     "toLabel": "以下の場所での日時を確認：",
     "toAriaLabel": "変換先の都市を検索",
     "output": "<cityWrapper>{city}</cityWrapper> では {time} です"
+  },
+  "pathfinding": {
+    "metadata": {
+      "title": "経路探索ビジュアライザー",
+      "description": "Visualize pathfinding algorithms like A*, Dijkstra, BFS, and DFS on an interactive grid."
+    },
+    "title": "経路探索ビジュアライザー",
+    "needLargeScreen": "A device with a large screen is needed to access this page",
+    "algorithmLabel": "Algorithm",
+    "speedLabel": "Speed",
+    "speedSlow": "Slow",
+    "speedMedium": "Medium",
+    "speedFast": "Fast",
+    "rowsLabel": "Rows",
+    "colsLabel": "Columns",
+    "visualizeButton": "Visualize",
+    "stopButton": "Stop",
+    "resetButton": "パスをクリア",
+    "clearAllButton": "Clear All",
+    "drawWallsButton": "壁を配置",
+    "placeStartButton": "スタートを配置",
+    "placeEndButton": "ゴールを配置",
+    "generateMazeButton": "Generate Maze",
+    "noPathFound": "No path found!",
+    "dfsWarning": "DFS does not guarantee the shortest path.",
+    "algorithms": {
+      "astar": "A* (Default)",
+      "dijkstra": "Dijkstra",
+      "bfs": "BFS",
+      "dfs": "DFS"
+    },
+    "legend": {
+      "start": "Start",
+      "end": "End",
+      "wall": "Wall",
+      "visited": "Visited",
+      "path": "Shortest Path"
+    }
   }
 }

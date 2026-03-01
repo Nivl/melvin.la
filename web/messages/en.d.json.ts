@@ -22,6 +22,7 @@ declare const messages: {
     "timezones": "Timezone Converter",
     "timestamp": "Timestamp Lookup",
     "uuid": "UUID generator",
+    "pathfinding": "Pathfinding Visualizer",
     "switchTheme": "Switch theme",
     "theme": "Theme",
     "themeLight": "Light",
@@ -221,6 +222,44 @@ declare const messages: {
     "toLabel": "See what day and time it was in",
     "toAriaLabel": "Search for a city to convert to",
     "output": "In <cityWrapper>{city}</cityWrapper>, it's {time}"
+  },
+  "pathfinding": {
+    "metadata": {
+      "title": "Pathfinding Visualizer",
+      "description": "Visualize pathfinding algorithms like A*, Dijkstra, BFS, and DFS on an interactive grid."
+    },
+    "title": "Pathfinding Visualizer",
+    "needLargeScreen": "A device with a large screen is needed to access this page",
+    "algorithmLabel": "Algorithm",
+    "speedLabel": "Speed",
+    "speedSlow": "Slow",
+    "speedMedium": "Medium",
+    "speedFast": "Fast",
+    "rowsLabel": "Rows",
+    "colsLabel": "Columns",
+    "visualizeButton": "Visualize",
+    "stopButton": "Stop",
+    "resetButton": "Clear Path",
+    "clearAllButton": "Clear All",
+    "drawWallsButton": "Place Walls",
+    "placeStartButton": "Place Start",
+    "placeEndButton": "Place End",
+    "generateMazeButton": "Generate Maze",
+    "noPathFound": "No path found!",
+    "dfsWarning": "DFS does not guarantee the shortest path.",
+    "algorithms": {
+      "astar": "A* (Default)",
+      "dijkstra": "Dijkstra",
+      "bfs": "BFS",
+      "dfs": "DFS"
+    },
+    "legend": {
+      "start": "Start",
+      "end": "End",
+      "wall": "Wall",
+      "visited": "Visited",
+      "path": "Shortest Path"
+    }
   }
 };
 export default messages;
