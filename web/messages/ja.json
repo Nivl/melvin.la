@@ -236,7 +236,7 @@
     "colsLabel": "Columns",
     "visualizeButton": "Visualize",
     "stopButton": "Stop",
-    "resetButton": "Reset",
+    "resetButton": "パスをクリア",
     "clearAllButton": "Clear All",
     "drawWallsButton": "壁を配置",
     "placeStartButton": "スタートを配置",

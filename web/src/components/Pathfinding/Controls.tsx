@@ -27,6 +27,7 @@ type ControlsProps = {
   onRowsChange: (rows: number) => void;
   onColsChange: (cols: number) => void;
   isAnimating: boolean;
+  hasPath: boolean;
   placementMode: PlacementMode;
   onPlacementModeChange: (mode: PlacementMode) => void;
   onVisualize: () => void;
@@ -46,6 +47,7 @@ export const Controls = ({
   onRowsChange,
   onColsChange,
   isAnimating,
+  hasPath,
   placementMode,
   onPlacementModeChange,
   onVisualize,
@@ -168,15 +170,17 @@ export const Controls = ({
         {t('generateMazeButton')}
       </Button>
 
-      {/* Reset (keep walls) */}
-      <Button
-        variant="flat"
-        onPress={onReset}
-        isDisabled={isAnimating}
-        size="sm"
-      >
-        {t('resetButton')}
-      </Button>
+      {/* Clear Path */}
+      {hasPath && (
+        <Button
+          variant="flat"
+          onPress={onReset}
+          isDisabled={isAnimating}
+          size="sm"
+        >
+          {t('resetButton')}
+        </Button>
+      )}
 
       {/* Clear All */}
       <Button

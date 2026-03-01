@@ -236,7 +236,7 @@
     "colsLabel": "Columns",
     "visualizeButton": "Visualize",
     "stopButton": "Stop",
-    "resetButton": "Reset",
+    "resetButton": "경로 지우기",
     "clearAllButton": "Clear All",
     "drawWallsButton": "벽 배치",
     "placeStartButton": "시작 배치",

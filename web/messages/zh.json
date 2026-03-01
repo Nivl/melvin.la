@@ -236,7 +236,7 @@
     "colsLabel": "Columns",
     "visualizeButton": "Visualize",
     "stopButton": "Stop",
-    "resetButton": "Reset",
+    "resetButton": "清除路径",
     "clearAllButton": "Clear All",
     "drawWallsButton": "放置墙壁",
     "placeStartButton": "设置起点",

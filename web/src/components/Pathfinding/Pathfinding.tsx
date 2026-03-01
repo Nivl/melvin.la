@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
   runAStar,
@@ -60,6 +60,11 @@ export const Pathfinding = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [noPath, setNoPath] = useState(false);
   const [placementMode, setPlacementMode] = useState<PlacementMode>('draw-walls');
+
+  const hasPath = useMemo(
+    () => grid.some(row => row.some(c => c === 'visited' || c === 'path')),
+    [grid],
+  );
 
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
@@ -251,6 +256,7 @@ export const Pathfinding = () => {
               onPlacementModeChange={setPlacementMode}
               onVisualize={handleVisualize}
               onStop={cancelAnimation}
+              hasPath={hasPath}
               onReset={handleReset}
               onClearAll={handleClearAll}
               onGenerateMaze={handleGenerateMaze}

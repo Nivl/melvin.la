@@ -239,7 +239,7 @@ declare const messages: {
     "colsLabel": "Columns",
     "visualizeButton": "Visualize",
     "stopButton": "Stop",
-    "resetButton": "Reset",
+    "resetButton": "Clear Path",
     "clearAllButton": "Clear All",
     "drawWallsButton": "Place Walls",
     "placeStartButton": "Place Start",

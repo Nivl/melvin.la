@@ -17,20 +17,20 @@ const setup = () => {
 };
 
 test('All controls are rendered', () => {
-  const { getByRole } = setup();
+  const { getByRole, queryByRole } = setup();
 
   // Visualize button
   expect(getByRole('button', { name: /visualize/i })).toBeDefined();
   // Generate Maze button
   expect(getByRole('button', { name: /generate maze/i })).toBeDefined();
-  // Reset button
-  expect(getByRole('button', { name: /reset/i })).toBeDefined();
   // Clear All button
   expect(getByRole('button', { name: /clear all/i })).toBeDefined();
   // Mode buttons
   expect(getByRole('button', { name: /place walls/i })).toBeDefined();
   expect(getByRole('button', { name: /place start/i })).toBeDefined();
   expect(getByRole('button', { name: /place end/i })).toBeDefined();
+  // Clear Path is hidden when grid has no visited/path cells
+  expect(queryByRole('button', { name: /clear path/i })).toBeNull();
 });
 
 test('Algorithm selector is present', () => {
