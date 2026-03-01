@@ -25,7 +25,8 @@
     "themeDark": "ダーク",
     "themeSystem": "システム",
     "changeLanguage": "言語を変更",
-    "language": "言語"
+    "language": "言語",
+    "pathfinding": "経路探索ビジュアライザー"
   },
   "home": {
     "metadata": {
@@ -218,5 +219,43 @@
     "toLabel": "以下の場所での日時を確認：",
     "toAriaLabel": "変換先の都市を検索",
     "output": "<cityWrapper>{city}</cityWrapper> では {time} です"
+  },
+  "pathfinding": {
+    "metadata": {
+      "title": "経路探索ツール",
+      "description": "A*、Dijkstra、BFS、DFSなどの経路探索アルゴリズムをインタラクティブなグリッド上で視覚化します。"
+    },
+    "title": "経路探索ツール",
+    "needLargeScreen": "このページにアクセスするには大画面のデバイスが必要です",
+    "algorithmLabel": "アルゴリズム",
+    "speedLabel": "速度",
+    "speedSlow": "遅い",
+    "speedMedium": "普通",
+    "speedFast": "速い",
+    "rowsLabel": "行",
+    "colsLabel": "列",
+    "visualizeButton": "視覚化",
+    "stopButton": "停止",
+    "resetButton": "パスをクリア",
+    "clearAllButton": "すべてクリア",
+    "drawWallsButton": "壁",
+    "placeStartButton": "スタート",
+    "placeEndButton": "ゴール",
+    "generateMazeButton": "迷路生成",
+    "noPathFound": "パスが見つかりません！",
+    "dfsWarning": "DFS（深さ優先探索）は最短経路を保証しません。",
+    "algorithms": {
+      "astar": "A*（デフォルト）",
+      "dijkstra": "Dijkstra",
+      "bfs": "BFS",
+      "dfs": "DFS"
+    },
+    "legend": {
+      "start": "スタート",
+      "end": "ゴール",
+      "wall": "壁",
+      "visited": "探索済み",
+      "path": "最短経路"
+    }
   }
 }

@@ -25,7 +25,8 @@
     "themeDark": "暗色",
     "themeSystem": "系統",
     "changeLanguage": "更改語言",
-    "language": "語言"
+    "language": "語言",
+    "pathfinding": "路徑尋找視覺化"
   },
   "home": {
     "metadata": {
@@ -218,5 +219,43 @@
     "toLabel": "查看在什麼日期和時間是",
     "toAriaLabel": "搜尋轉換到的城市",
     "output": "在 <cityWrapper>{city}</cityWrapper>，現在是 {time}"
+  },
+  "pathfinding": {
+    "metadata": {
+      "title": "路徑尋找視覺化",
+      "description": "在互動式網格上視覺化 A*、Dijkstra、BFS 和 DFS 等路徑尋找演算法。"
+    },
+    "title": "路徑尋找視覺化",
+    "needLargeScreen": "需要大螢幕設備才能訪問此頁面",
+    "algorithmLabel": "演算法",
+    "speedLabel": "速度",
+    "speedSlow": "慢",
+    "speedMedium": "中等",
+    "speedFast": "快",
+    "rowsLabel": "行數",
+    "colsLabel": "列數",
+    "visualizeButton": "開始視覺化",
+    "stopButton": "停止",
+    "resetButton": "清除路徑",
+    "clearAllButton": "清除全部",
+    "drawWallsButton": "放置牆壁",
+    "placeStartButton": "設置起點",
+    "placeEndButton": "設置終點",
+    "generateMazeButton": "生成迷宮",
+    "noPathFound": "未找到路徑！",
+    "dfsWarning": "深度優先搜尋（DFS）不保證找到最短路徑。",
+    "algorithms": {
+      "astar": "A*（預設）",
+      "dijkstra": "Dijkstra",
+      "bfs": "BFS",
+      "dfs": "DFS"
+    },
+    "legend": {
+      "start": "起點",
+      "end": "終點",
+      "wall": "牆",
+      "visited": "已訪問",
+      "path": "最短路徑"
+    }
   }
 }
