@@ -11,6 +11,8 @@ export type AlgorithmResult = {
 
 export type Algorithm = 'astar' | 'dijkstra' | 'bfs' | 'dfs';
 
+export type PlacementMode = 'place-start' | 'place-end' | null;
+
 export const DEFAULT_ROWS = 20;
 export const DEFAULT_COLS = 40;
 export const DEFAULT_START: Coords = [10, 5];

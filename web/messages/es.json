@@ -238,6 +238,8 @@
     "stopButton": "Stop",
     "resetButton": "Reset",
     "clearAllButton": "Clear All",
+    "placeStartButton": "Colocar Inicio",
+    "placeEndButton": "Colocar Fin",
     "generateMazeButton": "Generate Maze",
     "noPathFound": "No path found!",
     "dfsWarning": "DFS does not guarantee the shortest path.",

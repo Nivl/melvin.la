@@ -241,6 +241,8 @@ declare const messages: {
     "stopButton": "Stop",
     "resetButton": "Reset",
     "clearAllButton": "Clear All",
+    "placeStartButton": "Place Start",
+    "placeEndButton": "Place End",
     "generateMazeButton": "Generate Maze",
     "noPathFound": "No path found!",
     "dfsWarning": "DFS does not guarantee the shortest path.",

@@ -8,7 +8,7 @@ import { FaPlay as PlayIcon, FaStop as StopIcon } from 'react-icons/fa6';
 import { GiMaze as MazeIcon } from 'react-icons/gi';
 import { MdClear as ClearIcon } from 'react-icons/md';
 
-import type { Algorithm } from '#utils/pathfinding/types';
+import type { Algorithm, PlacementMode } from '#utils/pathfinding/types';
 
 export const SPEED_VALUES = {
   slow: 80,
@@ -26,6 +26,8 @@ type ControlsProps = {
   onRowsChange: (rows: number) => void;
   onColsChange: (cols: number) => void;
   isAnimating: boolean;
+  placementMode: PlacementMode;
+  onPlacementModeChange: (mode: PlacementMode) => void;
   onVisualize: () => void;
   onStop: () => void;
   onReset: () => void;
@@ -43,6 +45,8 @@ export const Controls = ({
   onRowsChange,
   onColsChange,
   isAnimating,
+  placementMode,
+  onPlacementModeChange,
   onVisualize,
   onStop,
   onReset,
@@ -184,6 +188,36 @@ export const Controls = ({
       >
         {t('clearAllButton')}
       </Button>
+
+      {/* Node placement */}
+      <div className="flex flex-col gap-2">
+        <Button
+          variant={placementMode === 'place-start' ? 'solid' : 'bordered'}
+          color="success"
+          onPress={() =>
+            onPlacementModeChange(
+              placementMode === 'place-start' ? null : 'place-start',
+            )
+          }
+          isDisabled={isAnimating}
+          size="sm"
+        >
+          {t('placeStartButton')}
+        </Button>
+        <Button
+          variant={placementMode === 'place-end' ? 'solid' : 'bordered'}
+          color="danger"
+          onPress={() =>
+            onPlacementModeChange(
+              placementMode === 'place-end' ? null : 'place-end',
+            )
+          }
+          isDisabled={isAnimating}
+          size="sm"
+        >
+          {t('placeEndButton')}
+        </Button>
+      </div>
 
       {/* Legend */}
       <div className="border-default-200 flex flex-col gap-1.5 border-t pt-2">

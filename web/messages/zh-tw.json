@@ -238,6 +238,8 @@
     "stopButton": "Stop",
     "resetButton": "Reset",
     "clearAllButton": "Clear All",
+    "placeStartButton": "設置起點",
+    "placeEndButton": "設置終點",
     "generateMazeButton": "Generate Maze",
     "noPathFound": "No path found!",
     "dfsWarning": "DFS does not guarantee the shortest path.",

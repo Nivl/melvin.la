@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 
-import type { Coords, Grid } from '#utils/pathfinding/types';
+import type { Coords, Grid, PlacementMode } from '#utils/pathfinding/types';
 
 type DragMode = 'add-wall' | 'remove-wall' | undefined;
 
@@ -19,6 +19,9 @@ type GridProps = {
   onGridChange: (grid: Grid) => void;
   start: Coords;
   end: Coords;
+  placementMode: PlacementMode;
+  onStartChange: (coords: Coords) => void;
+  onEndChange: (coords: Coords) => void;
 };
 
 const CELL_COLORS: Record<string, string> = {
@@ -36,6 +39,9 @@ export const PathfindingGrid = ({
   onGridChange,
   start,
   end,
+  placementMode,
+  onStartChange,
+  onEndChange,
 }: GridProps) => {
   const dragModeRef = useRef<DragMode>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -53,7 +59,7 @@ export const PathfindingGrid = ({
       const rect = container.getBoundingClientRect();
       const col = Math.floor(((e.clientX - rect.left) / rect.width) * cols);
       const row = Math.floor(((e.clientY - rect.top) / rect.height) * rows);
-      if (row < 0 || row >= rows || col < 0 || col >= cols) return undefined;
+      if (isNaN(row) || isNaN(col) || row < 0 || row >= rows || col < 0 || col >= cols) return undefined;
       return [row, col];
     },
     [rows, cols],
@@ -78,6 +84,19 @@ export const PathfindingGrid = ({
       const coords = getCellFromEvent(e);
       if (!coords) return;
       const [row, col] = coords;
+
+      // Placement mode: move start or end node
+      if (placementMode) {
+        if (placementMode === 'place-start') {
+          if (row === end[0] && col === end[1]) return;
+          onStartChange([row, col]);
+        } else {
+          if (row === start[0] && col === start[1]) return;
+          onEndChange([row, col]);
+        }
+        return;
+      }
+
       const state = grid[row][col];
       if (state === 'start' || state === 'end') return;
       const mode: DragMode =
@@ -86,7 +105,7 @@ export const PathfindingGrid = ({
       applyWall(row, col, mode);
       (e.target as HTMLElement).setPointerCapture(e.pointerId);
     },
-    [isAnimating, grid, getCellFromEvent, applyWall],
+    [isAnimating, placementMode, grid, start, end, getCellFromEvent, applyWall, onStartChange, onEndChange],
   );
 
   const handlePointerMove = useCallback(
@@ -122,7 +141,7 @@ export const PathfindingGrid = ({
         gridTemplateColumns: `repeat(${String(cols)}, 1fr)`,
         aspectRatio: `${String(cols)} / ${String(rows)}`,
         width: '100%',
-        cursor: isAnimating ? 'not-allowed' : 'crosshair',
+        cursor: isAnimating ? 'not-allowed' : placementMode ? 'pointer' : 'crosshair',
       }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}

@@ -18,6 +18,7 @@ import {
   DEFAULT_ROWS,
   DEFAULT_START,
   Grid,
+  PlacementMode,
 } from '#utils/pathfinding/types';
 
 import { Section } from '../layout/Section';
@@ -58,6 +59,7 @@ export const Pathfinding = () => {
   const [speed, setSpeed] = useState<number>(SPEED_VALUES.medium);
   const [isAnimating, setIsAnimating] = useState(false);
   const [noPath, setNoPath] = useState(false);
+  const [placementMode, setPlacementMode] = useState<PlacementMode>(null);
 
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
@@ -93,8 +95,43 @@ export const Pathfinding = () => {
     setGrid(makeEmptyGrid(rows, cols, start, end));
   }, [rows, cols, start, end]);
 
-  const handleGenerateMaze = useCallback(() => {
-    cancelAnimation();
+  const softReset = useCallback((g: Grid): Grid => {
+    return g.map(row =>
+      row.map(cell => (cell === 'visited' || cell === 'path' ? 'empty' : cell)),
+    );
+  }, []);
+
+  const handleStartChange = useCallback(
+    (coords: Coords) => {
+      setNoPath(false);
+      setStart(coords);
+      setGrid(prev => {
+        const g = softReset(prev);
+        const [pr, pc] = start;
+        g[pr][pc] = 'empty';
+        g[coords[0]][coords[1]] = 'start';
+        return g;
+      });
+    },
+    [start, softReset],
+  );
+
+  const handleEndChange = useCallback(
+    (coords: Coords) => {
+      setNoPath(false);
+      setEnd(coords);
+      setGrid(prev => {
+        const g = softReset(prev);
+        const [pr, pc] = end;
+        g[pr][pc] = 'empty';
+        g[coords[0]][coords[1]] = 'end';
+        return g;
+      });
+    },
+    [end, softReset],
+  );
+
+  const handleGenerateMaze = useCallback(() => {    cancelAnimation();
     setGrid(generateMaze(rows, cols, start, end));
   }, [rows, cols, start, end, cancelAnimation]);
 
@@ -210,6 +247,8 @@ export const Pathfinding = () => {
               onRowsChange={setRows}
               onColsChange={setCols}
               isAnimating={isAnimating}
+              placementMode={placementMode}
+              onPlacementModeChange={setPlacementMode}
               onVisualize={handleVisualize}
               onStop={cancelAnimation}
               onReset={handleReset}
@@ -226,6 +265,9 @@ export const Pathfinding = () => {
               onGridChange={setGrid}
               start={start}
               end={end}
+              placementMode={placementMode}
+              onStartChange={handleStartChange}
+              onEndChange={handleEndChange}
             />
           </div>
         </div>
