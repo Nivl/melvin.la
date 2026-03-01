@@ -238,7 +238,7 @@
     "stopButton": "Stop",
     "resetButton": "Reset",
     "clearAllButton": "Clear All",
-    "drawWallsButton": "벽 그리기",
+    "drawWallsButton": "벽 배치",
     "placeStartButton": "시작 배치",
     "placeEndButton": "끝 배치",
     "generateMazeButton": "Generate Maze",

@@ -238,7 +238,7 @@
     "stopButton": "Stop",
     "resetButton": "Reset",
     "clearAllButton": "Clear All",
-    "drawWallsButton": "绘制墙壁",
+    "drawWallsButton": "放置墙壁",
     "placeStartButton": "设置起点",
     "placeEndButton": "设置终点",
     "generateMazeButton": "Generate Maze",

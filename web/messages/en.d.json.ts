@@ -241,7 +241,7 @@ declare const messages: {
     "stopButton": "Stop",
     "resetButton": "Reset",
     "clearAllButton": "Clear All",
-    "drawWallsButton": "Draw Walls",
+    "drawWallsButton": "Place Walls",
     "placeStartButton": "Place Start",
     "placeEndButton": "Place End",
     "generateMazeButton": "Generate Maze",

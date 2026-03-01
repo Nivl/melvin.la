@@ -201,14 +201,16 @@ export const Controls = ({
         </Button>
         <Button
           variant={placementMode === 'place-start' ? 'solid' : 'bordered'}
-          color="success"
+          color="default"
+          className={placementMode !== 'place-start' ? 'text-success-600 dark:text-success-400' : ''}
           onPress={() => onPlacementModeChange('place-start')}
         >
           {t('placeStartButton')}
         </Button>
         <Button
           variant={placementMode === 'place-end' ? 'solid' : 'bordered'}
-          color="danger"
+          color="default"
+          className={placementMode !== 'place-end' ? 'text-danger-600 dark:text-danger-400' : ''}
           onPress={() => onPlacementModeChange('place-end')}
         >
           {t('placeEndButton')}

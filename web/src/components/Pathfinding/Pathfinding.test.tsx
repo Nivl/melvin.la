@@ -28,7 +28,7 @@ test('All controls are rendered', () => {
   // Clear All button
   expect(getByRole('button', { name: /clear all/i })).toBeDefined();
   // Mode buttons
-  expect(getByRole('button', { name: /draw walls/i })).toBeDefined();
+  expect(getByRole('button', { name: /place walls/i })).toBeDefined();
   expect(getByRole('button', { name: /place start/i })).toBeDefined();
   expect(getByRole('button', { name: /place end/i })).toBeDefined();
 });
@@ -77,10 +77,10 @@ test('Activating "Place End" switches away from "Place Start"', async () => {
   expect(placeEndBtn).toBeDefined();
 });
 
-test('"Draw Walls" is the default active mode', () => {
+test('"place walls" is the default active mode', () => {
   const { getByRole } = setup();
-  // Draw Walls button should be present from the start
-  expect(getByRole('button', { name: /draw walls/i })).toBeDefined();
+  // place walls button should be present from the start
+  expect(getByRole('button', { name: /place walls/i })).toBeDefined();
 });
 
 test('Start cell moves when clicking in place-start mode', async () => {
