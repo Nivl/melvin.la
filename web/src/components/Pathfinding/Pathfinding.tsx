@@ -59,7 +59,8 @@ export const Pathfinding = () => {
   const [speed, setSpeed] = useState<number>(SPEED_VALUES.medium);
   const [isAnimating, setIsAnimating] = useState(false);
   const [noPath, setNoPath] = useState(false);
-  const [placementMode, setPlacementMode] = useState<PlacementMode>('draw-walls');
+  const [placementMode, setPlacementMode] =
+    useState<PlacementMode>('draw-walls');
 
   const hasPath = useMemo(
     () => grid.some(row => row.some(c => c === 'visited' || c === 'path')),
@@ -136,7 +137,8 @@ export const Pathfinding = () => {
     [end, softReset],
   );
 
-  const handleGenerateMaze = useCallback(() => {    cancelAnimation();
+  const handleGenerateMaze = useCallback(() => {
+    cancelAnimation();
     setGrid(generateMaze(rows, cols, start, end));
   }, [rows, cols, start, end, cancelAnimation]);
 
@@ -234,49 +236,57 @@ export const Pathfinding = () => {
       </Section>
 
       <div className="hidden pb-6 lg:flex lg:flex-col lg:gap-3 lg:px-4 xl:px-8">
-        {noPath && (
-          <div className="bg-warning-100 border-warning-300 text-warning-800 dark:bg-warning-900/30 dark:border-warning-700 dark:text-warning-300 rounded-lg border px-4 py-2 text-sm font-medium">
-            {t('noPathFound')}
-          </div>
-        )}
-        <div className="flex gap-6">
-          {/* Sidebar */}
-          <aside className="w-52 shrink-0 xl:w-60">
-            <Controls
-              algorithm={algorithm}
-              onAlgorithmChange={setAlgorithm}
-              speed={speed}
-              onSpeedChange={setSpeed}
-              rows={rows}
-              cols={cols}
-              onRowsChange={setRows}
-              onColsChange={setCols}
-              isAnimating={isAnimating}
-              placementMode={placementMode}
-              onPlacementModeChange={setPlacementMode}
-              onVisualize={handleVisualize}
-              onStop={cancelAnimation}
-              hasPath={hasPath}
-              onReset={handleReset}
-              onClearAll={handleClearAll}
-              onGenerateMaze={handleGenerateMaze}
-            />
-          </aside>
+        <Section>
+          <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl font-bold uppercase sm:text-8xl xl:text-9xl">
+            {t('title')}
+          </h1>
+        </Section>
 
-          {/* Grid */}
-          <div className="min-w-0 flex-1">
-            <PathfindingGrid
-              grid={grid}
-              isAnimating={isAnimating}
-              onGridChange={setGrid}
-              start={start}
-              end={end}
-              placementMode={placementMode}
-              onStartChange={handleStartChange}
-              onEndChange={handleEndChange}
-            />
+        <Section fullScreen={true} className="mx-0">
+          {noPath && (
+            <div className="bg-warning-100 border-warning-300 text-warning-800 dark:bg-warning-900/30 dark:border-warning-700 dark:text-warning-300 rounded-lg border px-4 py-2 text-sm font-medium">
+              {t('noPathFound')}
+            </div>
+          )}
+          <div className="flex gap-6">
+            {/* Sidebar */}
+            <aside className="w-52 shrink-0 xl:w-60">
+              <Controls
+                algorithm={algorithm}
+                onAlgorithmChange={setAlgorithm}
+                speed={speed}
+                onSpeedChange={setSpeed}
+                rows={rows}
+                cols={cols}
+                onRowsChange={setRows}
+                onColsChange={setCols}
+                isAnimating={isAnimating}
+                placementMode={placementMode}
+                onPlacementModeChange={setPlacementMode}
+                onVisualize={handleVisualize}
+                onStop={cancelAnimation}
+                hasPath={hasPath}
+                onReset={handleReset}
+                onClearAll={handleClearAll}
+                onGenerateMaze={handleGenerateMaze}
+              />
+            </aside>
+
+            {/* Grid */}
+            <div className="min-w-0 flex-1">
+              <PathfindingGrid
+                grid={grid}
+                isAnimating={isAnimating}
+                onGridChange={setGrid}
+                start={start}
+                end={end}
+                placementMode={placementMode}
+                onStartChange={handleStartChange}
+                onEndChange={handleEndChange}
+              />
+            </div>
           </div>
-        </div>
+        </Section>
       </div>
     </>
   );
