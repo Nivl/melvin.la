@@ -2,6 +2,18 @@
 
 **PRIORITY**: If `./AGENTS.local.md` exists, its instructions takes over the one in this file.
 
+## ⚠️ MANDATORY: TASK COMPLETION CHECKLIST
+
+**Every task is incomplete until all of the following pass from `api/`**:
+
+```bash
+task tidy    # must pass
+task lint    # must pass
+task test    # must pass
+```
+
+> Do NOT consider a task done until these all pass.
+
 **PROJECT**: Go backend API deployed to Fly.io at https://api.melvin.la
 **WORKING DIRECTORY**: This current directory
 
@@ -118,40 +130,6 @@ task test           # Run all tests with coverage
 task tidy           # Clean up generated files and Go modules
 ```
 
-## QUALITY GATES
-
-### Pre-Commit Requirements
-**All commands must pass**:
-1. `task tidy` 
-2. `task lint`
-3. `task test`
-
-### Code Quality Checklist
-- [ ] Input validation for all parameters
-- [ ] Comprehensive unit tests (`*_test.go`)
-- [ ] Error handling with appropriate HTTP status codes
-- [ ] Logging for debugging and monitoring
-- [ ] OpenAPI specification updated
-- [ ] Documentation comments on exported functions
-
-## DEVELOPMENT WORKFLOW
-
-1. **Feature Development**:
-   - Create/update OpenAPI specs in [`openapi/specs/`](openapi/specs/)
-   - Run `task generate` to create interfaces
-   - Implement endpoints in [`internal/server/`](internal/server/)
-   - Write comprehensive tests
-
-2. **Testing**:
-   - Unit tests for all business logic
-   - Integration tests for API endpoints
-   - Validate against OpenAPI specification
-
-3. **Quality Assurance**:
-   - Run all quality gates before committing
-   - Ensure proper error handling and status codes
-   - Verify CORS configuration for frontend integration
-
 ## COMMIT STANDARDS
 
 **Format**: Conventional Commits (https://conventionalcommits.org/)
@@ -163,18 +141,3 @@ fix(fortnite,api): resolve API connection issues
 ```
 
 **Allowed Types**: See [`../.github/semantic.yml`](../.github/semantic.yml)
-**Scopes**: Feature area, component name, or endpoint group
-
-## ERROR HANDLING
-
-- Use appropriate HTTP status codes
-- Return consistent error response format
-- Log errors with sufficient context for debugging
-- Handle edge cases and validation failures gracefully
-
-## TESTING STRATEGY
-
-- **Unit Tests**: Test individual functions and methods
-- **Integration Tests**: Test complete request/response cycles
-- **OpenAPI Validation**: Ensure responses match specification
-- **Error Scenarios**: Test failure modes and edge cases

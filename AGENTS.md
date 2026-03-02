@@ -6,3 +6,4 @@ This repository is a monorepo.
 - For the webapp documentation, read [web/AGENTS.md](web/AGENTS.md).
 - Use [docs/ai/](docs/ai/) to keep track of our discussion as well as follow up questions and various todos.
 
+> **Each sub-project has a mandatory task completion checklist at the top of its AGENTS.md. Always run those commands before considering a task done.**

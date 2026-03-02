@@ -23,7 +23,8 @@
     "knip": "knip",
     "i18n:check": "i18n-check --source en --locales ./messages --unused src --reporter table --ignore conway.quoteUrl conway.quoteBy",
     "validate-code": "pnpm run i18n:check && pnpm run knip && pnpm run check-types && pnpm run lint",
-    "test:unit": "vitest",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
     "test:e2e": "playwright test"
   },
   "dependencies": {
