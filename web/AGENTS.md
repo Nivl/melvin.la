@@ -2,6 +2,19 @@
 
 **PRIORITY**: If `./AGENTS.local.md` exists, its instructions takes over the one in this file.
 
+## ⚠️ MANDATORY: TASK COMPLETION CHECKLIST
+
+**Every task is incomplete until all of the following pass from `web/`**:
+
+```bash
+pnpm run lint --fix        # must pass (auto-fixes where possible)
+pnpm run validate-code     # must pass
+pnpm run test:unit         # must pass (one-shot unit test run)
+pnpm run test:e2e          # must pass
+```
+
+> Do NOT consider a task done until these all pass. Run them after every change, not just at the end.
+
 **PROJECT**: Next.js frontend app deployed to Vercel at https://melvin.la
 **WORKING DIRECTORY**: This current directory
 
@@ -301,12 +314,6 @@ pnpm validate-code    # Validate code quality
 **Eslint**: must not disable any rules unless absolutely necessary.
 
 **critical**: Always make sure this file is up to date with the latest standards and code architecture when changing any piece of code.
-
-**Any new code is only deemed valid after running the following**:
-1. `pnpm run lint --fix` (must pass)
-2. `pnpm run validate-code` (must pass)
-3. `pnpm run test:unit` (must pass)
-4. `pnpm run test:e2e` (must pass)
 
 **New Component Checklist**:
 - [ ] Component implementation
