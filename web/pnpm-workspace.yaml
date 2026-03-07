@@ -12,6 +12,3 @@ onlyBuiltDependencies:
   - msw # https://github.com/mswjs/msw/issues/1297
 
 minimumReleaseAge: 20160
-minimumReleaseAgeExclude:
-  # Remove Feb 25th 2026
-  - "next-mdx-remote@6.0.0"
