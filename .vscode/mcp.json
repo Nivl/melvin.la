@@ -1,12 +1,4 @@
 {
-  "inputs": [
-    {
-      "type": "promptString",
-      "id": "deepl-api-key",
-      "description": "Deepl API Key",
-      "password": true
-    }
-  ],
   "servers": {
     "heroui-react": {
       "type": "stdio",
@@ -15,10 +7,6 @@
         "-y",
         "@heroui/react-mcp@latest"
       ]
-    },
-    "Sentry": {
-      "url": "https://mcp.sentry.dev/mcp",
-      "type": "http"
     },
     "oraios/serena": {
       "type": "stdio",
@@ -34,20 +22,5 @@
         "${workspaceFolder}"
       ]
     },
-    "playwright": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "@playwright/mcp@latest"
-      ]
-    },
-    "chrome-devtools": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "chrome-devtools-mcp@latest"
-      ]
-    }
   }
 }
