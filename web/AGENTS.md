@@ -1,6 +1,6 @@
 # AI AGENT INSTRUCTIONS
 
-**PRIORITY**: If `./AGENTS.local.md` exists, its instructions takes over the one in this file.
+**PRIORITY**: If `./AGENTS.local.md` exists, its instructions take over the one in this file.
 
 ## ⚠️ MANDATORY: TASK COMPLETION CHECKLIST
 
