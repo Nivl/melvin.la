@@ -179,10 +179,10 @@
   },
   "timestamp": {
     "metadata": {
-      "title": "Recherche de timestamp",
+      "title": "Conversion de timestamp",
       "description": "Convertissez des timestamps en dates réelles."
     },
-    "title": "Recherche de timestamp",
+    "title": "Conversion de timestamp",
     "inputLabel": "Timestamp",
     "inputError": "Timestamp invalide",
     "inputDescription": "Détecte automatiquement les millisecondes, microsecondes et nanosecondes",
@@ -222,10 +222,10 @@
   },
   "pathfinding": {
     "metadata": {
-      "title": "Visualiseur de recherche de chemin",
+      "title": "Visualiseur de chemin",
       "description": "Visualisez des algorithmes de recherche de chemin comme A*, Dijkstra, BFS et DFS sur une grille interactive."
     },
-    "title": "Visualiseur de recherche de chemin",
+    "title": "Visualiseur de chemin",
     "needLargeScreen": "Un appareil avec un grand écran est nécessaire pour accéder à cette page",
     "algorithmLabel": "Algorithme",
     "speedLabel": "Vitesse",
