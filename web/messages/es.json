@@ -179,13 +179,13 @@
   },
   "timestamp": {
     "metadata": {
-      "title": "Búsqueda de timestamp",
+      "title": "Conversion de timestamp",
       "description": "Convierta marcas de tiempo en fechas reales."
     },
-    "title": "Búsqueda de timestamp",
+    "title": "Conversion de timestamp",
     "inputLabel": "Timestamp",
     "inputError": "Timestamp inválido",
-    "inputDescription": "Detecta automáticamente milisegundos, microsecondes y nanosegundos",
+    "inputDescription": "Detecta automáticamente milisegundos, microsegundos y nanosegundos",
     "output": "{timestamp} es el <date>{utcDate}</date>"
   },
   "uuid": {
@@ -222,10 +222,10 @@
   },
   "pathfinding": {
     "metadata": {
-      "title": "Visualizador de búsqueda de rutas",
+      "title": "Visualizador de rutas",
       "description": "Visualiza algoritmos de búsqueda de rutas como A*, Dijkstra, BFS y DFS en una cuadrícula interactiva."
     },
-    "title": "Visualizador de búsqueda de rutas",
+    "title": "Visualizador de rutas",
     "needLargeScreen": "Se necesita un dispositivo con pantalla grande para acceder a esta página",
     "algorithmLabel": "Algoritmo",
     "speedLabel": "Velocidad",
