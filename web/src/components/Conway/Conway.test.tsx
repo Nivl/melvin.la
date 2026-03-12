@@ -31,3 +31,12 @@ test('All the elements are on the page', () => {
   expect(getByLabelText('Board Size', { selector: 'input' })).toBeDefined();
   expect(getByRole('switch', { name: 'Play' })).toBeDefined();
 });
+
+test('Grid renders correct number of cells for default board size (25×25 = 625)', () => {
+  const { getAllByRole } = setup();
+  // Each cell is a div inside the grid container; the grid itself has role="grid"
+  const grid = getAllByRole('grid')[0];
+  expect(grid).toBeDefined();
+  // Default boardSize is 25, so 625 cells
+  expect(grid?.children.length).toBe(625);
+});

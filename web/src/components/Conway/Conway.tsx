@@ -1,14 +1,31 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { Board, boardSizes, defaultPresets } from '#models/conway';
+import { Board, boardSizes, BoardValue, defaultPresets } from '#models/conway';
 
 import { Heading } from '../layout/Heading';
 import { Section } from '../layout/Section';
-import { Canvas } from './Canvas';
+import { ConwayGrid } from './Grid';
 import { Side } from './Side';
+
+const totalNeighbors = (board: Board, x: number, y: number) => {
+  let total = 0;
+  if (board[y - 1] !== undefined) {
+    total += board[y - 1][x - 1] || 0;
+    total += board[y - 1][x];
+    total += board[y - 1][x + 1] || 0;
+  }
+  total += board[y][x - 1] || 0;
+  total += board[y][x + 1] || 0;
+  if (board[y + 1] !== undefined) {
+    total += board[y + 1][x - 1] || 0;
+    total += board[y + 1][x];
+    total += board[y + 1][x + 1] || 0;
+  }
+  return total;
+};
 
 export const Conway = () => {
   const [board, setBoard] = useState<Board>(defaultPresets);
@@ -16,6 +33,41 @@ export const Conway = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [boardSize, setBoardSize] = useState(boardSizes[0]);
   const t = useTranslations('conway');
+
+  const updateBoard = useCallback(() => {
+    setBoard(current =>
+      current.map((row, y) =>
+        row.map((cell, x) => {
+          const neighbors = totalNeighbors(current, x, y);
+          if (cell === 1) return neighbors < 2 || neighbors > 3 ? 0 : 1;
+          return neighbors === 3 ? 1 : 0;
+        }),
+      ),
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const baseSpeed = 1000;
+    let refreshRate = baseSpeed;
+    if (speed > 1) refreshRate = baseSpeed / speed;
+    else if (speed < 1) refreshRate = baseSpeed * (speed + 1);
+    const interval = setInterval(updateBoard, refreshRate);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [isPlaying, speed, updateBoard]);
+
+  const handleSetCell = useCallback(
+    (row: number, col: number, value: BoardValue) => {
+      setBoard(current => {
+        const next = current.map(r => [...r]);
+        next[row][col] = value;
+        return next;
+      });
+    },
+    [],
+  );
 
   return (
     <>
@@ -59,16 +111,14 @@ export const Conway = () => {
 
         <Section fullScreen>
           <div className="flex flex-row justify-center gap-10">
-            <Canvas
-              width="701px"
-              height="701px"
-              className="h-[701px] w-[701px]"
-              board={board}
-              setBoard={setBoard}
-              speed={speed}
-              isPlaying={isPlaying}
-              boardSize={boardSize}
-            />
+            <div className="max-w-[701px] min-w-0 flex-1">
+              <ConwayGrid
+                board={board}
+                boardSize={boardSize}
+                isPlaying={isPlaying}
+                onSetCell={handleSetCell}
+              />
+            </div>
 
             <div className="flex min-w-56 flex-col gap-7">
               <Side
