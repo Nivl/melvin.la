@@ -21,25 +21,20 @@ const newRow = (size: number): BoardValue[] => {
 };
 
 const resizeBoard = (board: Board, newSize: number): Board => {
-  const boardSize = board.length;
-  if (newSize === boardSize) {
-    return board;
-  }
-  // Shrinks the board
-  if (newSize < boardSize) {
-    return board.slice(0, newSize).map(row => {
-      return row.slice(0, newSize);
-    });
-  }
+  const numRows = board.length;
 
-  // Extends the existing rows
-  const newBoard: Board = board.map(row => {
-    return [...row, ...newRow(newSize - boardSize)];
+  // Adjust each existing row to newSize columns (handles non-square presets)
+  const newBoard: Board = board.slice(0, newSize).map(row => {
+    if (row.length === newSize) return row;
+    if (row.length > newSize) return row.slice(0, newSize);
+    return [...row, ...newRow(newSize - row.length)];
   });
-  // Adds extra rows
-  for (let i = 0; i < newSize - boardSize; i++) {
+
+  // Add extra rows if needed
+  for (let i = numRows; i < newSize; i++) {
     newBoard.push(newRow(newSize));
   }
+
   return newBoard;
 };
 
