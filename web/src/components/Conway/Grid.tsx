@@ -40,6 +40,7 @@ type GridProps = {
   board: Board;
   boardSize: number;
   isPlaying: boolean;
+  ariaLabel: string;
   onSetCell: (row: number, col: number, value: BoardValue) => void;
 };
 
@@ -47,6 +48,7 @@ export const ConwayGrid = ({
   board,
   boardSize,
   isPlaying,
+  ariaLabel,
   onSetCell,
 }: GridProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -136,8 +138,8 @@ export const ConwayGrid = ({
   return (
     <div
       ref={containerRef}
-      role="grid"
-      aria-label="Conway's Game of Life grid"
+      role="application"
+      aria-label={ariaLabel}
       className="border-default-200 touch-none overflow-hidden rounded-lg border select-none"
       style={{
         display: 'grid',

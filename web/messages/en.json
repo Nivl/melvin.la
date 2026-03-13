@@ -108,7 +108,8 @@
         "heavySpaceship": "Heavy spaceship"
       },
       "wrapEdges": "Wrap edges"
-    }
+    },
+    "gridLabel": "Conway's Game of Life grid"
   },
   "fortnite": {
     "metadata": {

@@ -108,7 +108,8 @@
         "heavySpaceship": "重量級宇宙船"
       },
       "wrapEdges": "端を繋げる"
-    }
+    },
+    "gridLabel": "コンウェイのライフゲームのグリッド"
   },
   "fortnite": {
     "metadata": {

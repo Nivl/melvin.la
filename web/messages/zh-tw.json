@@ -108,7 +108,8 @@
         "heavySpaceship": "重型飛船"
       },
       "wrapEdges": "環形邊界"
-    }
+    },
+    "gridLabel": "康威生命遊戲網格"
   },
   "fortnite": {
     "metadata": {

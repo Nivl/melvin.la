@@ -120,6 +120,7 @@ export const Conway = () => {
               board={board}
               boardSize={boardSize}
               isPlaying={isPlaying}
+              ariaLabel={t('gridLabel')}
               onSetCell={handleSetCell}
             />
           </div>
