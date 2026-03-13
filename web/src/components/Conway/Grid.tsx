@@ -5,6 +5,7 @@ import {
   MouseEvent,
   PointerEvent,
   useCallback,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -53,6 +54,10 @@ export const ConwayGrid = ({
 }: GridProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const dragModeRef = useRef<DragMode>(undefined);
+  const boardRef = useRef(board);
+  useEffect(() => {
+    boardRef.current = board;
+  }, [board]);
   const [rowHover, setRowHover] = useState(-1);
   const [colHover, setColHover] = useState(-1);
 
@@ -90,13 +95,13 @@ export const ConwayGrid = ({
       const coords = getCellFromPointerEvent(e);
       if (!coords) return;
       const [row, col] = coords;
-      const isAlive = board[row]?.[col] === 1;
+      const isAlive = boardRef.current[row]?.[col] === 1;
       const mode: DragMode = isAlive ? 'set-dead' : 'set-alive';
       dragModeRef.current = mode;
       onSetCell(row, col, isAlive ? 0 : 1);
       (e.target as HTMLElement).setPointerCapture(e.pointerId);
     },
-    [isPlaying, board, getCellFromPointerEvent, onSetCell],
+    [isPlaying, getCellFromPointerEvent, onSetCell],
   );
 
   const handlePointerMove = useCallback(
@@ -105,14 +110,14 @@ export const ConwayGrid = ({
       const coords = getCellFromPointerEvent(e);
       if (!coords) return;
       const [row, col] = coords;
-      const isAlive = board[row]?.[col] === 1;
+      const isAlive = boardRef.current[row]?.[col] === 1;
       if (dragModeRef.current === 'set-alive' && !isAlive) {
         onSetCell(row, col, 1);
       } else if (dragModeRef.current === 'set-dead' && isAlive) {
         onSetCell(row, col, 0);
       }
     },
-    [isPlaying, board, getCellFromPointerEvent, onSetCell],
+    [isPlaying, getCellFromPointerEvent, onSetCell],
   );
 
   const handlePointerUp = useCallback(() => {
