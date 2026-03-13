@@ -136,8 +136,8 @@ export const Side = ({
         size="sm"
         color="primary"
         isSelected={toroidal}
-        onChange={() => {
-          setToroidal(!toroidal);
+        onValueChange={selected => {
+          setToroidal(selected);
         }}
         aria-label={t('wrapEdges')}
       >
