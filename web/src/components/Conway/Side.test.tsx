@@ -108,6 +108,22 @@ test('changing the speed', () => {
   );
 });
 
+test('toggling wrap edges calls setToroidal', async () => {
+  const {
+    getByRole,
+    user,
+    spies: { setToroidal },
+  } = setup();
+
+  const wrapSwitch = getByRole('switch', { name: 'Wrap edges' });
+  expect(wrapSwitch, 'Wrap edges switch not found').toBeDefined();
+  await user.click(wrapSwitch);
+  expect(
+    setToroidal,
+    'toggling wrap edges should call setToroidal with true',
+  ).toHaveBeenCalledWith(true);
+});
+
 test('Can start/pause the game', () => {
   const {
     getByLabelText,
