@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import type { Board } from '#models/conway';
+import type { Board, BoardValue } from '#models/conway';
 
 import { ConwayGrid } from './Grid';
 
 const makeBoard = (size: number): Board =>
-  Array.from<(0 | 1)[]>({ length: size }, () =>
-    Array.from<0 | 1>({ length: size }, () => 0),
+  Array.from({ length: size }, (): BoardValue[] =>
+    Array.from({ length: size }, (): BoardValue => 0),
   );
 
 const meta = {
