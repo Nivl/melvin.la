@@ -96,6 +96,7 @@ declare const messages: {
       "rule4": "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.",
       "footer": "The initial pattern constitutes the seed of the system. The first generation is created by applying the above rules simultaneously to every cell in the seed, live or dead; births and deaths occur simultaneously. Each generation is a pure function of the preceding one. The rules continue to be applied repeatedly to create further generations."
     },
+    "gridLabel": "Conway's Game of Life grid",
     "gridInfo": "The grid has been pre-filled with random cells. You can edit the grid by clicking on a cell to change its state.",
     "controls": {
       "title": "Controls",
