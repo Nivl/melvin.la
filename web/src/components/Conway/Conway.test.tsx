@@ -29,7 +29,7 @@ test('All the elements are on the page', () => {
 
   expect(getByLabelText('Speed', { selector: 'input' })).toBeDefined();
   expect(getByLabelText('Board Size', { selector: 'input' })).toBeDefined();
-  expect(getByRole('switch', { name: 'Play' })).toBeDefined();
+  expect(getByRole('button', { name: 'Play' })).toBeDefined();
   expect(getByRole('switch', { name: 'Wrap edges' })).toBeDefined();
 });
 

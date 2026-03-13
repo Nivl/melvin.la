@@ -66,7 +66,7 @@ test('starting the game', async () => {
     spies: { setIsPlaying },
   } = setup();
 
-  const playButton = getByRole('switch', { name: 'Play' });
+  const playButton = getByRole('button', { name: 'Play' });
   expect(playButton, 'Play button not found').toBeDefined();
   await user.click(playButton);
   expect(
@@ -82,7 +82,7 @@ test('pausing the game', async () => {
     spies: { setIsPlaying },
   } = setup({ isPlaying: true });
 
-  const pauseButton = getByRole('switch', { name: 'Pause' });
+  const pauseButton = getByRole('button', { name: 'Pause' });
   expect(pauseButton, 'Pause button not found').toBeDefined();
   await user.click(pauseButton);
   expect(
