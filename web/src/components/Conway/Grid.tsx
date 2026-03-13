@@ -128,7 +128,11 @@ export const ConwayGrid = ({
     (e: MouseEvent<HTMLDivElement>) => {
       if (isPlaying) return;
       const coords = getCellCoordsFromMousePos(e.clientX, e.clientY);
-      if (!coords) return;
+      if (!coords) {
+        setRowHover(-1);
+        setColHover(-1);
+        return;
+      }
       setRowHover(coords[0]);
       setColHover(coords[1]);
     },
