@@ -46,18 +46,18 @@ const setup = ({
 
 test('renders the correct number of cells', () => {
   const { getByRole } = setup({ board: makeBoard(4), boardSize: 4 });
-  const grid = getByRole('application');
+  const grid = getByRole('region');
   expect(grid.children.length).toBe(16);
 });
 
 test('applies the aria-label prop', () => {
   const { getByRole } = setup({ ariaLabel: 'My game grid' });
-  expect(getByRole('application', { name: 'My game grid' })).toBeDefined();
+  expect(getByRole('region', { name: 'My game grid' })).toBeDefined();
 });
 
 test('calls onSetCell when pointer is pressed on a dead cell while not playing', () => {
   const { getByRole, onSetCell } = setup({ board: makeBoard(3), boardSize: 3 });
-  const grid = getByRole('application');
+  const grid = getByRole('region');
 
   vi.spyOn(grid, 'getBoundingClientRect').mockReturnValue({
     left: 0,
@@ -81,7 +81,7 @@ test('calls onSetCell to kill an alive cell on pointer down', () => {
   const board = makeBoard(3);
   if (board[1]) board[1][1] = 1; // centre cell is alive
   const { getByRole, onSetCell } = setup({ board, boardSize: 3 });
-  const grid = getByRole('application');
+  const grid = getByRole('region');
 
   vi.spyOn(grid, 'getBoundingClientRect').mockReturnValue({
     left: 0,
@@ -103,7 +103,7 @@ test('calls onSetCell to kill an alive cell on pointer down', () => {
 
 test('does not call onSetCell on pointer down while playing', () => {
   const { getByRole, onSetCell } = setup({ isPlaying: true });
-  const grid = getByRole('application');
+  const grid = getByRole('region');
   fireEvent.pointerDown(grid, { clientX: 50, clientY: 50, pointerId: 1 });
   expect(onSetCell).not.toHaveBeenCalled();
 });

@@ -35,8 +35,8 @@ test('All the elements are on the page', () => {
 
 test('Grid renders correct number of cells for default board size (25×25 = 625)', () => {
   const { getByRole } = setup();
-  // Each cell is a div inside the grid container; the grid itself has role="application"
-  const grid = getByRole('application');
+  // Each cell is a div inside the grid container; the grid itself has role="region"
+  const grid = getByRole('region');
   expect(grid).toBeDefined();
   // Default boardSize is 25, so 625 cells
   expect(grid?.children.length).toBe(625);

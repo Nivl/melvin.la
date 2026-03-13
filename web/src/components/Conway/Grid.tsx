@@ -143,7 +143,7 @@ export const ConwayGrid = ({
   return (
     <div
       ref={containerRef}
-      role="application"
+      role="region"
       aria-label={ariaLabel}
       className="border-default-200 touch-none overflow-hidden rounded-lg border select-none"
       style={{
