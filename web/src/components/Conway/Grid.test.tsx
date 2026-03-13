@@ -1,13 +1,18 @@
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import { afterEach, beforeAll, expect, test, vi } from 'vitest';
+import { afterAll, afterEach, beforeAll, expect, test, vi } from 'vitest';
 
 import type { Board, BoardValue } from '#models/conway';
 
 import { ConwayGrid } from './Grid';
 
-// setPointerCapture is not fully implemented in jsdom
+// setPointerCapture is not fully implemented in jsdom; patch it for tests
 beforeAll(() => {
   HTMLElement.prototype.setPointerCapture = vi.fn();
+});
+afterAll(() => {
+  // Reset to a no-op; jsdom never had a real implementation so there is nothing to restore
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  HTMLElement.prototype.setPointerCapture = () => {};
 });
 
 afterEach(() => {
