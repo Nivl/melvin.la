@@ -5,14 +5,25 @@ import type { Board, BoardValue } from '#models/conway';
 
 import { ConwayGrid } from './Grid';
 
-// setPointerCapture is not fully implemented in jsdom; patch it for tests
+// setPointerCapture is not fully implemented in jsdom; patch it for tests and
+// restore the original descriptor (possibly undefined) to avoid cross-file leaks
+const originalPointerCaptureDescriptor = Object.getOwnPropertyDescriptor(
+  HTMLElement.prototype,
+  'setPointerCapture',
+);
 beforeAll(() => {
   HTMLElement.prototype.setPointerCapture = vi.fn();
 });
 afterAll(() => {
-  // Reset to a no-op; jsdom never had a real implementation so there is nothing to restore
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  HTMLElement.prototype.setPointerCapture = () => {};
+  if (originalPointerCaptureDescriptor) {
+    Object.defineProperty(
+      HTMLElement.prototype,
+      'setPointerCapture',
+      originalPointerCaptureDescriptor,
+    );
+  } else {
+    Reflect.deleteProperty(HTMLElement.prototype, 'setPointerCapture');
+  }
 });
 
 afterEach(() => {
