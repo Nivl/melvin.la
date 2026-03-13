@@ -52,6 +52,8 @@ export const Side = ({
   setIsPlaying,
   boardSize,
   setBoardSize,
+  toroidal,
+  setToroidal,
 }: {
   board: Board;
   setBoard: (_: Board) => void;
@@ -61,6 +63,8 @@ export const Side = ({
   setIsPlaying: (_: boolean) => void;
   boardSize: number;
   setBoardSize: (_: number) => void;
+  toroidal: boolean;
+  setToroidal: (_: boolean) => void;
 }) => {
   const setPreset = (preset: Board) => {
     setBoard(resizeBoard(preset, boardSize));
@@ -123,6 +127,18 @@ export const Side = ({
           setBoard(newBoard);
         }}
       />
+
+      <Switch
+        size="sm"
+        color="primary"
+        isSelected={toroidal}
+        onChange={() => {
+          setToroidal(!toroidal);
+        }}
+        aria-label={t('wrapEdges')}
+      >
+        {t('wrapEdges')}
+      </Switch>
 
       <Heading level={3}>{t('presets.title')}</Heading>
 

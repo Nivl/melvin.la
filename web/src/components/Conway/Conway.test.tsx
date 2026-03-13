@@ -30,6 +30,7 @@ test('All the elements are on the page', () => {
   expect(getByLabelText('Speed', { selector: 'input' })).toBeDefined();
   expect(getByLabelText('Board Size', { selector: 'input' })).toBeDefined();
   expect(getByRole('switch', { name: 'Play' })).toBeDefined();
+  expect(getByRole('switch', { name: 'Wrap edges' })).toBeDefined();
 });
 
 test('Grid renders correct number of cells for default board size (25×25 = 625)', () => {

@@ -106,7 +106,8 @@
         "pulsar": "Pulsar",
         "pentadecathlon": "Penta-décathlon",
         "heavySpaceship": "Vaisseau lourd"
-      }
+      },
+      "wrapEdges": "Connecter les bords"
     }
   },
   "fortnite": {

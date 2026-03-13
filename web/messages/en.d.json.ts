@@ -109,7 +109,8 @@ declare const messages: {
         "pulsar": "Pulsar",
         "pentadecathlon": "Penta-decathlon",
         "heavySpaceship": "Heavy spaceship"
-      }
+      },
+      "wrapEdges": "Wrap edges"
     }
   },
   "fortnite": {

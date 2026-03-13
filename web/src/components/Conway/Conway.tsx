@@ -10,19 +10,29 @@ import { Section } from '../layout/Section';
 import { ConwayGrid } from './Grid';
 import { Side } from './Side';
 
-const totalNeighbors = (board: Board, x: number, y: number) => {
+const totalNeighbors = (
+  board: Board,
+  x: number,
+  y: number,
+  toroidal: boolean,
+): number => {
+  const size = board.length;
   let total = 0;
-  if (board[y - 1] !== undefined) {
-    total += board[y - 1][x - 1] || 0;
-    total += board[y - 1][x];
-    total += board[y - 1][x + 1] || 0;
-  }
-  total += board[y][x - 1] || 0;
-  total += board[y][x + 1] || 0;
-  if (board[y + 1] !== undefined) {
-    total += board[y + 1][x - 1] || 0;
-    total += board[y + 1][x];
-    total += board[y + 1][x + 1] || 0;
+  for (let dy = -1; dy <= 1; dy++) {
+    for (let dx = -1; dx <= 1; dx++) {
+      if (dy === 0 && dx === 0) continue;
+      if (toroidal) {
+        const ny = (y + dy + size) % size;
+        const nx = (x + dx + size) % size;
+        total += board[ny]?.[nx] ?? 0;
+      } else {
+        const ny = y + dy;
+        const nx = x + dx;
+        if (ny >= 0 && ny < size && nx >= 0 && nx < size) {
+          total += board[ny]?.[nx] ?? 0;
+        }
+      }
+    }
   }
   return total;
 };
@@ -32,19 +42,20 @@ export const Conway = () => {
   const [speed, setSpeed] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [boardSize, setBoardSize] = useState(boardSizes[0]);
+  const [toroidal, setToroidal] = useState(true);
   const t = useTranslations('conway');
 
   const updateBoard = useCallback(() => {
     setBoard(current =>
       current.map((row, y) =>
         row.map((cell, x) => {
-          const neighbors = totalNeighbors(current, x, y);
+          const neighbors = totalNeighbors(current, x, y, toroidal);
           if (cell === 1) return neighbors < 2 || neighbors > 3 ? 0 : 1;
           return neighbors === 3 ? 1 : 0;
         }),
       ),
     );
-  }, []);
+  }, [toroidal]);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -125,6 +136,8 @@ export const Conway = () => {
               setIsPlaying={setIsPlaying}
               boardSize={boardSize}
               setBoardSize={setBoardSize}
+              toroidal={toroidal}
+              setToroidal={setToroidal}
             />
           </div>
         </div>

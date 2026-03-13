@@ -106,7 +106,8 @@
         "pulsar": "パルサー",
         "pentadecathlon": "ペンタデカスロン",
         "heavySpaceship": "重量級宇宙船"
-      }
+      },
+      "wrapEdges": "端を繋げる"
     }
   },
   "fortnite": {

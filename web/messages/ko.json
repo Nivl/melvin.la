@@ -106,7 +106,8 @@
         "pulsar": "펄서",
         "pentadecathlon": "펜타데카슬론",
         "heavySpaceship": "무거운 우주선"
-      }
+      },
+      "wrapEdges": "가장자리 연결"
     }
   },
   "fortnite": {

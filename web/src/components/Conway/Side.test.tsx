@@ -29,6 +29,8 @@ const setup = ({
   const setSpeed = vi.fn();
   const setIsPlaying = vi.fn();
 
+  const setToroidal = vi.fn();
+
   const utils = render(
     <Side
       board={board}
@@ -39,6 +41,8 @@ const setup = ({
       setSpeed={setSpeed}
       isPlaying={isPlaying}
       setIsPlaying={setIsPlaying}
+      toroidal={false}
+      setToroidal={setToroidal}
     />,
     { wrapper },
   );
@@ -50,6 +54,7 @@ const setup = ({
       setBoardSize,
       setSpeed,
       setIsPlaying,
+      setToroidal,
     },
   };
 };

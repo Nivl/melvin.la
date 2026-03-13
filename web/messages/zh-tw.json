@@ -106,7 +106,8 @@
         "pulsar": "脈衝星",
         "pentadecathlon": "五体",
         "heavySpaceship": "重型飛船"
-      }
+      },
+      "wrapEdges": "環形邊界"
     }
   },
   "fortnite": {
