@@ -99,7 +99,9 @@ export const ConwayGrid = ({
       const mode: DragMode = isAlive ? 'set-dead' : 'set-alive';
       dragModeRef.current = mode;
       onSetCell(row, col, isAlive ? 0 : 1);
-      (e.target as HTMLElement).setPointerCapture(e.pointerId);
+      if (e.currentTarget instanceof HTMLElement) {
+        e.currentTarget.setPointerCapture(e.pointerId);
+      }
     },
     [isPlaying, getCellFromPointerEvent, onSetCell],
   );
