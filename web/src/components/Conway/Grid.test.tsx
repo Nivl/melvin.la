@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render } from '@testing-library/react';
 import { afterEach, beforeAll, expect, test, vi } from 'vitest';
 
-import type { Board } from '#models/conway';
+import type { Board, BoardValue } from '#models/conway';
 
 import { ConwayGrid } from './Grid';
 
@@ -15,9 +15,9 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-const makeBoard = (size: number, fill: 0 | 1 = 0): Board =>
-  Array.from<(0 | 1)[]>({ length: size }, () =>
-    Array.from<0 | 1>({ length: size }, () => fill),
+const makeBoard = (size: number, fill: BoardValue = 0): Board =>
+  Array.from({ length: size }, (): BoardValue[] =>
+    Array.from({ length: size }, (): BoardValue => fill),
   );
 
 const setup = ({
