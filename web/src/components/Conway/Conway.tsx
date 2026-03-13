@@ -71,70 +71,64 @@ export const Conway = () => {
 
   return (
     <>
-      <Section className="lg:hidden">
-        <div className="text-center">{t('needLargeScreen')}</div>
+      <Section>
+        <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl font-bold uppercase sm:text-8xl xl:text-9xl">
+          {t('title')}
+        </h1>
       </Section>
 
-      <div className="hidden lg:block">
-        <Section>
-          <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl font-bold uppercase sm:text-8xl xl:text-9xl">
-            {t('title')}
-          </h1>
-        </Section>
+      <Section>
+        <p>
+          {t('whatIsIt')}
 
-        <Section>
-          <p>
-            {t('whatIsIt')}
+          {t.has('quoteUrl') && (
+            <a className="text-accent" href={t('quoteUrl')}>
+              {t('quoteBy')}
+            </a>
+          )}
+        </p>
+      </Section>
 
-            {t.has('quoteUrl') && (
-              <a className="text-accent" href={t('quoteUrl')}>
-                {t('quoteBy')}
-              </a>
-            )}
-          </p>
-        </Section>
+      <Section>
+        <Heading className="text-xl xl:text-2xl" level={2}>
+          {t('howToPlay')}
+        </Heading>
+        <p>{t('rules.header')}</p>
+        <ol className="my-5 list-inside list-decimal">
+          <li>{t('rules.rule1')}</li>
+          <li>{t('rules.rule2')}</li>
+          <li>{t('rules.rule3')}</li>
+          <li>{t('rules.rule4')}</li>
+        </ol>
+        <p>{t('rules.footer')}</p>
+        <p className="my-5">{t('gridInfo')}</p>
+      </Section>
 
-        <Section>
-          <Heading className="text-xl xl:text-2xl" level={2}>
-            {t('howToPlay')}
-          </Heading>
-          <p>{t('rules.header')}</p>
-          <ol className="my-5 list-inside list-decimal">
-            <li>{t('rules.rule1')}</li>
-            <li>{t('rules.rule2')}</li>
-            <li>{t('rules.rule3')}</li>
-            <li>{t('rules.rule4')}</li>
-          </ol>
-          <p>{t('rules.footer')}</p>
-          <p className="my-5">{t('gridInfo')}</p>
-        </Section>
-
-        <Section fullScreen>
-          <div className="flex flex-row justify-center gap-10">
-            <div className="max-w-[701px] min-w-0 flex-1">
-              <ConwayGrid
-                board={board}
-                boardSize={boardSize}
-                isPlaying={isPlaying}
-                onSetCell={handleSetCell}
-              />
-            </div>
-
-            <div className="flex min-w-56 flex-col gap-7">
-              <Side
-                board={board}
-                setBoard={setBoard}
-                speed={speed}
-                setSpeed={setSpeed}
-                isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying}
-                boardSize={boardSize}
-                setBoardSize={setBoardSize}
-              />
-            </div>
+      <Section>
+        <div className="flex flex-col gap-6 lg:flex-row lg:justify-center lg:gap-10">
+          <div className="min-w-0 flex-1 lg:max-w-[701px]">
+            <ConwayGrid
+              board={board}
+              boardSize={boardSize}
+              isPlaying={isPlaying}
+              onSetCell={handleSetCell}
+            />
           </div>
-        </Section>
-      </div>
+
+          <div className="flex flex-col gap-7 lg:min-w-56">
+            <Side
+              board={board}
+              setBoard={setBoard}
+              speed={speed}
+              setSpeed={setSpeed}
+              isPlaying={isPlaying}
+              setIsPlaying={setIsPlaying}
+              boardSize={boardSize}
+              setBoardSize={setBoardSize}
+            />
+          </div>
+        </div>
+      </Section>
     </>
   );
 };
