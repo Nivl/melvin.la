@@ -60,9 +60,7 @@ export const Conway = () => {
   useEffect(() => {
     if (!isPlaying) return;
     const baseSpeed = 1000;
-    let refreshRate = baseSpeed;
-    if (speed > 1) refreshRate = baseSpeed / speed;
-    else if (speed < 1) refreshRate = baseSpeed * (speed + 1);
+    const refreshRate = baseSpeed / speed;
     const interval = setInterval(updateBoard, refreshRate);
     return () => {
       clearInterval(interval);
