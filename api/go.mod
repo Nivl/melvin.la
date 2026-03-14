@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/getsentry/sentry-go v0.43.0
 	github.com/getsentry/sentry-go/echo v0.43.0
-	github.com/labstack/echo/v4 v4.15.0
+	github.com/labstack/echo/v4 v4.15.1
 	github.com/oapi-codegen/runtime v1.2.0
 	github.com/pb33f/libopenapi v0.34.0
 	github.com/pb33f/libopenapi-validator v0.13.1
