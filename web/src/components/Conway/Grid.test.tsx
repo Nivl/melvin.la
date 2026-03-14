@@ -1,34 +1,21 @@
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import { afterAll, afterEach, beforeAll, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, expect, test, vi } from 'vitest';
 
 import type { Board, BoardValue } from '#models/conway';
 
 import { ConwayGrid } from './Grid';
 
-// setPointerCapture is not fully implemented in jsdom; patch it for tests and
-// restore the original descriptor (possibly undefined) to avoid cross-file leaks
-const originalPointerCaptureDescriptor = Object.getOwnPropertyDescriptor(
-  HTMLElement.prototype,
-  'setPointerCapture',
-);
-beforeAll(() => {
+// setPointerCapture is not defined in jsdom; install a fresh vi.fn() before
+// each test so call counts never leak across tests, and delete it afterwards
+// to avoid cross-file prototype pollution.
+beforeEach(() => {
   HTMLElement.prototype.setPointerCapture = vi.fn();
-});
-afterAll(() => {
-  if (originalPointerCaptureDescriptor) {
-    Object.defineProperty(
-      HTMLElement.prototype,
-      'setPointerCapture',
-      originalPointerCaptureDescriptor,
-    );
-  } else {
-    Reflect.deleteProperty(HTMLElement.prototype, 'setPointerCapture');
-  }
 });
 
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
+  Reflect.deleteProperty(HTMLElement.prototype, 'setPointerCapture');
 });
 
 const makeBoard = (size: number, fill: BoardValue = 0): Board =>
