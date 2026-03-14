@@ -26,7 +26,9 @@
     "themeSystem": "系統",
     "changeLanguage": "更改語言",
     "language": "語言",
-    "pathfinding": "路徑尋找視覺化"
+    "pathfinding": "路徑尋找視覺化",
+    "openMenu": "開啟選單",
+    "closeMenu": "關閉選單"
   },
   "home": {
     "metadata": {

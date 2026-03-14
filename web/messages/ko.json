@@ -26,7 +26,9 @@
     "themeSystem": "시스템",
     "changeLanguage": "언어 변경",
     "language": "언어",
-    "pathfinding": "경로 탐색 도구"
+    "pathfinding": "경로 탐색 도구",
+    "openMenu": "메뉴 열기",
+    "closeMenu": "메뉴 닫기"
   },
   "home": {
     "metadata": {

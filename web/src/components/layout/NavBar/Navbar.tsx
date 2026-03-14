@@ -8,10 +8,17 @@ import {
   DropdownTrigger,
 } from '@heroui/dropdown';
 import { Link } from '@heroui/link';
-import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
+import {
+  Navbar as NuiNavbar,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
+} from '@heroui/navbar';
 import { motion, MotionConfig } from 'motion/react';
 import { useTranslations } from 'next-intl';
-import { ReactNode, useSyncExternalStore } from 'react';
+import { ReactNode, useState, useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
 import {
@@ -89,6 +96,7 @@ const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint
 export const Navbar = () => {
   const pathname = usePathname();
   const t = useTranslations('navbar');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // This is used to display data that can only be rendered
   // client-side, such as the theme picker.
@@ -99,9 +107,22 @@ export const Navbar = () => {
   );
 
   return (
-    <NuiNavbar position="static" className="bg-transparent">
+    <NuiNavbar
+      position="static"
+      className="bg-transparent"
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
+    >
       <MotionConfig reducedMotion="user">
-        <NavbarContent>
+        {/* Mobile: hamburger toggle — hidden on desktop */}
+        <NavbarContent className="md:hidden">
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? t('closeMenu') : t('openMenu')}
+          />
+        </NavbarContent>
+
+        {/* Desktop: nav links — hidden on mobile */}
+        <NavbarContent className="hidden md:flex">
           <NavbarItem isActive={pathname == '/'}>
             <span className="inline-flex flex-col gap-1">
               <Link color="foreground" href="/" as={NextLink}>
@@ -246,6 +267,80 @@ export const Navbar = () => {
         {didMount && <ThemeSwitcher />}
         {<LanguageSwitcher />}
       </NavbarContent>
+
+      {/* Mobile slide-down menu */}
+      <NavbarMenu>
+        <NavbarMenuItem>
+          <Link
+            color="foreground"
+            href="/"
+            as={NextLink}
+            className="w-full"
+            onPress={() => {
+              setIsMenuOpen(false);
+            }}
+          >
+            {t('home')}
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link
+            color="foreground"
+            href="/blog"
+            as={NextLink}
+            className="w-full"
+            onPress={() => {
+              setIsMenuOpen(false);
+            }}
+          >
+            {t('blog')}
+          </Link>
+        </NavbarMenuItem>
+
+        <NavbarMenuItem className="pointer-events-none mt-2 opacity-50">
+          <span className="text-small font-semibold uppercase">
+            {t('games')}
+          </span>
+        </NavbarMenuItem>
+        {games.map(item => (
+          <NavbarMenuItem key={`mobile-game-${item.key}`}>
+            <Link
+              color="foreground"
+              href={`/games/${item.path}`}
+              as={NextLink}
+              className="flex w-full items-center gap-2"
+              onPress={() => {
+                setIsMenuOpen(false);
+              }}
+            >
+              {item.logo}
+              {t(item.label)}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+
+        <NavbarMenuItem className="pointer-events-none mt-2 opacity-50">
+          <span className="text-small font-semibold uppercase">
+            {t('tools')}
+          </span>
+        </NavbarMenuItem>
+        {tools.map(item => (
+          <NavbarMenuItem key={`mobile-tool-${item.key}`}>
+            <Link
+              color="foreground"
+              href={`/tools/${item.path}`}
+              as={NextLink}
+              className="flex w-full items-center gap-2"
+              onPress={() => {
+                setIsMenuOpen(false);
+              }}
+            >
+              {item.logo}
+              {t(item.label)}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
     </NuiNavbar>
   );
 };
