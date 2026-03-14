@@ -10,7 +10,7 @@ import { Section } from '../layout/Section';
 import { ConwayGrid } from './Grid';
 import { Side } from './Side';
 
-const totalNeighbors = (
+export const totalNeighbors = (
   board: Board,
   x: number,
   y: number,
