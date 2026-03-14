@@ -8,10 +8,17 @@ import {
   DropdownTrigger,
 } from '@heroui/dropdown';
 import { Link } from '@heroui/link';
-import { Navbar as NuiNavbar, NavbarContent, NavbarItem } from '@heroui/navbar';
+import {
+  Navbar as NuiNavbar,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
+} from '@heroui/navbar';
 import { motion, MotionConfig } from 'motion/react';
 import { useTranslations } from 'next-intl';
-import { ReactNode, useSyncExternalStore } from 'react';
+import { Fragment, ReactNode, useState, useSyncExternalStore } from 'react';
 import { FaChevronDown as DownIcon } from 'react-icons/fa';
 import { FaRegCalendar as TimestampIcon } from 'react-icons/fa6';
 import {
@@ -28,59 +35,88 @@ import { Link as NextLink, usePathname } from '#i18n/routing';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
-type Item = {
+type NavLink = {
+  type: 'link';
   key: string;
-  label: string;
-  path: string;
-  description?: string;
-  logo: ReactNode;
+  labelKey: string;
+  href: string;
 };
 
-const tools: Item[] = [
-  {
-    key: 'fortnite',
-    label: 'fortnite',
-    path: 'fortnite',
-    logo: <FortniteIcon className="h-5 w-5" />,
-  },
-  {
-    key: 'string-length',
-    label: 'string-length',
-    path: 'string-length',
-    logo: <StringLengthIcon className="h-5 w-5" />,
-  },
-  {
-    key: 'timezones',
-    label: 'timezones',
-    path: 'timezones',
-    logo: <TimezoneIcon className="h-5 w-5" />,
-  },
-  {
-    key: 'timestamp',
-    label: 'timestamp',
-    path: 'timestamp',
-    logo: <TimestampIcon className="h-5 w-5" />,
-  },
-  {
-    key: 'uuid',
-    label: 'uuid',
-    path: 'uuid',
-    logo: <UuidIcon className="h-5 w-5" />,
-  },
-  {
-    key: 'pathfinding',
-    label: 'pathfinding',
-    path: 'pathfinding',
-    logo: <PathfindingIcon className="h-5 w-5" />,
-  },
-];
+type NavGroup = {
+  type: 'group';
+  key: string;
+  labelKey: string;
+  pathPrefix: string;
+  items: {
+    key: string;
+    label: string;
+    path: string;
+    logo: ReactNode;
+  }[];
+};
 
-const games: Item[] = [
+type NavSection = NavLink | NavGroup;
+
+const navSections: NavSection[] = [
+  { type: 'link', key: 'home', labelKey: 'home', href: '/' },
+  { type: 'link', key: 'blog', labelKey: 'blog', href: '/blog' },
   {
-    key: 'conway',
-    label: 'conway',
-    path: 'conway',
-    logo: <ConwayIcon className="h-5 w-5" />,
+    type: 'group',
+    key: 'games',
+    labelKey: 'games',
+    pathPrefix: '/games',
+    items: [
+      {
+        key: 'conway',
+        label: 'conway',
+        path: 'conway',
+        logo: <ConwayIcon className="h-5 w-5" />,
+      },
+    ],
+  },
+  {
+    type: 'group',
+    key: 'tools',
+    labelKey: 'tools',
+    pathPrefix: '/tools',
+    items: [
+      {
+        key: 'fortnite',
+        label: 'fortnite',
+        path: 'fortnite',
+        logo: <FortniteIcon className="h-5 w-5" />,
+      },
+      {
+        key: 'string-length',
+        label: 'string-length',
+        path: 'string-length',
+        logo: <StringLengthIcon className="h-5 w-5" />,
+      },
+      {
+        key: 'timezones',
+        label: 'timezones',
+        path: 'timezones',
+        logo: <TimezoneIcon className="h-5 w-5" />,
+      },
+      {
+        key: 'timestamp',
+        label: 'timestamp',
+        path: 'timestamp',
+        logo: <TimestampIcon className="h-5 w-5" />,
+      },
+      {
+        key: 'uuid',
+        label: 'uuid',
+        path: 'uuid',
+        logo: <UuidIcon className="h-5 w-5" />,
+      },
+      {
+        key: 'pathfinding',
+        label: 'pathfinding',
+        path: 'pathfinding',
+        logo: <PathfindingIcon className="h-5 w-5" />,
+      },
+    ],
   },
 ];
 
@@ -89,6 +125,7 @@ const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint
 export const Navbar = () => {
   const pathname = usePathname();
   const t = useTranslations('navbar');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // This is used to display data that can only be rendered
   // client-side, such as the theme picker.
@@ -98,147 +135,117 @@ export const Navbar = () => {
     () => false,
   );
 
+  const isSectionActive = (section: NavSection) => {
+    if (section.type === 'link') {
+      return section.href === '/'
+        ? pathname === '/'
+        : pathname.startsWith(section.href);
+    }
+    return pathname.startsWith(section.pathPrefix);
+  };
+
   return (
-    <NuiNavbar position="static" className="bg-transparent">
+    <NuiNavbar
+      position="static"
+      className="bg-transparent"
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
+    >
       <MotionConfig reducedMotion="user">
-        <NavbarContent>
-          <NavbarItem isActive={pathname == '/'}>
-            <span className="inline-flex flex-col gap-1">
-              <Link color="foreground" href="/" as={NextLink}>
-                {t('home')}
-              </Link>
-              {pathname == '/' && (
-                <motion.span
-                  layoutId="nav-indicator"
-                  className="bg-accent h-0.5 w-full rounded-full"
-                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                />
-              )}
-            </span>
-          </NavbarItem>
+        {/* Mobile: hamburger toggle — hidden on desktop */}
+        <NavbarContent className="md:hidden">
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? t('closeMenu') : t('openMenu')}
+          />
+        </NavbarContent>
 
-          <NavbarItem isActive={pathname.startsWith('/blog')}>
-            <span className="inline-flex flex-col gap-1">
-              <Link color="foreground" href="/blog" as={NextLink}>
-                {t('blog')}
-              </Link>
-              {pathname.startsWith('/blog') && (
-                <motion.span
-                  layoutId="nav-indicator"
-                  className="bg-accent h-0.5 w-full rounded-full"
-                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                />
-              )}
-            </span>
-          </NavbarItem>
+        {/* Desktop: nav links — hidden on mobile */}
+        <NavbarContent className="hidden md:flex">
+          {navSections.map(section => {
+            const active = isSectionActive(section);
+            const label = t(section.labelKey);
 
-          <Dropdown>
-            <NavbarItem>
-              <span className="inline-flex flex-col gap-1">
-                <DropdownTrigger>
-                  <Button
-                    disableRipple
-                    className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled !h-auto !min-h-0 cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent ${pathname.startsWith('/games') ? 'font-semibold' : ''}`}
-                    radius="sm"
-                    variant="light"
-                    endContent={
-                      <DownIcon
-                        className={
-                          'ease-spring-soft transition duration-700 group-aria-expanded:-rotate-180 motion-reduce:transition-none ' +
-                          (pathname.startsWith('/games') ? '' : 'opacity-70')
-                        }
+            if (section.type === 'link') {
+              return (
+                <NavbarItem key={section.key} isActive={active}>
+                  <span className="inline-flex flex-col gap-1">
+                    <Link color="foreground" href={section.href} as={NextLink}>
+                      {label}
+                    </Link>
+                    {active && (
+                      <motion.span
+                        layoutId="nav-indicator"
+                        className="bg-accent h-0.5 w-full rounded-full"
+                        transition={{
+                          type: 'spring',
+                          stiffness: 500,
+                          damping: 35,
+                        }}
                       />
-                    }
-                  >
-                    {t('games')}
-                  </Button>
-                </DropdownTrigger>
-                {pathname.startsWith('/games') && (
-                  <motion.span
-                    layoutId="nav-indicator"
-                    className="bg-accent h-0.5 w-full rounded-full"
-                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                  />
-                )}
-              </span>
-            </NavbarItem>
-            <DropdownMenu
-              aria-label={t('games')}
-              selectionMode="single"
-              variant="flat"
-              items={games}
-              selectedKeys={
-                pathname.startsWith('/games')
-                  ? new Set([pathname.split('/')[2] ?? ''])
-                  : ''
-              }
-            >
-              {item => (
-                <DropdownItem
-                  key={item.key}
-                  startContent={item.logo}
-                  href={`/games/${item.path}`}
-                  as={NextLink}
-                >
-                  {t(item.label)}
-                </DropdownItem>
-              )}
-            </DropdownMenu>
-          </Dropdown>
+                    )}
+                  </span>
+                </NavbarItem>
+              );
+            }
 
-          <Dropdown>
-            <NavbarItem>
-              <span className="inline-flex flex-col gap-1">
-                <DropdownTrigger>
-                  <Button
-                    disableRipple
-                    className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled !h-auto !min-h-0 cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent ${pathname.startsWith('/tools') ? 'font-semibold' : ''}`}
-                    radius="sm"
-                    variant="light"
-                    endContent={
-                      <DownIcon
-                        className={
-                          'ease-spring-soft transition duration-700 group-aria-expanded:-rotate-180 motion-reduce:transition-none ' +
-                          (pathname.startsWith('/tools') ? '' : 'opacity-70')
+            return (
+              <Dropdown key={section.key}>
+                <NavbarItem>
+                  <span className="inline-flex flex-col gap-1">
+                    <DropdownTrigger>
+                      <Button
+                        disableRipple
+                        className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled !h-auto !min-h-0 cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent ${active ? 'font-semibold' : ''}`}
+                        radius="sm"
+                        variant="light"
+                        endContent={
+                          <DownIcon
+                            className={
+                              'ease-spring-soft transition duration-700 group-aria-expanded:-rotate-180 motion-reduce:transition-none ' +
+                              (active ? '' : 'opacity-70')
+                            }
+                          />
                         }
+                      >
+                        {label}
+                      </Button>
+                    </DropdownTrigger>
+                    {active && (
+                      <motion.span
+                        layoutId="nav-indicator"
+                        className="bg-accent h-0.5 w-full rounded-full"
+                        transition={{
+                          type: 'spring',
+                          stiffness: 500,
+                          damping: 35,
+                        }}
                       />
-                    }
-                  >
-                    {t('tools')}
-                  </Button>
-                </DropdownTrigger>
-                {pathname.startsWith('/tools') && (
-                  <motion.span
-                    layoutId="nav-indicator"
-                    className="bg-accent h-0.5 w-full rounded-full"
-                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                  />
-                )}
-              </span>
-            </NavbarItem>
-            <DropdownMenu
-              aria-label={t('tools')}
-              selectionMode="single"
-              variant="flat"
-              items={tools}
-              selectedKeys={
-                pathname.startsWith('/tools')
-                  ? new Set([pathname.split('/')[2] ?? ''])
-                  : ''
-              }
-            >
-              {item => (
-                <DropdownItem
-                  key={item.key}
-                  startContent={item.logo}
-                  href={`/tools/${item.path}`}
-                  as={NextLink}
+                    )}
+                  </span>
+                </NavbarItem>
+                <DropdownMenu
+                  aria-label={label}
+                  selectionMode="single"
+                  variant="flat"
+                  items={section.items}
+                  selectedKeys={
+                    active ? new Set([pathname.split('/')[2] ?? '']) : ''
+                  }
                 >
-                  {t(item.label)}
-                </DropdownItem>
-              )}
-            </DropdownMenu>
-          </Dropdown>
+                  {item => (
+                    <DropdownItem
+                      key={item.key}
+                      startContent={item.logo}
+                      href={`${section.pathPrefix}/${item.path}`}
+                      as={NextLink}
+                    >
+                      {t(item.label)}
+                    </DropdownItem>
+                  )}
+                </DropdownMenu>
+              </Dropdown>
+            );
+          })}
         </NavbarContent>
       </MotionConfig>
 
@@ -246,6 +253,58 @@ export const Navbar = () => {
         {didMount && <ThemeSwitcher />}
         {<LanguageSwitcher />}
       </NavbarContent>
+
+      {/* Mobile slide-down menu */}
+      <NavbarMenu>
+        {navSections.map(section => {
+          const label = t(section.labelKey);
+
+          if (section.type === 'link') {
+            return (
+              <NavbarMenuItem key={`mobile-${section.key}`}>
+                <Link
+                  color="foreground"
+                  href={section.href}
+                  as={NextLink}
+                  className="w-full"
+                  onPress={() => {
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  {label}
+                </Link>
+              </NavbarMenuItem>
+            );
+          }
+
+          return (
+            <Fragment key={`mobile-${section.key}`}>
+              <NavbarMenuItem className="pointer-events-none mt-2 opacity-50">
+                <span className="text-small font-semibold uppercase">
+                  {label}
+                </span>
+              </NavbarMenuItem>
+
+              {section.items.map(item => (
+                <NavbarMenuItem key={`mobile-${section.key}-${item.key}`}>
+                  <Link
+                    color="foreground"
+                    href={`${section.pathPrefix}/${item.path}`}
+                    as={NextLink}
+                    className="flex w-full items-center gap-2"
+                    onPress={() => {
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    {item.logo}
+                    {t(item.label)}
+                  </Link>
+                </NavbarMenuItem>
+              ))}
+            </Fragment>
+          );
+        })}
+      </NavbarMenu>
     </NuiNavbar>
   );
 };
