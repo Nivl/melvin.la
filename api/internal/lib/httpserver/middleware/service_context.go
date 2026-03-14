@@ -5,7 +5,7 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/request"
 	"github.com/getsentry/sentry-go"
 	"github.com/getsentry/sentry-go/attribute"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 // ServiceContext is a middleware that inject the dependencies into the

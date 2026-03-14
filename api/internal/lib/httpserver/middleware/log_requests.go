@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/request"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 type bodyResponseWriter struct {

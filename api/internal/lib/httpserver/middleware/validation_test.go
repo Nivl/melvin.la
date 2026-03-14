@@ -12,7 +12,7 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/middleware"
 	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/request"
 	"github.com/getsentry/sentry-go"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 	"github.com/pb33f/libopenapi"
 	verror "github.com/pb33f/libopenapi-validator/errors"
 	vhelpers "github.com/pb33f/libopenapi-validator/helpers"

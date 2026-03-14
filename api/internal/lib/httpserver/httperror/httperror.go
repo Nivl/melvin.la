@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/Nivl/melvin.la/api/internal/lib/stringutil"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 // NewValidationError returns a error representing a data validation
