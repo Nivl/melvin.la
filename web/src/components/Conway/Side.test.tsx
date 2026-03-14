@@ -29,6 +29,8 @@ const setup = ({
   const setSpeed = vi.fn();
   const setIsPlaying = vi.fn();
 
+  const setToroidal = vi.fn();
+
   const utils = render(
     <Side
       board={board}
@@ -39,6 +41,8 @@ const setup = ({
       setSpeed={setSpeed}
       isPlaying={isPlaying}
       setIsPlaying={setIsPlaying}
+      toroidal={false}
+      setToroidal={setToroidal}
     />,
     { wrapper },
   );
@@ -50,6 +54,7 @@ const setup = ({
       setBoardSize,
       setSpeed,
       setIsPlaying,
+      setToroidal,
     },
   };
 };
@@ -61,7 +66,7 @@ test('starting the game', async () => {
     spies: { setIsPlaying },
   } = setup();
 
-  const playButton = getByRole('switch', { name: 'Play' });
+  const playButton = getByRole('button', { name: 'Play' });
   expect(playButton, 'Play button not found').toBeDefined();
   await user.click(playButton);
   expect(
@@ -77,7 +82,7 @@ test('pausing the game', async () => {
     spies: { setIsPlaying },
   } = setup({ isPlaying: true });
 
-  const pauseButton = getByRole('switch', { name: 'Pause' });
+  const pauseButton = getByRole('button', { name: 'Pause' });
   expect(pauseButton, 'Pause button not found').toBeDefined();
   await user.click(pauseButton);
   expect(
@@ -101,6 +106,22 @@ test('changing the speed', () => {
   expect(setSpeed, 'changing speed should update speed').toHaveBeenCalledWith(
     2,
   );
+});
+
+test('toggling wrap edges calls setToroidal', async () => {
+  const {
+    getByRole,
+    user,
+    spies: { setToroidal },
+  } = setup();
+
+  const wrapSwitch = getByRole('switch', { name: 'Wrap edges' });
+  expect(wrapSwitch, 'Wrap edges switch not found').toBeDefined();
+  await user.click(wrapSwitch);
+  expect(
+    setToroidal,
+    'toggling wrap edges should call setToroidal with true',
+  ).toHaveBeenCalledWith(true);
 });
 
 test('Can start/pause the game', () => {

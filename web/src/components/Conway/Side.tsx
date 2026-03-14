@@ -1,3 +1,4 @@
+import { Button } from '@heroui/button';
 import { Slider } from '@heroui/slider';
 import { Switch } from '@heroui/switch';
 import { useTranslations } from 'next-intl';
@@ -21,25 +22,20 @@ const newRow = (size: number): BoardValue[] => {
 };
 
 const resizeBoard = (board: Board, newSize: number): Board => {
-  const boardSize = board.length;
-  if (newSize === boardSize) {
-    return board;
-  }
-  // Shrinks the board
-  if (newSize < boardSize) {
-    return board.slice(0, newSize).map(row => {
-      return row.slice(0, newSize);
-    });
-  }
+  const numRows = board.length;
 
-  // Extends the existing rows
-  const newBoard: Board = board.map(row => {
-    return [...row, ...newRow(newSize - boardSize)];
+  // Adjust each existing row to newSize columns (handles non-square presets)
+  const newBoard: Board = board.slice(0, newSize).map(row => {
+    if (row.length === newSize) return row;
+    if (row.length > newSize) return row.slice(0, newSize);
+    return [...row, ...newRow(newSize - row.length)];
   });
-  // Adds extra rows
-  for (let i = 0; i < newSize - boardSize; i++) {
+
+  // Add extra rows if needed
+  for (let i = numRows; i < newSize; i++) {
     newBoard.push(newRow(newSize));
   }
+
   return newBoard;
 };
 
@@ -52,6 +48,8 @@ export const Side = ({
   setIsPlaying,
   boardSize,
   setBoardSize,
+  toroidal,
+  setToroidal,
 }: {
   board: Board;
   setBoard: (_: Board) => void;
@@ -61,6 +59,8 @@ export const Side = ({
   setIsPlaying: (_: boolean) => void;
   boardSize: number;
   setBoardSize: (_: number) => void;
+  toroidal: boolean;
+  setToroidal: (_: boolean) => void;
 }) => {
   const setPreset = (preset: Board) => {
     setBoard(resizeBoard(preset, boardSize));
@@ -70,21 +70,29 @@ export const Side = ({
   return (
     <>
       <Heading level={3}>{t('title')}</Heading>
-      <Switch
-        size="lg"
-        color="primary"
-        onChange={() => {
-          setIsPlaying(!isPlaying);
-        }}
-        aria-label={isPlaying ? t('pause') : t('play')}
-        thumbIcon={({ isSelected }) =>
-          isSelected ? (
-            <Playicon className="text-gray-700" />
-          ) : (
-            <PauseIcon className="text-gray-700" />
-          )
-        }
-      ></Switch>
+      {isPlaying ? (
+        <Button
+          color="warning"
+          size="sm"
+          onPress={() => {
+            setIsPlaying(false);
+          }}
+          startContent={<PauseIcon />}
+        >
+          {t('pause')}
+        </Button>
+      ) : (
+        <Button
+          color="primary"
+          size="sm"
+          onPress={() => {
+            setIsPlaying(true);
+          }}
+          startContent={<Playicon />}
+        >
+          {t('play')}
+        </Button>
+      )}
 
       <Slider
         label={t('speed')}
@@ -123,6 +131,18 @@ export const Side = ({
           setBoard(newBoard);
         }}
       />
+
+      <Switch
+        size="sm"
+        color="primary"
+        isSelected={toroidal}
+        onValueChange={selected => {
+          setToroidal(selected);
+        }}
+        aria-label={t('wrapEdges')}
+      >
+        {t('wrapEdges')}
+      </Switch>
 
       <Heading level={3}>{t('presets.title')}</Heading>
 

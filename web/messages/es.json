@@ -106,8 +106,10 @@
         "pulsar": "Púlsar",
         "pentadecathlon": "Penta-decatlón",
         "heavySpaceship": "Nave espacial pesada"
-      }
-    }
+      },
+      "wrapEdges": "Bordes conectados"
+    },
+    "gridLabel": "Cuadrícula del Juego de la Vida de Conway"
   },
   "fortnite": {
     "metadata": {

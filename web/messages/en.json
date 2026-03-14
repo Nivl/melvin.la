@@ -106,8 +106,10 @@
         "pulsar": "Pulsar",
         "pentadecathlon": "Penta-decathlon",
         "heavySpaceship": "Heavy spaceship"
-      }
-    }
+      },
+      "wrapEdges": "Wrap edges"
+    },
+    "gridLabel": "Conway's Game of Life grid"
   },
   "fortnite": {
     "metadata": {

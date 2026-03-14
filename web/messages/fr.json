@@ -106,8 +106,10 @@
         "pulsar": "Pulsar",
         "pentadecathlon": "Penta-décathlon",
         "heavySpaceship": "Vaisseau lourd"
-      }
-    }
+      },
+      "wrapEdges": "Connecter les bords"
+    },
+    "gridLabel": "Grille du Jeu de la Vie de Conway"
   },
   "fortnite": {
     "metadata": {
