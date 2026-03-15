@@ -28,7 +28,8 @@
     "language": "언어",
     "pathfinding": "경로 탐색 도구",
     "openMenu": "메뉴 열기",
-    "closeMenu": "메뉴 닫기"
+    "closeMenu": "메뉴 닫기",
+    "beatmaker": "Beatmaker"
   },
   "home": {
     "metadata": {
@@ -260,6 +261,55 @@
       "wall": "벽",
       "visited": "방문함",
       "path": "최단 경로"
+    }
+  },
+  "beatmaker": {
+    "metadata": {
+      "title": "Beatmaker",
+      "description": "브라우저 기반 드럼 머신. 비트를 프로그래밍하고, BPM을 조정하고, 패턴을 공유하세요."
+    },
+    "transport": {
+      "play": "재생",
+      "stop": "정지",
+      "bpm": "BPM",
+      "steps": "스텝"
+    },
+    "mixer": {
+      "mute": "음소거",
+      "volume": "볼륨",
+      "pan": "패닝",
+      "title": "믹서"
+    },
+    "share": {
+      "copyUrl": "URL 복사",
+      "copied": "복사됨!",
+      "customSampleNotice": "이 패턴은 커스텀 샘플을 사용했습니다 — 대신 {kit}(으)로 재생합니다."
+    },
+    "presets": {
+      "label": "프리셋",
+      "basic-rock": "기본 록",
+      "four-on-floor": "포온더플로어",
+      "boom-bap": "붐뱁",
+      "trap": "트랩",
+      "blank": "빈 패턴"
+    },
+    "track": {
+      "dropFile": "오디오 파일 드롭",
+      "customFile": "사용자 파일 로드됨",
+      "decodeError": "오디오 파일을 디코딩할 수 없습니다."
+    },
+    "kits": {
+      "808": "808",
+      "acoustic": "어쿠스틱",
+      "lofi": "로파이"
+    },
+    "tracks": {
+      "kick": "킥",
+      "snare": "스네어",
+      "hihat": "하이햇",
+      "openhat": "오픈HH",
+      "clap": "클랩",
+      "ride": "라이드"
     }
   }
 }

@@ -28,7 +28,8 @@
     "language": "語言",
     "pathfinding": "路徑尋找視覺化",
     "openMenu": "開啟選單",
-    "closeMenu": "關閉選單"
+    "closeMenu": "關閉選單",
+    "beatmaker": "Beatmaker"
   },
   "home": {
     "metadata": {
@@ -260,6 +261,55 @@
       "wall": "牆",
       "visited": "已訪問",
       "path": "最短路徑"
+    }
+  },
+  "beatmaker": {
+    "metadata": {
+      "title": "Beatmaker",
+      "description": "瀏覽器節拍機。編排節拍、調整 BPM，並分享您的節奏型態。"
+    },
+    "transport": {
+      "play": "播放",
+      "stop": "停止",
+      "bpm": "BPM",
+      "steps": "步數"
+    },
+    "mixer": {
+      "mute": "靜音",
+      "volume": "音量",
+      "pan": "聲像",
+      "title": "混音台"
+    },
+    "share": {
+      "copyUrl": "複製網址",
+      "copied": "已複製！",
+      "customSampleNotice": "此節奏型態使用了自訂音源 — 改以 {kit} 播放。"
+    },
+    "presets": {
+      "label": "預設集",
+      "basic-rock": "基礎搖滾",
+      "four-on-floor": "四四拍",
+      "boom-bap": "Boom-bap",
+      "trap": "陷阱",
+      "blank": "空白"
+    },
+    "track": {
+      "dropFile": "拖放音訊檔案",
+      "customFile": "已載入自訂檔案",
+      "decodeError": "無法解碼音訊檔案。"
+    },
+    "kits": {
+      "808": "808",
+      "acoustic": "原聲",
+      "lofi": "Lo-fi"
+    },
+    "tracks": {
+      "kick": "低音鼓",
+      "snare": "小鼓",
+      "hihat": "踩鈸",
+      "openhat": "開鈸",
+      "clap": "拍掌",
+      "ride": "叮鈸"
     }
   }
 }

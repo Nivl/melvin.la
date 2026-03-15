@@ -15,6 +15,13 @@
     --font-fortnite-latin: var(--font-burbank);
 
     --color-accent: #26ace6;
+
+    --color-track-kick:    #7c6fff;
+    --color-track-snare:   #ff4f6a;
+    --color-track-hihat:   #ffcc4a;
+    --color-track-openhat: #4affb8;
+    --color-track-clap:    #ff8c4a;
+    --color-track-ride:    #4ab8ff;
     --color-brands-playstation: #006FCD;
     --color-brands-xbox: #2ca243;
 

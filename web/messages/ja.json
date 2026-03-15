@@ -28,7 +28,8 @@
     "language": "言語",
     "pathfinding": "経路探索ツール",
     "openMenu": "メニューを開く",
-    "closeMenu": "メニューを閉じる"
+    "closeMenu": "メニューを閉じる",
+    "beatmaker": "Beatmaker"
   },
   "home": {
     "metadata": {
@@ -260,6 +261,55 @@
       "wall": "壁",
       "visited": "探索済み",
       "path": "最短経路"
+    }
+  },
+  "beatmaker": {
+    "metadata": {
+      "title": "Beatmaker",
+      "description": "ブラウザベースのドラムマシン。ビートをプログラムし、BPMを調整して、パターンを共有しましょう。"
+    },
+    "transport": {
+      "play": "再生",
+      "stop": "停止",
+      "bpm": "BPM",
+      "steps": "ステップ"
+    },
+    "mixer": {
+      "mute": "ミュート",
+      "volume": "ボリューム",
+      "pan": "パン",
+      "title": "ミキサー"
+    },
+    "share": {
+      "copyUrl": "URLをコピー",
+      "copied": "コピーしました！",
+      "customSampleNotice": "このパターンはカスタムサンプルを使用していました — 代わりに {kit} で再生します。"
+    },
+    "presets": {
+      "label": "プリセット",
+      "basic-rock": "ベーシックロック",
+      "four-on-floor": "フォーオンザフロア",
+      "boom-bap": "ブームバップ",
+      "trap": "トラップ",
+      "blank": "空白"
+    },
+    "track": {
+      "dropFile": "音声ファイルをドロップ",
+      "customFile": "カスタムファイル読み込み済み",
+      "decodeError": "オーディオファイルをデコードできませんでした。"
+    },
+    "kits": {
+      "808": "808",
+      "acoustic": "アコースティック",
+      "lofi": "ローファイ"
+    },
+    "tracks": {
+      "kick": "キック",
+      "snare": "スネア",
+      "hihat": "ハイハット",
+      "openhat": "オープンHH",
+      "clap": "クラップ",
+      "ride": "ライド"
     }
   }
 }

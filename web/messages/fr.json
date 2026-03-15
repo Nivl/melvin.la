@@ -28,7 +28,8 @@
     "language": "Langue",
     "pathfinding": "Visualiseur de chemin",
     "openMenu": "Ouvrir le menu",
-    "closeMenu": "Fermer le menu"
+    "closeMenu": "Fermer le menu",
+    "beatmaker": "Beatmaker"
   },
   "home": {
     "metadata": {
@@ -260,6 +261,55 @@
       "wall": "Mur",
       "visited": "Visité",
       "path": "Chemin le plus court"
+    }
+  },
+  "beatmaker": {
+    "metadata": {
+      "title": "Beatmaker",
+      "description": "Une boîte à rythmes dans le navigateur. Programmez des rythmes, ajustez le BPM et partagez vos patterns."
+    },
+    "transport": {
+      "play": "Lecture",
+      "stop": "Arrêt",
+      "bpm": "BPM",
+      "steps": "Étapes"
+    },
+    "mixer": {
+      "mute": "Muet",
+      "volume": "Volume",
+      "pan": "Balance",
+      "title": "Mixage"
+    },
+    "share": {
+      "copyUrl": "Copier l'URL",
+      "copied": "Copié !",
+      "customSampleNotice": "Ce motif utilisait des échantillons personnalisés — lecture avec {kit} à la place."
+    },
+    "presets": {
+      "label": "Préréglages",
+      "basic-rock": "Rock basique",
+      "four-on-floor": "Four-on-the-Floor",
+      "boom-bap": "Boom-bap",
+      "trap": "Trap",
+      "blank": "Vide"
+    },
+    "track": {
+      "dropFile": "Déposer un fichier audio",
+      "customFile": "Fichier personnalisé chargé",
+      "decodeError": "Impossible de décoder le fichier audio."
+    },
+    "kits": {
+      "808": "808",
+      "acoustic": "Acoustique",
+      "lofi": "Lo-fi"
+    },
+    "tracks": {
+      "kick": "Grosse caisse",
+      "snare": "Caisse claire",
+      "hihat": "Charley",
+      "openhat": "Charley ouvert",
+      "clap": "Clap",
+      "ride": "Ride"
     }
   }
 }

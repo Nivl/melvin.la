@@ -28,7 +28,8 @@
     "language": "语言",
     "pathfinding": "路径查找可视化",
     "openMenu": "打开菜单",
-    "closeMenu": "关闭菜单"
+    "closeMenu": "关闭菜单",
+    "beatmaker": "Beatmaker"
   },
   "home": {
     "metadata": {
@@ -260,6 +261,55 @@
       "wall": "墙",
       "visited": "已访问",
       "path": "最短路径"
+    }
+  },
+  "beatmaker": {
+    "metadata": {
+      "title": "Beatmaker",
+      "description": "浏览器鼓机。编写节拍、调整BPM，并分享您的节奏型态。"
+    },
+    "transport": {
+      "play": "播放",
+      "stop": "停止",
+      "bpm": "BPM",
+      "steps": "步数"
+    },
+    "mixer": {
+      "mute": "静音",
+      "volume": "音量",
+      "pan": "声像",
+      "title": "混音台"
+    },
+    "share": {
+      "copyUrl": "复制链接",
+      "copied": "已复制！",
+      "customSampleNotice": "此节奏型态使用了自定义音源 — 改用 {kit} 播放。"
+    },
+    "presets": {
+      "label": "预设",
+      "basic-rock": "基础摇滚",
+      "four-on-floor": "四四拍",
+      "boom-bap": "Boom-bap",
+      "trap": "陷阱",
+      "blank": "空白"
+    },
+    "track": {
+      "dropFile": "拖放音频文件",
+      "customFile": "已加载自定义文件",
+      "decodeError": "无法解码音频文件。"
+    },
+    "kits": {
+      "808": "808",
+      "acoustic": "原声",
+      "lofi": "Lo-fi"
+    },
+    "tracks": {
+      "kick": "底鼓",
+      "snare": "小军鼓",
+      "hihat": "踩镲",
+      "openhat": "开镲",
+      "clap": "拍掌",
+      "ride": "叮镲"
     }
   }
 }
