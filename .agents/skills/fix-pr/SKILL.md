@@ -1,174 +1,151 @@
 ---
 name: fix-pr
 description: >
-  Autonomously fixes an open Pull Request by addressing unresolved review comments (inline and general),
-  applying GitHub suggested changes, and resolving CI failures. Uses the `gh` CLI to interact with GitHub.
-  Use this skill when the user asks to "fix the PR", "address review comments", or "fix CI failures on the PR".
+  Automatically fix a GitHub PR for the current branch — handles review comments, CI failures, and open questions.
+  Use this skill whenever the user wants to address PR feedback, fix CI, resolve review comments, or generally
+  "clean up" or "fix" their PR. Also trigger when the user says things like "handle PR comments", "fix the build",
+  "address review feedback", "what's failing on my PR", or any variation of wanting to get a PR into mergeable shape.
+  If the user mentions a PR, review comments, or CI checks in the context of fixing things, use this skill.
 ---
 
-# Fix Pull Request
+# Fix PR
 
-This skill works through an open PR on the current branch, addressing all unresolved review comments and CI failures.
-Each fix is committed individually, and the user is asked for confirmation before pushing.
-
-## When to Use This Skill
-
-Use this skill when you need to:
-- Address reviewer comments on a PR (inline and general)
-- Apply GitHub suggested changes from reviewers
-- Fix failing CI jobs on a PR
-- Clean up a PR so it is ready to merge
+Automatically connect to GitHub, inspect the current branch's PR, and fix everything that needs fixing — review comments, CI failures, and open questions.
 
 ## Prerequisites
 
-- `gh` CLI installed and authenticated (`gh auth status`)
-- A git repository with an open PR on the current branch
-- The working tree should be clean before starting (no uncommitted changes)
+Check for GitHub access in this order:
+1. Try `gh auth status` to see if the `gh` CLI is installed and authenticated
+2. If `gh` is not available, check if a GitHub MCP tool is available and the user is logged in
+3. If neither works, ask the user to install and authenticate the `gh` CLI (`gh auth login`)
 
-## Workflow
+Do not proceed until you have a working GitHub connection.
 
-Follow these steps in order. Do not skip a step unless its condition says to.
+## Step 1: Gather PR State
 
-### Step 0: Validate Environment
-
-1. Run `gh auth status` to confirm the user is authenticated. If not, abort and instruct the user to run `gh auth login`.
-2. Run `gh pr view --json number,title,url,headRefName` on the current branch.
-   - If no open PR is found, abort with a clear message: _"No open PR found for the current branch. Please open a PR first."_
-   - Store the PR number for all subsequent API calls.
-3. Confirm the working tree is clean (`git status --porcelain`). If there are uncommitted changes, warn the user and ask if they want to continue or stash first.
-
-### Step 1: Process Inline Review Thread Comments
-
-1. Fetch all review threads:
-   ```
-   gh api graphql -f query='
-     query($owner:String!, $repo:String!, $pr:Int!) {
-       repository(owner:$owner, name:$repo) {
-         pullRequest(number:$pr) {
-           reviewThreads(first:50) {
-             nodes {
-               id
-               isResolved
-               isOutdated
-               comments(first:10) {
-                 nodes {
-                   id
-                   body
-                   path
-                   line
-                   author { login }
-                 }
-               }
-             }
-           }
-         }
-       }
-     }
-   ' -F owner=OWNER -F repo=REPO -F pr=PR_NUMBER
-   ```
-2. Filter to threads where `isResolved: false` and `isOutdated: false`.
-3. For each unresolved thread:
-
-   **If it is a GitHub suggested change** (body starts with ` ```suggestion`):
-   - Extract the suggested diff and apply it to the file.
-   - Commit: `fix: apply suggestion from @<reviewer>`
-   - Reply to the thread: _"Applied the suggested change."_
-   - Resolve the thread via the GraphQL `resolveReviewThread` mutation.
-
-   **If it is an inline code comment**:
-   - Read the referenced file and line(s).
-   - Attempt to fix the code as described in the comment.
-   - If you are confident in the fix: commit with `fix: address review comment from @<reviewer> — <one-line description>`, reply describing what was changed, then resolve the thread.
-   - If you are **not confident** how to address it: pause and use `ask_user` to ask the human operator how to proceed. Resume once answered.
-
-   **If it is a question or discussion** (no code change implied):
-   - Reply acknowledging the comment.
-   - Ask the user: _"This comment from @<reviewer> appears to be a question/discussion rather than a code change request. Should I resolve this thread?"_
-
-### Step 2: Process General PR Comments
-
-1. Fetch all top-level PR comments AND review summaries (review body, not inline threads):
-   ```
-   gh pr view PR_NUMBER --json comments,reviews
-   ```
-2. Review **all** comments and review bodies — including those from automated bots (e.g., `copilot-pull-request-reviewer`, `github-actions`, `sentry`, `dependabot`). Do **not** skip a comment just because it comes from a bot. Bot comments often contain suppressed suggestions, security findings, or performance notes that are actionable.
-3. For each comment or review body that implies an action is needed:
-   - Attempt to address it (code fix or reply).
-   - If code was changed: commit with `fix: address PR comment from @<reviewer> — <one-line description>`, then reply describing what was done.
-   - If only a reply is needed (informational): reply without committing.
-   - If you are **not sure** whether action is needed or how to act: use `ask_user` to ask the human operator.
-
-### Step 3: Process CI Failures
-
-1. Fetch the latest CI run for the PR branch:
-   ```
-   gh run list --branch <branch-name> --limit 1 --json databaseId,status,conclusion
-   ```
-2. If the latest run is passing or there are no runs: skip this step and report it.
-3. For each **failing job**:
-   ```
-   gh run view RUN_ID --log-failed
-   ```
-4. Analyse the log output to identify the root cause.
-5. Attempt to fix the code.
-   - If confident: apply the fix, commit with `fix: resolve CI failure in <job-name> — <one-line description>`.
-   - If **not confident**: use `ask_user` to describe the failure and ask how to proceed before continuing.
-
-### Step 4: Push
-
-1. Summarize all commits made during this session.
-2. Use `ask_user` to confirm: _"I've made N commit(s). Ready to push to origin/<branch>?"_
-3. If confirmed: run `git push`.
-4. If declined: inform the user the commits are local and can be pushed later with `git push`.
-
-## Constraints
-
-- **Never push without explicit user confirmation.**
-- **Never silently skip** a comment or CI failure — always fix it or escalate to the user.
-- **One commit per fix** — do not squash or amend commits.
-- **Only process unresolved** review threads — skip threads where `isResolved: true`.
-- Use `gh` CLI for all GitHub interactions; avoid raw REST calls unless `gh` lacks the capability.
-
-## Edge Cases
-
-| Scenario | Behavior |
-|---|---|
-| No open PR on current branch | Abort with clear error |
-| All review threads already resolved | Skip Step 1, proceed to Step 2 |
-| No general PR comments | Skip Step 2, proceed to Step 3 |
-| CI is passing | Skip Step 3, report success |
-| Suggested change conflicts with current file state | Ask user how to proceed |
-| Fix attempt causes new test failures (detected via CI re-run) | Report to user and ask how to proceed |
-| Comment is a question with no actionable code request | Reply and ask user whether to resolve |
-| General comment is clearly already addressed | Skip it |
-| PR is in draft state | Warn the user; ask if they want to continue |
-
-## Resolve a Review Thread (GraphQL)
-
-Use this mutation to resolve a thread after addressing it:
-
+Find the PR for the current branch:
 ```
-gh api graphql -f query='
-  mutation($threadId: ID!) {
-    resolveReviewThread(input: { threadId: $threadId }) {
-      thread { id isResolved }
+gh pr view --json number,title,url,state,reviewDecision,statusCheckRollup,reviews,comments
+```
+
+If no PR exists for the current branch, tell the user and stop.
+
+Gather all the information you need in parallel:
+- **Review threads** (inline code review feedback with resolved status): use the GraphQL API to get threads including their `isResolved` field — REST comments do not expose this:
+  ```
+  gh api graphql -f query='
+    query($owner:String!, $repo:String!, $pr:Int!, $cursor:String) {
+      repository(owner:$owner, name:$repo) {
+        pullRequest(number:$pr) {
+          reviewThreads(first:100, after:$cursor) {
+            pageInfo { hasNextPage endCursor }
+            nodes {
+              id
+              isResolved
+              isOutdated
+              comments(first:10) {
+                nodes { databaseId body path line author { login } }
+              }
+            }
+          }
+        }
+      }
     }
-  }
-' -F threadId=THREAD_ID
-```
+  ' -F owner=OWNER -F repo=REPO -F pr=NUMBER -F cursor=null
+  ```
+  Repeat with `-F cursor=END_CURSOR` from `pageInfo.endCursor` until `pageInfo.hasNextPage` is false. Collect all pages before triaging.
 
-## Reply to a Review Thread Comment
+  **Important:** Only process threads where `isResolved: false`. Threads where `isResolved: true` are already handled — skip them entirely, do not re-examine or re-fix them.
+- **Issue-level comments** (general PR discussion): `gh api repos/{owner}/{repo}/issues/{number}/comments --paginate`
+- **CI check status**: from `statusCheckRollup` in the PR view, or `gh pr checks`
+- **Review state**: approvals, changes requested, pending reviews
 
-```
-gh api repos/OWNER/REPO/pulls/PR_NUMBER/comments/COMMENT_ID/replies \
-  -X POST \
-  -f body="Your reply here"
-```
+## Step 2: Triage and Plan
 
-## Reply to a General PR Comment
+Categorize everything into a clear plan and present it to the user before starting work:
 
-```
-gh api repos/OWNER/REPO/issues/PR_NUMBER/comments \
-  -X POST \
-  -f body="Your reply here"
-```
+1. **Code change requests** — unresolved review threads asking for specific code modifications (rename, refactor, add handling, etc.)
+2. **Questions to answer** — unresolved review threads or discussion that ask questions
+3. **CI failures** — failing checks that need investigation
+4. **Flaky test failures** — tests that appear to be flaky (inconsistent failures, known flaky tests, failures unrelated to the PR changes). Keep these separate — they'll be handled last.
+
+**Skip any review thread where `isResolved: true`** — these are already done, regardless of whether they contain code change requests or questions.
+
+Present the plan as a numbered list so the user can see what you're about to do. This also gives them a chance to say "skip item 3" or "don't bother with that one" before you start.
+
+## Step 3: Fix Code Change Requests
+
+For each review comment requesting a code change:
+
+1. Read the relevant file and understand the context around the comment
+2. Make the requested change
+3. Run any relevant linters on the changed files and fix lint errors
+4. Run any relevant tests on the changed code and fix test failures
+5. Commit with a clear message describing the fix (one commit per comment)
+6. Reply to the review comment on GitHub explaining what you did and include a link to the commit:
+   ```
+   gh api repos/{owner}/{repo}/pulls/{number}/comments/{comment_id}/replies -f body="Fixed — <explanation>. See <commit_url>"
+   ```
+7. Resolve the comment thread if possible:
+   ```
+   gh api graphql -f query='mutation { minimizeComment(input: {subjectId: "<node_id>", classifier: RESOLVED}) { minimizedComment { isMinimized } } }'
+   ```
+   Note: resolving review threads requires the GraphQL API. Use the `node_id` from the comment to resolve it. If the API doesn't support resolving (permissions, etc.), skip this step — it's nice-to-have, not critical.
+
+Push after all code change requests are handled (one push for all commits).
+
+## Step 4: Answer Questions
+
+For each question in the review comments:
+
+1. Read the surrounding code and PR context to understand what's being asked
+2. If you can confidently answer the question, reply on GitHub with a clear explanation
+3. If you're not sure about the answer, ask the user:
+   - Present the question and its context
+   - Suggest an answer if you have a reasonable guess
+   - Give the user the option to: (a) use your suggested answer, (b) provide their own answer, or (c) skip this question for now
+4. If the user provides an answer, reply on GitHub on their behalf
+5. If the user says to skip, move on — don't resolve the thread
+
+## Step 5: Fix CI Failures
+
+For each failing CI check:
+
+1. Get the failure details:
+   ```
+   gh run view {run_id} --log-failed
+   ```
+2. Identify what's failing — test failure, lint error, build error, type check, etc.
+3. Read the relevant code, understand the failure, and fix it
+4. Run the fix locally to verify (run the specific test, linter, or build command)
+5. Commit with a message describing the CI fix
+6. Push
+
+### Flaky Tests
+
+If you identify tests that appear flaky (failing intermittently, unrelated to PR changes, known to be unreliable):
+
+1. Keep these separate from the other CI fixes
+2. After all other work is done, present the flaky tests to the user
+3. Ask if they want you to fix them in a separate commit
+4. If yes, fix them and commit separately with a message like "fix: stabilize flaky test <test_name>"
+5. If no, leave them alone
+
+## Step 6: Final Verification
+
+After all fixes are pushed:
+
+1. Run `gh pr checks` to see if CI is now passing (it may take a moment for checks to start)
+2. Summarize what was done:
+   - How many comments were addressed
+   - How many questions were answered
+   - How many CI failures were fixed
+   - Any items that were skipped and why
+
+## Important Principles
+
+- **One commit per fix**: each review comment or CI fix gets its own commit with a descriptive message. This makes it easy for reviewers to see what changed in response to their feedback.
+- **Always reply on GitHub**: when addressing a comment, reply explaining what was done and link to the commit. Reviewers shouldn't have to hunt through commits to see if their feedback was addressed.
+- **Resolve conversations on GitHub**: if you successfully address a review comment, resolve the thread so we know we don't have to take care of it anymore. If the comment is still relevant or you weren't able to fully address it, leave it open.
+- **Respect the codebase**: follow existing code style, run linters and tests, don't introduce new issues while fixing old ones.
+- **Flaky tests are special**: they get their own commit and require explicit user approval because they're outside the scope of the PR's intended changes.
