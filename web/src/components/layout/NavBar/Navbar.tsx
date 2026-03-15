@@ -49,7 +49,7 @@ type NavGroup = {
   pathPrefix: string;
   items: {
     key: string;
-    label: string;
+    labelKey: string;
     path: string;
     logo: ReactNode;
   }[];
@@ -68,7 +68,7 @@ const navSections: NavSection[] = [
     items: [
       {
         key: 'conway',
-        label: 'conway',
+        labelKey: 'conway',
         path: 'conway',
         logo: <ConwayIcon className="h-5 w-5" />,
       },
@@ -82,37 +82,37 @@ const navSections: NavSection[] = [
     items: [
       {
         key: 'fortnite',
-        label: 'fortnite',
+        labelKey: 'fortnite',
         path: 'fortnite',
         logo: <FortniteIcon className="h-5 w-5" />,
       },
       {
         key: 'string-length',
-        label: 'string-length',
+        labelKey: 'string-length',
         path: 'string-length',
         logo: <StringLengthIcon className="h-5 w-5" />,
       },
       {
         key: 'timezones',
-        label: 'timezones',
+        labelKey: 'timezones',
         path: 'timezones',
         logo: <TimezoneIcon className="h-5 w-5" />,
       },
       {
         key: 'timestamp',
-        label: 'timestamp',
+        labelKey: 'timestamp',
         path: 'timestamp',
         logo: <TimestampIcon className="h-5 w-5" />,
       },
       {
         key: 'uuid',
-        label: 'uuid',
+        labelKey: 'uuid',
         path: 'uuid',
         logo: <UuidIcon className="h-5 w-5" />,
       },
       {
         key: 'pathfinding',
-        label: 'pathfinding',
+        labelKey: 'pathfinding',
         path: 'pathfinding',
         logo: <PathfindingIcon className="h-5 w-5" />,
       },
@@ -241,7 +241,7 @@ export const Navbar = () => {
                       href={`${section.pathPrefix}/${item.path}`}
                       as={NextLink}
                     >
-                      {t(item.label)}
+                      {t(item.labelKey)}
                     </DropdownItem>
                   )}
                 </DropdownMenu>
@@ -299,7 +299,7 @@ export const Navbar = () => {
                     }}
                   >
                     {item.logo}
-                    {t(item.label)}
+                    {t(item.labelKey)}
                   </Link>
                 </NavbarMenuItem>
               ))}
