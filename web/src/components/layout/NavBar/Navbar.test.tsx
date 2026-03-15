@@ -157,8 +157,7 @@ describe('Navbar', () => {
     await user.click(screen.getByRole('button', { name: 'Open menu' }));
     // Scope to the mobile menu container to avoid ambiguity with desktop nav links
     const mobileMenu = screen.getByTestId('navbar-mobile-menu');
-    const { getByRole } = within(mobileMenu);
-    await user.click(getByRole('link', { name: 'Home' }));
+    await user.click(within(mobileMenu).getByRole('link', { name: 'Home' }));
     // Toggle should revert to "Open menu" label
     expect(screen.getByRole('button', { name: 'Open menu' })).toBeDefined();
   });
