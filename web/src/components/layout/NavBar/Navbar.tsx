@@ -29,6 +29,7 @@ import { MdOutlineTextFields as StringLengthIcon } from 'react-icons/md';
 import { PiPathBold as PathfindingIcon } from 'react-icons/pi';
 import { RiTimeZoneLine as TimezoneIcon } from 'react-icons/ri';
 import { TbBrandFortnite as FortniteIcon } from 'react-icons/tb';
+import { TfiLayoutGrid4Alt as BeatmakerIcon } from 'react-icons/tfi';
 
 import { Link as NextLink, usePathname } from '#i18n/routing';
 
@@ -71,6 +72,12 @@ const navSections: NavSection[] = [
         labelKey: 'conway',
         path: 'conway',
         logo: <ConwayIcon className="h-5 w-5" />,
+      },
+      {
+        key: 'beatmaker',
+        labelKey: 'beatmaker',
+        path: 'beatmaker',
+        logo: <BeatmakerIcon className="h-5 w-5" />,
       },
     ],
   },

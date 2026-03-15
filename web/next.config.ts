@@ -12,6 +12,19 @@ const withNextIntl = createNextIntlPlugin({
 
 const nextConfig: NextConfig = {
   transpilePackages: ['next-mdx-remote'],
+  headers() {
+    return [
+      {
+        source: '/samples/:version/:rest*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 const sentryOption: SentryBuildOptions = {

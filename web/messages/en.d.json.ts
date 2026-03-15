@@ -31,7 +31,8 @@ declare const messages: {
     "changeLanguage": "Change language",
     "language": "Language",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "beatmaker": "Beatmaker"
   },
   "home": {
     "metadata": {
@@ -263,6 +264,55 @@ declare const messages: {
       "wall": "Wall",
       "visited": "Visited",
       "path": "Shortest Path"
+    }
+  },
+  "beatmaker": {
+    "metadata": {
+      "title": "Beatmaker",
+      "description": "A browser-based drum machine. Program beats, adjust BPM, and share your patterns."
+    },
+    "transport": {
+      "play": "Play",
+      "stop": "Stop",
+      "bpm": "BPM",
+      "steps": "Steps"
+    },
+    "mixer": {
+      "title": "Mixer",
+      "mute": "Mute",
+      "volume": "Volume",
+      "pan": "Pan"
+    },
+    "share": {
+      "copyUrl": "Share",
+      "copied": "Copied!",
+      "customSampleNotice": "This pattern used custom samples — playing with {kit} instead."
+    },
+    "presets": {
+      "label": "Presets",
+      "basic-rock": "Basic Rock",
+      "four-on-floor": "Four-on-the-Floor",
+      "boom-bap": "Boom-bap",
+      "trap": "Trap",
+      "blank": "Blank"
+    },
+    "track": {
+      "dropFile": "Drop audio file",
+      "customFile": "Custom file loaded",
+      "decodeError": "Could not decode audio file."
+    },
+    "kits": {
+      "808": "808",
+      "acoustic": "Acoustic",
+      "lofi": "Lo-fi"
+    },
+    "tracks": {
+      "kick": "Kick",
+      "snare": "Snare",
+      "hihat": "Hi-hat",
+      "openhat": "Open HH",
+      "clap": "Clap",
+      "ride": "Ride"
     }
   }
 };

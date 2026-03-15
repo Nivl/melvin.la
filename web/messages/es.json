@@ -28,7 +28,8 @@
     "language": "Idioma",
     "pathfinding": "Visualizador de rutas",
     "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú"
+    "closeMenu": "Cerrar menú",
+    "beatmaker": "Beatmaker"
   },
   "home": {
     "metadata": {
@@ -260,6 +261,55 @@
       "wall": "Muro",
       "visited": "Visitado",
       "path": "Ruta más corta"
+    }
+  },
+  "beatmaker": {
+    "metadata": {
+      "title": "Beatmaker",
+      "description": "Una caja de ritmos en el navegador. Programa ritmos, ajusta el BPM y comparte tus patrones."
+    },
+    "transport": {
+      "play": "Reproducir",
+      "stop": "Detener",
+      "bpm": "BPM",
+      "steps": "Pasos"
+    },
+    "mixer": {
+      "mute": "Silenciar",
+      "volume": "Volumen",
+      "pan": "Balance",
+      "title": "Mezclador"
+    },
+    "share": {
+      "copyUrl": "Copiar URL",
+      "copied": "¡Copiado!",
+      "customSampleNotice": "Este patrón usaba muestras personalizadas — reproduciendo con {kit} en su lugar."
+    },
+    "presets": {
+      "label": "Preajustes",
+      "basic-rock": "Rock básico",
+      "four-on-floor": "Four-on-the-Floor",
+      "boom-bap": "Boom-bap",
+      "trap": "Trap",
+      "blank": "En blanco"
+    },
+    "track": {
+      "dropFile": "Soltar archivo de audio",
+      "customFile": "Archivo personalizado cargado",
+      "decodeError": "No se pudo decodificar el archivo de audio."
+    },
+    "kits": {
+      "808": "808",
+      "acoustic": "Acústico",
+      "lofi": "Lo-fi"
+    },
+    "tracks": {
+      "kick": "Bombo",
+      "snare": "Caja",
+      "hihat": "Charles",
+      "openhat": "Charles abierto",
+      "clap": "Palmas",
+      "ride": "Ride"
     }
   }
 }
