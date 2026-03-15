@@ -257,7 +257,7 @@ export const Navbar = () => {
       </NavbarContent>
 
       {/* Mobile slide-down menu */}
-      <NavbarMenu>
+      <NavbarMenu data-testid="navbar-mobile-menu">
         {navSections.map(section => {
           const label = t(section.labelKey);
 

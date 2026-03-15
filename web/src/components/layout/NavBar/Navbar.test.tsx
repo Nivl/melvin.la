@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -155,11 +155,10 @@ describe('Navbar', () => {
     setup();
     const user = userEvent.setup();
     await user.click(screen.getByRole('button', { name: 'Open menu' }));
-    // Click the last "Home" link (mobile menu link is appended after the desktop one)
-    const menuLinks = screen.getAllByRole('link', { name: 'Home' });
-    const lastLink = menuLinks.at(-1);
-    if (!lastLink) throw new Error('No Home links found');
-    await user.click(lastLink);
+    // Scope to the mobile menu container to avoid ambiguity with desktop nav links
+    const mobileMenu = screen.getByTestId('navbar-mobile-menu');
+    const { getByRole } = within(mobileMenu);
+    await user.click(getByRole('link', { name: 'Home' }));
     // Toggle should revert to "Open menu" label
     expect(screen.getByRole('button', { name: 'Open menu' })).toBeDefined();
   });
