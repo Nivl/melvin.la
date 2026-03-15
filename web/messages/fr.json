@@ -26,7 +26,9 @@
     "themeSystem": "Système",
     "changeLanguage": "Changer de langue",
     "language": "Langue",
-    "pathfinding": "Visualiseur de chemin"
+    "pathfinding": "Visualiseur de chemin",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu"
   },
   "home": {
     "metadata": {

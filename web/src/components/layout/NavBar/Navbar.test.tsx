@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { testWrapper as wrapper } from '#utils/tests';
@@ -136,5 +137,28 @@ describe('Navbar', () => {
     setup();
     const blogLink = screen.getByRole('link', { name: 'Blog' });
     expect(blogLink.getAttribute('href')).toBe('/blog');
+  });
+
+  it('hamburger toggle shows "Open menu" when menu is closed', () => {
+    setup();
+    expect(screen.getByRole('button', { name: 'Open menu' })).toBeDefined();
+  });
+
+  it('hamburger toggle updates accessible name when clicked', async () => {
+    setup();
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: 'Open menu' }));
+    expect(screen.getByRole('button', { name: 'Close menu' })).toBeDefined();
+  });
+
+  it('clicking a mobile menu link closes the menu', async () => {
+    setup();
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: 'Open menu' }));
+    // Scope to the mobile menu container to avoid ambiguity with desktop nav links
+    const mobileMenu = screen.getByTestId('navbar-mobile-menu');
+    await user.click(within(mobileMenu).getByRole('link', { name: 'Home' }));
+    // Toggle should revert to "Open menu" label
+    expect(screen.getByRole('button', { name: 'Open menu' })).toBeDefined();
   });
 });
