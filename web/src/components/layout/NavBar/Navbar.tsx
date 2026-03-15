@@ -229,7 +229,9 @@ export const Navbar = () => {
                   variant="flat"
                   items={section.items}
                   selectedKeys={
-                    active ? new Set([pathname.split('/')[2] ?? '']) : ''
+                    active && pathname.split('/')[2]
+                      ? new Set([pathname.split('/')[2]])
+                      : new Set<string>()
                   }
                 >
                   {item => (
