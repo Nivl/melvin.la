@@ -286,7 +286,8 @@ declare const messages: {
     "share": {
       "copyUrl": "Share",
       "copied": "Copied!",
-      "customSampleNotice": "This pattern used custom samples — playing with {kit} instead."
+      "customSampleNotice": "This pattern used custom samples — playing with {kit} instead.",
+      "dismissNotice": "Dismiss"
     },
     "presets": {
       "label": "Presets",
@@ -299,7 +300,13 @@ declare const messages: {
     "track": {
       "dropFile": "Drop audio file",
       "customFile": "Custom file loaded",
+      "customBadge": "custom",
       "decodeError": "Could not decode audio file."
+    },
+    "a11y": {
+      "stepButton": "{track} step {step} {state}",
+      "stepOn": "on",
+      "stepOff": "off"
     },
     "kits": {
       "808": "808",
@@ -313,6 +320,21 @@ declare const messages: {
       "openhat": "Open HH",
       "clap": "Clap",
       "ride": "Ride"
+    },
+    "rotate": {
+      "title": "Rotate your device",
+      "message": "Beatmaker works best in landscape mode."
+    },
+    "error": {
+      "audioEngine": "Audio engine failed to initialize.",
+      "audioSuspended": "Audio is muted by system."
+    },
+    "actions": {
+      "resume": "Tap to Unmute"
+    },
+    "iosWarning": {
+      "title": "No sounds?",
+      "message": "iOS uses the ringer volume instead of the phone volume to play the beat. Make sure the phone is not in silence mode"
     }
   }
 };

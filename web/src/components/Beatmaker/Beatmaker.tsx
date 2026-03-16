@@ -1,10 +1,18 @@
 'use client';
+import { Button } from '@heroui/button';
 import { Card, CardBody } from '@heroui/card';
+import { addToast } from '@heroui/toast';
 import { captureException } from '@sentry/nextjs';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 
-import { Section } from '#components/layout/Section.tsx';
+import { Section } from '#components/layout/Section';
 import {
   type BeatmakerState,
   buildDefaultState,
@@ -20,34 +28,130 @@ import {
 } from '#models/beatmaker';
 
 import { KitSelector } from './KitSelector';
+import { LandscapeGuard } from './LandscapeGuard';
 import { MixerStrip } from './MixerStrip';
 import { PatternPresets } from './PatternPresets';
 import { SequencerGrid } from './SequencerGrid';
 import { Transport } from './Transport';
 
+function readHashData(): {
+  state: BeatmakerState;
+  hasCustomSamples: boolean;
+} {
+  if (globalThis.window === undefined) {
+    return {
+      state: buildDefaultState(),
+      hasCustomSamples: false,
+    };
+  }
+
+  const hash = globalThis.location.hash.replace('#', '');
+  const decoded = decode(hash);
+  if (!decoded) {
+    return {
+      state: buildDefaultState(),
+      hasCustomSamples: false,
+    };
+  }
+
+  const { hasCustomSamples, ...rest } = decoded;
+  return {
+    state: { ...rest, isPlaying: false },
+    hasCustomSamples,
+  };
+}
+
+let cachedBeatmakerHash: string | undefined;
+let cachedBeatmakerIOS: boolean | undefined;
+let cachedBeatmakerView:
+  | {
+      state: BeatmakerState;
+      hasCustomSamples: boolean;
+      showIOSWarning: boolean;
+    }
+  | undefined;
+const beatmakerServerSnapshot = {
+  state: buildDefaultState(),
+  hasCustomSamples: false,
+  showIOSWarning: false,
+};
+
+function isIOSDevice(): boolean {
+  if (typeof navigator === 'undefined') {
+    return false;
+  }
+
+  return (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.userAgent.includes('Mac') && navigator.maxTouchPoints > 1)
+  );
+}
+
+function getInitialBeatmakerView(): {
+  state: BeatmakerState;
+  hasCustomSamples: boolean;
+  showIOSWarning: boolean;
+} {
+  const currentHash =
+    globalThis.window === undefined ? '' : globalThis.location.hash;
+  const showIOSWarning = isIOSDevice();
+
+  if (
+    cachedBeatmakerView &&
+    cachedBeatmakerHash === currentHash &&
+    cachedBeatmakerIOS === showIOSWarning
+  ) {
+    return cachedBeatmakerView;
+  }
+
+  const initialData = readHashData();
+
+  cachedBeatmakerHash = currentHash;
+  cachedBeatmakerIOS = showIOSWarning;
+  cachedBeatmakerView = {
+    state: initialData.state,
+    hasCustomSamples: initialData.hasCustomSamples,
+    showIOSWarning,
+  };
+
+  return cachedBeatmakerView;
+}
+
+function subscribeBeatmakerView(onStoreChange: () => void): () => void {
+  if (globalThis.window === undefined) {
+    const noopUnsubscribe = () => 0;
+    return noopUnsubscribe;
+  }
+
+  globalThis.window.addEventListener('hashchange', onStoreChange);
+
+  return () => {
+    globalThis.window.removeEventListener('hashchange', onStoreChange);
+  };
+}
+
+function getBeatmakerServerSnapshot(): ReturnType<
+  typeof getInitialBeatmakerView
+> {
+  return beatmakerServerSnapshot;
+}
+
 export function Beatmaker() {
   const t = useTranslations('beatmaker');
   const tKits = useTranslations('beatmaker.kits');
+  const initialView = useSyncExternalStore(
+    subscribeBeatmakerView,
+    getInitialBeatmakerView,
+    getBeatmakerServerSnapshot,
+  );
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const hasInteractedRef = useRef(false);
+  const [localState, setLocalState] =
+    useState<BeatmakerState>(buildDefaultState);
+  const [dismissedIOSWarning, setDismissedIOSWarning] = useState(false);
+  const state = hasInteracted ? localState : initialView.state;
+  const showIOSWarning = !dismissedIOSWarning && initialView.showIOSWarning;
 
-  const [state, setState] = useState<BeatmakerState>(() => {
-    if (globalThis.window !== undefined) {
-      const hash = globalThis.location.hash.replace('#', '');
-      const decoded = decode(hash);
-      if (decoded) {
-        return { ...decoded, isPlaying: false };
-      }
-    }
-    return buildDefaultState();
-  });
-
-  const [showCustomBanner] = useState(() => {
-    if (globalThis.window !== undefined) {
-      const hash = globalThis.location.hash.replace('#', '');
-      const decoded = decode(hash);
-      return decoded?.hasCustomSamples ?? false;
-    }
-    return false;
-  });
   const [decodeErrors, setDecodeErrors] = useState<
     Partial<Record<TrackId, string>>
   >({});
@@ -56,23 +160,90 @@ export function Beatmaker() {
     undefined,
   );
   const [activeStep, setActiveStep] = useState<number | undefined>();
+  const [audioState, setAudioState] = useState<AudioContextState | undefined>();
   const engineRef = useRef<Engine | null>(null);
   const stateRef = useRef(state);
+  const customBannerShownRef = useRef(false);
+  const skipInitialHashSyncRef = useRef(
+    globalThis.window !== undefined && globalThis.location.hash === '',
+  );
 
   useEffect(() => {
     stateRef.current = state;
   }, [state]);
 
+  const updateState = useCallback(
+    (
+      updater: BeatmakerState | ((current: BeatmakerState) => BeatmakerState),
+    ) => {
+      const interacted = hasInteractedRef.current;
+      const baseState = stateRef.current;
+
+      hasInteractedRef.current = true;
+      setHasInteracted(true);
+      setLocalState(current => {
+        const previousState = interacted ? current : baseState;
+
+        return typeof updater === 'function' ? updater(previousState) : updater;
+      });
+    },
+    [],
+  );
+
   useEffect(() => {
     const engine = createEngine({
-      onError: captureException,
+      onError: error => {
+        captureException(error);
+        addToast({
+          description: t('error.audioEngine'),
+          color: 'danger',
+        });
+      },
       onStep: setActiveStep,
+      onStateChange: setAudioState,
     });
     engineRef.current = engine;
+
+    const unlock = () => {
+      void engine.init();
+      document.removeEventListener('touchstart', unlock);
+      document.removeEventListener('click', unlock);
+      document.removeEventListener('keydown', unlock);
+    };
+
+    document.addEventListener('touchstart', unlock, { passive: true });
+    document.addEventListener('click', unlock, { passive: true });
+    document.addEventListener('keydown', unlock, { passive: true });
+
     return () => {
       engine.dispose();
+      document.removeEventListener('touchstart', unlock);
+      document.removeEventListener('click', unlock);
+      document.removeEventListener('keydown', unlock);
     };
-  }, []);
+  }, [t]);
+
+  // Monitor audio context state
+  useEffect(() => {
+    if (state.isPlaying && audioState === 'suspended') {
+      addToast({
+        description: t('error.audioSuspended'),
+        color: 'warning',
+        timeout: 0,
+        endContent: (
+          <Button
+            size="sm"
+            variant="light"
+            onPress={() => {
+              void engineRef.current?.init();
+            }}
+          >
+            {t('actions.resume')}
+          </Button>
+        ),
+      });
+    }
+  }, [state.isPlaying, audioState, t]);
 
   // Load kit samples on mount and when kit changes
   useEffect(() => {
@@ -81,14 +252,35 @@ export function Beatmaker() {
 
   // Sync URL hash on state change (debounced)
   useEffect(() => {
+    if (skipInitialHashSyncRef.current) {
+      skipInitialHashSyncRef.current = false;
+      return;
+    }
+
     const hasCustom = TRACK_IDS.some(id => !!state.tracks[id].customFile);
     const timer = setTimeout(() => {
-      globalThis.location.hash = encode(state, hasCustom);
+      globalThis.history.replaceState(
+        undefined,
+        '',
+        `#${encode(state, hasCustom)}`,
+      );
     }, 300);
     return () => {
       clearTimeout(timer);
     };
   }, [state]);
+
+  // Show a warning toast on mount if the shared pattern used custom samples
+  useEffect(() => {
+    if (!initialView.hasCustomSamples || customBannerShownRef.current) return;
+
+    customBannerShownRef.current = true;
+    addToast({
+      description: t('share.customSampleNotice', { kit: tKits(state.kit) }),
+      color: 'warning',
+      timeout: 0,
+    });
+  }, [initialView.hasCustomSamples, state.kit, t, tKits]);
 
   // ── Handlers ────────────────────────────────────────────────────────────
 
@@ -98,61 +290,102 @@ export function Beatmaker() {
     if (state.isPlaying) {
       engine.stop();
       setActiveStep(undefined);
-      setState(s => ({ ...s, isPlaying: false }));
+      updateState(s => ({ ...s, isPlaying: false }));
     } else {
       await engine.init();
       engine.start(() => stateRef.current);
-      setState(s => ({ ...s, isPlaying: true }));
+      updateState(s => ({ ...s, isPlaying: true }));
     }
-  }, [state.isPlaying]);
+  }, [state.isPlaying, updateState]);
 
-  const handleBpmChange = useCallback((bpm: number) => {
-    setState(s => ({ ...s, bpm }));
-  }, []);
+  const handleBpmChange = useCallback(
+    (bpm: number) => {
+      updateState(s => ({ ...s, bpm }));
+    },
+    [updateState],
+  );
 
-  const handleStepCountChange = useCallback((stepCount: StepCount) => {
-    setState(s => {
-      const tracks = Object.fromEntries(
-        TRACK_IDS.map(id => {
-          const current = s.tracks[id].steps;
-          const steps: boolean[] =
-            stepCount > current.length
-              ? [
-                  ...current,
-                  ...Array.from<boolean>({
-                    length: stepCount - current.length,
-                  }).fill(false),
-                ]
-              : current.slice(0, stepCount);
-          return [id, { ...s.tracks[id], steps }];
-        }),
-      ) as BeatmakerState['tracks'];
-      return { ...s, stepCount, tracks };
-    });
-  }, []);
+  const handleStepCountChange = useCallback(
+    (stepCount: StepCount) => {
+      updateState(s => {
+        const tracks = Object.fromEntries(
+          TRACK_IDS.map(id => {
+            const current = s.tracks[id].steps;
+            const steps: boolean[] =
+              stepCount > current.length
+                ? [
+                    ...current,
+                    ...Array.from<boolean>({
+                      length: stepCount - current.length,
+                    }).fill(false),
+                  ]
+                : current.slice(0, stepCount);
+            return [id, { ...s.tracks[id], steps }];
+          }),
+        ) as BeatmakerState['tracks'];
+        return { ...s, stepCount, tracks };
+      });
+    },
+    [updateState],
+  );
 
-  const handleKitChange = useCallback((kit: Kit) => {
-    setState(s => ({ ...s, kit }));
-  }, []);
-
-  const handlePresetSelect = useCallback((presetId: string) => {
-    const preset = PRESETS[presetId];
-    if (!preset) return;
-    setState(s => ({ ...s, ...preset, isPlaying: s.isPlaying }));
-    engineRef.current?.clearCustomFiles();
-  }, []);
-
-  const handleStepToggle = useCallback((trackId: TrackId, index: number) => {
-    setState(s => {
-      const steps = s.tracks[trackId].steps.map((v, i) =>
-        i === index ? !v : v,
-      );
-      return {
+  const handleKitChange = useCallback(
+    (kit: Kit) => {
+      engineRef.current?.clearCustomFiles();
+      setDecodeErrors({});
+      updateState(s => ({
         ...s,
-        tracks: { ...s.tracks, [trackId]: { ...s.tracks[trackId], steps } },
+        kit,
+        tracks: Object.fromEntries(
+          TRACK_IDS.map(id => [id, { ...s.tracks[id], customFile: undefined }]),
+        ) as BeatmakerState['tracks'],
+      }));
+    },
+    [updateState],
+  );
+
+  const handlePresetSelect = useCallback(
+    (presetId: string) => {
+      const preset = PRESETS[presetId];
+      if (!preset) return;
+      const engine = engineRef.current;
+      const wasPlaying = stateRef.current.isPlaying;
+      // Compute the next state and update stateRef synchronously so the engine
+      // scheduler reads the new pattern on its very first tick, before React
+      // commits the setState update via the useEffect.
+      const nextState = {
+        ...stateRef.current,
+        ...preset,
+        isPlaying: stateRef.current.isPlaying,
       };
-    });
-  }, []);
+      setDecodeErrors({});
+      stateRef.current = nextState;
+      updateState(nextState);
+      engine?.clearCustomFiles();
+      if (wasPlaying && engine) {
+        // Reset engine step counter so the new pattern starts from step 0
+        engine.stop();
+        setActiveStep(undefined);
+        engine.start(() => stateRef.current);
+      }
+    },
+    [updateState],
+  );
+
+  const handleStepToggle = useCallback(
+    (trackId: TrackId, index: number) => {
+      updateState(s => {
+        const steps = s.tracks[trackId].steps.map((v, i) =>
+          i === index ? !v : v,
+        );
+        return {
+          ...s,
+          tracks: { ...s.tracks, [trackId]: { ...s.tracks[trackId], steps } },
+        };
+      });
+    },
+    [updateState],
+  );
 
   const handleFileLoad = useCallback(
     async (trackId: TrackId, file: File) => {
@@ -161,7 +394,7 @@ export function Beatmaker() {
       try {
         await engine.init();
         await engine.loadCustomFile(trackId, file);
-        setState(s => ({
+        updateState(s => ({
           ...s,
           tracks: {
             ...s.tracks,
@@ -177,36 +410,59 @@ export function Beatmaker() {
         }));
       }
     },
-    [t],
+    [t, updateState],
   );
 
-  const handleVolumeChange = useCallback((trackId: TrackId, volume: number) => {
-    setState(s => ({
-      ...s,
-      tracks: { ...s.tracks, [trackId]: { ...s.tracks[trackId], volume } },
-    }));
-  }, []);
+  const handleVolumeChange = useCallback(
+    (trackId: TrackId, volume: number) => {
+      updateState(s => ({
+        ...s,
+        tracks: { ...s.tracks, [trackId]: { ...s.tracks[trackId], volume } },
+      }));
+    },
+    [updateState],
+  );
 
-  const handlePanChange = useCallback((trackId: TrackId, pan: number) => {
-    setState(s => ({
-      ...s,
-      tracks: { ...s.tracks, [trackId]: { ...s.tracks[trackId], pan } },
-    }));
-  }, []);
+  const handlePanChange = useCallback(
+    (trackId: TrackId, pan: number) => {
+      updateState(s => ({
+        ...s,
+        tracks: { ...s.tracks, [trackId]: { ...s.tracks[trackId], pan } },
+      }));
+    },
+    [updateState],
+  );
 
-  const handleMuteToggle = useCallback((trackId: TrackId) => {
-    setState(s => ({
-      ...s,
-      tracks: {
-        ...s.tracks,
-        [trackId]: { ...s.tracks[trackId], muted: !s.tracks[trackId].muted },
-      },
-    }));
-  }, []);
+  const handleMuteToggle = useCallback(
+    (trackId: TrackId) => {
+      updateState(s => ({
+        ...s,
+        tracks: {
+          ...s.tracks,
+          [trackId]: { ...s.tracks[trackId], muted: !s.tracks[trackId].muted },
+        },
+      }));
+    },
+    [updateState],
+  );
 
   const handleCopy = useCallback(async () => {
+    if (
+      typeof navigator === 'undefined' ||
+      globalThis.navigator.clipboard?.writeText === undefined
+    ) {
+      return;
+    }
+
     try {
-      await navigator.clipboard.writeText(globalThis.location.href);
+      const currentState = stateRef.current;
+      const hasCustom = TRACK_IDS.some(
+        id => !!currentState.tracks[id].customFile,
+      );
+      const hash = encode(currentState, hasCustom);
+      const url = `${globalThis.location.origin}${globalThis.location.pathname}#${hash}`;
+
+      await globalThis.navigator.clipboard.writeText(url);
       setCopied(true);
       clearTimeout(copyTimerRef.current);
       copyTimerRef.current = setTimeout(() => {
@@ -224,105 +480,118 @@ export function Beatmaker() {
   }, []);
 
   return (
-    <>
+    <LandscapeGuard>
       <Section className="max-w-225 lg:max-w-225 xl:max-w-225 2xl:max-w-225">
         <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl font-bold uppercase sm:text-8xl xl:text-9xl">
-          Beatmaker
+          {t('metadata.title')}
         </h1>
       </Section>
 
-      <Section className="max-w-225 lg:max-w-225 xl:max-w-225 2xl:max-w-225">
-        <div className="flex flex-col items-center gap-8">
-          {/* Card 1: Transport + Share */}
-          <Card className="w-full">
-            <CardBody className="px-6 py-3">
-              <Transport
-                isPlaying={state.isPlaying}
-                bpm={state.bpm}
-                stepCount={state.stepCount}
-                copied={copied}
-                onPlayToggle={() => {
-                  void handlePlayToggle();
-                }}
-                onBpmChange={handleBpmChange}
-                onStepCountChange={handleStepCountChange}
-                onCopy={() => {
-                  void handleCopy();
-                }}
-              />
-            </CardBody>
-          </Card>
+      <Section>
+        <div className="m-auto max-w-225 lg:max-w-225 xl:max-w-225 2xl:max-w-225">
+          <div className="flex flex-col items-center gap-8">
+            {showIOSWarning && (
+              <div className="bg-warning-100 border-warning-300 text-warning-800 dark:bg-warning-900/30 dark:border-warning-700 dark:text-warning-300 flex w-full items-start justify-between gap-4 rounded-lg border px-4 py-3 text-sm">
+                <div>
+                  <p className="font-semibold">{t('iosWarning.title')}</p>
+                  <p>{t('iosWarning.message')}</p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="light"
+                  onPress={() => {
+                    setDismissedIOSWarning(true);
+                  }}
+                >
+                  {t('share.dismissNotice')}
+                </Button>
+              </div>
+            )}
 
-          {/* Card 2: Options (Kit + Presets) */}
-          <Card className="w-full">
-            <CardBody className="flex flex-col gap-3 px-6 py-4">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <KitSelector
-                  activeKit={state.kit}
-                  onKitChange={handleKitChange}
+            {/* Card 1: Transport + Share */}
+            <Card className="w-full">
+              <CardBody className="p-6">
+                <Transport
+                  isPlaying={state.isPlaying}
+                  bpm={state.bpm}
+                  stepCount={state.stepCount}
+                  copied={copied}
+                  onPlayToggle={() => {
+                    void handlePlayToggle();
+                  }}
+                  onBpmChange={handleBpmChange}
+                  onStepCountChange={handleStepCountChange}
+                  onCopy={() => {
+                    void handleCopy();
+                  }}
                 />
-                <div className="bg-default-200 h-5 w-px" />
-                <PatternPresets onPresetSelect={handlePresetSelect} />
-              </div>
-              {showCustomBanner && (
-                <p className="text-warning text-sm">
-                  {t('share.customSampleNotice', {
-                    kit: tKits(state.kit),
-                  })}
+              </CardBody>
+            </Card>
+
+            {/* Card 2: Options (Kit + Presets) */}
+            <Card className="w-full">
+              <CardBody className="flex flex-col gap-3 p-6">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <KitSelector
+                    activeKit={state.kit}
+                    onKitChange={handleKitChange}
+                  />
+                  <div className="bg-default-200 h-5 w-px" />
+                  <PatternPresets onPresetSelect={handlePresetSelect} />
+                </div>
+              </CardBody>
+            </Card>
+
+            {/* Card 3: Sequencer */}
+            <Card className="w-full">
+              <CardBody className="p-6">
+                <SequencerGrid
+                  tracks={state.tracks}
+                  onStepToggle={handleStepToggle}
+                  onFileLoad={(trackId, file) => {
+                    void handleFileLoad(trackId, file);
+                  }}
+                  decodeErrors={decodeErrors}
+                  activeStep={activeStep}
+                />
+              </CardBody>
+            </Card>
+
+            {/* Card 4: Mixer */}
+            <Card className="w-full">
+              <CardBody className="p-6">
+                <p className="text-default-400 mb-3 text-xs tracking-widest uppercase">
+                  {t('mixer.title')}
                 </p>
-              )}
-            </CardBody>
-          </Card>
-
-          {/* Card 3: Sequencer */}
-          <Card className="w-full">
-            <CardBody className="px-6 py-4">
-              <SequencerGrid
-                tracks={state.tracks}
-                onStepToggle={handleStepToggle}
-                onFileLoad={(trackId, file) => {
-                  void handleFileLoad(trackId, file);
-                }}
-                decodeErrors={decodeErrors}
-                activeStep={activeStep}
-              />
-            </CardBody>
-          </Card>
-
-          {/* Card 4: Mixer */}
-          <Card className="w-full">
-            <CardBody className="px-6 py-4">
-              <p className="text-default-400 mb-3 text-xs tracking-widest uppercase">
-                {t('mixer.title')}
-              </p>
-              <div className="grid grid-cols-6 gap-2.5">
-                {TRACK_IDS.map(trackId => (
-                  <div
-                    key={trackId}
-                    className="border-default-200 flex flex-col items-center rounded-xl border bg-black/20 p-3"
-                  >
-                    <MixerStrip
-                      trackId={trackId}
-                      volume={state.tracks[trackId].volume}
-                      pan={state.tracks[trackId].pan}
-                      muted={state.tracks[trackId].muted}
-                      onVolumeChange={v => {
-                        handleVolumeChange(trackId, v);
-                      }}
-                      onPanChange={v => {
-                        handlePanChange(trackId, v);
-                      }}
-                      onMuteToggle={() => {
-                        handleMuteToggle(trackId);
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </CardBody>
-          </Card>
+                <div className="grid grid-cols-6 gap-2.5">
+                  {TRACK_IDS.map(trackId => (
+                    <div
+                      key={trackId}
+                      className="border-default-200 flex flex-col items-center rounded-xl border p-3"
+                    >
+                      <MixerStrip
+                        trackId={trackId}
+                        volume={state.tracks[trackId].volume}
+                        pan={state.tracks[trackId].pan}
+                        muted={state.tracks[trackId].muted}
+                        onVolumeChange={v => {
+                          handleVolumeChange(trackId, v);
+                        }}
+                        onPanChange={v => {
+                          handlePanChange(trackId, v);
+                        }}
+                        onMuteToggle={() => {
+                          handleMuteToggle(trackId);
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </CardBody>
+            </Card>
+          </div>
         </div>
       </Section>
-    </>
+    </LandscapeGuard>
   );
 }

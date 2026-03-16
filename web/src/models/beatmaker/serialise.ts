@@ -37,7 +37,7 @@ export function encode(
       TRACK_IDS.map(id => [
         id,
         {
-          p: state.tracks[id].steps,
+          p: state.tracks[id].steps.slice(0, state.stepCount),
           v: state.tracks[id].volume,
           n: state.tracks[id].pan,
           m: state.tracks[id].muted,
@@ -83,7 +83,29 @@ export function decode(hash: string): DecodedState | undefined {
       tracks: Object.fromEntries(
         TRACK_IDS.map(id => {
           const t = compact.t[id];
-          if (!t) return [id, defaults.tracks[id]];
+          if (!t) {
+            const defaultTrack = defaults.tracks[id];
+            const defaultSteps = defaultTrack.steps;
+            const normalizedSteps =
+              defaultSteps.length === compact.s
+                ? defaultSteps
+                : defaultSteps.length > compact.s
+                  ? defaultSteps.slice(0, compact.s)
+                  : [
+                      ...defaultSteps,
+                      ...Array.from<boolean>({
+                        length: compact.s - defaultSteps.length,
+                      }).fill(false),
+                    ];
+            return [
+              id,
+              {
+                ...defaultTrack,
+                steps: normalizedSteps,
+                customFile: undefined,
+              },
+            ];
+          }
           const rawSteps = Array.isArray(t.p)
             ? t.p.slice(0, compact.s).map(Boolean)
             : defaults.tracks[id].steps;
@@ -92,20 +114,20 @@ export function decode(hash: string): DecodedState | undefined {
               ? rawSteps
               : [
                   ...rawSteps,
-                  ...Array<boolean>(compact.s - rawSteps.length).fill(false),
+                  ...Array.from({ length: compact.s - rawSteps.length }).fill(
+                    false,
+                  ),
                 ];
           return [
             id,
             {
               steps,
-              volume:
-                typeof t.v === 'number'
-                  ? Math.max(0, Math.min(1, t.v))
-                  : defaults.tracks[id].volume,
-              pan:
-                typeof t.n === 'number'
-                  ? Math.max(-1, Math.min(1, t.n))
-                  : defaults.tracks[id].pan,
+              volume: Number.isFinite(t.v)
+                ? Math.max(0, Math.min(1, t.v))
+                : defaults.tracks[id].volume,
+              pan: Number.isFinite(t.n)
+                ? Math.max(-1, Math.min(1, t.n))
+                : defaults.tracks[id].pan,
               muted: typeof t.m === 'boolean' ? t.m : defaults.tracks[id].muted,
               customFile: undefined,
             },

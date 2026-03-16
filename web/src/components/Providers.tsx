@@ -1,5 +1,6 @@
 'use client';
 import { HeroUIProvider } from '@heroui/react';
+import { ToastProvider } from '@heroui/toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import moment from 'moment-timezone';
 import { NextIntlClientProvider } from 'next-intl';
@@ -36,7 +37,10 @@ const UIProviders = ({
         router.push(...args);
       }}
     >
-      <NextThemesProvider attribute="class">{children}</NextThemesProvider>
+      <NextThemesProvider attribute="class">
+        <ToastProvider placement="bottom-right" />
+        {children}
+      </NextThemesProvider>
     </HeroUIProvider>
   );
 };

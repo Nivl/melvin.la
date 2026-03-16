@@ -283,7 +283,8 @@
     "share": {
       "copyUrl": "URLをコピー",
       "copied": "コピーしました！",
-      "customSampleNotice": "このパターンはカスタムサンプルを使用していました — 代わりに {kit} で再生します。"
+      "customSampleNotice": "このパターンはカスタムサンプルを使用していました — 代わりに {kit} で再生します。",
+      "dismissNotice": "閉じる"
     },
     "presets": {
       "label": "プリセット",
@@ -296,7 +297,13 @@
     "track": {
       "dropFile": "音声ファイルをドロップ",
       "customFile": "カスタムファイル読み込み済み",
+      "customBadge": "カスタム",
       "decodeError": "オーディオファイルをデコードできませんでした。"
+    },
+    "a11y": {
+      "stepButton": "{track} ステップ {step} {state}",
+      "stepOn": "オン",
+      "stepOff": "オフ"
     },
     "kits": {
       "808": "808",
@@ -310,6 +317,21 @@
       "openhat": "オープンHH",
       "clap": "クラップ",
       "ride": "ライド"
+    },
+    "rotate": {
+      "title": "端末を横向きにしてください",
+      "message": "Beatmaker は横向きモードでお使いください。"
+    },
+    "error": {
+      "audioEngine": "Audio engine failed to initialize.",
+      "audioSuspended": "Audio is muted by system."
+    },
+    "actions": {
+      "resume": "Tap to Unmute"
+    },
+    "iosWarning": {
+      "title": "音が聞こえませんか？",
+      "message": "iOSでは着信音量が使用されます。マナーモードがオフになっていることを確認してください。"
     }
   }
 }

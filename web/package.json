@@ -51,6 +51,7 @@
     "@heroui/system": "2.4.27",
     "@heroui/table": "2.2.31",
     "@heroui/theme": "2.4.26",
+    "@heroui/toast": "2.0.21",
     "@heroui/tooltip": "2.2.28",
     "@internationalized/date": "3.11.0",
     "@radix-ui/react-toggle-group": "1.1.11",

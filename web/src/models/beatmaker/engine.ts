@@ -20,6 +20,7 @@ export type Engine = {
 type EngineOptions = {
   onError?: (error: Error) => void;
   onStep?: (step: number) => void;
+  onStateChange?: (state: AudioContextState) => void;
 };
 
 export function createEngine(
@@ -29,30 +30,117 @@ export function createEngine(
     typeof onErrorOrOptions === 'function'
       ? { onError: onErrorOrOptions }
       : (onErrorOrOptions ?? {});
-  const { onError, onStep } = opts;
+  const { onError, onStep, onStateChange } = opts;
   let ctx: AudioContext | undefined;
   const buffers = new Map<string, AudioBuffer>();
+  // Raw fetched data waiting to be decoded once an AudioContext is available.
+  // AudioContext must be created inside a user gesture on iOS Safari, so we
+  // defer decoding until init() is called from the Play button handler.
+  const pendingArrayBuffers = new Map<string, ArrayBuffer>();
   let schedulerTimer: ReturnType<typeof setInterval> | undefined;
   const pendingTimeouts = new Set<ReturnType<typeof setTimeout>>();
+  const activeSources = new Set<AudioBufferSourceNode>();
+  let initPromise: Promise<void> | undefined;
   let currentStep = 0;
   let nextNoteTime = 0;
 
-  // Creates the AudioContext without resuming — safe to call before a user gesture.
-  function ensureContext(): void {
-    ctx ??= new AudioContext();
+  function toError(error: unknown): Error {
+    return error instanceof Error ? error : new Error(String(error));
+  }
+
+  function reportError(error: unknown): void {
+    onError?.(toError(error));
+  }
+
+  async function decodeAndStoreBuffer(
+    context: AudioContext,
+    key: string,
+    arrayBuf: ArrayBuffer,
+  ): Promise<void> {
+    const audioBuf = await context.decodeAudioData(arrayBuf);
+    buffers.set(key, audioBuf);
+  }
+
+  async function storeBuffer(
+    key: string,
+    arrayBuf: ArrayBuffer,
+  ): Promise<void> {
+    const context = ctx;
+    if (context) {
+      await decodeAndStoreBuffer(context, key, arrayBuf);
+      return;
+    }
+
+    pendingArrayBuffers.set(key, arrayBuf);
+  }
+
+  async function decodePending(context: AudioContext): Promise<void> {
+    await Promise.all(
+      [...pendingArrayBuffers.entries()].map(async ([key, arrayBuf]) => {
+        try {
+          await decodeAndStoreBuffer(context, key, arrayBuf);
+        } catch (error) {
+          reportError(error);
+        } finally {
+          pendingArrayBuffers.delete(key);
+        }
+      }),
+    );
+  }
+
+  function unlockAudioOutput(context: AudioContext): void {
+    // 0.1s silent buffer to wake up the audio context on iOS
+    const silentBuf = context.createBuffer(
+      1,
+      context.sampleRate / 10,
+      context.sampleRate,
+    );
+    const silentSrc = context.createBufferSource();
+
+    silentSrc.buffer = silentBuf;
+    silentSrc.connect(context.destination);
+    silentSrc.start(0);
   }
 
   async function init(): Promise<void> {
-    ensureContext();
-    const context = ctx;
-    if (context) await context.resume();
+    if (initPromise) {
+      await initPromise;
+      return;
+    }
+
+    if (ctx) {
+      if (ctx.state === 'suspended') {
+        await ctx.resume();
+      }
+      return;
+    }
+
+    initPromise = (async () => {
+      // Create the AudioContext here, inside the user gesture, so iOS Safari
+      // allows it to play audio immediately without being permanently suspended.
+      const context = (ctx ??= new AudioContext());
+
+      context.addEventListener('statechange', () => {
+        onStateChange?.(context.state);
+      });
+
+      await context.resume();
+      // iOS Safari requires at least one AudioBufferSourceNode to be started
+      // within the user gesture to connect the AudioContext to hardware output.
+      // Without this, currentTime advances and API calls succeed, but no audio
+      // is rendered. Play a silent 1-sample buffer to unlock the output.
+      unlockAudioOutput(context);
+      await decodePending(context);
+    })();
+
+    try {
+      await initPromise;
+    } finally {
+      initPromise = undefined;
+    }
   }
 
   async function loadKit(kit: Kit): Promise<void> {
-    // Ensure context exists — kit preloads may happen before first user gesture
-    ensureContext();
-    const context = ctx;
-    if (!context) return;
     await Promise.all(
       TRACK_IDS.map(async trackId => {
         const url = getSampleUrl(kit, trackId);
@@ -60,23 +148,18 @@ export function createEngine(
           const res = await fetch(url);
           if (!res.ok) throw new Error(`HTTP ${String(res.status)}`);
           const arrayBuf = await res.arrayBuffer();
-          const audioBuf = await context.decodeAudioData(arrayBuf);
-          buffers.set(`${kit}/${trackId}`, audioBuf);
+          await storeBuffer(`${kit}/${trackId}`, arrayBuf);
         } catch (error) {
           // Keep existing buffer if present; otherwise track plays silently
-          onError?.(error instanceof Error ? error : new Error(String(error)));
+          reportError(error);
         }
       }),
     );
   }
 
   async function loadCustomFile(trackId: TrackId, file: File): Promise<void> {
-    ensureContext();
-    const context = ctx;
-    if (!context) return;
     const arrayBuf = await file.arrayBuffer();
-    const audioBuf = await context.decodeAudioData(arrayBuf);
-    buffers.set(`custom/${trackId}`, audioBuf);
+    await storeBuffer(`custom/${trackId}`, arrayBuf);
   }
 
   function getBuffer(
@@ -111,6 +194,11 @@ export function createEngine(
     gain.connect(panner);
     panner.connect(ctx.destination);
 
+    activeSources.add(src);
+    src.addEventListener('ended', () => {
+      activeSources.delete(src);
+    });
+
     src.start(time);
   }
 
@@ -143,6 +231,9 @@ export function createEngine(
   function start(getState: () => BeatmakerState): void {
     if (schedulerTimer !== undefined) return;
     if (!ctx) return;
+    if (ctx.state === 'suspended') {
+      void ctx.resume();
+    }
     currentStep = 0;
     nextNoteTime = ctx.currentTime;
     schedulerTimer = setInterval(() => {
@@ -157,17 +248,27 @@ export function createEngine(
     }
     for (const id of pendingTimeouts) clearTimeout(id);
     pendingTimeouts.clear();
+    for (const src of activeSources) {
+      try {
+        src.stop();
+      } catch {
+        // already stopped
+      }
+    }
+    activeSources.clear();
     currentStep = 0;
   }
 
   function clearCustomFiles(): void {
     for (const trackId of TRACK_IDS) {
       buffers.delete(`custom/${trackId}`);
+      pendingArrayBuffers.delete(`custom/${trackId}`);
     }
   }
 
   function dispose(): void {
     stop();
+    pendingArrayBuffers.clear();
     void ctx?.close();
     ctx = undefined;
   }

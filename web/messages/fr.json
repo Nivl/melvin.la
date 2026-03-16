@@ -266,50 +266,72 @@
   "beatmaker": {
     "metadata": {
       "title": "Beatmaker",
-      "description": "Une boîte à rythmes dans le navigateur. Programmez des rythmes, ajustez le BPM et partagez vos patterns."
+      "description": "Un beatmaker dans le navigateur. Programmez des rythmes, ajustez le BPM et partagez vos patterns."
     },
     "transport": {
-      "play": "Lecture",
-      "stop": "Arrêt",
+      "play": "Play",
+      "stop": "Stop",
       "bpm": "BPM",
-      "steps": "Étapes"
+      "steps": "Steps"
     },
     "mixer": {
-      "mute": "Muet",
+      "mute": "Mute",
       "volume": "Volume",
-      "pan": "Balance",
-      "title": "Mixage"
+      "pan": "Pan",
+      "title": "Mixer"
     },
     "share": {
-      "copyUrl": "Copier l'URL",
+      "copyUrl": "Share",
       "copied": "Copié !",
-      "customSampleNotice": "Ce motif utilisait des échantillons personnalisés — lecture avec {kit} à la place."
+      "customSampleNotice": "Ce pattern utilise des samples custom — lecture avec {kit} à la place.",
+      "dismissNotice": "Dismiss"
     },
     "presets": {
-      "label": "Préréglages",
-      "basic-rock": "Rock basique",
+      "label": "Presets",
+      "basic-rock": "Basic Rock",
       "four-on-floor": "Four-on-the-Floor",
       "boom-bap": "Boom-bap",
       "trap": "Trap",
-      "blank": "Vide"
+      "blank": "Blank"
     },
     "track": {
-      "dropFile": "Déposer un fichier audio",
-      "customFile": "Fichier personnalisé chargé",
+      "dropFile": "Drop un sample",
+      "customFile": "Sample custom chargé",
+      "customBadge": "custom",
       "decodeError": "Impossible de décoder le fichier audio."
+    },
+    "a11y": {
+      "stepButton": "{track} step {step} {state}",
+      "stepOn": "on",
+      "stepOff": "off"
     },
     "kits": {
       "808": "808",
-      "acoustic": "Acoustique",
+      "acoustic": "Acoustic",
       "lofi": "Lo-fi"
     },
     "tracks": {
-      "kick": "Grosse caisse",
-      "snare": "Caisse claire",
-      "hihat": "Charley",
-      "openhat": "Charley ouvert",
+      "kick": "Kick",
+      "snare": "Snare",
+      "hihat": "Hi-hat",
+      "openhat": "Open Hat",
       "clap": "Clap",
       "ride": "Ride"
+    },
+    "rotate": {
+      "title": "Tournez votre appareil",
+      "message": "Beatmaker est fait pour être utilisé en mode paysage."
+    },
+    "error": {
+      "audioEngine": "Le moteur audio n'a pas pu s'initialiser.",
+      "audioSuspended": "L'audio est désactivé par le système."
+    },
+    "actions": {
+      "resume": "Toucher pour activer"
+    },
+    "iosWarning": {
+      "title": "Pas de son ?",
+      "message": "Sur iOS, le son est contrôlé par la sonnerie et non le volume média. Assurez-vous que le mode silencieux est désactivé."
     }
   }
 }

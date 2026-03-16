@@ -12,10 +12,10 @@ const withNextIntl = createNextIntlPlugin({
 
 const nextConfig: NextConfig = {
   transpilePackages: ['next-mdx-remote'],
-  headers() {
-    return [
+  async headers() {
+    return await Promise.resolve([
       {
-        source: '/samples/:version/:rest*',
+        source: '/assets/games/beatmaker/samples/:version/:rest*',
         headers: [
           {
             key: 'Cache-Control',
@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-    ];
+    ]);
   },
 };
 

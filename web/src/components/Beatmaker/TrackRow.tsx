@@ -26,6 +26,7 @@ export function TrackRow({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const t = useTranslations('beatmaker.track');
   const tTracks = useTranslations('beatmaker.tracks');
+  const tA11y = useTranslations('beatmaker.a11y');
   const color = TRACK_COLORS[trackId];
 
   function handleDrop(e: React.DragEvent<HTMLButtonElement>) {
@@ -36,7 +37,11 @@ export function TrackRow({
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
-    if (file) onFileLoad(file);
+    if (file) {
+      onFileLoad(file);
+      // Reset so the same file can be re-selected to replace/retry
+      e.target.value = '';
+    }
   }
 
   // Split steps into groups of 4 for beat-grouping gaps
@@ -63,7 +68,9 @@ export function TrackRow({
         <span className="text-xs font-semibold tracking-wider uppercase">
           {tTracks(trackId)}
         </span>
-        {hasCustomFile && <span className="text-[8px] opacity-60">custom</span>}
+        {hasCustomFile && (
+          <span className="text-[8px] opacity-60">{t('customBadge')}</span>
+        )}
       </button>
       <input
         ref={fileInputRef}
@@ -84,7 +91,11 @@ export function TrackRow({
                 <button
                   key={index}
                   type="button"
-                  aria-label={`${tTracks(trackId)} step ${String(index + 1)} ${active ? 'on' : 'off'}`}
+                  aria-label={tA11y('stepButton', {
+                    track: tTracks(trackId),
+                    step: index + 1,
+                    state: active ? tA11y('stepOn') : tA11y('stepOff'),
+                  })}
                   aria-pressed={active}
                   className={[
                     'h-9 w-9 shrink-0 rounded transition-all',

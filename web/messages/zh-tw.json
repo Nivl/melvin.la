@@ -283,7 +283,8 @@
     "share": {
       "copyUrl": "複製網址",
       "copied": "已複製！",
-      "customSampleNotice": "此節奏型態使用了自訂音源 — 改以 {kit} 播放。"
+      "customSampleNotice": "此節奏型態使用了自訂音源 — 改以 {kit} 播放。",
+      "dismissNotice": "忽略"
     },
     "presets": {
       "label": "預設集",
@@ -296,7 +297,13 @@
     "track": {
       "dropFile": "拖放音訊檔案",
       "customFile": "已載入自訂檔案",
+      "customBadge": "自訂",
       "decodeError": "無法解碼音訊檔案。"
+    },
+    "a11y": {
+      "stepButton": "{track} 第 {step} 步 {state}",
+      "stepOn": "開啟",
+      "stepOff": "關閉"
     },
     "kits": {
       "808": "808",
@@ -310,6 +317,21 @@
       "openhat": "開鈸",
       "clap": "拍掌",
       "ride": "叮鈸"
+    },
+    "rotate": {
+      "title": "請將裝置旋轉至橫向",
+      "message": "Beatmaker 在橫向模式下使用效果最佳。"
+    },
+    "error": {
+      "audioEngine": "Audio engine failed to initialize.",
+      "audioSuspended": "Audio is muted by system."
+    },
+    "actions": {
+      "resume": "Tap to Unmute"
+    },
+    "iosWarning": {
+      "title": "沒有聲音？",
+      "message": "iOS 使用鈴聲音量而非媒體音量。請確保手機未處於靜音模式。"
     }
   }
 }
