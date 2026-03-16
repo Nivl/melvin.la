@@ -9,13 +9,21 @@ export function useMediaQuery(
   const { fallback } = options;
 
   const [queryValue, setQueryValue] = useState<boolean>(() => {
-    return globalThis.matchMedia === undefined
-      ? (fallback ?? false)
-      : globalThis.matchMedia(query).matches;
+    if (
+      globalThis.window === undefined ||
+      typeof globalThis.window.matchMedia !== 'function'
+    ) {
+      return fallback ?? false;
+    }
+
+    return globalThis.window.matchMedia(query).matches;
   });
 
   useEffect(() => {
-    if (globalThis.matchMedia === undefined) {
+    if (
+      globalThis.window === undefined ||
+      typeof globalThis.window.matchMedia !== 'function'
+    ) {
       return;
     }
 
@@ -23,7 +31,7 @@ export function useMediaQuery(
       setQueryValue(event.matches);
     };
 
-    const mediaQueryList = globalThis.matchMedia(query);
+    const mediaQueryList = globalThis.window.matchMedia(query);
     mediaQueryList.addEventListener('change', listener);
 
     return () => {

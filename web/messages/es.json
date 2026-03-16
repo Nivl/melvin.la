@@ -266,50 +266,72 @@
   "beatmaker": {
     "metadata": {
       "title": "Beatmaker",
-      "description": "Una caja de ritmos en el navegador. Programa ritmos, ajusta el BPM y comparte tus patrones."
+      "description": "Un beatmaker en el navegador. Programa ritmos, ajusta el BPM y comparte tus patterns."
     },
     "transport": {
-      "play": "Reproducir",
-      "stop": "Detener",
+      "play": "Play",
+      "stop": "Stop",
       "bpm": "BPM",
-      "steps": "Pasos"
+      "steps": "Steps"
     },
     "mixer": {
-      "mute": "Silenciar",
-      "volume": "Volumen",
-      "pan": "Balance",
-      "title": "Mezclador"
+      "mute": "Mute",
+      "volume": "Volume",
+      "pan": "Pan",
+      "title": "Mixer"
     },
     "share": {
-      "copyUrl": "Copiar URL",
-      "copied": "¡Copiado!",
-      "customSampleNotice": "Este patrón usaba muestras personalizadas — reproduciendo con {kit} en su lugar."
+      "copyUrl": "Share",
+      "copied": "Copiado!",
+      "customSampleNotice": "Este pattern usa samples custom — reproduciendo con {kit} en su lugar.",
+      "dismissNotice": "Dismiss"
     },
     "presets": {
-      "label": "Preajustes",
-      "basic-rock": "Rock básico",
+      "label": "Presets",
+      "basic-rock": "Basic Rock",
       "four-on-floor": "Four-on-the-Floor",
       "boom-bap": "Boom-bap",
       "trap": "Trap",
-      "blank": "En blanco"
+      "blank": "Blank"
     },
     "track": {
-      "dropFile": "Soltar archivo de audio",
-      "customFile": "Archivo personalizado cargado",
+      "dropFile": "Drop un sample",
+      "customFile": "Sample custom cargado",
+      "customBadge": "custom",
       "decodeError": "No se pudo decodificar el archivo de audio."
+    },
+    "a11y": {
+      "stepButton": "{track} paso {step} {state}",
+      "stepOn": "activado",
+      "stepOff": "desactivado"
     },
     "kits": {
       "808": "808",
-      "acoustic": "Acústico",
+      "acoustic": "Acoustic",
       "lofi": "Lo-fi"
     },
     "tracks": {
-      "kick": "Bombo",
-      "snare": "Caja",
-      "hihat": "Charles",
-      "openhat": "Charles abierto",
-      "clap": "Palmas",
+      "kick": "Kick",
+      "snare": "Snare",
+      "hihat": "Hi-hat",
+      "openhat": "Open Hat",
+      "clap": "Clap",
       "ride": "Ride"
+    },
+    "rotate": {
+      "title": "Gira tu dispositivo",
+      "message": "Beatmaker funciona mejor en modo horizontal."
+    },
+    "error": {
+      "audioEngine": "El motor de audio no pudo inicializarse.",
+      "audioSuspended": "El audio está desactivado por el sistema."
+    },
+    "actions": {
+      "resume": "Tocar para activar"
+    },
+    "iosWarning": {
+      "title": "¿Sin sonido?",
+      "message": "iOS usa el volumen del timbre en lugar del multimedia. Asegúrate de que el modo silencio esté desactivado."
     }
   }
 }

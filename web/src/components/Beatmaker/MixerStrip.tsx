@@ -43,7 +43,10 @@ export function MixerStrip({
         step={0.01}
         value={volume}
         onChange={v => {
-          onVolumeChange(v as number);
+          const val = Array.isArray(v) ? v[0] : v;
+          if (Number.isFinite(val)) {
+            onVolumeChange(val);
+          }
         }}
         orientation="vertical"
         size="sm"
@@ -62,14 +65,20 @@ export function MixerStrip({
         maxValue={1}
         step={0.01}
         value={pan}
+        fillOffset={0}
         onChange={v => {
-          onPanChange(v as number);
+          const val = Array.isArray(v) ? v[0] : v;
+          if (Number.isFinite(val)) {
+            onPanChange(val);
+          }
         }}
         size="sm"
         className="w-full"
         classNames={{
           filler: 'bg-[var(--track-color)]',
           thumb: 'bg-[var(--track-color)]',
+          track:
+            'bg-default-200 data-[fill-start=true]:border-l-[color:var(--track-color)] data-[fill-end=true]:border-r-[color:var(--track-color)]',
         }}
         style={{ '--track-color': color } as React.CSSProperties}
       />

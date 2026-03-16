@@ -113,20 +113,20 @@ export default defineConfig(
     },
   },
   {
-    files: ['src/app/**/*.tsx', 'src/**/*.stories.ts'],
+    files: ['src/app/**/*.tsx', 'src/**/*.stories.ts', 'src/**/*.stories.tsx'],
     rules: {
       'import/no-default-export': 'off',
       '@typescript-eslint/no-empty-function': 'off',
     },
   },
   {
-    files: ['src/**/*.stories.ts'],
+    files: ['src/**/*.stories.ts', 'src/**/*.stories.tsx'],
     rules: {
       'unicorn/no-null': 'off',
     },
   },
   {
-    files: ['.storybook/**', 'src/**/*.stories.ts'],
+    files: ['.storybook/**', 'src/**/*.stories.ts', 'src/**/*.stories.tsx'],
     extends: [storybook.configs['flat/recommended']],
   },
   {

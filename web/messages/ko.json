@@ -283,7 +283,8 @@
     "share": {
       "copyUrl": "URL 복사",
       "copied": "복사됨!",
-      "customSampleNotice": "이 패턴은 커스텀 샘플을 사용했습니다 — 대신 {kit}(으)로 재생합니다."
+      "customSampleNotice": "이 패턴은 커스텀 샘플을 사용했습니다 — 대신 {kit}(으)로 재생합니다.",
+      "dismissNotice": "닫기"
     },
     "presets": {
       "label": "프리셋",
@@ -296,7 +297,13 @@
     "track": {
       "dropFile": "오디오 파일 드롭",
       "customFile": "사용자 파일 로드됨",
+      "customBadge": "사용자 지정",
       "decodeError": "오디오 파일을 디코딩할 수 없습니다."
+    },
+    "a11y": {
+      "stepButton": "{track} 단계 {step} {state}",
+      "stepOn": "켜짐",
+      "stepOff": "꺼짐"
     },
     "kits": {
       "808": "808",
@@ -310,6 +317,21 @@
       "openhat": "오픈HH",
       "clap": "클랩",
       "ride": "라이드"
+    },
+    "rotate": {
+      "title": "기기를 가로로 돌려주세요",
+      "message": "Beatmaker는 가로 모드에서 사용하세요."
+    },
+    "error": {
+      "audioEngine": "Audio engine failed to initialize.",
+      "audioSuspended": "Audio is muted by system."
+    },
+    "actions": {
+      "resume": "Tap to Unmute"
+    },
+    "iosWarning": {
+      "title": "소리가 안 들리나요?",
+      "message": "iOS는 미디어 볼륨 대신 벨소리 볼륨을 사용합니다. 무음 모드가 해제되어 있는지 확인해 주세요."
     }
   }
 }

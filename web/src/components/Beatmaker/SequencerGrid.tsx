@@ -34,7 +34,8 @@ export function SequencerGrid({
               <div key={gi} className="flex gap-1.5">
                 {[0, 1, 2, 3].map(si => {
                   const n = gi * 4 + si + 1;
-                  if (n > stepCount) return;
+                  // eslint-disable-next-line unicorn/no-null
+                  if (n > stepCount) return null;
                   return (
                     <div
                       key={si}

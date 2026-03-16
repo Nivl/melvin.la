@@ -103,7 +103,10 @@ export function Transport({
             value={bpm}
             size="sm"
             onChange={v => {
-              onBpmChange(v as number);
+              const val = Array.isArray(v) ? v[0] : v;
+              if (Number.isFinite(val)) {
+                onBpmChange(val);
+              }
             }}
             className="w-32"
           />

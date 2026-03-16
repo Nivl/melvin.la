@@ -16,12 +16,12 @@
 
     --color-accent: #26ace6;
 
-    --color-track-kick:    #7c6fff;
-    --color-track-snare:   #ff4f6a;
-    --color-track-hihat:   #ffcc4a;
+    --color-track-kick: #7c6fff;
+    --color-track-snare: #ff4f6a;
+    --color-track-hihat: #ffcc4a;
     --color-track-openhat: #4affb8;
-    --color-track-clap:    #ff8c4a;
-    --color-track-ride:    #4ab8ff;
+    --color-track-clap: #ff8c4a;
+    --color-track-ride: #4ab8ff;
     --color-brands-playstation: #006FCD;
     --color-brands-xbox: #2ca243;
 
@@ -116,6 +116,29 @@
             translate: var(--boba-soft-shake-offset);
         }
     }
+
+    /* All the variables are set at runtime */
+    @keyframes to-landscape-rotation {
+
+        0%,
+        10% {
+            rotate: 45deg;
+        }
+
+        60% {
+            rotate: 135deg;
+        }
+
+        100% {
+            rotate: 135deg;
+        }
+    }
+}
+
+.cls-to-landscape-rotation {
+    /* All the variables are set at runtime */
+    animation: to-landscape-rotation 2s linear infinite;
+    @apply motion-reduce:animate-none;
 }
 
 .cls-boop-animation {
