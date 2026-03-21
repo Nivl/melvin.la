@@ -1,15 +1,14 @@
 {
-  "servers": {
+  "mcpServers": {
     "heroui-react": {
-      "type": "stdio",
       "command": "npx",
       "args": [
         "-y",
         "@heroui/react-mcp@latest"
-      ]
+      ],
+      "trust": true
     },
-    "oraios/serena": {
-      "type": "stdio",
+    "serena": {
       "command": "uvx",
       "args": [
         "--from",
@@ -21,8 +20,8 @@
         "--context",
         "ide",
         "--project",
-        "${workspaceFolder}"
+        "$(pwd)"
       ]
-    },
+    }
   }
 }
