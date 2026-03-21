@@ -166,7 +166,7 @@ jobs:
           path: ./api/bin
 
       - name: Build Image
-        uses: docker/build-push-action@dbac3ca1e5410ec04d2cce48cfbcfa3175fb8f4f
+        uses: docker/build-push-action@de308676347136a77704e0f257298c8f1b30054f
         with:
           context: ./api
           push: false
@@ -208,7 +208,7 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@b13d25e5fcf2e04305d8aedc9a6c28ebe258e934
+        uses: docker/metadata-action@11079342065fb7d2c3b37cb799ab6ecc01ad1bb2
         with:
           images: ${{ env.PROD_IMAGE_URI }}
           tags: |
@@ -216,7 +216,7 @@ jobs:
             type=raw,value=latest
 
       - name: Build Image, tag it, and push to Github Container Registry
-        uses: docker/build-push-action@dbac3ca1e5410ec04d2cce48cfbcfa3175fb8f4f
+        uses: docker/build-push-action@de308676347136a77704e0f257298c8f1b30054f
         with:
           context: ./api
           push: true
