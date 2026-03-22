@@ -32,7 +32,8 @@ declare const messages: {
     "language": "Language",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "beatmaker": "Beatmaker"
+    "beatmaker": "Beatmaker",
+    "menu": "Menu"
   },
   "home": {
     "metadata": {
@@ -64,7 +65,8 @@ declare const messages: {
       "form": {
         "nameFilter": "Filter by name",
         "yearFilter": "Active years",
-        "yearFilterCount": "{count, plural, one {Last year} other {Last # years}}"
+        "yearFilterCount": "{count, plural, one {Last year} other {Last # years}}",
+        "clearInput": "clear input"
       }
     },
     "contact": {
@@ -145,9 +147,16 @@ declare const messages: {
       "platformEpic": "Epic Games",
       "platformXbox": "Xbox",
       "platformPlaystation": "PlayStation",
-      "currentSeasonOnly": "Current season only"
+      "currentSeasonOnly": "Current season only",
+      "clearInput": "clear input"
     },
     "data": {
+      "mobileTitles": {
+        "overall": "Overall (all game modes combined)",
+        "solo": "Solo (Battle Royale only)",
+        "duo": "Duo (Battle Royale only)",
+        "squad": "Trio / Squad (Battle Royale only)"
+      },
       "statsTable": "Table with all the stats",
       "gamePlayed": "Games Played",
       "wins": "Wins",
@@ -165,9 +174,13 @@ declare const messages: {
       "mobile": "Mobile",
       "all-categories": "All",
       "solo": "Solo",
+      "soloTooltipInfo": "Battle Royale only",
       "duo": "Duo",
+      "duoTooltipInfo": "Battle Royale only",
       "squad": "Trio / Squad",
+      "squadTooltipInfo": "Battle Royale only",
       "overall": "Overall",
+      "overallTooltipInfo": "All game modes combined",
       "stat": "Stat",
       "value": "Value"
     }
@@ -178,7 +191,6 @@ declare const messages: {
       "description": "Count characters, words and bytes in your text with our free online string length tool. Supports Unicode characters correctly."
     },
     "title": "String Length",
-    "inputLabel": "Enter your text",
     "inputPlaceholder": "Type or paste your text here…",
     "characterCount": "Characters",
     "word-count": "Words",
@@ -223,10 +235,14 @@ declare const messages: {
     "fromLabel": "When in",
     "fromAriaLabel": "Search for a city to convert from",
     "dateTimeLabel": "it's",
-    "dateTimeAriaLabel": "pick a time to convert from",
+    "dateTimeAriaLabel": "pick a Date and a time to convert from",
+    "dateAriaLabel": "Date",
+    "timeLabel": "Time",
     "toLabel": "See what day and time it was in",
     "toAriaLabel": "Search for a city to convert to",
-    "output": "In <cityWrapper>{city}</cityWrapper>, it's {time}"
+    "output": "In <cityWrapper>{city}</cityWrapper>, it's {time}",
+    "noResults": "No results found",
+    "startTyping": "Start typing to search"
   },
   "pathfinding": {
     "metadata": {
@@ -252,6 +268,7 @@ declare const messages: {
     "generateMazeButton": "Generate Maze",
     "noPathFound": "No path found!",
     "dfsWarning": "DFS does not guarantee the shortest path.",
+    "gridLabel": "Pathfinding grid",
     "algorithms": {
       "astar": "A* (Default)",
       "dijkstra": "Dijkstra",

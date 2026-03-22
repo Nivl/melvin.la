@@ -1,13 +1,6 @@
 'use client';
 
-import { Button } from '@heroui/button';
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from '@heroui/dropdown';
-import { NavbarItem } from '@heroui/navbar';
+import { Button, Dropdown } from '@heroui/react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
@@ -84,39 +77,36 @@ export const LanguageSwitcher = () => {
 
   return (
     <Dropdown>
-      <NavbarItem>
-        <DropdownTrigger>
-          <Button
-            disableRipple
-            className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent`}
-            variant="light"
-            isIconOnly
-            aria-label={t('changeLanguage')}
-            onMouseEnter={() => {
-              if (!reducedMotion) {
-                setIsBooped(true);
-              }
-            }}
-          >
-            <LanguageSwitcherIcon isBooped={isBooped} />
-          </Button>
-        </DropdownTrigger>
-      </NavbarItem>
-      <DropdownMenu
-        aria-label={t('language')}
-        selectionMode="single"
-        variant="flat"
-        onAction={key => {
-          router.push({ pathname }, { locale: key.toString() });
+      <Button
+        className={`text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 text-base antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent`}
+        variant="ghost"
+        isIconOnly
+        aria-label={t('changeLanguage')}
+        onMouseEnter={() => {
+          if (!reducedMotion) {
+            setIsBooped(true);
+          }
         }}
-        selectedKeys={new Set([locale])}
       >
-        {languages.map(lang => (
-          <DropdownItem key={lang.key} textValue={lang.label}>
-            {lang.label} {lang.isAI ? <sup> AI</sup> : ''}
-          </DropdownItem>
-        ))}
-      </DropdownMenu>
+        <LanguageSwitcherIcon isBooped={isBooped} />
+      </Button>
+      <Dropdown.Popover>
+        <Dropdown.Menu
+          aria-label={t('language')}
+          selectionMode="single"
+          selectedKeys={new Set([locale])}
+          onAction={key => {
+            router.push({ pathname }, { locale: key.toString() });
+          }}
+        >
+          {languages.map(lang => (
+            <Dropdown.Item id={lang.key} textValue={lang.label} key={lang.key}>
+              {lang.label} {lang.isAI ? <sup> AI</sup> : ''}
+              <Dropdown.ItemIndicator />
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown.Popover>
     </Dropdown>
   );
 };

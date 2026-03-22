@@ -209,15 +209,6 @@ test('Shows description about automatic format detection', () => {
   ).toBeDefined();
 });
 
-test('Input has maxLength attribute set to 20', () => {
-  const { getByLabelText } = setup();
-
-  const input = getByLabelText('Timestamp') as HTMLInputElement;
-
-  // Check that maxLength attribute is set
-  expect(input.maxLength).toBe(20);
-});
-
 test('Handles edge case timestamps correctly', async () => {
   const { user, getByLabelText, findByText } = setup();
 

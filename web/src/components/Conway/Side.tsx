@@ -1,6 +1,4 @@
-import { Button } from '@heroui/button';
-import { Slider } from '@heroui/slider';
-import { Switch } from '@heroui/switch';
+import { Button, Label, Slider, Switch } from '@heroui/react';
 import { useTranslations } from 'next-intl';
 import { FaPause as PauseIcon, FaPlay as Playicon } from 'react-icons/fa6';
 
@@ -72,53 +70,58 @@ export const Side = ({
       <Heading level={3}>{t('title')}</Heading>
       {isPlaying ? (
         <Button
-          color="warning"
-          size="sm"
+          variant="primary"
+          className="w-full"
           onPress={() => {
             setIsPlaying(false);
           }}
-          startContent={<PauseIcon />}
         >
+          <PauseIcon className="mr-2" />
           {t('pause')}
         </Button>
       ) : (
         <Button
-          color="primary"
-          size="sm"
+          variant="primary"
+          className="w-full"
           onPress={() => {
             setIsPlaying(true);
           }}
-          startContent={<Playicon />}
         >
+          <Playicon className="mr-2" />
           {t('play')}
         </Button>
       )}
 
       <Slider
-        label={t('speed')}
-        getValue={speed => `${speed.toString()}x`}
+        value={speed}
+        className="max-w-md"
         step={0.25}
         maxValue={5}
         minValue={0.25}
-        defaultValue={speed}
-        className="max-w-md"
         onChange={v => {
           if (typeof v === 'number' && !Number.isNaN(v)) {
             setSpeed(v);
           }
         }}
-      />
+      >
+        <Label>{t('speed')}</Label>
+        <Slider.Output>
+          {({ state }) => {
+            return `${state.values[0].toFixed(2)}x`;
+          }}
+        </Slider.Output>
+        <Slider.Track>
+          <Slider.Fill />
+          <Slider.Thumb />
+        </Slider.Track>
+      </Slider>
 
       <Slider
-        label={t('boardSize')}
+        // value={boardSize}
+        className="max-w-md"
         minValue={0}
         maxValue={boardSizes.length - 1}
-        className="max-w-md"
         isDisabled={isPlaying}
-        getValue={sizeIndex => {
-          const actualSize = boardSizes[~~sizeIndex] || boardSizes[0];
-          return `${actualSize.toString()}x${actualSize.toString()}`;
-        }}
         onChange={v => {
           const x = typeof v === 'object' ? v[0] : v;
           const newSize = boardSizes[x] || boardSizes[0];
@@ -130,18 +133,32 @@ export const Side = ({
           setBoardSize(newSize);
           setBoard(newBoard);
         }}
-      />
+      >
+        <Label>{t('boardSize')}</Label>
+        <Slider.Output>
+          {({ state }) => {
+            const sizeIndex = state.values[0];
+            const actualSize = boardSizes[~~sizeIndex] || boardSizes[0];
+            return `${actualSize.toString()}x${actualSize.toString()}`;
+          }}
+        </Slider.Output>
+        <Slider.Track>
+          <Slider.Fill />
+          <Slider.Thumb />
+        </Slider.Track>
+      </Slider>
 
       <Switch
-        size="sm"
-        color="primary"
         isSelected={toroidal}
-        onValueChange={selected => {
-          setToroidal(selected);
-        }}
+        onChange={setToroidal}
         aria-label={t('wrapEdges')}
       >
-        {t('wrapEdges')}
+        <Switch.Control>
+          <Switch.Thumb />
+        </Switch.Control>
+        <Switch.Content>
+          <Label className="text-sm">{t('wrapEdges')}</Label>
+        </Switch.Content>
       </Switch>
 
       <Heading level={3}>{t('presets.title')}</Heading>

@@ -1,6 +1,5 @@
 'use client';
-import { Button } from '@heroui/button';
-import { Slider } from '@heroui/slider';
+import { Button, NumberField, Slider } from '@heroui/react';
 import { useTranslations } from 'next-intl';
 
 import { TRACK_COLORS, type TrackId } from '#models/beatmaker';
@@ -36,11 +35,14 @@ export function MixerStrip({
       >
         {tTracks(trackId)}
       </span>
+
       <Slider
         aria-label={t('volume')}
-        minValue={0}
         maxValue={1}
+        minValue={0}
         step={0.01}
+        orientation="vertical"
+        className="h-28"
         value={volume}
         onChange={v => {
           const val = Array.isArray(v) ? v[0] : v;
@@ -48,46 +50,38 @@ export function MixerStrip({
             onVolumeChange(val);
           }
         }}
-        orientation="vertical"
-        size="sm"
-        className="h-24"
-        classNames={{
-          filler: 'bg-[var(--track-color)]',
-          thumb: 'bg-[var(--track-color)]',
-          track:
-            'bg-default-200 data-[fill-start=true]:border-b-[color:var(--track-color)] data-[fill-end=true]:border-t-[color:var(--track-color)]',
-        }}
         style={{ '--track-color': color } as React.CSSProperties}
-      />
-      <Slider
+      >
+        <Slider.Track className="data-[fill-end=true]:border-t-[color:var(--track-color)] data-[fill-start=true]:border-b-[color:var(--track-color)]">
+          <Slider.Fill className="bg-[var(--track-color)]" />
+          <Slider.Thumb className="bg-[var(--track-color)]" />
+        </Slider.Track>
+      </Slider>
+
+      <NumberField
         aria-label={t('pan')}
-        minValue={-1}
         maxValue={1}
+        minValue={-1}
         step={0.01}
         value={pan}
-        fillOffset={0}
         onChange={v => {
-          const val = Array.isArray(v) ? v[0] : v;
-          if (Number.isFinite(val)) {
-            onPanChange(val);
+          if (Number.isFinite(v)) {
+            onPanChange(v);
           }
         }}
-        size="sm"
-        className="w-full"
-        classNames={{
-          filler: 'bg-[var(--track-color)]',
-          thumb: 'bg-[var(--track-color)]',
-          track:
-            'bg-default-200 data-[fill-start=true]:border-l-[color:var(--track-color)] data-[fill-end=true]:border-r-[color:var(--track-color)]',
-        }}
-        style={{ '--track-color': color } as React.CSSProperties}
-      />
+      >
+        <NumberField.Group className="grid-cols-[1fr_2fr_1fr]">
+          <NumberField.DecrementButton className="h-5 w-5" />
+          <NumberField.Input />
+          <NumberField.IncrementButton className="h-5 w-5" />
+        </NumberField.Group>
+      </NumberField>
+
       <Button
         size="sm"
-        variant={muted ? 'solid' : 'bordered'}
-        color="default"
+        variant={muted ? 'primary' : 'secondary'}
         onPress={onMuteToggle}
-        className="w-full text-[10px]"
+        className="mt-2.5 w-full text-xs"
         style={muted ? { backgroundColor: color, color: '#fff' } : undefined}
       >
         {t('mute')}

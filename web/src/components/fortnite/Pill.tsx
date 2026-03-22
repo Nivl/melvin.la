@@ -1,5 +1,4 @@
-import { Card, CardHeader } from '@heroui/card';
-import { Skeleton } from '@heroui/skeleton';
+import { Card, Skeleton } from '@heroui/react';
 import { motion, useMotionTemplate, useMotionValue } from 'motion/react';
 import { MouseEvent } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -41,17 +40,10 @@ export const Pill = ({
     <Card
       onMouseMove={handleMouseMove}
       {...delegated}
-      onPress={
-        !isLoading && !isSelected
-          ? onPress
-          : () => {
-              // do nothing
-            }
-      }
+      onClick={!isLoading && !isSelected ? onPress : undefined}
       className={twMerge(
         `group relative w-72 dark:bg-neutral-950 ${isSelected ? 'bg-linear-to-br from-[#2753ad] to-[#418eff] dark:to-[#052d67]' : 'border border-neutral-200 dark:border-neutral-800'} ${className}`,
       )}
-      isPressable={!isLoading}
     >
       {!isSelected && (
         <motion.div
@@ -59,17 +51,22 @@ export const Pill = ({
           style={{ background }}
         />
       )}
-      <CardHeader
-        className={`dark:text-foreground h-12 text-start text-base font-semibold ${isSelected ? 'text-white' : ''}`}
-      >
-        <Skeleton isLoaded={!isLoading}>{icon}</Skeleton>
-        <Skeleton
-          className={`m-auto w-48 ${isSelected ? 'light' : 'dark'}`}
-          isLoaded={!isLoading}
+
+      {isLoading ? (
+        <Card.Header
+          className={`dark:text-foreground flex flex-row items-center gap-5 text-start text-base font-semibold ${isSelected ? 'text-white' : ''}`}
         >
+          <Skeleton className={`h-6 w-6 ${isSelected ? 'light' : ''}`} />
+          <Skeleton className={`h-6 w-full ${isSelected ? 'light' : ''}`} />
+        </Card.Header>
+      ) : (
+        <Card.Header
+          className={`dark:text-foreground flex flex-row items-center gap-5 text-start text-base font-semibold ${isSelected ? 'text-white' : ''}`}
+        >
+          <span>{icon}</span>
           <p>{title}</p>
-        </Skeleton>
-      </CardHeader>
+        </Card.Header>
+      )}
     </Card>
   );
 };

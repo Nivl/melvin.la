@@ -29,7 +29,8 @@
     "pathfinding": "Visualiseur de chemin",
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu",
-    "beatmaker": "Beatmaker"
+    "beatmaker": "Beatmaker",
+    "menu": "Menu"
   },
   "home": {
     "metadata": {
@@ -61,7 +62,8 @@
       "form": {
         "nameFilter": "Filtrer par nom",
         "yearFilter": "Années actives",
-        "yearFilterCount": "{count, plural, one {Dernière année} other {# dernières années}}"
+        "yearFilterCount": "{count, plural, one {Dernière année} other {# dernières années}}",
+        "clearInput": "effacer la saisie"
       }
     },
     "contact": {
@@ -142,7 +144,8 @@
       "platformEpic": "Epic Games",
       "platformXbox": "Xbox",
       "platformPlaystation": "PlayStation",
-      "currentSeasonOnly": "Saison actuelle uniquement"
+      "currentSeasonOnly": "Saison actuelle uniquement",
+      "clearInput": "effacer la saisie"
     },
     "data": {
       "statsTable": "Tableau avec toutes les statistiques",
@@ -166,7 +169,17 @@
       "squad": "Trio / Squad",
       "overall": "Global",
       "stat": "Statistique",
-      "value": "Valeur"
+      "value": "Valeur",
+      "mobileTitles": {
+        "overall": "Global (tous modes)",
+        "solo": "Solo (Battle Royale uniquement)",
+        "duo": "Duo (Battle Royale uniquement)",
+        "squad": "Squad (Battle Royale uniquement)"
+      },
+      "soloTooltipInfo": "Battle Royale uniquement",
+      "duoTooltipInfo": "Battle Royale uniquement",
+      "squadTooltipInfo": "Battle Royale uniquement",
+      "overallTooltipInfo": "Tous les modes de jeu confondus"
     }
   },
   "stringLength": {
@@ -175,7 +188,6 @@
       "description": "Comptez les caractères, mots, et octets dans votre texte avec notre outil gratuit de longueur de chaîne en ligne. Prend en charge correctement les caractères Unicode."
     },
     "title": "Longueur de chaîne",
-    "inputLabel": "Entrez votre texte",
     "inputPlaceholder": "Tapez ou collez votre texte ici…",
     "characterCount": "Caractères",
     "word-count": "Mots",
@@ -223,7 +235,11 @@
     "dateTimeAriaLabel": "choisissez une heure de départ",
     "toLabel": "Voir quel jour et quelle heure il était à",
     "toAriaLabel": "Rechercher une ville de destination",
-    "output": "À <cityWrapper>{city}</cityWrapper>, il est {time}"
+    "output": "À <cityWrapper>{city}</cityWrapper>, il est {time}",
+    "noResults": "Aucun résultat trouvé",
+    "startTyping": "Commencez à taper pour rechercher",
+    "dateAriaLabel": "Date",
+    "timeLabel": "Heure"
   },
   "pathfinding": {
     "metadata": {
@@ -261,7 +277,8 @@
       "wall": "Mur",
       "visited": "Visité",
       "path": "Chemin le plus court"
-    }
+    },
+    "gridLabel": "Grille de pathfinding"
   },
   "beatmaker": {
     "metadata": {

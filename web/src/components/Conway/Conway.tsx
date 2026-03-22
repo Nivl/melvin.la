@@ -91,7 +91,7 @@ export const Conway = () => {
           {t('whatIsIt')}
 
           {t.has('quoteUrl') && (
-            <a className="text-accent" href={t('quoteUrl')}>
+            <a className="text-nivl" href={t('quoteUrl')}>
               {t('quoteBy')}
             </a>
           )}

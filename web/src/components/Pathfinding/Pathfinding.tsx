@@ -1,5 +1,6 @@
 'use client';
 
+import { toast } from '@heroui/react';
 import { useTranslations } from 'next-intl';
 import {
   Dispatch,
@@ -124,7 +125,6 @@ export const Pathfinding = () => {
   const [algorithm, setAlgorithm] = useState<Algorithm>('astar');
   const [speed, setSpeed] = useState<number>(SPEED_VALUES.medium);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [noPath, setNoPath] = useState(false);
   const [placementMode, setPlacementMode] =
     useState<PlacementMode>('draw-walls');
 
@@ -167,7 +167,6 @@ export const Pathfinding = () => {
 
   const handleStartChange = useCallback(
     (coords: Coords) => {
-      setNoPath(false);
       setStart(coords);
       setGrid(prev => {
         const g = softReset(prev);
@@ -185,7 +184,6 @@ export const Pathfinding = () => {
 
   const handleEndChange = useCallback(
     (coords: Coords) => {
-      setNoPath(false);
       setEnd(coords);
       setGrid(prev => {
         const g = softReset(prev);
@@ -202,7 +200,6 @@ export const Pathfinding = () => {
   );
 
   const handleVisualize = useCallback(() => {
-    setNoPath(false);
     const cleanGrid = softReset(grid);
 
     const runners = {
@@ -230,10 +227,10 @@ export const Pathfinding = () => {
       schedule,
       hasPath => {
         setIsAnimating(false);
-        if (!hasPath) setNoPath(true);
+        if (!hasPath) toast.warning(t('noPathFound'));
       },
     );
-  }, [grid, softReset, algorithm, start, end, speed, schedule]);
+  }, [grid, softReset, algorithm, start, end, speed, schedule, t]);
 
   return (
     <>
@@ -249,11 +246,6 @@ export const Pathfinding = () => {
         </Section>
 
         <Section fullScreen={true} className="mx-0">
-          {noPath && (
-            <div className="bg-warning-100 border-warning-300 text-warning-800 dark:bg-warning-900/30 dark:border-warning-700 dark:text-warning-300 rounded-lg border px-4 py-2 text-sm font-medium">
-              {t('noPathFound')}
-            </div>
-          )}
           <div className="flex gap-6">
             {/* Sidebar */}
             <aside className="w-52 shrink-0 xl:w-60">
@@ -273,11 +265,9 @@ export const Pathfinding = () => {
                 onPlacementModeChange={setPlacementMode}
                 hasPath={hasPath}
                 onReset={() => {
-                  setNoPath(false);
                   setGrid(prev => softReset(prev));
                 }}
                 onClearAll={() => {
-                  setNoPath(false);
                   startUnderRef.current = 'empty';
                   endUnderRef.current = 'empty';
                   setGrid(makeEmptyGrid(rows, cols, start, end));

@@ -1,5 +1,6 @@
 'use client';
 
+import { CloseButton } from '@heroui/react';
 import { X as DeleteIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { forwardRef, Ref, useEffect, useState } from 'react';
@@ -59,26 +60,26 @@ export const LargePill = forwardRef(
           transition={{ duration: reducedMotion ? 0 : 0.3, ease: 'easeOut' }}
         >
           <div
-            className={`${item.color} mt-4 flex justify-center gap-3 rounded-full p-7 text-black sm:p-4`}
+            className={`${item.color} mt-4 flex items-center justify-center gap-3 rounded-full p-7 text-black sm:p-4`}
           >
-            <div>{item.content}</div>
+            <div className="ml-auto">{item.content}</div>
 
-            <button
+            <CloseButton
               aria-label="Remove"
-              className="cursor-pointer"
+              className="ml-auto"
               onMouseEnter={() => {
                 if (!reducedMotion) {
                   setIsBooped(true);
                 }
               }}
-              onClick={() => {
+              onPress={() => {
                 onDelete();
               }}
             >
               <DeleteIcon
                 className={`cls-boop-animation ${isBooped ? 'rotate-15' : 'rotate-0'} h-full`}
               />
-            </button>
+            </CloseButton>
           </div>
         </motion.div>
       </motion.div>

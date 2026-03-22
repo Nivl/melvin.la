@@ -1,7 +1,5 @@
 'use client';
-import { Button } from '@heroui/button';
-import { Card, CardBody } from '@heroui/card';
-import { addToast } from '@heroui/toast';
+import { Button, Card, Separator, toast } from '@heroui/react';
 import { captureException } from '@sentry/nextjs';
 import { useTranslations } from 'next-intl';
 import {
@@ -194,10 +192,7 @@ export function Beatmaker() {
     const engine = createEngine({
       onError: error => {
         captureException(error);
-        addToast({
-          description: t('error.audioEngine'),
-          color: 'danger',
-        });
+        toast.danger(t('error.audioEngine'));
       },
       onStep: setActiveStep,
       onStateChange: setAudioState,
@@ -226,21 +221,15 @@ export function Beatmaker() {
   // Monitor audio context state
   useEffect(() => {
     if (state.isPlaying && audioState === 'suspended') {
-      addToast({
-        description: t('error.audioSuspended'),
-        color: 'warning',
+      toast.warning(t('error.audioSuspended'), {
         timeout: 0,
-        endContent: (
-          <Button
-            size="sm"
-            variant="light"
-            onPress={() => {
-              void engineRef.current?.init();
-            }}
-          >
-            {t('actions.resume')}
-          </Button>
-        ),
+        actionProps: {
+          children: t('actions.resume'),
+          onPress: () => {
+            void engineRef.current?.init();
+          },
+          variant: 'tertiary',
+        },
       });
     }
   }, [state.isPlaying, audioState, t]);
@@ -275,9 +264,7 @@ export function Beatmaker() {
     if (!initialView.hasCustomSamples || customBannerShownRef.current) return;
 
     customBannerShownRef.current = true;
-    addToast({
-      description: t('share.customSampleNotice', { kit: tKits(state.kit) }),
-      color: 'warning',
+    toast.warning(t('share.customSampleNotice', { kit: tKits(state.kit) }), {
       timeout: 0,
     });
   }, [initialView.hasCustomSamples, state.kit, t, tKits]);
@@ -491,14 +478,14 @@ export function Beatmaker() {
         <div className="m-auto max-w-225 lg:max-w-225 xl:max-w-225 2xl:max-w-225">
           <div className="flex flex-col items-center gap-8">
             {showIOSWarning && (
-              <div className="bg-warning-100 border-warning-300 text-warning-800 dark:bg-warning-900/30 dark:border-warning-700 dark:text-warning-300 flex w-full items-start justify-between gap-4 rounded-lg border px-4 py-3 text-sm">
+              <div className="bg-warning border-warning text-warning-foreground dark:bg-warning/30 dark:border-warning dark:text-warning flex w-full items-center justify-between gap-4 rounded-lg border px-4 py-3 text-sm">
                 <div>
                   <p className="font-semibold">{t('iosWarning.title')}</p>
                   <p>{t('iosWarning.message')}</p>
                 </div>
                 <Button
                   size="sm"
-                  variant="light"
+                  variant="tertiary"
                   onPress={() => {
                     setDismissedIOSWarning(true);
                   }}
@@ -510,7 +497,7 @@ export function Beatmaker() {
 
             {/* Card 1: Transport + Share */}
             <Card className="w-full">
-              <CardBody className="p-6">
+              <Card.Content>
                 <Transport
                   isPlaying={state.isPlaying}
                   bpm={state.bpm}
@@ -525,26 +512,30 @@ export function Beatmaker() {
                     void handleCopy();
                   }}
                 />
-              </CardBody>
+              </Card.Content>
             </Card>
 
             {/* Card 2: Options (Kit + Presets) */}
             <Card className="w-full">
-              <CardBody className="flex flex-col gap-3 p-6">
+              <Card.Content className="flex flex-col gap-3">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <KitSelector
                     activeKit={state.kit}
                     onKitChange={handleKitChange}
                   />
-                  <div className="bg-default-200 h-5 w-px" />
+                  <Separator
+                    className="my-auto h-5"
+                    orientation="vertical"
+                    variant="tertiary"
+                  />
                   <PatternPresets onPresetSelect={handlePresetSelect} />
                 </div>
-              </CardBody>
+              </Card.Content>
             </Card>
 
             {/* Card 3: Sequencer */}
             <Card className="w-full">
-              <CardBody className="p-6">
+              <Card.Content className="py-2">
                 <SequencerGrid
                   tracks={state.tracks}
                   onStepToggle={handleStepToggle}
@@ -554,20 +545,20 @@ export function Beatmaker() {
                   decodeErrors={decodeErrors}
                   activeStep={activeStep}
                 />
-              </CardBody>
+              </Card.Content>
             </Card>
 
             {/* Card 4: Mixer */}
             <Card className="w-full">
-              <CardBody className="p-6">
-                <p className="text-default-400 mb-3 text-xs tracking-widest uppercase">
+              <Card.Content className="p-2">
+                <p className="mb-3 text-xs tracking-widest uppercase">
                   {t('mixer.title')}
                 </p>
                 <div className="grid grid-cols-6 gap-2.5">
                   {TRACK_IDS.map(trackId => (
                     <div
                       key={trackId}
-                      className="border-default-200 flex flex-col items-center rounded-xl border p-3"
+                      className="border-default flex flex-col items-center rounded-xl border p-3"
                     >
                       <MixerStrip
                         trackId={trackId}
@@ -587,7 +578,7 @@ export function Beatmaker() {
                     </div>
                   ))}
                 </div>
-              </CardBody>
+              </Card.Content>
             </Card>
           </div>
         </div>

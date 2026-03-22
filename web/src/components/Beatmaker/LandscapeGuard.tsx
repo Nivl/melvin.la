@@ -46,7 +46,7 @@ export function LandscapeGuard({
         <div className="bg-background/95 fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 backdrop-blur-sm">
           <MdScreenRotation className="text-primary cls-to-landscape-rotation text-7xl" />
           <p className="text-foreground text-xl font-semibold">{t('title')}</p>
-          <p className="text-default-500 text-sm">{t('message')}</p>
+          <p className="text-sm">{t('message')}</p>
         </div>
       )}
     </>

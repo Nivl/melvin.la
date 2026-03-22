@@ -15,7 +15,7 @@ export const About = () => {
           <div className="flex items-center justify-end text-base font-bold uppercase">
             <a
               href="https://github.com/Nivl"
-              className="text-accent visited:text-accent border-none"
+              className="text-nivl visited:text-nivl border-none"
             >
               {t('cta')}
             </a>

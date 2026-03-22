@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@heroui/button';
+import { Button } from '@heroui/react';
 import { useTranslations } from 'next-intl';
 
 import { type Kit, KITS } from '#models/beatmaker';
@@ -17,8 +17,7 @@ export function KitSelector({ activeKit, onKitChange }: KitSelectorProps) {
         <Button
           key={id}
           size="sm"
-          variant="bordered"
-          color={activeKit === id ? 'primary' : 'default'}
+          variant={activeKit === id ? 'primary' : 'outline'}
           onPress={() => {
             onKitChange(id);
           }}

@@ -28,11 +28,11 @@ test('renders volume slider', () => {
   expect(getByRole('slider', { name: 'Volume' })).toBeDefined();
 });
 
-test('renders pan slider', () => {
+test('renders pan number field', () => {
   const { getByRole } = render(<MixerStrip {...defaultProps} />, {
     wrapper,
   });
-  expect(getByRole('slider', { name: 'Pan' })).toBeDefined();
+  expect(getByRole('textbox', { name: 'Pan' })).toBeDefined();
 });
 
 test('renders mute button', () => {

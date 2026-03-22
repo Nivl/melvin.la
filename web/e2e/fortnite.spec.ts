@@ -21,7 +21,7 @@ test.describe('Fortnite Tool', () => {
     await page.goto('/tools/fortnite');
 
     // Click on the first preset (Nikof)
-    await page.getByRole('img', { name: 'Nikof' }).click();
+    await page.getByRole('button', { name: 'Nikof' }).click();
 
     // Wait for URL to change
     await expect(page).toHaveURL(/\/tools\/fortnite\/M8%20N%C3%AEkof\//);
@@ -42,7 +42,7 @@ test.describe('Fortnite Tool', () => {
     await input.fill('200');
 
     // Wait for debounce and URL update
-    await page.waitForURL(/.*200.*/);
+    await page.waitForURL(/.*200.*/, { waitUntil: 'commit' });
 
     // Wait for content to load - this is the main indicator that data was fetched successfully
     await expect(

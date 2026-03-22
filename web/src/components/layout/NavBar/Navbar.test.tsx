@@ -120,11 +120,10 @@ describe('Navbar', () => {
     expect(toolsButton.className).not.toContain('font-semibold');
   });
 
-  it('dropdown buttons use !h-auto !min-h-0 to fix button height', () => {
+  it('dropdown buttons use h-8 to fix button height', () => {
     setup();
     const gamesButton = screen.getByRole('button', { name: /Games/i });
-    expect(gamesButton.className).toContain('!h-auto');
-    expect(gamesButton.className).toContain('!min-h-0');
+    expect(gamesButton.className).toContain('h-8');
   });
 
   it('home link points to /', () => {

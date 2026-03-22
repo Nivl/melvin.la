@@ -1,13 +1,6 @@
 'use client';
 
-import { Button } from '@heroui/button';
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from '@heroui/modal';
+import { Button, Modal, useOverlayState } from '@heroui/react';
 import { Mail } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
@@ -20,7 +13,7 @@ import { Heading } from '../layout/Heading';
 import { Map } from './Map';
 
 export const Contact = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const overlayState = useOverlayState({ defaultOpen: false });
   const [modalContent, setModalContent] = useState('');
   const [modalTitle, setModalTitle] = useState('');
 
@@ -41,9 +34,9 @@ export const Contact = () => {
       label: 'in/melvinlaplanche',
       onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        setIsModalOpen(true);
         setModalTitle(':(');
         setModalContent(t('linkedinModalContent'));
+        overlayState.open();
       },
       className:
         'hover:text-red-400 motion-safe:transition-colors duration-300 font-sans-latin',
@@ -76,29 +69,29 @@ export const Contact = () => {
           ))}
         </div>
 
-        <Modal
-          isDismissable={true}
-          isKeyboardDismissDisabled={true}
-          isOpen={isModalOpen}
-          onOpenChange={setIsModalOpen}
-        >
-          <ModalContent>
-            {onClose => (
-              <>
-                <ModalHeader className="flex flex-col gap-1">
+        <Modal state={overlayState}>
+          <Modal.Backdrop isDismissable isKeyboardDismissDisabled>
+            <Modal.Container>
+              <Modal.Dialog>
+                <Modal.Header className="flex flex-col gap-1">
                   {modalTitle}
-                </ModalHeader>
-                <ModalBody>
+                </Modal.Header>
+                <Modal.Body>
                   <p>{modalContent}</p>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="primary" onPress={onClose}>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    variant="primary"
+                    onPress={() => {
+                      overlayState.close();
+                    }}
+                  >
                     {t('linkedinModalClose')}
                   </Button>
-                </ModalFooter>
-              </>
-            )}
-          </ModalContent>
+                </Modal.Footer>
+              </Modal.Dialog>
+            </Modal.Container>
+          </Modal.Backdrop>
         </Modal>
       </div>
       <Map

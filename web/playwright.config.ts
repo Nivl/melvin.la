@@ -27,9 +27,23 @@ export default defineConfig({
   reporter: 'html',
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'pnpm run dev',
+    // In CI, run a production build to avoid JIT compilation delays that
+    // cause React hydration to complete after Playwright starts interacting.
+    command: process.env.CI
+      ? 'pnpm run build && pnpm run start'
+      : 'pnpm run dev',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
+    // Allow enough time for `next build` to complete in CI
+    timeout: process.env.CI ? 5 * 60 * 1000 : 60 * 1000,
+    // .env.development sets NEXT_PUBLIC_API_URL but next build reads
+    // .env.production (not .env.development), so the var would be missing
+    // and the app would make relative requests instead of http://localhost.
+    // MSW handlers also default to http://localhost, so the URLs must match.
+    env: {
+      NEXT_PUBLIC_API_URL:
+        process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost',
+    },
   },
   // Default test options
   use: {

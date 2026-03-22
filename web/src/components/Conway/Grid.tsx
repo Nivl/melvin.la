@@ -23,9 +23,13 @@ const Cell = memo(
   ({ alive, isHovered }: CellProps) => (
     <div
       className={[
-        alive ? 'bg-primary-500' : 'bg-default-100 dark:bg-default-50',
-        'border-default-200/30 border transition-colors duration-75',
-        isHovered && !alive && 'bg-default-200 dark:bg-default-200',
+        alive
+          ? 'bg-accent'
+          : 'bg-default-foreground/5 dark:bg-default-foreground/10',
+        'border-default-foreground/5 border transition-colors duration-75',
+        isHovered &&
+          !alive &&
+          'bg-default-foreground/15 dark:bg-default-foreground/20',
       ]
         .filter(Boolean)
         .join(' ')}
@@ -151,7 +155,7 @@ export const ConwayGrid = ({
       ref={containerRef}
       role="region"
       aria-label={ariaLabel}
-      className="border-default-200 touch-none overflow-hidden rounded-lg border select-none"
+      className="border-default touch-none overflow-hidden rounded-lg border select-none"
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${boardSize.toString()}, 1fr)`,

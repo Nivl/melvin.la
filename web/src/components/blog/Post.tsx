@@ -1,5 +1,4 @@
-import { Code } from '@heroui/code';
-import { Link } from '@heroui/link';
+import { Link } from '@heroui/react';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { isValidElement } from 'react';
@@ -62,7 +61,7 @@ export function Post({ post }: { post: BlogPost }) {
               <strong className="font-bold">{children}</strong>
             ),
             blockquote: ({ children }) => (
-              <blockquote className="border-accent border-l-4 pl-4 italic">
+              <blockquote className="border-nivl border-l-4 pl-4 italic">
                 {children}
               </blockquote>
             ),
@@ -77,24 +76,30 @@ export function Post({ post }: { post: BlogPost }) {
                 return <>{children}</>;
               }
               const isExternalLink = href.startsWith('http');
+              if (isExternalLink) {
+                return (
+                  <Link
+                    className="text-nivl underline"
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {children}
+                    <Link.Icon />
+                  </Link>
+                );
+              }
               return (
-                <Link
-                  className="text-accent"
-                  href={href}
-                  as={isExternalLink ? undefined : NextLink}
-                  underline="always"
-                  isExternal={isExternalLink}
-                  showAnchorIcon={isExternalLink}
-                >
+                <NextLink className="text-nivl link underline" href={href}>
                   {children}
-                </Link>
+                </NextLink>
               );
             },
             em: ({ children }) => <em className="font-italic">{children}</em>,
             code: ({ children }) => (
-              <Code color="default" className="font-monospace">
+              <code className="bg-default/70 text-default-foreground font-monospace inline-block h-fit rounded-lg px-2 py-1 text-sm font-normal whitespace-nowrap">
                 {children}
-              </Code>
+              </code>
             ),
             Image,
             pre: ({ children }: { children?: React.ReactNode }) => {

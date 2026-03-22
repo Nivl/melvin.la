@@ -1,6 +1,13 @@
 'use client';
 
-import { NumberInput } from '@heroui/number-input';
+import {
+  Description,
+  FieldError,
+  Form,
+  Input,
+  Label,
+  TextField,
+} from '@heroui/react';
 import { AnimatePresence } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -31,12 +38,65 @@ const getColor = (skip?: Color): Color => {
   return availableColors[Math.floor(Math.random() * availableColors.length)];
 };
 
+const toDate = (value: string): Date | undefined => {
+  if (!value) {
+    return undefined;
+  }
+
+  // Compute digit length from the original string (before Number() potentially
+  // stringifies large values in scientific notation like "1e+21"), stripping a
+  // leading minus so negative timestamps are measured correctly.
+  const digits = value.startsWith('-') ? value.slice(1) : value;
+  const len = digits.length;
+
+  let numValue = Number(value);
+  if (Number.isNaN(numValue)) {
+    return undefined;
+  }
+  if (len <= 10) {
+    numValue = numValue * 1000; // Convert seconds to milliseconds
+  } else if (len > 13) {
+    numValue = numValue / Math.pow(10, len - 13); // Convert anything else to milliseconds
+  }
+  const date = new Date(numValue);
+  return Number.isNaN(date.getTime()) ? undefined : date;
+};
+
 export const Timestamp = () => {
   const t = useTranslations('timestamp');
 
   const [timestamps, setTimestamps] = useState<Data[]>([]);
-  const [hasError, setHasError] = useState(false);
-  const [value, setValue] = useState(Number.NaN);
+  const [value, setValue] = useState('');
+
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const date = toDate(value);
+    // Should not happen, but cost nothing to check.
+    // setHasError(invalid);
+    if (!date) {
+      return;
+    }
+    setTimestamps([
+      ...timestamps,
+      {
+        date,
+        id: crypto.randomUUID(),
+        color: getColor(timestamps.at(-1)?.color),
+        content: (
+          <>
+            {t.rich('output', {
+              timestamp: Math.floor(date.getTime() / 1000),
+              utcDate: formatDate(date),
+              date: chunks => <span className="font-bold">{chunks}</span>,
+            })}
+          </>
+        ),
+      },
+    ]);
+    setValue('');
+  };
 
   return (
     <>
@@ -48,59 +108,31 @@ export const Timestamp = () => {
 
       <Section>
         <div className="flex flex-col items-center justify-center gap-4">
-          <NumberInput
-            hideStepper
-            isWheelDisabled
-            isClearable
-            label={t('inputLabel')}
-            size="lg"
-            className="chromatic-ignore max-w-[400px]"
-            errorMessage={t('inputError')}
-            isInvalid={hasError}
-            description={t('inputDescription')}
-            value={value}
-            // We don't go above 20 digits because what's the point?
-            // Also when you reach 21 digits, you start having the ability to
-            // input incorrect timestamps
-            maxLength={20}
-            onValueChange={value => {
-              // NaN is used when the input is empty
-              if (!Number.isNaN(value)) {
-                const len = value.toString().length;
-                if (len <= 10) {
-                  value = value * 1000; // Convert seconds to milliseconds
-                } else if (len > 13) {
-                  value = value / Math.pow(10, len - 13); // Convert anything else to milliseconds
-                }
-                const date = new Date(value);
-                const invalid = Number.isNaN(date.getTime());
-                setHasError(invalid);
-                if (invalid) {
-                  return;
-                }
-                setTimestamps([
-                  ...timestamps,
-                  {
-                    date,
-                    id: crypto.randomUUID(),
-                    color: getColor(timestamps.at(-1)?.color),
-                    content: (
-                      <>
-                        {t.rich('output', {
-                          timestamp: Math.floor(date.getTime() / 1000),
-                          utcDate: formatDate(date),
-                          date: chunks => (
-                            <span className="font-bold">{chunks}</span>
-                          ),
-                        })}
-                      </>
-                    ),
-                  },
-                ]);
-                setValue(Number.NaN);
-              }
-            }}
-          />
+          <Form className="w-full max-w-[400px]" onSubmit={onSubmit}>
+            <TextField
+              isRequired
+              value={value}
+              type="number"
+              onChange={v => {
+                setValue(v);
+              }}
+              // We don't go above 20 digits because what's the point?
+              // Also when you reach 21 digits, you start having the ability to
+              // input incorrect timestamps
+              validate={value => {
+                const isValidInput =
+                  /^-?[0-9]{1,20}$/i.test(value) && toDate(value) !== undefined;
+                return isValidInput ? undefined : t('inputError');
+              }}
+            >
+              <Label>{t('inputLabel')}</Label>
+              <Input />
+              <Description>{t('inputDescription')}</Description>
+              <FieldError />
+            </TextField>
+            {/* Hidden submit button so Enter key submits the form */}
+            <button type="submit" className="sr-only" tabIndex={-1} />
+          </Form>
 
           <div className="mt-20 flex flex-col">
             <AnimatePresence initial={false}>

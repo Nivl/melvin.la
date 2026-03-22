@@ -29,7 +29,8 @@
     "pathfinding": "Visualizador de rutas",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
-    "beatmaker": "Beatmaker"
+    "beatmaker": "Beatmaker",
+    "menu": "Menú"
   },
   "home": {
     "metadata": {
@@ -61,7 +62,8 @@
       "form": {
         "nameFilter": "Filtrar por nombre",
         "yearFilter": "Años activos",
-        "yearFilterCount": "{count, plural, one {Último año} other {Últimos # años}}"
+        "yearFilterCount": "{count, plural, one {Último año} other {Últimos # años}}",
+        "clearInput": "borrar entrada"
       }
     },
     "contact": {
@@ -142,7 +144,8 @@
       "platformEpic": "Epic Games",
       "platformXbox": "Xbox",
       "platformPlaystation": "PlayStation",
-      "currentSeasonOnly": "Solo temporada actual"
+      "currentSeasonOnly": "Solo temporada actual",
+      "clearInput": "borrar entrada"
     },
     "data": {
       "statsTable": "Tabla con todas las estadísticas",
@@ -166,7 +169,17 @@
       "squad": "Trío / Escuadrón",
       "overall": "Global",
       "stat": "Estadística",
-      "value": "Valor"
+      "value": "Valor",
+      "mobileTitles": {
+        "overall": "Global (todos los modos)",
+        "solo": "Solo (solo Battle Royale)",
+        "duo": "Dúos (solo Battle Royale)",
+        "squad": "Escuadrones (solo Battle Royale)"
+      },
+      "soloTooltipInfo": "Solo Battle Royale",
+      "duoTooltipInfo": "Solo Battle Royale",
+      "squadTooltipInfo": "Solo Battle Royale",
+      "overallTooltipInfo": "Todos los modos combinados"
     }
   },
   "stringLength": {
@@ -175,7 +188,6 @@
       "description": "Cuente caracteres y bytes en su texto con nuestra herramienta gratuita de longitud de cadena en línea. Soporta caracteres Unicode correctamente."
     },
     "title": "Longitud de cadena",
-    "inputLabel": "Introduce tu texto",
     "inputPlaceholder": "Escribe o pega tu texto aquí...",
     "characterCount": "Caracteres",
     "word-count": "Palabras",
@@ -223,7 +235,11 @@
     "dateTimeAriaLabel": "elige una hora de salida",
     "toLabel": "Ver qué día y hora era en",
     "toAriaLabel": "Buscar una ciudad de destino",
-    "output": "En <cityWrapper>{city}</cityWrapper>, son las {time}"
+    "output": "En <cityWrapper>{city}</cityWrapper>, son las {time}",
+    "noResults": "No se encontraron resultados",
+    "startTyping": "Empiece a escribir para buscar",
+    "dateAriaLabel": "Fecha",
+    "timeLabel": "Hora"
   },
   "pathfinding": {
     "metadata": {
@@ -261,12 +277,13 @@
       "wall": "Muro",
       "visited": "Visitado",
       "path": "Ruta más corta"
-    }
+    },
+    "gridLabel": "Cuadrícula de Pathfinding"
   },
   "beatmaker": {
     "metadata": {
       "title": "Beatmaker",
-      "description": "Un beatmaker en el navegador. Programa ritmos, ajusta el BPM y comparte tus patterns."
+      "description": "Un beatmaker en tu navegador. Haz beats, ajusta el BPM y comparte tus patterns."
     },
     "transport": {
       "play": "Play",
@@ -282,28 +299,28 @@
     },
     "share": {
       "copyUrl": "Share",
-      "copied": "Copiado!",
-      "customSampleNotice": "Este pattern usa samples custom — reproduciendo con {kit} en su lugar.",
+      "copied": "¡Copiado!",
+      "customSampleNotice": "Este pattern usa samples custom — reproduciendo con kit {kit}.",
       "dismissNotice": "Dismiss"
     },
     "presets": {
       "label": "Presets",
       "basic-rock": "Basic Rock",
-      "four-on-floor": "Four-on-the-Floor",
+      "four-on-floor": "Four-on-the-floor",
       "boom-bap": "Boom-bap",
       "trap": "Trap",
       "blank": "Blank"
     },
     "track": {
-      "dropFile": "Drop un sample",
+      "dropFile": "Dropea un sample",
       "customFile": "Sample custom cargado",
       "customBadge": "custom",
-      "decodeError": "No se pudo decodificar el archivo de audio."
+      "decodeError": "No se pudo cargar el audio."
     },
     "a11y": {
-      "stepButton": "{track} paso {step} {state}",
-      "stepOn": "activado",
-      "stepOff": "desactivado"
+      "stepButton": "{track} step {step} {state}",
+      "stepOn": "on",
+      "stepOff": "off"
     },
     "kits": {
       "808": "808",
@@ -320,18 +337,18 @@
     },
     "rotate": {
       "title": "Gira tu dispositivo",
-      "message": "Beatmaker funciona mejor en modo horizontal."
+      "message": "Beatmaker está diseñado para usarse en modo landscape."
     },
     "error": {
-      "audioEngine": "El motor de audio no pudo inicializarse.",
-      "audioSuspended": "El audio está desactivado por el sistema."
+      "audioEngine": "El motor de audio no pudo arrancar.",
+      "audioSuspended": "El audio está pausado por el sistema."
     },
     "actions": {
-      "resume": "Tocar para activar"
+      "resume": "Toca para activar audio"
     },
     "iosWarning": {
       "title": "¿Sin sonido?",
-      "message": "iOS usa el volumen del timbre en lugar del multimedia. Asegúrate de que el modo silencio esté desactivado."
+      "message": "En iOS, asegúrate de que el modo silencio (switch lateral) esté desactivado."
     }
   }
 }

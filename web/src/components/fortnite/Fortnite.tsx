@@ -1,6 +1,6 @@
 'use client';
 
-import { Skeleton } from '@heroui/skeleton';
+import { Skeleton } from '@heroui/react';
 import { notFound } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
@@ -122,7 +122,7 @@ export const Fortnite = ({
             <div className="animate-[levitate_3s_ease-in-out_infinite]">
               {isLoading || !data ? (
                 <>
-                  <Skeleton className="mx-auto mb-5 h-8 w-72 rounded-full sm:mb-7 sm:h-10 sm:w-96" />
+                  <Skeleton className="mx-auto mb-2 h-8 w-72 rounded-full sm:h-10 sm:w-96" />
                   <Skeleton className="mx-auto h-8 w-72 rounded-full sm:h-10 sm:w-1/2" />
                 </>
               ) : (
