@@ -1,10 +1,16 @@
 'use client';
 
-import { Input } from '@heroui/input';
-import { Switch } from '@heroui/switch';
+import {
+  CloseButton,
+  Form as UiForm,
+  Input,
+  Label,
+  Switch,
+  TextField,
+} from '@heroui/react';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { FaPlaystation, FaXbox } from 'react-icons/fa';
 import { SiEpicgames } from 'react-icons/si';
 import { useDebouncedCallback } from 'use-debounce';
@@ -44,6 +50,7 @@ export const Form = ({
   const [timeWindow, setTimeWindow] = useState(defaultTimeWindow);
 
   const t = useTranslations('fortnite.form');
+  const nameFieldId = useId();
 
   useEffect(() => {
     onAccountNameChange(name);
@@ -54,27 +61,42 @@ export const Form = ({
   }, [accountType, onAccountTypeChange]);
 
   return (
-    <form
+    <UiForm
       className="flex basis-full flex-col items-center gap-3"
       onSubmit={e => {
         e.preventDefault();
       }}
     >
-      <Input
-        key={name}
-        className="w-auto"
-        type="text"
-        label={t('accountName')}
-        labelPlacement="outside-left"
-        placeholder={t('accountName')}
-        variant="bordered"
-        defaultValue={name}
-        onChange={e => debounceName(e.target.value)}
-        onClear={() => {
-          setName('');
-        }}
-        isClearable
-      />
+      <div className="relative">
+        <TextField
+          key={name}
+          defaultValue={name}
+          className="flex w-auto flex-row items-center gap-5"
+        >
+          <Label htmlFor={nameFieldId}>{t('accountName')}</Label>
+          <Input
+            id={nameFieldId}
+            placeholder={t('accountName')}
+            onChange={e => debounceName(e.target.value)}
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck="false"
+            data-1p-ignore
+            data-lpignore
+            data-protonpass-ignore
+            data-bwignore
+          />
+        </TextField>
+        {name && (
+          <CloseButton
+            aria-label={t('clearInput')}
+            className="absolute inset-y-2 right-2 flex items-center"
+            onPress={() => {
+              setName('');
+            }}
+          />
+        )}
+      </div>
 
       <div className="flex flex-row items-center justify-center">
         <label className="text-sm leading-6 font-medium" htmlFor="account-name">
@@ -93,7 +115,7 @@ export const Form = ({
         >
           <ToggleGroup.Item
             value={AccountTypes.Epic}
-            className="hover:text-foreground px-2 transition-colors"
+            className="hover:text-foreground px-2 transition-colors duration-300"
             aria-label={t('platformEpic')}
           >
             <SiEpicgames
@@ -104,7 +126,7 @@ export const Form = ({
           </ToggleGroup.Item>
           <ToggleGroup.Item
             value={AccountTypes.PSN}
-            className="hover:text-brands-playstation px-2 transition-colors"
+            className="hover:text-brands-playstation px-2 transition-colors duration-300"
             aria-label={t('platformPlaystation')}
           >
             <FaPlaystation
@@ -117,7 +139,7 @@ export const Form = ({
           </ToggleGroup.Item>
           <ToggleGroup.Item
             value={AccountTypes.Xbox}
-            className="hover:text-brands-xbox px-2 transition-colors"
+            className="hover:text-brands-xbox px-2 transition-colors duration-300"
             aria-label={t('platformXbox')}
           >
             <FaXbox
@@ -131,20 +153,19 @@ export const Form = ({
 
       <Switch
         isSelected={timeWindow === TimeWindow.Season}
-        color="secondary"
-        onValueChange={(e: boolean) => {
+        onChange={(e: boolean) => {
           const v = e ? TimeWindow.Season : TimeWindow.Lifetime;
           setTimeWindow(v);
           onTimeWindowChange(v);
         }}
-        classNames={{
-          base: 'flex-row-reverse',
-        }}
       >
-        <span className="text-foreground pr-2 text-sm">
-          {t('currentSeasonOnly')}
-        </span>
+        <Switch.Content>
+          <Label className="text-sm">{t('currentSeasonOnly')}</Label>
+        </Switch.Content>
+        <Switch.Control>
+          <Switch.Thumb />
+        </Switch.Control>
       </Switch>
-    </form>
+    </UiForm>
   );
 };

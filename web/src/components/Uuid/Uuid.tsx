@@ -1,10 +1,16 @@
 'use client';
 
-import { Button } from '@heroui/button';
-import { Form } from '@heroui/form';
-import { Input } from '@heroui/input';
-import { NumberInput } from '@heroui/number-input';
-import { Select, SelectItem } from '@heroui/select';
+import {
+  Button,
+  FieldError,
+  Form,
+  Input,
+  Label,
+  ListBox,
+  NumberField,
+  Select,
+  TextField,
+} from '@heroui/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import {
@@ -118,8 +124,6 @@ export const Uuid = () => {
   const needsExtraFields = ['v3', 'v5'].includes(version);
   const uniqueUUID = ['null', 'v3', 'v5'].includes(version);
 
-  // React.FormEvent is deprecated but still used by HeroUi v2
-  // if upgrading to V3, check if this can be replaced
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -147,90 +151,134 @@ export const Uuid = () => {
       </Section>
 
       <Section>
-        <Form className="items-center gap-4" onSubmit={onSubmit}>
+        <Form className="flex flex-col items-center gap-4" onSubmit={onSubmit}>
           <Select
             isRequired
-            className="max-w-[400px]"
-            size="lg"
-            label={t('versionLabel')}
             placeholder={t('versionPlaceholder')}
-            items={availableUuidTypes}
-            selectedKeys={new Set([version])}
-            onSelectionChange={key => {
-              if (!key.currentKey) {
+            className="w-full max-w-[400px]"
+            value={version}
+            onChange={value => {
+              if (!value) {
                 return;
               }
-              setVersion(key.currentKey);
-              if (['null', 'v3', 'v5'].includes(key.currentKey)) {
+
+              const key = value.toString();
+              setVersion(key);
+              if (['null', 'v3', 'v5'].includes(key)) {
                 setCount(1);
               }
             }}
           >
-            {uuid => <SelectItem>{uuid.label}</SelectItem>}
+            <Label>{t('versionLabel')}</Label>
+            <Select.Trigger>
+              <Select.Value />
+              <Select.Indicator />
+            </Select.Trigger>
+            <Select.Popover>
+              <ListBox>
+                {availableUuidTypes.map(uuid => (
+                  <ListBox.Item
+                    key={uuid.key}
+                    id={uuid.key}
+                    textValue={uuid.label}
+                  >
+                    {uuid.label}
+                    <ListBox.ItemIndicator />
+                  </ListBox.Item>
+                ))}
+              </ListBox>
+            </Select.Popover>
           </Select>
 
           {needsExtraFields && (
             <>
-              <Input
+              <TextField
                 isRequired={needsExtraFields}
-                className="max-w-[400px]"
-                size="lg"
-                label={t('nameLabel')}
-                placeholder={t('namePlaceholder')}
+                className="w-full max-w-[400px]"
                 type="text"
                 value={name}
-                onValueChange={setName}
-              />
+                onChange={setName}
+              >
+                <Label>{t('nameLabel')}</Label>
+                <Input placeholder={t('namePlaceholder')} />
+              </TextField>
 
               <Select
                 isRequired={needsExtraFields}
-                className="max-w-[400px]"
-                size="lg"
-                label={t('namespaceLabel')}
                 placeholder={t('namespacePlaceholder')}
-                items={availableNamespaces}
-                selectedKeys={new Set([namespace])}
-                onSelectionChange={key => {
-                  if (!key.currentKey) {
+                className="w-full max-w-[400px]"
+                value={namespace}
+                onChange={value => {
+                  if (!value) {
                     return;
                   }
-                  setNamespace(key.currentKey);
+                  setNamespace(value.toString());
                 }}
               >
-                {namespace => <SelectItem>{namespace.label}</SelectItem>}
+                <Label>{t('namespaceLabel')}</Label>
+                <Select.Trigger>
+                  <Select.Value />
+                  <Select.Indicator />
+                </Select.Trigger>
+                <Select.Popover>
+                  <ListBox>
+                    {availableNamespaces.map(ns => (
+                      <ListBox.Item
+                        key={ns.key}
+                        id={ns.key}
+                        textValue={ns.label}
+                      >
+                        {ns.label}
+                        <ListBox.ItemIndicator />
+                      </ListBox.Item>
+                    ))}
+                  </ListBox>
+                </Select.Popover>
               </Select>
 
               {namespace === 'custom' && (
-                <Input
+                <TextField
+                  validate={value => {
+                    const isValidCustomNamespace =
+                      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+                        value,
+                      );
+                    return isValidCustomNamespace
+                      ? undefined
+                      : t('customNamespaceError');
+                  }}
                   isRequired={needsExtraFields && namespace === 'custom'}
-                  className="max-w-[400px]"
-                  size="lg"
-                  label={t('customNamespaceLabel')}
-                  placeholder={t('customNamespacePlaceholder')}
-                  pattern="^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-                  errorMessage={t('customNamespaceError')}
+                  className="w-full max-w-[400px]"
                   type="text"
                   value={customNamespace}
-                  onValueChange={setCustomNamespace}
-                />
+                  onChange={setCustomNamespace}
+                >
+                  <Label>{t('customNamespaceLabel')}</Label>
+                  <Input placeholder={t('customNamespacePlaceholder')} />
+                  <FieldError />
+                </TextField>
               )}
             </>
           )}
-
           {!uniqueUUID && (
-            <NumberInput
+            <NumberField
               isRequired
-              className="max-w-[400px]"
-              size="lg"
-              label={t('countLabel')}
+              className="w-full max-w-[400px]"
               maxValue={100}
               minValue={1}
               value={count}
-              onValueChange={setCount}
-            />
+              onChange={setCount}
+            >
+              <Label>{t('countLabel')}</Label>
+              <NumberField.Group>
+                <NumberField.DecrementButton />
+                <NumberField.Input />
+                <NumberField.IncrementButton />
+              </NumberField.Group>
+            </NumberField>
           )}
 
-          <Button type="submit" variant="bordered">
+          <Button type="submit" variant="outline">
             {t('actionGenerate')}
           </Button>
         </Form>

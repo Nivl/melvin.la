@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader } from '@heroui/card';
+import { Card } from '@heroui/react';
 import Image from 'next/image';
 
 import { Link } from '#i18n/routing';
@@ -6,27 +6,23 @@ import { BlogPost } from '#models/blog/post';
 
 export function PostDetails({ post }: { post: BlogPost }) {
   return (
-    <Link href={`/blog/${post.slug}`}>
-      <Card className="relative flex h-full w-full flex-none flex-col">
-        <CardHeader className="bg-background relative p-0 shadow-none shadow-black/5">
-          <div className="relative overflow-hidden">
-            <Image
-              src={`/assets/blog/${post.slug}/${post.image}`}
-              className="rounded-t-large transition-transform-opacity relative z-10 aspect-auto w-full transform object-cover shadow-none shadow-black/5 duration-300! hover:scale-110 data-[loaded=true]:opacity-100 motion-reduce:transition-none"
-              alt="Thumbnail of the article"
-              priority={true}
-              width={1200}
-              height={600}
-            />
-          </div>
-        </CardHeader>
+    <Link href={`/blog/${post.slug}`} className="group">
+      <Card className="h-full w-full p-0">
+        <div className="overflow-hidden">
+          <Image
+            src={`/assets/blog/${post.slug}/${post.image}`}
+            className="aspect-auto w-full object-cover transition-transform duration-300 group-hover:scale-110 motion-reduce:transition-none"
+            alt="Thumbnail of the article"
+            priority={true}
+            width={1200}
+            height={600}
+          />
+        </div>
 
-        <CardBody className="flex flex-col gap-2 px-4">
-          <h2 className="text-small text-default-700 font-medium">
-            {post.title}
-          </h2>
-          <p className="text-small text-default-500">{post.excerpt}</p>
-        </CardBody>
+        <Card.Header className="px-4 pb-4">
+          <Card.Title>{post.title}</Card.Title>
+          <Card.Description>{post.excerpt}</Card.Description>
+        </Card.Header>
       </Card>
     </Link>
   );

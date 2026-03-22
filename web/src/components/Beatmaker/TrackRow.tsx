@@ -101,8 +101,8 @@ export function TrackRow({
                     'h-9 w-9 shrink-0 rounded transition-all',
                     !active &&
                       (index === activeStep
-                        ? 'bg-default-400'
-                        : 'bg-default-100'),
+                        ? 'dark:bg-foreground/30 bg-foreground/10'
+                        : 'dark:bg-default bg-default/50 hover:bg-default hover:dark:bg-default/50'),
                   ]
                     .filter(Boolean)
                     .join(' ')}

@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@heroui/button';
+import { Button } from '@heroui/react';
 import { useTranslations } from 'next-intl';
 
 import { PRESETS } from '#models/beatmaker';
@@ -32,7 +32,7 @@ export function PatternPresets({ onPresetSelect }: PatternPresetsProps) {
         <Button
           key={id}
           size="sm"
-          variant="bordered"
+          variant="outline"
           onPress={() => {
             onPresetSelect(id);
           }}

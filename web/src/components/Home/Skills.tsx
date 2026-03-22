@@ -1,7 +1,6 @@
 'use client';
 
-import { Input } from '@heroui/input';
-import { Slider } from '@heroui/slider';
+import { CloseButton, Label, Slider } from '@heroui/react';
 import { range as esRange, shuffle } from 'es-toolkit';
 import { AnimatePresence, motion, MotionConfig } from 'motion/react';
 import { useTranslations } from 'next-intl';
@@ -591,42 +590,51 @@ export const Skills = () => {
       {/* Filters */}
       <div className="flex flex-col items-center justify-center gap-10 lg:flex-row">
         {/* Name filter */}
-        <Input
-          type="text"
-          aria-label={t('form.nameFilter')}
-          placeholder={t('form.nameFilter')}
-          variant="bordered"
-          className="md:w-64"
-          isClearable
-          value={nameFilter}
-          onValueChange={setNameFilter}
-          onClear={() => {
-            setNameFilter('');
-          }}
-        />
+        <div className="relative md:w-64">
+          <input
+            type="text"
+            aria-label={t('form.nameFilter')}
+            placeholder={t('form.nameFilter')}
+            className="input input-secondary md:h-12 md:w-64"
+            value={nameFilter}
+            onChange={event => {
+              setNameFilter(event.target.value);
+            }}
+          />
+          {nameFilter && (
+            <CloseButton
+              aria-label={t('form.clearInput')}
+              className="absolute inset-y-3 right-2 flex items-center"
+              onPress={() => {
+                setNameFilter('');
+              }}
+            />
+          )}
+        </div>
 
         {/* Year from filter */}
         <Slider
-          label={t('form.yearFilter')}
-          aria-label={t('form.yearFilter')}
-          showSteps
-          color="warning"
-          size="sm"
+          className="mb-10 w-sm md:mb-0"
           step={1}
           minValue={1}
           maxValue={currentYear - minYear + 1}
           value={yearsBack}
           onChange={value => {
-            setYearsBack(Array.isArray(value) ? value[0] : value);
+            const next = Array.isArray(value) ? value[0] : value;
+            setYearsBack(typeof next === 'number' ? next : yearsBack);
           }}
-          className="max-w-md"
-          formatOptions={{ useGrouping: false }}
-          renderValue={() => (
-            <div className="text-small">
-              {t('form.yearFilterCount', { count: yearsBack })}
-            </div>
-          )}
-        />
+        >
+          <Label>{t('form.yearFilter')}</Label>
+          <Slider.Output>
+            {({ state }) => {
+              return t('form.yearFilterCount', { count: state.values[0] });
+            }}
+          </Slider.Output>
+          <Slider.Track>
+            <Slider.Fill />
+            <Slider.Thumb />
+          </Slider.Track>
+        </Slider>
       </div>
 
       {/* Skills Grid */}
@@ -658,6 +666,7 @@ export const Skills = () => {
           </AnimatePresence>
         </div>
       </MotionConfig>
+
       {/* No results message */}
       {filteredSkills.length === 0 && (
         <p className="text-center text-neutral-500">{t('noSkillsFound')}</p>

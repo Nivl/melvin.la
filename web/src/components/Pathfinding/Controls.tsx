@@ -1,13 +1,21 @@
 'use client';
 
-import { Button, ButtonGroup } from '@heroui/button';
-import { Select, SelectItem } from '@heroui/select';
-import { Slider } from '@heroui/slider';
+import {
+  Button,
+  ButtonGroup,
+  Description,
+  Label,
+  ListBox,
+  Select,
+  Separator,
+  Slider,
+} from '@heroui/react';
 import { useTranslations } from 'next-intl';
 import { FaPlay as PlayIcon, FaStop as StopIcon } from 'react-icons/fa6';
 import { GiMaze as MazeIcon } from 'react-icons/gi';
 import { MdClear as ClearIcon } from 'react-icons/md';
 
+import { CELL_COLORS } from '#components/Pathfinding/Grid';
 import type { Algorithm, PlacementMode } from '#utils/pathfinding/types';
 
 export const SPEED_VALUES = {
@@ -75,137 +83,126 @@ export const Controls = ({
     <div className="flex min-w-48 flex-col gap-4">
       {/* Algorithm selector */}
       <Select
-        label={t('algorithmLabel')}
-        selectedKeys={new Set([algorithm])}
-        onSelectionChange={selection => {
-          if (selection === 'all') return;
-          const [val] = [...selection] as [Algorithm];
-          if (val) onAlgorithmChange(val);
-        }}
+        className="w-[256px]"
         isDisabled={isAnimating}
-        size="sm"
+        value={algorithm}
+        onChange={selection => {
+          if (selection === 'all') {
+            return;
+          }
+          if (selection) {
+            onAlgorithmChange(selection as Algorithm);
+          }
+        }}
       >
-        {algorithmOptions.map(opt => (
-          <SelectItem key={opt.key}>{opt.label}</SelectItem>
-        ))}
+        <Label>{t('algorithmLabel')}</Label>
+        <Select.Trigger>
+          <Select.Value />
+          <Select.Indicator />
+        </Select.Trigger>
+        <Select.Popover>
+          <ListBox>
+            {algorithmOptions.map(opt => (
+              <ListBox.Item key={opt.key} id={opt.key} textValue={opt.label}>
+                {opt.label}
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
+            ))}
+          </ListBox>
+        </Select.Popover>
+        {algorithm === 'dfs' && <Description> {t('dfsWarning')}</Description>}
       </Select>
 
-      {algorithm === 'dfs' && (
-        <p className="text-warning-600 dark:text-warning-400 text-xs">
-          {t('dfsWarning')}
-        </p>
-      )}
+      {/* Speed slider
+      
+        This is actually hacky because the speed works in a way that lower is
+        faster, but the slider intuitively should work the other way around.
 
-      {/* Speed slider */}
+        So the minValue is still mapped to fast, and maxValue is still
+        mapped to slow, but from a UI perspective, when the user moves the
+        slider to the right (toward maxValue, so slow), we actually do 
+        some math to invert the value and make it faster.
+      
+      */}
       <Slider
-        label={t('speedLabel')}
         minValue={SPEED_VALUES.fast}
         maxValue={SPEED_VALUES.slow}
         step={1}
-        value={speed}
+        value={SPEED_VALUES.fast + SPEED_VALUES.slow - speed}
         onChange={v => {
-          onSpeedChange(typeof v === 'number' ? v : v[0]);
+          const raw = typeof v === 'number' ? v : v[0];
+          onSpeedChange(SPEED_VALUES.fast + SPEED_VALUES.slow - raw);
         }}
         isDisabled={isAnimating}
-        size="sm"
-        marks={[
-          { value: SPEED_VALUES.slow, label: t('speedSlow') },
-          { value: SPEED_VALUES.medium, label: t('speedMedium') },
-          { value: SPEED_VALUES.fast, label: t('speedFast') },
-        ]}
-        classNames={{ mark: '[writing-mode:horizontal-tb] whitespace-nowrap' }}
-        renderValue={() => false}
-      />
+      >
+        <Label>{t('speedLabel')}</Label>
+        <Slider.Output>
+          {/* The percentage is computed so that 100% = fastest (SPEED_VALUES.fast = 5)
+              and ~6% = slowest (SPEED_VALUES.slow = 80). The minimum never reaches 0%
+              because SPEED_VALUES.fast is added to the numerator as a floor, ensuring
+              the animation always advances even at the slowest setting. */}
+          {(
+            ((SPEED_VALUES.fast + SPEED_VALUES.slow - speed) /
+              SPEED_VALUES.slow) *
+            100
+          ).toFixed(0)}
+          %
+        </Slider.Output>
+        <Slider.Track>
+          <Slider.Fill />
+          <Slider.Thumb />
+        </Slider.Track>
+      </Slider>
 
       {/* Grid size */}
-      <div className="flex flex-col gap-2">
-        <Slider
-          label={`${t('rowsLabel')}: ${rows.toString()}`}
-          minValue={GRID_SIZE_CONSTRAINTS.MIN_ROWS}
-          maxValue={GRID_SIZE_CONSTRAINTS.MAX_ROWS}
-          step={1}
-          value={rows}
-          onChange={v => {
-            onRowsChange(typeof v === 'number' ? v : v[0]);
-          }}
-          isDisabled={isAnimating}
-          size="sm"
-        />
-        <Slider
-          label={`${t('colsLabel')}: ${cols.toString()}`}
-          minValue={GRID_SIZE_CONSTRAINTS.MIN_COLS}
-          maxValue={GRID_SIZE_CONSTRAINTS.MAX_COLS}
-          step={1}
-          value={cols}
-          onChange={v => {
-            onColsChange(typeof v === 'number' ? v : v[0]);
-          }}
-          isDisabled={isAnimating}
-          size="sm"
-        />
-      </div>
-
-      {/* Generate Maze */}
-      <Button
-        variant="bordered"
-        onPress={onGenerateMaze}
+      <Slider
+        minValue={GRID_SIZE_CONSTRAINTS.MIN_ROWS}
+        maxValue={GRID_SIZE_CONSTRAINTS.MAX_ROWS}
+        step={1}
+        value={rows}
+        onChange={v => {
+          onRowsChange(typeof v === 'number' ? v : v[0]);
+        }}
         isDisabled={isAnimating}
-        startContent={<MazeIcon />}
-        size="sm"
       >
-        {t('generateMazeButton')}
-      </Button>
+        <Label>{t('rowsLabel')}</Label>
+        <Slider.Output />
+        <Slider.Track>
+          <Slider.Fill />
+          <Slider.Thumb />
+        </Slider.Track>
+      </Slider>
 
-      {/* Visualize / Stop */}
-      {isAnimating ? (
-        <Button
-          color="warning"
-          onPress={onStop}
-          startContent={<StopIcon />}
-          size="sm"
-        >
-          {t('stopButton')}
-        </Button>
-      ) : (
-        <Button
-          color="primary"
-          onPress={onVisualize}
-          startContent={<PlayIcon />}
-          size="sm"
-        >
-          {t('visualizeButton')}
-        </Button>
-      )}
-
-      {/* Clear Path */}
-      {hasPath && (
-        <Button
-          variant="flat"
-          onPress={onReset}
-          isDisabled={isAnimating}
-          size="sm"
-        >
-          {t('resetButton')}
-        </Button>
-      )}
-
-      {/* Clear All */}
-      <Button
-        variant="flat"
-        color="danger"
-        onPress={onClearAll}
+      <Slider
+        minValue={GRID_SIZE_CONSTRAINTS.MIN_COLS}
+        maxValue={GRID_SIZE_CONSTRAINTS.MAX_COLS}
+        step={1}
+        value={cols}
+        onChange={v => {
+          onColsChange(typeof v === 'number' ? v : v[0]);
+        }}
         isDisabled={isAnimating}
-        startContent={<ClearIcon />}
-        size="sm"
       >
-        {t('clearAllButton')}
-      </Button>
+        <Label>{t('colsLabel')}</Label>
+        <Slider.Output />
+        <Slider.Track>
+          <Slider.Fill />
+          <Slider.Thumb />
+        </Slider.Track>
+      </Slider>
+
+      <Separator variant="tertiary" />
 
       {/* Mode selector */}
-      <ButtonGroup fullWidth isDisabled={isAnimating} size="sm">
+      <ButtonGroup
+        variant="outline"
+        isDisabled={isAnimating}
+        size="sm"
+        fullWidth
+      >
         <Button
-          variant={placementMode === 'draw-walls' ? 'solid' : 'bordered'}
-          color="default"
+          className="text-xs"
+          variant={placementMode === 'draw-walls' ? 'primary' : 'outline'}
           onPress={() => {
             onPlacementModeChange('draw-walls');
           }}
@@ -213,44 +210,100 @@ export const Controls = ({
           {t('drawWallsButton')}
         </Button>
         <Button
-          variant={placementMode === 'place-start' ? 'solid' : 'bordered'}
-          color="default"
-          className={
-            placementMode === 'place-start'
-              ? ''
-              : 'text-success-600 dark:text-success-400'
-          }
+          className="text-xs"
+          variant={placementMode === 'place-start' ? 'primary' : 'outline'}
           onPress={() => {
             onPlacementModeChange('place-start');
           }}
         >
+          <ButtonGroup.Separator />
           {t('placeStartButton')}
         </Button>
         <Button
-          variant={placementMode === 'place-end' ? 'solid' : 'bordered'}
-          color="default"
-          className={
-            placementMode === 'place-end'
-              ? ''
-              : 'text-danger-600 dark:text-danger-400'
-          }
+          className="text-xs"
+          variant={placementMode === 'place-end' ? 'primary' : 'outline'}
           onPress={() => {
             onPlacementModeChange('place-end');
           }}
         >
+          <ButtonGroup.Separator />
           {t('placeEndButton')}
         </Button>
       </ButtonGroup>
 
+      <Separator variant="tertiary" />
+
+      {/* Generate Maze */}
+      <Button
+        size="sm"
+        variant="outline"
+        className="w-full text-xs"
+        onPress={onGenerateMaze}
+        isDisabled={isAnimating}
+      >
+        <MazeIcon className="w-3" />
+        {t('generateMazeButton')}
+      </Button>
+
+      {/* Visualize / Stop */}
+      {isAnimating ? (
+        <Button
+          size="sm"
+          variant="danger"
+          className="w-full text-xs"
+          onPress={onStop}
+          isDisabled={!isAnimating}
+        >
+          <StopIcon className="w-3" />
+          {t('stopButton')}
+        </Button>
+      ) : (
+        <Button
+          size="sm"
+          variant="primary"
+          className="w-full text-xs"
+          onPress={onVisualize}
+          isDisabled={isAnimating}
+        >
+          <PlayIcon className="h-3" />
+          {t('visualizeButton')}
+        </Button>
+      )}
+      {/* Clear Path */}
+      {hasPath && (
+        <Button
+          size="sm"
+          variant="tertiary"
+          className="w-full text-xs"
+          onPress={onReset}
+          isDisabled={isAnimating}
+        >
+          {t('resetButton')}
+        </Button>
+      )}
+      {/* Clear All */}
+      <Button
+        size="sm"
+        variant="danger"
+        className="w-full text-xs"
+        onPress={onClearAll}
+        isDisabled={isAnimating}
+      >
+        <ClearIcon className="w-3" />
+        {t('clearAllButton')}
+      </Button>
+
+      <Separator variant="tertiary" />
+
       {/* Legend */}
-      <div className="border-default-200 flex flex-col gap-1.5 border-t pt-2">
+      <div className="flex flex-col gap-1.5">
         {(
           [
-            ['bg-success-500', t('legend.start')],
-            ['bg-danger-500', t('legend.end')],
-            ['bg-default-600', t('legend.wall')],
-            ['bg-primary-400', t('legend.visited')],
-            ['bg-warning-400', t('legend.path')],
+            [CELL_COLORS.start, t('legend.start')],
+            [CELL_COLORS.end, t('legend.end')],
+            [CELL_COLORS.wall, t('legend.wall')],
+            [CELL_COLORS.visited, t('legend.visited')],
+            [CELL_COLORS.path, t('legend.path')],
           ] as [string, string][]
         ).map(([color, label]) => (
           <div key={label} className="flex items-center gap-2 text-xs">

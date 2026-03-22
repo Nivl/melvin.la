@@ -34,12 +34,14 @@ export function SequencerGrid({
               <div key={gi} className="flex gap-1.5">
                 {[0, 1, 2, 3].map(si => {
                   const n = gi * 4 + si + 1;
-                  // eslint-disable-next-line unicorn/no-null
-                  if (n > stepCount) return null;
+
+                  if (n > stepCount) {
+                    return;
+                  }
                   return (
                     <div
                       key={si}
-                      className={`flex h-4 w-9 items-center justify-center text-[9px] transition-colors ${gi * 4 + si === activeStep ? 'text-default-900 font-bold' : 'text-default-400'}`}
+                      className={`flex h-4 w-9 items-center justify-center text-[9px] transition-colors ${gi * 4 + si === activeStep ? 'text-default font-bold' : 'text-default'}`}
                     >
                       {n}
                     </div>

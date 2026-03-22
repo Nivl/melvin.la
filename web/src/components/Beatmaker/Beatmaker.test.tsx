@@ -151,7 +151,7 @@ test('hydrates the UI from a shared hash on initial page load', async () => {
   };
   const hash = encode(sharedState);
 
-  vi.stubGlobal('window', undefined as never);
+  vi.stubGlobal('window', { matchMedia: globalThis.matchMedia } as never);
   const serverMarkup = renderToString(renderWithWrapper(<Beatmaker />));
   vi.unstubAllGlobals();
 

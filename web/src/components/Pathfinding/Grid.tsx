@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import {
   KeyboardEvent,
   MouseEvent,
@@ -30,13 +31,13 @@ type GridProps = {
   onEndChange: (coords: Coords) => void;
 };
 
-const CELL_COLORS: Record<CellState, string> = {
-  empty: 'bg-default-100 dark:bg-default-50',
-  wall: 'bg-default-600 dark:bg-default-500',
-  start: 'bg-success-500',
-  end: 'bg-danger-500',
-  visited: 'bg-primary-400 dark:bg-primary-500',
-  path: 'bg-warning-400',
+export const CELL_COLORS: Record<CellState, string> = {
+  empty: 'bg-zinc-200/40 dark:bg-zinc-900',
+  wall: 'bg-foreground/50',
+  start: 'bg-green-400',
+  end: 'bg-pink-500',
+  visited: 'bg-blue-400',
+  path: 'bg-amber-400',
 };
 
 export const PathfindingGrid = ({
@@ -51,6 +52,8 @@ export const PathfindingGrid = ({
 }: GridProps) => {
   const dragModeRef = useRef<DragMode>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const t = useTranslations('pathfinding');
 
   const rows = grid.length;
   const cols = grid[0]?.length ?? 0;
@@ -217,7 +220,7 @@ export const PathfindingGrid = ({
   return (
     <div
       ref={containerRef}
-      className="border-default-200 touch-none overflow-hidden rounded-lg border select-none"
+      className="touch-none overflow-hidden rounded-lg border border-zinc-100/10 select-none dark:border-zinc-800"
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(${cols.toString()}, 1fr)`,
@@ -247,7 +250,7 @@ export const PathfindingGrid = ({
       }}
       onKeyDown={handleKeyDown}
       role="grid"
-      aria-label="Pathfinding grid"
+      aria-label={t('gridLabel')}
     >
       {grid.map((row, ri) =>
         row.map((cellState, ci) => {
@@ -268,13 +271,19 @@ export const PathfindingGrid = ({
               aria-selected={isFocused}
               className={[
                 CELL_COLORS[effectiveState] ?? CELL_COLORS.empty,
-                'border-default-200/30 border transition-colors duration-75',
+                `border border-zinc-200 transition-colors duration-75 dark:border-zinc-800/90`,
                 effectiveState === 'visited' && 'animate-pathfinding-visited',
-                effectiveState === 'path' && 'animate-pathfinding-path',
+                effectiveState === 'path' &&
+                  'animate-pathfinding-path border-amber-500/70!',
+                effectiveState === 'wall' &&
+                  'border-foreground/30! dark:border-foreground/20!',
+                effectiveState === 'visited' && 'border-blue-500/70!',
+                effectiveState === 'start' && 'border-green-400!',
+                effectiveState === 'end' && 'border-pink-500!',
                 isHovered &&
                   effectiveState === 'empty' &&
-                  'bg-default-200 dark:bg-default-200',
-                isFocused && 'ring-primary-500 relative z-10 ring-2 ring-inset',
+                  'bg-foreground/10! dark:bg-foreground/25! border-zinc-200/80',
+                isFocused && 'ring-accent relative z-10 ring-2 ring-inset',
               ]
                 .filter(Boolean)
                 .join(' ')}

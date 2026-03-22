@@ -1,13 +1,6 @@
 'use client';
 
-import { Button } from '@heroui/button';
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from '@heroui/dropdown';
-import { NavbarItem } from '@heroui/navbar';
+import { Button, Dropdown } from '@heroui/react';
 import {
   Moon as DarkThemeIcon,
   Palette as SystemThemeIcon,
@@ -45,70 +38,53 @@ export const ThemeSwitcher = () => {
 
   return (
     <Dropdown>
-      <NavbarItem>
-        <DropdownTrigger>
-          <Button
-            disableRipple
-            className={`text-medium text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent`}
-            variant="light"
-            isIconOnly
-            aria-label={t('switchTheme')}
-            onMouseEnter={() => {
-              if (!reducedMotion) {
-                setIsBooped(true);
-                setAnimationFocus('boop');
-              }
-            }}
-          >
-            <span className={`text-amber-400`}>
-              <ThemeSwitcherIcon
-                theme={resolvedTheme as 'light' | 'dark'}
-                animationFocus={animationFocus}
-                width={24}
-                height={24}
-                isBooped={isBooped}
-              />
-            </span>
-          </Button>
-        </DropdownTrigger>
-      </NavbarItem>
-      <DropdownMenu
-        aria-label={t('theme')}
-        selectionMode="single"
-        selectedKeys={theme ? new Set([theme]) : new Set(['light'])}
-        variant="flat"
+      <Button
+        className={`text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 text-base antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent`}
+        variant="ghost"
+        isIconOnly
+        aria-label={t('switchTheme')}
+        onMouseEnter={() => {
+          if (!reducedMotion) {
+            setIsBooped(true);
+            setAnimationFocus('boop');
+          }
+        }}
       >
-        <DropdownItem
-          key="light"
-          startContent={<LightThemeIcon width={20} />}
-          onPress={() => {
-            setTheme('light');
+        <span className={`text-amber-400`}>
+          <ThemeSwitcherIcon
+            theme={resolvedTheme as 'light' | 'dark'}
+            animationFocus={animationFocus}
+            width={24}
+            height={24}
+            isBooped={isBooped}
+          />
+        </span>
+      </Button>
+      <Dropdown.Popover>
+        <Dropdown.Menu
+          aria-label={t('theme')}
+          selectionMode="single"
+          selectedKeys={theme ? new Set([theme]) : new Set(['light'])}
+          onAction={key => {
+            const val = key.toString() as 'light' | 'dark' | 'system';
+            setTheme(val);
             setAnimationFocus('themeChange');
           }}
         >
-          {t('themeLight')}
-        </DropdownItem>
-        <DropdownItem
-          key="dark"
-          startContent={<DarkThemeIcon width={20} />}
-          onPress={() => {
-            setTheme('dark');
-            setAnimationFocus('themeChange');
-          }}
-        >
-          {t('themeDark')}
-        </DropdownItem>
-        <DropdownItem
-          key="system"
-          startContent={<SystemThemeIcon width={20} />}
-          onPress={() => {
-            setTheme('system');
-            setAnimationFocus('themeChange');
-          }}
-        >
-          {t('themeSystem')}
-        </DropdownItem>
-      </DropdownMenu>
+          <Dropdown.Item id="light" textValue={t('themeLight')}>
+            <LightThemeIcon width={20} /> {t('themeLight')}
+            <Dropdown.ItemIndicator />
+          </Dropdown.Item>
+          <Dropdown.Item id="dark" textValue={t('themeDark')}>
+            <DarkThemeIcon width={20} /> {t('themeDark')}
+            <Dropdown.ItemIndicator />
+          </Dropdown.Item>
+          <Dropdown.Item id="system" textValue={t('themeSystem')}>
+            <SystemThemeIcon width={20} /> {t('themeSystem')}
+            <Dropdown.ItemIndicator />
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown.Popover>
     </Dropdown>
   );
 };

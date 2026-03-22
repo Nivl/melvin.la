@@ -29,7 +29,8 @@
     "pathfinding": "路徑尋找視覺化",
     "openMenu": "開啟選單",
     "closeMenu": "關閉選單",
-    "beatmaker": "Beatmaker"
+    "beatmaker": "Beatmaker",
+    "menu": "選單"
   },
   "home": {
     "metadata": {
@@ -61,7 +62,8 @@
       "form": {
         "nameFilter": "按名稱篩選",
         "yearFilter": "活躍年份",
-        "yearFilterCount": "最近 {count} 年"
+        "yearFilterCount": "最近 {count} 年",
+        "clearInput": "清除輸入"
       }
     },
     "contact": {
@@ -142,7 +144,8 @@
       "platformEpic": "Epic Games",
       "platformXbox": "Xbox",
       "platformPlaystation": "PlayStation",
-      "currentSeasonOnly": "僅當前賽季"
+      "currentSeasonOnly": "僅當前賽季",
+      "clearInput": "清除輸入"
     },
     "data": {
       "statsTable": "包含所有統計數據的表格",
@@ -166,7 +169,17 @@
       "squad": "三人 / 四人",
       "overall": "總體",
       "stat": "統計",
-      "value": "數值"
+      "value": "數值",
+      "mobileTitles": {
+        "overall": "整體數據 (所有模式)",
+        "solo": "單排 (僅限大逃殺)",
+        "duo": "雙排 (僅限大逃殺)",
+        "squad": "四排 (僅限大逃殺)"
+      },
+      "soloTooltipInfo": "僅限大逃殺",
+      "duoTooltipInfo": "僅限大逃殺",
+      "squadTooltipInfo": "僅限大逃殺",
+      "overallTooltipInfo": "包含所有遊戲模式"
     }
   },
   "stringLength": {
@@ -175,7 +188,6 @@
       "description": "使用我們的免費線上字串長度工具計算文字中的字元、單詞和位元組數。正確支援 Unicode 字元。"
     },
     "title": "字串長度",
-    "inputLabel": "輸入你的文字",
     "inputPlaceholder": "在此輸入或貼上你的文字...",
     "characterCount": "字元",
     "word-count": "單詞",
@@ -223,7 +235,11 @@
     "dateTimeAriaLabel": "選擇要轉換的時間",
     "toLabel": "查看在什麼日期和時間是",
     "toAriaLabel": "搜尋轉換到的城市",
-    "output": "在 <cityWrapper>{city}</cityWrapper>，現在是 {time}"
+    "output": "在 <cityWrapper>{city}</cityWrapper>，現在是 {time}",
+    "noResults": "找不到結果",
+    "startTyping": "開始輸入以搜尋",
+    "dateAriaLabel": "日期",
+    "timeLabel": "時間"
   },
   "pathfinding": {
     "metadata": {
@@ -261,77 +277,78 @@
       "wall": "牆",
       "visited": "已訪問",
       "path": "最短路徑"
-    }
+    },
+    "gridLabel": "Pathfinding 網格"
   },
   "beatmaker": {
     "metadata": {
       "title": "Beatmaker",
-      "description": "瀏覽器節拍機。編排節拍、調整 BPM，並分享您的節奏型態。"
+      "description": "網頁版 Beatmaker。你可以編排節奏、調整 BPM，並分享你的 patterns。"
     },
     "transport": {
-      "play": "播放",
-      "stop": "停止",
+      "play": "Play",
+      "stop": "Stop",
       "bpm": "BPM",
-      "steps": "步數"
+      "steps": "Steps"
     },
     "mixer": {
-      "mute": "靜音",
-      "volume": "音量",
-      "pan": "聲像",
-      "title": "混音台"
+      "mute": "Mute",
+      "volume": "Volume",
+      "pan": "Pan",
+      "title": "Mixer"
     },
     "share": {
-      "copyUrl": "複製網址",
+      "copyUrl": "Share",
       "copied": "已複製！",
-      "customSampleNotice": "此節奏型態使用了自訂音源 — 改以 {kit} 播放。",
-      "dismissNotice": "忽略"
+      "customSampleNotice": "此 pattern 使用了自訂的 sample，因此改用 {kit} 播放。",
+      "dismissNotice": "Dismiss"
     },
     "presets": {
-      "label": "預設集",
-      "basic-rock": "基礎搖滾",
-      "four-on-floor": "四四拍",
+      "label": "Presets",
+      "basic-rock": "Basic Rock",
+      "four-on-floor": "Four-on-the-Floor",
       "boom-bap": "Boom-bap",
-      "trap": "陷阱",
-      "blank": "空白"
+      "trap": "Trap",
+      "blank": "Blank"
     },
     "track": {
-      "dropFile": "拖放音訊檔案",
-      "customFile": "已載入自訂檔案",
-      "customBadge": "自訂",
-      "decodeError": "無法解碼音訊檔案。"
+      "dropFile": "在此 Drop 你的 sample",
+      "customFile": "載入自訂 sample",
+      "customBadge": "custom",
+      "decodeError": "無法解碼音檔。"
     },
     "a11y": {
-      "stepButton": "{track} 第 {step} 步 {state}",
-      "stepOn": "開啟",
-      "stepOff": "關閉"
+      "stepButton": "{track} step {step} {state}",
+      "stepOn": "on",
+      "stepOff": "off"
     },
     "kits": {
       "808": "808",
-      "acoustic": "原聲",
+      "acoustic": "Acoustic",
       "lofi": "Lo-fi"
     },
     "tracks": {
-      "kick": "低音鼓",
-      "snare": "小鼓",
-      "hihat": "踩鈸",
-      "openhat": "開鈸",
-      "clap": "拍掌",
-      "ride": "叮鈸"
+      "kick": "Kick",
+      "snare": "Snare",
+      "hihat": "Hi-hat",
+      "openhat": "Open Hat",
+      "clap": "Clap",
+      "ride": "Ride"
     },
     "rotate": {
-      "title": "請將裝置旋轉至橫向",
-      "message": "Beatmaker 在橫向模式下使用效果最佳。"
+      "title": "請旋轉你的裝置",
+      "message": "Beatmaker 主要為橫向 (Landscape) 模式設計。"
     },
     "error": {
-      "audioEngine": "Audio engine failed to initialize.",
-      "audioSuspended": "Audio is muted by system."
+      "audioEngine": "Audio Engine 無法啟動。",
+      "audioSuspended": "Audio 已被系統暫停。"
     },
     "actions": {
-      "resume": "Tap to Unmute"
+      "resume": "點擊以恢復播放"
     },
     "iosWarning": {
-      "title": "沒有聲音？",
-      "message": "iOS 使用鈴聲音量而非媒體音量。請確保手機未處於靜音模式。"
+      "title": "聽不到聲音嗎？",
+      "message": "在 iOS 上，請確保側邊的靜音開關已關閉。"
     }
   }
 }

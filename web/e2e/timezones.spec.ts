@@ -1,4 +1,31 @@
+import type { Page } from '@playwright/test';
+
 import { expect, expectToBeThruthy, test } from './helpers';
+
+// In HeroUI v3, Autocomplete renders a trigger (role="group") that opens a popover.
+// The popover contains a SearchField.Input (searchbox role, autoFocus).
+// We click the trigger group via data-testid, then fill the searchbox.
+// Options show "City Country" (no comma, no timezone) as their accessible name.
+async function selectCity(
+  page: Page,
+  testId: string,
+  searchText: string,
+  optionText: string,
+) {
+  // Convert "City, Country (Timezone)" → "City Country" to match the ARIA accessible name
+  const accessibleName = optionText
+    .replace(/ \([^)]+\)$/, '') // Remove " (timezone)" at end
+    .replaceAll(',', ''); // Remove commas
+  const trigger = page.getByTestId(testId);
+  await trigger.click();
+  await page.getByTestId(`${testId}-search`).fill(searchText);
+  const option = page.getByRole('option', { name: accessibleName });
+  await option.waitFor();
+  await option.click();
+}
+
+const FROM_TESTID = 'city-from';
+const TO_TESTID = 'city-to';
 
 test.describe('Timezones Tool', () => {
   test.beforeEach(async ({ page }) => {
@@ -7,111 +34,59 @@ test.describe('Timezones Tool', () => {
   });
 
   test('can set initial city and target city', async ({ page }) => {
-    // Set initial city (base zone)
-    const initialCityInput = page.getByRole('combobox').first();
-    await initialCityInput.click();
-    await initialCityInput.fill('New York');
-    await page
-      .locator('[role="option"]')
-      .filter({
-        hasText: 'New York, United States of America (America/New_York)',
-      })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({
-        hasText: 'New York, United States of America (America/New_York)',
-      })
-      .click();
+    await selectCity(
+      page,
+      FROM_TESTID,
+      'New York',
+      'New York, United States of America (America/New_York)',
+    );
 
     // Verify the target city input appears after setting base city
-    await expect(page.getByRole('combobox').nth(1)).toBeVisible();
+    await expect(page.getByTestId(TO_TESTID)).toBeVisible();
 
-    // Set target city
-    const targetCityInput = page.getByRole('combobox').nth(1);
-    await targetCityInput.click();
-    await targetCityInput.fill('London');
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'London, United Kingdom (Europe/London)' })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'London, United Kingdom (Europe/London)' })
-      .click();
+    await selectCity(
+      page,
+      TO_TESTID,
+      'London',
+      'London, United Kingdom (Europe/London)',
+    );
 
     // Verify target city appears as a pill
-    await expect(
-      page.locator('div[class*="bg-"]').filter({ hasText: /In London/ }),
-    ).toBeVisible();
-
-    // Verify the pill contains timezone information
     const londonPill = page
       .locator('div[class*="bg-"]')
       .filter({ hasText: /In London/ });
+    await expect(londonPill).toBeVisible();
     await expect(londonPill).toContainText('London');
-
-    // Clear the search after selection
-    await expect(targetCityInput).toHaveValue('');
   });
 
   test('can set multiple target cities from different countries', async ({
     page,
   }) => {
-    // Set initial city
-    const initialCityInput = page.getByRole('combobox').first();
-    await initialCityInput.click();
-    await initialCityInput.fill('Paris');
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Paris, France (Europe/Paris)' })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Paris, France (Europe/Paris)' })
-      .click();
-
-    const targetCityInput = page.getByRole('combobox').nth(1);
+    await selectCity(
+      page,
+      FROM_TESTID,
+      'Paris',
+      'Paris, France (Europe/Paris)',
+    );
 
     // Add Tokyo (Asia)
-    await targetCityInput.click();
-    await targetCityInput.fill('Tokyo');
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Tokyo, Japan (Asia/Tokyo)' })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Tokyo, Japan (Asia/Tokyo)' })
-      .click();
+    await selectCity(page, TO_TESTID, 'Tokyo', 'Tokyo, Japan (Asia/Tokyo)');
 
     // Add New York (America)
-    await targetCityInput.click();
-    await targetCityInput.fill('New York');
-    await page
-      .locator('[role="option"]')
-      .filter({
-        hasText: 'New York, United States of America (America/New_York)',
-      })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({
-        hasText: 'New York, United States of America (America/New_York)',
-      })
-      .click();
+    await selectCity(
+      page,
+      TO_TESTID,
+      'New York',
+      'New York, United States of America (America/New_York)',
+    );
 
     // Add Sydney (Australia)
-    await targetCityInput.click();
-    await targetCityInput.fill('Sydney');
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Sydney, Australia (Australia/Sydney)' })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Sydney, Australia (Australia/Sydney)' })
-      .click();
+    await selectCity(
+      page,
+      TO_TESTID,
+      'Sydney',
+      'Sydney, Australia (Australia/Sydney)',
+    );
 
     // Verify all three cities appear as pills
     const tokyoPill = page
@@ -162,48 +137,23 @@ test.describe('Timezones Tool', () => {
   });
 
   test('can remove target cities', async ({ page }) => {
-    // Set initial city
-    const initialCityInput = page.getByRole('combobox').first();
-    await initialCityInput.click();
-    await initialCityInput.fill('London');
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'London, United Kingdom (Europe/London)' })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'London, United Kingdom (Europe/London)' })
-      .click();
-
-    const targetCityInput = page.getByRole('combobox').nth(1);
+    await selectCity(
+      page,
+      FROM_TESTID,
+      'London',
+      'London, United Kingdom (Europe/London)',
+    );
 
     // Add first target city
-    await targetCityInput.click();
-    await targetCityInput.fill('Tokyo');
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Tokyo, Japan (Asia/Tokyo)' })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Tokyo, Japan (Asia/Tokyo)' })
-      .click();
+    await selectCity(page, TO_TESTID, 'Tokyo', 'Tokyo, Japan (Asia/Tokyo)');
 
     // Add second target city
-    await targetCityInput.click();
-    await targetCityInput.fill('New York');
-    await page
-      .locator('[role="option"]')
-      .filter({
-        hasText: 'New York, United States of America (America/New_York)',
-      })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({
-        hasText: 'New York, United States of America (America/New_York)',
-      })
-      .click();
+    await selectCity(
+      page,
+      TO_TESTID,
+      'New York',
+      'New York, United States of America (America/New_York)',
+    );
 
     // Verify both cities are visible
     const tokyoPill = page
@@ -217,18 +167,14 @@ test.describe('Timezones Tool', () => {
     await expect(newYorkPill).toBeVisible();
 
     // Remove Tokyo by clicking its delete button
-    const tokyoDeleteButton = tokyoPill.getByRole('button', { name: 'Remove' });
-    await tokyoDeleteButton.click();
+    await tokyoPill.getByRole('button', { name: 'Remove' }).click();
 
     // Verify Tokyo is removed but New York remains
     await expect(tokyoPill).toBeHidden();
     await expect(newYorkPill).toBeVisible();
 
     // Remove New York
-    const newYorkDeleteButton = newYorkPill.getByRole('button', {
-      name: 'Remove',
-    });
-    await newYorkDeleteButton.click();
+    await newYorkPill.getByRole('button', { name: 'Remove' }).click();
 
     // Verify both are removed
     await expect(tokyoPill).toBeHidden();
@@ -238,48 +184,23 @@ test.describe('Timezones Tool', () => {
   test('shows different time differences for cities in different timezones', async ({
     page,
   }) => {
-    // Set initial city to UTC (London in winter or a UTC city)
-    const initialCityInput = page.getByRole('combobox').first();
-    await initialCityInput.click();
-    await initialCityInput.fill('London');
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'London, United Kingdom (Europe/London)' })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'London, United Kingdom (Europe/London)' })
-      .click();
-
-    const targetCityInput = page.getByRole('combobox').nth(1);
+    await selectCity(
+      page,
+      FROM_TESTID,
+      'London',
+      'London, United Kingdom (Europe/London)',
+    );
 
     // Add Tokyo (UTC+9)
-    await targetCityInput.click();
-    await targetCityInput.fill('Tokyo');
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Tokyo, Japan (Asia/Tokyo)' })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Tokyo, Japan (Asia/Tokyo)' })
-      .click();
+    await selectCity(page, TO_TESTID, 'Tokyo', 'Tokyo, Japan (Asia/Tokyo)');
 
     // Add Los Angeles (UTC-8)
-    await targetCityInput.click();
-    await targetCityInput.fill('Los Angeles');
-    await page
-      .locator('[role="option"]')
-      .filter({
-        hasText: 'Los Angeles, United States of America (America/Los_Angeles)',
-      })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({
-        hasText: 'Los Angeles, United States of America (America/Los_Angeles)',
-      })
-      .click();
+    await selectCity(
+      page,
+      TO_TESTID,
+      'Los Angeles',
+      'Los Angeles, United States of America (America/Los_Angeles)',
+    );
 
     // Get the time text from both pills
     const tokyoPill = page
@@ -321,32 +242,26 @@ test.describe('Timezones Tool', () => {
   test('target city input only appears after setting initial city', async ({
     page,
   }) => {
-    // Initially, target city input should not be visible
-    await expect(page.getByRole('combobox').nth(1)).toBeHidden();
+    // Initially, target city trigger should not be visible (conditionally rendered)
+    await expect(page.getByTestId(TO_TESTID)).toBeHidden();
 
-    // Set initial city
-    const initialCityInput = page.getByRole('combobox').first();
-    await initialCityInput.click();
-    await initialCityInput.fill('Berlin');
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Berlin, Germany (Europe/Berlin)' })
-      .waitFor();
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'Berlin, Germany (Europe/Berlin)' })
-      .click();
+    await selectCity(
+      page,
+      FROM_TESTID,
+      'Berlin',
+      'Berlin, Germany (Europe/Berlin)',
+    );
 
-    // Now target city input should appear
-    await expect(page.getByRole('combobox').nth(1)).toBeVisible();
+    // Now target city trigger should appear
+    await expect(page.getByTestId(TO_TESTID)).toBeVisible();
   });
 
   test('autocomplete shows suggestions when typing', async ({ page }) => {
-    const initialCityInput = page.getByRole('combobox').first();
+    // Click the trigger to open the popover
+    await page.getByTestId(FROM_TESTID).click();
 
     // Start typing a city name
-    await initialCityInput.click();
-    await initialCityInput.fill('London');
+    await page.getByRole('searchbox').fill('London');
 
     // Should see suggestions appear
     await page.locator('[role="option"]').first().waitFor();
@@ -356,12 +271,9 @@ test.describe('Timezones Tool', () => {
     expect(optionCount).toBeGreaterThan(0);
 
     // Select the first London option
-    await page
-      .locator('[role="option"]')
-      .filter({ hasText: 'London, United Kingdom (Europe/London)' })
-      .click();
+    await page.getByRole('option', { name: 'London United Kingdom' }).click();
 
-    // Verify the target city input appears
-    await expect(page.getByRole('combobox').nth(1)).toBeVisible();
+    // Verify the target city trigger appears
+    await expect(page.getByTestId(TO_TESTID)).toBeVisible();
   });
 });

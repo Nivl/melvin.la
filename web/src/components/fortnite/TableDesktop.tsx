@@ -1,15 +1,7 @@
 'use client';
 
-import {
-  getKeyValue,
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow,
-} from '@heroui/table';
-import { Tooltip } from '@heroui/tooltip';
+import { Table, Tooltip } from '@heroui/react';
+import { BadgeInfo } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
@@ -36,6 +28,7 @@ type TableEntry = {
   kd: string;
   top10rate: string;
   top25rate: string;
+  tooltipInfo?: string;
 };
 
 export const TableDesktop = ({
@@ -153,6 +146,7 @@ export const TableDesktop = ({
       const solo = {
         key: crypto.randomUUID(),
         mode: t('solo'),
+        tooltipInfo: t('soloTooltipInfo'),
         icon: <FaUser />,
         timePlayed: humanizeDuration(rootT, soloData.minutesPlayed),
         gamePlayed: soloData.matches,
@@ -170,6 +164,7 @@ export const TableDesktop = ({
       const duo = {
         key: crypto.randomUUID(),
         mode: t('duo'),
+        tooltipInfo: t('duoTooltipInfo'),
         icon: <FaUserGroup />,
         timePlayed: humanizeDuration(rootT, duoData.minutesPlayed),
         gamePlayed: duoData.matches,
@@ -187,6 +182,7 @@ export const TableDesktop = ({
       const squad = {
         key: crypto.randomUUID(),
         mode: t('squad'),
+        tooltipInfo: t('squadTooltipInfo'),
         icon: <FaUsers />,
         timePlayed: humanizeDuration(rootT, squadData.minutesPlayed),
         gamePlayed: squadData.matches,
@@ -203,6 +199,7 @@ export const TableDesktop = ({
     // available
     if (out.length !== 1 && overallData) {
       const overall = {
+        tooltipInfo: t('overallTooltipInfo'),
         key: crypto.randomUUID(),
         mode: t('overall'),
         icon: <TfiInfinite />,
@@ -234,53 +231,102 @@ export const TableDesktop = ({
       <div className="hidden xl:block">
         <div className="flex flex-col gap-6">{TableCategoriesSection}</div>
       </div>
-      <Table
-        aria-label={t('statsTable')}
-        removeWrapper
-        classNames={{
-          th: 'bg-transparent text-default-500 border-b border-divider',
-        }}
-      >
-        <TableHeader>
-          <TableColumn key="mode">{''}</TableColumn>
-          <TableColumn key="gamePlayed">{t('gamePlayed')}</TableColumn>
-          <TableColumn key="wins">{t('wins')}</TableColumn>
-          <TableColumn key="winRate">{t('winRate')}</TableColumn>
-          <TableColumn key="kd">
-            <Tooltip closeDelay={0} delay={0} content={t('kdHelp')}>
-              <span>{t('kd')}</span>
-            </Tooltip>
-          </TableColumn>
-          <TableColumn key="top10rate">
-            <Tooltip closeDelay={0} delay={0} content={t('top10rateHelp')}>
-              <span>{t('top10rate')}</span>
-            </Tooltip>
-          </TableColumn>
-          <TableColumn key="top25rate">
-            <Tooltip closeDelay={0} delay={0} content={t('top25rateHelp')}>
-              <span>{t('top25rate')}</span>
-            </Tooltip>
-          </TableColumn>
-          <TableColumn key="timePlayed">{t('timePlayed')}</TableColumn>
-        </TableHeader>
-        <TableBody emptyContent={t('noData')} items={tableData}>
-          {item => (
-            <TableRow key={item.key}>
-              {columnKey => (
-                <TableCell>
-                  {columnKey === 'mode' ? (
+      <Table>
+        <Table.ScrollContainer>
+          <Table.Content aria-label={t('statsTable')}>
+            <Table.Header>
+              <Table.Column isRowHeader>{''}</Table.Column>
+              <Table.Column>{t('gamePlayed')}</Table.Column>
+              <Table.Column>{t('wins')}</Table.Column>
+              <Table.Column>{t('winRate')}</Table.Column>
+              <Table.Column>
+                <Tooltip delay={0}>
+                  <Tooltip.Trigger>
+                    <span className="cursor-help">{t('kd')}</span>
+                  </Tooltip.Trigger>
+                  <Tooltip.Content
+                    offset={12}
+                    showArrow
+                    className="bg-default-900 rounded p-2"
+                  >
+                    {t('kdHelp')}
+                    <Tooltip.Arrow />
+                  </Tooltip.Content>
+                </Tooltip>
+              </Table.Column>
+              <Table.Column>
+                <Tooltip delay={0}>
+                  <Tooltip.Trigger>
+                    <span className="cursor-help">{t('top10rate')}</span>
+                  </Tooltip.Trigger>
+                  <Tooltip.Content
+                    offset={12}
+                    showArrow
+                    className="bg-default-900 rounded p-2"
+                  >
+                    {t('top10rateHelp')}
+                    <Tooltip.Arrow />
+                  </Tooltip.Content>
+                </Tooltip>
+              </Table.Column>
+              <Table.Column>
+                <Tooltip delay={0}>
+                  <Tooltip.Trigger>
+                    <span className="cursor-help">{t('top25rate')}</span>
+                  </Tooltip.Trigger>
+                  <Tooltip.Content
+                    offset={12}
+                    showArrow
+                    className="bg-default-900 rounded p-2"
+                  >
+                    {t('top25rateHelp')}
+                    <Tooltip.Arrow />
+                  </Tooltip.Content>
+                </Tooltip>
+              </Table.Column>
+              <Table.Column>{t('timePlayed')}</Table.Column>
+            </Table.Header>
+            <Table.Body
+              items={tableData}
+              renderEmptyState={() => (
+                <div className="m-auto w-fit">{t('noData')}</div>
+              )}
+            >
+              {item => (
+                <Table.Row id={item.key}>
+                  <Table.Cell>
                     <div className="flex flex-row items-center gap-2">
                       {item.icon}
-                      {getKeyValue(item, columnKey)}
+                      {item.mode}
+                      {item.tooltipInfo && (
+                        <Tooltip delay={0}>
+                          <Tooltip.Trigger>
+                            <BadgeInfo className="h-3 w-3 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300" />
+                          </Tooltip.Trigger>
+                          <Tooltip.Content
+                            offset={12}
+                            showArrow
+                            className="bg-default-900 rounded p-2"
+                          >
+                            {item.tooltipInfo}
+                            <Tooltip.Arrow />
+                          </Tooltip.Content>
+                        </Tooltip>
+                      )}
                     </div>
-                  ) : (
-                    getKeyValue(item, columnKey)
-                  )}
-                </TableCell>
+                  </Table.Cell>
+                  <Table.Cell>{item.gamePlayed}</Table.Cell>
+                  <Table.Cell>{item.wins}</Table.Cell>
+                  <Table.Cell>{item.winRate}</Table.Cell>
+                  <Table.Cell>{item.kd}</Table.Cell>
+                  <Table.Cell>{item.top10rate}</Table.Cell>
+                  <Table.Cell>{item.top25rate}</Table.Cell>
+                  <Table.Cell>{item.timePlayed}</Table.Cell>
+                </Table.Row>
               )}
-            </TableRow>
-          )}
-        </TableBody>
+            </Table.Body>
+          </Table.Content>
+        </Table.ScrollContainer>
       </Table>
     </div>
   );

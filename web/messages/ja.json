@@ -29,7 +29,8 @@
     "pathfinding": "経路探索ツール",
     "openMenu": "メニューを開く",
     "closeMenu": "メニューを閉じる",
-    "beatmaker": "Beatmaker"
+    "beatmaker": "Beatmaker",
+    "menu": "メニュー"
   },
   "home": {
     "metadata": {
@@ -61,7 +62,8 @@
       "form": {
         "nameFilter": "名前でフィルタ",
         "yearFilter": "活動年数",
-        "yearFilterCount": "過去 {count} 年間"
+        "yearFilterCount": "過去 {count} 年間",
+        "clearInput": "入力をクリア"
       }
     },
     "contact": {
@@ -142,7 +144,8 @@
       "platformEpic": "Epic Games",
       "platformXbox": "Xbox",
       "platformPlaystation": "PlayStation",
-      "currentSeasonOnly": "現在のシーズンのみ"
+      "currentSeasonOnly": "現在のシーズンのみ",
+      "clearInput": "入力をクリア"
     },
     "data": {
       "statsTable": "全統計テーブル",
@@ -166,7 +169,17 @@
       "squad": "トリオ / スクワッド",
       "overall": "全体",
       "stat": "統計",
-      "value": "値"
+      "value": "値",
+      "mobileTitles": {
+        "overall": "全体 (全モード合計)",
+        "solo": "ソロ (バトルロイヤルのみ)",
+        "duo": "デュオ (バトルロイヤルのみ)",
+        "squad": "スクワッド (バトルロイヤルのみ)"
+      },
+      "soloTooltipInfo": "バトルロイヤルのみ",
+      "duoTooltipInfo": "バトルロイヤルのみ",
+      "squadTooltipInfo": "バトルロイヤルのみ",
+      "overallTooltipInfo": "全ゲームモード合計"
     }
   },
   "stringLength": {
@@ -175,7 +188,6 @@
       "description": "無料のオンライン文字数カウントツールで、テキストの文字数、単語数、バイト数をカウントします。Unicode文字を正しくサポートしています。"
     },
     "title": "文字数カウント",
-    "inputLabel": "テキストを入力",
     "inputPlaceholder": "ここにテキストを入力または貼り付け...",
     "characterCount": "文字数",
     "word-count": "単語数",
@@ -223,7 +235,11 @@
     "dateTimeAriaLabel": "変換元の日時を選択",
     "toLabel": "以下の場所での日時を確認：",
     "toAriaLabel": "変換先の都市を検索",
-    "output": "<cityWrapper>{city}</cityWrapper> では {time} です"
+    "output": "<cityWrapper>{city}</cityWrapper> では {time} です",
+    "noResults": "結果が見つかりません",
+    "startTyping": "検索するには入力してください",
+    "dateAriaLabel": "日付",
+    "timeLabel": "時間"
   },
   "pathfinding": {
     "metadata": {
@@ -261,77 +277,78 @@
       "wall": "壁",
       "visited": "探索済み",
       "path": "最短経路"
-    }
+    },
+    "gridLabel": "パスファインディング グリッド"
   },
   "beatmaker": {
     "metadata": {
       "title": "Beatmaker",
-      "description": "ブラウザベースのドラムマシン。ビートをプログラムし、BPMを調整して、パターンを共有しましょう。"
+      "description": "ブラウザで動くBeatmaker。ビートを組み、BPMを調整して、patternをシェアしましょう。"
     },
     "transport": {
-      "play": "再生",
-      "stop": "停止",
+      "play": "Play",
+      "stop": "Stop",
       "bpm": "BPM",
-      "steps": "ステップ"
+      "steps": "Steps"
     },
     "mixer": {
-      "mute": "ミュート",
-      "volume": "ボリューム",
-      "pan": "パン",
-      "title": "ミキサー"
+      "mute": "Mute",
+      "volume": "Volume",
+      "pan": "Pan",
+      "title": "Mixer"
     },
     "share": {
-      "copyUrl": "URLをコピー",
-      "copied": "コピーしました！",
-      "customSampleNotice": "このパターンはカスタムサンプルを使用していました — 代わりに {kit} で再生します。",
-      "dismissNotice": "閉じる"
+      "copyUrl": "Share",
+      "copied": "コピー完了！",
+      "customSampleNotice": "このpatternはカスタムsampleを使用しています。代わりに {kit} で再生します。",
+      "dismissNotice": "Dismiss"
     },
     "presets": {
-      "label": "プリセット",
-      "basic-rock": "ベーシックロック",
-      "four-on-floor": "フォーオンザフロア",
-      "boom-bap": "ブームバップ",
-      "trap": "トラップ",
-      "blank": "空白"
+      "label": "Presets",
+      "basic-rock": "Basic Rock",
+      "four-on-floor": "Four-on-the-Floor",
+      "boom-bap": "Boom-bap",
+      "trap": "Trap",
+      "blank": "Blank"
     },
     "track": {
-      "dropFile": "音声ファイルをドロップ",
-      "customFile": "カスタムファイル読み込み済み",
-      "customBadge": "カスタム",
-      "decodeError": "オーディオファイルをデコードできませんでした。"
+      "dropFile": "Sampleをドロップ",
+      "customFile": "カスタムsampleを読み込みました",
+      "customBadge": "custom",
+      "decodeError": "オーディオをデコードできませんでした。"
     },
     "a11y": {
-      "stepButton": "{track} ステップ {step} {state}",
-      "stepOn": "オン",
-      "stepOff": "オフ"
+      "stepButton": "{track} step {step} {state}",
+      "stepOn": "on",
+      "stepOff": "off"
     },
     "kits": {
       "808": "808",
-      "acoustic": "アコースティック",
-      "lofi": "ローファイ"
+      "acoustic": "Acoustic",
+      "lofi": "Lo-fi"
     },
     "tracks": {
-      "kick": "キック",
-      "snare": "スネア",
-      "hihat": "ハイハット",
-      "openhat": "オープンHH",
-      "clap": "クラップ",
-      "ride": "ライド"
+      "kick": "Kick",
+      "snare": "Snare",
+      "hihat": "Hi-hat",
+      "openhat": "Open Hat",
+      "clap": "Clap",
+      "ride": "Ride"
     },
     "rotate": {
-      "title": "端末を横向きにしてください",
-      "message": "Beatmaker は横向きモードでお使いください。"
+      "title": "デバイスを回転させてください",
+      "message": "Beatmakerは横画面 (landscape) での使用を想定しています。"
     },
     "error": {
-      "audioEngine": "Audio engine failed to initialize.",
-      "audioSuspended": "Audio is muted by system."
+      "audioEngine": "オーディオエンジンの初期化に失敗しました。",
+      "audioSuspended": "システムによりオーディオが停止されています。"
     },
     "actions": {
-      "resume": "Tap to Unmute"
+      "resume": "タップして再開"
     },
     "iosWarning": {
-      "title": "音が聞こえませんか？",
-      "message": "iOSでは着信音量が使用されます。マナーモードがオフになっていることを確認してください。"
+      "title": "音が鳴りませんか？",
+      "message": "iOSの場合、着信音スイッチ（サイレントモード）がオフになっているか確認してください。"
     }
   }
 }

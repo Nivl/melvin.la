@@ -29,7 +29,8 @@
     "pathfinding": "경로 탐색 도구",
     "openMenu": "메뉴 열기",
     "closeMenu": "메뉴 닫기",
-    "beatmaker": "Beatmaker"
+    "beatmaker": "Beatmaker",
+    "menu": "메뉴"
   },
   "home": {
     "metadata": {
@@ -61,7 +62,8 @@
       "form": {
         "nameFilter": "이름으로 필터링",
         "yearFilter": "활동 연도",
-        "yearFilterCount": "최근 {count}년"
+        "yearFilterCount": "최근 {count}년",
+        "clearInput": "입력 지우기"
       }
     },
     "contact": {
@@ -142,7 +144,8 @@
       "platformEpic": "에픽게임즈",
       "platformXbox": "Xbox",
       "platformPlaystation": "PlayStation",
-      "currentSeasonOnly": "현재 시즌만"
+      "currentSeasonOnly": "현재 시즌만",
+      "clearInput": "입력 지우기"
     },
     "data": {
       "statsTable": "모든 통계가 포함된 표",
@@ -166,7 +169,17 @@
       "squad": "트리오 / 스쿼드",
       "overall": "전체",
       "stat": "통계",
-      "value": "값"
+      "value": "값",
+      "mobileTitles": {
+        "overall": "전체 (모든 모드)",
+        "solo": "솔로 (배틀로얄 전용)",
+        "duo": "듀오 (배틀로얄 전용)",
+        "squad": "스쿼드 (배틀로얄 전용)"
+      },
+      "soloTooltipInfo": "배틀로얄 전용",
+      "duoTooltipInfo": "배틀로얄 전용",
+      "squadTooltipInfo": "배틀로얄 전용",
+      "overallTooltipInfo": "모든 게임 모드 통합"
     }
   },
   "stringLength": {
@@ -175,7 +188,6 @@
       "description": "무료 온라인 문자열 길이 도구로 텍스트의 문자, 단어 및 바이트 수를 세어보세요. 유니코드 문자를 올바르게 지원합니다."
     },
     "title": "문자열 길이",
-    "inputLabel": "텍스트 입력",
     "inputPlaceholder": "여기에 텍스트를 입력하거나 붙여넣으세요...",
     "characterCount": "문자",
     "word-count": "단어",
@@ -223,7 +235,11 @@
     "dateTimeAriaLabel": "변환할 시간 선택",
     "toLabel": "확인할 도시",
     "toAriaLabel": "변환될 도시 검색",
-    "output": "<cityWrapper>{city}</cityWrapper>에서는 {time}입니다"
+    "output": "<cityWrapper>{city}</cityWrapper>에서는 {time}입니다",
+    "noResults": "결과를 찾을 수 없습니다",
+    "startTyping": "검색하려면 입력하세요",
+    "dateAriaLabel": "날짜",
+    "timeLabel": "시간"
   },
   "pathfinding": {
     "metadata": {
@@ -261,77 +277,78 @@
       "wall": "벽",
       "visited": "방문함",
       "path": "최단 경로"
-    }
+    },
+    "gridLabel": "길찾기 (Pathfinding) 그리드"
   },
   "beatmaker": {
     "metadata": {
       "title": "Beatmaker",
-      "description": "브라우저 기반 드럼 머신. 비트를 프로그래밍하고, BPM을 조정하고, 패턴을 공유하세요."
+      "description": "브라우저에서 실행되는 Beatmaker. 비트를 만들고, BPM을 조절하며 pattern을 공유하세요."
     },
     "transport": {
-      "play": "재생",
-      "stop": "정지",
+      "play": "Play",
+      "stop": "Stop",
       "bpm": "BPM",
-      "steps": "스텝"
+      "steps": "Steps"
     },
     "mixer": {
-      "mute": "음소거",
-      "volume": "볼륨",
-      "pan": "패닝",
-      "title": "믹서"
+      "mute": "Mute",
+      "volume": "Volume",
+      "pan": "Pan",
+      "title": "Mixer"
     },
     "share": {
-      "copyUrl": "URL 복사",
-      "copied": "복사됨!",
-      "customSampleNotice": "이 패턴은 커스텀 샘플을 사용했습니다 — 대신 {kit}(으)로 재생합니다.",
-      "dismissNotice": "닫기"
+      "copyUrl": "Share",
+      "copied": "복사 완료!",
+      "customSampleNotice": "이 pattern은 커스텀 sample을 사용합니다. 대신 {kit} 킷으로 재생합니다.",
+      "dismissNotice": "Dismiss"
     },
     "presets": {
-      "label": "프리셋",
-      "basic-rock": "기본 록",
-      "four-on-floor": "포온더플로어",
-      "boom-bap": "붐뱁",
-      "trap": "트랩",
-      "blank": "빈 패턴"
+      "label": "Presets",
+      "basic-rock": "Basic Rock",
+      "four-on-floor": "Four-on-the-Floor",
+      "boom-bap": "Boom-bap",
+      "trap": "Trap",
+      "blank": "Blank"
     },
     "track": {
-      "dropFile": "오디오 파일 드롭",
-      "customFile": "사용자 파일 로드됨",
-      "customBadge": "사용자 지정",
-      "decodeError": "오디오 파일을 디코딩할 수 없습니다."
+      "dropFile": "Sample 드롭하기",
+      "customFile": "커스텀 sample 로드됨",
+      "customBadge": "custom",
+      "decodeError": "오디오를 디코드할 수 없습니다."
     },
     "a11y": {
-      "stepButton": "{track} 단계 {step} {state}",
-      "stepOn": "켜짐",
-      "stepOff": "꺼짐"
+      "stepButton": "{track} step {step} {state}",
+      "stepOn": "on",
+      "stepOff": "off"
     },
     "kits": {
       "808": "808",
-      "acoustic": "어쿠스틱",
-      "lofi": "로파이"
+      "acoustic": "Acoustic",
+      "lofi": "Lo-fi"
     },
     "tracks": {
-      "kick": "킥",
-      "snare": "스네어",
-      "hihat": "하이햇",
-      "openhat": "오픈HH",
-      "clap": "클랩",
-      "ride": "라이드"
+      "kick": "Kick",
+      "snare": "Snare",
+      "hihat": "Hi-hat",
+      "openhat": "Open Hat",
+      "clap": "Clap",
+      "ride": "Ride"
     },
     "rotate": {
-      "title": "기기를 가로로 돌려주세요",
-      "message": "Beatmaker는 가로 모드에서 사용하세요."
+      "title": "화면 회전 안내",
+      "message": "Beatmaker는 가로 모드(landscape mode)에 최적화되어 있습니다."
     },
     "error": {
-      "audioEngine": "Audio engine failed to initialize.",
-      "audioSuspended": "Audio is muted by system."
+      "audioEngine": "오디오 엔진을 시작할 수 없습니다.",
+      "audioSuspended": "시스템에 의해 오디오가 일시 중지되었습니다."
     },
     "actions": {
-      "resume": "Tap to Unmute"
+      "resume": "눌러서 활성화"
     },
     "iosWarning": {
-      "title": "소리가 안 들리나요?",
-      "message": "iOS는 미디어 볼륨 대신 벨소리 볼륨을 사용합니다. 무음 모드가 해제되어 있는지 확인해 주세요."
+      "title": "소리가 안 나나요?",
+      "message": "iOS에서는 무음 모드(측면 스위치)가 해제되어 있는지 확인해주세요."
     }
   }
 }

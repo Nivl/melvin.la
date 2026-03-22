@@ -1,4 +1,4 @@
-import { Chip } from '@heroui/chip';
+import { Chip } from '@heroui/react';
 
 export const Preset = ({
   name,
@@ -8,7 +8,7 @@ export const Preset = ({
   onClick: () => void;
 }) => {
   return (
-    <Chip className="cursor-pointer" onClick={onClick}>
+    <Chip className="cursor-pointer p-2" onClick={onClick}>
       {name}
     </Chip>
   );
