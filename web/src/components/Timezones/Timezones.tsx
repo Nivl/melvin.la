@@ -114,9 +114,9 @@ export const Timezones = () => {
             }}
             items={baseSearchItems}
             inputValue={baseSearchValue}
-            onSelectionChange={e => {
-              if (typeof e === 'string' && ~~e < sortedCities.length) {
-                setBaseZone(sortedCities[~~e].data);
+            onChange={(key: string | number | null) => {
+              if (typeof key === 'string' && ~~key < sortedCities.length) {
+                setBaseZone(sortedCities[~~key].data);
               }
             }}
             allowsEmptyCollection={false}
@@ -171,17 +171,17 @@ export const Timezones = () => {
                 }}
                 items={searchItems}
                 inputValue={searchValue}
-                onSelectionChange={e => {
-                  if (typeof e === 'string' && ~~e < sortedCities.length) {
+                onChange={(key: string | number | null) => {
+                  if (typeof key === 'string' && ~~key < sortedCities.length) {
                     const newZone: CityDataWithExtras = {
-                      ...sortedCities[~~e].data,
+                      ...sortedCities[~~key].data,
                       id: crypto.randomUUID(),
                       color: getColor(zones.at(-1)?.color),
                       content: t.rich('output', {
-                        city: sortedCities[~~e].data.city,
+                        city: sortedCities[~~key].data.city,
                         time: date
                           .clone()
-                          .tz(sortedCities[~~e].data.timezone)
+                          .tz(sortedCities[~~key].data.timezone)
                           .format('LLLL'),
                         cityWrapper: chunk => (
                           <div className="inline font-bold">
