@@ -7,11 +7,11 @@ require (
 	github.com/getsentry/sentry-go/echo v0.43.0
 	github.com/labstack/echo/v4 v4.15.1
 	github.com/oapi-codegen/runtime v1.2.0
-	github.com/pb33f/libopenapi v0.34.0
+	github.com/pb33f/libopenapi v0.34.2
 	github.com/pb33f/libopenapi-validator v0.13.1
 	github.com/sethvargo/go-envconfig v1.3.0
 	github.com/stretchr/testify v1.11.1
-	golang.org/x/text v0.34.0
+	golang.org/x/text v0.35.0
 )
 
 require (
@@ -35,7 +35,7 @@ require (
 	go.yaml.in/yaml/v4 v4.0.0-rc.4 // indirect
 	golang.org/x/crypto v0.48.0 // indirect
 	golang.org/x/net v0.50.0 // indirect
-	golang.org/x/sync v0.19.0 // indirect
+	golang.org/x/sync v0.20.0 // indirect
 	golang.org/x/sys v0.41.0 // indirect
 	golang.org/x/time v0.14.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
