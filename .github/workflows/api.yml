@@ -51,7 +51,7 @@ jobs:
         run: go mod download
 
       - name: Check for file changes
-        uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d
+        uses: dorny/paths-filter@61f87a10cd2c304679af17bb73ef192addf33c1c
         id: changes
         with:
           token: ${{ github.token }}
@@ -166,7 +166,7 @@ jobs:
           path: ./api/bin
 
       - name: Build Image
-        uses: docker/build-push-action@de308676347136a77704e0f257298c8f1b30054f
+        uses: docker/build-push-action@b66d8774c665b789105b440514f0c97e6f19b06f
         with:
           context: ./api
           push: false
@@ -208,7 +208,7 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@11079342065fb7d2c3b37cb799ab6ecc01ad1bb2
+        uses: docker/metadata-action@4378dc6be7f72231dfe78ac7e0364a44f1c9f54b
         with:
           images: ${{ env.PROD_IMAGE_URI }}
           tags: |
@@ -216,7 +216,7 @@ jobs:
             type=raw,value=latest
 
       - name: Build Image, tag it, and push to Github Container Registry
-        uses: docker/build-push-action@de308676347136a77704e0f257298c8f1b30054f
+        uses: docker/build-push-action@b66d8774c665b789105b440514f0c97e6f19b06f
         with:
           context: ./api
           push: true
