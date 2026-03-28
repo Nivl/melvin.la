@@ -143,10 +143,15 @@ jobs:
           path: "playwright-report/" # Set your reports path here
           retention-days: 3
 
-  # we only run this one after everything has run to save chromatic
-  # credits
+  # sIn order to save chromatic credits, we only run this one:
+  #  - after everything else has passed
+  #  - On any non-draft PRs
+  #  - On any push to the main branch
   chromatic:
-    if: needs.prepare-env.outputs.code-changed == 'true'
+    if: |
+      needs.prepare-env.outputs.code-changed == 'true' &&
+      ((github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+        (github.event.pull_request.draft == false))
     needs: [prepare-env, lint, unit-test, e2e-test, build]
     name: Run Chromatic
     runs-on: ubuntu-latest
