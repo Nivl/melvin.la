@@ -6,9 +6,9 @@ require (
 	github.com/getsentry/sentry-go v0.43.0
 	github.com/getsentry/sentry-go/echo v0.43.0
 	github.com/labstack/echo/v4 v4.15.1
-	github.com/oapi-codegen/runtime v1.2.0
-	github.com/pb33f/libopenapi v0.34.2
-	github.com/pb33f/libopenapi-validator v0.13.1
+	github.com/oapi-codegen/runtime v1.3.0
+	github.com/pb33f/libopenapi v0.34.3
+	github.com/pb33f/libopenapi-validator v0.13.3
 	github.com/sethvargo/go-envconfig v1.3.0
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/text v0.35.0
@@ -20,8 +20,8 @@ require (
 	github.com/basgys/goxml2json v1.1.1-0.20231018121955-e66ee54ceaad // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
-	github.com/go-openapi/jsonpointer v0.22.4 // indirect
-	github.com/go-openapi/swag/jsonname v0.25.4 // indirect
+	github.com/go-openapi/jsonpointer v0.22.5 // indirect
+	github.com/go-openapi/swag/jsonname v0.25.5 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
