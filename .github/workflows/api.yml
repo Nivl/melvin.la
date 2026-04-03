@@ -137,7 +137,7 @@ jobs:
 
       - name: Annotate tests
         if: success() || failure()
-        uses: guyarb/golang-test-annotations@2941118d7ef622b1b3771d1ff6eae9e90659eb26
+        uses: guyarb/golang-test-annotations@96fc379b171c49932041d6c789e73331a7bdeec1
         with:
           test-results: /tmp/test-results/results.json
           working-directory: api
@@ -166,7 +166,7 @@ jobs:
           path: ./api/bin
 
       - name: Build Image
-        uses: docker/build-push-action@b66d8774c665b789105b440514f0c97e6f19b06f
+        uses: docker/build-push-action@83bfd93ab480705a7b99a2ed02765137f5ab55ba
         with:
           context: ./api
           push: false
@@ -208,7 +208,7 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@4378dc6be7f72231dfe78ac7e0364a44f1c9f54b
+        uses: docker/metadata-action@c3b064c6d7c32446d6bc214ea075f1caad2de35a
         with:
           images: ${{ env.PROD_IMAGE_URI }}
           tags: |
@@ -216,7 +216,7 @@ jobs:
             type=raw,value=latest
 
       - name: Build Image, tag it, and push to Github Container Registry
-        uses: docker/build-push-action@b66d8774c665b789105b440514f0c97e6f19b06f
+        uses: docker/build-push-action@83bfd93ab480705a7b99a2ed02765137f5ab55ba
         with:
           context: ./api
           push: true
