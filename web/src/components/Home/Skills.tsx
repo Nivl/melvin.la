@@ -614,7 +614,7 @@ export const Skills = () => {
 
         {/* Year from filter */}
         <Slider
-          className="mb-10 w-sm md:mb-0"
+          className="mb-10 w-full max-w-md md:mb-0"
           step={1}
           minValue={1}
           maxValue={currentYear - minYear + 1}

@@ -79,7 +79,7 @@ export function MixerStrip({
 
       <Button
         size="sm"
-        variant={muted ? 'primary' : 'secondary'}
+        variant={muted ? 'primary' : 'outline'}
         onPress={onMuteToggle}
         className="mt-2.5 w-full text-xs"
         style={muted ? { backgroundColor: color, color: '#fff' } : undefined}

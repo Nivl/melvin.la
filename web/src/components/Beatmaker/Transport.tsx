@@ -56,7 +56,7 @@ export function Transport({
 
       {/* Steps */}
       <div className="m-auto flex items-center gap-1.5">
-        <span className="text-default-400 text-xs tracking-wider uppercase">
+        <span className="text-xs tracking-wider uppercase">
           {tTransport('steps')}
         </span>
         {STEP_COUNTS.map(n => {
@@ -73,7 +73,7 @@ export function Transport({
                 'rounded-full border px-2.5 py-0.5 text-xs font-medium',
                 'motion-safe:transition motion-safe:duration-150 motion-safe:ease-in-out',
                 selected
-                  ? 'border-primary bg-accent text-background'
+                  ? 'border-primary bg-accent text-accent-foreground'
                   : 'hover:bg-default motion-safe:scale-85',
               ].join(' ')}
             >
