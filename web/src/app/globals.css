@@ -3,212 +3,290 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* HeroUI default light theme uses light-ish grey as background and we 
- want to use white instead. The side effect is that we also need to change 
- a few other colors because they are not designed to work on a white background.
+:root,
+.light,
+.default,
+[data-theme="light"],
+[data-theme="default"] {
+  /* Border Radius */
+  --radius: 0.25rem;
+  --field-radius: 0.25rem;
 
-TODO(melvin): Build a new light theme instead of overriding the existing one.
-              That'd be cleaner and we won't have to worry about the dark theme.
-                https://heroui.com/themes.
-*/
-/* :root,
-[data-theme="light"] {
-    --heroui-background: 0 0% 100%;
-    --background: oklch(1 0 0);
-    --field-background: oklch(98.5% 0.00011 271.152);
-    --surface-shadow: 0px 0px 15px 0px #00000008, 0px 2px 30px 0px #00000014, 0px 0px 1px 0px #0000004d;
+  /* Colors */
+  --accent: oklch(70.22% 0.1366 233.37);
+  --accent-foreground: oklch(99.11% 0 0);
+  --background: oklch(97.02% 0.0044 233.37);
+  --border: oklch(90.00% 0.0044 233.37);
+  --danger: oklch(65.32% 0.2348 23.29);
+  --danger-foreground: oklch(99.11% 0 0);
+  --default: oklch(94.00% 0.0044 233.37);
+  --default-foreground: oklch(21.03% 0.0059 233.37);
+  --field-background: oklch(100.00% 0.0022 233.37);
+  --field-foreground: oklch(21.03% 0.0044 233.37);
+  --field-placeholder: oklch(55.17% 0.0088 233.37);
+  --focus: oklch(70.22% 0.1366 233.37);
+  --foreground: oklch(21.03% 0.0044 233.37);
+  --muted: oklch(55.17% 0.0088 233.37);
+  --overlay: oklch(100.00% 0.0013 233.37);
+  --overlay-foreground: oklch(21.03% 0.0044 233.37);
+  --scrollbar: oklch(87.10% 0.0044 233.37);
+  --segment: oklch(100.00% 0.0044 233.37);
+  --segment-foreground: oklch(21.03% 0.0044 233.37);
+  --separator: oklch(92.00% 0.0044 233.37);
+  --success: oklch(73.29% 0.1952 148.36);
+  --success-foreground: oklch(21.03% 0.0059 148.36);
+  --surface: oklch(100.00% 0.0022 233.37);
+  --surface-foreground: oklch(21.03% 0.0044 233.37);
+  --surface-secondary: oklch(95.24% 0.0035 233.37);
+  --surface-secondary-foreground: oklch(21.03% 0.0044 233.37);
+  --surface-tertiary: oklch(93.73% 0.0035 233.37);
+  --surface-tertiary-foreground: oklch(21.03% 0.0044 233.37);
+  --warning: oklch(78.19% 0.1599 69.88);
+  --warning-foreground: oklch(21.03% 0.0059 69.88);
 }
 
-/* That's the default HeroUI dark mode color, we have to reset them here
-    because otherwhise they get overridden by our light theme changes.
-    
-    This should be avoidable by building a new light theme instead of
-    overriding the existing one.
-*/
-/* .dark,
+.dark,
 [data-theme="dark"] {
-    --heroui-background: 0 0% 0%;
-    --background: oklch(0 0 0);
-    --field-background: lab(8.34178% .607349 -2.12998);
-    --surface-shadow: 0 0 0 0 transparent inset;
-} */
+  color-scheme: dark;
 
+  --accent: oklch(70.22% 0.1366 233.37);
+  --accent-foreground: oklch(99.11% 0 0);
+  --background: oklch(12.00% 0.0044 233.37);
+  --border: oklch(28.00% 0.0044 233.37);
+  --danger: oklch(59.40% 0.1984 22.18);
+  --danger-foreground: oklch(99.11% 0 0);
+  --default: oklch(27.40% 0.0044 233.37);
+  --default-foreground: oklch(99.11% 0 0);
+  --field-background: oklch(21.03% 0.0088 233.37);
+  --field-foreground: oklch(99.11% 0.0044 233.37);
+  --field-placeholder: oklch(70.50% 0.0088 233.37);
+  --focus: oklch(70.22% 0.1366 233.37);
+  --foreground: oklch(99.11% 0.0044 233.37);
+  --muted: oklch(70.50% 0.0088 233.37);
+  --overlay: oklch(21.03% 0.0088 233.37);
+  --overlay-foreground: oklch(99.11% 0.0044 233.37);
+  --scrollbar: oklch(70.50% 0.0044 233.37);
+  --segment: oklch(39.64% 0.0044 233.37);
+  --segment-foreground: oklch(99.11% 0.0044 233.37);
+  --separator: oklch(25.00% 0.0044 233.37);
+  --success: oklch(73.29% 0.1952 148.36);
+  --success-foreground: oklch(21.03% 0.0059 148.36);
+  --surface: oklch(21.03% 0.0088 233.37);
+  --surface-foreground: oklch(99.11% 0.0044 233.37);
+  --surface-secondary: oklch(25.70% 0.0066 233.37);
+  --surface-secondary-foreground: oklch(99.11% 0.0044 233.37);
+  --surface-tertiary: oklch(27.21% 0.0066 233.37);
+  --surface-tertiary-foreground: oklch(99.11% 0.0044 233.37);
+  --warning: oklch(82.03% 0.1400 73.89);
+  --warning-foreground: oklch(21.03% 0.0059 73.89);
+}
+
+
+@layer components {
+
+  .card,
+  .dropdown__menu {
+    @apply transition-colors duration-300;
+  }
+}
+
+/* Tailwind specific variables */
 @theme {
-    --font-sans: var(--font-noto-sans), var(--font-noto-sans-kr), var(--font-noto-sans-jp), var(--font-noto-sans-sc), var(--font-noto-sans-tc), '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    --font-condensed: var(--font-baikal);
-    --font-fortnite: var(--font-burbank);
-    --font-monospace: var(--font-fira-code), "monospace";
+  --navbar-height: 4rem;
 
-    --font-sans-latin: var(--font-noto-sans);
-    --font-condensed-latin: var(--font-baikal);
-    --font-fortnite-latin: var(--font-burbank);
+  --color-nivl: #26ace6;
 
-    --navbar-height: 4rem;
+  --leading-tight-xl: 6rem;
+  --leading-tight-sm: 4.75rem;
+  --leading-tight-xs: 3rem;
 
-    --color-nivl: #26ace6;
+  /* Font Family */
+  --font-sans: var(--font-noto-sans),
+    var(--font-noto-sans-kr),
+    var(--font-noto-sans-jp),
+    var(--font-noto-sans-sc),
+    var(--font-noto-sans-tc),
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Roboto',
+    'Oxygen',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  --font-condensed: var(--font-baikal);
+  --font-fortnite: var(--font-burbank);
+  --font-monospace: var(--font-fira-code),
+    "monospace";
 
-    --color-track-kick: #7c6fff;
-    --color-track-snare: #ff4f6a;
-    --color-track-hihat: #ffcc4a;
-    --color-track-openhat: #4affb8;
-    --color-track-clap: #ff8c4a;
-    --color-track-ride: #4ab8ff;
-    --color-brands-playstation: #006FCD;
-    --color-brands-xbox: #2ca243;
+  --font-sans-latin: var(--font-noto-sans);
+  --font-condensed-latin: var(--font-baikal);
+  --font-fortnite-latin: var(--font-burbank);
 
-    --leading-tight-xl: 6rem;
-    --leading-tight-sm: 4.75rem;
-    --leading-tight-xs: 3rem;
+  /* Beatmaker colors */
+  --color-track-kick: #7c6fff;
+  --color-track-snare: #ff4f6a;
+  --color-track-hihat: #ffcc4a;
+  --color-track-openhat: #4affb8;
+  --color-track-clap: #ff8c4a;
+  --color-track-ride: #4ab8ff;
+  --color-brands-playstation: #006FCD;
+  --color-brands-xbox: #2ca243;
 
-    --ease-spring-soft: linear(0, 0.009 1.1%, 0.033 2.2%, 0.131 4.7%, 0.263 7.1%, 0.681 13.9%, 0.893 18.2%, 0.967 20.2%, 1.028 22.3%, 1.074 24.5%, 1.104 26.7%, 1.122 29.8%, 1.118 33.4%, 1.018 48.3%, 0.988 57.2%, 1);
-    --ease-spring-heavy: linear(0, 0.013 0.6%, 0.05 1.2%, 0.2 2.5%, 0.949 6.7%, 1.2 8.4%, 1.286 9.2%, 1.35 10%, 1.392 10.8%, 1.411 11.6%, 1.411 12.2%, 1.401 12.8%, 1.343 14.2%, 1.258 15.5%, 1.016 18.7%, 0.914 20.4%, 0.856 21.9%, 0.831 23.5%, 0.834 24.7%, 0.858 26.1%, 0.996 30.7%, 1.037 32.4%, 1.06 33.9%, 1.07 35.4%, 1.061 37.7%, 0.989 43.8%, 0.971 47.2%, 1.012 59.1%, 0.995 70.8%, 1);
-    --ease-spring-boop: linear(0, 0.011, 0.045 1.4%, 0.184 3%, 0.913 8.2%, 1.156, 1.304 12.3%, 1.345, 1.365, 1.367, 1.359 15.8%, 1.31 17.5%, 1.027 23.1%, 0.937 25.3%, 0.888 27.1%, 0.873, 0.866 29%, 0.867, 0.88, 0.905 33.5%, 0.982 37.5%, 1.014 39.4%, 1.038, 1.049 43.7% 45.2%, 1.044 46.7%, 0.995 54.2%, 0.986, 0.982 58.4%, 0.984 61.5%, 1.002 68.9%, 1.006 72.9%, 0.998 87.3%, 1.001);
+  /* tech brand colors, ordered alphabetically */
+  --fill-tech-amplitude: #1E61F0;
+  --fill-tech-android: #33a854;
+  --fill-tech-angular: #f21863;
+  --fill-tech-datadog: #622ca4;
+  --fill-tech-django: #073c2a;
+  --fill-tech-docker: #1c63ed;
+  --fill-tech-go: #1bffff;
+  --fill-tech-grpc: #244b5a;
+  --fill-tech-ionic: #4e8ef7;
+  --fill-tech-javascript: #f8e017;
+  --fill-tech-mongodb: #22a03c;
+  --fill-tech-mysql: #01758f;
+  --fill-tech-node: #5ea04e;
+  --fill-tech-php: #505b93;
+  --fill-tech-postgres: #2f6792;
+  --fill-tech-rails: #d30102;
+  --fill-tech-react: #0ed9fe;
+  --fill-tech-redis: #fe4236;
+  --fill-tech-ruby: #e2242a;
+  --fill-tech-sentry-light: #362c59;
+  --fill-tech-typescript: #3178c6;
 
-    --animate-levitate: levitate 1s ease-in-out infinite;
+  /* Animations */
 
-    /* tech brand colors, ordered alphabetically */
-    --fill-tech-amplitude: #1E61F0;
-    --fill-tech-android: #33a854;
-    --fill-tech-angular: #f21863;
-    --fill-tech-datadog: #622ca4;
-    --fill-tech-django: #073c2a;
-    --fill-tech-docker: #1c63ed;
-    --fill-tech-go: #1bffff;
-    --fill-tech-grpc: #244b5a;
-    --fill-tech-ionic: #4e8ef7;
-    --fill-tech-javascript: #f8e017;
-    --fill-tech-mongodb: #22a03c;
-    --fill-tech-mysql: #01758f;
-    --fill-tech-node: #5ea04e;
-    --fill-tech-php: #505b93;
-    --fill-tech-postgres: #2f6792;
-    --fill-tech-rails: #d30102;
-    --fill-tech-react: #0ed9fe;
-    --fill-tech-redis: #fe4236;
-    --fill-tech-ruby: #e2242a;
-    --fill-tech-sentry-light: #362c59;
-    --fill-tech-typescript: #3178c6;
+  --ease-spring-soft: linear(0, 0.009 1.1%, 0.033 2.2%, 0.131 4.7%, 0.263 7.1%, 0.681 13.9%, 0.893 18.2%, 0.967 20.2%, 1.028 22.3%, 1.074 24.5%, 1.104 26.7%, 1.122 29.8%, 1.118 33.4%, 1.018 48.3%, 0.988 57.2%, 1);
+  --ease-spring-heavy: linear(0, 0.013 0.6%, 0.05 1.2%, 0.2 2.5%, 0.949 6.7%, 1.2 8.4%, 1.286 9.2%, 1.35 10%, 1.392 10.8%, 1.411 11.6%, 1.411 12.2%, 1.401 12.8%, 1.343 14.2%, 1.258 15.5%, 1.016 18.7%, 0.914 20.4%, 0.856 21.9%, 0.831 23.5%, 0.834 24.7%, 0.858 26.1%, 0.996 30.7%, 1.037 32.4%, 1.06 33.9%, 1.07 35.4%, 1.061 37.7%, 0.989 43.8%, 0.971 47.2%, 1.012 59.1%, 0.995 70.8%, 1);
+  --ease-spring-boop: linear(0, 0.011, 0.045 1.4%, 0.184 3%, 0.913 8.2%, 1.156, 1.304 12.3%, 1.345, 1.365, 1.367, 1.359 15.8%, 1.31 17.5%, 1.027 23.1%, 0.937 25.3%, 0.888 27.1%, 0.873, 0.866 29%, 0.867, 0.88, 0.905 33.5%, 0.982 37.5%, 1.014 39.4%, 1.038, 1.049 43.7% 45.2%, 1.044 46.7%, 0.995 54.2%, 0.986, 0.982 58.4%, 0.984 61.5%, 1.002 68.9%, 1.006 72.9%, 0.998 87.3%, 1.001);
 
-    @keyframes levitate {
+  --animate-levitate: levitate 1s ease-in-out infinite;
 
-        0%,
-        100% {
-            transform: translateY(-5px);
-        }
+  @keyframes levitate {
 
-        50% {
-            transform: translateY(5px);
-        }
+    0%,
+    100% {
+      transform: translateY(-5px);
     }
 
-    --animate-shake: shake 100ms ease-in-out infinite alternate;
+    50% {
+      transform: translateY(5px);
+    }
+  }
 
-    @keyframes shake {
-        0% {
-            transform: rotate(-5deg);
-        }
+  --animate-shake: shake 100ms ease-in-out infinite alternate;
 
-        100% {
-            transform: rotate(5deg);
-        }
+  @keyframes shake {
+    0% {
+      transform: rotate(-5deg);
     }
 
-    --animate-boba-hard-shake: boba-hard-shake 400ms linear infinite forwards;
+    100% {
+      transform: rotate(5deg);
+    }
+  }
 
-    @keyframes boba-hard-shake {
+  --animate-boba-hard-shake: boba-hard-shake 400ms linear infinite forwards;
 
-        0%,
-        100% {
-            translate: 0px;
-        }
+  @keyframes boba-hard-shake {
 
-        25% {
-            translate: -50px;
-        }
-
-        75% {
-            translate: 50px;
-        }
+    0%,
+    100% {
+      translate: 0px;
     }
 
-    /* All the variables are set at runtime */
-    @keyframes boba-soft-shake {
-
-        0%,
-        100% {
-            translate: 0px;
-        }
-
-        25% {
-            translate: calc(-1 * var(--boba-soft-shake-offset));
-        }
-
-        75% {
-            translate: var(--boba-soft-shake-offset);
-        }
+    25% {
+      translate: -50px;
     }
 
-    /* All the variables are set at runtime */
-    @keyframes to-landscape-rotation {
-
-        0%,
-        10% {
-            rotate: 45deg;
-        }
-
-        60% {
-            rotate: 135deg;
-        }
-
-        100% {
-            rotate: 135deg;
-        }
+    75% {
+      translate: 50px;
     }
+  }
+
+  /* All the variables are set at runtime */
+  @keyframes boba-soft-shake {
+
+    0%,
+    100% {
+      translate: 0px;
+    }
+
+    25% {
+      translate: calc(-1 * var(--boba-soft-shake-offset));
+    }
+
+    75% {
+      translate: var(--boba-soft-shake-offset);
+    }
+  }
+
+  /* All the variables are set at runtime */
+  @keyframes to-landscape-rotation {
+
+    0%,
+    10% {
+      rotate: 45deg;
+    }
+
+    60% {
+      rotate: 135deg;
+    }
+
+    100% {
+      rotate: 135deg;
+    }
+  }
 }
 
 .cls-to-landscape-rotation {
-    /* All the variables are set at runtime */
-    animation: to-landscape-rotation 2s linear infinite;
-    @apply motion-reduce:animate-none;
+  /* All the variables are set at runtime */
+  animation: to-landscape-rotation 2s linear infinite;
+  @apply motion-reduce:animate-none;
 }
 
 .cls-boop-animation {
-    @apply motion-safe:ease-spring-boop;
-    @apply motion-safe:duration-1000;
-    @apply motion-safe:transform;
+  @apply motion-safe:ease-spring-boop;
+  @apply motion-safe:duration-1000;
+  @apply motion-safe:transform;
 }
 
 .cls-boba-soft-shake {
-    /* All the variables are set at runtime */
-    animation: boba-soft-shake var(--boba-soft-shake-duration) linear var(--boba-soft-shake-delay) var(--boba-soft-shake-iterations) forwards;
-    @apply motion-reduce:animate-none;
+  /* All the variables are set at runtime */
+  animation: boba-soft-shake var(--boba-soft-shake-duration) linear var(--boba-soft-shake-delay) var(--boba-soft-shake-iterations) forwards;
+  @apply motion-reduce:animate-none;
 }
 
 .cls-boba-animation {
-    transition-property: cy, cx;
-    transition-timing-function: linear;
-    /* --boba-moving-duration is set by the component at runtime */
-    transition-duration: var(--boba-moving-duration);
-    @apply motion-reduce:transition-none;
+  transition-property: cy, cx;
+  transition-timing-function: linear;
+  /* --boba-moving-duration is set by the component at runtime */
+  transition-duration: var(--boba-moving-duration);
+  @apply motion-reduce:transition-none;
 }
 
 .cls-transition-theme-switch-light {
-    transition: scale 1000ms 500ms var(--ease-spring-soft),
-        opacity 300ms 600ms linear;
-    @apply motion-reduce:transition-none;
+  transition: scale 1000ms 500ms var(--ease-spring-soft),
+    opacity 300ms 600ms linear;
+  @apply motion-reduce:transition-none;
 }
 
 .cls-transition-theme-switch-dark {
-    transition: opacity 300ms linear,
-        scale 1000ms 200ms var(--ease-spring-soft);
-    @apply motion-reduce:transition-none;
+  transition: opacity 300ms linear,
+    scale 1000ms 200ms var(--ease-spring-soft);
+  @apply motion-reduce:transition-none;
 }
 
 #blog-post-page a {
-    @apply text-nivl;
+  @apply text-nivl;
 }
 
 #home-page p {
-    @apply mb-3;
-    @apply lg:mb-8;
+  @apply mb-3;
+  @apply lg:mb-8;
 }

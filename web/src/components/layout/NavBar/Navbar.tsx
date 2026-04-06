@@ -165,10 +165,7 @@ export const Navbar = () => {
 
                 if (section.type === 'link') {
                   return (
-                    <span
-                      key={section.key}
-                      className="inline-flex flex-col gap-1"
-                    >
+                    <span key={section.key} className="inline-flex flex-col">
                       <NextLink
                         href={section.href}
                         className={`h-8 content-center px-3 text-sm motion-safe:transition ${active ? 'font-semibold opacity-100' : 'font-normal opacity-75 hover:opacity-100'} hover:text-primary`}
@@ -179,7 +176,7 @@ export const Navbar = () => {
                       {active && (
                         <motion.span
                           layoutId="nav-indicator"
-                          className="bg-nivl h-0.5 w-full rounded-full"
+                          className="bg-accent h-0.5 w-full rounded-full"
                           transition={{
                             type: 'spring',
                             stiffness: 500,
@@ -194,7 +191,7 @@ export const Navbar = () => {
                 return (
                   <div key={section.key} className="relative">
                     <Dropdown>
-                      <span className="inline-flex flex-col gap-1">
+                      <span className="inline-flex flex-col">
                         <Button
                           variant="ghost"
                           size="sm"
@@ -210,7 +207,7 @@ export const Navbar = () => {
                         {active && (
                           <motion.span
                             layoutId="nav-indicator"
-                            className="bg-nivl h-0.5 w-full rounded-full"
+                            className="bg-accent h-0.5 w-full rounded-full"
                             transition={{
                               type: 'spring',
                               stiffness: 500,
