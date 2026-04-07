@@ -103,4 +103,41 @@ test.describe('Fortnite Tool', () => {
       page.getByText(/Nobody goes by this name, on this platform/i),
     ).toBeVisible({ timeout: 15_000 });
   });
+
+  test('input keeps focus after the debounce fires', async ({ page }) => {
+    await page.goto('/tools/fortnite');
+
+    const input = page.getByPlaceholder(/Account Name/i);
+    await input.click();
+    await input.fill('200');
+
+    // Wait for debounce (1000ms) + a small buffer, then verify focus is retained
+    await page.waitForURL(/.*200.*/, { waitUntil: 'commit' });
+    await expect(input).toBeFocused();
+  });
+
+  test('re-selecting the same preset after clearing triggers a new search', async ({
+    page,
+  }) => {
+    await page.goto('/tools/fortnite');
+
+    // Pick the Mongraal preset for the first time
+    await page.getByRole('button', { name: 'Mongraal' }).click();
+    await expect(
+      page.getByText(/That's how long you've spent in the game/i),
+    ).toBeVisible({ timeout: 15_000 });
+
+    // Clear the input — the results section should disappear and presets reappear
+    await page.getByRole('button', { name: /clear/i }).click();
+    await expect(
+      page.getByRole('heading', { name: /Or pick a famous content creator/i }),
+    ).toBeVisible({ timeout: 5000 });
+
+    // Pick Mongraal again — must trigger a fresh search even though the preset
+    // values are identical to the previous selection
+    await page.getByRole('button', { name: 'Mongraal' }).click();
+    await expect(
+      page.getByText(/That's how long you've spent in the game/i),
+    ).toBeVisible({ timeout: 15_000 });
+  });
 });

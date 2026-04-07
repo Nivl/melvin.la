@@ -41,9 +41,14 @@ export const Form = ({
   defaultAccountType: AccountTypes;
   defaultTimeWindow: TimeWindow;
 }) => {
-  const [name, setName] = useState(defaultAccountName);
-  const debounceName = useDebouncedCallback((name: string) => {
-    setName(name);
+  // `inputValue` is the live, controlled value of the text field — updated on
+  // every keystroke so the input never loses its value across re-renders.
+  // `debouncedOnAccountNameChange` throttles the parent notification to 1000ms
+  // so the search/URL update only fires after the user stops typing, while
+  // keeping the input itself responsive at all times.
+  const [inputValue, setInputValue] = useState(defaultAccountName);
+  const debouncedOnAccountNameChange = useDebouncedCallback((name: string) => {
+    onAccountNameChange(name);
   }, 1000);
 
   const [accountType, setAccountType] = useState(defaultAccountType);
@@ -53,8 +58,13 @@ export const Form = ({
   const nameFieldId = useId();
 
   useEffect(() => {
-    onAccountNameChange(name);
-  }, [name, onAccountNameChange]);
+    if (defaultAccountName) {
+      onAccountNameChange(defaultAccountName);
+    }
+    // Intentionally runs once on mount to notify parent of the initial/preset value.
+    // The Form is remounted via `key` when the preset changes, so this fires on each preset selection.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     onAccountTypeChange(accountType);
@@ -68,16 +78,22 @@ export const Form = ({
       }}
     >
       <div className="relative">
+        {/* value/onChange live on TextField (not Input) so React Aria's internal
+            focus management stays in control. Putting `value` directly on Input
+            bypasses the compound component's context and causes focus to be lost
+            whenever the parent re-renders (e.g. after the debounce fires). */}
         <TextField
-          key={name}
-          defaultValue={name}
           className="flex w-auto flex-row items-center gap-5"
+          value={inputValue}
+          onChange={val => {
+            setInputValue(val);
+            debouncedOnAccountNameChange(val);
+          }}
         >
           <Label htmlFor={nameFieldId}>{t('accountName')}</Label>
           <Input
             id={nameFieldId}
             placeholder={t('accountName')}
-            onChange={e => debounceName(e.target.value)}
             autoComplete="off"
             autoCorrect="off"
             spellCheck="false"
@@ -87,12 +103,14 @@ export const Form = ({
             data-bwignore
           />
         </TextField>
-        {name && (
+        {inputValue && (
           <CloseButton
             aria-label={t('clearInput')}
             className="absolute inset-y-2 right-2 flex items-center"
             onPress={() => {
-              setName('');
+              setInputValue('');
+              debouncedOnAccountNameChange.cancel();
+              onAccountNameChange('');
             }}
           />
         )}
