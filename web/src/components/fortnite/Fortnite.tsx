@@ -2,12 +2,12 @@
 
 import { Skeleton } from '@heroui/react';
 import { notFound } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Section } from '#components/layout/Section';
 import { useStats } from '#hooks/fortnite/useStats';
-import { usePathname, useRouter } from '#i18n/routing';
+import { routing } from '#i18n/routing';
 import { humanizeDuration } from '#utils/fortnite';
 
 import { AccountPresets, defaults, Preset } from './AccountPresets';
@@ -34,11 +34,24 @@ export const Fortnite = ({
     timeWindow: defaults.timeWindow,
   });
 
+  // `presetKey` is a monotonic counter included in the Form's `key` prop.
+  // It guarantees the Form always remounts when a preset is selected — even
+  // when the user picks the same preset twice in a row (e.g. pick Mongraal,
+  // clear the input, pick Mongraal again). Without this counter the Form's
+  // key string would be identical both times, React would skip the remount,
+  // and the mount-time effect that fires the search would never run.
+  const [presetKey, setPresetKey] = useState(0);
+
+  const handleSetPreset = useCallback((p: Preset) => {
+    setPreset(p);
+    setPresetKey(k => k + 1);
+  }, []);
+
   const [name, setName] = useState(preset.accountName);
   const [accountType, setAccountType] = useState(preset.accountType);
   const [timeWindow, setTimeWindow] = useState(preset.timeWindow);
-  const router = useRouter();
-  const pathname = usePathname();
+  const locale = useLocale();
+  const localePrefix = locale === routing.defaultLocale ? '' : `/${locale}`;
   const rootT = useTranslations();
   const t = useTranslations('fortnite');
 
@@ -50,21 +63,20 @@ export const Fortnite = ({
   );
 
   useEffect(() => {
-    let url = '/tools/fortnite';
+    let url = `${localePrefix}/tools/fortnite`;
     if (name) {
       url += `/${encodeURIComponent(name)}/${accountType}`;
     }
 
-    if (pathname != url) {
-      router.push(url, {
-        // @ts-expect-error 'shallow' does not exist in type 'NavigateOptions' but is valid. See https://github.com/vercel/next.js/issues/60007
-        shallow: true,
-      });
+    if (globalThis.location.pathname !== url) {
+      // Use pushState directly instead of router.push to avoid triggering a
+      // Next.js navigation. Even with `shallow: true`, the App Router fires
+      // enough internal machinery to disrupt React Aria's focus management,
+      // causing the search input to lose focus after each debounce tick.
+      // pushState only updates the URL bar without touching the React tree.
+      globalThis.history.pushState(undefined, '', url);
     }
-
-    // We don't need the router here, it's only for a shallow change
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, accountType]);
+  }, [name, accountType, localePrefix]);
 
   if (providedType && !providedTypeIsValid) {
     return notFound();
@@ -91,14 +103,14 @@ export const Fortnite = ({
             defaultTimeWindow={preset.timeWindow}
             defaultAccountType={preset.accountType}
             defaultAccountName={preset.accountName}
-            key={`${preset.accountName}-${preset.accountType}-${preset.timeWindow}`}
+            key={`${preset.accountName}-${preset.accountType}-${preset.timeWindow}-${String(presetKey)}`}
           />
         </header>
       </Section>
 
       {!isLoading && !error && !data && (
         <Section className="mb-16 flex flex-col gap-10">
-          <AccountPresets setPreset={setPreset} />
+          <AccountPresets setPreset={handleSetPreset} />
         </Section>
       )}
 
