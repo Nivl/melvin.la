@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
 import { createEngine } from "./engine";
+import type { BeatmakerState } from "./types";
 
 // ── Mock Web Audio API ─────────────────────────────────────────────────────
 
@@ -8,19 +9,19 @@ const mockStart = vi.fn();
 const mockStop = vi.fn();
 const mockConnect = vi.fn();
 const mockCreateBufferSource = vi.fn(() => ({
-  buffer: undefined as AudioBuffer | undefined,
+  buffer: undefined,
   connect: mockConnect,
   start: mockStart,
   stop: mockStop,
   addEventListener: vi.fn(),
-  onended: undefined as (() => void) | undefined,
+  onended: undefined,
 }));
 const mockGainNode = { gain: { value: 0 }, connect: mockConnect };
 const mockPanNode = { pan: { value: 0 }, connect: mockConnect };
 const mockCreateGain = vi.fn(() => mockGainNode);
 const mockCreateStereoPanner = vi.fn(() => mockPanNode);
-const mockDecodeAudioData = vi.fn().mockResolvedValue({} as AudioBuffer);
-const mockCreateBuffer = vi.fn(() => ({}) as AudioBuffer);
+const mockDecodeAudioData = vi.fn().mockResolvedValue({});
+const mockCreateBuffer = vi.fn(() => ({}));
 const mockResume = vi.fn().mockImplementation(() => Promise.resolve());
 const mockClose = vi.fn().mockImplementation(() => Promise.resolve());
 const mockAddEventListener = vi.fn();
@@ -111,9 +112,9 @@ describe("createEngine", () => {
     await engine.init();
     await engine.loadKit("808");
 
-    const steps = Array.from({ length: 16 }).fill(true);
-    const track = { steps, volume: 1, muted: false, pan: 0 };
-    const state = {
+    const steps = Array.from<boolean>({ length: 16 }).fill(true);
+    const track = { steps, volume: 1, muted: false, pan: 0, customFile: undefined };
+    const state: BeatmakerState = {
       kit: "808" as const,
       bpm: 120,
       stepCount: 16,
@@ -128,7 +129,7 @@ describe("createEngine", () => {
       },
     };
 
-    engine.start(() => state as never);
+    engine.start(() => state);
     // Advance timers so the scheduler interval fires and sources get created
     vi.advanceTimersByTime(25);
 
@@ -148,7 +149,7 @@ describe("createEngine", () => {
       }
 
       seenBuffers.add(arrayBuffer);
-      return Promise.resolve({} as AudioBuffer);
+      return Promise.resolve({});
     });
 
     vi.stubGlobal(

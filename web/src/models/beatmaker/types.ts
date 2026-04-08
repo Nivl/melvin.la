@@ -1,8 +1,20 @@
-export type Kit = "808" | "acoustic" | "lofi";
+export const KIT_IDS = ["808", "acoustic", "lofi"] as const;
+export type Kit = (typeof KIT_IDS)[number];
 
 export type TrackId = "kick" | "snare" | "hihat" | "openhat" | "clap" | "ride";
 
 export const TRACK_IDS: TrackId[] = ["kick", "snare", "hihat", "openhat", "clap", "ride"];
+
+export function buildTrackRecord<T>(build: (trackId: TrackId) => T): Record<TrackId, T> {
+  return {
+    kick: build("kick"),
+    snare: build("snare"),
+    hihat: build("hihat"),
+    openhat: build("openhat"),
+    clap: build("clap"),
+    ride: build("ride"),
+  };
+}
 
 export const STEP_COUNTS = [8, 16, 32] as const;
 export type StepCount = (typeof STEP_COUNTS)[number];

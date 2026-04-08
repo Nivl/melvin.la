@@ -1,4 +1,4 @@
-import { createElement } from "react";
+import { createElement, type ReactNode } from "react";
 
 const makeEl = (tag: string) => {
   function MotionComponent({
@@ -10,8 +10,8 @@ const makeEl = (tag: string) => {
     layout: _l,
     layoutId: _li,
     ...props
-  }: Record<string, unknown>) {
-    return createElement(tag, props as object, children as never);
+  }: Record<string, unknown> & { children?: ReactNode }) {
+    return createElement(tag, props, children);
   }
   return MotionComponent;
 };
@@ -25,9 +25,12 @@ function MotionConfig({ children }: { children: unknown }) {
 }
 
 export const motionMock = {
-  motion: new Proxy({} as Record<string, unknown>, {
-    get: (_, tag: string) => makeEl(tag),
-  }),
+  motion: new Proxy<Record<string, unknown>>(
+    {},
+    {
+      get: (_, tag: string) => makeEl(tag),
+    },
+  ),
   AnimatePresence,
   MotionConfig,
 };

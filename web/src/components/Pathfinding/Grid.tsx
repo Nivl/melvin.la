@@ -115,7 +115,7 @@ export const PathfindingGrid = ({
       const mode: DragMode = e.button === 2 || state === "wall" ? "remove-wall" : "add-wall";
       dragModeRef.current = mode;
       applyWall(row, col, mode);
-      (e.target as HTMLElement).setPointerCapture(e.pointerId);
+      e.currentTarget.setPointerCapture(e.pointerId);
     },
     [
       isAnimating,

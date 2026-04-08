@@ -8,6 +8,7 @@ import { Section } from "#components/layout/Section";
 import {
   type BeatmakerState,
   buildDefaultState,
+  buildTrackRecord,
   createEngine,
   decode,
   encode,
@@ -108,9 +109,10 @@ function getInitialBeatmakerView(): {
   return cachedBeatmakerView;
 }
 
+const noopUnsubscribe = () => 0;
+
 function subscribeBeatmakerView(onStoreChange: () => void): () => void {
   if (globalThis.window === undefined) {
-    const noopUnsubscribe = () => 0;
     return noopUnsubscribe;
   }
 
@@ -275,21 +277,19 @@ export function Beatmaker() {
   const handleStepCountChange = useCallback(
     (stepCount: StepCount) => {
       updateState((s) => {
-        const tracks = Object.fromEntries(
-          TRACK_IDS.map((id) => {
-            const current = s.tracks[id].steps;
-            const steps: boolean[] =
-              stepCount > current.length
-                ? [
-                    ...current,
-                    ...Array.from<boolean>({
-                      length: stepCount - current.length,
-                    }).fill(false),
-                  ]
-                : current.slice(0, stepCount);
-            return [id, { ...s.tracks[id], steps }];
-          }),
-        ) as BeatmakerState["tracks"];
+        const tracks = buildTrackRecord((id) => {
+          const current = s.tracks[id].steps;
+          const steps: boolean[] =
+            stepCount > current.length
+              ? [
+                  ...current,
+                  ...Array.from<boolean>({
+                    length: stepCount - current.length,
+                  }).fill(false),
+                ]
+              : current.slice(0, stepCount);
+          return { ...s.tracks[id], steps };
+        });
         return { ...s, stepCount, tracks };
       });
     },
@@ -303,9 +303,7 @@ export function Beatmaker() {
       updateState((s) => ({
         ...s,
         kit,
-        tracks: Object.fromEntries(
-          TRACK_IDS.map((id) => [id, { ...s.tracks[id], customFile: undefined }]),
-        ) as BeatmakerState["tracks"],
+        tracks: buildTrackRecord((id) => ({ ...s.tracks[id], customFile: undefined })),
       }));
     },
     [updateState],

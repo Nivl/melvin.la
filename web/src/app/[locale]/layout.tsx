@@ -17,8 +17,11 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 
 import { Navbar } from "#components/layout/NavBar/Navbar.tsx";
 import { Providers } from "#components/Providers";
-import { type Locales, locales } from "#i18n/locales";
+import { isLocale, locales } from "#i18n/locales";
 import { getMetadata } from "#utils/metadata";
+
+type RootStyle = React.CSSProperties &
+  Record<"--font-sans" | "--font-condensed" | "--font-fortnite", string>;
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
@@ -135,7 +138,7 @@ export default async function RootLayout({
   const { locale } = await params;
 
   // Ensure that the incoming `locale` is valid
-  if (!locales.includes(locale as Locales)) {
+  if (!isLocale(locale)) {
     return notFound();
   }
 
@@ -144,19 +147,18 @@ export default async function RootLayout({
 
   const msg = await getMessages();
   const { sans, condensed, fortnite } = getFonts(locale);
+  const style: RootStyle = {
+    "--font-sans": sans,
+    "--font-condensed": condensed,
+    "--font-fortnite": fortnite,
+  };
 
   return (
     <html
       suppressHydrationWarning
       lang={locale}
       className={`bg-background text-foreground transition-colors duration-300 ${fonts.map((font) => font.variable).join(" ")}`}
-      style={
-        {
-          "--font-sans": sans,
-          "--font-condensed": condensed,
-          "--font-fortnite": fortnite,
-        } as React.CSSProperties
-      }
+      style={style}
     >
       <body className="h-full font-sans text-base leading-relaxed font-light lining-nums antialiased transition-colors xl:text-xl xl:leading-relaxed">
         <Providers locale={locale} messages={msg}>

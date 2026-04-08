@@ -1,5 +1,5 @@
 import type { AlgorithmResult, Coords, Grid } from "./types";
-import { coordsToKey } from "./types";
+import { coordsToKey, keyToCoords } from "./types";
 
 const DIRS: Coords[] = [
   [-1, 0],
@@ -18,7 +18,7 @@ const reconstructPath = (cameFrom: Map<string, string>, endKey: string): Coords[
   const path: Coords[] = [];
   let current: string | undefined = endKey;
   while (current !== undefined) {
-    const [r, c] = current.split(",").map(Number) as [number, number];
+    const [r, c] = keyToCoords(current);
     path.push([r, c]);
     current = cameFrom.get(current);
   }
@@ -112,7 +112,7 @@ export const runAStar = (grid: Grid, start: Coords, end: Coords): AlgorithmResul
     if (settled.has(currentKey)) continue;
     settled.add(currentKey);
 
-    const [cr, cc] = currentKey.split(",").map(Number) as [number, number];
+    const [cr, cc] = keyToCoords(currentKey);
     visitedNodes.push([cr, cc]);
 
     if (currentKey === endKey) {
@@ -160,7 +160,7 @@ export const runDijkstra = (grid: Grid, start: Coords, end: Coords): AlgorithmRe
     if (settled.has(currentKey)) continue;
     settled.add(currentKey);
 
-    const [cr, cc] = currentKey.split(",").map(Number) as [number, number];
+    const [cr, cc] = keyToCoords(currentKey);
     visitedNodes.push([cr, cc]);
 
     if (currentKey === endKey) {
@@ -198,7 +198,7 @@ export const runBFS = (grid: Grid, start: Coords, end: Coords): AlgorithmResult 
 
   while (head < queue.length) {
     const currentKey = queue[head++];
-    const [cr, cc] = currentKey.split(",").map(Number) as [number, number];
+    const [cr, cc] = keyToCoords(currentKey);
     visitedNodes.push([cr, cc]);
 
     if (currentKey === endKey) {
@@ -238,7 +238,7 @@ export const runDFS = (grid: Grid, start: Coords, end: Coords): AlgorithmResult 
     const currentKey = stack.pop();
     if (currentKey === undefined) break;
 
-    const [cr, cc] = currentKey.split(",").map(Number) as [number, number];
+    const [cr, cc] = keyToCoords(currentKey);
     visitedNodes.push([cr, cc]);
 
     if (currentKey === endKey) {

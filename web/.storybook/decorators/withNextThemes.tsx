@@ -22,11 +22,6 @@ const ThemeSwitcher = ({ theme, children }: ThemeSwitcherProps) => {
       return;
     }
 
-    // console.log(`Switched theme to: ${theme}`, {
-    //   newTheme: theme,
-    //   previousTheme: currentTheme,
-    //   resolvedTheme,
-    // });
     setTheme(theme);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,14 +37,18 @@ type NextThemesDecorator = Omit<ThemeProviderProps, "defaultTheme" | "themes"> &
 
 const { initializeThemeState, pluckThemeFromContext } = DecoratorHelpers;
 
+function hasThemeOverride(value: unknown): value is {
+  themes?: { themeOverride?: string };
+} {
+  return typeof value === "object" && value !== null;
+}
+
 export const withNextThemes = ({ themes, defaultTheme, ...props }: NextThemesDecorator) => {
   initializeThemeState(Object.keys(themes), defaultTheme);
 
   const decorator: DecoratorFunction<ReactRenderer> = (Story, context) => {
     const selectedTheme = pluckThemeFromContext(context);
-    const params = context.parameters as {
-      themes?: { themeOverride?: string };
-    };
+    const params = hasThemeOverride(context.parameters) ? context.parameters : {};
 
     const { themeOverride } = params.themes ?? {};
     const selected = themeOverride ?? selectedTheme ?? defaultTheme;

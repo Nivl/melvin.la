@@ -44,20 +44,17 @@ export const TableDesktop = ({ data, isLoading }: { data?: FortniteData; isLoadi
 
     // The 'all' category is only going to be displayed if there is more than
     // one category available.
-    const availableCats: Record<string, boolean> = {};
-    for (const cat of categoryList) {
-      if (cat !== "all" && data?.stats[cat]?.overall) {
-        availableCats[cat] = true;
-      }
-    }
+    const availableCats = categoryList.filter(
+      (cat): cat is Exclude<Category, "all"> => cat !== "all" && !!data?.stats[cat]?.overall,
+    );
 
     // if the current category is not available for the current set of data
     // we switch to either 'all' or to the only available category
-    if (!availableCats[category]) {
-      const newCat =
-        Object.keys(availableCats).length === 1
-          ? (Object.keys(availableCats)[0] as Category)
-          : "all";
+    const categoryIsAvailable =
+      category === "all" ? availableCats.length !== 1 : availableCats.includes(category);
+
+    if (!categoryIsAvailable) {
+      const newCat = availableCats.length === 1 ? availableCats[0] : "all";
       setCategory(newCat);
     }
   }

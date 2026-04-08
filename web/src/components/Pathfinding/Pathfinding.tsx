@@ -78,8 +78,8 @@ const scheduleAnimation = (
 };
 
 const makeEmptyGrid = (rows: number, cols: number, start: Coords, end: Coords): Grid => {
-  return Array.from({ length: rows }, (_, ri) =>
-    Array.from({ length: cols }, (_, ci) => {
+  return Array.from({ length: rows }, (_r, ri) =>
+    Array.from({ length: cols }, (_c, ci) => {
       if (ri === start[0] && ci === start[1]) return "start";
       if (ri === end[0] && ci === end[1]) return "end";
       return "empty";
@@ -191,9 +191,11 @@ export const Pathfinding = () => {
     setIsAnimating(true);
     setGrid(cleanGrid);
 
-    scheduleAnimation(visitedNodes, path, start, end, speed, setGrid, schedule, (hasPath) => {
+    scheduleAnimation(visitedNodes, path, start, end, speed, setGrid, schedule, (pathFound) => {
       setIsAnimating(false);
-      if (!hasPath) toast.warning(t("noPathFound"));
+      if (!pathFound) {
+        toast.warning(t("noPathFound"));
+      }
     });
   }, [grid, softReset, algorithm, start, end, speed, schedule, t]);
 

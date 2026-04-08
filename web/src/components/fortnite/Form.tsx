@@ -14,6 +14,10 @@ export enum AccountTypes {
   Xbox = "xbl",
 }
 
+export function isAccountType(value: string): value is AccountTypes {
+  return new Set<string>(Object.values(AccountTypes)).has(value);
+}
+
 export enum TimeWindow {
   Season = "season",
   Lifetime = "lifetime",
@@ -119,8 +123,8 @@ export const Form = ({
           className="px-4 py-3 text-3xl text-gray-300 dark:text-neutral-600" //3e3e45
           value={accountType}
           onValueChange={(v) => {
-            if (v !== "") {
-              setAccountType(v as AccountTypes);
+            if (isAccountType(v)) {
+              setAccountType(v);
             }
           }}
         >

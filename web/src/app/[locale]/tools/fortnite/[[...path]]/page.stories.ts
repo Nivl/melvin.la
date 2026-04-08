@@ -53,11 +53,13 @@ export const Profile: Story = {
     }),
   },
   beforeEach() {
+    const fortniteData: FortniteData = validData.data;
+
     useStats.mockImplementation(() => {
       return {
         isLoading: false,
         error: null,
-        data: validData.data as unknown as FortniteData,
+        data: fortniteData,
       };
     });
   },

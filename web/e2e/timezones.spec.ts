@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 
-import { expect, expectToBeThruthy, test } from "./helpers";
+import { expect, expectToBeTruthy, test } from "./helpers";
 
 // In HeroUI v3, Autocomplete renders a trigger (role="group") that opens a popover.
 // The popover contains a SearchField.Input (searchbox role, autoFocus).
@@ -174,8 +174,8 @@ test.describe("Timezones Tool", () => {
     const tokyoTimeMatch = tokyoText?.match(/(\d{1,2}):(\d{2})/);
     const laTimeMatch = laText?.match(/(\d{1,2}):(\d{2})/);
 
-    expectToBeThruthy(tokyoTimeMatch);
-    expectToBeThruthy(laTimeMatch);
+    expectToBeTruthy(tokyoTimeMatch);
+    expectToBeTruthy(laTimeMatch);
 
     // Extract hours for comparison - they should be different due to significant timezone difference
     const tokyoHour = Number.parseInt(tokyoTimeMatch[1]);

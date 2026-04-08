@@ -1,7 +1,7 @@
 import { Link } from "@heroui/react";
 import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { isValidElement } from "react";
+import { isValidElement, type ReactNode } from "react";
 
 import { BlogHeading } from "#components/blog/BlogHeading";
 import { CodeBlock } from "#components/layout/CodeBlock";
@@ -77,7 +77,10 @@ export function Post({ post }: { post: BlogPost }) {
             ),
             Image,
             pre: ({ children }: { children?: React.ReactNode }) => {
-              if (!children || !isValidElement(children)) {
+              if (
+                !children ||
+                !isValidElement<{ className?: string; children?: ReactNode }>(children)
+              ) {
                 return <></>;
               }
 
@@ -88,10 +91,7 @@ export function Post({ post }: { post: BlogPost }) {
                 return <pre>{children}</pre>;
               }
 
-              const childrenProps = children.props as {
-                className?: string;
-                children: React.ReactNode;
-              };
+              const childrenProps = children.props;
 
               const match =
                 "className" in childrenProps

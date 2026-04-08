@@ -90,8 +90,13 @@ export const Controls = ({
           if (selection === "all") {
             return;
           }
-          if (selection) {
-            onAlgorithmChange(selection as Algorithm);
+          if (
+            selection === "astar" ||
+            selection === "dijkstra" ||
+            selection === "bfs" ||
+            selection === "dfs"
+          ) {
+            onAlgorithmChange(selection);
           }
         }}
       >

@@ -5,8 +5,8 @@ export const rate = (value: number, total: number) => {
   if (total === 0) {
     return value;
   }
-  const rate = total ? (value / total) * 100 : 0;
-  return Math.ceil(rate * 100) / 100;
+  const r = total ? (value / total) * 100 : 0;
+  return Math.ceil(r * 100) / 100;
 };
 
 export const rateStr = (value: number, total: number) => {

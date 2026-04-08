@@ -15,9 +15,29 @@ import {
   updateBallAt,
 } from "#utils/boba.ts";
 
+type BobaStyle = React.CSSProperties &
+  Record<
+    | "--boba-moving-duration"
+    | "--boba-soft-shake-duration"
+    | "--boba-soft-shake-offset"
+    | "--boba-soft-shake-delay"
+    | "--boba-soft-shake-iterations",
+    string | number
+  >;
+
 const generateBobaCoordinates = () => {
   return generateBalls();
 };
+
+function getBobaStyle(boba: BobaCoordinate): BobaStyle {
+  return {
+    "--boba-moving-duration": `${boba.durationMs.toString()}ms`,
+    "--boba-soft-shake-duration": `${bobaSoftShakeDuration.toString()}ms`,
+    "--boba-soft-shake-offset": `${(boba.shakeOffset ?? bobaDefaultShakeOffset)?.toString()}px`,
+    "--boba-soft-shake-delay": `${(boba.shakeDelayMs ?? 0)?.toString()}ms`,
+    "--boba-soft-shake-iterations": roundOdd(boba.durationMs / bobaSoftShakeDuration),
+  };
+}
 
 export const Boba = ({ className }: { className: string }) => {
   const [isAnimationStopping, setIsAnimationStopping] = useState(false);
@@ -173,15 +193,7 @@ export const Boba = ({ className }: { className: string }) => {
           cy={boba.y}
           r="65.5"
           fill="currentColor"
-          style={
-            {
-              "--boba-moving-duration": `${boba.durationMs.toString()}ms`,
-              "--boba-soft-shake-duration": `${bobaSoftShakeDuration.toString()}ms`,
-              "--boba-soft-shake-offset": `${(boba.shakeOffset ?? bobaDefaultShakeOffset)?.toString()}px`,
-              "--boba-soft-shake-delay": `${(boba.shakeDelayMs ?? 0)?.toString()}ms`,
-              "--boba-soft-shake-iterations": roundOdd(boba.durationMs / bobaSoftShakeDuration),
-            } as React.CSSProperties
-          }
+          style={getBobaStyle(boba)}
           className={
             (isAnimating
               ? `motion-safe:animate-boba-hard-shake`

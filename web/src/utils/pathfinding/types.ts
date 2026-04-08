@@ -14,6 +14,12 @@ export type Algorithm = "astar" | "dijkstra" | "bfs" | "dfs";
 /** Serialises a grid coordinate pair to a string key for Maps/Sets. */
 export const coordsToKey = (row: number, col: number): string => [row, col].join(",");
 
+/** Parses a string key produced by `coordsToKey` back into grid coordinates. */
+export const keyToCoords = (key: string): Coords => {
+  const [row = "", col = ""] = key.split(",");
+  return [Number(row), Number(col)];
+};
+
 export type PlacementMode = "draw-walls" | "place-start" | "place-end";
 
 export const DEFAULT_ROWS = 20;

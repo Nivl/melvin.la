@@ -13,6 +13,10 @@ import { useEffect, useState } from "react";
 import { ThemeSwitcherIcon } from "#components/icons/ThemeSwitcherIcon.tsx";
 import { usePrefersReducedMotion } from "#hooks/usePrefersReducedMotion.ts";
 
+function isThemeOption(value: string): value is "light" | "dark" | "system" {
+  return value === "light" || value === "dark" || value === "system";
+}
+
 export const ThemeSwitcher = () => {
   const t = useTranslations("navbar");
   const { resolvedTheme, theme, setTheme } = useTheme();
@@ -50,7 +54,7 @@ export const ThemeSwitcher = () => {
       >
         <span className={`text-amber-400`}>
           <ThemeSwitcherIcon
-            theme={resolvedTheme as "light" | "dark"}
+            theme={resolvedTheme === "dark" ? "dark" : "light"}
             animationFocus={animationFocus}
             width={24}
             height={24}
@@ -64,9 +68,11 @@ export const ThemeSwitcher = () => {
           selectionMode="single"
           selectedKeys={theme ? new Set([theme]) : new Set(["light"])}
           onAction={(key) => {
-            const val = key.toString() as "light" | "dark" | "system";
-            setTheme(val);
-            setAnimationFocus("themeChange");
+            const value = key.toString();
+            if (isThemeOption(value)) {
+              setTheme(value);
+              setAnimationFocus("themeChange");
+            }
           }}
         >
           <Dropdown.Item id="light" textValue={t("themeLight")}>
