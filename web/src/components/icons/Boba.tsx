@@ -167,6 +167,7 @@ export const Boba = ({ className }: { className: string }) => {
           // to make sure that updating the coordinates
           // doesn't create a brand new elements.
           // Otherwise the animation won't work.
+          // eslint-disable-next-line react/no-array-index-key
           key={index}
           cx={boba.x}
           cy={boba.y}

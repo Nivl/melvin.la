@@ -80,6 +80,9 @@ export function TrackRow({
       {/* Step buttons with beat-group gaps */}
       <div className="flex flex-1 items-center gap-3">
         {groups.map((group, gi) => (
+          // the grid is automatically generated, so we
+          // don't have anything else to use as key than the coordinates.
+          // eslint-disable-next-line react/no-array-index-key
           <div key={gi} className="flex gap-1.5">
             {group.map((active, si) => {
               const index = gi * 4 + si;

@@ -157,6 +157,9 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
       {board.map((row, ri) =>
         row.map((cell, ci) => (
           <Cell
+            // the grid is automatically generated, so we
+            // don't have anything else to use as key than the coordinates.
+            // eslint-disable-next-line react/no-array-index-key
             key={`${ri.toString()}-${ci.toString()}`}
             alive={cell === 1}
             isHovered={!isPlaying && rowHover === ri && colHover === ci}

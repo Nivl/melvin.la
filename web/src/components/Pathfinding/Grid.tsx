@@ -256,6 +256,9 @@ export const PathfindingGrid = ({
 
           return (
             <div
+              // the grid is automatically generated on the spot, so we
+              // don't have anything else to use as key than the coordinates.
+              // eslint-disable-next-line react/no-array-index-key
               key={`${ri.toString()}-${ci.toString()}`}
               role="gridcell"
               aria-label={effectiveState}
