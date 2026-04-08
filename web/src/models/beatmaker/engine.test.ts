@@ -1,6 +1,6 @@
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
-import { createEngine } from './engine';
+import { createEngine } from "./engine";
 
 // ── Mock Web Audio API ─────────────────────────────────────────────────────
 
@@ -38,14 +38,14 @@ beforeEach(() => {
       destination: {},
       currentTime: 0,
       sampleRate: 44_100,
-      state: 'running',
+      state: "running",
       resume: mockResume,
       close: mockClose,
     });
   });
-  vi.stubGlobal('AudioContext', MockAudioContext);
+  vi.stubGlobal("AudioContext", MockAudioContext);
   vi.stubGlobal(
-    'fetch',
+    "fetch",
     vi.fn().mockResolvedValue({
       ok: true,
       arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(8)),
@@ -61,60 +61,60 @@ afterEach(() => {
 
 // ── Tests ──────────────────────────────────────────────────────────────────
 
-describe('createEngine', () => {
-  test('does not create AudioContext on construction', () => {
+describe("createEngine", () => {
+  test("does not create AudioContext on construction", () => {
     createEngine();
     expect(vi.mocked(AudioContext)).not.toHaveBeenCalled();
   });
 
-  test('init() creates AudioContext and resumes it', async () => {
+  test("init() creates AudioContext and resumes it", async () => {
     const engine = createEngine();
     await engine.init();
     expect(vi.mocked(AudioContext)).toHaveBeenCalledTimes(1);
     expect(mockResume).toHaveBeenCalledTimes(1);
   });
 
-  test('init() called twice reuses the same context', async () => {
+  test("init() called twice reuses the same context", async () => {
     const engine = createEngine();
     await engine.init();
     await engine.init();
     expect(vi.mocked(AudioContext)).toHaveBeenCalledTimes(1);
   });
 
-  test('init() called twice adds only one statechange listener', async () => {
+  test("init() called twice adds only one statechange listener", async () => {
     const engine = createEngine();
     await engine.init();
     await engine.init();
     // Filter calls to check only for 'statechange' event
     const stateChangeCalls = mockAddEventListener.mock.calls.filter(
-      args => args[0] === 'statechange',
+      (args) => args[0] === "statechange",
     );
     expect(stateChangeCalls).toHaveLength(1);
   });
 
-  test('loadKit() fetches 6 samples', async () => {
+  test("loadKit() fetches 6 samples", async () => {
     const engine = createEngine();
-    await engine.loadKit('808');
+    await engine.loadKit("808");
     expect(vi.mocked(fetch)).toHaveBeenCalledTimes(6);
   });
 
-  test('dispose() closes the AudioContext', async () => {
+  test("dispose() closes the AudioContext", async () => {
     const engine = createEngine();
     await engine.init();
     engine.dispose();
     expect(mockClose).toHaveBeenCalledTimes(1);
   });
 
-  test('stop() immediately stops all active sources', async () => {
+  test("stop() immediately stops all active sources", async () => {
     vi.useFakeTimers();
     const engine = createEngine();
     await engine.init();
-    await engine.loadKit('808');
+    await engine.loadKit("808");
 
     const steps = Array.from({ length: 16 }).fill(true);
     const track = { steps, volume: 1, muted: false, pan: 0 };
     const state = {
-      kit: '808' as const,
+      kit: "808" as const,
       bpm: 120,
       stepCount: 16,
       isPlaying: false,
@@ -140,11 +140,11 @@ describe('createEngine', () => {
     vi.useRealTimers();
   });
 
-  test('concurrent init calls do not report duplicate decode errors for the same pending kit buffers', async () => {
+  test("concurrent init calls do not report duplicate decode errors for the same pending kit buffers", async () => {
     const seenBuffers = new WeakSet<ArrayBuffer>();
     mockDecodeAudioData.mockImplementation((arrayBuffer: ArrayBuffer) => {
       if (seenBuffers.has(arrayBuffer)) {
-        return Promise.reject(new Error('duplicate decode'));
+        return Promise.reject(new Error("duplicate decode"));
       }
 
       seenBuffers.add(arrayBuffer);
@@ -152,19 +152,17 @@ describe('createEngine', () => {
     });
 
     vi.stubGlobal(
-      'fetch',
+      "fetch",
       vi.fn().mockResolvedValue({
         ok: true,
-        arrayBuffer: vi
-          .fn()
-          .mockImplementation(() => Promise.resolve(new ArrayBuffer(8))),
+        arrayBuffer: vi.fn().mockImplementation(() => Promise.resolve(new ArrayBuffer(8))),
       }),
     );
 
     const onError = vi.fn();
     const engine = createEngine({ onError });
 
-    await engine.loadKit('808');
+    await engine.loadKit("808");
     await Promise.all([engine.init(), engine.init()]);
 
     expect(onError).not.toHaveBeenCalled();

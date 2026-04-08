@@ -1,15 +1,13 @@
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
-import { use } from 'react';
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import { use } from "react";
 
-import { Post } from '#components/blog/Post';
-import { getAllBlogPosts, getBlogPost } from '#ssg/queries';
-import { getMetadata } from '#utils/metadata';
+import { Post } from "#components/blog/Post";
+import { getAllBlogPosts, getBlogPost } from "#ssg/queries";
+import { getMetadata } from "#utils/metadata";
 
-export default function Home(props: {
-  params: Promise<{ slug: string; locale: string }>;
-}) {
+export default function Home(props: { params: Promise<{ slug: string; locale: string }> }) {
   const { slug, locale } = use(props.params);
 
   const post = getBlogPost(slug, locale);
@@ -23,7 +21,7 @@ export default function Home(props: {
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getAllBlogPosts().map(post => ({
+  return getAllBlogPosts().map((post) => ({
     slug: post.slug,
     locale: post.language,
   }));
@@ -34,15 +32,15 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   // read route params
   const { slug, locale } = await props.params;
-  const t = await getTranslations({ locale, namespace: 'blog.metadata' });
+  const t = await getTranslations({ locale, namespace: "blog.metadata" });
 
   const post = getBlogPost(slug, locale);
   if (!post) {
     return await getMetadata({
       locale,
-      pageUrl: '/blog',
-      title: t('title'),
-      description: t('description'),
+      pageUrl: "/blog",
+      title: t("title"),
+      description: t("description"),
     });
   }
 
@@ -54,10 +52,9 @@ export async function generateMetadata(props: {
       description: post.excerpt,
       imageURL: `/assets/blog/${post.slug}/${post.ogImage}`,
       extraOg: {
-        type: 'article',
+        type: "article",
         publishedTime: post.createdAt,
-        modifiedTime:
-          post.createdAt === post.updatedAt ? undefined : post.updatedAt,
+        modifiedTime: post.createdAt === post.updatedAt ? undefined : post.updatedAt,
       },
     })),
   };

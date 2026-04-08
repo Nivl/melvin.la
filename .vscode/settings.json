@@ -2,5 +2,7 @@
     "i18n-ally.localesPaths": [
         "web/messages",
         "web/src/i18n"
-    ]
+    ],
+    "oxc.configPath": "./web/.oxlintrc.json",
+    "oxc.fmt.configPath": "./web/.oxfmtrc.json"
 }

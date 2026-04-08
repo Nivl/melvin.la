@@ -1,20 +1,13 @@
-'use client';
+"use client";
 
-import {
-  Description,
-  FieldError,
-  Form,
-  Input,
-  Label,
-  TextField,
-} from '@heroui/react';
-import { AnimatePresence } from 'motion/react';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
+import { AnimatePresence } from "motion/react";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
-import { Color, colors, LargePill } from '#components/layout/LargePill.tsx';
+import { Color, colors, LargePill } from "#components/layout/LargePill.tsx";
 
-import { Section } from '../layout/Section';
+import { Section } from "../layout/Section";
 
 type Data = {
   date: Date;
@@ -25,16 +18,16 @@ type Data = {
 
 const formatDate = (date: Date) => {
   const year = date.getUTCFullYear().toString();
-  const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
-  const day = date.getUTCDate().toString().padStart(2, '0');
-  const hours = date.getUTCHours().toString().padStart(2, '0');
-  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-  const seconds = date.getUTCSeconds().toString().padStart(2, '0');
+  const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
+  const day = date.getUTCDate().toString().padStart(2, "0");
+  const hours = date.getUTCHours().toString().padStart(2, "0");
+  const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+  const seconds = date.getUTCSeconds().toString().padStart(2, "0");
   return `${year}/${month}/${day} ${hours}:${minutes}:${seconds} UTC`;
 };
 
 const getColor = (skip?: Color): Color => {
-  const availableColors = colors.filter(color => color !== skip);
+  const availableColors = colors.filter((color) => color !== skip);
   return availableColors[Math.floor(Math.random() * availableColors.length)];
 };
 
@@ -46,7 +39,7 @@ const toDate = (value: string): Date | undefined => {
   // Compute digit length from the original string (before Number() potentially
   // stringifies large values in scientific notation like "1e+21"), stripping a
   // leading minus so negative timestamps are measured correctly.
-  const digits = value.startsWith('-') ? value.slice(1) : value;
+  const digits = value.startsWith("-") ? value.slice(1) : value;
   const len = digits.length;
 
   let numValue = Number(value);
@@ -63,10 +56,10 @@ const toDate = (value: string): Date | undefined => {
 };
 
 export const Timestamp = () => {
-  const t = useTranslations('timestamp');
+  const t = useTranslations("timestamp");
 
   const [timestamps, setTimestamps] = useState<Data[]>([]);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
 
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -86,23 +79,23 @@ export const Timestamp = () => {
         color: getColor(timestamps.at(-1)?.color),
         content: (
           <>
-            {t.rich('output', {
+            {t.rich("output", {
               timestamp: Math.floor(date.getTime() / 1000),
               utcDate: formatDate(date),
-              date: chunks => <span className="font-bold">{chunks}</span>,
+              date: (chunks) => <span className="font-bold">{chunks}</span>,
             })}
           </>
         ),
       },
     ]);
-    setValue('');
+    setValue("");
   };
 
   return (
     <>
       <Section>
-        <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl font-bold uppercase sm:text-8xl xl:text-9xl">
-          {t('title')}
+        <h1 className="text-center font-condensed text-6xl leading-tight-xs font-bold uppercase sm:text-8xl sm:leading-tight-sm xl:text-9xl xl:leading-tight-xl">
+          {t("title")}
         </h1>
       </Section>
 
@@ -113,21 +106,20 @@ export const Timestamp = () => {
               isRequired
               value={value}
               type="number"
-              onChange={v => {
+              onChange={(v) => {
                 setValue(v);
               }}
               // We don't go above 20 digits because what's the point?
               // Also when you reach 21 digits, you start having the ability to
               // input incorrect timestamps
-              validate={value => {
-                const isValidInput =
-                  /^-?[0-9]{1,20}$/i.test(value) && toDate(value) !== undefined;
-                return isValidInput ? undefined : t('inputError');
+              validate={(value) => {
+                const isValidInput = /^-?[0-9]{1,20}$/i.test(value) && toDate(value) !== undefined;
+                return isValidInput ? undefined : t("inputError");
               }}
             >
-              <Label>{t('inputLabel')}</Label>
+              <Label>{t("inputLabel")}</Label>
               <Input />
-              <Description>{t('inputDescription')}</Description>
+              <Description>{t("inputDescription")}</Description>
               <FieldError />
             </TextField>
             {/* Hidden submit button so Enter key submits the form */}
@@ -141,7 +133,7 @@ export const Timestamp = () => {
                   key={item.id}
                   item={item}
                   onDelete={() => {
-                    setTimestamps(timestamps => timestamps.toSpliced(i, 1));
+                    setTimestamps((timestamps) => timestamps.toSpliced(i, 1));
                   }}
                 />
               ))}

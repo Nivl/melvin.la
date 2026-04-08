@@ -1,8 +1,4 @@
-import {
-  $api,
-  type FortnitePlatform,
-  type FortniteTimeWindow,
-} from '#backend/api';
+import { $api, type FortnitePlatform, type FortniteTimeWindow } from "#backend/api";
 
 export const useStats = (
   accountName: string,
@@ -11,8 +7,8 @@ export const useStats = (
   disabled = false,
 ) => {
   const { data, isLoading, error } = $api.useQuery(
-    'get',
-    '/fortnite/stats/{username}/{platform}/{timeWindow}',
+    "get",
+    "/fortnite/stats/{username}/{platform}/{timeWindow}",
     {
       params: {
         path: { username: accountName, platform: accountType, timeWindow },

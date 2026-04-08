@@ -43,11 +43,11 @@ web/
 
 ### Environment Variables
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `NEXT_PUBLIC_API_URL` | **Yes** | - | Backend API base URL |
-| `NEXT_PUBLIC_BASE_URL` | No | `https://melvin.la` | Frontend base URL for metadata |
-| `NEXT_PUBLIC_GCP_MAP_API_KEY` | **Yes** | - | Google Maps API key for contact page |
+| Variable                      | Required | Default             | Description                          |
+| ----------------------------- | -------- | ------------------- | ------------------------------------ |
+| `NEXT_PUBLIC_API_URL`         | **Yes**  | -                   | Backend API base URL                 |
+| `NEXT_PUBLIC_BASE_URL`        | No       | `https://melvin.la` | Frontend base URL for metadata       |
+| `NEXT_PUBLIC_GCP_MAP_API_KEY` | **Yes**  | -                   | Google Maps API key for contact page |
 
 ### Quick Setup
 
@@ -71,7 +71,7 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000
 
 To run all features locally, you'll need:
 
-1. **Google Maps API Key**: 
+1. **Google Maps API Key**:
    - Get from [Google Cloud Console](https://console.cloud.google.com)
    - Enable the Maps JavaScript API
    - Required for the contact page map
@@ -83,11 +83,11 @@ To run all features locally, you'll need:
 - Use `.env.local` for all sensitive configuration
 - The `.env.local` file is gitignored and won't be committed
 
-
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - pnpm (recommended)
 
 ### Installation & Development
@@ -133,6 +133,7 @@ The blog system uses **Static Site Generation (SSG)** with a unique build-time a
 4. **Static Generation**: All blog pages are pre-rendered at build time using Next.js SSG
 
 This approach provides the following benefits:
+
 - SSG: the blog is fully static and loads very fast
 - We can easily add features like categories, tags, paginations, etc. and everything is still instantly fast and static
 - We can easily change the storage method. Right now the article are stored in this git repo as MDX files, but we could switch to a diferent git repo, to an external database, or even a headless CMS in the future without changing the blog code itself

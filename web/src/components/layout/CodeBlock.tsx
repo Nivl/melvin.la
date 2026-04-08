@@ -1,28 +1,28 @@
-'use client';
+"use client";
 
-import { useTheme } from 'next-themes';
-import { useSyncExternalStore } from 'react';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
-import c from 'react-syntax-highlighter/dist/esm/languages/prism/c';
-import go from 'react-syntax-highlighter/dist/esm/languages/prism/go';
-import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
-import sql from 'react-syntax-highlighter/dist/esm/languages/prism/sql';
-import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript';
-import yaml from 'react-syntax-highlighter/dist/esm/languages/prism/yaml';
+import { useTheme } from "next-themes";
+import { useSyncExternalStore } from "react";
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import bash from "react-syntax-highlighter/dist/esm/languages/prism/bash";
+import c from "react-syntax-highlighter/dist/esm/languages/prism/c";
+import go from "react-syntax-highlighter/dist/esm/languages/prism/go";
+import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
+import sql from "react-syntax-highlighter/dist/esm/languages/prism/sql";
+import typescript from "react-syntax-highlighter/dist/esm/languages/prism/typescript";
+import yaml from "react-syntax-highlighter/dist/esm/languages/prism/yaml";
 import {
   materialLight as LightTheme,
   oneDark as DarkTheme,
-} from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { twMerge } from 'tailwind-merge';
+} from "react-syntax-highlighter/dist/esm/styles/prism";
+import { twMerge } from "tailwind-merge";
 
-SyntaxHighlighter.registerLanguage('typescript', typescript);
-SyntaxHighlighter.registerLanguage('jsx', jsx);
-SyntaxHighlighter.registerLanguage('go', go);
-SyntaxHighlighter.registerLanguage('bash', bash);
-SyntaxHighlighter.registerLanguage('sql', sql);
-SyntaxHighlighter.registerLanguage('yaml', yaml);
-SyntaxHighlighter.registerLanguage('c', c);
+SyntaxHighlighter.registerLanguage("typescript", typescript);
+SyntaxHighlighter.registerLanguage("jsx", jsx);
+SyntaxHighlighter.registerLanguage("go", go);
+SyntaxHighlighter.registerLanguage("bash", bash);
+SyntaxHighlighter.registerLanguage("sql", sql);
+SyntaxHighlighter.registerLanguage("yaml", yaml);
+SyntaxHighlighter.registerLanguage("c", c);
 
 const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
 
@@ -53,7 +53,7 @@ export const CodeBlock = ({
     return;
   }
 
-  const theme = resolvedTheme === 'dark' ? DarkTheme : LightTheme;
+  const theme = resolvedTheme === "dark" ? DarkTheme : LightTheme;
 
   return (
     <SyntaxHighlighter
@@ -61,16 +61,14 @@ export const CodeBlock = ({
       showLineNumbers={showlinenumbers}
       showInlineLineNumbers={showlinenumbers}
       style={theme}
-      className={twMerge(
-        `font-monospace! rounded-lg! text-base! ${className ?? ''}`,
-      )}
+      className={twMerge(`rounded-lg! font-monospace! text-base! ${className ?? ""}`)}
       codeTagProps={{
         style: {
-          fontFamily: 'var(--font-monospace)',
+          fontFamily: "var(--font-monospace)",
         },
       }}
     >
-      {children.replace(/\n$/, '')}
+      {children.replace(/\n$/, "")}
     </SyntaxHighlighter>
   );
 };

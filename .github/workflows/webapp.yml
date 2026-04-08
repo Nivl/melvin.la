@@ -87,6 +87,8 @@ jobs:
       - name: Lint the code
         run: pnpm run lint
 
+      - name: Check the code format
+        run: pnpm run fmt:check
       - name: Lint open api
         run: |
           pnpm run oapi-gen

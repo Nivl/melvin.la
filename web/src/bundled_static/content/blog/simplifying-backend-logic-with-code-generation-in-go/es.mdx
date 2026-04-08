@@ -6,6 +6,7 @@ ogImage: "cover.jpg"
 createdAt: "2025-06-20"
 updatedAt: "2025-06-20"
 ---
+
 El desarrollo backend a menudo implica código repetitivo, especialmente al tratar con consultas de base de datos e implementaciones de servidores API. Escribir y mantener este código manualmente puede ser propenso a errores y llevar mucho tiempo. Las herramientas de generación de código (codegen) ayudan a automatizar estas tareas generando código seguro, eficiente y mantenible a partir de especificaciones declarativas.
 
 En este artículo, exploraremos cómo simplificar la lógica del backend en Go utilizando dos herramientas populares de generación de código:
@@ -19,7 +20,6 @@ En este artículo, exploraremos cómo simplificar la lógica del backend en Go u
 - **Aumentar la seguridad de tipos:** Evita errores en tiempo de ejecución generando código fuertemente tipado.
 - **Mejorar la mantenibilidad:** Los cambios en SQL o especificaciones de API se propagan automáticamente al código.
 - **Aumentar la productividad:** Concéntrate en la lógica de negocio en lugar de la infraestructura.
-
 
 ## Generación de código SQL con sqlc
 
@@ -122,13 +122,13 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: User found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        '404':
+                $ref: "#/components/schemas/User"
+        "404":
           description: User not found
 components:
   schemas:
@@ -185,14 +185,12 @@ router := api.NewRouter(&ServerImpl{db: dbQueries})
 http.ListenAndServe(":8080", router)
 ```
 
-
 ## Beneficios de combinar sqlc y oapi-codegen
 
 - **Seguridad de tipos de extremo a extremo:** Desde la base de datos hasta la capa de API.
 - **Separación clara:** Las consultas SQL y las especificaciones de API son declarativas y están separadas de la lógica.
 - **Desarrollo más rápido:** Concéntrate en implementar lógica de negocio, no infraestructura.
 - **Refactorización más fácil:** Cambia SQL o la especificación de API, regenera el código y arregla el código mínimo.
-
 
 ## Conclusión
 

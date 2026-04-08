@@ -21,7 +21,6 @@ updatedAt: "2025-06-20"
 - **保守性の向上:** SQLやAPI仕様の変更が自動的にコードに伝播します。
 - **生産性の向上:** 配管工事（plumbing）ではなくビジネスロジックに集中できます。
 
-
 ## sqlcによるSQLコード生成
 
 ### sqlcとは？
@@ -123,13 +122,13 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: User found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        '404':
+                $ref: "#/components/schemas/User"
+        "404":
           description: User not found
 components:
   schemas:
@@ -186,14 +185,12 @@ router := api.NewRouter(&ServerImpl{db: dbQueries})
 http.ListenAndServe(":8080", router)
 ```
 
-
 ## sqlcとoapi-codegenを組み合わせるメリット
 
 - **エンドツーエンドの型安全性:** データベースからAPIレイヤーまで。
 - **明確な分離:** SQLクエリとAPI仕様は宣言的であり、ロジックから分離されています。
 - **開発の高速化:** 配管工事ではなく、ビジネスロジックの実装に集中できます。
 - **リファクタリングの容易さ:** SQLやAPI仕様を変更し、コードを再生成し、最小限のコードを修正するだけです。
-
 
 ## 結論
 

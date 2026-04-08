@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from "@storybook/nextjs";
 
-import { Beatmaker } from './Beatmaker';
+import { Beatmaker } from "./Beatmaker";
 
 const meta = {
-  title: 'Games/Beatmaker',
+  title: "Games/Beatmaker",
   component: Beatmaker,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof Beatmaker>;
 

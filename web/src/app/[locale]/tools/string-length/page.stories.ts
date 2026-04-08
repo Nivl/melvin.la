@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from "@storybook/nextjs";
 
-import Page from './page';
+import Page from "./page";
 
 const meta: Meta<typeof Page> = {
-  title: 'Pages/Tools/StringLength',
+  title: "Pages/Tools/StringLength",
   component: Page,
   parameters: {
     nextjs: {

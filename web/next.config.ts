@@ -1,25 +1,25 @@
 /* eslint-disable import/no-default-export */
 
-import { SentryBuildOptions, withSentryConfig } from '@sentry/nextjs';
-import { type NextConfig } from 'next';
-import createNextIntlPlugin from 'next-intl/plugin';
+import { SentryBuildOptions, withSentryConfig } from "@sentry/nextjs";
+import { type NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin({
   experimental: {
-    createMessagesDeclaration: './messages/en.json',
+    createMessagesDeclaration: "./messages/en.json",
   },
 });
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['next-mdx-remote'],
+  transpilePackages: ["next-mdx-remote"],
   async headers() {
     return await Promise.resolve([
       {
-        source: '/assets/games/beatmaker/samples/:version/:rest*',
+        source: "/assets/games/beatmaker/samples/:version/:rest*",
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },
@@ -46,7 +46,7 @@ const sentryOption: SentryBuildOptions = {
   // This can increase your server load as well as your hosting bill.
   // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
   // side errors will fail.
-  tunnelRoute: '/monitoring',
+  tunnelRoute: "/monitoring",
 
   webpack: {
     // Tree-shaking options for reducing bundle size

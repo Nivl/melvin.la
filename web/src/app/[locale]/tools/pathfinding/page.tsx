@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-import { Pathfinding } from '#components/Pathfinding';
-import { getMetadata } from '#utils/metadata';
+import { Pathfinding } from "#components/Pathfinding";
+import { getMetadata } from "#utils/metadata";
 
 export default function PathfindingPage() {
   return <Pathfinding />;
@@ -16,13 +16,13 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: 'pathfinding.metadata',
+    namespace: "pathfinding.metadata",
   });
 
   return await getMetadata({
     locale,
-    pageUrl: '/tools/pathfinding',
-    title: t('title'),
-    description: t('description'),
+    pageUrl: "/tools/pathfinding",
+    title: t("title"),
+    description: t("description"),
   });
 }

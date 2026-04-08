@@ -1,11 +1,7 @@
-import { Footer } from '#components/layout/Footer';
-import { Section } from '#components/layout/Section';
+import { Footer } from "#components/layout/Footer";
+import { Section } from "#components/layout/Section";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {children}

@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { Skeleton } from '@heroui/react';
-import { notFound } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
-import { useCallback, useEffect, useState } from 'react';
+import { Skeleton } from "@heroui/react";
+import { notFound } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { useCallback, useEffect, useState } from "react";
 
-import { Section } from '#components/layout/Section';
-import { useStats } from '#hooks/fortnite/useStats';
-import { routing } from '#i18n/routing';
-import { humanizeDuration } from '#utils/fortnite';
+import { Section } from "#components/layout/Section";
+import { useStats } from "#hooks/fortnite/useStats";
+import { routing } from "#i18n/routing";
+import { humanizeDuration } from "#utils/fortnite";
 
-import { AccountPresets, defaults, Preset } from './AccountPresets';
-import { AccountTypes, Form } from './Form';
-import { MainData } from './MainData';
-import { TableDesktop } from './TableDesktop';
-import { TableMobile } from './TableMobile';
+import { AccountPresets, defaults, Preset } from "./AccountPresets";
+import { AccountTypes, Form } from "./Form";
+import { MainData } from "./MainData";
+import { TableDesktop } from "./TableDesktop";
+import { TableMobile } from "./TableMobile";
 
 export const Fortnite = ({
   providedName,
@@ -23,13 +23,10 @@ export const Fortnite = ({
   providedName?: string;
   providedType?: AccountTypes;
 }) => {
-  const providedTypeIsValid =
-    providedType && Object.values(AccountTypes).includes(providedType);
+  const providedTypeIsValid = providedType && Object.values(AccountTypes).includes(providedType);
 
   const [preset, setPreset] = useState<Preset>({
-    accountName: providedName
-      ? decodeURIComponent(providedName)
-      : defaults.accountName,
+    accountName: providedName ? decodeURIComponent(providedName) : defaults.accountName,
     accountType: providedType ?? defaults.accountType,
     timeWindow: defaults.timeWindow,
   });
@@ -44,16 +41,16 @@ export const Fortnite = ({
 
   const handleSetPreset = useCallback((p: Preset) => {
     setPreset(p);
-    setPresetKey(k => k + 1);
+    setPresetKey((k) => k + 1);
   }, []);
 
   const [name, setName] = useState(preset.accountName);
   const [accountType, setAccountType] = useState(preset.accountType);
   const [timeWindow, setTimeWindow] = useState(preset.timeWindow);
   const locale = useLocale();
-  const localePrefix = locale === routing.defaultLocale ? '' : `/${locale}`;
+  const localePrefix = locale === routing.defaultLocale ? "" : `/${locale}`;
   const rootT = useTranslations();
-  const t = useTranslations('fortnite');
+  const t = useTranslations("fortnite");
 
   const { data, error, isLoading } = useStats(
     name,
@@ -74,7 +71,7 @@ export const Fortnite = ({
       // enough internal machinery to disrupt React Aria's focus management,
       // causing the search input to lose focus after each debounce tick.
       // pushState only updates the URL bar without touching the React tree.
-      globalThis.history.pushState(undefined, '', url);
+      globalThis.history.pushState(undefined, "", url);
     }
   }, [name, accountType, localePrefix]);
 
@@ -87,9 +84,9 @@ export const Fortnite = ({
       <Section>
         <header className="flex flex-col gap-10 sm:flex-row sm:gap-0">
           <h1 className="basis-full text-center text-2xl font-extrabold sm:text-start sm:text-5xl">
-            {t.rich('title', {
-              name: chunks => (
-                <span className="font-fortnite-latin bg-linear-to-b from-[#1c78ff] to-[#4983f8] bg-clip-text text-3xl leading-normal text-transparent uppercase sm:text-6xl">
+            {t.rich("title", {
+              name: (chunks) => (
+                <span className="bg-linear-to-b from-[#1c78ff] to-[#4983f8] bg-clip-text font-fortnite-latin text-3xl leading-normal text-transparent uppercase sm:text-6xl">
                   {chunks}
                 </span>
               ),
@@ -118,11 +115,11 @@ export const Fortnite = ({
         <Section className="text-center text-xl font-extrabold text-red-400 sm:text-4xl">
           <div>
             {error.code === 403 ? (
-              <>{t('errors.accountPrivate')}</>
+              <>{t("errors.accountPrivate")}</>
             ) : error.code === 404 ? (
-              <>{t('errors.notFound')}</>
+              <>{t("errors.notFound")}</>
             ) : (
-              <>{t('errors.serverError')}</>
+              <>{t("errors.serverError")}</>
             )}
           </div>
         </Section>
@@ -139,12 +136,8 @@ export const Fortnite = ({
                 </>
               ) : (
                 <>
-                  {humanizeDuration(
-                    rootT,
-                    data.stats.all.overall.minutesPlayed,
-                  )}{' '}
-                  <br />
-                  {t('timeSpent')}
+                  {humanizeDuration(rootT, data.stats.all.overall.minutesPlayed)} <br />
+                  {t("timeSpent")}
                 </>
               )}
             </div>

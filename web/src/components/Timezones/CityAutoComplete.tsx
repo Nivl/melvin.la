@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Autocomplete,
@@ -8,11 +8,11 @@ import {
   Label,
   ListBox,
   SearchField,
-} from '@heroui/react';
-import { useTranslations } from 'next-intl';
-import { twMerge } from 'tailwind-merge';
+} from "@heroui/react";
+import { useTranslations } from "next-intl";
+import { twMerge } from "tailwind-merge";
 
-import { City } from './data.tsx';
+import { City } from "./data.tsx";
 
 export const CityAutoComplete = ({
   label,
@@ -33,12 +33,12 @@ export const CityAutoComplete = ({
   onInputChange: (value: string) => void;
   items: City[];
 }) => {
-  const t = useTranslations('timezones');
+  const t = useTranslations("timezones");
 
   return (
     <Autocomplete
       allowsEmptyCollection
-      className={twMerge('w-full max-w-100', className)}
+      className={twMerge("w-full max-w-100", className)}
       selectionMode="single"
       onChange={onChange}
       aria-label={ariaLabel}
@@ -50,30 +50,18 @@ export const CityAutoComplete = ({
         <Autocomplete.Indicator />
       </Autocomplete.Trigger>
       <Autocomplete.Popover>
-        <Autocomplete.Filter
-          inputValue={inputValue}
-          onInputChange={onInputChange}
-        >
-          <SearchField
-            autoFocus
-            className="sticky top-0 z-10"
-            name="search"
-            variant="secondary"
-          >
+        <Autocomplete.Filter inputValue={inputValue} onInputChange={onInputChange}>
+          <SearchField autoFocus className="sticky top-0 z-10" name="search" variant="secondary">
             <SearchField.Group>
               <SearchField.SearchIcon />
-              <SearchField.Input
-                data-testid={testId ? `${testId}-search` : undefined}
-              />
+              <SearchField.Input data-testid={testId ? `${testId}-search` : undefined} />
             </SearchField.Group>
           </SearchField>
           <ListBox
             className="max-h-[420px] overflow-y-auto"
             items={items}
             renderEmptyState={() => (
-              <EmptyState>
-                {inputValue.length > 0 ? t('noResults') : t('startTyping')}
-              </EmptyState>
+              <EmptyState>{inputValue.length > 0 ? t("noResults") : t("startTyping")}</EmptyState>
             )}
           >
             {(item: City) => (

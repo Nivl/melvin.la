@@ -1,5 +1,5 @@
-import type { CellState, Coords, Grid } from './types';
-import { coordsToKey } from './types';
+import type { CellState, Coords, Grid } from "./types";
+import { coordsToKey } from "./types";
 
 type MazeResult = {
   grid: Grid;
@@ -37,9 +37,7 @@ export const generateMaze = (
   end: Coords,
 ): MazeResult => {
   // Fill everything with walls
-  const grid: Grid = Array.from({ length: rows }, () =>
-    Array.from({ length: cols }, () => 'wall'),
-  );
+  const grid: Grid = Array.from({ length: rows }, () => Array.from({ length: cols }, () => "wall"));
 
   const visited = new Set<string>();
 
@@ -47,7 +45,7 @@ export const generateMaze = (
   const carveIterative = (startR: number, startC: number) => {
     const stack: Coords[] = [[startR, startC]];
     visited.add(coordsToKey(startR, startC));
-    grid[startR][startC] = 'empty';
+    grid[startR][startC] = "empty";
 
     while (stack.length > 0) {
       const top = stack.at(-1);
@@ -62,16 +60,10 @@ export const generateMaze = (
         const nc = c + dc;
         const mr = r + dr / 2;
         const mc = c + dc / 2;
-        if (
-          nr >= 0 &&
-          nr < rows &&
-          nc >= 0 &&
-          nc < cols &&
-          !visited.has(coordsToKey(nr, nc))
-        ) {
+        if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && !visited.has(coordsToKey(nr, nc))) {
           visited.add(coordsToKey(nr, nc));
-          grid[mr][mc] = 'empty';
-          grid[nr][nc] = 'empty';
+          grid[mr][mc] = "empty";
+          grid[nr][nc] = "empty";
           stack.push([nr, nc]);
           moved = true;
           break;
@@ -104,16 +96,14 @@ export const generateMaze = (
     const hasEmpty = ADJACENT.some(([dr, dc]) => {
       const nr = r + dr;
       const nc = c + dc;
-      return (
-        nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] === 'empty'
-      );
+      return nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] === "empty";
     });
     if (!hasEmpty) {
       for (const [dr, dc] of ADJACENT) {
         const nr = r + dr;
         const nc = c + dc;
         if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
-          grid[nr][nc] = 'empty';
+          grid[nr][nc] = "empty";
           return;
         }
       }
@@ -125,8 +115,8 @@ export const generateMaze = (
 
   const startUnder: CellState = grid[sr][sc];
   const endUnder: CellState = grid[er][ec];
-  grid[sr][sc] = 'start';
-  grid[er][ec] = 'end';
+  grid[sr][sc] = "start";
+  grid[er][ec] = "end";
 
   return { grid, startUnder, endUnder };
 };

@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-import { StringLength } from '#components/StringLength';
-import { getMetadata } from '#utils/metadata';
+import { StringLength } from "#components/StringLength";
+import { getMetadata } from "#utils/metadata";
 
 export async function generateMetadata({
   params,
@@ -13,14 +13,14 @@ export async function generateMetadata({
 
   const t = await getTranslations({
     locale,
-    namespace: 'stringLength.metadata',
+    namespace: "stringLength.metadata",
   });
 
   return await getMetadata({
     locale,
-    pageUrl: '/tools/string-length',
-    title: t('title'),
-    description: t('description'),
+    pageUrl: "/tools/string-length",
+    title: t("title"),
+    description: t("description"),
   });
 }
 

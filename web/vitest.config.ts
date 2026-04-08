@@ -1,20 +1,20 @@
 /* eslint-disable import/no-default-export */
 
-import react from '@vitejs/plugin-react';
-import { configDefaults, defineConfig } from 'vitest/config';
+import react from "@vitejs/plugin-react";
+import { configDefaults, defineConfig } from "vitest/config";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'jsdom',
-    setupFiles: ['./vitest.setup.ts'],
-    exclude: [...configDefaults.exclude, 'e2e/*'],
+    environment: "jsdom",
+    setupFiles: ["./vitest.setup.ts"],
+    exclude: [...configDefaults.exclude, "e2e/*"],
     server: {
       deps: {
         // https://next-intl.dev/docs/environments/testing#vitest
         // https://github.com/vercel/next.js/issues/77200
-        inline: ['next-intl'],
+        inline: ["next-intl"],
       },
     },
   },

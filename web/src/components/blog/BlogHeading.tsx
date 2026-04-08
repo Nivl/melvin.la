@@ -1,5 +1,5 @@
-import { createElement } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { createElement } from "react";
+import { twMerge } from "tailwind-merge";
 
 export const BlogHeading = ({
   level,
@@ -11,11 +11,11 @@ export const BlogHeading = ({
   children?: React.ReactNode;
 }) => {
   if (level < 1 || level > 6) {
-    throw new Error('Invalid heading level');
+    throw new Error("Invalid heading level");
   }
 
   let classname =
-    'pb-2 md:pb-4 xl:pb-5 leading-none font-bold bg-linear-to-b from-nivl to-[#32c2ff] dark:to-[#066e9a] bg-clip-text text-transparent';
+    "pb-2 md:pb-4 xl:pb-5 leading-none font-bold bg-linear-to-b from-nivl to-[#32c2ff] dark:to-[#066e9a] bg-clip-text text-transparent";
 
   switch (level) {
     case 1:
@@ -41,7 +41,7 @@ export const BlogHeading = ({
   return createElement(
     `h${level.toString()}`,
     {
-      className: twMerge(`${classname} ${className ?? ''}`),
+      className: twMerge(`${classname} ${className ?? ""}`),
     },
     children,
   );

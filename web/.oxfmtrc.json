@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "sortTailwindcss": {
+    "stylesheet": "./src/app/globals.css",
+    "functions": ["class", "class:list", "ngClass", "className", "[a-zA-Z]+ClassName"]
+  },
+  "ignorePatterns": ["messages/en.d.json.ts", "public/mockServiceWorker.js", "src/gen/api.d.ts"]
+}

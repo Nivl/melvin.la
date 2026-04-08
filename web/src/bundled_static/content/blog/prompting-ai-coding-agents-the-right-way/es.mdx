@@ -24,7 +24,7 @@ Esto no es un problema de calidad del modelo. Es un problema de información.
 
 Esto es lo que realmente funciona, y lo que han descubierto los equipos que construyen flujos de trabajo serios de desarrollo asistido por IA: **el modelo sabe qué necesita para hacer bien una tarea mejor de lo que la mayoría de los desarrolladores saben cómo pedirlo.**
 
-Ha procesado un volumen enorme de tareas de ingeniería bien especificadas. Sabe cómo se ve una solicitud de característica completa. Sabe qué información falta típicamente en un informe de error vago. El truco es hacer que te diga qué falta *antes* de pedirle que haga algo.
+Ha procesado un volumen enorme de tareas de ingeniería bien especificadas. Sabe cómo se ve una solicitud de característica completa. Sabe qué información falta típicamente en un informe de error vago. El truco es hacer que te diga qué falta _antes_ de pedirle que haga algo.
 
 El flujo es así:
 
@@ -51,7 +51,7 @@ Pasas la siguiente hora arreglándolo.
 
 **El enfoque del prompt inverso:**
 
-Comienzas con la misma oración, luego preguntas: *"Antes de empezar, ¿qué necesitarías saber para implementar esto correctamente? ¿Qué debería aclarar?"*
+Comienzas con la misma oración, luego preguntas: _"Antes de empezar, ¿qué necesitarías saber para implementar esto correctamente? ¿Qué debería aclarar?"_
 
 El agente responde con algo como:
 
@@ -71,13 +71,13 @@ La diferencia en la calidad de salida no es sutil.
 
 Los reportes de bugs son donde los prompts vagos causan el mayor daño, porque un modelo que no tiene suficiente contexto no solo produce código mediocre: produce código segurísimo, pero equivocado.
 
-Imagina que alguien reporta un error: *"A veces, el botón de inicio de sesión no funciona".*
+Imagina que alguien reporta un error: _"A veces, el botón de inicio de sesión no funciona"._
 
 **El enfoque ingenuo:** Pegas eso en tu agente. Empieza a escanear código de autenticación, detecta un patrón async/await sospechoso, decide que probablemente sea eso, reescribe la función y abre un PR. El error sigue ahí. La función que cambió no tenía relación.
 
 **El enfoque del prompt inverso:**
 
-Le das al agente el reporte del error y le preguntas: *"¿Qué necesitarías saber para diagnosticar esto de manera efectiva? ¿Qué preguntas haría un ingeniero senior antes de tocar cualquier código?"*
+Le das al agente el reporte del error y le preguntas: _"¿Qué necesitarías saber para diagnosticar esto de manera efectiva? ¿Qué preguntas haría un ingeniero senior antes de tocar cualquier código?"_
 
 Responde:
 

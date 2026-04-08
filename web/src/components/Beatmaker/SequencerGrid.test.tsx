@@ -1,10 +1,10 @@
-import { cleanup, render } from '@testing-library/react';
-import { afterEach, expect, test, vi } from 'vitest';
+import { cleanup, render } from "@testing-library/react";
+import { afterEach, expect, test, vi } from "vitest";
 
-import { buildDefaultState } from '#models/beatmaker';
-import { testWrapper as wrapper } from '#utils/tests';
+import { buildDefaultState } from "#models/beatmaker";
+import { testWrapper as wrapper } from "#utils/tests";
 
-import { SequencerGrid } from './SequencerGrid';
+import { SequencerGrid } from "./SequencerGrid";
 
 afterEach(() => {
   cleanup();
@@ -21,12 +21,12 @@ const defaultProps = {
   activeStep: undefined as number | undefined,
 };
 
-test('renders one row per track (6 rows)', () => {
+test("renders one row per track (6 rows)", () => {
   const { getAllByRole } = render(<SequencerGrid {...defaultProps} />, {
     wrapper,
   });
-  const stepBtns = getAllByRole('button').filter(
-    btn => btn.getAttribute('aria-pressed') !== null,
+  const stepBtns = getAllByRole("button").filter(
+    (btn) => btn.getAttribute("aria-pressed") !== null,
   );
   // 6 tracks × 16 steps = 96 step buttons
   expect(stepBtns).toHaveLength(6 * 16);

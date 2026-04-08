@@ -1,9 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
-import { Home } from '#components/Home';
-import { getMetadata } from '#utils/metadata';
+import { Home } from "#components/Home";
+import { getMetadata } from "#utils/metadata";
 
-import db from '../db.json';
+import db from "../db.json";
 
 export default function Page() {
   return <Home sections={db.sections} />;

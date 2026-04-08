@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { useId } from 'react';
+import * as React from "react";
+import { useId } from "react";
 
 export const ThemeSwitcherIcon = ({
   theme,
@@ -8,8 +8,8 @@ export const ThemeSwitcherIcon = ({
   animationFocus,
   isBooped = false,
 }: {
-  theme: 'light' | 'dark';
-  animationFocus: 'boop' | 'themeChange';
+  theme: "light" | "dark";
+  animationFocus: "boop" | "themeChange";
   width?: number;
   height?: number;
   isBooped?: boolean;
@@ -17,35 +17,34 @@ export const ThemeSwitcherIcon = ({
   const maskId = useId();
 
   // Classes that applies to everything BUT the rays
-  const baseClassName = 'motion-safe:transition-all motion-safe:duration-1000 ';
-  const darkClassName = 'motion-safe:ease-spring-soft motion-safe:delay-400 ';
-  const darkBoopedClassName = 'motion-safe:ease-spring-boop ';
-  const lightClassName = ' ';
-  const lightBoopedClassName = 'motion-safe:ease-spring-boop ';
+  const baseClassName = "motion-safe:transition-all motion-safe:duration-1000 ";
+  const darkClassName = "motion-safe:ease-spring-soft motion-safe:delay-400 ";
+  const darkBoopedClassName = "motion-safe:ease-spring-boop ";
+  const lightClassName = " ";
+  const lightBoopedClassName = "motion-safe:ease-spring-boop ";
   const className =
     baseClassName +
-    (theme === 'dark'
-      ? animationFocus === 'boop'
+    (theme === "dark"
+      ? animationFocus === "boop"
         ? darkBoopedClassName
         : darkClassName
-      : animationFocus === 'boop'
+      : animationFocus === "boop"
         ? lightBoopedClassName
         : lightClassName);
 
   // Classes that applies to the rays only
-  const rayBaseClassName = 'origin-center ';
-  const rayDarkClassName =
-    'cls-transition-theme-switch-dark scale-0 opacity-0 ';
-  const rayLightBaseClassName = 'scale-100 opacity-100 ';
-  const rayLightClassName = 'cls-transition-theme-switch-light ';
+  const rayBaseClassName = "origin-center ";
+  const rayDarkClassName = "cls-transition-theme-switch-dark scale-0 opacity-0 ";
+  const rayLightBaseClassName = "scale-100 opacity-100 ";
+  const rayLightClassName = "cls-transition-theme-switch-light ";
   const rayLightBoopedClassName =
-    'motion-safe:ease-spring-boop motion-safe:transition-all motion-safe:duration-1000 ';
+    "motion-safe:ease-spring-boop motion-safe:transition-all motion-safe:duration-1000 ";
 
   const rayClassName =
     rayBaseClassName +
-    (theme === 'dark'
+    (theme === "dark"
       ? rayDarkClassName // no boop animation on dark rays
-      : animationFocus === 'boop'
+      : animationFocus === "boop"
         ? rayLightBaseClassName + rayLightBoopedClassName
         : rayLightBaseClassName + rayLightClassName);
 
@@ -58,7 +57,7 @@ export const ThemeSwitcherIcon = ({
       strokeLinecap="round"
       strokeLinejoin="round"
       fill="none"
-      className={'block overflow-visible'}
+      className={"block overflow-visible"}
     >
       <defs>
         <mask id={maskId}>
@@ -67,7 +66,7 @@ export const ThemeSwitcherIcon = ({
             className={className}
             cx="16"
             cy="16"
-            r={theme === 'dark' ? 12 : 8}
+            r={theme === "dark" ? 12 : 8}
             fill="white"
             strokeWidth="0"
             stroke="currentColor"
@@ -78,7 +77,7 @@ export const ThemeSwitcherIcon = ({
             className={className}
             cx="24"
             cy="8"
-            r={theme === 'dark' ? (isBooped ? 10 : 8) : 0}
+            r={theme === "dark" ? (isBooped ? 10 : 8) : 0}
             fill="black"
           />
         </mask>
@@ -90,7 +89,7 @@ export const ThemeSwitcherIcon = ({
           className={className}
           cx="16"
           cy="16"
-          r={theme === 'dark' ? 12 : 8}
+          r={theme === "dark" ? 12 : 8}
           strokeWidth="5"
           stroke="currentColor"
         />
@@ -100,7 +99,7 @@ export const ThemeSwitcherIcon = ({
           className={className}
           cx="24"
           cy="8"
-          r={theme === 'dark' ? (isBooped ? 11 : 9) : 0}
+          r={theme === "dark" ? (isBooped ? 11 : 9) : 0}
           stroke="currentColor"
           strokeWidth="3"
         />
@@ -108,12 +107,12 @@ export const ThemeSwitcherIcon = ({
 
       {/* Rays  */}
       <circle
-        className={`${rayClassName} ${isBooped ? 'scale-110' : 'scale-100'}`}
+        className={`${rayClassName} ${isBooped ? "scale-110" : "scale-100"}`}
         cx="16"
         cy="16"
         r={14}
         stroke="currentColor"
-        strokeWidth={isBooped ? '5' : '4'}
+        strokeWidth={isBooped ? "5" : "4"}
         strokeDasharray="0,11"
         strokeLinecap="round"
       />

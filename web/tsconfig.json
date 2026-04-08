@@ -2,20 +2,14 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "noEmit": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "plugins": [
       {
         "name": "next"
       }
-    ],
+    ]
   },
-  "types": [
-    "node"
-  ],
+  "types": ["node"],
   "include": [
     "next-env.d.ts",
     "src/**/*.ts",
@@ -46,8 +40,5 @@
     "sentry.server.config.ts",
     "sentry.default.config.ts"
   ],
-  "exclude": [
-    "node_modules",
-    ".next",
-  ]
+  "exclude": ["node_modules", ".next"]
 }

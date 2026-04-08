@@ -2,10 +2,19 @@
   "name": "@melvinla/front",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@10.32.1",
   "type": "module",
-  "engines": {
-    "node": "24.14.0"
+  "imports": {
+    "#hooks/fortnite/useStats": {
+      "test": "./src/hooks/fortnite/useStats.mock.ts",
+      "default": "./src/hooks/fortnite/useStats.tsx"
+    },
+    "#*": [
+      "./src/*",
+      "./src/*.ts",
+      "./src/*.tsx",
+      "./src/*/index.tsx",
+      "./src/*/index.ts"
+    ]
   },
   "scripts": {
     "predev": "tsx ./scripts/prebuild.ts",
@@ -17,12 +26,14 @@
     "start": "next start",
     "check-types": "tsc --noemit",
     "lint": "oxlint .",
+    "fmt": "oxfmt .",
+    "fmt:check": "oxfmt --check .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "oapi-gen": "openapi-typescript ../api/internal/gen/openapi.yml -o ./src/gen/api.d.ts --root-types --root-types-no-schema-prefix",
     "knip": "knip",
     "i18n:check": "i18n-check --source en --locales ./messages --unused src --reporter table --ignore conway.quoteUrl conway.quoteBy",
-    "validate-code": "pnpm run i18n:check && pnpm run knip && pnpm run check-types && pnpm run lint",
+    "validate-code": "pnpm run i18n:check && pnpm run knip && pnpm run check-types && pnpm run lint && pnpm run fmt:check",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
     "test:e2e": "playwright test"
@@ -74,7 +85,6 @@
     "@types/react-syntax-highlighter": "15.5.13",
     "@vitejs/plugin-react": "5.2.0",
     "eslint-plugin-playwright": "2.10.1",
-    "eslint-plugin-prettier": "5.5.5",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "gray-matter": "4.0.3",
     "jsdom": "29.0.1",
@@ -86,8 +96,6 @@
     "oxlint": "1.57.0",
     "oxlint-tsgolint": "0.17.3",
     "postcss": "8.5.8",
-    "prettier": "3.8.1",
-    "prettier-plugin-tailwindcss": "0.7.2",
     "storybook": "10.3.1",
     "tailwind-merge": "3.5.0",
     "tailwindcss": "4.2.2",
@@ -96,19 +104,10 @@
     "vitest": "4.1.0",
     "vitest-canvas-mock": "1.1.3"
   },
-  "imports": {
-    "#hooks/fortnite/useStats": {
-      "test": "./src/hooks/fortnite/useStats.mock.ts",
-      "default": "./src/hooks/fortnite/useStats.tsx"
-    },
-    "#*": [
-      "./src/*",
-      "./src/*.ts",
-      "./src/*.tsx",
-      "./src/*/index.tsx",
-      "./src/*/index.ts"
-    ]
+  "engines": {
+    "node": "24.14.0"
   },
+  "packageManager": "pnpm@10.32.1",
   "msw": {
     "workerDirectory": [
       "./public"

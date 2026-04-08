@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export function useMediaQuery(
   query: string,
@@ -9,10 +9,7 @@ export function useMediaQuery(
   const { fallback } = options;
 
   const [queryValue, setQueryValue] = useState<boolean>(() => {
-    if (
-      globalThis.window === undefined ||
-      typeof globalThis.window.matchMedia !== 'function'
-    ) {
+    if (globalThis.window === undefined || typeof globalThis.window.matchMedia !== "function") {
       return fallback ?? false;
     }
 
@@ -20,10 +17,7 @@ export function useMediaQuery(
   });
 
   useEffect(() => {
-    if (
-      globalThis.window === undefined ||
-      typeof globalThis.window.matchMedia !== 'function'
-    ) {
+    if (globalThis.window === undefined || typeof globalThis.window.matchMedia !== "function") {
       return;
     }
 
@@ -32,10 +26,10 @@ export function useMediaQuery(
     };
 
     const mediaQueryList = globalThis.window.matchMedia(query);
-    mediaQueryList.addEventListener('change', listener);
+    mediaQueryList.addEventListener("change", listener);
 
     return () => {
-      mediaQueryList.removeEventListener('change', listener);
+      mediaQueryList.removeEventListener("change", listener);
     };
   }, [query]);
 

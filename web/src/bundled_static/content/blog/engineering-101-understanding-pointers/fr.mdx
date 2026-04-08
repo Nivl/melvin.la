@@ -20,18 +20,20 @@ Lorsque votre code s'exécute, vos données doivent aller quelque part. Généra
 ### La Pile (Stack) : Rapide et Organisée
 
 Imaginez la Pile comme une pile de post-it sur votre bureau.
-*   **Automatique :** Lorsqu'une fonction démarre, vous collez un post-it dessus avec ses variables. Quand elle se termine, vous l'arrachez et le jetez.
-*   **Rapide :** Vous ne cherchez pas d'espace ; c'est toujours juste au-dessus.
-*   **Temporaire :** Les données ici ne vivent que le temps que la fonction s'exécute.
+
+- **Automatique :** Lorsqu'une fonction démarre, vous collez un post-it dessus avec ses variables. Quand elle se termine, vous l'arrachez et le jetez.
+- **Rapide :** Vous ne cherchez pas d'espace ; c'est toujours juste au-dessus.
+- **Temporaire :** Les données ici ne vivent que le temps que la fonction s'exécute.
 
 Si vous avez une variable `int a = 10;`, elle se trouve probablement ici. C'est propre, rapide et sûr.
 
 ### Le Tas (Heap) : Le Far West
 
 Le Tas est un entrepôt géant.
-*   **Manuel :** Vous devez demander de l'espace ("J'ai besoin d'une boîte pour cet objet"), et vous devez vous rappeler de le rendre (ou laisser un Garbage Collector le faire).
-*   **Plus lent :** Trouver de l'espace libre prend du temps.
-*   **Permanent (ou presque) :** Les données ici vivent jusqu'à ce que vous les tuiez. C'est là que vous mettez les choses qui doivent survivre après le retour d'une fonction.
+
+- **Manuel :** Vous devez demander de l'espace ("J'ai besoin d'une boîte pour cet objet"), et vous devez vous rappeler de le rendre (ou laisser un Garbage Collector le faire).
+- **Plus lent :** Trouver de l'espace libre prend du temps.
+- **Permanent (ou presque) :** Les données ici vivent jusqu'à ce que vous les tuiez. C'est là que vous mettez les choses qui doivent survivre après le retour d'une fonction.
 
 ## Alors, qu'est-ce qu'un Pointeur ?
 
@@ -44,22 +46,25 @@ int score = 99;  // La valeur réelle
 int *p = &score; // Le pointeur 'p' contient l'adresse de 'score'
 ```
 
-*   `p` est l'**adresse** (où est-ce ?).
-*   `*p` est la **valeur** (qu'y a-t-il à l'intérieur ?).
+- `p` est l'**adresse** (où est-ce ?).
+- `*p` est la **valeur** (qu'y a-t-il à l'intérieur ?).
 
 ## Pourquoi nous torturons-nous avec ça ?
 
 Pourquoi ne pas simplement passer des valeurs et laisser le langage gérer le désordre ?
 
 ### 1. Vitesse (Pas de Copie)
+
 Imaginez que vous avez une image de 10 Mo. Si vous la passez à une fonction `process(image)`, et que votre langage copie cette image, vous venez de gaspiller 10 Mo de RAM et du temps CPU à copier des pixels.
 Avec un pointeur, vous passez juste l'adresse (8 octets). Vous dites à la fonction : "L'image est là-bas, va la voir."
 
 ### 2. Partage d'État
-Si vous passez une variable par valeur à une fonction, la fonction reçoit un *clone*. Si elle modifie le clone, l'original reste intact.
-Si vous passez un pointeur, la fonction sait où vit l'*original*. Elle peut modifier les données réelles.
+
+Si vous passez une variable par valeur à une fonction, la fonction reçoit un _clone_. Si elle modifie le clone, l'original reste intact.
+Si vous passez un pointeur, la fonction sait où vit l'_original_. Elle peut modifier les données réelles.
 
 ### 3. Structures Dynamiques
+
 Les listes chaînées, les arbres, les graphes—ce ne sont que des morceaux de données contenant des pointeurs vers d'autres morceaux de données. Vous ne pouvez pas les construire facilement sans références.
 
 ## Le Prix à Payer

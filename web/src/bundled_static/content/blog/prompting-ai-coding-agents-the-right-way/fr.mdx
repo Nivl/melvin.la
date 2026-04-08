@@ -24,7 +24,7 @@ Ce n'est pas un problème de qualité du modèle. C'est un problème d'informati
 
 Voici ce qui fonctionne vraiment, et ce que les équipes qui construisent des flux de travail sérieux de développement assisté par IA ont compris : **le modèle sait mieux ce dont il a besoin pour bien accomplir une tâche que la plupart des développeurs ne savent le formuler.**
 
-Il a traité un volume énorme de tâches d'ingénierie bien spécifiées. Il sait à quoi ressemble une demande de fonctionnalité complète. Il sait quelles informations manquent généralement dans un rapport de bug vague. L'astuce consiste à lui faire dire ce qui manque *avant* de lui demander de faire quoi que ce soit.
+Il a traité un volume énorme de tâches d'ingénierie bien spécifiées. Il sait à quoi ressemble une demande de fonctionnalité complète. Il sait quelles informations manquent généralement dans un rapport de bug vague. L'astuce consiste à lui faire dire ce qui manque _avant_ de lui demander de faire quoi que ce soit.
 
 Le flux de travail ressemble à ceci :
 
@@ -35,7 +35,7 @@ Le flux de travail ressemble à ceci :
 
 Cette dernière étape est facultative mais très puissante. Vous pouvez demander à l'agent : "Sur la base de mes réponses, réécris ma demande initiale sous la forme d'une spécification technique complète." Ce que vous obtenez en retour, c'est un prompt que le modèle lui-même considère comme suffisamment complet pour bien s'exécuter. Ensuite, vous soumettez ce prompt comme la véritable tâche.
 
-C'est ce que certains commencent à appeler du *reverse prompt engineering* pour l'exécution des tâches — vous n'écrivez pas le prompt parfait de zéro, vous utilisez le modèle pour faire émerger ce qu'un prompt parfait devrait contenir.
+C'est ce que certains commencent à appeler du _reverse prompt engineering_ pour l'exécution des tâches — vous n'écrivez pas le prompt parfait de zéro, vous utilisez le modèle pour faire émerger ce qu'un prompt parfait devrait contenir.
 
 ## Exemple 1 : Créer une fonctionnalité
 
@@ -51,7 +51,7 @@ Vous passez l'heure suivante à corriger cela.
 
 **L'approche du prompt inversé :**
 
-Vous commencez par la même phrase, puis vous demandez : *"Avant de commencer, que devrais-tu savoir pour implémenter cela correctement ? Que devrais-je clarifier ?"*
+Vous commencez par la même phrase, puis vous demandez : _"Avant de commencer, que devrais-tu savoir pour implémenter cela correctement ? Que devrais-je clarifier ?"_
 
 L'agent répond avec quelque chose comme :
 
@@ -71,13 +71,13 @@ La différence de qualité du résultat est flagrante.
 
 Les rapports de bugs sont là où un prompt vague cause le plus de dégâts, car un modèle qui n'a pas assez de contexte ne se contente pas de produire un code médiocre — il produit un code dont il est sûr, mais qui est faux.
 
-Imaginez que quelqu'un signale un bug : *"Le bouton de connexion ne fonctionne parfois pas."*
+Imaginez que quelqu'un signale un bug : _"Le bouton de connexion ne fonctionne parfois pas."_
 
 **L'approche naïve :** Vous collez cela dans votre agent. Il commence à analyser le code d'authentification, repère un motif async/await suspect, décide que c'est probablement ça, réécrit la fonction et ouvre une PR (Pull Request). Le bug est toujours là. La fonction qu'il a modifiée n'avait rien à voir.
 
 **L'approche du prompt inversé :**
 
-Vous donnez le rapport de bug à l'agent et demandez : *"De quoi aurais-tu besoin pour diagnostiquer cela efficacement ? Quelles questions poserait un ingénieur senior avant de toucher au moindre code ?"*
+Vous donnez le rapport de bug à l'agent et demandez : _"De quoi aurais-tu besoin pour diagnostiquer cela efficacement ? Quelles questions poserait un ingénieur senior avant de toucher au moindre code ?"_
 
 Il répond :
 
@@ -87,7 +87,7 @@ Il répond :
 > - Quel composant gère le clic du bouton, et quel service gère l'authentification ?
 > - Est-ce que cela a toujours été cassé ou est-ce une régression récente ? Si c'est une régression, qu'est-ce qui a changé ?
 
-Vous retournez voir la personne qui a signalé le bug, vous obtenez les réponses : c'est intermittent, cela n'arrive que lorsque l'utilisateur est sur la page depuis plus de dix minutes, aucune erreur dans la console, mais la requête réseau ne se déclenche jamais. C'est maintenant un bug complètement différent — probablement un problème d'expiration de token ou une *stale closure* dans un event handler, pas un problème d'async/await.
+Vous retournez voir la personne qui a signalé le bug, vous obtenez les réponses : c'est intermittent, cela n'arrive que lorsque l'utilisateur est sur la page depuis plus de dix minutes, aucune erreur dans la console, mais la requête réseau ne se déclenche jamais. C'est maintenant un bug complètement différent — probablement un problème d'expiration de token ou une _stale closure_ dans un event handler, pas un problème d'async/await.
 
 Vous donnez cette information à l'agent, et maintenant il va au bon endroit. Il trouve un `useCallback` avec une dépendance obsolète qui capture un token d'authentification lors du rendu initial. Un fix ciblé, pas de dommages collatéraux.
 

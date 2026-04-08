@@ -1,8 +1,8 @@
-'use client';
-import { useTranslations } from 'next-intl';
-import { useRef } from 'react';
+"use client";
+import { useTranslations } from "next-intl";
+import { useRef } from "react";
 
-import { TRACK_COLORS, type TrackId } from '#models/beatmaker';
+import { TRACK_COLORS, type TrackId } from "#models/beatmaker";
 
 type TrackRowProps = {
   trackId: TrackId;
@@ -24,9 +24,9 @@ export function TrackRow({
   activeStep,
 }: TrackRowProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const t = useTranslations('beatmaker.track');
-  const tTracks = useTranslations('beatmaker.tracks');
-  const tA11y = useTranslations('beatmaker.a11y');
+  const t = useTranslations("beatmaker.track");
+  const tTracks = useTranslations("beatmaker.tracks");
+  const tA11y = useTranslations("beatmaker.a11y");
   const color = TRACK_COLORS[trackId];
 
   function handleDrop(e: React.DragEvent<HTMLButtonElement>) {
@@ -40,7 +40,7 @@ export function TrackRow({
     if (file) {
       onFileLoad(file);
       // Reset so the same file can be re-selected to replace/retry
-      e.target.value = '';
+      e.target.value = "";
     }
   }
 
@@ -57,20 +57,16 @@ export function TrackRow({
         type="button"
         className="flex w-[72px] shrink-0 cursor-pointer flex-col items-center justify-center rounded px-1 py-1 text-center transition-opacity select-none hover:opacity-80"
         style={{ color }}
-        title={hasCustomFile ? t('customFile') : t('dropFile')}
+        title={hasCustomFile ? t("customFile") : t("dropFile")}
         onDrop={handleDrop}
-        onDragOver={e => {
+        onDragOver={(e) => {
           e.preventDefault();
         }}
         onClick={() => fileInputRef.current?.click()}
         tabIndex={0}
       >
-        <span className="text-xs font-semibold tracking-wider uppercase">
-          {tTracks(trackId)}
-        </span>
-        {hasCustomFile && (
-          <span className="text-[8px] opacity-60">{t('customBadge')}</span>
-        )}
+        <span className="text-xs font-semibold tracking-wider uppercase">{tTracks(trackId)}</span>
+        {hasCustomFile && <span className="text-[8px] opacity-60">{t("customBadge")}</span>}
       </button>
       <input
         ref={fileInputRef}
@@ -91,21 +87,21 @@ export function TrackRow({
                 <button
                   key={index}
                   type="button"
-                  aria-label={tA11y('stepButton', {
+                  aria-label={tA11y("stepButton", {
                     track: tTracks(trackId),
                     step: index + 1,
-                    state: active ? tA11y('stepOn') : tA11y('stepOff'),
+                    state: active ? tA11y("stepOn") : tA11y("stepOff"),
                   })}
                   aria-pressed={active}
                   className={[
-                    'h-9 w-9 shrink-0 rounded transition-all',
+                    "h-9 w-9 shrink-0 rounded transition-all",
                     !active &&
                       (index === activeStep
-                        ? 'dark:bg-foreground/30 bg-foreground/10'
-                        : 'dark:bg-default bg-default/50 hover:bg-default hover:dark:bg-default/50'),
+                        ? "dark:bg-foreground/30 bg-foreground/10"
+                        : "dark:bg-default bg-default/50 hover:bg-default hover:dark:bg-default/50"),
                   ]
                     .filter(Boolean)
-                    .join(' ')}
+                    .join(" ")}
                   style={
                     active
                       ? {
@@ -128,7 +124,7 @@ export function TrackRow({
         ))}
       </div>
 
-      {decodeError && <p className="text-danger ml-2 text-xs">{decodeError}</p>}
+      {decodeError && <p className="ml-2 text-xs text-danger">{decodeError}</p>}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from "react";
 
 /**
  * Manages a collection of animation timeouts with automatic cleanup on unmount.
@@ -9,7 +9,7 @@ export const useAnimationTimeouts = () => {
 
   const schedule = useCallback((cb: () => void, delay: number) => {
     const id = setTimeout(() => {
-      timeoutsRef.current = timeoutsRef.current.filter(t => t !== id);
+      timeoutsRef.current = timeoutsRef.current.filter((t) => t !== id);
       cb();
     }, delay);
     timeoutsRef.current.push(id);

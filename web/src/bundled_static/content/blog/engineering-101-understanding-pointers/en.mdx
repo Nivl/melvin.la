@@ -20,18 +20,20 @@ When your code runs, your data has to go somewhere. Generally, it lands in one o
 ### The Stack: Fast and Organized
 
 Imagine the Stack like a stack of sticky notes on your desk.
-*   **Automatic:** When a function starts, you slap a sticky note on top with its variables. When it ends, you rip it off and throw it away.
-*   **Fast:** You don't search for space; it's always right on top.
-*   **Temporary:** Data here lives only as long as the function runs.
+
+- **Automatic:** When a function starts, you slap a sticky note on top with its variables. When it ends, you rip it off and throw it away.
+- **Fast:** You don't search for space; it's always right on top.
+- **Temporary:** Data here lives only as long as the function runs.
 
 If you have a variable `int a = 10;`, it likely sits here. It’s clean, fast, and safe.
 
 ### The Heap: The Wild West
 
 The Heap is a giant warehouse.
-*   **Manual:** You have to ask for space ("I need a box for this object"), and you have to remember to give it back (or let a Garbage Collector do it).
-*   **Slower:** Finding free space takes time.
-*   **Permanent-ish:** Data here lives until you kill it. This is where you put things that need to survive after a function returns.
+
+- **Manual:** You have to ask for space ("I need a box for this object"), and you have to remember to give it back (or let a Garbage Collector do it).
+- **Slower:** Finding free space takes time.
+- **Permanent-ish:** Data here lives until you kill it. This is where you put things that need to survive after a function returns.
 
 ## So, what is a Pointer?
 
@@ -44,22 +46,25 @@ int score = 99;  // The actual value
 int *p = &score; // The pointer 'p' holds the address of 'score'
 ```
 
-*   `p` is the **address** (where is it?).
-*   `*p` is the **value** (what is inside?).
+- `p` is the **address** (where is it?).
+- `*p` is the **value** (what is inside?).
 
 ## Why do we torture ourselves with this?
 
 Why not just pass values around and let the language handle the mess?
 
 ### 1. Speed (No Copying)
+
 Imagine you have a 10MB image. If you pass it to a function `process(image)`, and your language copies that image, you just wasted 10MB of RAM and CPU time copying pixels.
 With a pointer, you just pass the address (8 bytes). You tell the function: "The image is over there, go look at it."
 
 ### 2. Sharing State
-If you pass a variable by value to a function, the function gets a *clone*. If it changes the clone, the original is untouched.
-If you pass a pointer, the function knows where the *original* lives. It can modify the actual data.
+
+If you pass a variable by value to a function, the function gets a _clone_. If it changes the clone, the original is untouched.
+If you pass a pointer, the function knows where the _original_ lives. It can modify the actual data.
 
 ### 3. Dynamic Structures
+
 Linked lists, trees, graphs—these are just chunks of data holding pointers to other chunks of data. You can't build them easily without references.
 
 ## The Price You Pay

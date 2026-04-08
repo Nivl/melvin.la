@@ -1,6 +1,6 @@
-import { DatabaseSync } from 'node:sqlite';
+import { DatabaseSync } from "node:sqlite";
 
-import { DB_PATH } from './paths';
+import { DB_PATH } from "./paths";
 
 let db: DatabaseSync | undefined;
 

@@ -1,9 +1,9 @@
-import type { Kit, TrackId } from './types';
+import type { Kit, TrackId } from "./types";
 
-const SAMPLE_VERSION = 'v1';
+const SAMPLE_VERSION = "v1";
 
 export const KITS: Record<Kit, Record<string, never>> = {
-  '808': {},
+  "808": {},
   acoustic: {},
   lofi: {},
 };

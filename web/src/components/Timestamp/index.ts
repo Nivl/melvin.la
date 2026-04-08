@@ -1,1 +1,1 @@
-export * from './Timestamp';
+export * from "./Timestamp";

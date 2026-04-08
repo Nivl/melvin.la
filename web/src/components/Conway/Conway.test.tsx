@@ -1,11 +1,11 @@
-import { cleanup, render } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
-import { afterEach, expect, test, vi } from 'vitest';
+import { cleanup, render } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
+import { afterEach, expect, test, vi } from "vitest";
 
-import { type Board, boardSizes } from '#models/conway';
-import { testWrapper as wrapper } from '#utils/tests';
+import { type Board, boardSizes } from "#models/conway";
+import { testWrapper as wrapper } from "#utils/tests";
 
-import { Conway, totalNeighbors } from './Conway';
+import { Conway, totalNeighbors } from "./Conway";
 
 afterEach(() => {
   cleanup();
@@ -21,23 +21,21 @@ const setup = () => {
   };
 };
 
-test('All the elements are on the page', () => {
+test("All the elements are on the page", () => {
   const { getByRole, getByLabelText } = setup();
 
-  expect(
-    getByRole('heading', { level: 1, name: "Conway's Game of Life" }),
-  ).toBeDefined();
+  expect(getByRole("heading", { level: 1, name: "Conway's Game of Life" })).toBeDefined();
 
-  expect(getByLabelText('Speed', { selector: 'input' })).toBeDefined();
-  expect(getByLabelText('Board Size', { selector: 'input' })).toBeDefined();
-  expect(getByRole('button', { name: 'Play' })).toBeDefined();
-  expect(getByRole('switch', { name: 'Wrap edges' })).toBeDefined();
+  expect(getByLabelText("Speed", { selector: "input" })).toBeDefined();
+  expect(getByLabelText("Board Size", { selector: "input" })).toBeDefined();
+  expect(getByRole("button", { name: "Play" })).toBeDefined();
+  expect(getByRole("switch", { name: "Wrap edges" })).toBeDefined();
 });
 
-test('Grid renders correct number of cells for default board size', () => {
+test("Grid renders correct number of cells for default board size", () => {
   const { getByRole } = setup();
   // Each cell is a div inside the grid container; the grid itself has role="region"
-  const grid = getByRole('region');
+  const grid = getByRole("region");
   expect(grid).toBeDefined();
   // Derive expected cell count from the shared boardSizes constant to stay in sync with defaults
   const defaultSize = boardSizes[0];
@@ -57,17 +55,17 @@ const edgeBoard: Board = [
   [1, 1, 1],
 ];
 
-test('totalNeighbors counts wrapped neighbours when toroidal is true', () => {
+test("totalNeighbors counts wrapped neighbours when toroidal is true", () => {
   // col=1, row=0 — the three alive cells in row 2 wrap around to become neighbours
   expect(totalNeighbors(edgeBoard, 1, 0, true)).toBe(3);
 });
 
-test('totalNeighbors ignores out-of-bounds cells when toroidal is false', () => {
+test("totalNeighbors ignores out-of-bounds cells when toroidal is false", () => {
   // col=1, row=0 — no valid in-bounds neighbours are alive
   expect(totalNeighbors(edgeBoard, 1, 0, false)).toBe(0);
 });
 
-test('totalNeighbors produces different counts for a corner cell depending on toroidal', () => {
+test("totalNeighbors produces different counts for a corner cell depending on toroidal", () => {
   // col=0, row=0 — with wrapping, board[2][2]=1 wraps to become a diagonal neighbour
   const toroidalCount = totalNeighbors(edgeBoard, 0, 0, true);
   const plainCount = totalNeighbors(edgeBoard, 0, 0, false);

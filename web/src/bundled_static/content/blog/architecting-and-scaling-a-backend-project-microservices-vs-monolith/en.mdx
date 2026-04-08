@@ -22,6 +22,7 @@ Think of it like a decentralized team. Each service manages its own database and
 In practice, this is great for large organizations where coordinating a single release across 500 developers is a nightmare.
 
 #### Diagram: Microservices Architecture
+
 ```hidden
 digraph G {
   bgcolor="transparent";
@@ -46,7 +47,10 @@ digraph G {
 }
 ```
 
-<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-microservice.svg"}
+<Image
+  src={
+    "/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-microservice.svg"
+  }
   priority={true}
   width={372}
   height={300}
@@ -89,7 +93,10 @@ digraph Monolith {
 }
 ```
 
-<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-monolith.svg"}
+<Image
+  src={
+    "/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-monolith.svg"
+  }
   priority={true}
   width={307}
   height={600}
@@ -101,27 +108,27 @@ digraph Monolith {
 
 ### Why go Microservices?
 
-*   **Scale what needs scaling:** If your video processing feature is hammering the CPU but your login page is idle, you can throw more servers at just the video service.
-*   **Freedom of stack:** You aren't locked into the technology choices you made 5 years ago. New services can use modern tools.
-*   **Resilience:** Ideally, if the "Recommendations" service crashes, the rest of the site (like "Checkout") stays up.
+- **Scale what needs scaling:** If your video processing feature is hammering the CPU but your login page is idle, you can throw more servers at just the video service.
+- **Freedom of stack:** You aren't locked into the technology choices you made 5 years ago. New services can use modern tools.
+- **Resilience:** Ideally, if the "Recommendations" service crashes, the rest of the site (like "Checkout") stays up.
 
 ### The cost of Microservices
 
-*   **Ops Complexity:** You are trading code complexity for infrastructure complexity. You now have to monitor, log, and trace requests across dozens of services.
-*   **Latency:** A function call in memory is nanoseconds. A network call to another service is milliseconds. That adds up.
-*   **Distributed Systems are hard:** Transactions that span multiple services are a headache. Maintaining data consistency requires careful design.
+- **Ops Complexity:** You are trading code complexity for infrastructure complexity. You now have to monitor, log, and trace requests across dozens of services.
+- **Latency:** A function call in memory is nanoseconds. A network call to another service is milliseconds. That adds up.
+- **Distributed Systems are hard:** Transactions that span multiple services are a headache. Maintaining data consistency requires careful design.
 
 ### Why stick with a Monolith?
 
-*   **Simplicity rules:** Navigating the code is easy. IDE tools like "Go to Definition" actually work.
-*   **Performance:** No network overhead for internal calls. Everything happens in-process.
-*   **Easy Testing:** You can spin up the whole app on your laptop and run end-to-end tests without mocking the entire internet.
+- **Simplicity rules:** Navigating the code is easy. IDE tools like "Go to Definition" actually work.
+- **Performance:** No network overhead for internal calls. Everything happens in-process.
+- **Easy Testing:** You can spin up the whole app on your laptop and run end-to-end tests without mocking the entire internet.
 
 ### The Monolith limit
 
-*   **Scaling pains:** You have to scale the whole app, even if only one part is the bottleneck.
-*   **Coupling:** It's easy to create spaghetti code where everything depends on everything else. One bad commit can break the whole app.
-*   **Deployment fear:** Deploying a massive monolith can be slow and risky, leading to "fear of deployment" and slower release cycles.
+- **Scaling pains:** You have to scale the whole app, even if only one part is the bottleneck.
+- **Coupling:** It's easy to create spaghetti code where everything depends on everything else. One bad commit can break the whole app.
+- **Deployment fear:** Deploying a massive monolith can be slow and risky, leading to "fear of deployment" and slower release cycles.
 
 ### The "Too Many Services" Trap
 
@@ -134,14 +141,16 @@ When you cross that threshold, many services no longer have clear owners, or the
 Don't choose an architecture because it's trendy. Choose it because it solves your current problems.
 
 **Choose Microservices if:**
-*   You have a large engineering organization (think 50+ devs) and need to decouple teams.
-*   You have distinct components with wildly different resource requirements (e.g., a heavy ML pipeline vs. a simple CRUD app).
-*   You are hitting hard scaling limits that a monolith simply cannot handle.
+
+- You have a large engineering organization (think 50+ devs) and need to decouple teams.
+- You have distinct components with wildly different resource requirements (e.g., a heavy ML pipeline vs. a simple CRUD app).
+- You are hitting hard scaling limits that a monolith simply cannot handle.
 
 **Choose a Monolith if:**
-*   You are a startup or a small team. Speed of iteration is your most important metric.
-*   Your domain is tightly integrated. If changing one feature almost always requires changing another, splitting them will only add pain.
-*   You are prototyping. You don't know your domain boundaries yet. Prematurely splitting services is a classic mistake.
+
+- You are a startup or a small team. Speed of iteration is your most important metric.
+- Your domain is tightly integrated. If changing one feature almost always requires changing another, splitting them will only add pain.
+- You are prototyping. You don't know your domain boundaries yet. Prematurely splitting services is a classic mistake.
 
 ## 4. The Pragmatic Path: The Modular Monolith & Gradual Splitting
 
@@ -149,7 +158,7 @@ Here is the secret: you don't have to jump straight to microservices. In fact, y
 
 A **Modular Monolith** is a great middle ground. You build a single deployable unit, but internally, you enforce strict boundaries between modules. Code in `Module A` cannot import code from `Module B` directly; it must go through a defined public interface. This gives you the code organization benefits of microservices without the infrastructure overhead.
 
-As your application grows, you can peel off the parts that *need* to be independent.
+As your application grows, you can peel off the parts that _need_ to be independent.
 
 ### How to evolve:
 
@@ -230,7 +239,10 @@ digraph Architecture {
 }
 ```
 
-<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-hybrid.svg"}
+<Image
+  src={
+    "/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-hybrid.svg"
+  }
   priority={true}
   width={615}
   height={1200}
@@ -242,8 +254,8 @@ digraph Architecture {
 
 The "Microservices vs. Monolith" debate often misses the point. It's not about which architecture is theoretically superior; it's about which set of trade-offs you can live with right now.
 
-*   **Microservices** give you independence and granular scaling, but you pay for it with complexity.
-*   **Monoliths** give you simplicity and velocity, but can become unwieldy at scale.
-*   **Hybrid/Evolutionary** architectures let you start simple and grow complex only when you have to.
+- **Microservices** give you independence and granular scaling, but you pay for it with complexity.
+- **Monoliths** give you simplicity and velocity, but can become unwieldy at scale.
+- **Hybrid/Evolutionary** architectures let you start simple and grow complex only when you have to.
 
 Start with a well-structured monolith. Split it when you feel the pain, not before. Your future self (and your DevOps team) will thank you.

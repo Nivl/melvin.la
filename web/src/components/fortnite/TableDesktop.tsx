@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { Table, Tooltip } from '@heroui/react';
-import { BadgeInfo } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useMemo, useState } from 'react';
-import { FaGamepad, FaKeyboard } from 'react-icons/fa';
-import { FaUser, FaUserGroup, FaUsers } from 'react-icons/fa6';
-import { GiSmartphone } from 'react-icons/gi';
-import { TfiInfinite } from 'react-icons/tfi';
+import { Table, Tooltip } from "@heroui/react";
+import { BadgeInfo } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
+import { FaGamepad, FaKeyboard } from "react-icons/fa";
+import { FaUser, FaUserGroup, FaUsers } from "react-icons/fa6";
+import { GiSmartphone } from "react-icons/gi";
+import { TfiInfinite } from "react-icons/tfi";
 
-import { type FortniteData } from '#backend/api';
-import { humanizeDuration, rateStr } from '#utils/fortnite';
+import { type FortniteData } from "#backend/api";
+import { humanizeDuration, rateStr } from "#utils/fortnite";
 
-import { Pill } from './Pill';
+import { Pill } from "./Pill";
 
-type Category = 'all' | 'keyboardMouse' | 'gamepad' | 'touch';
-const categoryList: Category[] = ['all', 'keyboardMouse', 'gamepad', 'touch'];
+type Category = "all" | "keyboardMouse" | "gamepad" | "touch";
+const categoryList: Category[] = ["all", "keyboardMouse", "gamepad", "touch"];
 
 type TableEntry = {
   key: string;
@@ -31,16 +31,10 @@ type TableEntry = {
   tooltipInfo?: string;
 };
 
-export const TableDesktop = ({
-  data,
-  isLoading,
-}: {
-  data?: FortniteData;
-  isLoading: boolean;
-}) => {
-  const [category, setCategory] = useState<Category>('all');
+export const TableDesktop = ({ data, isLoading }: { data?: FortniteData; isLoading: boolean }) => {
+  const [category, setCategory] = useState<Category>("all");
   const rootT = useTranslations();
-  const t = useTranslations('fortnite.data');
+  const t = useTranslations("fortnite.data");
 
   // We need to sync the categories with the data, to make sure the
   // current category is available with the new set of data
@@ -52,7 +46,7 @@ export const TableDesktop = ({
     // one category available.
     const availableCats: Record<string, boolean> = {};
     for (const cat of categoryList) {
-      if (cat !== 'all' && data?.stats[cat]?.overall) {
+      if (cat !== "all" && data?.stats[cat]?.overall) {
         availableCats[cat] = true;
       }
     }
@@ -63,7 +57,7 @@ export const TableDesktop = ({
       const newCat =
         Object.keys(availableCats).length === 1
           ? (Object.keys(availableCats)[0] as Category)
-          : 'all';
+          : "all";
       setCategory(newCat);
     }
   }
@@ -75,37 +69,37 @@ export const TableDesktop = ({
     // the loader
     if (isLoading || data?.stats.keyboardMouse?.overall) {
       categories.push({
-        key: 'score-keyboard',
-        title: t('kbm'),
-        selected: category === 'keyboardMouse',
+        key: "score-keyboard",
+        title: t("kbm"),
+        selected: category === "keyboardMouse",
         icon: <FaKeyboard />,
         isLoading,
         onCick: () => {
-          setCategory('keyboardMouse');
+          setCategory("keyboardMouse");
         },
       });
     }
     if (isLoading || data?.stats.gamepad?.overall) {
       categories.push({
-        key: 'score-gamepad',
-        title: t('gamepad'),
+        key: "score-gamepad",
+        title: t("gamepad"),
         icon: <FaGamepad />,
-        selected: category === 'gamepad',
+        selected: category === "gamepad",
         isLoading,
         onCick: () => {
-          setCategory('gamepad');
+          setCategory("gamepad");
         },
       });
     }
     if (isLoading || data?.stats.touch?.overall) {
       categories.push({
-        key: 'score-mobile',
-        title: t('mobile'),
-        selected: category === 'touch',
+        key: "score-mobile",
+        title: t("mobile"),
+        selected: category === "touch",
         icon: <GiSmartphone />,
         isLoading,
         onCick: () => {
-          setCategory('touch');
+          setCategory("touch");
         },
       });
     }
@@ -113,18 +107,18 @@ export const TableDesktop = ({
     // If we have more than one cat (or 0) we'll add the 'all' category
     if (categories.length !== 1) {
       categories.unshift({
-        key: 'score-all',
-        title: t('all-categories'),
-        selected: category === 'all',
+        key: "score-all",
+        title: t("all-categories"),
+        selected: category === "all",
         icon: <TfiInfinite />,
         isLoading,
         onCick: () => {
-          setCategory('all');
+          setCategory("all");
         },
       });
     }
 
-    return categories.map(e => {
+    return categories.map((e) => {
       return (
         <Pill
           key={e.key}
@@ -145,8 +139,8 @@ export const TableDesktop = ({
     if (soloData) {
       const solo = {
         key: crypto.randomUUID(),
-        mode: t('solo'),
-        tooltipInfo: t('soloTooltipInfo'),
+        mode: t("solo"),
+        tooltipInfo: t("soloTooltipInfo"),
         icon: <FaUser />,
         timePlayed: humanizeDuration(rootT, soloData.minutesPlayed),
         gamePlayed: soloData.matches,
@@ -163,8 +157,8 @@ export const TableDesktop = ({
     if (duoData) {
       const duo = {
         key: crypto.randomUUID(),
-        mode: t('duo'),
-        tooltipInfo: t('duoTooltipInfo'),
+        mode: t("duo"),
+        tooltipInfo: t("duoTooltipInfo"),
         icon: <FaUserGroup />,
         timePlayed: humanizeDuration(rootT, duoData.minutesPlayed),
         gamePlayed: duoData.matches,
@@ -181,8 +175,8 @@ export const TableDesktop = ({
     if (squadData) {
       const squad = {
         key: crypto.randomUUID(),
-        mode: t('squad'),
-        tooltipInfo: t('squadTooltipInfo'),
+        mode: t("squad"),
+        tooltipInfo: t("squadTooltipInfo"),
         icon: <FaUsers />,
         timePlayed: humanizeDuration(rootT, squadData.minutesPlayed),
         gamePlayed: squadData.matches,
@@ -199,9 +193,9 @@ export const TableDesktop = ({
     // available
     if (out.length !== 1 && overallData) {
       const overall = {
-        tooltipInfo: t('overallTooltipInfo'),
+        tooltipInfo: t("overallTooltipInfo"),
         key: crypto.randomUUID(),
-        mode: t('overall'),
+        mode: t("overall"),
         icon: <TfiInfinite />,
         timePlayed: humanizeDuration(rootT, overallData.minutesPlayed),
         gamePlayed: overallData.matches,
@@ -209,15 +203,11 @@ export const TableDesktop = ({
         winRate: rateStr(overallData.wins, overallData.matches),
         kd: (Math.ceil(overallData.kd * 100) / 100).toFixed(2),
         top10rate: rateStr(
-          (overallData.top3 ?? 0) +
-            (overallData.top5 ?? 0) +
-            (overallData.top10 ?? 0),
+          (overallData.top3 ?? 0) + (overallData.top5 ?? 0) + (overallData.top10 ?? 0),
           overallData.matches,
         ),
         top25rate: rateStr(
-          (overallData.top6 ?? 0) +
-            (overallData.top12 ?? 0) +
-            (overallData.top25 ?? 0),
+          (overallData.top6 ?? 0) + (overallData.top12 ?? 0) + (overallData.top25 ?? 0),
           overallData.matches,
         ),
       };
@@ -233,23 +223,19 @@ export const TableDesktop = ({
       </div>
       <Table>
         <Table.ScrollContainer>
-          <Table.Content aria-label={t('statsTable')}>
+          <Table.Content aria-label={t("statsTable")}>
             <Table.Header>
-              <Table.Column isRowHeader>{''}</Table.Column>
-              <Table.Column>{t('gamePlayed')}</Table.Column>
-              <Table.Column>{t('wins')}</Table.Column>
-              <Table.Column>{t('winRate')}</Table.Column>
+              <Table.Column isRowHeader>{""}</Table.Column>
+              <Table.Column>{t("gamePlayed")}</Table.Column>
+              <Table.Column>{t("wins")}</Table.Column>
+              <Table.Column>{t("winRate")}</Table.Column>
               <Table.Column>
                 <Tooltip delay={0}>
                   <Tooltip.Trigger>
-                    <span className="cursor-help">{t('kd')}</span>
+                    <span className="cursor-help">{t("kd")}</span>
                   </Tooltip.Trigger>
-                  <Tooltip.Content
-                    offset={12}
-                    showArrow
-                    className="bg-default-900 rounded p-2"
-                  >
-                    {t('kdHelp')}
+                  <Tooltip.Content offset={12} showArrow className="bg-default-900 rounded p-2">
+                    {t("kdHelp")}
                     <Tooltip.Arrow />
                   </Tooltip.Content>
                 </Tooltip>
@@ -257,14 +243,10 @@ export const TableDesktop = ({
               <Table.Column>
                 <Tooltip delay={0}>
                   <Tooltip.Trigger>
-                    <span className="cursor-help">{t('top10rate')}</span>
+                    <span className="cursor-help">{t("top10rate")}</span>
                   </Tooltip.Trigger>
-                  <Tooltip.Content
-                    offset={12}
-                    showArrow
-                    className="bg-default-900 rounded p-2"
-                  >
-                    {t('top10rateHelp')}
+                  <Tooltip.Content offset={12} showArrow className="bg-default-900 rounded p-2">
+                    {t("top10rateHelp")}
                     <Tooltip.Arrow />
                   </Tooltip.Content>
                 </Tooltip>
@@ -272,27 +254,21 @@ export const TableDesktop = ({
               <Table.Column>
                 <Tooltip delay={0}>
                   <Tooltip.Trigger>
-                    <span className="cursor-help">{t('top25rate')}</span>
+                    <span className="cursor-help">{t("top25rate")}</span>
                   </Tooltip.Trigger>
-                  <Tooltip.Content
-                    offset={12}
-                    showArrow
-                    className="bg-default-900 rounded p-2"
-                  >
-                    {t('top25rateHelp')}
+                  <Tooltip.Content offset={12} showArrow className="bg-default-900 rounded p-2">
+                    {t("top25rateHelp")}
                     <Tooltip.Arrow />
                   </Tooltip.Content>
                 </Tooltip>
               </Table.Column>
-              <Table.Column>{t('timePlayed')}</Table.Column>
+              <Table.Column>{t("timePlayed")}</Table.Column>
             </Table.Header>
             <Table.Body
               items={tableData}
-              renderEmptyState={() => (
-                <div className="m-auto w-fit">{t('noData')}</div>
-              )}
+              renderEmptyState={() => <div className="m-auto w-fit">{t("noData")}</div>}
             >
-              {item => (
+              {(item) => (
                 <Table.Row id={item.key}>
                   <Table.Cell>
                     <div className="flex flex-row items-center gap-2">

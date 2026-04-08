@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from "@storybook/nextjs";
 
-import page from './not-found';
+import page from "./not-found";
 
 const meta = {
-  title: 'Pages/404',
+  title: "Pages/404",
   component: page,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof page>;
 

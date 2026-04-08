@@ -1,18 +1,10 @@
-'use client';
+"use client";
 
-import {
-  memo,
-  MouseEvent,
-  PointerEvent,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { memo, MouseEvent, PointerEvent, useCallback, useEffect, useRef, useState } from "react";
 
-import type { Board, BoardValue } from '#models/conway';
+import type { Board, BoardValue } from "#models/conway";
 
-type DragMode = 'set-alive' | 'set-dead' | undefined;
+type DragMode = "set-alive" | "set-dead" | undefined;
 
 type CellProps = {
   alive: boolean;
@@ -23,23 +15,18 @@ const Cell = memo(
   ({ alive, isHovered }: CellProps) => (
     <div
       className={[
-        alive
-          ? 'bg-accent'
-          : 'bg-default-foreground/5 dark:bg-default-foreground/10',
-        'border-default-foreground/5 border transition-colors duration-75',
-        isHovered &&
-          !alive &&
-          'bg-default-foreground/15 dark:bg-default-foreground/20',
+        alive ? "bg-accent" : "bg-default-foreground/5 dark:bg-default-foreground/10",
+        "border-default-foreground/5 border transition-colors duration-75",
+        isHovered && !alive && "bg-default-foreground/15 dark:bg-default-foreground/20",
       ]
         .filter(Boolean)
-        .join(' ')}
+        .join(" ")}
     />
   ),
-  (prev, next) =>
-    prev.alive === next.alive && prev.isHovered === next.isHovered,
+  (prev, next) => prev.alive === next.alive && prev.isHovered === next.isHovered,
 );
 
-Cell.displayName = 'ConwayCell';
+Cell.displayName = "ConwayCell";
 
 type GridProps = {
   board: Board;
@@ -49,13 +36,7 @@ type GridProps = {
   onSetCell: (row: number, col: number, value: BoardValue) => void;
 };
 
-export const ConwayGrid = ({
-  board,
-  boardSize,
-  isPlaying,
-  ariaLabel,
-  onSetCell,
-}: GridProps) => {
+export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }: GridProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const dragModeRef = useRef<DragMode>(undefined);
   const boardRef = useRef(board);
@@ -87,8 +68,7 @@ export const ConwayGrid = ({
   );
 
   const getCellFromPointerEvent = useCallback(
-    (e: PointerEvent<HTMLDivElement>) =>
-      getCellCoordsFromMousePos(e.clientX, e.clientY),
+    (e: PointerEvent<HTMLDivElement>) => getCellCoordsFromMousePos(e.clientX, e.clientY),
     [getCellCoordsFromMousePos],
   );
 
@@ -100,7 +80,7 @@ export const ConwayGrid = ({
       if (!coords) return;
       const [row, col] = coords;
       const isAlive = boardRef.current[row]?.[col] === 1;
-      const mode: DragMode = isAlive ? 'set-dead' : 'set-alive';
+      const mode: DragMode = isAlive ? "set-dead" : "set-alive";
       dragModeRef.current = mode;
       onSetCell(row, col, isAlive ? 0 : 1);
       if (e.currentTarget instanceof HTMLElement) {
@@ -117,9 +97,9 @@ export const ConwayGrid = ({
       if (!coords) return;
       const [row, col] = coords;
       const isAlive = boardRef.current[row]?.[col] === 1;
-      if (dragModeRef.current === 'set-alive' && !isAlive) {
+      if (dragModeRef.current === "set-alive" && !isAlive) {
         onSetCell(row, col, 1);
-      } else if (dragModeRef.current === 'set-dead' && isAlive) {
+      } else if (dragModeRef.current === "set-dead" && isAlive) {
         onSetCell(row, col, 0);
       }
     },
@@ -155,13 +135,13 @@ export const ConwayGrid = ({
       ref={containerRef}
       role="region"
       aria-label={ariaLabel}
-      className="border-default touch-none overflow-hidden rounded-lg border select-none"
+      className="touch-none overflow-hidden rounded-lg border border-default select-none"
       style={{
-        display: 'grid',
+        display: "grid",
         gridTemplateColumns: `repeat(${boardSize.toString()}, 1fr)`,
-        aspectRatio: '1 / 1',
-        width: '100%',
-        cursor: isPlaying ? 'not-allowed' : 'crosshair',
+        aspectRatio: "1 / 1",
+        width: "100%",
+        cursor: isPlaying ? "not-allowed" : "crosshair",
       }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -170,7 +150,7 @@ export const ConwayGrid = ({
       onPointerCancel={handlePointerUp}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onContextMenu={e => {
+      onContextMenu={(e) => {
         e.preventDefault();
       }}
     >

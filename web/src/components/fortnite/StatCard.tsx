@@ -1,12 +1,12 @@
-import { Card, Chip, ProgressCircle, Skeleton } from '@heroui/react';
-import { useTranslations } from 'next-intl';
-import { twMerge } from 'tailwind-merge';
+import { Card, Chip, ProgressCircle, Skeleton } from "@heroui/react";
+import { useTranslations } from "next-intl";
+import { twMerge } from "tailwind-merge";
 
 export const StatCard = ({
   isProgress = false,
   title,
   stat,
-  className = '',
+  className = "",
   isLoading = false,
   ...delegated
 }: {
@@ -16,7 +16,7 @@ export const StatCard = ({
   className?: string;
   isLoading?: boolean;
 }) => {
-  const t = useTranslations('fortnite');
+  const t = useTranslations("fortnite");
 
   return (
     <Card
@@ -30,7 +30,7 @@ export const StatCard = ({
           <>
             <ProgressCircle
               size="lg"
-              aria-label={t('currentLevelProgression')}
+              aria-label={t("currentLevelProgression")}
               value={isLoading ? undefined : Number(stat) || ~~stat}
               className="h-31 w-31"
               isIndeterminate={isLoading}
@@ -41,11 +41,7 @@ export const StatCard = ({
               </ProgressCircle.Track>
             </ProgressCircle>
             <span className="absolute flex items-center justify-center text-3xl font-bold text-white">
-              {isLoading ? (
-                <Skeleton className="light h-8 w-10" />
-              ) : (
-                `${stat.toString()}%`
-              )}
+              {isLoading ? <Skeleton className="light h-8 w-10" /> : `${stat.toString()}%`}
             </span>
           </>
         ) : (

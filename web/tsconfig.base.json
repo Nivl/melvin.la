@@ -5,9 +5,7 @@
     "emitDeclarationOnly": true,
     "importHelpers": true,
     "target": "esnext",
-    "lib": [
-      "esnext"
-    ],
+    "lib": ["esnext"],
     "allowImportingTsExtensions": true,
     "allowArbitraryExtensions": true,
     "allowJs": true,
@@ -22,13 +20,11 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "customConditions": [
-      "development"
-    ],
+    "customConditions": ["development"],
     "resolvePackageJsonImports": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": true
   }
 }

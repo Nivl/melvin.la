@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { Button, Dropdown } from '@heroui/react';
-import { useLocale, useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { Button, Dropdown } from "@heroui/react";
+import { useLocale, useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 
-import { LanguageSwitcherIcon } from '#components/icons/LanguageSwitcherIcon.tsx';
-import { usePrefersReducedMotion } from '#hooks/usePrefersReducedMotion.ts';
-import { usePathname, useRouter } from '#i18n/routing';
+import { LanguageSwitcherIcon } from "#components/icons/LanguageSwitcherIcon.tsx";
+import { usePrefersReducedMotion } from "#hooks/usePrefersReducedMotion.ts";
+import { usePathname, useRouter } from "#i18n/routing";
 
 type Language = {
   key: string;
@@ -16,44 +16,44 @@ type Language = {
 
 const languages: Language[] = [
   {
-    key: 'en',
-    label: 'English',
+    key: "en",
+    label: "English",
     isAI: false,
   },
   {
-    key: 'es',
-    label: 'Español',
+    key: "es",
+    label: "Español",
     isAI: true,
   },
   {
-    key: 'fr',
-    label: 'Français',
+    key: "fr",
+    label: "Français",
     isAI: true,
   },
   {
-    key: 'ja',
-    label: '日本語',
+    key: "ja",
+    label: "日本語",
     isAI: true,
   },
   {
-    key: 'ko',
-    label: '한국어',
+    key: "ko",
+    label: "한국어",
     isAI: true,
   },
   {
-    key: 'zh',
-    label: '中文 (简体)',
+    key: "zh",
+    label: "中文 (简体)",
     isAI: true,
   },
   {
-    key: 'zh-tw',
-    label: '中文 (繁體)',
+    key: "zh-tw",
+    label: "中文 (繁體)",
     isAI: true,
   },
 ];
 
 export const LanguageSwitcher = () => {
-  const t = useTranslations('navbar');
+  const t = useTranslations("navbar");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -78,10 +78,10 @@ export const LanguageSwitcher = () => {
   return (
     <Dropdown>
       <Button
-        className={`text-foreground tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 text-base antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent`}
+        className={`tap-highlight-transparent active:opacity-disabled cursor-pointer bg-transparent p-0 text-base text-foreground antialiased transition-opacity hover:opacity-80 data-[hover=true]:bg-transparent`}
         variant="ghost"
         isIconOnly
-        aria-label={t('changeLanguage')}
+        aria-label={t("changeLanguage")}
         onMouseEnter={() => {
           if (!reducedMotion) {
             setIsBooped(true);
@@ -92,16 +92,16 @@ export const LanguageSwitcher = () => {
       </Button>
       <Dropdown.Popover>
         <Dropdown.Menu
-          aria-label={t('language')}
+          aria-label={t("language")}
           selectionMode="single"
           selectedKeys={new Set([locale])}
-          onAction={key => {
+          onAction={(key) => {
             router.push({ pathname }, { locale: key.toString() });
           }}
         >
-          {languages.map(lang => (
+          {languages.map((lang) => (
             <Dropdown.Item id={lang.key} textValue={lang.label} key={lang.key}>
-              {lang.label} {lang.isAI ? <sup> AI</sup> : ''}
+              {lang.label} {lang.isAI ? <sup> AI</sup> : ""}
               <Dropdown.ItemIndicator />
             </Dropdown.Item>
           ))}
