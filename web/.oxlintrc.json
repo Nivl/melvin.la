@@ -8,6 +8,7 @@
   },
   "options": {
     "typeAware": true,
+    "typeCheck": true,
     "maxWarnings": 0
   },
   "env": {
