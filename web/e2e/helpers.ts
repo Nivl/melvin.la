@@ -28,6 +28,6 @@ export const test = testBase.extend<Fixtures>({
   ],
 });
 
-export function expectToBeThruthy<T>(value: T | undefined | null): asserts value is T {
+export function expectToBeTruthy<T>(value: T | undefined | null): asserts value is T {
   expect(value).toBeTruthy();
 }

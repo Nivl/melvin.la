@@ -8,13 +8,19 @@ import stats404 from "../../fixtures/fortnite/404.json" with { type: "json" };
 import stats500 from "../../fixtures/fortnite/500.json" with { type: "json" };
 
 export const makeHandlers = (http: OpenApiHttpHandlers<paths>) => {
+  const stats400Response: operations["fortniteGetStats"]["responses"]["400"]["content"]["application/json"] =
+    {
+      code: stats400.code,
+      message: stats400.message,
+      field: stats400.field,
+      location: "path",
+    };
+
   return [
     http.get("/fortnite/stats/{username}/{platform}/{timeWindow}", ({ params, response }) => {
       switch (params.username) {
         case "400":
-          return response(400).json(
-            stats400 as operations["fortniteGetStats"]["responses"]["400"]["content"]["application/json"],
-          );
+          return response(400).json(stats400Response);
         case "403":
           return response(403).json(stats403);
         case "404":

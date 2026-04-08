@@ -134,7 +134,7 @@ export const Timezones = () => {
                         {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}
                       </Calendar.GridHeader>
                       <Calendar.GridBody>
-                        {(date) => <Calendar.Cell date={date} />}
+                        {(calendarDate) => <Calendar.Cell date={calendarDate} />}
                       </Calendar.GridBody>
                     </Calendar.Grid>
                     <Calendar.YearPickerGrid>
@@ -180,7 +180,7 @@ export const Timezones = () => {
                       key={zone.id}
                       item={zone}
                       onDelete={() => {
-                        setZones((zones) => zones.toSpliced(i, 1));
+                        setZones((z) => z.toSpliced(i, 1));
                       }}
                     />
                   ))}

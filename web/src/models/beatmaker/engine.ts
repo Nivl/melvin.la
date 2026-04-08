@@ -23,6 +23,20 @@ type EngineOptions = {
   onStateChange?: (state: AudioContextState) => void;
 };
 
+function toError(error: unknown): Error {
+  return error instanceof Error ? error : new Error(String(error));
+}
+
+function unlockAudioOutput(context: AudioContext): void {
+  // 0.1s silent buffer to wake up the audio context on iOS
+  const silentBuf = context.createBuffer(1, context.sampleRate / 10, context.sampleRate);
+  const silentSrc = context.createBufferSource();
+
+  silentSrc.buffer = silentBuf;
+  silentSrc.connect(context.destination);
+  silentSrc.start(0);
+}
+
 export function createEngine(onErrorOrOptions?: ((error: Error) => void) | EngineOptions): Engine {
   const opts: EngineOptions =
     typeof onErrorOrOptions === "function"
@@ -41,10 +55,6 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
   let initPromise: Promise<void> | undefined;
   let currentStep = 0;
   let nextNoteTime = 0;
-
-  function toError(error: unknown): Error {
-    return error instanceof Error ? error : new Error(String(error));
-  }
 
   function reportError(error: unknown): void {
     onError?.(toError(error));
@@ -81,16 +91,6 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
         }
       }),
     );
-  }
-
-  function unlockAudioOutput(context: AudioContext): void {
-    // 0.1s silent buffer to wake up the audio context on iOS
-    const silentBuf = context.createBuffer(1, context.sampleRate / 10, context.sampleRate);
-    const silentSrc = context.createBufferSource();
-
-    silentSrc.buffer = silentBuf;
-    silentSrc.connect(context.destination);
-    silentSrc.start(0);
   }
 
   async function init(): Promise<void> {

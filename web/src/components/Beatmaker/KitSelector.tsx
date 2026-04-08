@@ -2,7 +2,7 @@
 import { Button } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
-import { type Kit, KITS } from "#models/beatmaker";
+import { type Kit, KIT_IDS } from "#models/beatmaker";
 
 type KitSelectorProps = {
   activeKit: Kit;
@@ -13,7 +13,7 @@ export function KitSelector({ activeKit, onKitChange }: KitSelectorProps) {
   const t = useTranslations("beatmaker.kits");
   return (
     <div className="flex gap-2">
-      {(Object.keys(KITS) as Kit[]).map((id) => (
+      {KIT_IDS.map((id) => (
         <Button
           key={id}
           size="sm"

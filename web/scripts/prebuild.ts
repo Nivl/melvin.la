@@ -14,6 +14,30 @@ type Frontmatter = Omit<BlogPost, "updatedAt"> & {
   updatedAt?: string;
 };
 
+function isFrontmatter(value: Record<string, unknown>): value is Frontmatter {
+  return (
+    typeof value.slug === "string" &&
+    typeof value.language === "string" &&
+    typeof value.title === "string" &&
+    typeof value.content === "string" &&
+    typeof value.excerpt === "string" &&
+    typeof value.image === "string" &&
+    typeof value.ogImage === "string" &&
+    typeof value.createdAt === "string" &&
+    (typeof value.updatedAt === "string" || value.updatedAt === undefined)
+  );
+}
+
+function parseFrontmatter(
+  value: Record<string, unknown>,
+  slug: string,
+  language: string,
+  content: string,
+): Frontmatter | undefined {
+  const candidate = { ...value, slug, language, content };
+  return isFrontmatter(candidate) ? candidate : undefined;
+}
+
 const main = async () => {
   // we make sure we start from scratch
   await rm(BUILD_DIR, { recursive: true, force: true });
@@ -64,9 +88,13 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
           const language = path.basename(file.name, path.extname(file.name)).toLocaleLowerCase();
           const content = await readFile(path.join(file.parentPath, file.name), "utf8");
           const mdxSource = matter(content);
+          const frontmatter = parseFrontmatter(mdxSource.data, slug, language, mdxSource.content);
 
-          const { title, createdAt, updatedAt, excerpt, image, ogImage } =
-            mdxSource.data as Frontmatter;
+          if (!frontmatter) {
+            throw new Error(`invalid frontmatter for ${file.name}`);
+          }
+
+          const { title, createdAt, updatedAt, excerpt, image, ogImage } = frontmatter;
 
           const createdAtDT = createdAt + " T8:00:00.000Z";
           const updatedAtDT = updatedAt ? updatedAt + " T8:00:00.000Z" : createdAtDT;

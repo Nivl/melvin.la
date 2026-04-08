@@ -59,13 +59,13 @@ export const Timestamp = () => {
   const t = useTranslations("timestamp");
 
   const [timestamps, setTimestamps] = useState<Data[]>([]);
-  const [value, setValue] = useState("");
+  const [name, setName] = useState("");
 
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const date = toDate(value);
+    const date = toDate(name);
     // Should not happen, but cost nothing to check.
     // setHasError(invalid);
     if (!date) {
@@ -88,7 +88,7 @@ export const Timestamp = () => {
         ),
       },
     ]);
-    setValue("");
+    setName("");
   };
 
   return (
@@ -104,16 +104,16 @@ export const Timestamp = () => {
           <Form className="w-full max-w-[400px]" onSubmit={onSubmit}>
             <TextField
               isRequired
-              value={value}
+              value={name}
               type="number"
               onChange={(v) => {
-                setValue(v);
+                setName(v);
               }}
               // We don't go above 20 digits because what's the point?
               // Also when you reach 21 digits, you start having the ability to
               // input incorrect timestamps
-              validate={(value) => {
-                const isValidInput = /^-?[0-9]{1,20}$/i.test(value) && toDate(value) !== undefined;
+              validate={(v) => {
+                const isValidInput = /^-?[0-9]{1,20}$/i.test(v) && toDate(v) !== undefined;
                 return isValidInput ? undefined : t("inputError");
               }}
             >
@@ -133,7 +133,7 @@ export const Timestamp = () => {
                   key={item.id}
                   item={item}
                   onDelete={() => {
-                    setTimestamps((timestamps) => timestamps.toSpliced(i, 1));
+                    setTimestamps((ts) => ts.toSpliced(i, 1));
                   }}
                 />
               ))}

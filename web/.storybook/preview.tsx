@@ -41,7 +41,7 @@ const preview: Preview = {
     chromatic: {
       modes: {
         ...supportedModes,
-      } as Record<string, { viewport?: string; theme?: "light" | "dark" }>,
+      },
     },
     controls: {
       matchers: {

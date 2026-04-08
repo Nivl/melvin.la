@@ -75,4 +75,4 @@ export const supportedModes = {
     theme: "light",
     viewport: "FourK",
   },
-};
+} satisfies Record<string, { viewport?: string; theme?: "light" | "dark" }>;

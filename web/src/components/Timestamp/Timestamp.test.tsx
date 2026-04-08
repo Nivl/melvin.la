@@ -19,6 +19,15 @@ const setup = () => {
   };
 };
 
+const getTimestampInput = (getByLabelText: ReturnType<typeof setup>["getByLabelText"]) => {
+  const input = getByLabelText("Timestamp");
+  if (!(input instanceof HTMLInputElement)) {
+    throw new Error("Timestamp input not found");
+  }
+
+  return input;
+};
+
 test("All the elements are on the page", () => {
   const { getByRole, getByLabelText } = setup();
 
@@ -30,7 +39,7 @@ test("All the elements are on the page", () => {
 test("Input accepts numeric characters", async () => {
   const { user, getByLabelText } = setup();
 
-  const input = getByLabelText("Timestamp") as HTMLInputElement;
+  const input = getTimestampInput(getByLabelText);
 
   await user.type(input, "123456789");
   expect(input.value).toBe("123456789");
@@ -171,7 +180,7 @@ test("Can delete specific timestamp when multiple exist", async () => {
 test("Clears input after successful timestamp conversion", async () => {
   const { user, getByLabelText } = setup();
 
-  const input = getByLabelText("Timestamp") as HTMLInputElement;
+  const input = getTimestampInput(getByLabelText);
 
   await user.type(input, "1704067200");
   await user.keyboard("{Enter}");

@@ -6,6 +6,15 @@ import { testWrapper as wrapper } from "#utils/tests";
 
 import { StringLength } from "./StringLength";
 
+const getTextarea = () => {
+  const textarea = screen.getAllByTestId("string-input").at(-1);
+  if (!(textarea instanceof HTMLTextAreaElement)) {
+    throw new Error("String input textarea not found");
+  }
+
+  return textarea;
+};
+
 describe("StringLength", () => {
   it("renders without crashing", () => {
     expect(() => render(<StringLength />, { wrapper })).not.toThrow();
@@ -30,7 +39,7 @@ describe("StringLength", () => {
     const user = userEvent.setup();
     render(<StringLength />, { wrapper });
 
-    const textarea = screen.getAllByTestId("string-input")[0] as HTMLTextAreaElement;
+    const textarea = getTextarea();
     await user.type(textarea, "hello");
 
     expect(textarea.value).toBe("hello");
@@ -53,8 +62,7 @@ describe("StringLength", () => {
     const user = userEvent.setup();
     render(<StringLength />, { wrapper });
 
-    const textareas = screen.getAllByTestId("string-input");
-    const textarea = textareas.at(-1) as HTMLTextAreaElement; // Get the last one to avoid interference
+    const textarea = getTextarea();
 
     // Should accept input
     await user.clear(textarea);
@@ -71,7 +79,7 @@ describe("StringLength", () => {
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
-      const textarea = screen.getAllByTestId("string-input")[0] as HTMLTextAreaElement;
+      const textarea = getTextarea();
       const text = "Hello world test";
 
       // First clear and ensure it's empty
@@ -100,7 +108,7 @@ describe("StringLength", () => {
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
-      const textarea = screen.getAllByTestId("string-input")[0] as HTMLTextAreaElement;
+      const textarea = getTextarea();
       const text = "안녕하세요"; // "Hello" in Korean (5 characters)
 
       await user.clear(textarea);
@@ -126,7 +134,7 @@ describe("StringLength", () => {
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
-      const textarea = screen.getAllByTestId("string-input")[0] as HTMLTextAreaElement;
+      const textarea = getTextarea();
       const text = "Café français"; // "French café" (13 characters including space)
 
       await user.clear(textarea);
@@ -153,7 +161,7 @@ describe("StringLength", () => {
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
-      const textarea = screen.getAllByTestId("string-input")[0] as HTMLTextAreaElement;
+      const textarea = getTextarea();
       const text = "你好世界"; // "Hello world" in Chinese (4 characters)
 
       await user.clear(textarea);
@@ -179,7 +187,7 @@ describe("StringLength", () => {
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
-      const textarea = screen.getAllByTestId("string-input")[0] as HTMLTextAreaElement;
+      const textarea = getTextarea();
       const text = "Hello 안녕 café 你好"; // Mixed: English, Korean, French, Chinese
 
       await user.clear(textarea);
@@ -205,7 +213,7 @@ describe("StringLength", () => {
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
-      const textarea = screen.getAllByTestId("string-input")[0] as HTMLTextAreaElement;
+      const textarea = getTextarea();
 
       await user.clear(textarea);
 
@@ -218,7 +226,7 @@ describe("StringLength", () => {
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
-      const textarea = screen.getAllByTestId("string-input")[0] as HTMLTextAreaElement;
+      const textarea = getTextarea();
       const text = "   "; // 3 spaces
 
       await user.clear(textarea);
@@ -239,7 +247,7 @@ describe("StringLength", () => {
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
-      const textarea = screen.getAllByTestId("string-input")[0] as HTMLTextAreaElement;
+      const textarea = getTextarea();
       const text = "오늘날씨가좋습니다"; // "The weather is nice today" in Korean (9 characters, no spaces)
 
       await user.clear(textarea);

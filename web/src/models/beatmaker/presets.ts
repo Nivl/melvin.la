@@ -1,5 +1,5 @@
 import type { BeatmakerState, TrackId } from "./types";
-import { TRACK_IDS } from "./types";
+import { buildTrackRecord } from "./types";
 
 type PresetDef = Omit<BeatmakerState, "isPlaying">;
 
@@ -9,6 +9,10 @@ function makeTrack(steps: boolean[]): BeatmakerState["tracks"][TrackId] {
 
 function blank(n: number) {
   return Array.from<boolean>({ length: n }).fill(false);
+}
+
+function makeBlankTracks(stepCount: BeatmakerState["stepCount"]): BeatmakerState["tracks"] {
+  return buildTrackRecord(() => makeTrack(blank(stepCount)));
 }
 
 // 16-step helpers: T=true, F=false
@@ -175,9 +179,7 @@ const BLANK_16: PresetDef = {
   kit: "808",
   bpm: 120,
   stepCount: 16,
-  tracks: Object.fromEntries(
-    TRACK_IDS.map((id) => [id, makeTrack(blank(16))]),
-  ) as BeatmakerState["tracks"],
+  tracks: makeBlankTracks(16),
 };
 
 export const PRESETS: Record<string, PresetDef> = {

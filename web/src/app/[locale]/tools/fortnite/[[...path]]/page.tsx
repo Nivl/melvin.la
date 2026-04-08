@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { use } from "react";
 
-import { AccountTypes } from "#components/fortnite/Form";
+import { isAccountType } from "#components/fortnite/Form";
 import { Fortnite } from "#components/fortnite/Fortnite";
 import { getMetadata } from "#utils/metadata";
 
 export default function Home(props: { params: Promise<{ path?: string[]; locale?: string }> }) {
   const { path } = use(props.params);
-  return <Fortnite providedName={path?.[0]} providedType={path?.[1] as AccountTypes | undefined} />;
+  const providedType = path?.[1];
+
+  if (providedType && !isAccountType(providedType)) {
+    return notFound();
+  }
+
+  const accountType = providedType && isAccountType(providedType) ? providedType : undefined;
+  return <Fortnite providedName={path?.[0]} providedType={accountType} />;
 }
 
 export async function generateMetadata(props: {

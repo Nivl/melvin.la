@@ -4,6 +4,7 @@
   "jsPlugins": ["eslint-plugin-simple-import-sort"],
   "categories": {
     "correctness": "error",
+    "suspicious": "error",
     "perf": "error"
   },
   "options": {
@@ -26,6 +27,7 @@
     "src/gen/api.d.ts"
   ],
   "rules": {
+    "import/no-unassigned-import": "off",
     "constructor-super": "error",
     "for-direction": "error",
     "getter-return": "error",

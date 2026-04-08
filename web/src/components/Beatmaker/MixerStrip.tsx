@@ -4,6 +4,8 @@ import { useTranslations } from "next-intl";
 
 import { TRACK_COLORS, type TrackId } from "#models/beatmaker";
 
+type TrackStyle = React.CSSProperties & Record<"--track-color", string>;
+
 type MixerStripProps = {
   trackId: TrackId;
   volume: number;
@@ -26,6 +28,7 @@ export function MixerStrip({
   const t = useTranslations("beatmaker.mixer");
   const tTracks = useTranslations("beatmaker.tracks");
   const color = TRACK_COLORS[trackId];
+  const trackStyle: TrackStyle = { "--track-color": color };
 
   return (
     <div className="flex flex-col items-center gap-2" data-track={trackId}>
@@ -47,7 +50,7 @@ export function MixerStrip({
             onVolumeChange(val);
           }
         }}
-        style={{ "--track-color": color } as React.CSSProperties}
+        style={trackStyle}
       >
         <Slider.Track className="data-[fill-end=true]:border-t-[color:var(--track-color)] data-[fill-start=true]:border-b-[color:var(--track-color)]">
           <Slider.Fill className="bg-[var(--track-color)]" />

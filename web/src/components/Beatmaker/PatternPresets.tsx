@@ -4,18 +4,10 @@ import { useTranslations } from "next-intl";
 
 import { PRESETS } from "#models/beatmaker";
 
-type PresetKey = "basic-rock" | "four-on-floor" | "boom-bap" | "trap" | "blank";
-
-const PRESET_KEYS = new Set<PresetKey>([
-  "basic-rock",
-  "four-on-floor",
-  "boom-bap",
-  "trap",
-  "blank",
-]);
+type PresetKey = keyof typeof PRESETS;
 
 function isPresetKey(id: string): id is PresetKey {
-  return PRESET_KEYS.has(id as PresetKey);
+  return Object.hasOwn(PRESETS, id);
 }
 
 type PatternPresetsProps = {
