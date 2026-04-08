@@ -37,8 +37,8 @@ export const Tech = ({
       </div>
       <div className={`md:w-2/3 ${inverted ? "text-right" : "text-left"}`}>
         <Heading level={2}>{title}</Heading>
-        {content.map((c, i) => (
-          <p key={i}>{c}</p>
+        {content.map((c) => (
+          <p key={c}>{c}</p>
         ))}
       </div>
     </div>

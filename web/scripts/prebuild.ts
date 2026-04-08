@@ -46,42 +46,46 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
     withFileTypes: true,
   });
 
-  for (const articleDir of articlesDirs) {
-    if (!articleDir.isDirectory()) {
-      throw new Error(`file found in root blog posts directory: ${articleDir.name}`);
-    }
-    const articleDirPath = path.join(BLOG_POSTS_DIR, articleDir.name);
-    const slug = articleDir.name;
-
-    const files = await readdir(articleDirPath, { withFileTypes: true });
-    for (const file of files) {
-      if (!file.isFile() || !file.name.endsWith(".mdx")) {
-        throw new Error(`file found in a blog post directory: ${file.name}`);
+  await Promise.all(
+    articlesDirs.map(async (articleDir) => {
+      if (!articleDir.isDirectory()) {
+        throw new Error(`file found in root blog posts directory: ${articleDir.name}`);
       }
+      const articleDirPath = path.join(BLOG_POSTS_DIR, articleDir.name);
+      const slug = articleDir.name;
 
-      const language = path.basename(file.name, path.extname(file.name)).toLocaleLowerCase();
-      const content = await readFile(path.join(file.parentPath, file.name), "utf8");
-      const mdxSource = matter(content);
+      const files = await readdir(articleDirPath, { withFileTypes: true });
+      await Promise.all(
+        files.map(async (file) => {
+          if (!file.isFile() || !file.name.endsWith(".mdx")) {
+            throw new Error(`file found in a blog post directory: ${file.name}`);
+          }
 
-      const { title, createdAt, updatedAt, excerpt, image, ogImage } =
-        mdxSource.data as Frontmatter;
+          const language = path.basename(file.name, path.extname(file.name)).toLocaleLowerCase();
+          const content = await readFile(path.join(file.parentPath, file.name), "utf8");
+          const mdxSource = matter(content);
 
-      const createdAtDT = createdAt + " T8:00:00.000Z";
-      const updatedAtDT = updatedAt ? updatedAt + " T8:00:00.000Z" : createdAtDT;
+          const { title, createdAt, updatedAt, excerpt, image, ogImage } =
+            mdxSource.data as Frontmatter;
 
-      stmt.run(
-        slug,
-        language,
-        title,
-        mdxSource.content,
-        excerpt,
-        image,
-        ogImage,
-        createdAtDT,
-        updatedAtDT,
+          const createdAtDT = createdAt + " T8:00:00.000Z";
+          const updatedAtDT = updatedAt ? updatedAt + " T8:00:00.000Z" : createdAtDT;
+
+          stmt.run(
+            slug,
+            language,
+            title,
+            mdxSource.content,
+            excerpt,
+            image,
+            ogImage,
+            createdAtDT,
+            updatedAtDT,
+          );
+        }),
       );
-    }
-  }
+    }),
+  );
 };
 
 await main();
