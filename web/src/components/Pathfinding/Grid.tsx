@@ -241,7 +241,6 @@ export const PathfindingGrid = ({
         setRowHover(-1);
         setColHover(-1);
       }}
-      tabIndex={0}
       onFocus={() => {
         if (!focusedCell) setFocusedCell([0, 0]);
       }}
