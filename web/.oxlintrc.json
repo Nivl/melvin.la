@@ -3,7 +3,7 @@
   "plugins": ["typescript", "unicorn", "nextjs", "import"],
   "jsPlugins": ["eslint-plugin-simple-import-sort"],
   "categories": {
-    "correctness": "off",
+    "correctness": "error",
     "perf": "error"
   },
   "options": {
