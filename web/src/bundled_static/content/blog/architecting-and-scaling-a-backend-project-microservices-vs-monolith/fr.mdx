@@ -22,6 +22,7 @@ Pensez-y comme à une équipe décentralisée. Chaque service gère sa propre ba
 En pratique, c'est formidable pour les grandes organisations où coordonner une seule version entre 500 développeurs est un cauchemar.
 
 #### Diagramme : Architecture Microservices
+
 ```hidden
 digraph G {
   bgcolor="transparent";
@@ -46,7 +47,10 @@ digraph G {
 }
 ```
 
-<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-microservice.svg"}
+<Image
+  src={
+    "/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-microservice.svg"
+  }
   priority={true}
   width={372}
   height={300}
@@ -89,7 +93,10 @@ digraph Monolith {
 }
 ```
 
-<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-monolith.svg"}
+<Image
+  src={
+    "/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-monolith.svg"
+  }
   priority={true}
   width={307}
   height={600}
@@ -101,27 +108,27 @@ digraph Monolith {
 
 ### Pourquoi choisir les Microservices ?
 
-*   **Mise à l'échelle ciblée :** Si votre fonctionnalité de traitement vidéo surcharge le CPU mais que votre page de connexion est au repos, vous pouvez ajouter plus de serveurs uniquement au service vidéo.
-*   **Liberté technologique :** Vous n'êtes pas bloqué par les choix technologiques faits il y a 5 ans. Les nouveaux services peuvent utiliser des outils modernes.
-*   **Résilience :** Idéalement, si le service "Recommandations" plante, le reste du site (comme le "Paiement") reste opérationnel.
+- **Mise à l'échelle ciblée :** Si votre fonctionnalité de traitement vidéo surcharge le CPU mais que votre page de connexion est au repos, vous pouvez ajouter plus de serveurs uniquement au service vidéo.
+- **Liberté technologique :** Vous n'êtes pas bloqué par les choix technologiques faits il y a 5 ans. Les nouveaux services peuvent utiliser des outils modernes.
+- **Résilience :** Idéalement, si le service "Recommandations" plante, le reste du site (comme le "Paiement") reste opérationnel.
 
 ### Le coût des Microservices
 
-*   **Complexité opérationnelle :** Vous échangez la complexité du code contre la complexité de l'infrastructure. Vous devez maintenant surveiller, enregistrer et tracer les requêtes à travers des douzaines de services.
-*   **Latence :** Un appel de fonction en mémoire prend des nanosecondes. Un appel réseau vers un autre service prend des millisecondes. Cela s'additionne.
-*   **Les systèmes distribués sont difficiles :** Les transactions qui s'étendent sur plusieurs services sont un casse-tête. Maintenir la cohérence des données nécessite une conception minutieuse.
+- **Complexité opérationnelle :** Vous échangez la complexité du code contre la complexité de l'infrastructure. Vous devez maintenant surveiller, enregistrer et tracer les requêtes à travers des douzaines de services.
+- **Latence :** Un appel de fonction en mémoire prend des nanosecondes. Un appel réseau vers un autre service prend des millisecondes. Cela s'additionne.
+- **Les systèmes distribués sont difficiles :** Les transactions qui s'étendent sur plusieurs services sont un casse-tête. Maintenir la cohérence des données nécessite une conception minutieuse.
 
 ### Pourquoi rester sur un Monolithe ?
 
-*   **La simplicité règne :** Naviguer dans le code est facile. Les outils IDE comme "Aller à la définition" fonctionnent réellement.
-*   **Performance :** Pas de surcharge réseau pour les appels internes. Tout se passe dans le processus.
-*   **Tests faciles :** Vous pouvez lancer toute l'application sur votre ordinateur portable et exécuter des tests de bout en bout sans simuler l'internet entier.
+- **La simplicité règne :** Naviguer dans le code est facile. Les outils IDE comme "Aller à la définition" fonctionnent réellement.
+- **Performance :** Pas de surcharge réseau pour les appels internes. Tout se passe dans le processus.
+- **Tests faciles :** Vous pouvez lancer toute l'application sur votre ordinateur portable et exécuter des tests de bout en bout sans simuler l'internet entier.
 
 ### La limite du Monolithe
 
-*   **Douleurs de mise à l'échelle :** Vous devez mettre à l'échelle toute l'application, même si une seule partie est le goulot d'étranglement.
-*   **Couplage :** Il est facile de créer du "code spaghetti" où tout dépend de tout le reste. Un mauvais commit peut casser toute l'application.
-*   **Peur du déploiement :** Déployer un monolithe massif peut être lent et risqué, menant à la "peur du déploiement" et à des cycles de publication plus lents.
+- **Douleurs de mise à l'échelle :** Vous devez mettre à l'échelle toute l'application, même si une seule partie est le goulot d'étranglement.
+- **Couplage :** Il est facile de créer du "code spaghetti" où tout dépend de tout le reste. Un mauvais commit peut casser toute l'application.
+- **Peur du déploiement :** Déployer un monolithe massif peut être lent et risqué, menant à la "peur du déploiement" et à des cycles de publication plus lents.
 
 ### Le piège du "Trop de Services"
 
@@ -134,14 +141,16 @@ Lorsque vous franchissez ce seuil, de nombreux services n'ont plus de propriéta
 Ne choisissez pas une architecture parce qu'elle est à la mode. Choisissez-la parce qu'elle résout vos problèmes actuels.
 
 **Choisissez les Microservices si :**
-*   Vous avez une grande organisation d'ingénierie (pensez 50+ dévs) et avez besoin de découpler les équipes.
-*   Vous avez des composants distincts avec des besoins en ressources très différents (par ex., un pipeline ML lourd vs une simple application CRUD).
-*   Vous atteignez des limites strictes de mise à l'échelle qu'un monolithe ne peut tout simplement pas gérer.
+
+- Vous avez une grande organisation d'ingénierie (pensez 50+ dévs) et avez besoin de découpler les équipes.
+- Vous avez des composants distincts avec des besoins en ressources très différents (par ex., un pipeline ML lourd vs une simple application CRUD).
+- Vous atteignez des limites strictes de mise à l'échelle qu'un monolithe ne peut tout simplement pas gérer.
 
 **Choisissez un Monolithe si :**
-*   Vous êtes une startup ou une petite équipe. La vitesse d'itération est votre métrique la plus importante.
-*   Votre domaine est étroitement intégré. Si changer une fonctionnalité nécessite presque toujours d'en changer une autre, les séparer n'ajoutera que de la douleur.
-*   Vous êtes en phase de prototypage. Vous ne connaissez pas encore les limites de votre domaine. Séparer prématurément les services est une erreur classique.
+
+- Vous êtes une startup ou une petite équipe. La vitesse d'itération est votre métrique la plus importante.
+- Votre domaine est étroitement intégré. Si changer une fonctionnalité nécessite presque toujours d'en changer une autre, les séparer n'ajoutera que de la douleur.
+- Vous êtes en phase de prototypage. Vous ne connaissez pas encore les limites de votre domaine. Séparer prématurément les services est une erreur classique.
 
 ## 4. La Voie Pragmatique : Le Monolithe Modulaire & la Séparation Progressive
 
@@ -149,7 +158,7 @@ Voici le secret : vous n'êtes pas obligé de passer directement aux microservic
 
 Un **Monolithe Modulaire** est un excellent compromis. Vous construisez une seule unité déployable, mais en interne, vous appliquez des frontières strictes entre les modules. Le code du `Module A` ne peut pas importer directement le code du `Module B` ; il doit passer par une interface publique définie. Cela vous donne les avantages d'organisation du code des microservices sans la surcharge d'infrastructure.
 
-À mesure que votre application grandit, vous pouvez détacher les parties qui ont *besoin* d'être indépendantes.
+À mesure que votre application grandit, vous pouvez détacher les parties qui ont _besoin_ d'être indépendantes.
 
 ### Comment évoluer :
 
@@ -230,7 +239,10 @@ digraph Architecture {
 }
 ```
 
-<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-hybrid.svg"}
+<Image
+  src={
+    "/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-hybrid.svg"
+  }
   priority={true}
   width={615}
   height={1200}
@@ -242,8 +254,8 @@ digraph Architecture {
 
 Le débat "Microservices vs Monolithe" passe souvent à côté de l'essentiel. Il ne s'agit pas de savoir quelle architecture est théoriquement supérieure ; il s'agit de savoir avec quel ensemble de compromis vous pouvez vivre en ce moment.
 
-*   **Les Microservices** vous offrent indépendance et mise à l'échelle granulaire, mais vous le payez en complexité.
-*   **Les Monolithes** vous offrent simplicité et vélocité, mais peuvent devenir lourds à grande échelle.
-*   **Les architectures Hybrides/Évolutives** vous permettent de commencer simplement et de ne croître en complexité que lorsque c'est nécessaire.
+- **Les Microservices** vous offrent indépendance et mise à l'échelle granulaire, mais vous le payez en complexité.
+- **Les Monolithes** vous offrent simplicité et vélocité, mais peuvent devenir lourds à grande échelle.
+- **Les architectures Hybrides/Évolutives** vous permettent de commencer simplement et de ne croître en complexité que lorsque c'est nécessaire.
 
 Commencez par un monolithe bien structuré. Divisez-le quand vous ressentez la douleur, pas avant. Votre futur vous (et votre équipe DevOps) vous remerciera.

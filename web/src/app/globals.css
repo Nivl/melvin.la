@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @import "@heroui/styles";
 
 @custom-variant dark (&:is(.dark *));
@@ -16,26 +16,26 @@
   --accent: oklch(70.22% 0.1366 233.37);
   --accent-foreground: oklch(99.11% 0 0);
   --background: oklch(97.02% 0.0044 233.37);
-  --border: oklch(90.00% 0.0044 233.37);
+  --border: oklch(90% 0.0044 233.37);
   --danger: oklch(65.32% 0.2348 23.29);
   --danger-foreground: oklch(99.11% 0 0);
-  --default: oklch(94.00% 0.0044 233.37);
+  --default: oklch(94% 0.0044 233.37);
   --default-foreground: oklch(21.03% 0.0059 233.37);
-  --field-background: oklch(100.00% 0.0022 233.37);
+  --field-background: oklch(100% 0.0022 233.37);
   --field-foreground: oklch(21.03% 0.0044 233.37);
   --field-placeholder: oklch(55.17% 0.0088 233.37);
   --focus: oklch(70.22% 0.1366 233.37);
   --foreground: oklch(21.03% 0.0044 233.37);
   --muted: oklch(55.17% 0.0088 233.37);
-  --overlay: oklch(100.00% 0.0013 233.37);
+  --overlay: oklch(100% 0.0013 233.37);
   --overlay-foreground: oklch(21.03% 0.0044 233.37);
-  --scrollbar: oklch(87.10% 0.0044 233.37);
-  --segment: oklch(100.00% 0.0044 233.37);
+  --scrollbar: oklch(87.1% 0.0044 233.37);
+  --segment: oklch(100% 0.0044 233.37);
   --segment-foreground: oklch(21.03% 0.0044 233.37);
-  --separator: oklch(92.00% 0.0044 233.37);
+  --separator: oklch(92% 0.0044 233.37);
   --success: oklch(73.29% 0.1952 148.36);
   --success-foreground: oklch(21.03% 0.0059 148.36);
-  --surface: oklch(100.00% 0.0022 233.37);
+  --surface: oklch(100% 0.0022 233.37);
   --surface-foreground: oklch(21.03% 0.0044 233.37);
   --surface-secondary: oklch(95.24% 0.0035 233.37);
   --surface-secondary-foreground: oklch(21.03% 0.0044 233.37);
@@ -51,39 +51,37 @@
 
   --accent: oklch(70.22% 0.1366 233.37);
   --accent-foreground: oklch(99.11% 0 0);
-  --background: oklch(12.00% 0.0044 233.37);
-  --border: oklch(28.00% 0.0044 233.37);
-  --danger: oklch(59.40% 0.1984 22.18);
+  --background: oklch(12% 0.0044 233.37);
+  --border: oklch(28% 0.0044 233.37);
+  --danger: oklch(59.4% 0.1984 22.18);
   --danger-foreground: oklch(99.11% 0 0);
-  --default: oklch(27.40% 0.0044 233.37);
+  --default: oklch(27.4% 0.0044 233.37);
   --default-foreground: oklch(99.11% 0 0);
   --field-background: oklch(21.03% 0.0088 233.37);
   --field-foreground: oklch(99.11% 0.0044 233.37);
-  --field-placeholder: oklch(70.50% 0.0088 233.37);
+  --field-placeholder: oklch(70.5% 0.0088 233.37);
   --focus: oklch(70.22% 0.1366 233.37);
   --foreground: oklch(99.11% 0.0044 233.37);
-  --muted: oklch(70.50% 0.0088 233.37);
+  --muted: oklch(70.5% 0.0088 233.37);
   --overlay: oklch(21.03% 0.0088 233.37);
   --overlay-foreground: oklch(99.11% 0.0044 233.37);
-  --scrollbar: oklch(70.50% 0.0044 233.37);
+  --scrollbar: oklch(70.5% 0.0044 233.37);
   --segment: oklch(39.64% 0.0044 233.37);
   --segment-foreground: oklch(99.11% 0.0044 233.37);
-  --separator: oklch(25.00% 0.0044 233.37);
+  --separator: oklch(25% 0.0044 233.37);
   --success: oklch(73.29% 0.1952 148.36);
   --success-foreground: oklch(21.03% 0.0059 148.36);
   --surface: oklch(21.03% 0.0088 233.37);
   --surface-foreground: oklch(99.11% 0.0044 233.37);
-  --surface-secondary: oklch(25.70% 0.0066 233.37);
+  --surface-secondary: oklch(25.7% 0.0066 233.37);
   --surface-secondary-foreground: oklch(99.11% 0.0044 233.37);
   --surface-tertiary: oklch(27.21% 0.0066 233.37);
   --surface-tertiary-foreground: oklch(99.11% 0.0044 233.37);
-  --warning: oklch(82.03% 0.1400 73.89);
+  --warning: oklch(82.03% 0.14 73.89);
   --warning-foreground: oklch(21.03% 0.0059 73.89);
 }
 
-
 @layer components {
-
   .card,
   .dropdown__menu {
     @apply transition-colors duration-300;
@@ -101,26 +99,14 @@
   --leading-tight-xs: 3rem;
 
   /* Font Family */
-  --font-sans: var(--font-noto-sans),
-    var(--font-noto-sans-kr),
-    var(--font-noto-sans-jp),
-    var(--font-noto-sans-sc),
-    var(--font-noto-sans-tc),
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Segoe UI',
-    'Roboto',
-    'Oxygen',
-    'Ubuntu',
-    'Cantarell',
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
+  --font-sans:
+    var(--font-noto-sans), var(--font-noto-sans-kr), var(--font-noto-sans-jp),
+    var(--font-noto-sans-sc), var(--font-noto-sans-tc), "-apple-system", "BlinkMacSystemFont",
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   --font-condensed: var(--font-baikal);
   --font-fortnite: var(--font-burbank);
-  --font-monospace: var(--font-fira-code),
-    "monospace";
+  --font-monospace: var(--font-fira-code), "monospace";
 
   --font-sans-latin: var(--font-noto-sans);
   --font-condensed-latin: var(--font-baikal);
@@ -133,11 +119,11 @@
   --color-track-openhat: #4affb8;
   --color-track-clap: #ff8c4a;
   --color-track-ride: #4ab8ff;
-  --color-brands-playstation: #006FCD;
+  --color-brands-playstation: #006fcd;
   --color-brands-xbox: #2ca243;
 
   /* tech brand colors, ordered alphabetically */
-  --fill-tech-amplitude: #1E61F0;
+  --fill-tech-amplitude: #1e61f0;
   --fill-tech-android: #33a854;
   --fill-tech-angular: #f21863;
   --fill-tech-datadog: #622ca4;
@@ -161,14 +147,95 @@
 
   /* Animations */
 
-  --ease-spring-soft: linear(0, 0.009 1.1%, 0.033 2.2%, 0.131 4.7%, 0.263 7.1%, 0.681 13.9%, 0.893 18.2%, 0.967 20.2%, 1.028 22.3%, 1.074 24.5%, 1.104 26.7%, 1.122 29.8%, 1.118 33.4%, 1.018 48.3%, 0.988 57.2%, 1);
-  --ease-spring-heavy: linear(0, 0.013 0.6%, 0.05 1.2%, 0.2 2.5%, 0.949 6.7%, 1.2 8.4%, 1.286 9.2%, 1.35 10%, 1.392 10.8%, 1.411 11.6%, 1.411 12.2%, 1.401 12.8%, 1.343 14.2%, 1.258 15.5%, 1.016 18.7%, 0.914 20.4%, 0.856 21.9%, 0.831 23.5%, 0.834 24.7%, 0.858 26.1%, 0.996 30.7%, 1.037 32.4%, 1.06 33.9%, 1.07 35.4%, 1.061 37.7%, 0.989 43.8%, 0.971 47.2%, 1.012 59.1%, 0.995 70.8%, 1);
-  --ease-spring-boop: linear(0, 0.011, 0.045 1.4%, 0.184 3%, 0.913 8.2%, 1.156, 1.304 12.3%, 1.345, 1.365, 1.367, 1.359 15.8%, 1.31 17.5%, 1.027 23.1%, 0.937 25.3%, 0.888 27.1%, 0.873, 0.866 29%, 0.867, 0.88, 0.905 33.5%, 0.982 37.5%, 1.014 39.4%, 1.038, 1.049 43.7% 45.2%, 1.044 46.7%, 0.995 54.2%, 0.986, 0.982 58.4%, 0.984 61.5%, 1.002 68.9%, 1.006 72.9%, 0.998 87.3%, 1.001);
+  --ease-spring-soft: linear(
+    0,
+    0.009 1.1%,
+    0.033 2.2%,
+    0.131 4.7%,
+    0.263 7.1%,
+    0.681 13.9%,
+    0.893 18.2%,
+    0.967 20.2%,
+    1.028 22.3%,
+    1.074 24.5%,
+    1.104 26.7%,
+    1.122 29.8%,
+    1.118 33.4%,
+    1.018 48.3%,
+    0.988 57.2%,
+    1
+  );
+  --ease-spring-heavy: linear(
+    0,
+    0.013 0.6%,
+    0.05 1.2%,
+    0.2 2.5%,
+    0.949 6.7%,
+    1.2 8.4%,
+    1.286 9.2%,
+    1.35 10%,
+    1.392 10.8%,
+    1.411 11.6%,
+    1.411 12.2%,
+    1.401 12.8%,
+    1.343 14.2%,
+    1.258 15.5%,
+    1.016 18.7%,
+    0.914 20.4%,
+    0.856 21.9%,
+    0.831 23.5%,
+    0.834 24.7%,
+    0.858 26.1%,
+    0.996 30.7%,
+    1.037 32.4%,
+    1.06 33.9%,
+    1.07 35.4%,
+    1.061 37.7%,
+    0.989 43.8%,
+    0.971 47.2%,
+    1.012 59.1%,
+    0.995 70.8%,
+    1
+  );
+  --ease-spring-boop: linear(
+    0,
+    0.011,
+    0.045 1.4%,
+    0.184 3%,
+    0.913 8.2%,
+    1.156,
+    1.304 12.3%,
+    1.345,
+    1.365,
+    1.367,
+    1.359 15.8%,
+    1.31 17.5%,
+    1.027 23.1%,
+    0.937 25.3%,
+    0.888 27.1%,
+    0.873,
+    0.866 29%,
+    0.867,
+    0.88,
+    0.905 33.5%,
+    0.982 37.5%,
+    1.014 39.4%,
+    1.038,
+    1.049 43.7% 45.2%,
+    1.044 46.7%,
+    0.995 54.2%,
+    0.986,
+    0.982 58.4%,
+    0.984 61.5%,
+    1.002 68.9%,
+    1.006 72.9%,
+    0.998 87.3%,
+    1.001
+  );
 
   --animate-levitate: levitate 1s ease-in-out infinite;
 
   @keyframes levitate {
-
     0%,
     100% {
       transform: translateY(-5px);
@@ -194,7 +261,6 @@
   --animate-boba-hard-shake: boba-hard-shake 400ms linear infinite forwards;
 
   @keyframes boba-hard-shake {
-
     0%,
     100% {
       translate: 0px;
@@ -211,7 +277,6 @@
 
   /* All the variables are set at runtime */
   @keyframes boba-soft-shake {
-
     0%,
     100% {
       translate: 0px;
@@ -228,7 +293,6 @@
 
   /* All the variables are set at runtime */
   @keyframes to-landscape-rotation {
-
     0%,
     10% {
       rotate: 45deg;
@@ -258,7 +322,8 @@
 
 .cls-boba-soft-shake {
   /* All the variables are set at runtime */
-  animation: boba-soft-shake var(--boba-soft-shake-duration) linear var(--boba-soft-shake-delay) var(--boba-soft-shake-iterations) forwards;
+  animation: boba-soft-shake var(--boba-soft-shake-duration) linear var(--boba-soft-shake-delay)
+    var(--boba-soft-shake-iterations) forwards;
   @apply motion-reduce:animate-none;
 }
 
@@ -271,13 +336,15 @@
 }
 
 .cls-transition-theme-switch-light {
-  transition: scale 1000ms 500ms var(--ease-spring-soft),
+  transition:
+    scale 1000ms 500ms var(--ease-spring-soft),
     opacity 300ms 600ms linear;
   @apply motion-reduce:transition-none;
 }
 
 .cls-transition-theme-switch-dark {
-  transition: opacity 300ms linear,
+  transition:
+    opacity 300ms linear,
     scale 1000ms 200ms var(--ease-spring-soft);
   @apply motion-reduce:transition-none;
 }

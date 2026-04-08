@@ -1,16 +1,10 @@
-'use client';
-import { Button, Card, Separator, toast } from '@heroui/react';
-import { captureException } from '@sentry/nextjs';
-import { useTranslations } from 'next-intl';
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from 'react';
+"use client";
+import { Button, Card, Separator, toast } from "@heroui/react";
+import { captureException } from "@sentry/nextjs";
+import { useTranslations } from "next-intl";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 
-import { Section } from '#components/layout/Section';
+import { Section } from "#components/layout/Section";
 import {
   type BeatmakerState,
   buildDefaultState,
@@ -23,14 +17,14 @@ import {
   type StepCount,
   TRACK_IDS,
   type TrackId,
-} from '#models/beatmaker';
+} from "#models/beatmaker";
 
-import { KitSelector } from './KitSelector';
-import { LandscapeGuard } from './LandscapeGuard';
-import { MixerStrip } from './MixerStrip';
-import { PatternPresets } from './PatternPresets';
-import { SequencerGrid } from './SequencerGrid';
-import { Transport } from './Transport';
+import { KitSelector } from "./KitSelector";
+import { LandscapeGuard } from "./LandscapeGuard";
+import { MixerStrip } from "./MixerStrip";
+import { PatternPresets } from "./PatternPresets";
+import { SequencerGrid } from "./SequencerGrid";
+import { Transport } from "./Transport";
 
 function readHashData(): {
   state: BeatmakerState;
@@ -43,7 +37,7 @@ function readHashData(): {
     };
   }
 
-  const hash = globalThis.location.hash.replace('#', '');
+  const hash = globalThis.location.hash.replace("#", "");
   const decoded = decode(hash);
   if (!decoded) {
     return {
@@ -75,13 +69,13 @@ const beatmakerServerSnapshot = {
 };
 
 function isIOSDevice(): boolean {
-  if (typeof navigator === 'undefined') {
+  if (typeof navigator === "undefined") {
     return false;
   }
 
   return (
     /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-    (navigator.userAgent.includes('Mac') && navigator.maxTouchPoints > 1)
+    (navigator.userAgent.includes("Mac") && navigator.maxTouchPoints > 1)
   );
 }
 
@@ -90,8 +84,7 @@ function getInitialBeatmakerView(): {
   hasCustomSamples: boolean;
   showIOSWarning: boolean;
 } {
-  const currentHash =
-    globalThis.window === undefined ? '' : globalThis.location.hash;
+  const currentHash = globalThis.window === undefined ? "" : globalThis.location.hash;
   const showIOSWarning = isIOSDevice();
 
   if (
@@ -121,22 +114,20 @@ function subscribeBeatmakerView(onStoreChange: () => void): () => void {
     return noopUnsubscribe;
   }
 
-  globalThis.window.addEventListener('hashchange', onStoreChange);
+  globalThis.window.addEventListener("hashchange", onStoreChange);
 
   return () => {
-    globalThis.window.removeEventListener('hashchange', onStoreChange);
+    globalThis.window.removeEventListener("hashchange", onStoreChange);
   };
 }
 
-function getBeatmakerServerSnapshot(): ReturnType<
-  typeof getInitialBeatmakerView
-> {
+function getBeatmakerServerSnapshot(): ReturnType<typeof getInitialBeatmakerView> {
   return beatmakerServerSnapshot;
 }
 
 export function Beatmaker() {
-  const t = useTranslations('beatmaker');
-  const tKits = useTranslations('beatmaker.kits');
+  const t = useTranslations("beatmaker");
+  const tKits = useTranslations("beatmaker.kits");
   const initialView = useSyncExternalStore(
     subscribeBeatmakerView,
     getInitialBeatmakerView,
@@ -144,26 +135,21 @@ export function Beatmaker() {
   );
   const [hasInteracted, setHasInteracted] = useState(false);
   const hasInteractedRef = useRef(false);
-  const [localState, setLocalState] =
-    useState<BeatmakerState>(buildDefaultState);
+  const [localState, setLocalState] = useState<BeatmakerState>(buildDefaultState);
   const [dismissedIOSWarning, setDismissedIOSWarning] = useState(false);
   const state = hasInteracted ? localState : initialView.state;
   const showIOSWarning = !dismissedIOSWarning && initialView.showIOSWarning;
 
-  const [decodeErrors, setDecodeErrors] = useState<
-    Partial<Record<TrackId, string>>
-  >({});
+  const [decodeErrors, setDecodeErrors] = useState<Partial<Record<TrackId, string>>>({});
   const [copied, setCopied] = useState(false);
-  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined,
-  );
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [activeStep, setActiveStep] = useState<number | undefined>();
   const [audioState, setAudioState] = useState<AudioContextState | undefined>();
   const engineRef = useRef<Engine | null>(null);
   const stateRef = useRef(state);
   const customBannerShownRef = useRef(false);
   const skipInitialHashSyncRef = useRef(
-    globalThis.window !== undefined && globalThis.location.hash === '',
+    globalThis.window !== undefined && globalThis.location.hash === "",
   );
 
   useEffect(() => {
@@ -171,18 +157,16 @@ export function Beatmaker() {
   }, [state]);
 
   const updateState = useCallback(
-    (
-      updater: BeatmakerState | ((current: BeatmakerState) => BeatmakerState),
-    ) => {
+    (updater: BeatmakerState | ((current: BeatmakerState) => BeatmakerState)) => {
       const interacted = hasInteractedRef.current;
       const baseState = stateRef.current;
 
       hasInteractedRef.current = true;
       setHasInteracted(true);
-      setLocalState(current => {
+      setLocalState((current) => {
         const previousState = interacted ? current : baseState;
 
-        return typeof updater === 'function' ? updater(previousState) : updater;
+        return typeof updater === "function" ? updater(previousState) : updater;
       });
     },
     [],
@@ -190,9 +174,9 @@ export function Beatmaker() {
 
   useEffect(() => {
     const engine = createEngine({
-      onError: error => {
+      onError: (error) => {
         captureException(error);
-        toast.danger(t('error.audioEngine'));
+        toast.danger(t("error.audioEngine"));
       },
       onStep: setActiveStep,
       onStateChange: setAudioState,
@@ -201,34 +185,34 @@ export function Beatmaker() {
 
     const unlock = () => {
       void engine.init();
-      document.removeEventListener('touchstart', unlock);
-      document.removeEventListener('click', unlock);
-      document.removeEventListener('keydown', unlock);
+      document.removeEventListener("touchstart", unlock);
+      document.removeEventListener("click", unlock);
+      document.removeEventListener("keydown", unlock);
     };
 
-    document.addEventListener('touchstart', unlock, { passive: true });
-    document.addEventListener('click', unlock, { passive: true });
-    document.addEventListener('keydown', unlock, { passive: true });
+    document.addEventListener("touchstart", unlock, { passive: true });
+    document.addEventListener("click", unlock, { passive: true });
+    document.addEventListener("keydown", unlock, { passive: true });
 
     return () => {
       engine.dispose();
-      document.removeEventListener('touchstart', unlock);
-      document.removeEventListener('click', unlock);
-      document.removeEventListener('keydown', unlock);
+      document.removeEventListener("touchstart", unlock);
+      document.removeEventListener("click", unlock);
+      document.removeEventListener("keydown", unlock);
     };
   }, [t]);
 
   // Monitor audio context state
   useEffect(() => {
-    if (state.isPlaying && audioState === 'suspended') {
-      toast.warning(t('error.audioSuspended'), {
+    if (state.isPlaying && audioState === "suspended") {
+      toast.warning(t("error.audioSuspended"), {
         timeout: 0,
         actionProps: {
-          children: t('actions.resume'),
+          children: t("actions.resume"),
           onPress: () => {
             void engineRef.current?.init();
           },
-          variant: 'tertiary',
+          variant: "tertiary",
         },
       });
     }
@@ -246,13 +230,9 @@ export function Beatmaker() {
       return;
     }
 
-    const hasCustom = TRACK_IDS.some(id => !!state.tracks[id].customFile);
+    const hasCustom = TRACK_IDS.some((id) => !!state.tracks[id].customFile);
     const timer = setTimeout(() => {
-      globalThis.history.replaceState(
-        undefined,
-        '',
-        `#${encode(state, hasCustom)}`,
-      );
+      globalThis.history.replaceState(undefined, "", `#${encode(state, hasCustom)}`);
     }, 300);
     return () => {
       clearTimeout(timer);
@@ -264,7 +244,7 @@ export function Beatmaker() {
     if (!initialView.hasCustomSamples || customBannerShownRef.current) return;
 
     customBannerShownRef.current = true;
-    toast.warning(t('share.customSampleNotice', { kit: tKits(state.kit) }), {
+    toast.warning(t("share.customSampleNotice", { kit: tKits(state.kit) }), {
       timeout: 0,
     });
   }, [initialView.hasCustomSamples, state.kit, t, tKits]);
@@ -277,26 +257,26 @@ export function Beatmaker() {
     if (state.isPlaying) {
       engine.stop();
       setActiveStep(undefined);
-      updateState(s => ({ ...s, isPlaying: false }));
+      updateState((s) => ({ ...s, isPlaying: false }));
     } else {
       await engine.init();
       engine.start(() => stateRef.current);
-      updateState(s => ({ ...s, isPlaying: true }));
+      updateState((s) => ({ ...s, isPlaying: true }));
     }
   }, [state.isPlaying, updateState]);
 
   const handleBpmChange = useCallback(
     (bpm: number) => {
-      updateState(s => ({ ...s, bpm }));
+      updateState((s) => ({ ...s, bpm }));
     },
     [updateState],
   );
 
   const handleStepCountChange = useCallback(
     (stepCount: StepCount) => {
-      updateState(s => {
+      updateState((s) => {
         const tracks = Object.fromEntries(
-          TRACK_IDS.map(id => {
+          TRACK_IDS.map((id) => {
             const current = s.tracks[id].steps;
             const steps: boolean[] =
               stepCount > current.length
@@ -309,7 +289,7 @@ export function Beatmaker() {
                 : current.slice(0, stepCount);
             return [id, { ...s.tracks[id], steps }];
           }),
-        ) as BeatmakerState['tracks'];
+        ) as BeatmakerState["tracks"];
         return { ...s, stepCount, tracks };
       });
     },
@@ -320,12 +300,12 @@ export function Beatmaker() {
     (kit: Kit) => {
       engineRef.current?.clearCustomFiles();
       setDecodeErrors({});
-      updateState(s => ({
+      updateState((s) => ({
         ...s,
         kit,
         tracks: Object.fromEntries(
-          TRACK_IDS.map(id => [id, { ...s.tracks[id], customFile: undefined }]),
-        ) as BeatmakerState['tracks'],
+          TRACK_IDS.map((id) => [id, { ...s.tracks[id], customFile: undefined }]),
+        ) as BeatmakerState["tracks"],
       }));
     },
     [updateState],
@@ -361,10 +341,8 @@ export function Beatmaker() {
 
   const handleStepToggle = useCallback(
     (trackId: TrackId, index: number) => {
-      updateState(s => {
-        const steps = s.tracks[trackId].steps.map((v, i) =>
-          i === index ? !v : v,
-        );
+      updateState((s) => {
+        const steps = s.tracks[trackId].steps.map((v, i) => (i === index ? !v : v));
         return {
           ...s,
           tracks: { ...s.tracks, [trackId]: { ...s.tracks[trackId], steps } },
@@ -381,19 +359,19 @@ export function Beatmaker() {
       try {
         await engine.init();
         await engine.loadCustomFile(trackId, file);
-        updateState(s => ({
+        updateState((s) => ({
           ...s,
           tracks: {
             ...s.tracks,
             [trackId]: { ...s.tracks[trackId], customFile: file },
           },
         }));
-        setDecodeErrors(e => ({ ...e, [trackId]: undefined }));
+        setDecodeErrors((e) => ({ ...e, [trackId]: undefined }));
       } catch (error) {
         captureException(error);
-        setDecodeErrors(e => ({
+        setDecodeErrors((e) => ({
           ...e,
-          [trackId]: t('track.decodeError'),
+          [trackId]: t("track.decodeError"),
         }));
       }
     },
@@ -402,7 +380,7 @@ export function Beatmaker() {
 
   const handleVolumeChange = useCallback(
     (trackId: TrackId, volume: number) => {
-      updateState(s => ({
+      updateState((s) => ({
         ...s,
         tracks: { ...s.tracks, [trackId]: { ...s.tracks[trackId], volume } },
       }));
@@ -412,7 +390,7 @@ export function Beatmaker() {
 
   const handlePanChange = useCallback(
     (trackId: TrackId, pan: number) => {
-      updateState(s => ({
+      updateState((s) => ({
         ...s,
         tracks: { ...s.tracks, [trackId]: { ...s.tracks[trackId], pan } },
       }));
@@ -422,7 +400,7 @@ export function Beatmaker() {
 
   const handleMuteToggle = useCallback(
     (trackId: TrackId) => {
-      updateState(s => ({
+      updateState((s) => ({
         ...s,
         tracks: {
           ...s.tracks,
@@ -435,7 +413,7 @@ export function Beatmaker() {
 
   const handleCopy = useCallback(async () => {
     if (
-      typeof navigator === 'undefined' ||
+      typeof navigator === "undefined" ||
       globalThis.navigator.clipboard?.writeText === undefined
     ) {
       return;
@@ -443,9 +421,7 @@ export function Beatmaker() {
 
     try {
       const currentState = stateRef.current;
-      const hasCustom = TRACK_IDS.some(
-        id => !!currentState.tracks[id].customFile,
-      );
+      const hasCustom = TRACK_IDS.some((id) => !!currentState.tracks[id].customFile);
       const hash = encode(currentState, hasCustom);
       const url = `${globalThis.location.origin}${globalThis.location.pathname}#${hash}`;
 
@@ -469,8 +445,8 @@ export function Beatmaker() {
   return (
     <LandscapeGuard>
       <Section className="max-w-225 lg:max-w-225 xl:max-w-225 2xl:max-w-225">
-        <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl font-bold uppercase sm:text-8xl xl:text-9xl">
-          {t('metadata.title')}
+        <h1 className="text-center font-condensed text-6xl leading-tight-xs font-bold uppercase sm:text-8xl sm:leading-tight-sm xl:text-9xl xl:leading-tight-xl">
+          {t("metadata.title")}
         </h1>
       </Section>
 
@@ -478,10 +454,10 @@ export function Beatmaker() {
         <div className="m-auto max-w-225 lg:max-w-225 xl:max-w-225 2xl:max-w-225">
           <div className="flex flex-col items-center gap-8">
             {showIOSWarning && (
-              <div className="bg-warning border-warning text-warning-foreground dark:bg-warning/30 dark:border-warning dark:text-warning flex w-full items-center justify-between gap-4 rounded-lg border px-4 py-3 text-sm">
+              <div className="flex w-full items-center justify-between gap-4 rounded-lg border border-warning bg-warning px-4 py-3 text-sm text-warning-foreground dark:border-warning dark:bg-warning/30 dark:text-warning">
                 <div>
-                  <p className="font-semibold">{t('iosWarning.title')}</p>
-                  <p>{t('iosWarning.message')}</p>
+                  <p className="font-semibold">{t("iosWarning.title")}</p>
+                  <p>{t("iosWarning.message")}</p>
                 </div>
                 <Button
                   size="sm"
@@ -490,7 +466,7 @@ export function Beatmaker() {
                     setDismissedIOSWarning(true);
                   }}
                 >
-                  {t('share.dismissNotice')}
+                  {t("share.dismissNotice")}
                 </Button>
               </div>
             )}
@@ -519,15 +495,8 @@ export function Beatmaker() {
             <Card className="w-full">
               <Card.Content className="flex flex-col gap-3">
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <KitSelector
-                    activeKit={state.kit}
-                    onKitChange={handleKitChange}
-                  />
-                  <Separator
-                    className="my-auto h-5"
-                    orientation="vertical"
-                    variant="tertiary"
-                  />
+                  <KitSelector activeKit={state.kit} onKitChange={handleKitChange} />
+                  <Separator className="my-auto h-5" orientation="vertical" variant="tertiary" />
                   <PatternPresets onPresetSelect={handlePresetSelect} />
                 </div>
               </Card.Content>
@@ -551,24 +520,22 @@ export function Beatmaker() {
             {/* Card 4: Mixer */}
             <Card className="w-full">
               <Card.Content className="p-2">
-                <p className="mb-3 text-xs tracking-widest uppercase">
-                  {t('mixer.title')}
-                </p>
+                <p className="mb-3 text-xs tracking-widest uppercase">{t("mixer.title")}</p>
                 <div className="grid grid-cols-6 gap-2.5">
-                  {TRACK_IDS.map(trackId => (
+                  {TRACK_IDS.map((trackId) => (
                     <div
                       key={trackId}
-                      className="border-default flex flex-col items-center rounded-xl border p-3"
+                      className="flex flex-col items-center rounded-xl border border-default p-3"
                     >
                       <MixerStrip
                         trackId={trackId}
                         volume={state.tracks[trackId].volume}
                         pan={state.tracks[trackId].pan}
                         muted={state.tracks[trackId].muted}
-                        onVolumeChange={v => {
+                        onVolumeChange={(v) => {
                           handleVolumeChange(trackId, v);
                         }}
-                        onPanChange={v => {
+                        onPanChange={(v) => {
                           handlePanChange(trackId, v);
                         }}
                         onMuteToggle={() => {

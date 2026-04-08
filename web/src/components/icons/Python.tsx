@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useId } from "react";
 
 export const Python = ({ className }: { className: string }) => {
   const leftSnakeGradientId = useId();
@@ -10,12 +10,12 @@ export const Python = ({ className }: { className: string }) => {
     <svg className={className} width="112" height="113" viewBox="0 0 112 113">
       <defs>
         <linearGradient id={leftSnakeGradientId}>
-          <stop offset="0" style={{ stopColor: '#ffd43b', stopOpacity: 1 }} />
-          <stop offset="1" style={{ stopColor: '#ffe873', stopOpacity: 1 }} />
+          <stop offset="0" style={{ stopColor: "#ffd43b", stopOpacity: 1 }} />
+          <stop offset="1" style={{ stopColor: "#ffe873", stopOpacity: 1 }} />
         </linearGradient>
         <linearGradient id={rightSnakeGradientId}>
-          <stop offset="0" style={{ stopColor: '#5a9fd4', stopOpacity: 1 }} />
-          <stop offset="1" style={{ stopColor: '#306998', stopOpacity: 1 }} />
+          <stop offset="0" style={{ stopColor: "#5a9fd4", stopOpacity: 1 }} />
+          <stop offset="1" style={{ stopColor: "#306998", stopOpacity: 1 }} />
         </linearGradient>
         <linearGradient
           href={`#${leftSnakeGradientId}`}

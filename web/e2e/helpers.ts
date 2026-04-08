@@ -1,9 +1,9 @@
-import { expect, test as testBase } from '@playwright/test';
-export * from '@playwright/test';
-import { defineNetworkFixture, type NetworkFixture } from '@msw/playwright';
-import type { AnyHandler } from 'msw';
+import { expect, test as testBase } from "@playwright/test";
+export * from "@playwright/test";
+import { defineNetworkFixture, type NetworkFixture } from "@msw/playwright";
+import type { AnyHandler } from "msw";
 
-import { handlers as mockedHandlers } from '../src/backend/mocks/handlers';
+import { handlers as mockedHandlers } from "../src/backend/mocks/handlers";
 
 type Fixtures = {
   handlers: AnyHandler[];
@@ -28,8 +28,6 @@ export const test = testBase.extend<Fixtures>({
   ],
 });
 
-export function expectToBeThruthy<T>(
-  value: T | undefined | null,
-): asserts value is T {
+export function expectToBeThruthy<T>(value: T | undefined | null): asserts value is T {
   expect(value).toBeTruthy();
 }

@@ -24,7 +24,7 @@ This isn't a model quality problem. It's an information problem.
 
 Here's what actually works, and what teams building serious AI-assisted development workflows have figured out: **the model knows what it needs to do a task well better than most developers know how to ask for it.**
 
-It has processed an enormous volume of well-specified engineering tasks. It knows what a complete feature request looks like. It knows what information is typically missing from a vague bug report. The trick is to make it tell you what's missing *before* you ask it to do anything.
+It has processed an enormous volume of well-specified engineering tasks. It knows what a complete feature request looks like. It knows what information is typically missing from a vague bug report. The trick is to make it tell you what's missing _before_ you ask it to do anything.
 
 The flow looks like this:
 
@@ -51,7 +51,7 @@ You spend the next hour fixing it.
 
 **The reverse prompt approach:**
 
-You start with the same sentence, then ask: *"Before you start, what would you need to know to implement this properly? What should I clarify?"*
+You start with the same sentence, then ask: _"Before you start, what would you need to know to implement this properly? What should I clarify?"_
 
 The agent responds with something like:
 
@@ -71,13 +71,13 @@ The difference in output quality is not subtle.
 
 Bug reports are where vague prompting causes the most damage, because a model that doesn't have enough context doesn't just produce mediocre code — it produces confident, wrong code.
 
-Imagine someone files a bug: *"The login button sometimes doesn't work."*
+Imagine someone files a bug: _"The login button sometimes doesn't work."_
 
 **The naive approach:** You paste that into your agent. It starts scanning authentication code, spots a suspicious async/await pattern, decides that's probably it, rewrites the function, and opens a PR. The bug is still there. The function it changed was unrelated.
 
 **The reverse prompt approach:**
 
-You give the agent the bug report and ask: *"What would you need to know to diagnose this effectively? What questions would a senior engineer ask before touching any code?"*
+You give the agent the bug report and ask: _"What would you need to know to diagnose this effectively? What questions would a senior engineer ask before touching any code?"_
 
 It responds:
 

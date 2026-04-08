@@ -1,59 +1,58 @@
-'use client';
+"use client";
 
-import { Button, Modal, useOverlayState } from '@heroui/react';
-import { Mail } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
-import { LuGithub as Github, LuLinkedin as Linkedin } from 'react-icons/lu';
-import { twMerge } from 'tailwind-merge';
+import { Button, Modal, useOverlayState } from "@heroui/react";
+import { Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { LuGithub as Github, LuLinkedin as Linkedin } from "react-icons/lu";
+import { twMerge } from "tailwind-merge";
 
-import { usePrefersReducedMotion } from '#hooks/usePrefersReducedMotion.ts';
+import { usePrefersReducedMotion } from "#hooks/usePrefersReducedMotion.ts";
 
-import { Heading } from '../layout/Heading';
-import { Map } from './Map';
+import { Heading } from "../layout/Heading";
+import { Map } from "./Map";
 
 export const Contact = () => {
   const overlayState = useOverlayState({ defaultOpen: false });
-  const [modalContent, setModalContent] = useState('');
-  const [modalTitle, setModalTitle] = useState('');
+  const [modalContent, setModalContent] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
 
-  const t = useTranslations('home.contact');
+  const t = useTranslations("home.contact");
 
   const contactInfos = [
     {
       icon: <Mail className="inline-block" />,
-      key: 'Email',
-      link: 'mailto:jobs@melvin.la',
-      label: 'jobs@melvin.la',
-      className: 'font-sans-latin',
+      key: "Email",
+      link: "mailto:jobs@melvin.la",
+      label: "jobs@melvin.la",
+      className: "font-sans-latin",
     },
     {
       icon: <Linkedin className="inline-block" />,
-      key: 'LinkedIn',
-      link: 'https://linkedin.com/in/melvinlaplanche',
-      label: 'in/melvinlaplanche',
+      key: "LinkedIn",
+      link: "https://linkedin.com/in/melvinlaplanche",
+      label: "in/melvinlaplanche",
       onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        setModalTitle(':(');
-        setModalContent(t('linkedinModalContent'));
+        setModalTitle(":(");
+        setModalContent(t("linkedinModalContent"));
         overlayState.open();
       },
-      className:
-        'hover:text-red-400 motion-safe:transition-colors duration-300 font-sans-latin',
+      className: "hover:text-red-400 motion-safe:transition-colors duration-300 font-sans-latin",
     },
     {
       icon: <Github className="inline-block" />,
-      key: 'GitHub',
-      link: 'https://github.com/Nivl',
-      label: '@Nivl',
-      className: 'font-sans-latin',
+      key: "GitHub",
+      link: "https://github.com/Nivl",
+      label: "@Nivl",
+      className: "font-sans-latin",
     },
   ];
 
   return (
     <>
       <div className="mx-auto my-0 mt-16 mb-3 w-5/6 md:mb-10 lg:mt-52 lg:max-w-7xl">
-        <Heading level={2}>{t('title')}</Heading>
+        <Heading level={2}>{t("title")}</Heading>
 
         <div className="flex flex-col md:flex-row">
           {contactInfos.map(({ className, icon, label, link, onClick }) => (
@@ -73,9 +72,7 @@ export const Contact = () => {
           <Modal.Backdrop isDismissable isKeyboardDismissDisabled>
             <Modal.Container>
               <Modal.Dialog>
-                <Modal.Header className="flex flex-col gap-1">
-                  {modalTitle}
-                </Modal.Header>
+                <Modal.Header className="flex flex-col gap-1">{modalTitle}</Modal.Header>
                 <Modal.Body>
                   <p>{modalContent}</p>
                 </Modal.Body>
@@ -86,7 +83,7 @@ export const Contact = () => {
                       overlayState.close();
                     }}
                   >
-                    {t('linkedinModalClose')}
+                    {t("linkedinModalClose")}
                   </Button>
                 </Modal.Footer>
               </Modal.Dialog>
@@ -94,10 +91,7 @@ export const Contact = () => {
           </Modal.Backdrop>
         </Modal>
       </div>
-      <Map
-        className="h-200 w-full"
-        initialCenter={{ lat: 34.021_859_3, lng: -118.498_265 }}
-      />
+      <Map className="h-200 w-full" initialCenter={{ lat: 34.021_859_3, lng: -118.498_265 }} />
     </>
   );
 };
@@ -142,16 +136,13 @@ const BoopableLink = ({
       }}
       onClick={onClick}
       href={link}
-      className={twMerge(
-        'flex items-center justify-center gap-4 border-none',
-        className,
-      )}
+      className={twMerge("flex items-center justify-center gap-4 border-none", className)}
     >
       <span
-        className={`cls-boop-animation origin-bottom motion-safe:transition-all ${isBooped ? 'rotate-15' : 'rotate-0'}`}
+        className={`cls-boop-animation origin-bottom motion-safe:transition-all ${isBooped ? "rotate-15" : "rotate-0"}`}
       >
         {icon}
-      </span>{' '}
+      </span>{" "}
       {label}
     </a>
   );

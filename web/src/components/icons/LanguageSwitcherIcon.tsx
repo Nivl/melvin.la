@@ -12,8 +12,8 @@ export const LanguageSwitcherIcon = ({ isBooped }: { isBooped: boolean }) => {
     >
       <g
         className={
-          (isBooped ? 'scale-70' : '') +
-          ' ease-spring-boop origin-[6px_6px] transition-transform duration-1000'
+          (isBooped ? "scale-70" : "") +
+          " origin-[6px_6px] transition-transform duration-1000 ease-spring-boop"
         }
       >
         <path
@@ -37,8 +37,8 @@ export const LanguageSwitcherIcon = ({ isBooped }: { isBooped: boolean }) => {
 
       <g
         className={
-          (isBooped ? 'scale-70' : '') +
-          ' ease-spring-boop origin-[18px_18px] transition-transform delay-100 duration-1100'
+          (isBooped ? "scale-70" : "") +
+          " origin-[18px_18px] transition-transform delay-100 duration-1100 ease-spring-boop"
         }
       >
         <path d="m22 22-5-10-5 10" />

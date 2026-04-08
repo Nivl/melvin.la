@@ -1,14 +1,14 @@
-import { Card, Skeleton } from '@heroui/react';
-import { motion, useMotionTemplate, useMotionValue } from 'motion/react';
-import { MouseEvent } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { Card, Skeleton } from "@heroui/react";
+import { motion, useMotionTemplate, useMotionValue } from "motion/react";
+import { MouseEvent } from "react";
+import { twMerge } from "tailwind-merge";
 
 export const Pill = ({
   icon,
   title,
   onPress,
   isSelected = false,
-  className = '',
+  className = "",
   isLoading = false,
   ...delegated
 }: {
@@ -42,7 +42,7 @@ export const Pill = ({
       {...delegated}
       onClick={!isLoading && !isSelected ? onPress : undefined}
       className={twMerge(
-        `group relative w-72 dark:bg-neutral-950 ${isSelected ? 'bg-linear-to-br from-[#2753ad] to-[#418eff] dark:to-[#052d67]' : 'border border-neutral-200 dark:border-neutral-800'} ${className}`,
+        `group relative w-72 dark:bg-neutral-950 ${isSelected ? "bg-linear-to-br from-[#2753ad] to-[#418eff] dark:to-[#052d67]" : "border border-neutral-200 dark:border-neutral-800"} ${className}`,
       )}
     >
       {!isSelected && (
@@ -54,14 +54,14 @@ export const Pill = ({
 
       {isLoading ? (
         <Card.Header
-          className={`dark:text-foreground flex flex-row items-center gap-5 text-start text-base font-semibold ${isSelected ? 'text-white' : ''}`}
+          className={`flex flex-row items-center gap-5 text-start text-base font-semibold dark:text-foreground ${isSelected ? "text-white" : ""}`}
         >
-          <Skeleton className={`h-6 w-6 ${isSelected ? 'light' : ''}`} />
-          <Skeleton className={`h-6 w-full ${isSelected ? 'light' : ''}`} />
+          <Skeleton className={`h-6 w-6 ${isSelected ? "light" : ""}`} />
+          <Skeleton className={`h-6 w-full ${isSelected ? "light" : ""}`} />
         </Card.Header>
       ) : (
         <Card.Header
-          className={`dark:text-foreground flex flex-row items-center gap-5 text-start text-base font-semibold ${isSelected ? 'text-white' : ''}`}
+          className={`flex flex-row items-center gap-5 text-start text-base font-semibold dark:text-foreground ${isSelected ? "text-white" : ""}`}
         >
           <span>{icon}</span>
           <p>{title}</p>

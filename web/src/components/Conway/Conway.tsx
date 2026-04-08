@@ -1,21 +1,16 @@
-'use client';
+"use client";
 
-import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useState } from 'react';
+import { useTranslations } from "next-intl";
+import { useCallback, useEffect, useState } from "react";
 
-import { Board, boardSizes, BoardValue, defaultPresets } from '#models/conway';
+import { Board, boardSizes, BoardValue, defaultPresets } from "#models/conway";
 
-import { Heading } from '../layout/Heading';
-import { Section } from '../layout/Section';
-import { ConwayGrid } from './Grid';
-import { Side } from './Side';
+import { Heading } from "../layout/Heading";
+import { Section } from "../layout/Section";
+import { ConwayGrid } from "./Grid";
+import { Side } from "./Side";
 
-export const totalNeighbors = (
-  board: Board,
-  x: number,
-  y: number,
-  toroidal: boolean,
-): number => {
+export const totalNeighbors = (board: Board, x: number, y: number, toroidal: boolean): number => {
   const size = board.length;
   let total = 0;
   for (let dy = -1; dy <= 1; dy++) {
@@ -43,10 +38,10 @@ export const Conway = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [boardSize, setBoardSize] = useState(boardSizes[0]);
   const [toroidal, setToroidal] = useState(true);
-  const t = useTranslations('conway');
+  const t = useTranslations("conway");
 
   const updateBoard = useCallback(() => {
-    setBoard(current =>
+    setBoard((current) =>
       current.map((row, y) =>
         row.map((cell, x) => {
           const neighbors = totalNeighbors(current, x, y, toroidal);
@@ -67,32 +62,29 @@ export const Conway = () => {
     };
   }, [isPlaying, speed, updateBoard]);
 
-  const handleSetCell = useCallback(
-    (row: number, col: number, value: BoardValue) => {
-      setBoard(current => {
-        const next = current.map(r => [...r]);
-        next[row][col] = value;
-        return next;
-      });
-    },
-    [],
-  );
+  const handleSetCell = useCallback((row: number, col: number, value: BoardValue) => {
+    setBoard((current) => {
+      const next = current.map((r) => [...r]);
+      next[row][col] = value;
+      return next;
+    });
+  }, []);
 
   return (
     <>
       <Section>
-        <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl font-bold uppercase sm:text-8xl xl:text-9xl">
-          {t('title')}
+        <h1 className="text-center font-condensed text-6xl leading-tight-xs font-bold uppercase sm:text-8xl sm:leading-tight-sm xl:text-9xl xl:leading-tight-xl">
+          {t("title")}
         </h1>
       </Section>
 
       <Section>
         <p>
-          {t('whatIsIt')}
+          {t("whatIsIt")}
 
-          {t.has('quoteUrl') && (
-            <a className="text-nivl" href={t('quoteUrl')}>
-              {t('quoteBy')}
+          {t.has("quoteUrl") && (
+            <a className="text-nivl" href={t("quoteUrl")}>
+              {t("quoteBy")}
             </a>
           )}
         </p>
@@ -100,17 +92,17 @@ export const Conway = () => {
 
       <Section>
         <Heading className="text-xl xl:text-2xl" level={2}>
-          {t('howToPlay')}
+          {t("howToPlay")}
         </Heading>
-        <p>{t('rules.header')}</p>
+        <p>{t("rules.header")}</p>
         <ol className="my-5 list-inside list-decimal">
-          <li>{t('rules.rule1')}</li>
-          <li>{t('rules.rule2')}</li>
-          <li>{t('rules.rule3')}</li>
-          <li>{t('rules.rule4')}</li>
+          <li>{t("rules.rule1")}</li>
+          <li>{t("rules.rule2")}</li>
+          <li>{t("rules.rule3")}</li>
+          <li>{t("rules.rule4")}</li>
         </ol>
-        <p>{t('rules.footer')}</p>
-        <p className="my-5">{t('gridInfo')}</p>
+        <p>{t("rules.footer")}</p>
+        <p className="my-5">{t("gridInfo")}</p>
       </Section>
 
       <Section>
@@ -120,7 +112,7 @@ export const Conway = () => {
               board={board}
               boardSize={boardSize}
               isPlaying={isPlaying}
-              ariaLabel={t('gridLabel')}
+              ariaLabel={t("gridLabel")}
               onSetCell={handleSetCell}
             />
           </div>

@@ -1,13 +1,13 @@
-import { Link } from '@heroui/react';
-import Image from 'next/image';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import { isValidElement } from 'react';
+import { Link } from "@heroui/react";
+import Image from "next/image";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { isValidElement } from "react";
 
-import { BlogHeading } from '#components/blog/BlogHeading';
-import { CodeBlock } from '#components/layout/CodeBlock';
-import { Section } from '#components/layout/Section';
-import { Link as NextLink } from '#i18n/routing';
-import { BlogPost } from '#models/blog/post';
+import { BlogHeading } from "#components/blog/BlogHeading";
+import { CodeBlock } from "#components/layout/CodeBlock";
+import { Section } from "#components/layout/Section";
+import { Link as NextLink } from "#i18n/routing";
+import { BlogPost } from "#models/blog/post";
 
 export function Post({ post }: { post: BlogPost }) {
   return (
@@ -31,51 +31,25 @@ export function Post({ post }: { post: BlogPost }) {
           options={{ blockJS: false }}
           source={post.content}
           components={{
-            h1: ({ children }) => (
-              <BlogHeading level={1}>{children}</BlogHeading>
-            ),
-            h2: ({ children }) => (
-              <BlogHeading level={2}>{children}</BlogHeading>
-            ),
-            h3: ({ children }) => (
-              <BlogHeading level={3}>{children}</BlogHeading>
-            ),
-            h4: ({ children }) => (
-              <BlogHeading level={4}>{children}</BlogHeading>
-            ),
-            h5: ({ children }) => (
-              <BlogHeading level={5}>{children}</BlogHeading>
-            ),
-            h6: ({ children }) => (
-              <BlogHeading level={6}>{children}</BlogHeading>
-            ),
+            h1: ({ children }) => <BlogHeading level={1}>{children}</BlogHeading>,
+            h2: ({ children }) => <BlogHeading level={2}>{children}</BlogHeading>,
+            h3: ({ children }) => <BlogHeading level={3}>{children}</BlogHeading>,
+            h4: ({ children }) => <BlogHeading level={4}>{children}</BlogHeading>,
+            h5: ({ children }) => <BlogHeading level={5}>{children}</BlogHeading>,
+            h6: ({ children }) => <BlogHeading level={6}>{children}</BlogHeading>,
             p: ({ children }) => <p className="mb-3 lg:mb-8">{children}</p>,
-            ul: ({ children }) => (
-              <ul className="mb-3 ml-5 list-disc lg:mb-8">{children}</ul>
-            ),
-            ol: ({ children }) => (
-              <ol className="mb-3 ml-5 list-decimal lg:mb-8">{children}</ol>
-            ),
+            ul: ({ children }) => <ul className="mb-3 ml-5 list-disc lg:mb-8">{children}</ul>,
+            ol: ({ children }) => <ol className="mb-3 ml-5 list-decimal lg:mb-8">{children}</ol>,
             li: ({ children }) => <li className="mb-2">{children}</li>,
-            strong: ({ children }) => (
-              <strong className="font-bold">{children}</strong>
-            ),
+            strong: ({ children }) => <strong className="font-bold">{children}</strong>,
             blockquote: ({ children }) => (
-              <blockquote className="border-nivl border-l-4 pl-4 italic">
-                {children}
-              </blockquote>
+              <blockquote className="border-l-4 border-nivl pl-4 italic">{children}</blockquote>
             ),
-            a: ({
-              children,
-              href,
-            }: {
-              children: React.ReactNode;
-              href?: string;
-            }) => {
+            a: ({ children, href }: { children: React.ReactNode; href?: string }) => {
               if (!href) {
                 return <>{children}</>;
               }
-              const isExternalLink = href.startsWith('http');
+              const isExternalLink = href.startsWith("http");
               if (isExternalLink) {
                 return (
                   <Link
@@ -90,14 +64,14 @@ export function Post({ post }: { post: BlogPost }) {
                 );
               }
               return (
-                <NextLink className="text-nivl link underline" href={href}>
+                <NextLink className="link text-nivl underline" href={href}>
                   {children}
                 </NextLink>
               );
             },
             em: ({ children }) => <em className="font-italic">{children}</em>,
             code: ({ children }) => (
-              <code className="bg-default/70 text-default-foreground font-monospace inline-block h-fit rounded-lg px-2 py-1 text-sm font-normal whitespace-nowrap">
+              <code className="inline-block h-fit rounded-lg bg-default/70 px-2 py-1 font-monospace text-sm font-normal whitespace-nowrap text-default-foreground">
                 {children}
               </code>
             ),
@@ -108,11 +82,9 @@ export function Post({ post }: { post: BlogPost }) {
               }
 
               const elementType =
-                typeof children.type === 'string'
-                  ? children.type
-                  : children.type.name;
+                typeof children.type === "string" ? children.type : children.type.name;
 
-              if (elementType !== 'code') {
+              if (elementType !== "code") {
                 return <pre>{children}</pre>;
               }
 
@@ -122,27 +94,24 @@ export function Post({ post }: { post: BlogPost }) {
               };
 
               const match =
-                'className' in childrenProps
-                  ? /language-(\w+)/.exec(childrenProps.className ?? '')
-                  : '';
+                "className" in childrenProps
+                  ? /language-(\w+)/.exec(childrenProps.className ?? "")
+                  : "";
 
               if (
                 !childrenProps.children ||
-                typeof childrenProps.children !== 'string' ||
+                typeof childrenProps.children !== "string" ||
                 // we use "hidden" to keep track of the
                 // source code of the mermaid graphs
                 // We don't want to render it as a code block
-                (match && match[1] === 'hidden')
+                (match && match[1] === "hidden")
               ) {
                 return <></>;
               }
 
               return (
                 <div className="mb-8">
-                  <CodeBlock
-                    language={match ? match[1] : undefined}
-                    showlinenumbers={true}
-                  >
+                  <CodeBlock language={match ? match[1] : undefined} showlinenumbers={true}>
                     {childrenProps.children}
                   </CodeBlock>
                 </div>

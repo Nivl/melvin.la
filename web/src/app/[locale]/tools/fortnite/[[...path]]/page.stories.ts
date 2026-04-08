@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from "@storybook/nextjs";
 
-import { type FortniteData } from '#backend/api';
-import { useStats } from '#hooks/fortnite/useStats.mock';
+import { type FortniteData } from "#backend/api";
+import { useStats } from "#hooks/fortnite/useStats.mock";
 
-import validData from '../../../../../../.storybook/fixtures/valid_fortnite_data.json';
-import page from './page';
+import validData from "../../../../../../.storybook/fixtures/valid_fortnite_data.json";
+import page from "./page";
 
 const meta = {
-  title: 'Pages/Tools/Fortnite',
+  title: "Pages/Tools/Fortnite",
   component: page,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof page>;
 
@@ -22,14 +22,14 @@ export const Default: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['tools', 'fortnite'],
+        segments: ["tools", "fortnite"],
       },
     },
   },
   args: {
-    params: new Promise(resolve => {
+    params: new Promise((resolve) => {
       resolve({
-        locale: 'en',
+        locale: "en",
       });
     }),
   },
@@ -40,15 +40,15 @@ export const Profile: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['tools', 'fortnite', 'M8%20Nîkof', 'epic'],
+        segments: ["tools", "fortnite", "M8%20Nîkof", "epic"],
       },
     },
   },
   args: {
-    params: new Promise(resolve => {
+    params: new Promise((resolve) => {
       resolve({
-        locale: 'en',
-        path: ['M8%20Nîkof', 'epic'],
+        locale: "en",
+        path: ["M8%20Nîkof", "epic"],
       });
     }),
   },
@@ -68,15 +68,15 @@ export const Loading: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['tools', 'fortnite', 'M8%20Nîkof', 'xbl'],
+        segments: ["tools", "fortnite", "M8%20Nîkof", "xbl"],
       },
     },
   },
   args: {
-    params: new Promise(resolve => {
+    params: new Promise((resolve) => {
       resolve({
-        locale: 'en',
-        path: ['M8%20Nîkof', 'xbl'],
+        locale: "en",
+        path: ["M8%20Nîkof", "xbl"],
       });
     }),
   },
@@ -96,15 +96,15 @@ export const ErrorInvalidAccount: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['tools', 'fortnite', 'M8%20Nîkof', 'psn'],
+        segments: ["tools", "fortnite", "M8%20Nîkof", "psn"],
       },
     },
   },
   args: {
-    params: new Promise(resolve => {
+    params: new Promise((resolve) => {
       resolve({
-        locale: 'en',
-        path: ['M8%20Nîkof', 'psn'],
+        locale: "en",
+        path: ["M8%20Nîkof", "psn"],
       });
     }),
   },
@@ -112,7 +112,7 @@ export const ErrorInvalidAccount: Story = {
     useStats.mockImplementation(() => {
       return {
         isLoading: false,
-        error: { code: 404, message: 'Account does not exist' },
+        error: { code: 404, message: "Account does not exist" },
         data: undefined,
       };
     });
@@ -124,15 +124,15 @@ export const ErrorPrivateAccount: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['tools', 'fortnite', 'M8%20Nîkof', 'xbl'],
+        segments: ["tools", "fortnite", "M8%20Nîkof", "xbl"],
       },
     },
   },
   args: {
-    params: new Promise(resolve => {
+    params: new Promise((resolve) => {
       resolve({
-        locale: 'en',
-        path: ['M8%20Nîkof', 'xbl'],
+        locale: "en",
+        path: ["M8%20Nîkof", "xbl"],
       });
     }),
   },
@@ -140,7 +140,7 @@ export const ErrorPrivateAccount: Story = {
     useStats.mockImplementation(() => {
       return {
         isLoading: false,
-        error: { code: 403, message: 'Account is private' },
+        error: { code: 403, message: "Account is private" },
         data: undefined,
       };
     });
@@ -152,15 +152,15 @@ export const ErrorInternalError: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['tools', 'fortnite', 'M8%20Nîkof', 'xbl'],
+        segments: ["tools", "fortnite", "M8%20Nîkof", "xbl"],
       },
     },
   },
   args: {
-    params: new Promise(resolve => {
+    params: new Promise((resolve) => {
       resolve({
-        locale: 'en',
-        path: ['M8%20Nîkof', 'xbl'],
+        locale: "en",
+        path: ["M8%20Nîkof", "xbl"],
       });
     }),
   },
@@ -168,7 +168,7 @@ export const ErrorInternalError: Story = {
     useStats.mockImplementation(() => {
       return {
         isLoading: false,
-        error: { code: 500, message: 'Something went wrong' },
+        error: { code: 500, message: "Something went wrong" },
         data: undefined,
       };
     });

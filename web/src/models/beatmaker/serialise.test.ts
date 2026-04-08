@@ -1,8 +1,8 @@
-import { expect, test } from 'vitest';
+import { expect, test } from "vitest";
 
-import { buildDefaultState } from './presets';
-import { decode, encode } from './serialise';
-import type { BeatmakerState } from './types';
+import { buildDefaultState } from "./presets";
+import { decode, encode } from "./serialise";
+import type { BeatmakerState } from "./types";
 
 const state: BeatmakerState = buildDefaultState();
 
@@ -11,13 +11,13 @@ test('encode produces a string starting with "v1:"', () => {
   expect(hash).toMatch(/^v1:/);
 });
 
-test('encode excludes isPlaying', () => {
+test("encode excludes isPlaying", () => {
   const playing = { ...state, isPlaying: true };
   const notPlaying = { ...state, isPlaying: false };
   expect(encode(playing)).toBe(encode(notPlaying));
 });
 
-test('round-trip: decode(encode(state)) reproduces state', () => {
+test("round-trip: decode(encode(state)) reproduces state", () => {
   const hash = encode(state);
   const decoded = decode(hash);
   // isPlaying is not encoded, so compare without it
@@ -29,13 +29,13 @@ test('round-trip: decode(encode(state)) reproduces state', () => {
   expect(decoded?.tracks.kick.muted).toBe(state.tracks.kick.muted);
 });
 
-test('decode returns undefined for garbage input', () => {
-  expect(decode('garbage')).toBeUndefined();
-  expect(decode('')).toBeUndefined();
-  expect(decode('v1:!!notbase64!!')).toBeUndefined();
+test("decode returns undefined for garbage input", () => {
+  expect(decode("garbage")).toBeUndefined();
+  expect(decode("")).toBeUndefined();
+  expect(decode("v1:!!notbase64!!")).toBeUndefined();
 });
 
-test('hasCustomSamples flag survives round-trip when true', () => {
+test("hasCustomSamples flag survives round-trip when true", () => {
   const hash = encode(state, true);
   const decoded = decode(hash);
   expect(decoded?.hasCustomSamples).toBe(true);

@@ -1,1 +1,1 @@
-export { Beatmaker } from './Beatmaker';
+export { Beatmaker } from "./Beatmaker";

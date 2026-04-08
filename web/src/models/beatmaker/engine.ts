@@ -1,6 +1,6 @@
-import { getSampleUrl } from './kits';
-import type { BeatmakerState, Kit, TrackId } from './types';
-import { TRACK_IDS } from './types';
+import { getSampleUrl } from "./kits";
+import type { BeatmakerState, Kit, TrackId } from "./types";
+import { TRACK_IDS } from "./types";
 
 const SCHEDULE_INTERVAL_MS = 25;
 const LOOKAHEAD_SECONDS = 0.1;
@@ -23,11 +23,9 @@ type EngineOptions = {
   onStateChange?: (state: AudioContextState) => void;
 };
 
-export function createEngine(
-  onErrorOrOptions?: ((error: Error) => void) | EngineOptions,
-): Engine {
+export function createEngine(onErrorOrOptions?: ((error: Error) => void) | EngineOptions): Engine {
   const opts: EngineOptions =
-    typeof onErrorOrOptions === 'function'
+    typeof onErrorOrOptions === "function"
       ? { onError: onErrorOrOptions }
       : (onErrorOrOptions ?? {});
   const { onError, onStep, onStateChange } = opts;
@@ -61,10 +59,7 @@ export function createEngine(
     buffers.set(key, audioBuf);
   }
 
-  async function storeBuffer(
-    key: string,
-    arrayBuf: ArrayBuffer,
-  ): Promise<void> {
+  async function storeBuffer(key: string, arrayBuf: ArrayBuffer): Promise<void> {
     const context = ctx;
     if (context) {
       await decodeAndStoreBuffer(context, key, arrayBuf);
@@ -90,11 +85,7 @@ export function createEngine(
 
   function unlockAudioOutput(context: AudioContext): void {
     // 0.1s silent buffer to wake up the audio context on iOS
-    const silentBuf = context.createBuffer(
-      1,
-      context.sampleRate / 10,
-      context.sampleRate,
-    );
+    const silentBuf = context.createBuffer(1, context.sampleRate / 10, context.sampleRate);
     const silentSrc = context.createBufferSource();
 
     silentSrc.buffer = silentBuf;
@@ -109,7 +100,7 @@ export function createEngine(
     }
 
     if (ctx) {
-      if (ctx.state === 'suspended') {
+      if (ctx.state === "suspended") {
         await ctx.resume();
       }
       return;
@@ -120,7 +111,7 @@ export function createEngine(
       // allows it to play audio immediately without being permanently suspended.
       const context = (ctx ??= new AudioContext());
 
-      context.addEventListener('statechange', () => {
+      context.addEventListener("statechange", () => {
         onStateChange?.(context.state);
       });
 
@@ -142,7 +133,7 @@ export function createEngine(
 
   async function loadKit(kit: Kit): Promise<void> {
     await Promise.all(
-      TRACK_IDS.map(async trackId => {
+      TRACK_IDS.map(async (trackId) => {
         const url = getSampleUrl(kit, trackId);
         try {
           const res = await fetch(url);
@@ -162,20 +153,11 @@ export function createEngine(
     await storeBuffer(`custom/${trackId}`, arrayBuf);
   }
 
-  function getBuffer(
-    state: BeatmakerState,
-    trackId: TrackId,
-  ): AudioBuffer | undefined {
-    return (
-      buffers.get(`custom/${trackId}`) ?? buffers.get(`${state.kit}/${trackId}`)
-    );
+  function getBuffer(state: BeatmakerState, trackId: TrackId): AudioBuffer | undefined {
+    return buffers.get(`custom/${trackId}`) ?? buffers.get(`${state.kit}/${trackId}`);
   }
 
-  function scheduleNote(
-    state: BeatmakerState,
-    trackId: TrackId,
-    time: number,
-  ): void {
+  function scheduleNote(state: BeatmakerState, trackId: TrackId, time: number): void {
     if (!ctx) return;
     const track = state.tracks[trackId];
     const buffer = getBuffer(state, trackId);
@@ -195,7 +177,7 @@ export function createEngine(
     panner.connect(ctx.destination);
 
     activeSources.add(src);
-    src.addEventListener('ended', () => {
+    src.addEventListener("ended", () => {
       activeSources.delete(src);
     });
 
@@ -231,7 +213,7 @@ export function createEngine(
   function start(getState: () => BeatmakerState): void {
     if (schedulerTimer !== undefined) return;
     if (!ctx) return;
-    if (ctx.state === 'suspended') {
+    if (ctx.state === "suspended") {
       void ctx.resume();
     }
     currentStep = 0;

@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from "@storybook/nextjs";
 
-import page from './page';
+import page from "./page";
 
 const meta = {
-  title: 'Pages/Games/Beatmaker',
+  title: "Pages/Games/Beatmaker",
   component: page,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof page>;
 
@@ -18,7 +18,7 @@ export const Default: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['beatmaker'],
+        segments: ["beatmaker"],
       },
     },
   },

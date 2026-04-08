@@ -1,9 +1,9 @@
-'use client';
-import { motion } from 'motion/react';
-import { useEffect, useId, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
+"use client";
+import { motion } from "motion/react";
+import { useEffect, useId, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
-import { usePrefersReducedMotion } from '#hooks/usePrefersReducedMotion.ts';
+import { usePrefersReducedMotion } from "#hooks/usePrefersReducedMotion.ts";
 import {
   BobaCoordinate,
   bobaDefaultShakeOffset,
@@ -13,7 +13,7 @@ import {
   generateBalls,
   roundOdd,
   updateBallAt,
-} from '#utils/boba.ts';
+} from "#utils/boba.ts";
 
 const generateBobaCoordinates = () => {
   return generateBalls();
@@ -29,7 +29,7 @@ export const Boba = ({ className }: { className: string }) => {
   const reducedMotion = usePrefersReducedMotion();
 
   if (bobaCoordinates.length !== defaultBobaCoordinates.length) {
-    throw new Error('The amount of coordinates must be static');
+    throw new Error("The amount of coordinates must be static");
   }
 
   for (const [i, boba] of bobaCoordinates.entries()) {
@@ -43,7 +43,7 @@ export const Boba = ({ className }: { className: string }) => {
       }
 
       const interval = setInterval(() => {
-        setBobaCoordinates(coordinates => {
+        setBobaCoordinates((coordinates) => {
           const updatedCoordinates = [...coordinates];
           updateBallAt(i, updatedCoordinates);
           return updatedCoordinates;
@@ -71,9 +71,7 @@ export const Boba = ({ className }: { className: string }) => {
 
   return (
     <svg
-      className={twMerge(
-        (isAnimating ? `motion-safe:animate-shake ` : ` `) + className,
-      )}
+      className={twMerge((isAnimating ? `motion-safe:animate-shake ` : ` `) + className)}
       width="1684"
       height="2532"
       viewBox="0 0 1684 2532"
@@ -144,7 +142,7 @@ export const Boba = ({ className }: { className: string }) => {
         strokeWidth="81"
         strokeLinecap="round"
         className={`stroke-nivl`}
-        transition={{ ease: 'easeInOut', duration: 0.2, delay: 0 }}
+        transition={{ ease: "easeInOut", duration: 0.2, delay: 0 }}
         animate={{
           d: isAnimating
             ? `
@@ -176,13 +174,11 @@ export const Boba = ({ className }: { className: string }) => {
           fill="currentColor"
           style={
             {
-              '--boba-moving-duration': `${boba.durationMs.toString()}ms`,
-              '--boba-soft-shake-duration': `${bobaSoftShakeDuration.toString()}ms`,
-              '--boba-soft-shake-offset': `${(boba.shakeOffset ?? bobaDefaultShakeOffset)?.toString()}px`,
-              '--boba-soft-shake-delay': `${(boba.shakeDelayMs ?? 0)?.toString()}ms`,
-              '--boba-soft-shake-iterations': roundOdd(
-                boba.durationMs / bobaSoftShakeDuration,
-              ),
+              "--boba-moving-duration": `${boba.durationMs.toString()}ms`,
+              "--boba-soft-shake-duration": `${bobaSoftShakeDuration.toString()}ms`,
+              "--boba-soft-shake-offset": `${(boba.shakeOffset ?? bobaDefaultShakeOffset)?.toString()}px`,
+              "--boba-soft-shake-delay": `${(boba.shakeDelayMs ?? 0)?.toString()}ms`,
+              "--boba-soft-shake-iterations": roundOdd(boba.durationMs / bobaSoftShakeDuration),
             } as React.CSSProperties
           }
           className={
@@ -190,7 +186,7 @@ export const Boba = ({ className }: { className: string }) => {
               ? `motion-safe:animate-boba-hard-shake`
               : isAnimationStopping
                 ? `cls-boba-soft-shake`
-                : '') + ' cls-boba-animation'
+                : "") + " cls-boba-animation"
           }
         />
       ))}

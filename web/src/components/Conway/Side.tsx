@@ -1,6 +1,6 @@
-import { Button, Label, Slider, Switch } from '@heroui/react';
-import { useTranslations } from 'next-intl';
-import { FaPause as PauseIcon, FaPlay as Playicon } from 'react-icons/fa6';
+import { Button, Label, Slider, Switch } from "@heroui/react";
+import { useTranslations } from "next-intl";
+import { FaPause as PauseIcon, FaPlay as Playicon } from "react-icons/fa6";
 
 import {
   Board,
@@ -10,10 +10,10 @@ import {
   HeavyweightPreset,
   PentadecathlonPreset,
   pulsarPreset,
-} from '#models/conway';
+} from "#models/conway";
 
-import { Heading } from '../layout/Heading';
-import { Preset } from './Preset';
+import { Heading } from "../layout/Heading";
+import { Preset } from "./Preset";
 
 const newRow = (size: number): BoardValue[] => {
   return Array.from<BoardValue>({ length: size }).fill(0);
@@ -23,7 +23,7 @@ const resizeBoard = (board: Board, newSize: number): Board => {
   const numRows = board.length;
 
   // Adjust each existing row to newSize columns (handles non-square presets)
-  const newBoard: Board = board.slice(0, newSize).map(row => {
+  const newBoard: Board = board.slice(0, newSize).map((row) => {
     if (row.length === newSize) return row;
     if (row.length > newSize) return row.slice(0, newSize);
     return [...row, ...newRow(newSize - row.length)];
@@ -63,11 +63,11 @@ export const Side = ({
   const setPreset = (preset: Board) => {
     setBoard(resizeBoard(preset, boardSize));
   };
-  const t = useTranslations('conway.controls');
+  const t = useTranslations("conway.controls");
 
   return (
     <>
-      <Heading level={3}>{t('title')}</Heading>
+      <Heading level={3}>{t("title")}</Heading>
       {isPlaying ? (
         <Button
           variant="primary"
@@ -77,7 +77,7 @@ export const Side = ({
           }}
         >
           <PauseIcon className="mr-2" />
-          {t('pause')}
+          {t("pause")}
         </Button>
       ) : (
         <Button
@@ -88,7 +88,7 @@ export const Side = ({
           }}
         >
           <Playicon className="mr-2" />
-          {t('play')}
+          {t("play")}
         </Button>
       )}
 
@@ -98,13 +98,13 @@ export const Side = ({
         step={0.25}
         maxValue={5}
         minValue={0.25}
-        onChange={v => {
-          if (typeof v === 'number' && !Number.isNaN(v)) {
+        onChange={(v) => {
+          if (typeof v === "number" && !Number.isNaN(v)) {
             setSpeed(v);
           }
         }}
       >
-        <Label>{t('speed')}</Label>
+        <Label>{t("speed")}</Label>
         <Slider.Output>
           {({ state }) => {
             return `${state.values[0].toFixed(2)}x`;
@@ -122,8 +122,8 @@ export const Side = ({
         minValue={0}
         maxValue={boardSizes.length - 1}
         isDisabled={isPlaying}
-        onChange={v => {
-          const x = typeof v === 'object' ? v[0] : v;
+        onChange={(v) => {
+          const x = typeof v === "object" ? v[0] : v;
           const newSize = boardSizes[x] || boardSizes[0];
           if (newSize === boardSize) {
             return;
@@ -134,7 +134,7 @@ export const Side = ({
           setBoard(newBoard);
         }}
       >
-        <Label>{t('boardSize')}</Label>
+        <Label>{t("boardSize")}</Label>
         <Slider.Output>
           {({ state }) => {
             const sizeIndex = state.values[0];
@@ -148,45 +148,41 @@ export const Side = ({
         </Slider.Track>
       </Slider>
 
-      <Switch
-        isSelected={toroidal}
-        onChange={setToroidal}
-        aria-label={t('wrapEdges')}
-      >
+      <Switch isSelected={toroidal} onChange={setToroidal} aria-label={t("wrapEdges")}>
         <Switch.Control>
           <Switch.Thumb />
         </Switch.Control>
         <Switch.Content>
-          <Label className="text-sm">{t('wrapEdges')}</Label>
+          <Label className="text-sm">{t("wrapEdges")}</Label>
         </Switch.Content>
       </Switch>
 
-      <Heading level={3}>{t('presets.title')}</Heading>
+      <Heading level={3}>{t("presets.title")}</Heading>
 
       <div className="flex w-56 flex-wrap justify-center gap-4">
         <Preset
-          name={t('presets.glider')}
+          name={t("presets.glider")}
           onClick={() => {
             setPreset(gliderPreset);
           }}
         />
 
         <Preset
-          name={t('presets.pulsar')}
+          name={t("presets.pulsar")}
           onClick={() => {
             setPreset(pulsarPreset);
           }}
         />
 
         <Preset
-          name={t('presets.pentadecathlon')}
+          name={t("presets.pentadecathlon")}
           onClick={() => {
             setPreset(PentadecathlonPreset);
           }}
         />
 
         <Preset
-          name={t('presets.heavySpaceship')}
+          name={t("presets.heavySpaceship")}
           onClick={() => {
             setPreset(HeavyweightPreset);
           }}

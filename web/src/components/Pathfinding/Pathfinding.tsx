@@ -1,26 +1,13 @@
-'use client';
+"use client";
 
-import { toast } from '@heroui/react';
-import { useTranslations } from 'next-intl';
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { toast } from "@heroui/react";
+import { useTranslations } from "next-intl";
+import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { Section } from '#components/layout/Section';
-import { useAnimationTimeouts } from '#hooks/useAnimationTimeouts';
-import {
-  runAStar,
-  runBFS,
-  runDFS,
-  runDijkstra,
-} from '#utils/pathfinding/algorithms';
-import { generateMaze } from '#utils/pathfinding/maze';
+import { Section } from "#components/layout/Section";
+import { useAnimationTimeouts } from "#hooks/useAnimationTimeouts";
+import { runAStar, runBFS, runDFS, runDijkstra } from "#utils/pathfinding/algorithms";
+import { generateMaze } from "#utils/pathfinding/maze";
 import {
   Algorithm,
   AlgorithmResult,
@@ -32,10 +19,10 @@ import {
   DEFAULT_START,
   Grid,
   PlacementMode,
-} from '#utils/pathfinding/types';
+} from "#utils/pathfinding/types";
 
-import { Controls, SPEED_VALUES } from './Controls';
-import { PathfindingGrid } from './Grid';
+import { Controls, SPEED_VALUES } from "./Controls";
+import { PathfindingGrid } from "./Grid";
 
 const PATH_ANIMATION_SPEED_MULTIPLIER = 3;
 
@@ -56,8 +43,7 @@ const scheduleAnimation = (
   const batch: Coords[] = [];
 
   for (const [r, c] of visitedNodes) {
-    if ((r === start[0] && c === start[1]) || (r === end[0] && c === end[1]))
-      continue;
+    if ((r === start[0] && c === start[1]) || (r === end[0] && c === end[1])) continue;
     batch.push([r, c]);
   }
 
@@ -65,9 +51,9 @@ const scheduleAnimation = (
     const slice = batch.slice(i, i + cellsPerTick);
     delay += speed * cellsPerTick;
     schedule(() => {
-      setGrid(prev => {
-        const g = prev.map(row => [...row]);
-        for (const [r, c] of slice) g[r][c] = 'visited';
+      setGrid((prev) => {
+        const g = prev.map((row) => [...row]);
+        for (const [r, c] of slice) g[r][c] = "visited";
         return g;
       });
     }, delay);
@@ -75,13 +61,12 @@ const scheduleAnimation = (
 
   // Animate path cells
   for (const [r, c] of path) {
-    if ((r === start[0] && c === start[1]) || (r === end[0] && c === end[1]))
-      continue;
+    if ((r === start[0] && c === start[1]) || (r === end[0] && c === end[1])) continue;
     delay += speed * PATH_ANIMATION_SPEED_MULTIPLIER;
     schedule(() => {
-      setGrid(prev => {
-        const g = prev.map(row => [...row]);
-        g[r][c] = 'path';
+      setGrid((prev) => {
+        const g = prev.map((row) => [...row]);
+        g[r][c] = "path";
         return g;
       });
     }, delay);
@@ -92,17 +77,12 @@ const scheduleAnimation = (
   }, delay + speed);
 };
 
-const makeEmptyGrid = (
-  rows: number,
-  cols: number,
-  start: Coords,
-  end: Coords,
-): Grid => {
+const makeEmptyGrid = (rows: number, cols: number, start: Coords, end: Coords): Grid => {
   return Array.from({ length: rows }, (_, ri) =>
     Array.from({ length: cols }, (_, ci) => {
-      if (ri === start[0] && ci === start[1]) return 'start';
-      if (ri === end[0] && ci === end[1]) return 'end';
-      return 'empty';
+      if (ri === start[0] && ci === start[1]) return "start";
+      if (ri === end[0] && ci === end[1]) return "end";
+      return "empty";
     }),
   );
 };
@@ -113,7 +93,7 @@ const clampCoords = (coords: Coords, rows: number, cols: number): Coords => [
 ];
 
 export const Pathfinding = () => {
-  const t = useTranslations('pathfinding');
+  const t = useTranslations("pathfinding");
 
   const [rows, setRows] = useState(DEFAULT_ROWS);
   const [cols, setCols] = useState(DEFAULT_COLS);
@@ -122,21 +102,20 @@ export const Pathfinding = () => {
   const [grid, setGrid] = useState<Grid>(() =>
     makeEmptyGrid(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_START, DEFAULT_END),
   );
-  const [algorithm, setAlgorithm] = useState<Algorithm>('astar');
+  const [algorithm, setAlgorithm] = useState<Algorithm>("astar");
   const [speed, setSpeed] = useState<number>(SPEED_VALUES.medium);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [placementMode, setPlacementMode] =
-    useState<PlacementMode>('draw-walls');
+  const [placementMode, setPlacementMode] = useState<PlacementMode>("draw-walls");
 
   const hasPath = useMemo(
-    () => grid.some(row => row.some(c => c === 'visited' || c === 'path')),
+    () => grid.some((row) => row.some((c) => c === "visited" || c === "path")),
     [grid],
   );
 
   // Track what cell state was under start/end before they were placed.
   // This is needed to restore walls when moving start/end after maze generation.
-  const startUnderRef = useRef<CellState>('empty');
-  const endUnderRef = useRef<CellState>('empty');
+  const startUnderRef = useRef<CellState>("empty");
+  const endUnderRef = useRef<CellState>("empty");
 
   const { schedule, cancelAll } = useAnimationTimeouts();
 
@@ -152,30 +131,29 @@ export const Pathfinding = () => {
     const newEnd = clampCoords(end, rows, cols);
     setStart(newStart);
     setEnd(newEnd);
-    startUnderRef.current = 'empty';
-    endUnderRef.current = 'empty';
+    startUnderRef.current = "empty";
+    endUnderRef.current = "empty";
     setGrid(makeEmptyGrid(rows, cols, newStart, newEnd));
     // We *only* want to reset when rows/cols change.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rows, cols, stopAnimation]);
 
   const softReset = useCallback((g: Grid): Grid => {
-    return g.map(row =>
-      row.map(cell => (cell === 'visited' || cell === 'path' ? 'empty' : cell)),
+    return g.map((row) =>
+      row.map((cell) => (cell === "visited" || cell === "path" ? "empty" : cell)),
     );
   }, []);
 
   const handleStartChange = useCallback(
     (coords: Coords) => {
       setStart(coords);
-      setGrid(prev => {
+      setGrid((prev) => {
         const g = softReset(prev);
         const [pr, pc] = start;
         g[pr][pc] = startUnderRef.current;
         const newUnder = g[coords[0]][coords[1]];
-        startUnderRef.current =
-          newUnder === 'start' || newUnder === 'end' ? 'empty' : newUnder;
-        g[coords[0]][coords[1]] = 'start';
+        startUnderRef.current = newUnder === "start" || newUnder === "end" ? "empty" : newUnder;
+        g[coords[0]][coords[1]] = "start";
         return g;
       });
     },
@@ -185,14 +163,13 @@ export const Pathfinding = () => {
   const handleEndChange = useCallback(
     (coords: Coords) => {
       setEnd(coords);
-      setGrid(prev => {
+      setGrid((prev) => {
         const g = softReset(prev);
         const [pr, pc] = end;
         g[pr][pc] = endUnderRef.current;
         const newUnder = g[coords[0]][coords[1]];
-        endUnderRef.current =
-          newUnder === 'start' || newUnder === 'end' ? 'empty' : newUnder;
-        g[coords[0]][coords[1]] = 'end';
+        endUnderRef.current = newUnder === "start" || newUnder === "end" ? "empty" : newUnder;
+        g[coords[0]][coords[1]] = "end";
         return g;
       });
     },
@@ -207,41 +184,29 @@ export const Pathfinding = () => {
       dijkstra: runDijkstra,
       bfs: runBFS,
       dfs: runDFS,
-    } satisfies Record<
-      Algorithm,
-      (grid: Grid, start: Coords, end: Coords) => AlgorithmResult
-    >;
+    } satisfies Record<Algorithm, (grid: Grid, start: Coords, end: Coords) => AlgorithmResult>;
 
     const { visitedNodes, path } = runners[algorithm](cleanGrid, start, end);
 
     setIsAnimating(true);
     setGrid(cleanGrid);
 
-    scheduleAnimation(
-      visitedNodes,
-      path,
-      start,
-      end,
-      speed,
-      setGrid,
-      schedule,
-      hasPath => {
-        setIsAnimating(false);
-        if (!hasPath) toast.warning(t('noPathFound'));
-      },
-    );
+    scheduleAnimation(visitedNodes, path, start, end, speed, setGrid, schedule, (hasPath) => {
+      setIsAnimating(false);
+      if (!hasPath) toast.warning(t("noPathFound"));
+    });
   }, [grid, softReset, algorithm, start, end, speed, schedule, t]);
 
   return (
     <>
       <Section className="lg:hidden">
-        <div className="text-center">{t('needLargeScreen')}</div>
+        <div className="text-center">{t("needLargeScreen")}</div>
       </Section>
 
       <div className="hidden pb-6 lg:flex lg:flex-col lg:gap-3 lg:px-4 xl:px-8">
         <Section>
-          <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl font-bold uppercase sm:text-8xl xl:text-9xl">
-            {t('title')}
+          <h1 className="text-center font-condensed text-6xl leading-tight-xs font-bold uppercase sm:text-8xl sm:leading-tight-sm xl:text-9xl xl:leading-tight-xl">
+            {t("title")}
           </h1>
         </Section>
 
@@ -265,11 +230,11 @@ export const Pathfinding = () => {
                 onPlacementModeChange={setPlacementMode}
                 hasPath={hasPath}
                 onReset={() => {
-                  setGrid(prev => softReset(prev));
+                  setGrid((prev) => softReset(prev));
                 }}
                 onClearAll={() => {
-                  startUnderRef.current = 'empty';
-                  endUnderRef.current = 'empty';
+                  startUnderRef.current = "empty";
+                  endUnderRef.current = "empty";
                   setGrid(makeEmptyGrid(rows, cols, start, end));
                 }}
                 onGenerateMaze={() => {

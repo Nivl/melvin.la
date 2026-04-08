@@ -1,11 +1,11 @@
-import 'vitest-canvas-mock';
+import "vitest-canvas-mock";
 
-import { cleanup } from '@testing-library/react';
-import { afterAll, afterEach, beforeAll, vi } from 'vitest';
+import { cleanup } from "@testing-library/react";
+import { afterAll, afterEach, beforeAll, vi } from "vitest";
 
-import { server } from './src/backend/mocks/node.js';
+import { server } from "./src/backend/mocks/node.js";
 
-Object.defineProperty(globalThis, 'matchMedia', {
+Object.defineProperty(globalThis, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation((query: string) => ({
     matches: false,

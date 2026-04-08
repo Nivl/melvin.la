@@ -1,1 +1,1 @@
-export { Pathfinding } from './Pathfinding';
+export { Pathfinding } from "./Pathfinding";

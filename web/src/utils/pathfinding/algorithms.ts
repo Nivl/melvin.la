@@ -1,5 +1,5 @@
-import type { AlgorithmResult, Coords, Grid } from './types';
-import { coordsToKey } from './types';
+import type { AlgorithmResult, Coords, Grid } from "./types";
+import { coordsToKey } from "./types";
 
 const DIRS: Coords[] = [
   [-1, 0],
@@ -9,23 +9,16 @@ const DIRS: Coords[] = [
 ];
 
 const isInBounds = (grid: Grid, row: number, col: number): boolean =>
-  grid.length > 0 &&
-  row >= 0 &&
-  row < grid.length &&
-  col >= 0 &&
-  col < grid[0].length;
+  grid.length > 0 && row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
 
 const isPassable = (grid: Grid, row: number, col: number): boolean =>
-  isInBounds(grid, row, col) && grid[row][col] !== 'wall';
+  isInBounds(grid, row, col) && grid[row][col] !== "wall";
 
-const reconstructPath = (
-  cameFrom: Map<string, string>,
-  endKey: string,
-): Coords[] => {
+const reconstructPath = (cameFrom: Map<string, string>, endKey: string): Coords[] => {
   const path: Coords[] = [];
   let current: string | undefined = endKey;
   while (current !== undefined) {
-    const [r, c] = current.split(',').map(Number) as [number, number];
+    const [r, c] = current.split(",").map(Number) as [number, number];
     path.push([r, c]);
     current = cameFrom.get(current);
   }
@@ -80,10 +73,8 @@ class MinHeap {
       let min = i;
       const l = 2 * i + 1;
       const r = 2 * i + 2;
-      if (l < n && (heap[l]?.[0] ?? Infinity) < (heap[min]?.[0] ?? Infinity))
-        min = l;
-      if (r < n && (heap[r]?.[0] ?? Infinity) < (heap[min]?.[0] ?? Infinity))
-        min = r;
+      if (l < n && (heap[l]?.[0] ?? Infinity) < (heap[min]?.[0] ?? Infinity)) min = l;
+      if (r < n && (heap[r]?.[0] ?? Infinity) < (heap[min]?.[0] ?? Infinity)) min = r;
       if (min === i) break;
       const a = heap[i];
       const b = heap[min];
@@ -100,11 +91,7 @@ class MinHeap {
 const manhattan = (r1: number, c1: number, r2: number, c2: number) =>
   Math.abs(r1 - r2) + Math.abs(c1 - c2);
 
-export const runAStar = (
-  grid: Grid,
-  start: Coords,
-  end: Coords,
-): AlgorithmResult => {
+export const runAStar = (grid: Grid, start: Coords, end: Coords): AlgorithmResult => {
   const [sr, sc] = start;
   const [er, ec] = end;
   const startKey = coordsToKey(sr, sc);
@@ -125,7 +112,7 @@ export const runAStar = (
     if (settled.has(currentKey)) continue;
     settled.add(currentKey);
 
-    const [cr, cc] = currentKey.split(',').map(Number) as [number, number];
+    const [cr, cc] = currentKey.split(",").map(Number) as [number, number];
     visitedNodes.push([cr, cc]);
 
     if (currentKey === endKey) {
@@ -153,11 +140,7 @@ export const runAStar = (
 
 // ─── Dijkstra ────────────────────────────────────────────────────────────────
 
-export const runDijkstra = (
-  grid: Grid,
-  start: Coords,
-  end: Coords,
-): AlgorithmResult => {
+export const runDijkstra = (grid: Grid, start: Coords, end: Coords): AlgorithmResult => {
   const [sr, sc] = start;
   const startKey = coordsToKey(sr, sc);
   const endKey = coordsToKey(...end);
@@ -177,7 +160,7 @@ export const runDijkstra = (
     if (settled.has(currentKey)) continue;
     settled.add(currentKey);
 
-    const [cr, cc] = currentKey.split(',').map(Number) as [number, number];
+    const [cr, cc] = currentKey.split(",").map(Number) as [number, number];
     visitedNodes.push([cr, cc]);
 
     if (currentKey === endKey) {
@@ -204,11 +187,7 @@ export const runDijkstra = (
 
 // ─── BFS ─────────────────────────────────────────────────────────────────────
 
-export const runBFS = (
-  grid: Grid,
-  start: Coords,
-  end: Coords,
-): AlgorithmResult => {
+export const runBFS = (grid: Grid, start: Coords, end: Coords): AlgorithmResult => {
   const [sr, sc] = start;
   const endKey = coordsToKey(...end);
   const visited = new Set<string>([coordsToKey(sr, sc)]);
@@ -219,7 +198,7 @@ export const runBFS = (
 
   while (head < queue.length) {
     const currentKey = queue[head++];
-    const [cr, cc] = currentKey.split(',').map(Number) as [number, number];
+    const [cr, cc] = currentKey.split(",").map(Number) as [number, number];
     visitedNodes.push([cr, cc]);
 
     if (currentKey === endKey) {
@@ -247,11 +226,7 @@ export const runBFS = (
 
 // ─── DFS ─────────────────────────────────────────────────────────────────────
 
-export const runDFS = (
-  grid: Grid,
-  start: Coords,
-  end: Coords,
-): AlgorithmResult => {
+export const runDFS = (grid: Grid, start: Coords, end: Coords): AlgorithmResult => {
   const [sr, sc] = start;
   const endKey = coordsToKey(...end);
   const visited = new Set<string>([coordsToKey(sr, sc)]);
@@ -263,7 +238,7 @@ export const runDFS = (
     const currentKey = stack.pop();
     if (currentKey === undefined) break;
 
-    const [cr, cc] = currentKey.split(',').map(Number) as [number, number];
+    const [cr, cc] = currentKey.split(",").map(Number) as [number, number];
     visitedNodes.push([cr, cc]);
 
     if (currentKey === endKey) {

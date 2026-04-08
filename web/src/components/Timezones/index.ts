@@ -1,1 +1,1 @@
-export * from './Timezones';
+export * from "./Timezones";

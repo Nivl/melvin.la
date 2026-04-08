@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-import { Timestamp } from '#components/Timestamp';
-import { getMetadata } from '#utils/metadata';
+import { Timestamp } from "#components/Timestamp";
+import { getMetadata } from "#utils/metadata";
 
 export async function generateMetadata({
   params,
@@ -13,14 +13,14 @@ export async function generateMetadata({
 
   const t = await getTranslations({
     locale,
-    namespace: 'timestamp.metadata',
+    namespace: "timestamp.metadata",
   });
 
   return await getMetadata({
     locale,
-    pageUrl: '/tools/timestamp',
-    title: t('title'),
-    description: t('description'),
+    pageUrl: "/tools/timestamp",
+    title: t("title"),
+    description: t("description"),
   });
 }
 

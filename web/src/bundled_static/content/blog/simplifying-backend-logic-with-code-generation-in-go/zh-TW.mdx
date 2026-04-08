@@ -6,6 +6,7 @@ ogImage: "cover.jpg"
 createdAt: "2025-06-20"
 updatedAt: "2025-06-20"
 ---
+
 後端開發通常涉及重複的樣板程式碼，尤其是在處理資料庫查詢和 API 伺服器實作時。手動編寫和維護這些程式碼容易出錯且耗時。程式碼生成（codegen）工具透過從聲明性規範生成類型安全、高效且可維護的程式碼來幫助自動化這些任務。
 
 在本文中，我們將探討如何透過使用兩個流行的程式碼生成工具來簡化 Go 中的後端邏輯：
@@ -19,7 +20,6 @@ updatedAt: "2025-06-20"
 - **增加類型安全性：** 透過生成強型別程式碼來避免執行時錯誤。
 - **提高可維護性：** SQL 或 API 規範中的更改會自動傳播到程式碼中。
 - **提高生產力：** 專注於業務邏輯而不是底層管道。
-
 
 ## 使用 sqlc 進行 SQL 程式碼生成
 
@@ -122,13 +122,13 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: User found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        '404':
+                $ref: "#/components/schemas/User"
+        "404":
           description: User not found
 components:
   schemas:
@@ -185,14 +185,12 @@ router := api.NewRouter(&ServerImpl{db: dbQueries})
 http.ListenAndServe(":8080", router)
 ```
 
-
 ## 結合使用 sqlc 和 oapi-codegen 的好處
 
 - **端到端類型安全：** 從資料庫到 API 層。
 - **清晰分離：** SQL 查詢和 API 規範是聲明性的，與邏輯分離。
 - **更快的開發：** 專注於實作業務邏輯，而不是管道。
 - **更容易的重構：** 更改 SQL 或 API 規範，重新生成程式碼，並修復最少的程式碼。
-
 
 ## 結論
 

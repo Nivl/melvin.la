@@ -20,18 +20,20 @@ Cuando tu código se ejecuta, tus datos tienen que ir a algún lugar. Generalmen
 ### La Pila (Stack): Rápida y Organizada
 
 Imagina la Pila como una pila de notas adhesivas en tu escritorio.
-*   **Automática:** Cuando una función comienza, pegas una nota adhesiva encima con sus variables. Cuando termina, la arrancas y la tiras.
-*   **Rápida:** No buscas espacio; siempre está justo encima.
-*   **Temporal:** Los datos aquí viven solo mientras la función se ejecuta.
+
+- **Automática:** Cuando una función comienza, pegas una nota adhesiva encima con sus variables. Cuando termina, la arrancas y la tiras.
+- **Rápida:** No buscas espacio; siempre está justo encima.
+- **Temporal:** Los datos aquí viven solo mientras la función se ejecuta.
 
 Si tienes una variable `int a = 10;`, probablemente se asienta aquí. Es limpia, rápida y segura.
 
 ### El Montón (Heap): El Lejano Oeste
 
 El Montón es un almacén gigante.
-*   **Manual:** Tienes que pedir espacio ("Necesito una caja para este objeto"), y tienes que recordar devolverlo (o dejar que un Recolector de Basura lo haga).
-*   **Más lento:** Encontrar espacio libre lleva tiempo.
-*   **Permanente (más o menos):** Los datos aquí viven hasta que los eliminas. Aquí es donde pones cosas que necesitan sobrevivir después de que una función regresa.
+
+- **Manual:** Tienes que pedir espacio ("Necesito una caja para este objeto"), y tienes que recordar devolverlo (o dejar que un Recolector de Basura lo haga).
+- **Más lento:** Encontrar espacio libre lleva tiempo.
+- **Permanente (más o menos):** Los datos aquí viven hasta que los eliminas. Aquí es donde pones cosas que necesitan sobrevivir después de que una función regresa.
 
 ## Entonces, ¿qué es un Puntero?
 
@@ -44,22 +46,25 @@ int score = 99;  // El valor real
 int *p = &score; // El puntero 'p' contiene la dirección de 'score'
 ```
 
-*   `p` es la **dirección** (¿dónde está?).
-*   `*p` es el **valor** (¿qué hay dentro?).
+- `p` es la **dirección** (¿dónde está?).
+- `*p` es el **valor** (¿qué hay dentro?).
 
 ## ¿Por qué nos torturamos con esto?
 
 ¿Por qué no simplemente pasar valores y dejar que el lenguaje maneje el desorden?
 
 ### 1. Velocidad (Sin Copias)
+
 Imagina que tienes una imagen de 10MB. Si la pasas a una función `process(image)`, y tu lenguaje copia esa imagen, acabas de desperdiciar 10MB de RAM y tiempo de CPU copiando píxeles.
 Con un puntero, solo pasas la dirección (8 bytes). Le dices a la función: "La imagen está allá, ve a mirarla".
 
 ### 2. Compartir Estado
-Si pasas una variable por valor a una función, la función obtiene un *clon*. Si cambia el clon, el original queda intacto.
-Si pasas un puntero, la función sabe dónde vive el *original*. Puede modificar los datos reales.
+
+Si pasas una variable por valor a una función, la función obtiene un _clon_. Si cambia el clon, el original queda intacto.
+Si pasas un puntero, la función sabe dónde vive el _original_. Puede modificar los datos reales.
 
 ### 3. Estructuras Dinámicas
+
 Listas enlazadas, árboles, grafos—estos son solo trozos de datos que contienen punteros a otros trozos de datos. No puedes construirlos fácilmente sin referencias.
 
 ## El Precio que Pagas

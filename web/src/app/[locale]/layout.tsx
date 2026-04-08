@@ -1,8 +1,8 @@
-import '../globals.css';
+import "../globals.css";
 
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import type { Metadata } from 'next';
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata } from "next";
 import {
   Fira_Code,
   Noto_Sans,
@@ -10,58 +10,58 @@ import {
   Noto_Sans_KR,
   Noto_Sans_SC,
   Noto_Sans_TC,
-} from 'next/font/google';
-import localFont from 'next/font/local';
-import { notFound } from 'next/navigation';
-import { getMessages, setRequestLocale } from 'next-intl/server';
+} from "next/font/google";
+import localFont from "next/font/local";
+import { notFound } from "next/navigation";
+import { getMessages, setRequestLocale } from "next-intl/server";
 
-import { Navbar } from '#components/layout/NavBar/Navbar.tsx';
-import { Providers } from '#components/Providers';
-import { type Locales, locales } from '#i18n/locales';
-import { getMetadata } from '#utils/metadata';
+import { Navbar } from "#components/layout/NavBar/Navbar.tsx";
+import { Providers } from "#components/Providers";
+import { type Locales, locales } from "#i18n/locales";
+import { getMetadata } from "#utils/metadata";
 
 const notoSans = Noto_Sans({
-  subsets: ['latin'],
-  variable: '--font-noto-sans',
+  subsets: ["latin"],
+  variable: "--font-noto-sans",
 });
 
 const notoSansJP = Noto_Sans_JP({
-  subsets: ['latin'],
-  weight: 'variable',
-  variable: '--font-noto-sans-jp',
+  subsets: ["latin"],
+  weight: "variable",
+  variable: "--font-noto-sans-jp",
 });
 
 const notoSansKR = Noto_Sans_KR({
-  subsets: ['latin'],
-  weight: 'variable',
-  variable: '--font-noto-sans-kr',
+  subsets: ["latin"],
+  weight: "variable",
+  variable: "--font-noto-sans-kr",
 });
 
 const notoSansSC = Noto_Sans_SC({
-  subsets: ['latin'],
-  weight: 'variable',
-  variable: '--font-noto-sans-sc',
+  subsets: ["latin"],
+  weight: "variable",
+  variable: "--font-noto-sans-sc",
 });
 
 const notoSansTC = Noto_Sans_TC({
-  subsets: ['latin'],
-  weight: 'variable',
-  variable: '--font-noto-sans-tc',
+  subsets: ["latin"],
+  weight: "variable",
+  variable: "--font-noto-sans-tc",
 });
 
 const firaCode = Fira_Code({
-  subsets: ['latin'],
-  variable: '--font-fira-code',
+  subsets: ["latin"],
+  variable: "--font-fira-code",
 });
 
 const baikal = localFont({
-  src: '../../bundled_static/fonts/baikal_trial_ultra_condensed.woff2',
-  variable: '--font-baikal',
+  src: "../../bundled_static/fonts/baikal_trial_ultra_condensed.woff2",
+  variable: "--font-baikal",
 });
 
 const burbank = localFont({
-  src: '../../bundled_static/fonts/burbank_big_condensed_bold.woff2',
-  variable: '--font-burbank',
+  src: "../../bundled_static/fonts/burbank_big_condensed_bold.woff2",
+  variable: "--font-burbank",
 });
 
 // Adding a new font?
@@ -69,48 +69,39 @@ const burbank = localFont({
 // You'll need to add your fonts to:
 // - Tailwind's tailwind.config.ts file
 // - Storybook's fonts.css file
-const fonts = [
-  notoSans,
-  notoSansJP,
-  notoSansKR,
-  notoSansSC,
-  notoSansTC,
-  firaCode,
-  baikal,
-  burbank,
-];
+const fonts = [notoSans, notoSansJP, notoSansKR, notoSansSC, notoSansTC, firaCode, baikal, burbank];
 
 const systemFonts =
   "'-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif";
 
 function getFonts(locale: string) {
-  let primarySans = 'var(--font-noto-sans)';
-  let condensed = 'var(--font-baikal)';
-  let fortnite = 'var(--font-burbank)';
+  let primarySans = "var(--font-noto-sans)";
+  let condensed = "var(--font-baikal)";
+  let fortnite = "var(--font-burbank)";
 
   // Baikal (Condensed) and Burbank (Fortnite) are western-only fonts.
   // For other languages, we fallback to the appropriate Noto Sans font
   // to ensure characters are rendered correctly.
   switch (locale) {
-    case 'ja':
-      primarySans = 'var(--font-noto-sans-jp)';
-      condensed = 'var(--font-noto-sans-jp)';
-      fortnite = 'var(--font-noto-sans-jp)';
+    case "ja":
+      primarySans = "var(--font-noto-sans-jp)";
+      condensed = "var(--font-noto-sans-jp)";
+      fortnite = "var(--font-noto-sans-jp)";
       break;
-    case 'ko':
-      primarySans = 'var(--font-noto-sans-kr)';
-      condensed = 'var(--font-noto-sans-kr)';
-      fortnite = 'var(--font-noto-sans-kr)';
+    case "ko":
+      primarySans = "var(--font-noto-sans-kr)";
+      condensed = "var(--font-noto-sans-kr)";
+      fortnite = "var(--font-noto-sans-kr)";
       break;
-    case 'zh':
-      primarySans = 'var(--font-noto-sans-sc)';
-      condensed = 'var(--font-noto-sans-sc)';
-      fortnite = 'var(--font-noto-sans-sc)';
+    case "zh":
+      primarySans = "var(--font-noto-sans-sc)";
+      condensed = "var(--font-noto-sans-sc)";
+      fortnite = "var(--font-noto-sans-sc)";
       break;
-    case 'zh-tw':
-      primarySans = 'var(--font-noto-sans-tc)';
-      condensed = 'var(--font-noto-sans-tc)';
-      fortnite = 'var(--font-noto-sans-tc)';
+    case "zh-tw":
+      primarySans = "var(--font-noto-sans-tc)";
+      condensed = "var(--font-noto-sans-tc)";
+      fortnite = "var(--font-noto-sans-tc)";
       break;
   }
 
@@ -131,7 +122,7 @@ export async function generateMetadata({
 }
 
 export function generateStaticParams() {
-  return locales.map(locale => ({ locale }));
+  return locales.map((locale) => ({ locale }));
 }
 
 export default async function RootLayout({
@@ -158,12 +149,12 @@ export default async function RootLayout({
     <html
       suppressHydrationWarning
       lang={locale}
-      className={`bg-background text-foreground transition-colors duration-300 ${fonts.map(font => font.variable).join(' ')}`}
+      className={`bg-background text-foreground transition-colors duration-300 ${fonts.map((font) => font.variable).join(" ")}`}
       style={
         {
-          '--font-sans': sans,
-          '--font-condensed': condensed,
-          '--font-fortnite': fortnite,
+          "--font-sans": sans,
+          "--font-condensed": condensed,
+          "--font-fortnite": fortnite,
         } as React.CSSProperties
       }
     >

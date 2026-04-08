@@ -1,9 +1,9 @@
-import type { BeatmakerState, TrackId } from './types';
-import { TRACK_IDS } from './types';
+import type { BeatmakerState, TrackId } from "./types";
+import { TRACK_IDS } from "./types";
 
-type PresetDef = Omit<BeatmakerState, 'isPlaying'>;
+type PresetDef = Omit<BeatmakerState, "isPlaying">;
 
-function makeTrack(steps: boolean[]): BeatmakerState['tracks'][TrackId] {
+function makeTrack(steps: boolean[]): BeatmakerState["tracks"][TrackId] {
   return { steps, volume: 0.8, pan: 0, muted: false };
 }
 
@@ -16,7 +16,7 @@ const T = true,
   F = false;
 
 const BASIC_ROCK: PresetDef = {
-  kit: '808',
+  kit: "808",
   bpm: 120,
   stepCount: 16,
   tracks: {
@@ -30,7 +30,7 @@ const BASIC_ROCK: PresetDef = {
 };
 
 const FOUR_ON_FLOOR: PresetDef = {
-  kit: '808',
+  kit: "808",
   bpm: 128,
   stepCount: 16,
   tracks: {
@@ -44,7 +44,7 @@ const FOUR_ON_FLOOR: PresetDef = {
 };
 
 const BOOM_BAP: PresetDef = {
-  kit: '808',
+  kit: "808",
   bpm: 90,
   stepCount: 16,
   tracks: {
@@ -59,7 +59,7 @@ const BOOM_BAP: PresetDef = {
 
 // 32-step trap pattern (semiquavers)
 const TRAP: PresetDef = {
-  kit: '808',
+  kit: "808",
   bpm: 140,
   stepCount: 32,
   tracks: {
@@ -172,22 +172,22 @@ const TRAP: PresetDef = {
 };
 
 const BLANK_16: PresetDef = {
-  kit: '808',
+  kit: "808",
   bpm: 120,
   stepCount: 16,
   tracks: Object.fromEntries(
-    TRACK_IDS.map(id => [id, makeTrack(blank(16))]),
-  ) as BeatmakerState['tracks'],
+    TRACK_IDS.map((id) => [id, makeTrack(blank(16))]),
+  ) as BeatmakerState["tracks"],
 };
 
 export const PRESETS: Record<string, PresetDef> = {
-  'basic-rock': BASIC_ROCK,
-  'four-on-floor': FOUR_ON_FLOOR,
-  'boom-bap': BOOM_BAP,
+  "basic-rock": BASIC_ROCK,
+  "four-on-floor": FOUR_ON_FLOOR,
+  "boom-bap": BOOM_BAP,
   trap: TRAP,
   blank: BLANK_16,
 };
 
 export function buildDefaultState(): BeatmakerState {
-  return { ...PRESETS['basic-rock'], isPlaying: false };
+  return { ...PRESETS["basic-rock"], isPlaying: false };
 }

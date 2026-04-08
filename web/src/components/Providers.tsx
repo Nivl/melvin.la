@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { I18nProvider, Toast } from '@heroui/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import moment from 'moment-timezone';
-import { NextIntlClientProvider } from 'next-intl';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { I18nProvider, Toast } from "@heroui/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import moment from "moment-timezone";
+import { NextIntlClientProvider } from "next-intl";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-import { buildGetMessageFallback, MessagesType } from '../i18n/request';
+import { buildGetMessageFallback, MessagesType } from "../i18n/request";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +25,7 @@ export const Providers = ({
   locale: string;
   messages: MessagesType;
 }) => {
-  const momentLocale = locale == 'zh' ? 'zh-cn' : locale;
+  const momentLocale = locale == "zh" ? "zh-cn" : locale;
   moment.locale(momentLocale);
 
   return (

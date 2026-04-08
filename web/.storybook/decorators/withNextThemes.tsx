@@ -1,10 +1,10 @@
 // .storybook/decorators/with-next-themes.tsx
 
-import { DecoratorHelpers } from '@storybook/addon-themes';
-import type { ReactRenderer } from '@storybook/nextjs';
-import { ThemeProvider, type ThemeProviderProps, useTheme } from 'next-themes';
-import { type PropsWithChildren, useEffect } from 'react';
-import type { DecoratorFunction } from 'storybook/internal/types';
+import { DecoratorHelpers } from "@storybook/addon-themes";
+import type { ReactRenderer } from "@storybook/nextjs";
+import { ThemeProvider, type ThemeProviderProps, useTheme } from "next-themes";
+import { type PropsWithChildren, useEffect } from "react";
+import type { DecoratorFunction } from "storybook/internal/types";
 
 type ThemeSwitcherProps = PropsWithChildren<{
   theme: string;
@@ -15,7 +15,7 @@ const ThemeSwitcher = ({ theme, children }: ThemeSwitcherProps) => {
 
   useEffect(() => {
     if (
-      (theme === '' && currentTheme === 'system') ||
+      (theme === "" && currentTheme === "system") ||
       theme === currentTheme ||
       theme === resolvedTheme
     ) {
@@ -35,21 +35,14 @@ const ThemeSwitcher = ({ theme, children }: ThemeSwitcherProps) => {
   return <div className="bg-background">{children}</div>;
 };
 
-type NextThemesDecorator = Omit<
-  ThemeProviderProps,
-  'defaultTheme' | 'themes'
-> & {
+type NextThemesDecorator = Omit<ThemeProviderProps, "defaultTheme" | "themes"> & {
   themes: Record<string, string>;
   defaultTheme: string;
 };
 
 const { initializeThemeState, pluckThemeFromContext } = DecoratorHelpers;
 
-export const withNextThemes = ({
-  themes,
-  defaultTheme,
-  ...props
-}: NextThemesDecorator) => {
+export const withNextThemes = ({ themes, defaultTheme, ...props }: NextThemesDecorator) => {
   initializeThemeState(Object.keys(themes), defaultTheme);
 
   const decorator: DecoratorFunction<ReactRenderer> = (Story, context) => {

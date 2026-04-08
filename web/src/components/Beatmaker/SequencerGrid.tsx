@@ -1,11 +1,11 @@
-'use client';
-import type { BeatmakerState, TrackId } from '#models/beatmaker';
-import { TRACK_IDS } from '#models/beatmaker';
+"use client";
+import type { BeatmakerState, TrackId } from "#models/beatmaker";
+import { TRACK_IDS } from "#models/beatmaker";
 
-import { TrackRow } from './TrackRow';
+import { TrackRow } from "./TrackRow";
 
 type SequencerGridProps = {
-  tracks: BeatmakerState['tracks'];
+  tracks: BeatmakerState["tracks"];
   onStepToggle: (trackId: TrackId, index: number) => void;
   onFileLoad: (trackId: TrackId, file: File) => void;
   decodeErrors: Partial<Record<TrackId, string>>;
@@ -30,9 +30,9 @@ export function SequencerGrid({
         <div className="flex items-center gap-2">
           <div className="w-[72px] shrink-0" /> {/* label column spacer */}
           <div className="flex flex-1 items-center gap-3">
-            {groups.map(gi => (
+            {groups.map((gi) => (
               <div key={gi} className="flex gap-1.5">
-                {[0, 1, 2, 3].map(si => {
+                {[0, 1, 2, 3].map((si) => {
                   const n = gi * 4 + si + 1;
 
                   if (n > stepCount) {
@@ -41,7 +41,7 @@ export function SequencerGrid({
                   return (
                     <div
                       key={si}
-                      className={`flex h-4 w-9 items-center justify-center text-[9px] transition-colors ${gi * 4 + si === activeStep ? 'text-default font-bold' : 'text-default'}`}
+                      className={`flex h-4 w-9 items-center justify-center text-[9px] transition-colors ${gi * 4 + si === activeStep ? "font-bold text-default" : "text-default"}`}
                     >
                       {n}
                     </div>
@@ -52,15 +52,15 @@ export function SequencerGrid({
           </div>
         </div>
 
-        {TRACK_IDS.map(trackId => (
+        {TRACK_IDS.map((trackId) => (
           <TrackRow
             key={trackId}
             trackId={trackId}
             steps={tracks[trackId].steps}
-            onStepToggle={index => {
+            onStepToggle={(index) => {
               onStepToggle(trackId, index);
             }}
-            onFileLoad={file => {
+            onFileLoad={(file) => {
               onFileLoad(trackId, file);
             }}
             hasCustomFile={!!tracks[trackId].customFile}

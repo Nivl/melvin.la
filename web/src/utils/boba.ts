@@ -1,4 +1,4 @@
-import { random, randomInt } from 'es-toolkit';
+import { random, randomInt } from "es-toolkit";
 
 export type BobaCoordinate = {
   x: number;
@@ -20,8 +20,7 @@ export const bobaMaxAnimationDuration = 5000;
 export const bobaSoftShakeDuration = 800;
 export const bobaDefaultShakeOffset = 25;
 
-const randomDuration = () =>
-  randomInt(bobaMinAnimationDuration, bobaMaxAnimationDuration);
+const randomDuration = () => randomInt(bobaMinAnimationDuration, bobaMaxAnimationDuration);
 
 const randomShakeOffset = () => randomInt(20, 30);
 const randomShakeDelayMs = () => randomInt(0, 500);
@@ -105,12 +104,7 @@ export const roundOdd = (n: number) => {
 // - We need to be able to generate a full random array
 // - We also need to be able to only update at a specific index of a given array
 // - When updating a single ball, it should not overlap with its previous position and should be at least at a few "balls" distance away
-const validSpot = (
-  x: number,
-  y: number,
-  ignore: number,
-  arr: BobaCoordinate[],
-) => {
+const validSpot = (x: number, y: number, ignore: number, arr: BobaCoordinate[]) => {
   for (const [i, element] of arr.entries()) {
     if (i === ignore) {
       continue;
@@ -146,14 +140,8 @@ export const generateBalls = () => {
       let minOverlap = Infinity;
 
       for (let k = 0; k < 1000; k++) {
-        const tx = random(
-          bobaMinPositionX + bobaRadius,
-          bobaMaxPositionX - bobaRadius,
-        );
-        const ty = random(
-          bobaMinPositionY + bobaRadius,
-          bobaMaxPositionY - bobaRadius,
-        );
+        const tx = random(bobaMinPositionX + bobaRadius, bobaMaxPositionX - bobaRadius);
+        const ty = random(bobaMinPositionY + bobaRadius, bobaMaxPositionY - bobaRadius);
         let overlap = 0;
 
         for (const b of balls) {
@@ -202,9 +190,7 @@ export const updateBallAt = (index: number, balls: BobaCoordinate[]): void => {
     const dx = x - original.x;
     const dy = y - original.y;
 
-    ok =
-      validSpot(x, y, index, balls) &&
-      dx * dx + dy * dy >= minDistance * minDistance;
+    ok = validSpot(x, y, index, balls) && dx * dx + dy * dy >= minDistance * minDistance;
   } while (!ok && ++tries < 5000);
 
   if (!ok) {
@@ -213,14 +199,8 @@ export const updateBallAt = (index: number, balls: BobaCoordinate[]): void => {
     let bestDist = 0;
 
     for (let k = 0; k < 2000; k++) {
-      const tx = random(
-        bobaMinPositionX + bobaRadius,
-        bobaMaxPositionX - bobaRadius,
-      );
-      const ty = random(
-        bobaMinPositionY + bobaRadius,
-        bobaMaxPositionY - bobaRadius,
-      );
+      const tx = random(bobaMinPositionX + bobaRadius, bobaMaxPositionX - bobaRadius);
+      const ty = random(bobaMinPositionY + bobaRadius, bobaMaxPositionY - bobaRadius);
       const dx = tx - original.x;
       const dy = ty - original.y;
       const dist2 = dx * dx + dy * dy;

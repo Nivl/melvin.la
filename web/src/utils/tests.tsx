@@ -3,14 +3,14 @@
 import {
   AppRouterContext,
   AppRouterInstance,
-} from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import React from 'react';
-import { vitest } from 'vitest';
+} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import React from "react";
+import { vitest } from "vitest";
 
-import { Providers } from '#components/Providers.tsx';
-import { locales } from '#i18n/locales.ts';
+import { Providers } from "#components/Providers.tsx";
+import { locales } from "#i18n/locales.ts";
 
-import messages from '../../messages/en.json';
+import messages from "../../messages/en.json";
 
 type AppRouterContextProviderMockProps = {
   router?: Partial<AppRouterInstance>;
@@ -30,11 +30,7 @@ const AppRouterContextProviderMock = ({
     prefetch: vitest.fn(),
     ...router,
   };
-  return (
-    <AppRouterContext.Provider value={mockedRouter}>
-      {children}
-    </AppRouterContext.Provider>
-  );
+  return <AppRouterContext.Provider value={mockedRouter}>{children}</AppRouterContext.Provider>;
 };
 
 export const testWrapper: React.JSXElementConstructor<{

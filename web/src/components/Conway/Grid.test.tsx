@@ -1,9 +1,9 @@
-import { cleanup, fireEvent, render } from '@testing-library/react';
-import { afterEach, beforeEach, expect, test, vi } from 'vitest';
+import { cleanup, fireEvent, render } from "@testing-library/react";
+import { afterEach, beforeEach, expect, test, vi } from "vitest";
 
-import type { Board, BoardValue } from '#models/conway';
+import type { Board, BoardValue } from "#models/conway";
 
-import { ConwayGrid } from './Grid';
+import { ConwayGrid } from "./Grid";
 
 // setPointerCapture is not defined in jsdom; install a fresh vi.fn() before
 // each test so call counts never leak across tests, and delete it afterwards
@@ -15,7 +15,7 @@ beforeEach(() => {
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
-  Reflect.deleteProperty(HTMLElement.prototype, 'setPointerCapture');
+  Reflect.deleteProperty(HTMLElement.prototype, "setPointerCapture");
 });
 
 const makeBoard = (size: number, fill: BoardValue = 0): Board =>
@@ -27,7 +27,7 @@ const setup = ({
   board = makeBoard(3),
   boardSize = 3,
   isPlaying = false,
-  ariaLabel = 'Conway grid',
+  ariaLabel = "Conway grid",
 }: Partial<{
   board: Board;
   boardSize: number;
@@ -47,22 +47,22 @@ const setup = ({
   return { ...utils, onSetCell };
 };
 
-test('renders the correct number of cells', () => {
+test("renders the correct number of cells", () => {
   const { getByRole } = setup({ board: makeBoard(4), boardSize: 4 });
-  const grid = getByRole('region');
+  const grid = getByRole("region");
   expect(grid.children.length).toBe(16);
 });
 
-test('applies the aria-label prop', () => {
-  const { getByRole } = setup({ ariaLabel: 'My game grid' });
-  expect(getByRole('region', { name: 'My game grid' })).toBeDefined();
+test("applies the aria-label prop", () => {
+  const { getByRole } = setup({ ariaLabel: "My game grid" });
+  expect(getByRole("region", { name: "My game grid" })).toBeDefined();
 });
 
-test('calls onSetCell when pointer is pressed on a dead cell while not playing', () => {
+test("calls onSetCell when pointer is pressed on a dead cell while not playing", () => {
   const { getByRole, onSetCell } = setup({ board: makeBoard(3), boardSize: 3 });
-  const grid = getByRole('region');
+  const grid = getByRole("region");
 
-  vi.spyOn(grid, 'getBoundingClientRect').mockReturnValue({
+  vi.spyOn(grid, "getBoundingClientRect").mockReturnValue({
     left: 0,
     top: 0,
     width: 300,
@@ -80,13 +80,13 @@ test('calls onSetCell when pointer is pressed on a dead cell while not playing',
   expect(onSetCell).toHaveBeenCalledWith(0, 0, 1);
 });
 
-test('calls onSetCell to kill an alive cell on pointer down', () => {
+test("calls onSetCell to kill an alive cell on pointer down", () => {
   const board = makeBoard(3);
   if (board[1]) board[1][1] = 1; // centre cell is alive
   const { getByRole, onSetCell } = setup({ board, boardSize: 3 });
-  const grid = getByRole('region');
+  const grid = getByRole("region");
 
-  vi.spyOn(grid, 'getBoundingClientRect').mockReturnValue({
+  vi.spyOn(grid, "getBoundingClientRect").mockReturnValue({
     left: 0,
     top: 0,
     width: 300,
@@ -104,9 +104,9 @@ test('calls onSetCell to kill an alive cell on pointer down', () => {
   expect(onSetCell).toHaveBeenCalledWith(1, 1, 0);
 });
 
-test('does not call onSetCell on pointer down while playing', () => {
+test("does not call onSetCell on pointer down while playing", () => {
   const { getByRole, onSetCell } = setup({ isPlaying: true });
-  const grid = getByRole('region');
+  const grid = getByRole("region");
   fireEvent.pointerDown(grid, { clientX: 50, clientY: 50, pointerId: 1 });
   expect(onSetCell).not.toHaveBeenCalled();
 });

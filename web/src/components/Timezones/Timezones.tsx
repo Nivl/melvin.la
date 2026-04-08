@@ -1,37 +1,31 @@
-'use client';
+"use client";
 
-import {
-  Calendar,
-  DateField,
-  DatePicker,
-  Label,
-  TimeField,
-} from '@heroui/react';
-import { DateValue, getLocalTimeZone, now } from '@internationalized/date';
-import moment from 'moment-timezone';
-import { AnimatePresence } from 'motion/react';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { Calendar, DateField, DatePicker, Label, TimeField } from "@heroui/react";
+import { DateValue, getLocalTimeZone, now } from "@internationalized/date";
+import moment from "moment-timezone";
+import { AnimatePresence } from "motion/react";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
-import { Color, colors, LargePill } from '#components/layout/LargePill.tsx';
+import { Color, colors, LargePill } from "#components/layout/LargePill.tsx";
 
-import { Section } from '../layout/Section';
-import { CityAutoComplete } from './CityAutoComplete.tsx';
-import { City, CityData, CityDataWithExtras, sortedCities } from './data.tsx';
+import { Section } from "../layout/Section";
+import { CityAutoComplete } from "./CityAutoComplete.tsx";
+import { City, CityData, CityDataWithExtras, sortedCities } from "./data.tsx";
 
 const getColor = (skip?: Color): Color => {
-  const availableColors = colors.filter(color => color !== skip);
+  const availableColors = colors.filter((color) => color !== skip);
   return availableColors[Math.floor(Math.random() * availableColors.length)];
 };
 
 export const Timezones = () => {
-  const t = useTranslations('timezones');
+  const t = useTranslations("timezones");
 
   const [zones, setZones] = useState<CityDataWithExtras[]>([]);
   const [baseZone, setBaseZone] = useState<CityData>();
-  const [baseSearchValue, setBaseSearchValue] = useState<string>('');
+  const [baseSearchValue, setBaseSearchValue] = useState<string>("");
   const [baseSearchItems, setBaseSearchItems] = useState<City[]>([]);
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>("");
   const [searchItems, setSearchItems] = useState<City[]>([]);
   const [dateTime, setDateTime] = useState<DateValue | null | undefined>(
     now(getLocalTimeZone()).set({ second: 0, millisecond: 0 }),
@@ -81,22 +75,22 @@ export const Timezones = () => {
   return (
     <>
       <Section>
-        <h1 className="font-condensed leading-tight-xs sm:leading-tight-sm xl:leading-tight-xl text-center text-6xl font-bold uppercase sm:text-8xl xl:text-9xl">
-          {t('title')}
+        <h1 className="text-center font-condensed text-6xl leading-tight-xs font-bold uppercase sm:text-8xl sm:leading-tight-sm xl:text-9xl xl:leading-tight-xl">
+          {t("title")}
         </h1>
       </Section>
 
       <Section>
         <div className="flex flex-col items-center gap-4">
           <CityAutoComplete
-            label={t('fromLabel')}
-            ariaLabel={t('fromAriaLabel')}
+            label={t("fromLabel")}
+            ariaLabel={t("fromAriaLabel")}
             items={baseSearchItems}
             inputValue={baseSearchValue}
             onInputChange={searchBaseCity}
             testId="city-from"
-            onChange={key => {
-              if (typeof key === 'string' && ~~key < sortedCities.length) {
+            onChange={(key) => {
+              if (typeof key === "string" && ~~key < sortedCities.length) {
                 setBaseZone(sortedCities[~~key].data);
               }
             }}
@@ -106,7 +100,7 @@ export const Timezones = () => {
             className="chromatic-ignore w-full max-w-100 min-w-64"
             value={dateTime}
             onChange={setDateTime}
-            aria-label={t('dateTimeAriaLabel')}
+            aria-label={t("dateTimeAriaLabel")}
             granularity="minute"
             hideTimeZone
             name="date"
@@ -114,10 +108,10 @@ export const Timezones = () => {
           >
             {({ state }) => (
               <>
-                <Label>{t('dateTimeLabel')}</Label>
+                <Label>{t("dateTimeLabel")}</Label>
                 <DateField.Group fullWidth>
                   <DateField.Input>
-                    {segment => <DateField.Segment segment={segment} />}
+                    {(segment) => <DateField.Segment segment={segment} />}
                   </DateField.Input>
                   <DateField.Suffix>
                     <DatePicker.Trigger>
@@ -126,7 +120,7 @@ export const Timezones = () => {
                   </DateField.Suffix>
                 </DateField.Group>
                 <DatePicker.Popover className="flex flex-col gap-3">
-                  <Calendar aria-label={t('dateAriaLabel')}>
+                  <Calendar aria-label={t("dateAriaLabel")}>
                     <Calendar.Header>
                       <Calendar.YearPickerTrigger>
                         <Calendar.YearPickerTriggerHeading />
@@ -137,12 +131,10 @@ export const Timezones = () => {
                     </Calendar.Header>
                     <Calendar.Grid>
                       <Calendar.GridHeader>
-                        {day => (
-                          <Calendar.HeaderCell>{day}</Calendar.HeaderCell>
-                        )}
+                        {(day) => <Calendar.HeaderCell>{day}</Calendar.HeaderCell>}
                       </Calendar.GridHeader>
                       <Calendar.GridBody>
-                        {date => <Calendar.Cell date={date} />}
+                        {(date) => <Calendar.Cell date={date} />}
                       </Calendar.GridBody>
                     </Calendar.Grid>
                     <Calendar.YearPickerGrid>
@@ -152,15 +144,15 @@ export const Timezones = () => {
                     </Calendar.YearPickerGrid>
                   </Calendar>
                   <div className="flex items-center justify-between">
-                    <Label>{t('timeLabel')}</Label>
+                    <Label>{t("timeLabel")}</Label>
                     <TimeField
-                      aria-label={t('timeLabel')}
+                      aria-label={t("timeLabel")}
                       granularity="minute"
                       hideTimeZone
                       name="time"
                       shouldForceLeadingZeros
                       value={state.timeValue}
-                      onChange={v => {
+                      onChange={(v) => {
                         if (!v) {
                           return;
                         }
@@ -169,7 +161,7 @@ export const Timezones = () => {
                     >
                       <TimeField.Group variant="secondary">
                         <TimeField.Input>
-                          {segment => <TimeField.Segment segment={segment} />}
+                          {(segment) => <TimeField.Segment segment={segment} />}
                         </TimeField.Input>
                       </TimeField.Group>
                     </TimeField>
@@ -188,7 +180,7 @@ export const Timezones = () => {
                       key={zone.id}
                       item={zone}
                       onDelete={() => {
-                        setZones(zones => zones.toSpliced(i, 1));
+                        setZones((zones) => zones.toSpliced(i, 1));
                       }}
                     />
                   ))}
@@ -196,26 +188,23 @@ export const Timezones = () => {
               </div>
 
               <CityAutoComplete
-                label={t('toLabel')}
-                ariaLabel={t('toAriaLabel')}
+                label={t("toLabel")}
+                ariaLabel={t("toAriaLabel")}
                 className="mt-20"
                 items={searchItems}
                 inputValue={searchValue}
                 onInputChange={searchTargetCity}
                 testId="city-to"
-                onChange={key => {
-                  if (typeof key === 'string' && ~~key < sortedCities.length) {
+                onChange={(key) => {
+                  if (typeof key === "string" && ~~key < sortedCities.length) {
                     const newZone: CityDataWithExtras = {
                       ...sortedCities[~~key].data,
                       id: crypto.randomUUID(),
                       color: getColor(zones.at(-1)?.color),
-                      content: t.rich('output', {
+                      content: t.rich("output", {
                         city: sortedCities[~~key].data.city,
-                        time: date
-                          .clone()
-                          .tz(sortedCities[~~key].data.timezone)
-                          .format('LLLL'),
-                        cityWrapper: chunk => (
+                        time: date.clone().tz(sortedCities[~~key].data.timezone).format("LLLL"),
+                        cityWrapper: (chunk) => (
                           <div className="inline font-bold">
                             <span>{chunk}</span>
                           </div>
@@ -224,7 +213,7 @@ export const Timezones = () => {
                     };
                     setZones([...zones, newZone]);
                     setSearchItems([]);
-                    setSearchValue('');
+                    setSearchValue("");
                   }
                 }}
               />

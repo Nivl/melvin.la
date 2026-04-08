@@ -1,9 +1,9 @@
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from "tailwind-merge";
 
 export function Section({
   children,
   fullScreen = false,
-  className = '',
+  className = "",
 }: {
   children: React.ReactNode;
   fullScreen?: boolean;

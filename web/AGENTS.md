@@ -8,6 +8,7 @@
 
 ```bash
 pnpm run lint --fix        # must pass (auto-fixes where possible)
+pnpm run fmt               # must pass (auto-formats where possible)
 pnpm run validate-code     # must pass
 pnpm run test:unit         # must pass (one-shot unit test run)
 pnpm run test:e2e          # must pass
@@ -51,14 +52,16 @@ src/
 **Package Manager**: pnpm
 **Routing**: App Router (`src/app/` directory structure)
 **Testing**:
+
 - unit-test: Vitest + React Testing Library + helpers in `src/utils/test.ts`
 - end-to-end: Playwright
 - Visual regression: Storybook + Chromatic
 - Mock API: MSW (in `src/backend/mocks/`)
-**Internationalization**: `next-intl`
-**Logger**: `@sentry/nextjs`
+  **Internationalization**: `next-intl`
+  **Logger**: `@sentry/nextjs`
 
 ### Key Dependencies
+
 - `next-mdx-remote`: MDX content rendering
 - `@tanstack/react-query`: Server state management
 - `openapi-react-query`: Generated API client hooks
@@ -73,35 +76,40 @@ The app directory should only contains routing and layout files. All reusable co
 ## IMPORT CONVENTIONS
 
 **REQUIRED**: Use `#` prefix for all src imports (mapped to `./src/`)
+
 ```typescript
 // ✅ Correct
-import { BlogPost } from '#components/blog/BlogPost'
-import { useStats } from '#hooks/fortnite/useStats'
+import { BlogPost } from "#components/blog/BlogPost";
+import { useStats } from "#hooks/fortnite/useStats";
 
 // ❌ Wrong
-import { BlogPost } from '../components/blog/BlogPost'
-import { BlogPost } from './src/components/blog/BlogPost'
+import { BlogPost } from "../components/blog/BlogPost";
+import { BlogPost } from "./src/components/blog/BlogPost";
 ```
 
 **Exception**: Relative imports only for files in same directory
+
 ```typescript
 // ✅ Acceptable if in same folder
-import { helper } from './helper'
+import { helper } from "./helper";
 ```
 
 ## COMPONENT PATTERNS
 
 ### File Naming
+
 - Components: PascalCase directories and files
 - Tests: `ComponentName.test.tsx` (same directory)
 - Stories: `ComponentName.stories.tsx` (same directory)
 
 ### Organization
+
 - General components: `src/components/`
 - Feature-specific: `src/components/[feature]/`
 - Hooks: `src/hooks/` or `src/hooks/[feature]/`
 
 ### Required Files for New Components
+
 1. Component file: `ComponentName.tsx`
 2. Test file: `ComponentName.test.tsx`
 3. Story file: `ComponentName.stories.tsx`
@@ -109,11 +117,13 @@ import { helper } from './helper'
 ## BLOG SYSTEM
 
 **Content Location**: `src/bundled_static/content/blog/<article_key>/<language_code>.mdx`
-**Build Process**: 
+**Build Process**:
+
 1. `scripts/prebuild.ts` - Processes MDX files into SQLite database
 2. `scripts/postbuild.ts` - Post-build cleanup
 
 **MDX Frontmatter Format**:
+
 ```yaml
 ---
 title: "Article Title"
@@ -122,7 +132,7 @@ excerpt: "Short description"
 image: "cover.avif"
 ogImage: "cover.jpg"
 createdAt: "2025-07-03"
-updatedAt: "2025-07-03"  # optional
+updatedAt: "2025-07-03" # optional
 ---
 ```
 
@@ -143,31 +153,33 @@ updatedAt: "2025-07-03"  # optional
 - Mocks should allow easy triggering of error states for testing purposes.
 - Playwright tests should import helpers from `e2e/helpers.ts`.
 
-
 ## INTERNATIONALIZATION (i18n)
 
 **Configuration**: `src/i18n/`
 **Messages**: `messages/`
 
 ### Adding a New Locale
+
 1.  Update `src/i18n/locales.ts`:
-    *   Add the new locale code to the `locales` array.
+    - Add the new locale code to the `locales` array.
 2.  Create a new message file:
-    *   Create `messages/[locale].json` (e.g., `messages/es.json`).
-    *   Fill out the file based off `messages/en.d.json.ts`.
+    - Create `messages/[locale].json` (e.g., `messages/es.json`).
+    - Fill out the file based off `messages/en.d.json.ts`.
 3.  Write all the blog articles for that locale (`src/bundled_static/content/blog/*/[locale].mdx`)
 4.  Configure Font:
-    *   Check if the language requires a specific Noto font (e.g., Noto Sans JP).
-    *   If needed, import and configure it in `src/app/[locale]/layout.tsx`.
-    *   Add the variable to `src/app/globals.css`.
-    *   Note: We provide Latin-specific font variables (e.g., `--font-condensed-latin`) in `globals.css` for cases where a specific Western font (like Baikal) must be used regardless of the locale. Use these specific variables/classes when the design demands it.
+    - Check if the language requires a specific Noto font (e.g., Noto Sans JP).
+    - If needed, import and configure it in `src/app/[locale]/layout.tsx`.
+    - Add the variable to `src/app/globals.css`.
+    - Note: We provide Latin-specific font variables (e.g., `--font-condensed-latin`) in `globals.css` for cases where a specific Western font (like Baikal) must be used regardless of the locale. Use these specific variables/classes when the design demands it.
 
 ### Adding New Strings
+
 1.  Add the key-value pair to `messages/en.json` (source of truth).
 2.  Add the corresponding translation to all other `messages/[locale].json` files.
 3.  Use nested keys for organization (e.g., `"HomePage": { "title": "..." }`).
 
 ### Usage in Components
+
 ```typescript
 import { useTranslations } from 'next-intl';
 
@@ -180,9 +192,10 @@ export function MyComponent() {
 ## ENVIRONMENT VARIABLES
 
 **Development** (`.env.development` - committed):
+
 ```
 NEXT_PUBLIC_API_URL=http://localhost
-NEXT_PUBLIC_BASE_URL=http://localhost:3000  
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
 NEXT_PUBLIC_GCP_MAP_API_KEY=
 ```
 
@@ -293,14 +306,14 @@ logger.fatal("Database connection pool exhausted", {
 });
 ```
 
-
 ## COMMANDS
 
 ```bash
 pnpm run dev          # Start dev server
 pnpm run build        # Production build
 pnpm run typecheck    # TypeScript type check
-pnpm run lint         # ESLint check
+pnpm run lint         # oxlint check
+pnpm run fmt          # Format code with oxfmt
 pnpm run test:unit    # Run all unit tests
 pnpm run test:e2e     # Run all end-to-end tests
 pnpm run knip         # Check unused dependencies
@@ -311,11 +324,12 @@ pnpm validate-code    # Validate code quality
 
 ## QUALITY REQUIREMENTS
 
-**Eslint**: must not disable any rules unless absolutely necessary.
+**Eslint/oxlint**: must not disable any rules unless absolutely necessary.
 
 **critical**: Always make sure this file is up to date with the latest standards and code architecture when changing any piece of code.
 
 **New Component Checklist**:
+
 - [ ] Component implementation
 - [ ] Unit tests (.test.tsx)
 - [ ] Updated end-to-end tests if applicable
@@ -328,6 +342,7 @@ pnpm validate-code    # Validate code quality
 **Format**: Conventional Commits (https://conventionalcommits.org/)
 **Scopes**: Feature name, then optionally project name
 **Examples**:
+
 ```
 feat(blog): add MDX support for code blocks
 fix(fortnite,web): resolve API connection issues

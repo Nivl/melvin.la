@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Button,
@@ -9,14 +9,14 @@ import {
   Select,
   Separator,
   Slider,
-} from '@heroui/react';
-import { useTranslations } from 'next-intl';
-import { FaPlay as PlayIcon, FaStop as StopIcon } from 'react-icons/fa6';
-import { GiMaze as MazeIcon } from 'react-icons/gi';
-import { MdClear as ClearIcon } from 'react-icons/md';
+} from "@heroui/react";
+import { useTranslations } from "next-intl";
+import { FaPlay as PlayIcon, FaStop as StopIcon } from "react-icons/fa6";
+import { GiMaze as MazeIcon } from "react-icons/gi";
+import { MdClear as ClearIcon } from "react-icons/md";
 
-import { CELL_COLORS } from '#components/Pathfinding/Grid';
-import type { Algorithm, PlacementMode } from '#utils/pathfinding/types';
+import { CELL_COLORS } from "#components/Pathfinding/Grid";
+import type { Algorithm, PlacementMode } from "#utils/pathfinding/types";
 
 export const SPEED_VALUES = {
   slow: 80,
@@ -70,13 +70,13 @@ export const Controls = ({
   onClearAll,
   onGenerateMaze,
 }: ControlsProps) => {
-  const t = useTranslations('pathfinding');
+  const t = useTranslations("pathfinding");
 
   const algorithmOptions: { key: Algorithm; label: string }[] = [
-    { key: 'astar', label: t('algorithms.astar') },
-    { key: 'dijkstra', label: t('algorithms.dijkstra') },
-    { key: 'bfs', label: t('algorithms.bfs') },
-    { key: 'dfs', label: t('algorithms.dfs') },
+    { key: "astar", label: t("algorithms.astar") },
+    { key: "dijkstra", label: t("algorithms.dijkstra") },
+    { key: "bfs", label: t("algorithms.bfs") },
+    { key: "dfs", label: t("algorithms.dfs") },
   ];
 
   return (
@@ -86,8 +86,8 @@ export const Controls = ({
         className="w-[256px]"
         isDisabled={isAnimating}
         value={algorithm}
-        onChange={selection => {
-          if (selection === 'all') {
+        onChange={(selection) => {
+          if (selection === "all") {
             return;
           }
           if (selection) {
@@ -95,14 +95,14 @@ export const Controls = ({
           }
         }}
       >
-        <Label>{t('algorithmLabel')}</Label>
+        <Label>{t("algorithmLabel")}</Label>
         <Select.Trigger>
           <Select.Value />
           <Select.Indicator />
         </Select.Trigger>
         <Select.Popover>
           <ListBox>
-            {algorithmOptions.map(opt => (
+            {algorithmOptions.map((opt) => (
               <ListBox.Item key={opt.key} id={opt.key} textValue={opt.label}>
                 {opt.label}
                 <ListBox.ItemIndicator />
@@ -110,7 +110,7 @@ export const Controls = ({
             ))}
           </ListBox>
         </Select.Popover>
-        {algorithm === 'dfs' && <Description> {t('dfsWarning')}</Description>}
+        {algorithm === "dfs" && <Description> {t("dfsWarning")}</Description>}
       </Select>
 
       {/* Speed slider
@@ -129,23 +129,19 @@ export const Controls = ({
         maxValue={SPEED_VALUES.slow}
         step={1}
         value={SPEED_VALUES.fast + SPEED_VALUES.slow - speed}
-        onChange={v => {
-          const raw = typeof v === 'number' ? v : v[0];
+        onChange={(v) => {
+          const raw = typeof v === "number" ? v : v[0];
           onSpeedChange(SPEED_VALUES.fast + SPEED_VALUES.slow - raw);
         }}
         isDisabled={isAnimating}
       >
-        <Label>{t('speedLabel')}</Label>
+        <Label>{t("speedLabel")}</Label>
         <Slider.Output>
           {/* The percentage is computed so that 100% = fastest (SPEED_VALUES.fast = 5)
               and ~6% = slowest (SPEED_VALUES.slow = 80). The minimum never reaches 0%
               because SPEED_VALUES.fast is added to the numerator as a floor, ensuring
               the animation always advances even at the slowest setting. */}
-          {(
-            ((SPEED_VALUES.fast + SPEED_VALUES.slow - speed) /
-              SPEED_VALUES.slow) *
-            100
-          ).toFixed(0)}
+          {(((SPEED_VALUES.fast + SPEED_VALUES.slow - speed) / SPEED_VALUES.slow) * 100).toFixed(0)}
           %
         </Slider.Output>
         <Slider.Track>
@@ -160,12 +156,12 @@ export const Controls = ({
         maxValue={GRID_SIZE_CONSTRAINTS.MAX_ROWS}
         step={1}
         value={rows}
-        onChange={v => {
-          onRowsChange(typeof v === 'number' ? v : v[0]);
+        onChange={(v) => {
+          onRowsChange(typeof v === "number" ? v : v[0]);
         }}
         isDisabled={isAnimating}
       >
-        <Label>{t('rowsLabel')}</Label>
+        <Label>{t("rowsLabel")}</Label>
         <Slider.Output />
         <Slider.Track>
           <Slider.Fill />
@@ -178,12 +174,12 @@ export const Controls = ({
         maxValue={GRID_SIZE_CONSTRAINTS.MAX_COLS}
         step={1}
         value={cols}
-        onChange={v => {
-          onColsChange(typeof v === 'number' ? v : v[0]);
+        onChange={(v) => {
+          onColsChange(typeof v === "number" ? v : v[0]);
         }}
         isDisabled={isAnimating}
       >
-        <Label>{t('colsLabel')}</Label>
+        <Label>{t("colsLabel")}</Label>
         <Slider.Output />
         <Slider.Track>
           <Slider.Fill />
@@ -194,40 +190,35 @@ export const Controls = ({
       <Separator variant="tertiary" />
 
       {/* Mode selector */}
-      <ButtonGroup
-        variant="outline"
-        isDisabled={isAnimating}
-        size="sm"
-        fullWidth
-      >
+      <ButtonGroup variant="outline" isDisabled={isAnimating} size="sm" fullWidth>
         <Button
           className="text-xs"
-          variant={placementMode === 'draw-walls' ? 'primary' : 'outline'}
+          variant={placementMode === "draw-walls" ? "primary" : "outline"}
           onPress={() => {
-            onPlacementModeChange('draw-walls');
+            onPlacementModeChange("draw-walls");
           }}
         >
-          {t('drawWallsButton')}
+          {t("drawWallsButton")}
         </Button>
         <Button
           className="text-xs"
-          variant={placementMode === 'place-start' ? 'primary' : 'outline'}
+          variant={placementMode === "place-start" ? "primary" : "outline"}
           onPress={() => {
-            onPlacementModeChange('place-start');
+            onPlacementModeChange("place-start");
           }}
         >
           <ButtonGroup.Separator />
-          {t('placeStartButton')}
+          {t("placeStartButton")}
         </Button>
         <Button
           className="text-xs"
-          variant={placementMode === 'place-end' ? 'primary' : 'outline'}
+          variant={placementMode === "place-end" ? "primary" : "outline"}
           onPress={() => {
-            onPlacementModeChange('place-end');
+            onPlacementModeChange("place-end");
           }}
         >
           <ButtonGroup.Separator />
-          {t('placeEndButton')}
+          {t("placeEndButton")}
         </Button>
       </ButtonGroup>
 
@@ -242,7 +233,7 @@ export const Controls = ({
         isDisabled={isAnimating}
       >
         <MazeIcon className="w-3" />
-        {t('generateMazeButton')}
+        {t("generateMazeButton")}
       </Button>
 
       {/* Visualize / Stop */}
@@ -255,7 +246,7 @@ export const Controls = ({
           isDisabled={!isAnimating}
         >
           <StopIcon className="w-3" />
-          {t('stopButton')}
+          {t("stopButton")}
         </Button>
       ) : (
         <Button
@@ -266,7 +257,7 @@ export const Controls = ({
           isDisabled={isAnimating}
         >
           <PlayIcon className="h-3" />
-          {t('visualizeButton')}
+          {t("visualizeButton")}
         </Button>
       )}
       {/* Clear Path */}
@@ -278,7 +269,7 @@ export const Controls = ({
           onPress={onReset}
           isDisabled={isAnimating}
         >
-          {t('resetButton')}
+          {t("resetButton")}
         </Button>
       )}
       {/* Clear All */}
@@ -290,7 +281,7 @@ export const Controls = ({
         isDisabled={isAnimating}
       >
         <ClearIcon className="w-3" />
-        {t('clearAllButton')}
+        {t("clearAllButton")}
       </Button>
 
       <Separator variant="tertiary" />
@@ -299,17 +290,15 @@ export const Controls = ({
       <div className="flex flex-col gap-1.5">
         {(
           [
-            [CELL_COLORS.start, t('legend.start')],
-            [CELL_COLORS.end, t('legend.end')],
-            [CELL_COLORS.wall, t('legend.wall')],
-            [CELL_COLORS.visited, t('legend.visited')],
-            [CELL_COLORS.path, t('legend.path')],
+            [CELL_COLORS.start, t("legend.start")],
+            [CELL_COLORS.end, t("legend.end")],
+            [CELL_COLORS.wall, t("legend.wall")],
+            [CELL_COLORS.visited, t("legend.visited")],
+            [CELL_COLORS.path, t("legend.path")],
           ] as [string, string][]
         ).map(([color, label]) => (
           <div key={label} className="flex items-center gap-2 text-xs">
-            <span
-              className={`inline-block h-3 w-3 shrink-0 rounded-sm ${color}`}
-            />
+            <span className={`inline-block h-3 w-3 shrink-0 rounded-sm ${color}`} />
             {label}
           </div>
         ))}

@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from "@storybook/nextjs";
 
-import { CodeBlock } from './CodeBlock';
+import { CodeBlock } from "./CodeBlock";
 
 const meta = {
-  title: 'Components/Layout/CodeBlock',
+  title: "Components/Layout/CodeBlock",
   component: CodeBlock,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof CodeBlock>;
 
@@ -32,7 +32,7 @@ float Q_rsqrt( float number )
 
 	return y;
 }`,
-    language: 'c',
+    language: "c",
     showlinenumbers: true,
   },
 };

@@ -1,9 +1,9 @@
-import { rm } from 'node:fs/promises';
+import { rm } from "node:fs/promises";
 
-import { database } from '#ssg/database';
-import { BUILD_DIR } from '#ssg/paths';
+import { database } from "#ssg/database";
+import { BUILD_DIR } from "#ssg/paths";
 
-import { setup } from './utils';
+import { setup } from "./utils";
 
 const main = async () => {
   await setup();

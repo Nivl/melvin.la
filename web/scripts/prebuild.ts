@@ -1,16 +1,16 @@
-import { readdir, readFile, rm } from 'node:fs/promises';
-import path from 'node:path';
-import { type DatabaseSync } from 'node:sqlite';
+import { readdir, readFile, rm } from "node:fs/promises";
+import path from "node:path";
+import { type DatabaseSync } from "node:sqlite";
 
-import matter from 'gray-matter';
+import matter from "gray-matter";
 
-import { BlogPost } from '#models/blog/post';
-import { database } from '#ssg/database';
-import { BLOG_POSTS_DIR, BUILD_DIR } from '#ssg/paths';
+import { BlogPost } from "#models/blog/post";
+import { database } from "#ssg/database";
+import { BLOG_POSTS_DIR, BUILD_DIR } from "#ssg/paths";
 
-import { setup } from './utils';
+import { setup } from "./utils";
 
-type Frontmatter = Omit<BlogPost, 'updatedAt'> & {
+type Frontmatter = Omit<BlogPost, "updatedAt"> & {
   updatedAt?: string;
 };
 
@@ -48,35 +48,26 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
 
   for (const articleDir of articlesDirs) {
     if (!articleDir.isDirectory()) {
-      throw new Error(
-        `file found in root blog posts directory: ${articleDir.name}`,
-      );
+      throw new Error(`file found in root blog posts directory: ${articleDir.name}`);
     }
     const articleDirPath = path.join(BLOG_POSTS_DIR, articleDir.name);
     const slug = articleDir.name;
 
     const files = await readdir(articleDirPath, { withFileTypes: true });
     for (const file of files) {
-      if (!file.isFile() || !file.name.endsWith('.mdx')) {
+      if (!file.isFile() || !file.name.endsWith(".mdx")) {
         throw new Error(`file found in a blog post directory: ${file.name}`);
       }
 
-      const language = path
-        .basename(file.name, path.extname(file.name))
-        .toLocaleLowerCase();
-      const content = await readFile(
-        path.join(file.parentPath, file.name),
-        'utf8',
-      );
+      const language = path.basename(file.name, path.extname(file.name)).toLocaleLowerCase();
+      const content = await readFile(path.join(file.parentPath, file.name), "utf8");
       const mdxSource = matter(content);
 
       const { title, createdAt, updatedAt, excerpt, image, ogImage } =
         mdxSource.data as Frontmatter;
 
-      const createdAtDT = createdAt + ' T8:00:00.000Z';
-      const updatedAtDT = updatedAt
-        ? updatedAt + ' T8:00:00.000Z'
-        : createdAtDT;
+      const createdAtDT = createdAt + " T8:00:00.000Z";
+      const updatedAtDT = updatedAt ? updatedAt + " T8:00:00.000Z" : createdAtDT;
 
       stmt.run(
         slug,

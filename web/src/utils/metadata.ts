@@ -1,10 +1,10 @@
-import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-import { locales } from '#i18n/locales';
+import { locales } from "#i18n/locales";
 
 export const getMetadata = async ({
-  pageUrl = '',
+  pageUrl = "",
   title,
   description,
   imageURL,
@@ -15,41 +15,40 @@ export const getMetadata = async ({
   title?: string;
   description?: string;
   imageURL?: string;
-  extraOg?: Metadata['openGraph'];
+  extraOg?: Metadata["openGraph"];
   locale: string;
 }): Promise<Metadata> => {
-  const t = await getTranslations({ locale, namespace: 'home.metadata' });
+  const t = await getTranslations({ locale, namespace: "home.metadata" });
 
-  if (pageUrl && !pageUrl.startsWith('/')) {
-    pageUrl = '/' + pageUrl;
+  if (pageUrl && !pageUrl.startsWith("/")) {
+    pageUrl = "/" + pageUrl;
   }
 
-  const images = [{ url: imageURL ?? '/assets/og.jpg' }];
-  const domain = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://melvin.la';
-  const baseURL = locale === 'en' ? domain : `${domain}/${locale}`;
+  const images = [{ url: imageURL ?? "/assets/og.jpg" }];
+  const domain = process.env.NEXT_PUBLIC_BASE_URL ?? "https://melvin.la";
+  const baseURL = locale === "en" ? domain : `${domain}/${locale}`;
   const url = pageUrl ? baseURL + pageUrl : baseURL;
 
   // We list all languages for the alternate links, for SEO purposes
   const languages: Record<string, string> = {
-    ['x-default']: domain + pageUrl,
+    ["x-default"]: domain + pageUrl,
   };
   for (const loc of locales) {
-    languages[loc] =
-      loc === 'en' ? domain + pageUrl : `${domain}/${loc}${pageUrl}`;
+    languages[loc] = loc === "en" ? domain + pageUrl : `${domain}/${loc}${pageUrl}`;
   }
 
   return {
     metadataBase: new URL(domain),
-    title: (title ?? 'Melvin Laplanche') + ' - melvin.la',
-    description: description ?? t('description'),
+    title: (title ?? "Melvin Laplanche") + " - melvin.la",
+    description: description ?? t("description"),
     keywords: [],
     authors: [
       {
-        name: 'Melvin Laplanche',
+        name: "Melvin Laplanche",
         url: domain,
       },
     ],
-    robots: 'index, follow',
+    robots: "index, follow",
     alternates: {
       canonical: url,
       languages,
@@ -58,14 +57,14 @@ export const getMetadata = async ({
       title,
       description,
       url: url,
-      siteName: 'melvin.la',
+      siteName: "melvin.la",
       images,
-      type: 'website',
+      type: "website",
       locale,
       ...extraOg,
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
       images,

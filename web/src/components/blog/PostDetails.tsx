@@ -1,8 +1,8 @@
-import { Card } from '@heroui/react';
-import Image from 'next/image';
+import { Card } from "@heroui/react";
+import Image from "next/image";
 
-import { Link } from '#i18n/routing';
-import { BlogPost } from '#models/blog/post';
+import { Link } from "#i18n/routing";
+import { BlogPost } from "#models/blog/post";
 
 export function PostDetails({ post }: { post: BlogPost }) {
   return (

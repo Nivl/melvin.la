@@ -22,6 +22,7 @@ Piénsalo como un equipo descentralizado. Cada servicio gestiona su propia base 
 En la práctica, esto es genial para grandes organizaciones donde coordinar un solo lanzamiento entre 500 desarrolladores es una pesadilla.
 
 #### Diagrama: Arquitectura de Microservicios
+
 ```hidden
 digraph G {
   bgcolor="transparent";
@@ -46,7 +47,10 @@ digraph G {
 }
 ```
 
-<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-microservice.svg"}
+<Image
+  src={
+    "/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-microservice.svg"
+  }
   priority={true}
   width={372}
   height={300}
@@ -89,7 +93,10 @@ digraph Monolith {
 }
 ```
 
-<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-monolith.svg"}
+<Image
+  src={
+    "/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-monolith.svg"
+  }
   priority={true}
   width={307}
   height={600}
@@ -101,27 +108,27 @@ digraph Monolith {
 
 ### ¿Por qué elegir Microservicios?
 
-*   **Escala lo que necesita escalarse:** Si tu función de procesamiento de video está saturando la CPU pero tu página de inicio de sesión está inactiva, puedes añadir más servidores solo al servicio de video.
-*   **Libertad de stack:** No estás atado a las decisiones tecnológicas que tomaste hace 5 años. Los nuevos servicios pueden usar herramientas modernas.
-*   **Resiliencia:** Idealmente, si el servicio de "Recomendaciones" falla, el resto del sitio (como "Pago") sigue funcionando.
+- **Escala lo que necesita escalarse:** Si tu función de procesamiento de video está saturando la CPU pero tu página de inicio de sesión está inactiva, puedes añadir más servidores solo al servicio de video.
+- **Libertad de stack:** No estás atado a las decisiones tecnológicas que tomaste hace 5 años. Los nuevos servicios pueden usar herramientas modernas.
+- **Resiliencia:** Idealmente, si el servicio de "Recomendaciones" falla, el resto del sitio (como "Pago") sigue funcionando.
 
 ### El costo de los Microservicios
 
-*   **Complejidad Operativa:** Estás intercambiando complejidad de código por complejidad de infraestructura. Ahora tienes que monitorear, registrar y rastrear solicitudes a través de docenas de servicios.
-*   **Latencia:** Una llamada de función en memoria son nanosegundos. Una llamada de red a otro servicio son milisegundos. Eso se suma.
-*   **Los Sistemas Distribuidos son difíciles:** Las transacciones que abarcan múltiples servicios son un dolor de cabeza. Mantener la consistencia de los datos requiere un diseño cuidadoso.
+- **Complejidad Operativa:** Estás intercambiando complejidad de código por complejidad de infraestructura. Ahora tienes que monitorear, registrar y rastrear solicitudes a través de docenas de servicios.
+- **Latencia:** Una llamada de función en memoria son nanosegundos. Una llamada de red a otro servicio son milisegundos. Eso se suma.
+- **Los Sistemas Distribuidos son difíciles:** Las transacciones que abarcan múltiples servicios son un dolor de cabeza. Mantener la consistencia de los datos requiere un diseño cuidadoso.
 
 ### ¿Por qué quedarse con un Monolito?
 
-*   **La simplicidad manda:** Navegar por el código es fácil. Las herramientas del IDE como "Ir a la Definición" realmente funcionan.
-*   **Rendimiento:** Sin sobrecarga de red para llamadas internas. Todo ocurre dentro del proceso.
-*   **Pruebas Fáciles:** Puedes levantar toda la aplicación en tu laptop y ejecutar pruebas de extremo a extremo sin simular todo internet.
+- **La simplicidad manda:** Navegar por el código es fácil. Las herramientas del IDE como "Ir a la Definición" realmente funcionan.
+- **Rendimiento:** Sin sobrecarga de red para llamadas internas. Todo ocurre dentro del proceso.
+- **Pruebas Fáciles:** Puedes levantar toda la aplicación en tu laptop y ejecutar pruebas de extremo a extremo sin simular todo internet.
 
 ### El límite del Monolito
 
-*   **Dolores de escalado:** Tienes que escalar toda la aplicación, incluso si solo una parte es el cuello de botella.
-*   **Acoplamiento:** Es fácil crear "código espagueti" donde todo depende de todo lo demás. Un mal commit puede romper toda la aplicación.
-*   **Miedo al despliegue:** Desplegar un monolito masivo puede ser lento y arriesgado, llevando al "miedo al despliegue" y ciclos de lanzamiento más lentos.
+- **Dolores de escalado:** Tienes que escalar toda la aplicación, incluso si solo una parte es el cuello de botella.
+- **Acoplamiento:** Es fácil crear "código espagueti" donde todo depende de todo lo demás. Un mal commit puede romper toda la aplicación.
+- **Miedo al despliegue:** Desplegar un monolito masivo puede ser lento y arriesgado, llevando al "miedo al despliegue" y ciclos de lanzamiento más lentos.
 
 ### La trampa de "Demasiados Servicios"
 
@@ -134,14 +141,16 @@ Cuando cruzas ese umbral, muchos servicios ya no tienen dueños claros, o los du
 No elijas una arquitectura porque esté de moda. Elígela porque resuelve tus problemas actuales.
 
 **Elige Microservicios si:**
-*   Tienes una gran organización de ingeniería (piensa en 50+ devs) y necesitas desacoplar equipos.
-*   Tienes componentes distintos con requisitos de recursos muy diferentes (ej., un pipeline de ML pesado vs una simple app CRUD).
-*   Estás alcanzando límites duros de escalado que un monolito simplemente no puede manejar.
+
+- Tienes una gran organización de ingeniería (piensa en 50+ devs) y necesitas desacoplar equipos.
+- Tienes componentes distintos con requisitos de recursos muy diferentes (ej., un pipeline de ML pesado vs una simple app CRUD).
+- Estás alcanzando límites duros de escalado que un monolito simplemente no puede manejar.
 
 **Elige un Monolito si:**
-*   Eres una startup o un equipo pequeño. La velocidad de iteración es tu métrica más importante.
-*   Tu dominio está estrechamente integrado. Si cambiar una característica casi siempre requiere cambiar otra, separarlas solo añadirá dolor.
-*   Estás prototipando. Aún no conoces los límites de tu dominio. Dividir servicios prematuramente es un error clásico.
+
+- Eres una startup o un equipo pequeño. La velocidad de iteración es tu métrica más importante.
+- Tu dominio está estrechamente integrado. Si cambiar una característica casi siempre requiere cambiar otra, separarlas solo añadirá dolor.
+- Estás prototipando. Aún no conoces los límites de tu dominio. Dividir servicios prematuramente es un error clásico.
 
 ## 4. El Camino Pragmático: El Monolito Modular y la División Gradual
 
@@ -149,7 +158,7 @@ Aquí está el secreto: no tienes que saltar directamente a los microservicios. 
 
 Un **Monolito Modular** es un gran punto medio. Construyes una sola unidad desplegable, pero internamente, aplicas límites estrictos entre módulos. El código en el `Módulo A` no puede importar código del `Módulo B` directamente; debe pasar por una interfaz pública definida. Esto te da los beneficios de organización de código de los microservicios sin la sobrecarga de infraestructura.
 
-A medida que tu aplicación crece, puedes separar las partes que *necesitan* ser independientes.
+A medida que tu aplicación crece, puedes separar las partes que _necesitan_ ser independientes.
 
 ### Cómo evolucionar:
 
@@ -230,7 +239,10 @@ digraph Architecture {
 }
 ```
 
-<Image src={"/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-hybrid.svg"}
+<Image
+  src={
+    "/assets/blog/architecting-and-scaling-a-backend-project-microservices-vs-monolith/diag-hybrid.svg"
+  }
   priority={true}
   width={615}
   height={1200}
@@ -242,8 +254,8 @@ digraph Architecture {
 
 El debate "Microservicios vs Monolito" a menudo pierde el punto. No se trata de qué arquitectura es teóricamente superior; se trata de con qué conjunto de compromisos puedes vivir en este momento.
 
-*   **Los Microservicios** te dan independencia y escalado granular, pero pagas por ello con complejidad.
-*   **Los Monolitos** te dan simplicidad y velocidad, pero pueden volverse inmanejables a escala.
-*   **Las arquitecturas Híbridas/Evolutivas** te permiten empezar simple y crecer en complejidad solo cuando tienes que hacerlo.
+- **Los Microservicios** te dan independencia y escalado granular, pero pagas por ello con complejidad.
+- **Los Monolitos** te dan simplicidad y velocidad, pero pueden volverse inmanejables a escala.
+- **Las arquitecturas Híbridas/Evolutivas** te permiten empezar simple y crecer en complejidad solo cuando tienes que hacerlo.
 
 Empieza con un monolito bien estructurado. Divídelo cuando sientas el dolor, no antes. Tu yo futuro (y tu equipo de DevOps) te lo agradecerá.

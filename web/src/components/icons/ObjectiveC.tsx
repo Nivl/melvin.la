@@ -1,14 +1,10 @@
-import { useId } from 'react';
+import { useId } from "react";
 
 export const ObjectiveC = ({ className }: { className: string }) => {
   const aId = useId();
 
   return (
-    <svg
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 2500 2500"
-    >
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 2500">
       <linearGradient
         id={aId}
         gradientUnits="userSpaceOnUse"

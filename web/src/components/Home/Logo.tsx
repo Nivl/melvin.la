@@ -1,5 +1,5 @@
-import { DiDjango as Django, DiRuby as Ruby } from 'react-icons/di';
-import { GrMysql as Mysql, GrStatusUnknown as Unknown } from 'react-icons/gr';
+import { DiDjango as Django, DiRuby as Ruby } from "react-icons/di";
+import { GrMysql as Mysql, GrStatusUnknown as Unknown } from "react-icons/gr";
 import {
   SiAndroid as Android,
   SiAngular as Angular,
@@ -21,102 +21,96 @@ import {
   SiSentry as Sentry,
   SiSymfony as Symfony,
   SiTypescript as Typescript,
-} from 'react-icons/si';
+} from "react-icons/si";
 
-import { Amplitude } from '#components/icons/Amplitude';
-import { C } from '#components/icons/C';
-import { Clojure } from '#components/icons/Clojure';
-import { Cpp } from '#components/icons/Cpp';
-import { CSharp } from '#components/icons/CSharp';
-import { Electron } from '#components/icons/Electron';
-import { EmacsLisp } from '#components/icons/EmacsLisp';
-import { Grpc } from '#components/icons/Grpc';
-import { Java } from '#components/icons/Java';
-import { NewRelic } from '#components/icons/NewRelic';
-import { ObjectiveC } from '#components/icons/ObjectiveC';
-import { Python } from '#components/icons/Python';
-import { Swift } from '#components/icons/Swift';
+import { Amplitude } from "#components/icons/Amplitude";
+import { C } from "#components/icons/C";
+import { Clojure } from "#components/icons/Clojure";
+import { Cpp } from "#components/icons/Cpp";
+import { CSharp } from "#components/icons/CSharp";
+import { Electron } from "#components/icons/Electron";
+import { EmacsLisp } from "#components/icons/EmacsLisp";
+import { Grpc } from "#components/icons/Grpc";
+import { Java } from "#components/icons/Java";
+import { NewRelic } from "#components/icons/NewRelic";
+import { ObjectiveC } from "#components/icons/ObjectiveC";
+import { Python } from "#components/icons/Python";
+import { Swift } from "#components/icons/Swift";
 
-export const Logo = ({
-  name,
-  className,
-}: {
-  name: string;
-  className: string;
-}) => {
+export const Logo = ({ name, className }: { name: string; className: string }) => {
   // all the logos we support, ordered alphabetically by name
   switch (name) {
-    case 'amplitude':
+    case "amplitude":
       return <Amplitude className={className} />;
-    case 'android':
+    case "android":
       return <Android className={className} />;
-    case 'angular':
+    case "angular":
       return <Angular className={className} />;
-    case 'apple':
+    case "apple":
       return <Apple className={className} />;
-    case 'c':
+    case "c":
       return <C className={className} />;
-    case 'clojure':
+    case "clojure":
       return <Clojure className={className} />;
-    case 'cpp':
+    case "cpp":
       return <Cpp className={className} />;
-    case 'csharp':
+    case "csharp":
       return <CSharp className={className} />;
-    case 'datadog':
+    case "datadog":
       return <Datadog className={className} />;
-    case 'django':
+    case "django":
       return <Django className={className} />;
-    case 'docker':
+    case "docker":
       return <Docker className={className} />;
-    case 'electron':
+    case "electron":
       return <Electron className={className} />;
-    case 'elevenlabs':
+    case "elevenlabs":
       return <Elevenlabs className={className} />;
-    case 'emacslisp':
+    case "emacslisp":
       return <EmacsLisp className={className} />;
-    case 'go':
+    case "go":
       return <Go className={className} />;
-    case 'grpc':
+    case "grpc":
       return <Grpc className={className} />;
-    case 'ionic':
+    case "ionic":
       return <Ionic className={className} />;
-    case 'java':
+    case "java":
       return <Java className={className} />;
-    case 'javascript':
+    case "javascript":
       return <Javascript className={className} />;
-    case 'mongodb':
+    case "mongodb":
       return <MongoDb className={className} />;
-    case 'mysql':
+    case "mysql":
       return <Mysql className={className} />;
-    case 'nodejs':
+    case "nodejs":
       return <Nodejs className={className} />;
-    case 'newrelic':
+    case "newrelic":
       return <NewRelic className={className} />;
-    case 'objc':
+    case "objc":
       return <ObjectiveC className={className} />;
-    case 'openai':
+    case "openai":
       return <OpenAI className={className} />;
-    case 'php':
+    case "php":
       return <Php className={className} />;
-    case 'postgres':
+    case "postgres":
       return <Postgres className={className} />;
-    case 'python':
+    case "python":
       return <Python className={className} />;
-    case 'rails':
+    case "rails":
       return <Rails className={className} />;
-    case 'reactjs':
+    case "reactjs":
       return <React className={className} />;
-    case 'redis':
+    case "redis":
       return <Redis className={className} />;
-    case 'ruby':
+    case "ruby":
       return <Ruby className={className} />;
-    case 'sentry':
+    case "sentry":
       return <Sentry className={className} />;
-    case 'swift':
+    case "swift":
       return <Swift className={className} />;
-    case 'symfony':
+    case "symfony":
       return <Symfony className={className} />;
-    case 'typescript':
+    case "typescript":
       return <Typescript className={className} />;
     default:
       return <Unknown className={className} />;

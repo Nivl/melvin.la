@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from "@storybook/nextjs";
 
-import page from './page';
+import page from "./page";
 
 const meta = {
-  title: 'Pages/Tools/Timestamp',
+  title: "Pages/Tools/Timestamp",
   component: page,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof page>;
 
@@ -18,7 +18,7 @@ export const Default: Story = {
     nextjs: {
       appDirectory: true,
       navigation: {
-        segments: ['tools', 'timestamp'],
+        segments: ["tools", "timestamp"],
       },
     },
   },

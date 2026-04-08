@@ -14,8 +14,8 @@
 // /!\/!\/!\
 export const supportedModes = {
   xsmall: {
-    theme: 'dark',
-    viewport: 'xsmall',
+    theme: "dark",
+    viewport: "xsmall",
   },
   // small: {
   //   theme: 'dark',
@@ -34,12 +34,12 @@ export const supportedModes = {
   //   viewport: 'xlarge',
   // },
   xxlarge: {
-    theme: 'dark',
-    viewport: 'xxlarge',
+    theme: "dark",
+    viewport: "xxlarge",
   },
   FourK: {
-    theme: 'dark',
-    viewport: 'FourK',
+    theme: "dark",
+    viewport: "FourK",
   },
   // dark: {
   //   theme: 'dark',
@@ -47,9 +47,9 @@ export const supportedModes = {
   // light: {
   //   theme: 'light',
   // },
-  'light xsmall': {
-    theme: 'light',
-    viewport: 'xsmall',
+  "light xsmall": {
+    theme: "light",
+    viewport: "xsmall",
   },
   // 'light small': {
   //   theme: 'light',
@@ -67,12 +67,12 @@ export const supportedModes = {
   //   theme: 'light',
   //   viewport: 'xlarge',
   // },
-  'light xxlarge': {
-    theme: 'light',
-    viewport: 'xxlarge',
+  "light xxlarge": {
+    theme: "light",
+    viewport: "xxlarge",
   },
-  'light FourK': {
-    theme: 'light',
-    viewport: 'FourK',
+  "light FourK": {
+    theme: "light",
+    viewport: "FourK",
   },
 };

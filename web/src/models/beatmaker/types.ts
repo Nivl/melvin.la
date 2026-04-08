@@ -1,15 +1,8 @@
-export type Kit = '808' | 'acoustic' | 'lofi';
+export type Kit = "808" | "acoustic" | "lofi";
 
-export type TrackId = 'kick' | 'snare' | 'hihat' | 'openhat' | 'clap' | 'ride';
+export type TrackId = "kick" | "snare" | "hihat" | "openhat" | "clap" | "ride";
 
-export const TRACK_IDS: TrackId[] = [
-  'kick',
-  'snare',
-  'hihat',
-  'openhat',
-  'clap',
-  'ride',
-];
+export const TRACK_IDS: TrackId[] = ["kick", "snare", "hihat", "openhat", "clap", "ride"];
 
 export const STEP_COUNTS = [8, 16, 32] as const;
 export type StepCount = (typeof STEP_COUNTS)[number];
@@ -26,12 +19,12 @@ export type TrackState = {
 };
 
 export const TRACK_COLORS: Record<TrackId, string> = {
-  kick: 'var(--color-track-kick)',
-  snare: 'var(--color-track-snare)',
-  hihat: 'var(--color-track-hihat)',
-  openhat: 'var(--color-track-openhat)',
-  clap: 'var(--color-track-clap)',
-  ride: 'var(--color-track-ride)',
+  kick: "var(--color-track-kick)",
+  snare: "var(--color-track-snare)",
+  hihat: "var(--color-track-hihat)",
+  openhat: "var(--color-track-openhat)",
+  clap: "var(--color-track-clap)",
+  ride: "var(--color-track-ride)",
 };
 
 export type BeatmakerState = {

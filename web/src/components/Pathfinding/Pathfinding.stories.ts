@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from "@storybook/nextjs";
 
-import { Pathfinding } from './Pathfinding';
+import { Pathfinding } from "./Pathfinding";
 
 const meta = {
-  title: 'Tools/Pathfinding',
+  title: "Tools/Pathfinding",
   component: Pathfinding,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<typeof Pathfinding>;
 
