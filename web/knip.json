@@ -7,7 +7,9 @@
         "src/i18n/routing.ts"
     ],
     "ignoreDependencies": [
-        "eslint-plugin-import",
-        "@types/google.maps"
+        "oxfmt",
+        "eslint-plugin-simple-import-sort",
+        "eslint-plugin-prettier",
+        "eslint-plugin-playwright"
     ]
 }

@@ -12,17 +12,3 @@ onlyBuiltDependencies:
   - msw # https://github.com/mswjs/msw/issues/1297
 
 minimumReleaseAge: 20160
-
-minimumReleaseAgeExclude:
-  # temporary because we're replacing it with oxc
-  - "typescript-eslint@8.58.1"
-  - "@typescript-eslint/utils@8.58.1"
-  - "@typescript-eslint/types@8.58.1"
-  - "@typescript-eslint/scope-manager@8.58.1"
-  - "@typescript-eslint/parser@8.58.1"
-  - "@typescript-eslint/typescript-estree@8.58.1"
-  - "@typescript-eslint/visitor-keys@8.58.1"
-  - "@typescript-eslint/eslint-plugin@8.58.1"
-  - "@typescript-eslint/tsconfig-utils@8.58.1"
-  - "@typescript-eslint/project-service@8.58.1"
-  - "@typescript-eslint/type-utils@8.58.1"
