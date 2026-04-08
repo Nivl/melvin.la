@@ -13,7 +13,7 @@ const MapContainer = ({
   initialCenter,
 }: {
   className: string;
-  initialCenter: google.maps.LatLngLiteral;
+  initialCenter: { lat: number; lng: number };
 }) => {
   const { resolvedTheme } = useTheme();
 
