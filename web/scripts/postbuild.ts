@@ -1,7 +1,7 @@
 import { rm } from "node:fs/promises";
 
-import { database } from "#ssg/database";
-import { BUILD_DIR } from "#ssg/paths";
+import { database } from "#features/blog/ssg/database.ts";
+import { BUILD_DIR } from "#features/blog/ssg/paths.ts";
 
 import { setup } from "./utils";
 

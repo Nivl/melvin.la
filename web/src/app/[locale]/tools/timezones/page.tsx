@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { Timezones } from "#components/Timezones";
-import { getMetadata } from "#utils/metadata";
+import { Timezones } from "#features/timezones/components/Timezones";
+import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home() {
   return <Timezones />;

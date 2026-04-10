@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 
 import { type FortniteData } from "#backend/api";
-import { useStats } from "#hooks/fortnite/useStats.mock";
+import { useStats } from "#features/fortnite/hooks/useStats.mock";
 
 import validData from "../../../../../../.storybook/fixtures/valid_fortnite_data.json";
 import page from "./page";

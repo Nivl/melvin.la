@@ -15,10 +15,10 @@ import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
 
-import { Navbar } from "#components/layout/NavBar/Navbar.tsx";
-import { Providers } from "#components/Providers";
 import { isLocale, locales } from "#i18n/locales";
-import { getMetadata } from "#utils/metadata";
+import { Navbar } from "#shared/components/layout/NavBar/Navbar.tsx";
+import { Providers } from "#shared/components/Providers";
+import { getMetadata } from "#shared/utils/metadata";
 
 type RootStyle = React.CSSProperties &
   Record<"--font-sans" | "--font-condensed" | "--font-fortnite", string>;

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { StringLength } from "#components/StringLength";
-import { getMetadata } from "#utils/metadata";
+import { StringLength } from "#features/string-length/components/StringLength";
+import { getMetadata } from "#shared/utils/metadata";
 
 export async function generateMetadata({
   params,

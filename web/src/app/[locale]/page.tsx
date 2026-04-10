@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { Home } from "#components/Home";
-import { getMetadata } from "#utils/metadata";
+import { Home } from "#features/home/components/Home";
+import { getMetadata } from "#shared/utils/metadata";
 
 import db from "../db.json";
 

@@ -31,17 +31,26 @@ messages/                 # i18n files
 src/
 ├── app/                  # Next.js App Router pages
 │   └── globals.css       # Global styles + Tailwind config
-├── components/           # Reusable React components
-│   ├── blog/             # Blog-specific components
-│   ├── fortnite/         # Fortnite-specific components
-│   └── layout/           # Layout components
-├── hooks/                # Custom React hooks
+├── features/             # Self-contained feature modules
+│   ├── beatmaker/        # Beatmaker game (components/, models/)
+│   ├── blog/             # Blog (components/, models.ts, ssg/)
+│   ├── conway/           # Conway's Game of Life (components/, models/)
+│   ├── fortnite/         # Fortnite stats tool (components/, hooks/)
+│   ├── home/             # Home page (components/, models.ts, utils/)
+│   ├── pathfinding/      # Pathfinding tool (components/, utils/)
+│   ├── string-length/    # String length tool (components/)
+│   ├── timestamp/        # Timestamp tool (components/)
+│   ├── timezones/        # Timezones tool (components/)
+│   └── uuid/             # UUID tool (components/)
+├── shared/               # Cross-feature shared code
+│   ├── components/       # Shared React components (icons/, layout/)
+│   ├── hooks/            # Shared custom React hooks
+│   └── utils/            # Shared utility functions
 ├── gen/                  # Generated API client (run: pnpm oapi-gen)
 ├── backend/              # API integration utilities
 │   └── mocks/            # Mock data and utilities for backend
-├── bundled_static/       # Static content processed at build time
-│   └── content/blog/     # MDX blog posts`
-└── utils/                # Utility functions
+└── bundled_static/       # Static content processed at build time
+    └── content/blog/     # MDX blog posts
 ```
 
 ## ARCHITECTURE
@@ -71,7 +80,7 @@ src/
 
 ### Code Organization
 
-The app directory should only contains routing and layout files. All reusable components should go into `src/components/` and all hooks into `src/hooks/`.
+The app directory should only contain routing and layout files. Code is organized into self-contained feature modules under `src/features/[feature]/`, and cross-feature shared code lives in `src/shared/`.
 
 ## IMPORT CONVENTIONS
 
@@ -79,12 +88,13 @@ The app directory should only contains routing and layout files. All reusable co
 
 ```typescript
 // ✅ Correct
-import { BlogPost } from "#components/blog/BlogPost";
-import { useStats } from "#hooks/fortnite/useStats";
+import { BlogPost } from "#features/blog/components/Post";
+import { useStats } from "#features/fortnite/hooks/useStats";
+import { Navbar } from "#shared/components/layout/NavBar/Navbar";
 
 // ❌ Wrong
-import { BlogPost } from "../components/blog/BlogPost";
-import { BlogPost } from "./src/components/blog/BlogPost";
+import { BlogPost } from "../features/blog/components/Post";
+import { BlogPost } from "./src/features/blog/components/Post";
 ```
 
 **Exception**: Relative imports only for files in same directory
@@ -104,9 +114,12 @@ import { helper } from "./helper";
 
 ### Organization
 
-- General components: `src/components/`
-- Feature-specific: `src/components/[feature]/`
-- Hooks: `src/hooks/` or `src/hooks/[feature]/`
+- Feature-specific code: `src/features/[feature]/components/`
+- Shared/cross-feature components: `src/shared/components/`
+- Feature-specific hooks: `src/features/[feature]/hooks/`
+- Shared hooks: `src/shared/hooks/`
+- Feature-specific models/utils: `src/features/[feature]/models/` or `src/features/[feature]/utils/`
+- Shared utilities: `src/shared/utils/`
 
 ### Required Files for New Components
 
