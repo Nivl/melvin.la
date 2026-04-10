@@ -1,7 +1,6 @@
 {
   "ignore": [
     "src/backend/api.ts",
-    "src/models/index.ts",
     "tsconfig.base.json",
     "messages/en.d.json.ts",
     "src/i18n/routing.ts"

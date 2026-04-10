@@ -3,9 +3,9 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { use } from "react";
 
-import { Post } from "#components/blog/Post";
-import { getAllBlogPosts, getBlogPost } from "#ssg/queries";
-import { getMetadata } from "#utils/metadata";
+import { Post } from "#features/blog/components/Post";
+import { getAllBlogPosts, getBlogPost } from "#features/blog/ssg/queries.ts";
+import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home(props: { params: Promise<{ slug: string; locale: string }> }) {
   const { slug, locale } = use(props.params);

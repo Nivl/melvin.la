@@ -3,9 +3,9 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { use } from "react";
 
-import { isAccountType } from "#components/fortnite/Form";
-import { Fortnite } from "#components/fortnite/Fortnite";
-import { getMetadata } from "#utils/metadata";
+import { isAccountType } from "#features/fortnite/components/Form";
+import { Fortnite } from "#features/fortnite/components/Fortnite";
+import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home(props: { params: Promise<{ path?: string[]; locale?: string }> }) {
   const { path } = use(props.params);

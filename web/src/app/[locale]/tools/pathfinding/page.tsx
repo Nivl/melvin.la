@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { Pathfinding } from "#components/Pathfinding";
-import { getMetadata } from "#utils/metadata";
+import { Pathfinding } from "#features/pathfinding/components/Pathfinding";
+import { getMetadata } from "#shared/utils/metadata";
 
 export default function PathfindingPage() {
   return <Pathfinding />;

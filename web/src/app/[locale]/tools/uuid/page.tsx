@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { Uuid } from "#components/Uuid/Uuid.tsx";
-import { getMetadata } from "#utils/metadata";
+import { Uuid } from "#features/uuid/components/Uuid";
+import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home() {
   return <Uuid />;

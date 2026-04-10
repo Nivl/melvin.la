@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { Beatmaker } from "#components/Beatmaker";
-import { getMetadata } from "#utils/metadata";
+import { Beatmaker } from "#features/beatmaker/components/Beatmaker";
+import { getMetadata } from "#shared/utils/metadata";
 
 export default function BeatmakerPage() {
   return <Beatmaker />;

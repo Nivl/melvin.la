@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
-import { getMetadata } from "#utils/metadata";
+import { getMetadata } from "#shared/utils/metadata";
 
 export async function generateMetadata({
   params,

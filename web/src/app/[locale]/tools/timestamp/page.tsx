@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { Timestamp } from "#components/Timestamp";
-import { getMetadata } from "#utils/metadata";
+import { Timestamp } from "#features/timestamp/components/Timestamp";
+import { getMetadata } from "#shared/utils/metadata";
 
 export async function generateMetadata({
   params,

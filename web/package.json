@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "imports": {
-    "#hooks/fortnite/useStats": {
-      "test": "./src/hooks/fortnite/useStats.mock.ts",
-      "default": "./src/hooks/fortnite/useStats.tsx"
+    "#features/fortnite/hooks/useStats": {
+      "test": "./src/features/fortnite/hooks/useStats.mock.ts",
+      "default": "./src/features/fortnite/hooks/useStats.tsx"
     },
     "#*": [
       "./src/*",

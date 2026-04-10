@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { Conway } from "#components/Conway";
-import { getMetadata } from "#utils/metadata";
+import { Conway } from "#features/conway/components/Conway";
+import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home() {
   return <Conway />;

@@ -3,9 +3,9 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 
-import { List } from "#components/blog/List";
-import { getLatestBlogPosts } from "#ssg/queries";
-import { getMetadata } from "#utils/metadata";
+import { List } from "#features/blog/components/List";
+import { getLatestBlogPosts } from "#features/blog/ssg/queries.ts";
+import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params);

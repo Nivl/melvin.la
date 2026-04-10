@@ -4,9 +4,9 @@ import { type DatabaseSync } from "node:sqlite";
 
 import matter from "gray-matter";
 
-import { BlogPost } from "#models/blog/post";
-import { database } from "#ssg/database";
-import { BLOG_POSTS_DIR, BUILD_DIR } from "#ssg/paths";
+import { BlogPost } from "#features/blog/models.ts";
+import { database } from "#features/blog/ssg/database.ts";
+import { BLOG_POSTS_DIR, BUILD_DIR } from "#features/blog/ssg/paths.ts";
 
 import { setup } from "./utils";
 

@@ -1,5 +1,5 @@
-import { Footer } from "#components/layout/Footer";
-import { Section } from "#components/layout/Section";
+import { Footer } from "#shared/components/layout/Footer";
+import { Section } from "#shared/components/layout/Section";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
