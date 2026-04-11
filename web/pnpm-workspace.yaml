@@ -5,10 +5,4 @@ ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
 
-# Deps allowed to run scripts during installation
-# This is unsecure, so we limit it to only these packages that we trust
-onlyBuiltDependencies:
-  - "@heroui/shared-utils" # May be gone in heroui v3
-  - msw # https://github.com/mswjs/msw/issues/1297
-
 minimumReleaseAge: 20160
