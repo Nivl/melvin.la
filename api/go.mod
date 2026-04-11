@@ -3,10 +3,10 @@ module github.com/Nivl/melvin.la/api
 go 1.26.0
 
 require (
-	github.com/getsentry/sentry-go v0.43.0
-	github.com/getsentry/sentry-go/echo v0.43.0
+	github.com/getsentry/sentry-go v0.44.1
+	github.com/getsentry/sentry-go/echo v0.44.1
 	github.com/labstack/echo/v4 v4.15.1
-	github.com/oapi-codegen/runtime v1.3.0
+	github.com/oapi-codegen/runtime v1.3.1
 	github.com/pb33f/libopenapi v0.34.3
 	github.com/pb33f/libopenapi-validator v0.13.3
 	github.com/sethvargo/go-envconfig v1.3.0
