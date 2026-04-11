@@ -81,6 +81,7 @@ jobs:
       - uses: actions/checkout@v6
       - name: Setup
         uses: "./.github/actions/node-setup"
+
       - name: Validate TS types
         run: pnpm run check-types
 
@@ -89,6 +90,7 @@ jobs:
 
       - name: Check the code format
         run: pnpm run fmt:check
+
       - name: Lint open api
         run: |
           pnpm run oapi-gen
