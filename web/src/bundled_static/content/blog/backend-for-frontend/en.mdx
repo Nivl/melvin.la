@@ -1,0 +1,265 @@
+---
+title: "The Backend for Frontend Pattern: Building APIs Your UI Actually Wants"
+excerpt: "Most backends are built for the backend team's convenience. The BFF pattern flips that — and it changes who owns the API, what lives in it, and how fast your frontend can actually move."
+image: "cover.avif"
+ogImage: "cover.png"
+createdAt: "2026-04-13"
+updatedAt: "2026-04-13"
+---
+
+Every frontend developer has been there. The API returns a payload that is technically correct but completely wrong for what you are building. You need a user's name, avatar, and their three most recent orders on the homepage. Instead, you make four separate API calls, stitch the data together in the client, and pray the network is fast enough that users don't notice the loading sequence.
+
+Or worse: the endpoint returns 47 fields when you need 6, and the one field you actually need is named something like `usr_acct_disp_nm`.
+
+This is not a backend quality problem. It is an architecture problem. The backend was designed for general use — or for a different client entirely. The **Backend for Frontend (BFF)** pattern exists to fix this.
+
+## What Is a BFF?
+
+The term was coined at **SoundCloud** and formalized by **Sam Newman** in his work on microservices. The core idea is simple: instead of building one generic API that tries to serve every client surface (web, mobile, TV, third-party integrations), you build a dedicated server-side layer for each client.
+
+A BFF is a server that:
+
+- Shapes its responses for a specific frontend's rendering requirements
+- Aggregates and transforms data from downstream services or your main backend
+- Handles auth session management on behalf of the browser (more on this later)
+- Shields the frontend from changes in underlying services
+
+The "one BFF per client surface" principle is non-negotiable. A mobile app and a web app have different data needs, different performance budgets, and different interaction patterns. As soon as you share a BFF between them, you are back to building a general-purpose API that optimizes for nobody.
+
+## BFF vs. Regular Backend
+
+A regular backend is concerned with **business logic and data integrity**. It enforces domain rules, owns the database, and exposes resources in terms the _domain_ understands. It doesn't — and shouldn't — care that your homepage needs a slightly different shape of `User` than your profile page.
+
+A BFF is concerned with **presentation logic**. It takes what the downstream backend offers and transforms it into what a specific frontend actually needs. In practice, that means:
+
+- Combining multiple API calls into a single response
+- Renaming or restructuring fields to match your frontend's conventions
+- Filtering out data the frontend never renders
+- Computing derived values the frontend would otherwise calculate on every render
+- Holding auth tokens server-side so the browser never has to
+
+The distinction is important. A backend engineer thinks in entities and invariants. A frontend engineer thinks in components and what data a screen needs. A BFF speaks that second language fluently.
+
+### Architecture: Without BFF vs. With BFF
+
+```hidden
+digraph BFF {
+  bgcolor="transparent";
+  node [shape=box, style=filled, fontname="Noto Sans", fontsize=13, fontcolor="#222222"];
+  edge [color="#6a8caf", penwidth=1.5];
+  rankdir=LR;
+
+  subgraph cluster_without {
+    label="Without BFF";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#e8f0fe";
+    fontcolor="#3a5a7c";
+    fontname="Noto Sans";
+    margin=20;
+
+    WebApp1    [label="Web App",    fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    MobileApp1 [label="Mobile App", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    GenericAPI [label="Generic API", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    WebApp1    -> GenericAPI;
+    MobileApp1 -> GenericAPI;
+  }
+
+  subgraph cluster_with {
+    label="With BFF";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#e8f0fe";
+    fontcolor="#3a5a7c";
+    fontname="Noto Sans";
+    margin=20;
+
+    WebApp2    [label="Web App",    fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    MobileApp2 [label="Mobile App", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    WebBFF     [label="Web BFF",    fillcolor="#b5d5f5", fontcolor="#1b3b5c"];
+    MobileBFF  [label="Mobile BFF", fillcolor="#b5d5f5", fontcolor="#1b3b5c"];
+    Backend    [label="Backend / Services", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    WebApp2    -> WebBFF;
+    MobileApp2 -> MobileBFF;
+    WebBFF     -> Backend;
+    MobileBFF  -> Backend;
+  }
+}
+```
+
+<Image
+  src={"/assets/blog/backend-for-frontend/diag-bff.svg"}
+  priority={true}
+  width={700}
+  height={320}
+  className="mx-auto mt-10 mb-10"
+  alt={"Architecture diagram: without BFF vs. with BFF"}
+/>
+
+Here is what the difference looks like in practice. Without a BFF, a dashboard page might do this:
+
+```typescript
+// Frontend assembles the view from three separate calls
+const [user, orders, notifications] = await Promise.all([
+  fetch("/api/users/me"),
+  fetch("/api/orders?userId=me&limit=3"),
+  fetch("/api/notifications?userId=me&unread=true"),
+]);
+const unreadCount = notifications.filter((n) => !n.read).length;
+const displayName = `${user.firstName} ${user.lastName}`;
+```
+
+With a BFF, the frontend gets exactly what it needs in one call:
+
+```typescript
+// BFF exposes a purpose-built endpoint for this screen
+const { user, recentOrders, unreadCount } = await fetch("/bff/dashboard");
+```
+
+The aggregation and transformation logic lives in the BFF — not scattered across the frontend, not duplicated across multiple screens.
+
+## BFF in a Microservices vs. Monolith Context
+
+### Microservices: The Classic Use Case
+
+The BFF pattern was born from the microservices world, and for good reason. When your backend is split across a dozen services — users, orders, inventory, notifications, billing — the frontend has to know about all of them. A small UI change might require coordinating with three backend teams to get a slightly different response shape.
+
+A BFF solves this by acting as the frontend's single contract. The BFF talks to whichever downstream services it needs. If the user service changes its API, the BFF absorbs the change. The frontend doesn't care.
+
+This is the **anti-corruption layer** pattern applied to the frontend/backend boundary: insulate the frontend from the churn of backend evolution.
+
+### Monolith: A Different Flavor
+
+BFFs are equally useful with a monolith — the motivation just shifts. You are not dealing with orchestrating multiple services; you are dealing with a generic API that was not designed for your specific UI requirements.
+
+In this context, a BFF is typically a thin **adapter layer** in front of your monolith. It might live in the same codebase (as a module, a set of Next.js route handlers, or a dedicated Express app inside a monorepo), or as a separate service.
+
+The critical rule for the monolith case: keep the BFF thin. A BFF that starts replicating business logic from the monolith is an anti-pattern. It should translate and aggregate. Business rules belong in the backend.
+
+## Who Writes the BFF?
+
+This is where teams most often get the pattern wrong.
+
+**The BFF should be owned by the frontend team.** That is the entire point of the pattern.
+
+If backend engineers own the BFF, it slowly drifts back toward a general-purpose API. Review cycles get slower. The frontend team ends up negotiating response shapes through pull requests and JIRA tickets instead of just shipping them. You have traded one problem for a slower version of the same problem.
+
+When frontend engineers own the BFF, they own the contract. They reshape data when they need to. They add a new endpoint without filing a request. They ship at frontend velocity.
+
+This does require frontend engineers to write some server-side code. It is not much — BFF code is mostly glue work: call this service, transform that response, return a clean shape. But it does require comfort with HTTP, authentication flows, and async I/O. Most engineers who are capable of writing complex React applications can handle this without much trouble.
+
+The ownership boundary is the BFF itself. The BFF calls downstream services but never owns business logic. Database writes, domain rules, and invariants stay in the backend. The BFF is firmly in the presentation layer, and that distinction must be actively maintained.
+
+## Language Choice
+
+Yes, it matters — especially when frontend engineers are the primary owners.
+
+**TypeScript with a Node.js runtime is my default recommendation.** The reasoning is practical rather than religious:
+
+- Frontend engineers already know TypeScript. The learning curve is the runtime (HTTP, async patterns, process lifecycle) — not the language.
+- In a monorepo setup, you can share types between the frontend and the BFF directly. An entire category of schema drift and contract mismatch goes away.
+- The Node.js ecosystem has excellent HTTP client libraries and deploys easily to any cloud environment.
+
+Go is a reasonable alternative when your engineering organization already has Go expertise and the BFF is expected to be maintained by full-stack or backend engineers. Go handles concurrent fan-out well, which matters when a BFF is making several downstream requests simultaneously to build a single response.
+
+But the language choice should follow the ownership model. If frontend engineers own the BFF, they should use the language they already know. Anything else creates friction, and friction eventually pushes ownership back to backend teams.
+
+## Security: What the BFF Gets You for Free
+
+Security is one of the strongest arguments for a BFF, and it is consistently underrated.
+
+### The Token Storage Problem
+
+Single-page applications have a long-standing dilemma: where do you store the access token? `localStorage` is convenient but exposed to any JavaScript on the page — a real risk in an era of supply-chain attacks on npm packages. In-memory storage is safer but gone on refresh. HTTP-only cookies work but require server-side handling.
+
+A BFF solves this problem completely. **The browser never holds a raw access token.**
+
+Instead, the BFF performs the token exchange. It receives the authorization code from your identity provider, exchanges it for an access and refresh token, stores the tokens server-side, and hands the browser an HTTP-only session cookie. Every subsequent request from the frontend carries that cookie; the BFF looks up the session, attaches the real token to the downstream request, and forwards it. The token is never in JavaScript-land.
+
+```typescript
+// The BFF handles the OAuth callback — the browser never sees the access token
+app.get("/auth/callback", async (req, res) => {
+  const { code } = req.query;
+  const tokens = await identityProvider.exchangeCode(code);
+
+  // Tokens live server-side
+  await sessionStore.save(req.sessionId, tokens);
+
+  res.setCookie("session", req.sessionId, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+  });
+
+  res.redirect("/dashboard");
+});
+```
+
+### What Not to Put in a BFF
+
+A BFF should never become a place where domain rules accumulate. Keep it to what it is designed for: read aggregation, response shaping, and auth delegation.
+
+Specifically:
+
+- Do not store sensitive data (PII, payment tokens) in the BFF layer. Pass it through; do not persist it.
+- Do not blindly proxy all downstream endpoints. Exposing your internal service structure through the BFF is a security smell.
+- Do not perform writes with elevated privileges without re-validating the session on each request.
+
+If your BFF has its own database and is starting to own business rules, you have stopped building a BFF and started building a second backend. That is a different problem entirely.
+
+## Deployment
+
+### Co-located with the Frontend
+
+If you are using **Next.js**, you already have the infrastructure for a lightweight BFF: **Route Handlers** (App Router) or API Routes (Pages Router). Your frontend and BFF live in the same project and deploy together as one unit.
+
+This is the right default for small-to-medium applications. The tradeoff is that you cannot scale the BFF independently from the frontend — but for most teams, that constraint is irrelevant. Start here.
+
+### Separate Service in a Monorepo
+
+For larger applications, a common pattern is a dedicated BFF service living alongside the frontend in a monorepo. Both share TypeScript types, but deploy independently. The frontend hits the BFF over HTTP; the BFF fans out to backend services.
+
+This setup is more operationally complex but gives you independent scaling and cleaner separation. It makes sense once the BFF has enough complexity — multiple aggregation patterns, caching layers, connection pooling — to justify the operational overhead.
+
+### Kubernetes Sidecar
+
+In a Kubernetes environment, the BFF can be deployed as a **sidecar container** in the same pod as the frontend server. The frontend communicates with the BFF over `localhost`, keeping latency near-zero with no external network hop. They always deploy together, which eliminates version skew between the two.
+
+### What to Avoid
+
+Do not share a BFF across multiple frontend applications. The moment you do, you are building an API gateway, not a BFF. You have reintroduced the same generalization problem you were trying to solve, just one layer higher.
+
+## Real-World Examples
+
+**SoundCloud** is where the pattern was formally named. Their engineering team faced exactly the coordination problem described above: mobile and web clients needed different data shapes, and a shared generic API meant constant negotiation between frontend and backend teams. Splitting into client-specific BFFs restored shipping velocity.
+
+**Netflix** runs a BFF layer for each of the devices it supports — and there are a lot of them. Televisions, phones, tablets, game consoles, and web browsers have meaningfully different performance budgets and rendering constraints. A single API cannot serve all of them well. Netflix's BFF layer handles the translation for each surface.
+
+**Spotify** uses a similar model. The web player, desktop client, and mobile apps each have different data requirements and different performance targets. Their BFF layer handles the fan-out to internal services and returns responses tailored to each client.
+
+In all three cases, the BFF is not a nice-to-have. It is a structural decision that reflects how their engineering teams are organized and how fast they need to ship.
+
+## When NOT to Use a BFF
+
+The BFF pattern adds a network hop, a service to operate, and a deployment to manage. That overhead has to earn its place.
+
+**Skip the BFF if:**
+
+- Your app has a single frontend and a single backend, maintained by the same small team. There is no coordination problem to solve.
+- You have one client surface. One client, one API is perfectly reasonable.
+- Your backend team can reshape an endpoint quickly without becoming a bottleneck. The BFF pattern solves a team-velocity problem first; if the team doesn't have the problem, the solution is unnecessary overhead.
+- You are still prototyping. You do not yet know your data requirements. Commit to a BFF once you have real screens to feed.
+
+The most expensive BFF is one you built before you had a reason to. The scaffolding adds cognitive overhead, and without a real coordination problem to absorb, it just becomes extra code to maintain.
+
+## Conclusion
+
+The BFF pattern is, at its core, a **team structure tool** dressed up as an architecture pattern.
+
+It says: the team building the UI should own the API contract that feeds it. Everything else follows. The language choice (TypeScript) follows from ownership. The security model (tokens held server-side) follows from the BFF being a trusted backend layer. The deployment strategy follows from the fact that frontend and BFF evolve together.
+
+Use it when you have a coordination problem — when frontend engineers are waiting on backend teams to reshape responses, or when you are serving multiple client surfaces with meaningfully different needs. Do not use it to solve a problem you do not have yet.
+
+When you do need it, there is nothing better for giving frontend teams full control over the contract between their code and the data it runs on.

@@ -1,0 +1,265 @@
+---
+title: "后端服务前端模式：构建 UI 真正需要的 API"
+excerpt: "大多数后端是为后端团队的便利而构建的。BFF 模式颠覆了这一结构，改变了 API 的所有权、内容，以及前端的交付速度。"
+image: "cover.avif"
+ogImage: "cover.png"
+createdAt: "2026-04-13"
+updatedAt: "2026-04-13"
+---
+
+每位前端开发者都经历过这样的场景。API 在技术上返回正确的数据，却完全不符合你正在构建的内容。首页需要用户名、头像和最近三笔订单，但你却得分别调用四个 API，在客户端手动拼装数据，祈祷网络速度足够快。
+
+更糟糕的情况也有。你需要六个字段，结果收到了四十七个，还得找到真正需要的字段——它叫做 `usr_acct_disp_nm`。
+
+这不是后端质量问题，而是架构问题。后端是为了通用目的，或者为完全不同的客户端而设计的。**Backend for Frontend（BFF）**模式正是为解决这个问题而生。
+
+## 什么是 BFF？
+
+这个术语最早由 **SoundCloud** 提出，并由 **Sam Newman** 在微服务研究中正式定义。核心思想很简单：与其用一个通用 API 服务所有客户端环境（Web、移动端、TV、第三方集成），不如为每个客户端构建专属的服务器层。
+
+BFF 是一个服务器，它负责：
+
+- 提供适合特定前端渲染需求的响应结构
+- 聚合和转换来自下游服务或主后端的数据
+- 代替浏览器管理认证会话（稍后详述）
+- 保护前端免受底层服务变更的影响
+
+"每个客户端环境一个 BFF"的规则不容妥协。移动 App 和 Web App 在数据需求、性能预算和交互模式上都不同。一旦在这两者之间共享 BFF，你就又回到了对任何人都不够优化的通用 API 老路上。
+
+## BFF vs. 普通后端
+
+普通后端负责**业务逻辑和数据完整性**。它强制执行领域规则，拥有数据库，并以*领域*理解的术语暴露资源。它不需要知道，也不应该知道首页和个人资料页所需的 `User` 结构有何不同。
+
+BFF 负责**表现层逻辑**。它接收下游后端提供的内容，将其转换为特定前端真正需要的格式。实际上这意味着：
+
+- 将多个 API 调用合并为单一响应
+- 根据前端惯例重命名或重组字段
+- 过滤前端不渲染的数据
+- 预计算派生值，让前端无需每次渲染时重新计算
+- 在服务器端持有认证令牌，让浏览器无需处理
+
+这种区分至关重要。后端工程师以实体和不变量思考。前端工程师以组件和屏幕所需数据思考。BFF 流利地说第二种语言。
+
+### 架构对比：没有 BFF vs. 有 BFF
+
+```hidden
+digraph BFF {
+  bgcolor="transparent";
+  node [shape=box, style=filled, fontname="Noto Sans", fontsize=13, fontcolor="#222222"];
+  edge [color="#6a8caf", penwidth=1.5];
+  rankdir=LR;
+
+  subgraph cluster_without {
+    label="Without BFF";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#e8f0fe";
+    fontcolor="#3a5a7c";
+    fontname="Noto Sans";
+    margin=20;
+
+    WebApp1    [label="Web App",    fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    MobileApp1 [label="Mobile App", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    GenericAPI [label="Generic API", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    WebApp1    -> GenericAPI;
+    MobileApp1 -> GenericAPI;
+  }
+
+  subgraph cluster_with {
+    label="With BFF";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#e8f0fe";
+    fontcolor="#3a5a7c";
+    fontname="Noto Sans";
+    margin=20;
+
+    WebApp2    [label="Web App",    fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    MobileApp2 [label="Mobile App", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    WebBFF     [label="Web BFF",    fillcolor="#b5d5f5", fontcolor="#1b3b5c"];
+    MobileBFF  [label="Mobile BFF", fillcolor="#b5d5f5", fontcolor="#1b3b5c"];
+    Backend    [label="Backend / Services", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    WebApp2    -> WebBFF;
+    MobileApp2 -> MobileBFF;
+    WebBFF     -> Backend;
+    MobileBFF  -> Backend;
+  }
+}
+```
+
+<Image
+  src={"/assets/blog/backend-for-frontend/diag-bff.svg"}
+  priority={true}
+  width={700}
+  height={320}
+  className="mx-auto mt-10 mb-10"
+  alt={"Architecture diagram: without BFF vs. with BFF"}
+/>
+
+用代码来展示实际差异。不使用 BFF 时构建仪表盘页面：
+
+```typescript
+// 前端通过三个独立调用组装页面
+const [user, orders, notifications] = await Promise.all([
+  fetch("/api/users/me"),
+  fetch("/api/orders?userId=me&limit=3"),
+  fetch("/api/notifications?userId=me&unread=true"),
+]);
+const unreadCount = notifications.filter((n) => !n.read).length;
+const displayName = `${user.firstName} ${user.lastName}`;
+```
+
+有了 BFF，前端只需一次调用就能精确获取所需数据：
+
+```typescript
+// BFF 提供专为这个页面设计的端点
+const { user, recentOrders, unreadCount } = await fetch("/bff/dashboard");
+```
+
+聚合和转换逻辑在 BFF 中处理，不会散落在前端代码各处，也不会在多个页面中重复出现。
+
+## 微服务 vs. 单体架构中的 BFF
+
+### 微服务：典型使用场景
+
+BFF 模式诞生于微服务世界，原因显而易见。当后端分散在数十个服务中——用户、订单、库存、通知、支付等——前端需要了解所有这些。一个小小的 UI 变更可能需要与三个后端团队协调响应结构。
+
+BFF 通过充当前端的单一契约来解决这个问题。BFF 与所需的下游服务通信。用户服务变更了 API？BFF 吸收这个变化。前端完全无需关心。
+
+这是应用于前端/后端边界的**防腐层**模式，将前端与后端变化的涌浪隔离开来。
+
+### 单体架构：不同形式的价值
+
+BFF 在单体架构中同样有价值，只是动机不同。问题不是协调多个服务，而是应对一个并非为 UI 特定需求而设计的通用 API。
+
+在这种场景下，BFF 通常是单体前面的一个薄**适配器层**，可以在同一代码库中（Next.js 路由处理器、monorepo 中的 Express 应用等），也可以作为独立服务。
+
+单体架构中的关键原则：保持 BFF 轻薄。开始从单体复制业务逻辑的 BFF 是反模式。应当翻译和聚合，业务规则留在后端。
+
+## 谁来编写 BFF？
+
+这是团队最常误用这个模式的地方。
+
+**BFF 应该由前端团队拥有。**这是模式的核心。
+
+当后端工程师拥有 BFF 时，它会随时间慢慢演变为通用 API。评审周期变慢。前端团队需要通过 Pull Request 和 JIRA 工单协商响应结构，而不是直接部署。这不过是同样问题的更慢版本。
+
+当前端工程师拥有 BFF 时，他们拥有契约。按需重组数据。无需申请即可添加新端点。以前端的速度部署。
+
+这要求前端工程师编写一定量的服务器端代码——不多。BFF 代码大多是粘合性工作：调用这个服务，转换那个响应，以干净的结构返回。但需要对 HTTP、认证流程和异步 I/O 有一定了解。能写复杂 React 应用的工程师基本上都能胜任。
+
+所有权边界就是 BFF 本身。BFF 调用下游服务，但不拥有业务逻辑。数据库写入、领域规则、不变量留在后端。BFF 明确处于表现层，这一区分要积极维护。
+
+## 语言选择
+
+当前端工程师是主要责任人时，语言选择尤为重要。
+
+**Node.js 运行时上的 TypeScript 是默认推荐。**原因很务实：
+
+- 前端工程师已经熟悉 TypeScript。学习曲线在运行时（HTTP、异步模式、进程生命周期），而非语言本身。
+- 在 monorepo 配置中，可以在前端和 BFF 之间直接共享类型定义，彻底消除 schema 不匹配和契约错位这一类问题。
+- Node.js 生态系统拥有出色的 HTTP 客户端库，可轻松部署到任何云环境。
+
+如果组织已有 Go 专业知识，且预期 BFF 由全栈或后端工程师维护，Go 是合理的替代选项。Go 的并发处理出色，对于 BFF 需要同时向多个下游服务发送请求以构建单一响应的场景很重要。
+
+但语言选择应遵循所有权模型。如果前端工程师拥有 BFF，就应该使用他们已经熟悉的语言。否则会产生摩擦，而摩擦最终会把所有权推回给后端团队。
+
+## 安全性：BFF 带来的额外收益
+
+安全性是支持 BFF 最有力的论据之一，却持续被低估。
+
+### 令牌存储问题
+
+单页应用面临一个古老的困境：访问令牌存哪里？`localStorage` 方便，但页面上的所有 JavaScript 都能访问它。在 npm 包供应链攻击盛行的今天，这是真实的风险。内存存储更安全，但页面刷新后消失。HTTP-only Cookie 可行，但需要服务器端处理。
+
+BFF 彻底解决了这个问题。**浏览器不持有原始访问令牌。**
+
+BFF 代替完成令牌交换：从身份提供商接收授权码，将其换成访问令牌和刷新令牌，在服务器端存储令牌，然后给浏览器一个 HTTP-only 会话 Cookie。此后前端的每个请求携带这个 Cookie，BFF 查找会话，将真实令牌附加到下游请求上。令牌永远不会进入 JavaScript 的世界。
+
+```typescript
+// BFF 处理 OAuth 回调——浏览器看不到访问令牌
+app.get("/auth/callback", async (req, res) => {
+  const { code } = req.query;
+  const tokens = await identityProvider.exchangeCode(code);
+
+  // 令牌存储在服务器端
+  await sessionStore.save(req.sessionId, tokens);
+
+  res.setCookie("session", req.sessionId, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+  });
+
+  res.redirect("/dashboard");
+});
+```
+
+### 不应放入 BFF 的内容
+
+BFF 绝不能成为领域规则堆积的地方。把它限定在设计目的上：读取聚合、响应塑形和认证委托。
+
+具体来说：
+
+- 不要在 BFF 层存储敏感数据（PII、支付令牌）。传递但不持久化。
+- 不要无差别代理所有下游端点。通过 BFF 暴露内部服务结构是安全警示信号。
+- 不要在每次请求未重新验证会话的情况下以提升的权限执行写操作。
+
+如果 BFF 有了自己的数据库、开始拥有业务规则，你已经不是在构建 BFF 了，而是在构建第二个后端。那完全是另一个问题。
+
+## 部署
+
+### 与前端共同部署
+
+如果你使用 **Next.js**，已经有了轻量 BFF 的基础设施：**Route Handlers**（App Router）或 API Routes（Pages Router）。前端和 BFF 存在于同一项目中，作为一个单元一起部署。
+
+这是适合中小型应用的默认起点。缺点是无法独立于前端扩展 BFF，但对大多数团队来说这个限制无关紧要。从这里开始。
+
+### Monorepo 中的独立服务
+
+对于较大的应用，常见的模式是在 monorepo 中前端旁边放置专属 BFF 服务。两者共享 TypeScript 类型，但独立部署。前端通过 HTTP 调用 BFF，BFF 扇出到后端服务。
+
+这个设置运维复杂度更高，但提供独立扩展和清晰分离。当 BFF 具有足够的复杂度时才有意义——多种聚合模式、缓存层、连接池等，足以证明运维开销是值得的。
+
+### Kubernetes Sidecar
+
+在 Kubernetes 环境中，BFF 可以作为**sidecar 容器**部署在与前端服务器相同的 Pod 中。前端通过 `localhost` 与 BFF 通信，无需外部网络跳转，延迟接近零。它们始终一起部署，消除了版本不匹配的可能性。
+
+### 应该避免的做法
+
+不要在多个前端应用之间共享 BFF。一旦这样做，你构建的就不是 BFF，而是 API 网关，在更高一层重新引入了你试图解决的通用化问题。
+
+## 真实案例
+
+**SoundCloud** 是这个模式被正式命名的地方。他们的工程团队面临着上文所述的协调问题。移动端和 Web 客户端需要不同形状的数据，共享的通用 API 意味着前端和后端团队之间持续的协商。拆分为每个客户端专属的 BFF 后，部署速度恢复了。
+
+**Netflix** 为其支持的每种设备运营一个 BFF 层，而设备种类繁多。电视、手机、平板、游戏机、Web 浏览器各自有着意义显著不同的性能预算和渲染约束。没有一个 API 能够同时很好地服务所有这些设备。Netflix 的 BFF 层负责针对每个端面的转换。
+
+**Spotify** 使用类似的模式。Web 播放器、桌面客户端和移动 App 有各自不同的数据需求和性能目标。他们的 BFF 层处理内部服务的扇出，并为每个客户端返回量身定制的响应。
+
+这三个案例中，BFF 都不是可选的，而是反映工程团队如何组织和部署速度需求的结构性决策。
+
+## 不该使用 BFF 的情况
+
+BFF 模式增加了网络跳转、需要运营的服务、需要管理的部署。这些开销必须证明其价值。
+
+**以下情况请跳过 BFF：**
+
+- 应用只有一个前端和一个后端，由同一个小团队维护。没有需要解决的协调问题。
+- 只有一种客户端环境。一个客户端、一个 API 完全合理。
+- 后端团队能够快速、无阻塞地重组端点。BFF 模式首先解决的是团队速度问题。如果团队没有这个问题，BFF 只是不必要的开销。
+- 还处于原型阶段。数据需求尚不清晰。等到真实页面诞生后再引入 BFF。
+
+最昂贵的 BFF 是在需要它之前构建的那个。脚手架增加了认知开销，没有真实的协调问题可以吸收，只是又多了一份需要维护的代码。
+
+## 结论
+
+BFF 模式本质上是包装成架构模式的**团队结构工具**。
+
+其核心是：构建 UI 的团队应该拥有供给它的 API 契约。其余一切由此推导而来。语言选择（TypeScript）来自所有权。安全模型（在服务器端持有令牌）来自 BFF 是受信任的后端层这一事实。部署策略来自前端和 BFF 共同演化的现实。
+
+在存在协调问题时使用它：前端工程师在等待后端团队重组响应，或者你在服务需求有意义差异的多个客户端环境。不要用它来解决尚不存在的问题。
+
+当你真正需要它时，没有什么比让前端团队完全掌控代码和驱动它的数据之间的契约更好的方式了。

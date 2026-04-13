@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="412pt" height="342pt" viewBox="0.00 0.00 412.00 342.00">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 338)">
+<title>BFF</title>
+<g id="clust1" class="cluster">
+<title>cluster_without</title>
+<path fill="#c9daf8" stroke="#3a5a7c" d="M20,-8C20,-8 232.53,-8 232.53,-8 238.53,-8 244.53,-14 244.53,-20 244.53,-20 244.53,-151 244.53,-151 244.53,-157 238.53,-163 232.53,-163 232.53,-163 20,-163 20,-163 14,-163 8,-157 8,-151 8,-151 8,-20 8,-20 8,-14 14,-8 20,-8"/>
+<text xml:space="preserve" text-anchor="middle" x="126.26" y="-146.4" font-family="Noto Sans" font-size="14.00" fill="#3a5a7c">Without BFF</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_with</title>
+<path fill="#c9daf8" stroke="#3a5a7c" d="M20,-171C20,-171 384.16,-171 384.16,-171 390.16,-171 396.16,-177 396.16,-183 396.16,-183 396.16,-314 396.16,-314 396.16,-320 390.16,-326 384.16,-326 384.16,-326 20,-326 20,-326 14,-326 8,-320 8,-314 8,-314 8,-183 8,-183 8,-177 14,-171 20,-171"/>
+<text xml:space="preserve" text-anchor="middle" x="202.08" y="-309.4" font-family="Noto Sans" font-size="14.00" fill="#3a5a7c">With BFF</text>
+</g>
+<!-- WebApp1 -->
+<g id="node1" class="node">
+<title>WebApp1</title>
+<polygon fill="#a2d5c6" stroke="black" points="100.68,-64 34.51,-64 34.51,-28 100.68,-28 100.68,-64"/>
+<text xml:space="preserve" text-anchor="middle" x="67.6" y="-42.1" font-family="Noto Sans" font-size="13.00" fill="#1b3b34">Web App</text>
+</g>
+<!-- GenericAPI -->
+<g id="node3" class="node">
+<title>GenericAPI</title>
+<polygon fill="#f4b183" stroke="black" points="224.53,-91 143.19,-91 143.19,-55 224.53,-55 224.53,-91"/>
+<text xml:space="preserve" text-anchor="middle" x="183.86" y="-69.1" font-family="Noto Sans" font-size="13.00" fill="#4a2c0f">Generic API</text>
+</g>
+<!-- WebApp1&#45;&gt;GenericAPI -->
+<g id="edge1" class="edge">
+<title>WebApp1-&gt;GenericAPI</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M101.03,-53.66C110.42,-55.88 120.91,-58.36 131.17,-60.79"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="130.27,-64.17 140.81,-63.06 131.88,-57.36 130.27,-64.17"/>
+</g>
+<!-- MobileApp1 -->
+<g id="node2" class="node">
+<title>MobileApp1</title>
+<polygon fill="#a2d5c6" stroke="black" points="107.19,-118 28,-118 28,-82 107.19,-82 107.19,-118"/>
+<text xml:space="preserve" text-anchor="middle" x="67.6" y="-96.1" font-family="Noto Sans" font-size="13.00" fill="#1b3b34">Mobile App</text>
+</g>
+<!-- MobileApp1&#45;&gt;GenericAPI -->
+<g id="edge2" class="edge">
+<title>MobileApp1-&gt;GenericAPI</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M107.6,-90.78C115.16,-89 123.18,-87.1 131.07,-85.24"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="131.73,-88.68 140.66,-82.97 130.12,-81.87 131.73,-88.68"/>
+</g>
+<!-- WebApp2 -->
+<g id="node4" class="node">
+<title>WebApp2</title>
+<polygon fill="#a2d5c6" stroke="black" points="100.68,-227 34.51,-227 34.51,-191 100.68,-191 100.68,-227"/>
+<text xml:space="preserve" text-anchor="middle" x="67.6" y="-205.1" font-family="Noto Sans" font-size="13.00" fill="#1b3b34">Web App</text>
+</g>
+<!-- WebBFF -->
+<g id="node6" class="node">
+<title>WebBFF</title>
+<polygon fill="#b5d5f5" stroke="black" points="217.32,-227 150.4,-227 150.4,-191 217.32,-191 217.32,-227"/>
+<text xml:space="preserve" text-anchor="middle" x="183.86" y="-205.1" font-family="Noto Sans" font-size="13.00" fill="#1b3b5c">Web BFF</text>
+</g>
+<!-- WebApp2&#45;&gt;WebBFF -->
+<g id="edge3" class="edge">
+<title>WebApp2-&gt;WebBFF</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M101.03,-209C112.51,-209 125.64,-209 137.97,-209"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="137.67,-212.5 147.67,-209 137.67,-205.5 137.67,-212.5"/>
+</g>
+<!-- MobileApp2 -->
+<g id="node5" class="node">
+<title>MobileApp2</title>
+<polygon fill="#a2d5c6" stroke="black" points="107.19,-281 28,-281 28,-245 107.19,-245 107.19,-281"/>
+<text xml:space="preserve" text-anchor="middle" x="67.6" y="-259.1" font-family="Noto Sans" font-size="13.00" fill="#1b3b34">Mobile App</text>
+</g>
+<!-- MobileBFF -->
+<g id="node7" class="node">
+<title>MobileBFF</title>
+<polygon fill="#b5d5f5" stroke="black" points="223.83,-281 143.89,-281 143.89,-245 223.83,-245 223.83,-281"/>
+<text xml:space="preserve" text-anchor="middle" x="183.86" y="-259.1" font-family="Noto Sans" font-size="13.00" fill="#1b3b5c">Mobile BFF</text>
+</g>
+<!-- MobileApp2&#45;&gt;MobileBFF -->
+<g id="edge4" class="edge">
+<title>MobileApp2-&gt;MobileBFF</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M107.6,-263C115.33,-263 123.55,-263 131.61,-263"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="131.37,-266.5 141.37,-263 131.37,-259.5 131.37,-266.5"/>
+</g>
+<!-- Backend -->
+<g id="node8" class="node">
+<title>Backend</title>
+<polygon fill="#f4b183" stroke="black" points="376.16,-254 260.53,-254 260.53,-218 376.16,-218 376.16,-254"/>
+<text xml:space="preserve" text-anchor="middle" x="318.34" y="-232.1" font-family="Noto Sans" font-size="13.00" fill="#4a2c0f">Backend / Services</text>
+</g>
+<!-- WebBFF&#45;&gt;Backend -->
+<g id="edge5" class="edge">
+<title>WebBFF-&gt;Backend</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M217.61,-215.67C226.96,-217.58 237.52,-219.73 248.19,-221.91"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="247.49,-225.34 257.98,-223.9 248.88,-218.48 247.49,-225.34"/>
+</g>
+<!-- MobileBFF&#45;&gt;Backend -->
+<g id="edge6" class="edge">
+<title>MobileBFF-&gt;Backend</title>
+<path fill="none" stroke="#6a8caf" stroke-width="1.5" d="M224.25,-254.97C231.83,-253.43 239.98,-251.77 248.19,-250.09"/>
+<polygon fill="#6a8caf" stroke="#6a8caf" stroke-width="1.5" points="248.88,-253.52 257.98,-248.1 247.48,-246.67 248.88,-253.52"/>
+</g>
+</g>
+</svg>
