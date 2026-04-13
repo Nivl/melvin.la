@@ -15,7 +15,7 @@ export function PostDetails({ post }: { post: BlogPost }) {
             alt="Thumbnail of the article"
             priority={true}
             width={1200}
-            height={600}
+            height={630}
           />
         </div>
 
