@@ -17,7 +17,9 @@ function isBlogPost(value: unknown): value is BlogPost {
     typeof value.title === "string" &&
     typeof value.content === "string" &&
     typeof value.image === "string" &&
+    typeof value.imageHash === "string" &&
     typeof value.ogImage === "string" &&
+    typeof value.ogImageHash === "string" &&
     typeof value.excerpt === "string" &&
     typeof value.createdAt === "string" &&
     typeof value.updatedAt === "string"

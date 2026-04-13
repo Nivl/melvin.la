@@ -10,7 +10,7 @@ export function PostDetails({ post }: { post: BlogPost }) {
       <Card className="h-full w-full p-0">
         <div className="overflow-hidden">
           <Image
-            src={`/assets/blog/${post.slug}/${post.image}`}
+            src={`/assets/blog/${post.slug}/${post.image}${post.imageHash ? `?v=${post.imageHash}` : ""}`}
             className="aspect-auto w-full object-cover transition-transform duration-300 group-hover:scale-110 motion-reduce:transition-none"
             alt="Thumbnail of the article"
             priority={true}

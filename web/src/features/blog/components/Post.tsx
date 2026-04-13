@@ -19,7 +19,7 @@ export function Post({ post }: { post: BlogPost }) {
 
         <Image
           className="mt-4"
-          src={`/assets/blog/${post.slug}/${post.image}`}
+          src={`/assets/blog/${post.slug}/${post.image}${post.imageHash ? `?v=${post.imageHash}` : ""}`}
           priority={true}
           width={1200}
           height={630}

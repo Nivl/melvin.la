@@ -12,6 +12,13 @@ const withNextIntl = createNextIntlPlugin({
 
 const nextConfig: NextConfig = {
   transpilePackages: ["next-mdx-remote"],
+  images: {
+    localPatterns: [
+      {
+        pathname: "/assets/blog/**",
+      },
+    ],
+  },
   async headers() {
     return await Promise.resolve([
       {
