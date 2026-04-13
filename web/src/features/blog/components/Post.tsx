@@ -22,7 +22,7 @@ export function Post({ post }: { post: BlogPost }) {
           src={`/assets/blog/${post.slug}/${post.image}`}
           priority={true}
           width={1200}
-          height={600}
+          height={630}
           alt={post.title}
         />
       </Section>
