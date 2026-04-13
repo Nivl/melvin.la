@@ -1,0 +1,265 @@
+---
+title: "Le Pattern Backend for Frontend : des APIs enfin adaptées à votre UI"
+excerpt: "La plupart des backends sont conçus pour la commodité des équipes backend. Le pattern BFF renverse cette logique — et change qui possède l'API, ce qu'elle contient, et à quelle vitesse votre frontend peut avancer."
+image: "cover.avif"
+ogImage: "cover.png"
+createdAt: "2026-04-13"
+updatedAt: "2026-04-13"
+---
+
+Tout développeur frontend a vécu ça. L'API renvoie un payload techniquement correct mais totalement inadapté à ce que vous construisez. Vous avez besoin du nom d'un utilisateur, de son avatar et de ses trois dernières commandes sur la page d'accueil. Résultat : vous faites quatre appels API séparés, vous assemblez les données côté client, et vous priez pour que le réseau soit assez rapide pour que les utilisateurs ne remarquent pas l'enchaînement de chargements.
+
+Ou pire : l'endpoint renvoie 47 champs quand vous en avez besoin de 6, et le seul que vous voulez vraiment s'appelle quelque chose comme `usr_acct_disp_nm`.
+
+Ce n'est pas un problème de qualité du backend. C'est un problème d'architecture. Le backend a été conçu pour un usage générique — ou pour un tout autre client. Le pattern **Backend for Frontend (BFF)** existe précisément pour corriger ça.
+
+## Qu'est-ce qu'un BFF ?
+
+Le terme a été créé chez **SoundCloud** et formalisé par **Sam Newman** dans ses travaux sur les microservices. L'idée centrale est simple : au lieu de construire une API générique qui essaie de servir toutes les surfaces clientes (web, mobile, TV, intégrations tierces), on construit une couche serveur dédiée pour chaque client.
+
+Un BFF est un serveur qui :
+
+- Façonne ses réponses selon les besoins de rendu d'un frontend spécifique
+- Agrège et transforme les données venant des services aval ou de votre backend principal
+- Gère les sessions d'authentification pour le compte du navigateur (on y reviendra)
+- Protège le frontend des changements dans les services sous-jacents
+
+Le principe « un BFF par surface cliente » n'est pas négociable. Une application mobile et une application web ont des besoins en données différents, des budgets de performance différents et des patterns d'interaction différents. Dès que vous partagez un BFF entre elles, vous revenez à construire une API générique qui n'optimise pour personne.
+
+## BFF vs. Backend classique
+
+Un backend classique s'occupe de la **logique métier et de l'intégrité des données**. Il applique les règles du domaine, possède la base de données, et expose les ressources dans les termes que le _domaine_ comprend. Il ne sait pas — et ne devrait pas savoir — que votre page d'accueil a besoin d'une forme légèrement différente de `User` que votre page de profil.
+
+Un BFF s'occupe de la **logique de présentation**. Il prend ce que le backend aval offre et le transforme en ce dont un frontend spécifique a réellement besoin. En pratique, cela signifie :
+
+- Combiner plusieurs appels API en une seule réponse
+- Renommer ou restructurer les champs selon les conventions du frontend
+- Filtrer les données que le frontend n'affiche jamais
+- Calculer les valeurs dérivées que le frontend recalculerait sinon à chaque rendu
+- Conserver les tokens d'authentification côté serveur pour que le navigateur n'ait pas à le faire
+
+La distinction est importante. Un ingénieur backend pense en entités et en invariants. Un ingénieur frontend pense en composants et en données nécessaires à un écran. Un BFF parle couramment ce second langage.
+
+### Architecture : Sans BFF vs. Avec BFF
+
+```hidden
+digraph BFF {
+  bgcolor="transparent";
+  node [shape=box, style=filled, fontname="Noto Sans", fontsize=13, fontcolor="#222222"];
+  edge [color="#6a8caf", penwidth=1.5];
+  rankdir=LR;
+
+  subgraph cluster_without {
+    label="Without BFF";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#e8f0fe";
+    fontcolor="#3a5a7c";
+    fontname="Noto Sans";
+    margin=20;
+
+    WebApp1    [label="Web App",    fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    MobileApp1 [label="Mobile App", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    GenericAPI [label="Generic API", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    WebApp1    -> GenericAPI;
+    MobileApp1 -> GenericAPI;
+  }
+
+  subgraph cluster_with {
+    label="With BFF";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#e8f0fe";
+    fontcolor="#3a5a7c";
+    fontname="Noto Sans";
+    margin=20;
+
+    WebApp2    [label="Web App",    fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    MobileApp2 [label="Mobile App", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    WebBFF     [label="Web BFF",    fillcolor="#b5d5f5", fontcolor="#1b3b5c"];
+    MobileBFF  [label="Mobile BFF", fillcolor="#b5d5f5", fontcolor="#1b3b5c"];
+    Backend    [label="Backend / Services", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    WebApp2    -> WebBFF;
+    MobileApp2 -> MobileBFF;
+    WebBFF     -> Backend;
+    MobileBFF  -> Backend;
+  }
+}
+```
+
+<Image
+  src={"/assets/blog/backend-for-frontend/diag-bff.svg"}
+  priority={true}
+  width={700}
+  height={320}
+  className="mx-auto mt-10 mb-10"
+  alt={"Architecture diagram: without BFF vs. with BFF"}
+/>
+
+Voici à quoi ressemble la différence en pratique. Sans BFF, une page tableau de bord pourrait faire ceci :
+
+```typescript
+// Le frontend assemble la vue depuis trois appels séparés
+const [user, orders, notifications] = await Promise.all([
+  fetch("/api/users/me"),
+  fetch("/api/orders?userId=me&limit=3"),
+  fetch("/api/notifications?userId=me&unread=true"),
+]);
+const unreadCount = notifications.filter((n) => !n.read).length;
+const displayName = `${user.firstName} ${user.lastName}`;
+```
+
+Avec un BFF, le frontend obtient exactement ce dont il a besoin en un seul appel :
+
+```typescript
+// Le BFF expose un endpoint taillé pour cet écran
+const { user, recentOrders, unreadCount } = await fetch("/bff/dashboard");
+```
+
+La logique d'agrégation et de transformation vit dans le BFF — pas éparpillée dans le frontend, pas dupliquée sur plusieurs écrans.
+
+## BFF dans un contexte Microservices vs. Monolithe
+
+### Microservices : le cas d'usage classique
+
+Le pattern BFF est né du monde des microservices, et pour de bonnes raisons. Quand votre backend est réparti sur une dizaine de services — utilisateurs, commandes, inventaire, notifications, facturation — le frontend doit tous les connaître. Un petit changement d'UI peut nécessiter de coordonner avec trois équipes backend pour obtenir une forme de réponse légèrement différente.
+
+Un BFF résout ce problème en servant de contrat unique pour le frontend. Le BFF parle aux services aval dont il a besoin. Si le service utilisateur change son API, le BFF absorbe le changement. Le frontend s'en fiche.
+
+C'est le pattern **anti-corruption layer** appliqué à la frontière frontend/backend : isoler le frontend de l'évolution constante du backend.
+
+### Monolithe : une autre saveur
+
+Les BFFs sont tout aussi utiles avec un monolithe — la motivation change simplement. Vous ne gérez pas l'orchestration de plusieurs services ; vous gérez une API générique qui n'a pas été conçue pour les besoins spécifiques de votre UI.
+
+Dans ce contexte, un BFF est typiquement une fine **couche d'adaptation** devant votre monolithe. Elle peut vivre dans le même codebase (comme un module, un ensemble de route handlers Next.js, ou une app Express dédiée dans un monorepo), ou comme un service séparé.
+
+La règle critique pour le cas monolithe : gardez le BFF fin. Un BFF qui commence à répliquer la logique métier du monolithe est un anti-pattern. Il doit traduire et agréger. Les règles métier appartiennent au backend.
+
+## Qui écrit le BFF ?
+
+C'est là que les équipes se trompent le plus souvent.
+
+**Le BFF doit appartenir à l'équipe frontend.** C'est tout l'intérêt du pattern.
+
+Si les ingénieurs backend possèdent le BFF, il dérive lentement vers une API générique. Les cycles de revue ralentissent. L'équipe frontend se retrouve à négocier des formes de réponse via des pull requests et des tickets JIRA plutôt que de simplement les livrer. Vous avez échangé un problème contre une version plus lente du même problème.
+
+Quand les ingénieurs frontend possèdent le BFF, ils possèdent le contrat. Ils remodèlent les données quand ils en ont besoin. Ils ajoutent un nouvel endpoint sans déposer de demande. Ils livrent à la vélocité du frontend.
+
+Cela demande aux ingénieurs frontend d'écrire un peu de code côté serveur. Ce n'est pas beaucoup — le code BFF est surtout du travail de glue : appeler ce service, transformer cette réponse, renvoyer une forme propre. Mais cela demande une certaine aisance avec HTTP, les flux d'authentification et l'I/O asynchrone. La plupart des ingénieurs capables d'écrire des applications React complexes peuvent gérer ça sans difficulté.
+
+La frontière de responsabilité, c'est le BFF lui-même. Le BFF appelle des services aval mais ne possède jamais la logique métier. Les écritures en base, les règles du domaine et les invariants restent dans le backend. Le BFF est fermement dans la couche de présentation, et cette distinction doit être activement maintenue.
+
+## Choix du langage
+
+Oui, ça compte — surtout quand les ingénieurs frontend sont les principaux responsables.
+
+**TypeScript avec un runtime Node.js est ma recommandation par défaut.** Le raisonnement est pratique plutôt que dogmatique :
+
+- Les ingénieurs frontend connaissent déjà TypeScript. La courbe d'apprentissage concerne le runtime (HTTP, patterns async, cycle de vie du processus) — pas le langage.
+- Dans un setup monorepo, vous pouvez partager les types entre le frontend et le BFF directement. Toute une catégorie de désynchronisation de schéma disparaît.
+- L'écosystème Node.js dispose d'excellentes librairies clientes HTTP et se déploie facilement sur n'importe quel environnement cloud.
+
+Go est une alternative raisonnable quand votre organisation a déjà une expertise Go et que le BFF est destiné à être maintenu par des ingénieurs full-stack ou backend. Go gère bien la concurrence, ce qui compte quand un BFF fait plusieurs requêtes aval simultanément pour construire une seule réponse.
+
+Mais le choix du langage doit suivre le modèle de responsabilité. Si les ingénieurs frontend possèdent le BFF, ils doivent utiliser le langage qu'ils connaissent déjà. Tout autre choix crée des frictions, et les frictions finissent par repousser la responsabilité vers les équipes backend.
+
+## Sécurité : ce que le BFF vous offre gratuitement
+
+La sécurité est l'un des arguments les plus forts en faveur d'un BFF, et elle est constamment sous-estimée.
+
+### Le problème du stockage des tokens
+
+Les applications monopages ont un dilemme persistant : où stocker le token d'accès ? `localStorage` est pratique mais exposé à tout JavaScript sur la page — un vrai risque à l'ère des attaques sur la chaîne d'approvisionnement npm. Le stockage en mémoire est plus sûr mais perdu au rafraîchissement. Les cookies HTTP-only fonctionnent mais nécessitent une gestion côté serveur.
+
+Un BFF résout ce problème complètement. **Le navigateur ne détient jamais un token d'accès brut.**
+
+À la place, le BFF effectue l'échange de tokens. Il reçoit le code d'autorisation de votre fournisseur d'identité, l'échange contre un token d'accès et de rafraîchissement, stocke les tokens côté serveur, et remet au navigateur un cookie de session HTTP-only. Chaque requête suivante du frontend porte ce cookie ; le BFF retrouve la session, attache le vrai token à la requête aval, et la transmet. Le token ne touche jamais JavaScript.
+
+```typescript
+// Le BFF gère le callback OAuth — le navigateur ne voit jamais le token d'accès
+app.get("/auth/callback", async (req, res) => {
+  const { code } = req.query;
+  const tokens = await identityProvider.exchangeCode(code);
+
+  // Les tokens vivent côté serveur
+  await sessionStore.save(req.sessionId, tokens);
+
+  res.setCookie("session", req.sessionId, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+  });
+
+  res.redirect("/dashboard");
+});
+```
+
+### Ce qu'il ne faut pas mettre dans un BFF
+
+Un BFF ne doit jamais devenir un endroit où s'accumulent les règles du domaine. Cantonnez-le à ce pour quoi il est conçu : agrégation de lectures, façonnage des réponses et délégation de l'authentification.
+
+Plus précisément :
+
+- Ne stockez pas de données sensibles (PII, tokens de paiement) dans la couche BFF. Faites transiter, ne persistez pas.
+- Ne proxifiez pas aveuglément tous les endpoints aval. Exposer la structure interne de vos services via le BFF est un signe d'alerte en matière de sécurité.
+- N'effectuez pas d'écritures avec des privilèges élevés sans revalider la session à chaque requête.
+
+Si votre BFF a sa propre base de données et commence à posséder des règles métier, vous avez arrêté de construire un BFF et commencé à construire un second backend. C'est un problème entièrement différent.
+
+## Déploiement
+
+### Colocalisé avec le frontend
+
+Si vous utilisez **Next.js**, vous avez déjà l'infrastructure pour un BFF léger : les **Route Handlers** (App Router) ou les API Routes (Pages Router). Votre frontend et votre BFF vivent dans le même projet et se déploient ensemble comme une seule unité.
+
+C'est le bon point de départ pour les petites et moyennes applications. Le compromis est que vous ne pouvez pas faire évoluer le BFF indépendamment du frontend — mais pour la plupart des équipes, cette contrainte est sans importance. Commencez ici.
+
+### Service séparé dans un monorepo
+
+Pour les applications plus importantes, un pattern courant est un service BFF dédié vivant aux côtés du frontend dans un monorepo. Les deux partagent les types TypeScript, mais se déploient indépendamment. Le frontend appelle le BFF via HTTP ; le BFF se répartit vers les services backend.
+
+Cette configuration est plus complexe opérationnellement mais offre une mise à l'échelle indépendante et une séparation plus nette. Elle se justifie quand le BFF a suffisamment de complexité — patterns d'agrégation multiples, couches de cache, pool de connexions — pour que la surcharge opérationnelle soit justifiée.
+
+### Sidecar Kubernetes
+
+Dans un environnement Kubernetes, le BFF peut être déployé comme un **conteneur sidecar** dans le même pod que le serveur frontend. Le frontend communique avec le BFF via `localhost`, maintenant une latence quasi nulle sans saut réseau externe. Ils se déploient toujours ensemble, ce qui élimine les décalages de version entre les deux.
+
+### Ce qu'il faut éviter
+
+Ne partagez pas un BFF entre plusieurs applications frontend. Dès que vous le faites, vous construisez une API gateway, pas un BFF. Vous avez réintroduit le même problème de généralisation que vous cherchiez à résoudre, juste une couche plus haut.
+
+## Exemples concrets
+
+**SoundCloud** est l'endroit où le pattern a été formellement nommé. Leur équipe d'ingénierie a fait face exactement au problème de coordination décrit plus haut : les clients mobile et web avaient besoin de formes de données différentes, et une API générique partagée signifiait une négociation constante entre équipes frontend et backend. Passer à des BFFs spécifiques par client a restauré la vélocité de livraison.
+
+**Netflix** fait tourner une couche BFF pour chacun des appareils qu'il supporte — et ils sont nombreux. Télévisions, téléphones, tablettes, consoles de jeux et navigateurs web ont des budgets de performance et des contraintes de rendu significativement différents. Une seule API ne peut pas bien servir tous ces clients. La couche BFF de Netflix gère la traduction pour chaque surface.
+
+**Spotify** utilise un modèle similaire. Le player web, le client desktop et les apps mobiles ont des besoins en données différents et des objectifs de performance différents. Leur couche BFF gère la distribution vers les services internes et renvoie des réponses adaptées à chaque client.
+
+Dans ces trois cas, le BFF n'est pas un luxe. C'est une décision structurelle qui reflète comment leurs équipes d'ingénierie sont organisées et à quelle vitesse elles doivent livrer.
+
+## Quand ne pas utiliser un BFF
+
+Le pattern BFF ajoute un saut réseau, un service à opérer et un déploiement à gérer. Cette surcharge doit mériter sa place.
+
+**Passez le BFF si :**
+
+- Votre app a un seul frontend et un seul backend, maintenus par la même petite équipe. Il n'y a pas de problème de coordination à résoudre.
+- Vous n'avez qu'une seule surface cliente. Un client, une API, c'est parfaitement raisonnable.
+- Votre équipe backend peut remodeler un endpoint rapidement sans créer de goulot d'étranglement. Le pattern BFF résout avant tout un problème de vélocité d'équipe ; si l'équipe n'a pas ce problème, la solution est une surcharge inutile.
+- Vous êtes encore en phase de prototypage. Vous ne connaissez pas encore vos besoins en données. Engagez-vous sur un BFF une fois que vous avez de vrais écrans à alimenter.
+
+Le BFF le plus coûteux est celui que vous avez construit avant d'en avoir besoin. L'infrastructure ajoute une charge cognitive, et sans vrai problème de coordination à absorber, ce n'est que du code supplémentaire à maintenir.
+
+## Conclusion
+
+Le pattern BFF est, en son cœur, un **outil d'organisation des équipes** déguisé en pattern d'architecture.
+
+Il dit : l'équipe qui construit l'UI doit posséder le contrat API qui l'alimente. Tout le reste en découle. Le choix du langage (TypeScript) découle de la responsabilité. Le modèle de sécurité (tokens conservés côté serveur) découle du BFF étant une couche backend de confiance. La stratégie de déploiement découle du fait que frontend et BFF évoluent ensemble.
+
+Utilisez-le quand vous avez un problème de coordination — quand les ingénieurs frontend attendent que les équipes backend remodèlent des réponses, ou quand vous servez plusieurs surfaces clientes avec des besoins significativement différents. Ne l'utilisez pas pour résoudre un problème que vous n'avez pas encore.
+
+Quand vous en avez besoin, rien n'est mieux pour donner aux équipes frontend un contrôle total sur le contrat entre leur code et les données dont il dépend.

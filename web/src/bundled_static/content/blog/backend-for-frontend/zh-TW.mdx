@@ -1,0 +1,265 @@
+---
+title: "後端服務前端模式：打造 UI 真正需要的 API"
+excerpt: "大多數後端是為後端團隊的便利而打造的。BFF 模式翻轉了這個結構，改變了 API 的所有權、內容，以及前端的交付速度。"
+image: "cover.avif"
+ogImage: "cover.png"
+createdAt: "2026-04-13"
+updatedAt: "2026-04-13"
+---
+
+每位前端開發者都經歷過這樣的場景。API 在技術上回傳正確的資料，卻完全不符合你正在建構的內容。首頁需要使用者名稱、頭像和最近三筆訂單，但你卻得分別呼叫四個 API，在客戶端手動拼裝資料，祈禱網路速度夠快。
+
+更糟糕的情況也有。你需要六個欄位，結果收到了四十七個，還得找到真正需要的欄位——它叫做 `usr_acct_disp_nm`。
+
+這不是後端品質問題，而是架構問題。後端是為了通用目的，或者為完全不同的客戶端而設計的。**Backend for Frontend（BFF）**模式正是為解決這個問題而生。
+
+## 什麼是 BFF？
+
+這個術語最早由 **SoundCloud** 提出，並由 **Sam Newman** 在微服務研究中正式定義。核心思想很簡單：與其用一個通用 API 服務所有客戶端環境（Web、行動端、TV、第三方整合），不如為每個客戶端建構專屬的伺服器層。
+
+BFF 是一個伺服器，它負責：
+
+- 提供適合特定前端渲染需求的回應結構
+- 彙總和轉換來自下游服務或主後端的資料
+- 代替瀏覽器管理認證工作階段（稍後詳述）
+- 保護前端免受底層服務變更的影響
+
+「每個客戶端環境一個 BFF」的規則不容妥協。行動 App 和 Web App 在資料需求、效能預算和互動模式上都不同。一旦在這兩者之間共用 BFF，你就又回到了對任何人都不夠最佳化的通用 API 老路上。
+
+## BFF vs. 一般後端
+
+一般後端負責**業務邏輯和資料完整性**。它強制執行領域規則，擁有資料庫，並以*領域*理解的術語暴露資源。它不需要知道，也不應該知道首頁和個人資料頁所需的 `User` 結構有何不同。
+
+BFF 負責**表現層邏輯**。它接收下游後端提供的內容，將其轉換為特定前端真正需要的格式。實際上這意味著：
+
+- 將多個 API 呼叫合併為單一回應
+- 根據前端慣例重新命名或重組欄位
+- 過濾前端不渲染的資料
+- 預先計算衍生值，讓前端無需每次渲染時重新計算
+- 在伺服器端持有認證令牌，讓瀏覽器無需處理
+
+這種區分至關重要。後端工程師以實體和不變量思考。前端工程師以元件和畫面所需資料思考。BFF 流利地說第二種語言。
+
+### 架構對比：沒有 BFF vs. 有 BFF
+
+```hidden
+digraph BFF {
+  bgcolor="transparent";
+  node [shape=box, style=filled, fontname="Noto Sans", fontsize=13, fontcolor="#222222"];
+  edge [color="#6a8caf", penwidth=1.5];
+  rankdir=LR;
+
+  subgraph cluster_without {
+    label="Without BFF";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#e8f0fe";
+    fontcolor="#3a5a7c";
+    fontname="Noto Sans";
+    margin=20;
+
+    WebApp1    [label="Web App",    fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    MobileApp1 [label="Mobile App", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    GenericAPI [label="Generic API", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    WebApp1    -> GenericAPI;
+    MobileApp1 -> GenericAPI;
+  }
+
+  subgraph cluster_with {
+    label="With BFF";
+    style=rounded;
+    color="#3a5a7c";
+    bgcolor="#e8f0fe";
+    fontcolor="#3a5a7c";
+    fontname="Noto Sans";
+    margin=20;
+
+    WebApp2    [label="Web App",    fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    MobileApp2 [label="Mobile App", fillcolor="#a2d5c6", fontcolor="#1b3b34"];
+    WebBFF     [label="Web BFF",    fillcolor="#b5d5f5", fontcolor="#1b3b5c"];
+    MobileBFF  [label="Mobile BFF", fillcolor="#b5d5f5", fontcolor="#1b3b5c"];
+    Backend    [label="Backend / Services", fillcolor="#f4b183", fontcolor="#4a2c0f"];
+
+    WebApp2    -> WebBFF;
+    MobileApp2 -> MobileBFF;
+    WebBFF     -> Backend;
+    MobileBFF  -> Backend;
+  }
+}
+```
+
+<Image
+  src={"/assets/blog/backend-for-frontend/diag-bff.svg"}
+  priority={true}
+  width={700}
+  height={320}
+  className="mx-auto mt-10 mb-10"
+  alt={"Architecture diagram: without BFF vs. with BFF"}
+/>
+
+用程式碼展示實際差異。不使用 BFF 時建構儀表板頁面：
+
+```typescript
+// 前端透過三個獨立呼叫組裝頁面
+const [user, orders, notifications] = await Promise.all([
+  fetch("/api/users/me"),
+  fetch("/api/orders?userId=me&limit=3"),
+  fetch("/api/notifications?userId=me&unread=true"),
+]);
+const unreadCount = notifications.filter((n) => !n.read).length;
+const displayName = `${user.firstName} ${user.lastName}`;
+```
+
+有了 BFF，前端只需一次呼叫就能精確取得所需資料：
+
+```typescript
+// BFF 提供專為這個頁面設計的端點
+const { user, recentOrders, unreadCount } = await fetch("/bff/dashboard");
+```
+
+彙總和轉換邏輯在 BFF 中處理，不會散落在前端程式碼各處，也不會在多個頁面中重複出現。
+
+## 微服務 vs. 單體架構中的 BFF
+
+### 微服務：典型使用情境
+
+BFF 模式誕生於微服務世界，原因顯而易見。當後端分散在數十個服務中——使用者、訂單、庫存、通知、付款等——前端需要了解所有這些。一個小小的 UI 變更可能需要與三個後端團隊協調回應結構。
+
+BFF 透過充當前端的單一契約來解決這個問題。BFF 與所需的下游服務通訊。使用者服務變更了 API？BFF 吸收這個變化。前端完全無需關心。
+
+這是應用於前端/後端邊界的**防腐層**模式，將前端與後端變化的浪潮隔離開來。
+
+### 單體架構：不同形式的價值
+
+BFF 在單體架構中同樣有價值，只是動機不同。問題不是協調多個服務，而是應對一個並非為 UI 特定需求而設計的通用 API。
+
+在這種情境下，BFF 通常是單體前面的一個薄**適配器層**，可以在同一程式碼庫中（Next.js 路由處理器、monorepo 中的 Express 應用等），也可以作為獨立服務。
+
+單體架構中的關鍵原則：保持 BFF 輕薄。開始從單體複製業務邏輯的 BFF 是反模式。應當翻譯和彙總，業務規則留在後端。
+
+## 誰來撰寫 BFF？
+
+這是團隊最常誤用這個模式的地方。
+
+**BFF 應該由前端團隊擁有。**這是模式的核心。
+
+當後端工程師擁有 BFF 時，它會隨時間慢慢演變為通用 API。審查週期變慢。前端團隊需要透過 Pull Request 和 JIRA 工單協商回應結構，而不是直接部署。這不過是同樣問題的更慢版本。
+
+當前端工程師擁有 BFF 時，他們擁有契約。按需重組資料。無需申請即可新增端點。以前端的速度部署。
+
+這要求前端工程師撰寫一定量的伺服器端程式碼——不多。BFF 程式碼大多是黏合性工作：呼叫這個服務，轉換那個回應，以乾淨的結構回傳。但需要對 HTTP、認證流程和非同步 I/O 有一定了解。能寫複雜 React 應用的工程師基本上都能勝任。
+
+所有權邊界就是 BFF 本身。BFF 呼叫下游服務，但不擁有業務邏輯。資料庫寫入、領域規則、不變量留在後端。BFF 明確處於表現層，這一區分要積極維護。
+
+## 語言選擇
+
+當前端工程師是主要責任人時，語言選擇尤為重要。
+
+**Node.js 執行環境上的 TypeScript 是預設推薦。**原因很務實：
+
+- 前端工程師已經熟悉 TypeScript。學習曲線在執行環境（HTTP、非同步模式、程序生命週期），而非語言本身。
+- 在 monorepo 配置中，可以在前端和 BFF 之間直接共用型別定義，徹底消除 schema 不匹配和契約錯位這一類問題。
+- Node.js 生態系統擁有出色的 HTTP 客戶端程式庫，可輕鬆部署到任何雲端環境。
+
+如果組織已有 Go 專業知識，且預期 BFF 由全端或後端工程師維護，Go 是合理的替代選項。Go 的並行處理出色，對於 BFF 需要同時向多個下游服務發送請求以建構單一回應的情境很重要。
+
+但語言選擇應遵循所有權模型。如果前端工程師擁有 BFF，就應該使用他們已經熟悉的語言。否則會產生摩擦，而摩擦最終會把所有權推回給後端團隊。
+
+## 安全性：BFF 帶來的額外收益
+
+安全性是支持 BFF 最有力的論點之一，卻持續被低估。
+
+### 令牌儲存問題
+
+單頁應用面臨一個古老的困境：存取令牌存哪裡？`localStorage` 方便，但頁面上的所有 JavaScript 都能存取它。在 npm 套件供應鏈攻擊盛行的今天，這是真實的風險。記憶體儲存更安全，但頁面重新整理後消失。HTTP-only Cookie 可行，但需要伺服器端處理。
+
+BFF 徹底解決了這個問題。**瀏覽器不持有原始存取令牌。**
+
+BFF 代替完成令牌交換：從身份提供商接收授權碼，將其換成存取令牌和重新整理令牌，在伺服器端儲存令牌，然後給瀏覽器一個 HTTP-only 工作階段 Cookie。此後前端的每個請求攜帶這個 Cookie，BFF 查詢工作階段，將真實令牌附加到下游請求上。令牌永遠不會進入 JavaScript 的世界。
+
+```typescript
+// BFF 處理 OAuth 回呼——瀏覽器看不到存取令牌
+app.get("/auth/callback", async (req, res) => {
+  const { code } = req.query;
+  const tokens = await identityProvider.exchangeCode(code);
+
+  // 令牌儲存在伺服器端
+  await sessionStore.save(req.sessionId, tokens);
+
+  res.setCookie("session", req.sessionId, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+  });
+
+  res.redirect("/dashboard");
+});
+```
+
+### 不應放入 BFF 的內容
+
+BFF 絕不能成為領域規則堆積的地方。把它限定在設計目的上：讀取彙總、回應塑形和認證委派。
+
+具體來說：
+
+- 不要在 BFF 層儲存敏感資料（PII、付款令牌）。傳遞但不持久化。
+- 不要無差別代理所有下游端點。透過 BFF 暴露內部服務結構是安全警示信號。
+- 不要在每次請求未重新驗證工作階段的情況下以提升的權限執行寫入操作。
+
+如果 BFF 有了自己的資料庫、開始擁有業務規則，你已經不是在建構 BFF 了，而是在建構第二個後端。那完全是另一個問題。
+
+## 部署
+
+### 與前端共同部署
+
+如果你使用 **Next.js**，已經有了輕量 BFF 的基礎設施：**Route Handlers**（App Router）或 API Routes（Pages Router）。前端和 BFF 存在於同一專案中，作為一個單元一起部署。
+
+這是適合中小型應用的預設起點。缺點是無法獨立於前端擴展 BFF，但對大多數團隊來說這個限制無關緊要。從這裡開始。
+
+### Monorepo 中的獨立服務
+
+對於較大的應用，常見的模式是在 monorepo 中前端旁邊放置專屬 BFF 服務。兩者共用 TypeScript 型別，但獨立部署。前端透過 HTTP 呼叫 BFF，BFF 扇出到後端服務。
+
+這個設定維運複雜度更高，但提供獨立擴展和清晰分離。當 BFF 具有足夠的複雜度時才有意義——多種彙總模式、快取層、連線池等，足以證明維運開銷是值得的。
+
+### Kubernetes Sidecar
+
+在 Kubernetes 環境中，BFF 可以作為 **sidecar 容器**部署在與前端伺服器相同的 Pod 中。前端透過 `localhost` 與 BFF 通訊，無需外部網路跳轉，延遲接近零。它們始終一起部署，消除了版本不匹配的可能性。
+
+### 應該避免的做法
+
+不要在多個前端應用之間共用 BFF。一旦這樣做，你建構的就不是 BFF，而是 API 閘道，在更高一層重新引入了你試圖解決的通用化問題。
+
+## 真實案例
+
+**SoundCloud** 是這個模式被正式命名的地方。他們的工程團隊面臨著上文所述的協調問題。行動端和 Web 客戶端需要不同形狀的資料，共用的通用 API 意味著前端和後端團隊之間持續的協商。拆分為每個客戶端專屬的 BFF 後，部署速度恢復了。
+
+**Netflix** 為其支援的每種裝置運營一個 BFF 層，而裝置種類繁多。電視、手機、平板、遊戲機、Web 瀏覽器各自有著意義顯著不同的效能預算和渲染限制。沒有一個 API 能夠同時很好地服務所有這些裝置。Netflix 的 BFF 層負責針對每個端面的轉換。
+
+**Spotify** 使用類似的模式。Web 播放器、桌面客戶端和行動 App 有各自不同的資料需求和效能目標。他們的 BFF 層處理內部服務的扇出，並為每個客戶端回傳量身定制的回應。
+
+這三個案例中，BFF 都不是可選的，而是反映工程團隊如何組織和部署速度需求的結構性決策。
+
+## 不該使用 BFF 的情況
+
+BFF 模式增加了網路跳轉、需要運營的服務、需要管理的部署。這些開銷必須證明其價值。
+
+**以下情況請跳過 BFF：**
+
+- 應用只有一個前端和一個後端，由同一個小團隊維護。沒有需要解決的協調問題。
+- 只有一種客戶端環境。一個客戶端、一個 API 完全合理。
+- 後端團隊能夠快速、無阻塞地重組端點。BFF 模式首先解決的是團隊速度問題。如果團隊沒有這個問題，BFF 只是不必要的開銷。
+- 還處於原型階段。資料需求尚不清晰。等到真實頁面誕生後再引入 BFF。
+
+最昂貴的 BFF 是在需要它之前建構的那個。鷹架增加了認知開銷，沒有真實的協調問題可以吸收，只是又多了一份需要維護的程式碼。
+
+## 結論
+
+BFF 模式本質上是包裝成架構模式的**團隊結構工具**。
+
+其核心是：建構 UI 的團隊應該擁有供給它的 API 契約。其餘一切由此推導而來。語言選擇（TypeScript）來自所有權。安全模型（在伺服器端持有令牌）來自 BFF 是受信任的後端層這一事實。部署策略來自前端和 BFF 共同演化的現實。
+
+在存在協調問題時使用它：前端工程師在等待後端團隊重組回應，或者你在服務需求有意義差異的多個客戶端環境。不要用它來解決尚不存在的問題。
+
+當你真正需要它時，沒有什麼比讓前端團隊完全掌控程式碼和驅動它的資料之間的契約更好的方式了。
