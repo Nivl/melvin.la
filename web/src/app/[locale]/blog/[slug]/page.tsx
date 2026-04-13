@@ -50,7 +50,7 @@ export async function generateMetadata(props: {
       pageUrl: `/blog/${slug}`,
       title: post.title,
       description: post.excerpt,
-      imageURL: `/assets/blog/${post.slug}/${post.ogImage}`,
+      imageURL: `/assets/blog/${post.slug}/${post.ogImage}${post.ogImageHash ? `?v=${post.ogImageHash}` : ""}`,
       extraOg: {
         type: "article",
         publishedTime: post.createdAt,
