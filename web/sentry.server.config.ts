@@ -8,4 +8,6 @@ import { defaultConfig } from "./sentry.default.config";
 
 Sentry.init({
   ...defaultConfig,
+  // Attach local variable values to stack frames for better debugging.
+  includeLocalVariables: true,
 });

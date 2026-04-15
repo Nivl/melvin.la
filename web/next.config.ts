@@ -40,6 +40,10 @@ const sentryOption: SentryBuildOptions = {
   org: process.env.NEXT_PUBLIC_SENTRY_ORG,
   project: process.env.NEXT_PUBLIC_SENTRY_PROJECT,
 
+  // Auth token for uploading source maps — set SENTRY_AUTH_TOKEN in CI secrets
+  // or in a local .env.sentry-build-plugin file (gitignored).
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
 
