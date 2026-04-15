@@ -1,11 +1,11 @@
 import { useTranslations } from "next-intl";
 
-import { type FortniteData } from "#backend/api";
+import { FortniteStatsData, hasStats } from "#features/fortnite/models";
 import { rate } from "#features/fortnite/utils.ts";
 
 import { StatCard } from "./StatCard";
 
-export const MainData = ({ data, isLoading }: { data?: FortniteData; isLoading: boolean }) => {
+export const MainData = ({ data, isLoading }: { data?: FortniteStatsData; isLoading: boolean }) => {
   const t = useTranslations("fortnite");
 
   return (
@@ -13,9 +13,9 @@ export const MainData = ({ data, isLoading }: { data?: FortniteData; isLoading: 
       <StatCard
         className="from-[#4ADE80] to-[#06B6D4]"
         title={t("overallWinRate")}
-        isLoading={isLoading || !data}
+        isLoading={isLoading || !hasStats(data)}
         stat={
-          data
+          hasStats(data)
             ? `${rate(data.stats.all.overall.wins, data.stats.all.overall.matches).toFixed(2)}%`
             : "0.00%"
         }
@@ -23,8 +23,10 @@ export const MainData = ({ data, isLoading }: { data?: FortniteData; isLoading: 
       <StatCard
         className="from-[#FFB457] to-[#FF705B]"
         title={t("overallKd")}
-        isLoading={isLoading || !data}
-        stat={data ? (Math.ceil(data.stats.all.overall.kd * 100) / 100).toFixed(2) : "0.00"}
+        isLoading={isLoading || !hasStats(data)}
+        stat={
+          hasStats(data) ? (Math.ceil(data.stats.all.overall.kd * 100) / 100).toFixed(2) : "0.00"
+        }
       />
       <StatCard
         className="from-[#FF72E1] to-[#F54C7A]"

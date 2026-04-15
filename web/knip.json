@@ -1,6 +1,6 @@
 {
   "ignore": [
-    "src/backend/api.ts",
+    "src/trpc/client.tsx",
     "tsconfig.base.json",
     "messages/en.d.json.ts",
     "src/i18n/routing.ts"

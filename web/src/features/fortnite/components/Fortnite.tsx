@@ -6,12 +6,13 @@ import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
 import { useStats } from "#features/fortnite/hooks/useStats";
+import { AccountTypes, hasStats } from "#features/fortnite/models";
 import { humanizeDuration } from "#features/fortnite/utils.ts";
 import { routing } from "#i18n/routing";
 import { Section } from "#shared/components/layout/Section";
 
 import { AccountPresets, defaults, Preset } from "./AccountPresets";
-import { AccountTypes, Form } from "./Form";
+import { Form } from "./Form";
 import { MainData } from "./MainData";
 import { TableDesktop } from "./TableDesktop";
 import { TableMobile } from "./TableMobile";
@@ -111,12 +112,14 @@ export const Fortnite = ({
         </Section>
       )}
 
-      {!isLoading && error && (
+      {!isLoading && (error ?? (name && !hasStats(data))) && (
         <Section className="text-center text-xl font-extrabold text-red-400 sm:text-4xl">
           <div>
-            {error.code === 403 ? (
+            {!error && !hasStats(data) ? (
+              <>{t("errors.accountNoData")}</>
+            ) : error?.data?.httpStatus === 403 ? (
               <>{t("errors.accountPrivate")}</>
-            ) : error.code === 404 ? (
+            ) : error?.data?.httpStatus === 404 ? (
               <>{t("errors.notFound")}</>
             ) : (
               <>{t("errors.serverError")}</>
@@ -125,11 +128,11 @@ export const Fortnite = ({
         </Section>
       )}
 
-      {!error && name && (
+      {!error && (isLoading || hasStats(data)) && (
         <>
           <Section className="leading-inherit text-center text-xl font-extrabold sm:text-4xl">
             <div className="animate-[levitate_3s_ease-in-out_infinite]">
-              {isLoading || !data ? (
+              {isLoading || !hasStats(data) ? (
                 <>
                   <Skeleton className="mx-auto mb-2 h-8 w-72 rounded-full sm:h-10 sm:w-96" />
                   <Skeleton className="mx-auto h-8 w-72 rounded-full sm:h-10 sm:w-1/2" />

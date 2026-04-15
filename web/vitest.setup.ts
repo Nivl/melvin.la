@@ -3,7 +3,7 @@ import "vitest-canvas-mock";
 import { cleanup } from "@testing-library/react";
 import { afterAll, afterEach, beforeAll, vi } from "vitest";
 
-import { server } from "./src/backend/mocks/node.js";
+import { server } from "#trpc/mock";
 
 Object.defineProperty(globalThis, "matchMedia", {
   writable: true,

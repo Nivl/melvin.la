@@ -1,20 +1,12 @@
 "use client";
 
 import { I18nProvider, Toast } from "@heroui/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import moment from "moment-timezone";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 import { buildGetMessageFallback, MessagesType } from "#i18n/request";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
-});
+import { TRPCReactProvider } from "#trpc/client";
 
 export const Providers = ({
   children,
@@ -29,7 +21,7 @@ export const Providers = ({
   moment.locale(momentLocale);
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <TRPCReactProvider>
       <NextIntlClientProvider
         messages={messages}
         locale={locale}
@@ -44,6 +36,6 @@ export const Providers = ({
           </NextThemesProvider>
         </I18nProvider>
       </NextIntlClientProvider>
-    </QueryClientProvider>
+    </TRPCReactProvider>
   );
 };

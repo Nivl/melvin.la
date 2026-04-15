@@ -125,6 +125,7 @@
     },
     "title": "<name>Fortnite</name>の成績を確認",
     "errors": {
+      "accountNoData": "このプレイヤーはまだプレイしていません。",
       "accountPrivate": "このゲーマーはデータを公開していません。",
       "notFound": "このプラットフォームにはその名前のユーザーはいません。",
       "serverError": "現在データを利用できないようです。後でもう一度お試しください。"

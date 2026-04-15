@@ -3,7 +3,7 @@ export * from "@playwright/test";
 import { defineNetworkFixture, type NetworkFixture } from "@msw/playwright";
 import type { AnyHandler } from "msw";
 
-import { handlers as mockedHandlers } from "../src/backend/mocks/handlers";
+import { e2eHandler as getStats } from "#features/fortnite/backend/getStats.mock";
 
 type Fixtures = {
   handlers: AnyHandler[];
@@ -12,7 +12,7 @@ type Fixtures = {
 
 export const test = testBase.extend<Fixtures>({
   // Create a fixture that will control the network in your tests.
-  handlers: mockedHandlers,
+  handlers: [getStats],
   network: [
     async ({ context, handlers }, use) => {
       const network = defineNetworkFixture({

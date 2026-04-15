@@ -233,13 +233,23 @@
     "no-restricted-imports": [
       "error",
       {
-        "name": "next/link",
-        "message": "Use \"#i18n/routing\" instead (drop-in replacement)"
-      },
-      {
-        "name": "next/navigation",
-        "importNames": ["redirect", "useRouter", "getPathname", "usePathname"],
-        "message": "Use \"#i18n/routing\" instead (drop-in replacement)"
+        "paths": [
+          {
+            "name": "next/link",
+            "message": "Use \"#i18n/routing\" instead (drop-in replacement)"
+          },
+          {
+            "name": "next/navigation",
+            "importNames": ["redirect", "useRouter", "getPathname", "usePathname"],
+            "message": "Use \"#i18n/routing\" instead (drop-in replacement)"
+          }
+        ],
+        "patterns": [
+          {
+            "group": ["#app", "#app/**"],
+            "message": "Do not import from src/app. The app/ directory is the Next.js routing layer and must not be imported by other modules."
+          }
+        ]
       }
     ],
     "nextjs/google-font-display": "warn",

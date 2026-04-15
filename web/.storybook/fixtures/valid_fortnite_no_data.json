@@ -1,0 +1,15 @@
+{
+  "status": 200,
+  "data": {
+    "account": {
+      "id": "883abec4cded42f3bea87531ce0aa5c8",
+      "name": "M8 Nîkof"
+    },
+    "battlePass": {
+      "level": 14,
+      "progress": 58
+    },
+    "image": null,
+    "stats": {}
+  }
+}

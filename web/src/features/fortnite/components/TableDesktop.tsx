@@ -9,7 +9,7 @@ import { FaUser, FaUserGroup, FaUsers } from "react-icons/fa6";
 import { GiSmartphone } from "react-icons/gi";
 import { TfiInfinite } from "react-icons/tfi";
 
-import { type FortniteData } from "#backend/api";
+import { FortniteStatsData } from "#features/fortnite/models";
 import { humanizeDuration, rateStr } from "#features/fortnite/utils.ts";
 
 import { Pill } from "./Pill";
@@ -31,14 +31,20 @@ type TableEntry = {
   tooltipInfo?: string;
 };
 
-export const TableDesktop = ({ data, isLoading }: { data?: FortniteData; isLoading: boolean }) => {
+export const TableDesktop = ({
+  data,
+  isLoading,
+}: {
+  data?: FortniteStatsData;
+  isLoading: boolean;
+}) => {
   const [category, setCategory] = useState<Category>("all");
   const rootT = useTranslations();
   const t = useTranslations("fortnite.data");
 
   // We need to sync the categories with the data, to make sure the
   // current category is available with the new set of data
-  const [prevData, setPrevData] = useState<FortniteData | undefined>();
+  const [prevData, setPrevData] = useState<FortniteStatsData | undefined>();
   if (data !== prevData) {
     setPrevData(data);
 

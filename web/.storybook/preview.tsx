@@ -4,20 +4,13 @@ import "../src/app/globals.css";
 import "./fonts.css";
 
 import type { Preview } from "@storybook/nextjs";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NextIntlClientProvider } from "next-intl";
+
+import { TRPCReactProvider } from "#trpc/client";
 
 import defaultMessages from "../messages/en.json";
 import { withNextThemes } from "./decorators/withNextThemes";
 import { supportedModes } from "./modes";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
-});
 
 const preview: Preview = {
   parameters: {
@@ -56,9 +49,9 @@ const preview: Preview = {
       return <Story />;
     },
     (Story) => (
-      <QueryClientProvider client={queryClient}>
+      <TRPCReactProvider>
         <Story />
-      </QueryClientProvider>
+      </TRPCReactProvider>
     ),
     (Story) => (
       <NextIntlClientProvider locale="en" messages={defaultMessages}>

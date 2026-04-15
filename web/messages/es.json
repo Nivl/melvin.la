@@ -125,6 +125,7 @@
     },
     "title": "Mira qué tal te va en <name>Fortnite</name>",
     "errors": {
+      "accountNoData": "Este jugador aún no ha jugado.",
       "accountPrivate": "Este jugador no quiere que veas sus datos.",
       "notFound": "Nadie tiene este nombre en esta plataforma.",
       "serverError": "Parece que los datos no están disponibles en este momento. Inténtalo de nuevo más tarde."

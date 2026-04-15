@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { use } from "react";
 
-import { isAccountType } from "#features/fortnite/components/Form";
 import { Fortnite } from "#features/fortnite/components/Fortnite";
+import { isAccountType } from "#features/fortnite/models";
 import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home(props: { params: Promise<{ path?: string[]; locale?: string }> }) {
