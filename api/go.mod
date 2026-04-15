@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/getsentry/sentry-go v0.44.1
 	github.com/getsentry/sentry-go/echo v0.44.1
-	github.com/labstack/echo/v4 v4.15.1
+	github.com/labstack/echo/v5 v5.1.0
 	github.com/oapi-codegen/runtime v1.3.1
 	github.com/pb33f/libopenapi v0.34.3
 	github.com/pb33f/libopenapi-validator v0.13.3
@@ -23,6 +23,7 @@ require (
 	github.com/go-openapi/jsonpointer v0.22.5 // indirect
 	github.com/go-openapi/swag/jsonname v0.25.5 // indirect
 	github.com/google/uuid v1.6.0 // indirect
+	github.com/labstack/echo/v4 v4.11.4 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

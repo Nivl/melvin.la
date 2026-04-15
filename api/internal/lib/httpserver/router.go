@@ -4,7 +4,7 @@ import (
 	"github.com/Nivl/melvin.la/api/internal/lib/app"
 	"github.com/Nivl/melvin.la/api/internal/lib/httpserver/middleware"
 	sentryecho "github.com/getsentry/sentry-go/echo"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v5"
 )
 
 // NewBaseRouter returns a new router with the default middlewares

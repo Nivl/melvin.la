@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"github.com/labstack/echo/v4"
-	echomid "github.com/labstack/echo/v4/middleware"
+	"github.com/labstack/echo/v5"
+	echomid "github.com/labstack/echo/v5/middleware"
 )
 
 // BodyLimit returns a BodyLimit middleware.
