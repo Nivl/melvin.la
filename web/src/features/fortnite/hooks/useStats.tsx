@@ -1,23 +1,24 @@
-import { $api, type FortnitePlatform, type FortniteTimeWindow } from "#backend/api";
+import { useQuery } from "@tanstack/react-query";
+
+import { AccountTypes, TimeWindow } from "#features/fortnite/models";
+import { useTRPC } from "#trpc/client";
 
 export const useStats = (
   accountName: string,
-  accountType: FortnitePlatform,
-  timeWindow: FortniteTimeWindow,
+  accountType: AccountTypes,
+  timeWindow: TimeWindow,
   disabled = false,
 ) => {
-  const { data, isLoading, error } = $api.useQuery(
-    "get",
-    "/fortnite/stats/{username}/{platform}/{timeWindow}",
-    {
-      params: {
-        path: { username: accountName, platform: accountType, timeWindow },
-      },
-    },
-    {
-      enabled: !disabled && !!accountName,
-    },
-  );
+  const trpc = useTRPC();
 
-  return { data: data?.data, isLoading, error };
+  const { data, isLoading, error } = useQuery({
+    ...trpc.fortineGetStats.queryOptions({
+      username: accountName,
+      platform: accountType,
+      timeWindow: timeWindow,
+    }),
+    enabled: !disabled && !!accountName,
+  });
+
+  return { data: data, isLoading, error };
 };

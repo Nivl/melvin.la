@@ -2,7 +2,7 @@ import { Avatar, Button, Tooltip } from "@heroui/react";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
-import { AccountTypes, TimeWindow } from "./Form";
+import { AccountTypes, TimeWindow } from "#features/fortnite/models";
 
 export type Preset = {
   accountName: string;

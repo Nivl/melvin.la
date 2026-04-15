@@ -125,6 +125,7 @@
     },
     "title": "Découvrez vos performances dans <name>Fortnite</name>",
     "errors": {
+      "accountNoData": "Ce joueur n'a pas encore joué.",
       "accountPrivate": "Ce joueur ne veut pas que vous voyiez ses données.",
       "notFound": "Personne ne porte ce nom sur cette plateforme.",
       "serverError": "Il semble que les données ne soient pas disponibles pour le moment. Réessayez plus tard."

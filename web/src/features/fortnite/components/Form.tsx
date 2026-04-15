@@ -8,20 +8,7 @@ import { FaPlaystation, FaXbox } from "react-icons/fa";
 import { SiEpicgames } from "react-icons/si";
 import { useDebouncedCallback } from "use-debounce";
 
-export enum AccountTypes {
-  Epic = "epic",
-  PSN = "psn",
-  Xbox = "xbl",
-}
-
-export function isAccountType(value: string): value is AccountTypes {
-  return new Set<string>(Object.values(AccountTypes)).has(value);
-}
-
-export enum TimeWindow {
-  Season = "season",
-  Lifetime = "lifetime",
-}
+import { AccountTypes, isAccountType, TimeWindow } from "#features/fortnite/models";
 
 export const Form = ({
   onAccountNameChange,
@@ -103,7 +90,7 @@ export const Form = ({
         {inputValue && (
           <CloseButton
             aria-label={t("clearInput")}
-            className="absolute inset-y-2 right-2 flex items-center"
+            className="absolute inset-y-1.5 right-2 flex items-center"
             onPress={() => {
               setInputValue("");
               debouncedOnAccountNameChange.cancel();

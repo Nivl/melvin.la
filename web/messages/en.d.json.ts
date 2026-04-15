@@ -128,6 +128,7 @@ declare const messages: {
     },
     "title": "See how well you are doing in <name>Fortnite</name>",
     "errors": {
+      "accountNoData": "This gamer hasn't played yet.",
       "accountPrivate": "This gamer doesn't want you to see their data.",
       "notFound": "Nobody goes by this name, on this platform.",
       "serverError": "Looks like the data aren't available right now. Try again later."

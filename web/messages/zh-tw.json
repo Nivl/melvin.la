@@ -125,6 +125,7 @@
     },
     "title": "看看你在 <name>Fortnite</name> 中的表現如何",
     "errors": {
+      "accountNoData": "這位玩家還沒有玩過。",
       "accountPrivate": "這位玩家不想讓你看到他們的數據。",
       "notFound": "在這個平台上沒人叫這個名字。",
       "serverError": "看起來現在無法獲取數據。請稍後再試。"

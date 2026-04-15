@@ -125,6 +125,7 @@
     },
     "title": "<name>Fortnite</name>에서 얼마나 잘하고 있는지 확인하세요",
     "errors": {
+      "accountNoData": "이 게이머는 아직 플레이하지 않았습니다.",
       "accountPrivate": "이 게이머는 데이터를 공개하고 싶어하지 않습니다.",
       "notFound": "이 플랫폼에는 해당 이름의 사용자가 없습니다.",
       "serverError": "지금은 데이터를 사용할 수 없는 것 같습니다. 나중에 다시 시도해 주세요."

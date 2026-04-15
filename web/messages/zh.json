@@ -125,6 +125,7 @@
     },
     "title": "看看你在 <name>Fortnite</name> 中的表现如何",
     "errors": {
+      "accountNoData": "这位玩家还没有玩过。",
       "accountPrivate": "这位玩家不想让你看到他们的数据。",
       "notFound": "在这个平台上没人叫这个名字。",
       "serverError": "看起来现在无法获取数据。请稍后再试。"
