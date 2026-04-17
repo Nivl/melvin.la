@@ -40,8 +40,8 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@heroui/react": "3.0.1",
-    "@heroui/styles": "3.0.1",
+    "@heroui/react": "3.0.2",
+    "@heroui/styles": "3.0.2",
     "@internationalized/date": "3.12.0",
     "@radix-ui/react-toggle-group": "1.1.11",
     "@sentry/nextjs": "10.46.0",
