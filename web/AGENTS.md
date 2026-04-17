@@ -25,17 +25,22 @@ pnpm run test:e2e          # must pass
 .storybook/               # Storybook configuration
 e2e/                      # Playwright end-to-end tests
 ├── helpers.ts            # Playwright helpers, most imports should be made from here
+├── beatmaker.spec.ts     # Beatmaker e2e tests
 ├── blog.spec.ts          # Blog e2e tests
-└── home.spec.ts          # Home page e2e tests
+├── fortnite.spec.ts      # Fortnite e2e tests
+├── home.spec.ts          # Home page e2e tests
+├── timezones.spec.ts     # Timezones e2e tests
+└── uuid.spec.ts          # UUID e2e tests
 messages/                 # i18n files
 src/
 ├── app/                  # Next.js App Router pages
+│   ├── api/trpc/[trpc]/  # tRPC API route handler
 │   └── globals.css       # Global styles + Tailwind config
 ├── features/             # Self-contained feature modules
 │   ├── beatmaker/        # Beatmaker game (components/, models/)
 │   ├── blog/             # Blog (components/, models.ts, ssg/)
 │   ├── conway/           # Conway's Game of Life (components/, models/)
-│   ├── fortnite/         # Fortnite stats tool (components/, hooks/)
+│   ├── fortnite/         # Fortnite stats tool (backend/, components/, hooks/)
 │   ├── home/             # Home page (components/, models.ts, utils/)
 │   ├── pathfinding/      # Pathfinding tool (components/, utils/)
 │   ├── string-length/    # String length tool (components/)
@@ -45,10 +50,13 @@ src/
 ├── shared/               # Cross-feature shared code
 │   ├── components/       # Shared React components (icons/, layout/)
 │   ├── hooks/            # Shared custom React hooks
-│   └── utils/            # Shared utility functions
-├── gen/                  # Generated API client (run: pnpm oapi-gen)
-├── backend/              # API integration utilities
-│   └── mocks/            # Mock data and utilities for backend
+│   └── utils/            # Shared utility functions (tests.tsx for test helpers)
+├── trpc/                 # tRPC BFF setup
+│   ├── init.ts           # tRPC initialization (procedures, middleware)
+│   ├── client.tsx        # TRPCReactProvider + useTRPC hook
+│   ├── query-client.ts   # TanStack Query client factory
+│   ├── mock.ts           # MSW server setup for unit tests
+│   └── routers/_app.ts   # Root router (aggregates feature routes)
 └── bundled_static/       # Static content processed at build time
     └── content/blog/     # MDX blog posts
 ```
@@ -62,18 +70,20 @@ src/
 **Routing**: App Router (`src/app/` directory structure)
 **Testing**:
 
-- unit-test: Vitest + React Testing Library + helpers in `src/utils/test.ts`
+- unit-test: Vitest + React Testing Library + helpers in `src/shared/utils/tests.tsx`
 - end-to-end: Playwright
 - Visual regression: Storybook + Chromatic
-- Mock API: MSW (in `src/backend/mocks/`)
-  **Internationalization**: `next-intl`
-  **Logger**: `@sentry/nextjs`
+- Mock API: MSW
+
+**Internationalization**: `next-intl`
+**Logger**: `@sentry/nextjs`
 
 ### Key Dependencies
 
 - `next-mdx-remote`: MDX content rendering
 - `@tanstack/react-query`: Server state management
-- `openapi-react-query`: Generated API client hooks
+- `@trpc/client` + `@trpc/server` + `@trpc/tanstack-react-query`: tRPC BFF layer
+- `zod`: Input validation for tRPC procedures
 - `@heroui/react`: UI component library
 - `motion`: Animations
 - `next-themes`: Theme switching
@@ -151,19 +161,43 @@ updatedAt: "2025-07-03" # optional
 
 **Dev Note**: Restart dev server after blog content changes.
 
-## API INTEGRATION
+## API INTEGRATION (tRPC BFF)
 
-**API Server**: Must be running for Fortnite features (see `../../../api/AGENTS.md`)
-**Client Generation**: `pnpm oapi-gen` → generates `src/gen/api.d.ts`
-**OpenAPI Spec**: `../api/internal/gen/openapi.yml`
+The backend is a **tRPC BFF** (Backend For Frontend) co-located in this Next.js app — there is no separate Go API server for web features.
+
+**tRPC Setup**:
+
+- `src/trpc/init.ts` — defines `baseProcedure` and `createTRPCRouter` (Sentry middleware included)
+- `src/trpc/routers/_app.ts` — root router that composes all feature routes
+- `src/trpc/client.tsx` — exports `TRPCReactProvider` (wrap layout) and `useTRPC` hook
+- API endpoint served at `/api/trpc`
+
+**Adding a new tRPC route**:
+
+1. Create `src/features/[feature]/backend/myEndpoint.ts` — define a `baseProcedure` endpoint with Zod input
+2. Export it from `src/features/[feature]/backend/index.ts`
+3. Add it to `src/trpc/routers/_app.ts`
+4. Create `src/features/[feature]/backend/myEndpoint.mock.ts` — MSW handler for unit tests
+5. Register the handler in `src/trpc/mock.ts`
+
+**Using tRPC in a component**:
+
+```typescript
+import { useTRPC } from "#trpc/client";
+import { useQuery } from "@tanstack/react-query";
+
+const trpc = useTRPC();
+const { data } = useQuery(trpc.myEndpoint.queryOptions({ ... }));
+```
 
 ## Testing
 
-- API endpoints are mocked using MSW in `src/backend/mocks/`.
-- API Fixtures are located in `src/backend/fixtures/`.
-- Any API changes require updating the mocks accordingly.
-- New API endpoints must have corresponding mocks for testing.
-- Mocks should allow easy triggering of error states for testing purposes.
+- API endpoints are mocked using MSW. The MSW server is set up in `src/trpc/mock.ts`.
+- Feature-specific mock handlers live in `src/features/[feature]/backend/*.mock.ts`.
+- Fixtures are co-located in `src/features/[feature]/backend/fixtures/`.
+- Any tRPC endpoint change requires updating the corresponding mock handler.
+- New endpoints must have a mock handler registered in `src/trpc/mock.ts`.
+- Mocks should support triggering error states (pass a special value to the input).
 - Playwright tests should import helpers from `e2e/helpers.ts`.
 
 ## INTERNATIONALIZATION (i18n)
@@ -324,13 +358,12 @@ logger.fatal("Database connection pool exhausted", {
 ```bash
 pnpm run dev          # Start dev server
 pnpm run build        # Production build
-pnpm run typecheck    # TypeScript type check
+pnpm run check-types  # TypeScript type check
 pnpm run lint         # oxlint check
 pnpm run fmt          # Format code with oxfmt
 pnpm run test:unit    # Run all unit tests
 pnpm run test:e2e     # Run all end-to-end tests
 pnpm run knip         # Check unused dependencies
-pnpm oapi-gen         # Generate API client
 pnpm i18n:check       # Check i18n consistency
 pnpm validate-code    # Validate code quality
 ```
