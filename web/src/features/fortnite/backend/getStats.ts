@@ -1,4 +1,4 @@
-import { TRPCError } from "@trpc/server/unstable-core-do-not-import";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { AccountTypes, FortniteAPIStatsResponse, TimeWindow } from "#features/fortnite/models";
@@ -32,10 +32,14 @@ export const endpoint = baseProcedure
     params.append("accountType", input.platform);
     params.append("timeWindow", input.timeWindow);
 
+    if (!process.env.API_FORTNITE_API_KEY) {
+      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "API key is missing" });
+    }
+
     const rawRes = await fetch(`${fortniteStatsUrl}?${params.toString()}`, {
       headers: {
         "content-type": "application/json",
-        Authorization: process.env.API_FORTNITE_API_KEY ?? "",
+        Authorization: process.env.API_FORTNITE_API_KEY,
       },
       method: "GET",
     });
