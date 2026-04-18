@@ -9,7 +9,7 @@ import { Section } from "#shared/components/layout/Section";
 
 export const StringLength = () => {
   const t = useTranslations("stringLength");
-  const [text, setText] = useState<string>("");
+  const [text, setText] = useState("");
 
   const textAreaId = useId();
 

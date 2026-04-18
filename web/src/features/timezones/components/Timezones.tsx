@@ -23,9 +23,9 @@ export const Timezones = () => {
 
   const [zones, setZones] = useState<CityDataWithExtras[]>([]);
   const [baseZone, setBaseZone] = useState<CityData>();
-  const [baseSearchValue, setBaseSearchValue] = useState<string>("");
+  const [baseSearchValue, setBaseSearchValue] = useState("");
   const [baseSearchItems, setBaseSearchItems] = useState<City[]>([]);
-  const [searchValue, setSearchValue] = useState<string>("");
+  const [searchValue, setSearchValue] = useState("");
   const [searchItems, setSearchItems] = useState<City[]>([]);
   const [dateTime, setDateTime] = useState<DateValue | null | undefined>(
     now(getLocalTimeZone()).set({ second: 0, millisecond: 0 }),

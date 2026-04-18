@@ -558,7 +558,7 @@ export const Skills = () => {
   const fromYear = currentYear - yearsBack;
 
   // Randomize skills order on each page visit (client-side only to avoid SSR mismatch)
-  const [randomizedSkills, setRandomizedSkills] = React.useState<SkillData[]>(skillsData);
+  const [randomizedSkills, setRandomizedSkills] = React.useState(skillsData);
 
   React.useEffect(() => {
     setRandomizedSkills(shuffle(skillsData));

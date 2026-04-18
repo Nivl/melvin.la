@@ -97,13 +97,13 @@ export const Pathfinding = () => {
 
   const [rows, setRows] = useState(DEFAULT_ROWS);
   const [cols, setCols] = useState(DEFAULT_COLS);
-  const [start, setStart] = useState<Coords>(DEFAULT_START);
-  const [end, setEnd] = useState<Coords>(DEFAULT_END);
+  const [start, setStart] = useState(DEFAULT_START);
+  const [end, setEnd] = useState(DEFAULT_END);
   const [grid, setGrid] = useState<Grid>(() =>
     makeEmptyGrid(DEFAULT_ROWS, DEFAULT_COLS, DEFAULT_START, DEFAULT_END),
   );
   const [algorithm, setAlgorithm] = useState<Algorithm>("astar");
-  const [speed, setSpeed] = useState<number>(SPEED_VALUES.medium);
+  const [speed, setSpeed] = useState(SPEED_VALUES.medium as number);
   const [isAnimating, setIsAnimating] = useState(false);
   const [placementMode, setPlacementMode] = useState<PlacementMode>("draw-walls");
 

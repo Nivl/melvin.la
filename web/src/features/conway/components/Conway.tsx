@@ -33,7 +33,7 @@ export const totalNeighbors = (board: Board, x: number, y: number, toroidal: boo
 };
 
 export const Conway = () => {
-  const [board, setBoard] = useState<Board>(defaultPresets);
+  const [board, setBoard] = useState(defaultPresets);
   const [speed, setSpeed] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [boardSize, setBoardSize] = useState(boardSizes[0]);
