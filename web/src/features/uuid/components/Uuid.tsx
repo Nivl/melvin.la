@@ -112,11 +112,11 @@ export const Uuid = () => {
   const t = useTranslations("uuid");
 
   const [uuids, setUuids] = useState<string[]>([]);
-  const [count, setCount] = useState<number>(1);
-  const [version, setVersion] = useState<string>("v4");
-  const [name, setName] = useState<string>("");
-  const [namespace, setNamespace] = useState<string>("");
-  const [customNamespace, setCustomNamespace] = useState<string>("");
+  const [count, setCount] = useState(1);
+  const [version, setVersion] = useState("v4");
+  const [name, setName] = useState("");
+  const [namespace, setNamespace] = useState("");
+  const [customNamespace, setCustomNamespace] = useState("");
 
   const needsExtraFields = ["v3", "v5"].includes(version);
   const uniqueUUID = ["null", "v3", "v5"].includes(version);

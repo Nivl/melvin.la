@@ -42,9 +42,7 @@ function getBobaStyle(boba: BobaCoordinate): BobaStyle {
 export const Boba = ({ className }: { className: string }) => {
   const [isAnimationStopping, setIsAnimationStopping] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [bobaCoordinates, setBobaCoordinates] = useState<BobaCoordinate[]>([
-    ...defaultBobaCoordinates,
-  ]);
+  const [bobaCoordinates, setBobaCoordinates] = useState([...defaultBobaCoordinates]);
   const strawMaskId = useId();
   const reducedMotion = usePrefersReducedMotion();
 

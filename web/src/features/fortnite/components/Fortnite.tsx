@@ -26,7 +26,7 @@ export const Fortnite = ({
 }) => {
   const providedTypeIsValid = providedType && Object.values(AccountTypes).includes(providedType);
 
-  const [preset, setPreset] = useState<Preset>({
+  const [preset, setPreset] = useState({
     accountName: providedName ? decodeURIComponent(providedName) : defaults.accountName,
     accountType: providedType ?? defaults.accountType,
     timeWindow: defaults.timeWindow,

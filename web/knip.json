@@ -5,5 +5,5 @@
     "messages/en.d.json.ts",
     "src/i18n/routing.ts"
   ],
-  "ignoreDependencies": ["eslint-plugin-simple-import-sort", "eslint-plugin-playwright"]
+  "ignoreDependencies": []
 }
