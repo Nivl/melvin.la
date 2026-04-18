@@ -1,5 +1,5 @@
 import { setupServer } from "msw/node";
 
-import { handler as getStats } from "#features/fortnite/backend/getStats.mock";
+import { handlers as fortniteHandlers } from "#features/fortnite/backend/mocks";
 
-export const server = setupServer(getStats);
+export const server = setupServer(...fortniteHandlers);

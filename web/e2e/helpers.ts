@@ -3,7 +3,7 @@ export * from "@playwright/test";
 import { defineNetworkFixture, type NetworkFixture } from "@msw/playwright";
 import type { AnyHandler } from "msw";
 
-import { e2eHandler as getStats } from "#features/fortnite/backend/getStats.mock";
+import { handler as getStats } from "#features/fortnite/backend/getStats.mock";
 
 type Fixtures = {
   handlers: AnyHandler[];

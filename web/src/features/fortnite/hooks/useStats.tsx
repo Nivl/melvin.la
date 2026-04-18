@@ -12,7 +12,7 @@ export const useStats = (
   const trpc = useTRPC();
 
   const { data, isLoading, error } = useQuery({
-    ...trpc.fortineGetStats.queryOptions({
+    ...trpc.fortniteGetStats.queryOptions({
       username: accountName,
       platform: accountType,
       timeWindow: timeWindow,
