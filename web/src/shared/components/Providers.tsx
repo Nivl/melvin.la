@@ -6,7 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 import { buildGetMessageFallback, MessagesType } from "#i18n/request";
-import { TRPCReactProvider } from "#trpc/client";
+import { TRPCReactProvider } from "#trpc/provider";
 
 export const Providers = ({
   children,

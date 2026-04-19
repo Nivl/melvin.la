@@ -14,7 +14,7 @@ const fromAscii = (rows: string[]): Grid =>
 
 /** Check that every consecutive pair in path is adjacent (distance 1). */
 const isConnectedPath = (path: Coords[]): boolean => {
-  for (let i = 1; i < path.length; i++) {
+  for (let i = 1; i < path.length; i += 1) {
     const dr = Math.abs(path[i][0] - path[i - 1][0]);
     const dc = Math.abs(path[i][1] - path[i - 1][1]);
     if (dr + dc !== 1) return false;

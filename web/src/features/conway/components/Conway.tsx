@@ -3,34 +3,13 @@
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
-import { Board, boardSizes, BoardValue, defaultPresets } from "#features/conway/models";
+import { boardSizes, BoardValue, defaultPresets } from "#features/conway/models";
+import { totalNeighbors } from "#features/conway/utils";
 import { Heading } from "#shared/components/layout/Heading";
 import { Section } from "#shared/components/layout/Section";
 
 import { ConwayGrid } from "./Grid";
 import { Side } from "./Side";
-
-export const totalNeighbors = (board: Board, x: number, y: number, toroidal: boolean): number => {
-  const size = board.length;
-  let total = 0;
-  for (let dy = -1; dy <= 1; dy++) {
-    for (let dx = -1; dx <= 1; dx++) {
-      if (dy === 0 && dx === 0) continue;
-      if (toroidal) {
-        const ny = (y + dy + size) % size;
-        const nx = (x + dx + size) % size;
-        total += board[ny]?.[nx] ?? 0;
-      } else {
-        const ny = y + dy;
-        const nx = x + dx;
-        if (ny >= 0 && ny < size && nx >= 0 && nx < size) {
-          total += board[ny]?.[nx] ?? 0;
-        }
-      }
-    }
-  }
-  return total;
-};
 
 export const Conway = () => {
   const [board, setBoard] = useState(defaultPresets);

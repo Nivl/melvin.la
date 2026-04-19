@@ -1,6 +1,5 @@
 import { routes as fortniteRoutes } from "#features/fortnite/backend";
-
-import { createTRPCRouter } from "../init";
+import { createTRPCRouter } from "#trpc/init";
 
 export const appRouter = createTRPCRouter({
   ...fortniteRoutes,

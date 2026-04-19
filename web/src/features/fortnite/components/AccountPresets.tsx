@@ -2,19 +2,7 @@ import { Avatar, Button, Tooltip } from "@heroui/react";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
-import { AccountTypes, TimeWindow } from "#features/fortnite/models";
-
-export type Preset = {
-  accountName: string;
-  accountType: AccountTypes;
-  timeWindow: TimeWindow;
-};
-
-export const defaults: Preset = {
-  accountName: "",
-  accountType: AccountTypes.Epic,
-  timeWindow: TimeWindow.Lifetime,
-};
+import { AccountTypes, Preset, TimeWindow } from "#features/fortnite/models";
 
 const presetLists: {
   key: string;

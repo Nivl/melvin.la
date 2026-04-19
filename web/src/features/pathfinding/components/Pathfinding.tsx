@@ -17,11 +17,12 @@ import {
   DEFAULT_START,
   Grid,
   PlacementMode,
+  SPEED_VALUES,
 } from "#features/pathfinding/utils/types.ts";
 import { Section } from "#shared/components/layout/Section";
 import { useAnimationTimeouts } from "#shared/hooks/useAnimationTimeouts.ts";
 
-import { Controls, SPEED_VALUES } from "./Controls";
+import { Controls } from "./Controls";
 import { PathfindingGrid } from "./Grid";
 
 const PATH_ANIMATION_SPEED_MULTIPLIER = 3;

@@ -3,13 +3,14 @@
 import * as Sentry from "@sentry/nextjs";
 import { getRequestConfig } from "next-intl/server";
 
-import defaultLocalMessages from "../../messages/en.json";
-import esMessages from "../../messages/es.json";
-import frMessages from "../../messages/fr.json";
-import jaMessages from "../../messages/ja.json";
-import koMessages from "../../messages/ko.json";
-import zhMessages from "../../messages/zh.json";
-import zhTwMessages from "../../messages/zh-tw.json";
+import defaultLocalMessages from "#messages/en.json";
+import esMessages from "#messages/es.json";
+import frMessages from "#messages/fr.json";
+import jaMessages from "#messages/ja.json";
+import koMessages from "#messages/ko.json";
+import zhMessages from "#messages/zh.json";
+import zhTwMessages from "#messages/zh-tw.json";
+
 import { isLocale, type Locales } from "./locales";
 import { routing } from "./routing";
 

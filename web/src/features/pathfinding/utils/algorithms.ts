@@ -56,7 +56,7 @@ class MinHeap {
   private siftUp(i: number): void {
     const { heap } = this;
     while (i > 0) {
-      const parent = (i - 1) >> 1;
+      const parent = Math.floor((i - 1) / 2);
       const p = heap[parent];
       const c = heap[i];
       if (!p || !c || p[0] <= c[0]) break;
@@ -194,10 +194,8 @@ export const runBFS = (grid: Grid, start: Coords, end: Coords): AlgorithmResult 
   const queue: string[] = [coordsToKey(sr, sc)];
   const cameFrom = new Map<string, string>();
   const visitedNodes: Coords[] = [];
-  let head = 0;
 
-  while (head < queue.length) {
-    const currentKey = queue[head++];
+  for (const currentKey of queue) {
     const [cr, cc] = keyToCoords(currentKey);
     visitedNodes.push([cr, cc]);
 

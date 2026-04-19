@@ -26,7 +26,7 @@ describe("generateMaze", () => {
 
   it("produces a solvable maze (start is reachable from end via BFS)", () => {
     // Run several times to account for randomness
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i += 1) {
       const { grid } = generateMaze(15, 21, START, [13, 19]);
       // Temporarily turn start/end into passable cells for the pathfinder
       const passable = grid.map((row) =>

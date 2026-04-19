@@ -12,7 +12,7 @@ import {
 import { useTranslations } from "next-intl";
 import { twMerge } from "tailwind-merge";
 
-import { City } from "./data.tsx";
+import { City } from "#features/timezones/models";
 
 export const CityAutoComplete = ({
   label,

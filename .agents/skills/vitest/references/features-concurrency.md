@@ -54,11 +54,11 @@ Force sequential execution:
 
 ```ts
 describe.concurrent('mostly parallel', () => {
-  test('parallel 1', async () => {})
-  test('parallel 2', async () => {})
+  test('parallel 1', () => {})
+  test('parallel 2', () => {})
   
-  test.sequential('must run alone 1', async () => {})
-  test.sequential('must run alone 2', async () => {})
+  test.sequential('must run alone 1', () => {})
+  test.sequential('must run alone 2', () => {})
 })
 
 // Or entire suite

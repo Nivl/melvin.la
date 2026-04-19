@@ -1,11 +1,15 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript", "unicorn", "nextjs", "import"],
+  "plugins": ["typescript", "unicorn", "react", "nextjs", "import"],
   "jsPlugins": ["eslint-plugin-simple-import-sort"],
   "categories": {
     "correctness": "error",
     "suspicious": "error",
-    "perf": "error"
+    "perf": "error",
+    // "pedantic": "error",
+    // "style": "error",
+    "restriction": "error"
+    // "nursery": "error"
   },
   "options": {
     "typeAware": true,
@@ -27,7 +31,13 @@
     "src/gen/api.d.ts"
   ],
   "rules": {
+    "eslint/complexity": "off",
+    "eslint/no-undefined": "off",
+    "react/jsx-filename-extension": "off",
+    "typescript/explicit-module-boundary-types": "off",
+    "typescript/explicit-function-return-type": "off",
     "import/no-unassigned-import": "off",
+    "no-param-reassign": "off",
     "constructor-super": "error",
     "for-direction": "error",
     "getter-return": "error",
@@ -465,16 +475,25 @@
       }
     },
     {
-      "files": ["src/app/**/*.tsx", "src/**/*.stories.ts", "src/**/*.stories.tsx"],
+      "files": ["src/app/**/*.tsx"],
       "rules": {
         "import/no-default-export": "off",
-        "no-empty-function": "off"
+        "no-empty-function": "off",
+        "react/only-export-components": "off"
       }
     },
     {
       "files": ["src/**/*.stories.ts", "src/**/*.stories.tsx"],
       "rules": {
+        "import/no-default-export": "off",
+        "no-empty-function": "off",
         "unicorn/no-null": "off"
+      }
+    },
+    {
+      "files": ["src/**/*.test.ts", "src/**/*.test.tsx"],
+      "rules": {
+        "eslint/no-empty-function": "off"
       }
     },
     {

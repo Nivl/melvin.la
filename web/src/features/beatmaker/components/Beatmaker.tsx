@@ -186,10 +186,11 @@ export function Beatmaker() {
     engineRef.current = engine;
 
     const unlock = () => {
-      void engine.init();
-      document.removeEventListener("touchstart", unlock);
-      document.removeEventListener("click", unlock);
-      document.removeEventListener("keydown", unlock);
+      engine.init().then(() => {
+        document.removeEventListener("touchstart", unlock);
+        document.removeEventListener("click", unlock);
+        document.removeEventListener("keydown", unlock);
+      }, captureException);
     };
 
     document.addEventListener("touchstart", unlock, { passive: true });
@@ -197,7 +198,7 @@ export function Beatmaker() {
     document.addEventListener("keydown", unlock, { passive: true });
 
     return () => {
-      engine.dispose();
+      engine.dispose().catch(captureException);
       document.removeEventListener("touchstart", unlock);
       document.removeEventListener("click", unlock);
       document.removeEventListener("keydown", unlock);
@@ -212,7 +213,10 @@ export function Beatmaker() {
         actionProps: {
           children: t("actions.resume"),
           onPress: () => {
-            void engineRef.current?.init();
+            const engine = engineRef.current;
+            if (engine) {
+              engine.init().catch(captureException);
+            }
           },
           variant: "tertiary",
         },
@@ -222,7 +226,10 @@ export function Beatmaker() {
 
   // Load kit samples on mount and when kit changes
   useEffect(() => {
-    void engineRef.current?.loadKit(state.kit);
+    const engine = engineRef.current;
+    if (engine) {
+      engine.loadKit(state.kit).catch(captureException);
+    }
   }, [state.kit]);
 
   // Sync URL hash on state change (debounced)
@@ -262,7 +269,7 @@ export function Beatmaker() {
       updateState((s) => ({ ...s, isPlaying: false }));
     } else {
       await engine.init();
-      engine.start(() => stateRef.current);
+      await engine.start(() => stateRef.current);
       updateState((s) => ({ ...s, isPlaying: true }));
     }
   }, [state.isPlaying, updateState]);
@@ -310,7 +317,7 @@ export function Beatmaker() {
   );
 
   const handlePresetSelect = useCallback(
-    (presetId: string) => {
+    async (presetId: string) => {
       const preset = PRESETS[presetId];
       if (!preset) return;
       const engine = engineRef.current;
@@ -331,7 +338,7 @@ export function Beatmaker() {
         // Reset engine step counter so the new pattern starts from step 0
         engine.stop();
         setActiveStep(undefined);
-        engine.start(() => stateRef.current);
+        await engine.start(() => stateRef.current);
       }
     },
     [updateState],
@@ -478,12 +485,12 @@ export function Beatmaker() {
                   stepCount={state.stepCount}
                   copied={copied}
                   onPlayToggle={() => {
-                    void handlePlayToggle();
+                    handlePlayToggle().catch(captureException);
                   }}
                   onBpmChange={handleBpmChange}
                   onStepCountChange={handleStepCountChange}
                   onCopy={() => {
-                    void handleCopy();
+                    handleCopy().catch(captureException);
                   }}
                 />
               </Card.Content>
@@ -495,7 +502,11 @@ export function Beatmaker() {
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <KitSelector activeKit={state.kit} onKitChange={handleKitChange} />
                   <Separator className="my-auto h-5" orientation="vertical" variant="tertiary" />
-                  <PatternPresets onPresetSelect={handlePresetSelect} />
+                  <PatternPresets
+                    onPresetSelect={(presetId) => {
+                      handlePresetSelect(presetId).catch(captureException);
+                    }}
+                  />
                 </div>
               </Card.Content>
             </Card>
@@ -507,7 +518,7 @@ export function Beatmaker() {
                   tracks={state.tracks}
                   onStepToggle={handleStepToggle}
                   onFileLoad={(trackId, file) => {
-                    void handleFileLoad(trackId, file);
+                    handleFileLoad(trackId, file).catch(captureException);
                   }}
                   decodeErrors={decodeErrors}
                   activeStep={activeStep}

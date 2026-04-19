@@ -1,4 +1,4 @@
-import { Board } from ".";
+import { Board } from "./board";
 
 export const pulsarPreset: Board = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

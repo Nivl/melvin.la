@@ -12,9 +12,9 @@ export type Engine = {
   loadCustomFile(trackId: TrackId, file: File): Promise<void>;
   /** Removes all custom-file buffers so the kit buffer is used again. */
   clearCustomFiles(): void;
-  start(getState: () => BeatmakerState): void;
+  start(getState: () => BeatmakerState): Promise<void>;
   stop(): void;
-  dispose(): void;
+  dispose(): Promise<void>;
 };
 
 type EngineOptions = {
@@ -205,16 +205,16 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
         }, delayMs);
         pendingTimeouts.add(timeoutId);
       }
-      currentStep++;
+      currentStep += 1;
       nextNoteTime += secondsPerStep;
     }
   }
 
-  function start(getState: () => BeatmakerState): void {
+  async function start(getState: () => BeatmakerState) {
     if (schedulerTimer !== undefined) return;
     if (!ctx) return;
     if (ctx.state === "suspended") {
-      void ctx.resume();
+      await ctx.resume();
     }
     currentStep = 0;
     nextNoteTime = ctx.currentTime;
@@ -248,10 +248,10 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
     }
   }
 
-  function dispose(): void {
+  async function dispose(): Promise<void> {
     stop();
     pendingArrayBuffers.clear();
-    void ctx?.close();
+    await ctx?.close();
     ctx = undefined;
   }
 

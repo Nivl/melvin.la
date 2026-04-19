@@ -1,4 +1,4 @@
-import { Board } from ".";
+import { Board } from "./board";
 
 export const PentadecathlonPreset: Board = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

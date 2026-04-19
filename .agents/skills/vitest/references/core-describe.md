@@ -94,11 +94,11 @@ describe.concurrent('parallel tests', () => {
 
 ```ts
 describe.concurrent('parallel', () => {
-  test('concurrent 1', async () => {})
+  test('concurrent 1', () => {})
   
   describe.sequential('must be sequential', () => {
-    test('step 1', async () => {})
-    test('step 2', async () => {})
+    test('step 1', () => {})
+    test('step 2', () => {})
   })
 })
 ```

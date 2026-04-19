@@ -123,7 +123,7 @@ const validSpot = (x: number, y: number, ignore: number, arr: BobaCoordinate[]) 
 export const generateBalls = () => {
   const balls: BobaCoordinate[] = [];
 
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 7; i += 1) {
     let x: number, y: number;
     let ok: boolean;
     let tries = 0;
@@ -132,14 +132,14 @@ export const generateBalls = () => {
       x = random(bobaMinPositionX + bobaRadius, bobaMaxPositionX - bobaRadius);
       y = random(bobaMinPositionY + bobaRadius, bobaMaxPositionY - bobaRadius);
       ok = validSpot(x, y, -1, balls);
-    } while (!ok && ++tries < 5000);
+    } while (!ok && (tries += 1) < 5000);
 
     if (!ok) {
       let bestX = 0;
       let bestY = 0;
       let minOverlap = Infinity;
 
-      for (let k = 0; k < 1000; k++) {
+      for (let k = 0; k < 1000; k += 1) {
         const tx = random(bobaMinPositionX + bobaRadius, bobaMaxPositionX - bobaRadius);
         const ty = random(bobaMinPositionY + bobaRadius, bobaMaxPositionY - bobaRadius);
         let overlap = 0;
@@ -182,7 +182,7 @@ export const updateBallAt = (index: number, balls: BobaCoordinate[]): void => {
   let x: number;
   let y: number;
   let ok: boolean;
-  let tries = 0;
+  let tries = 1;
 
   do {
     x = random(bobaMinPositionX + bobaRadius, bobaMaxPositionX - bobaRadius);
@@ -191,14 +191,14 @@ export const updateBallAt = (index: number, balls: BobaCoordinate[]): void => {
     const dy = y - original.y;
 
     ok = validSpot(x, y, index, balls) && dx * dx + dy * dy >= minDistance * minDistance;
-  } while (!ok && ++tries < 5000);
+  } while (!ok && (tries += 1) < 5000);
 
   if (!ok) {
     let bestX = 0;
     let bestY = 0;
     let bestDist = 0;
 
-    for (let k = 0; k < 2000; k++) {
+    for (let k = 0; k < 2000; k += 1) {
       const tx = random(bobaMinPositionX + bobaRadius, bobaMaxPositionX - bobaRadius);
       const ty = random(bobaMinPositionY + bobaRadius, bobaMaxPositionY - bobaRadius);
       const dx = tx - original.x;
@@ -214,6 +214,9 @@ export const updateBallAt = (index: number, balls: BobaCoordinate[]): void => {
     x = bestX;
     y = bestY;
   }
+
+  // We want to modify the reference
+  // eslint-disable-next-line no-param-reassign
   balls[index] = {
     x,
     y,

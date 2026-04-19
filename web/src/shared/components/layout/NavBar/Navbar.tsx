@@ -18,8 +18,8 @@ import { TbBrandFortnite as FortniteIcon } from "react-icons/tb";
 import { TfiLayoutGrid4Alt as BeatmakerIcon } from "react-icons/tfi";
 
 import { Link as NextLink, usePathname, useRouter } from "#i18n/routing";
+import { Section } from "#shared/components/layout/Section";
 
-import { Section } from "../Section";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 

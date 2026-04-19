@@ -30,7 +30,7 @@ const resizeBoard = (board: Board, newSize: number): Board => {
   });
 
   // Add extra rows if needed
-  for (let i = numRows; i < newSize; i++) {
+  for (let i = numRows; i < newSize; i += 1) {
     newBoard.push(newRow(newSize));
   }
 
@@ -138,7 +138,7 @@ export const Side = ({
         <Slider.Output>
           {({ state }) => {
             const sizeIndex = state.values[0];
-            const actualSize = boardSizes[~~sizeIndex] || boardSizes[0];
+            const actualSize = boardSizes[Math.trunc(sizeIndex)] || boardSizes[0];
             return `${actualSize.toString()}x${actualSize.toString()}`;
           }}
         </Slider.Output>

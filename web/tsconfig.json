@@ -32,7 +32,7 @@
     // MSW
     "public/mockServiceWorker.js",
     // tools
-    "postcss.config.cjs",
+    "postcss.config.mjs",
     "next.config.ts",
     "eslint.config.mjs",
     // sentry

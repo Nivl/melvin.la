@@ -7,11 +7,11 @@ import { AnimatePresence } from "motion/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-import { Color, colors, LargePill } from "#shared/components/layout/LargePill.tsx";
+import { City, CityData, CityDataWithExtras, sortedCities } from "#features/timezones/models";
+import { Color, colors, LargePill } from "#shared/components/layout/LargePill";
 import { Section } from "#shared/components/layout/Section";
 
 import { CityAutoComplete } from "./CityAutoComplete.tsx";
-import { City, CityData, CityDataWithExtras, sortedCities } from "./data.tsx";
 
 const getColor = (skip?: Color): Color => {
   const availableColors = colors.filter((color) => color !== skip);
@@ -90,8 +90,9 @@ export const Timezones = () => {
             onInputChange={searchBaseCity}
             testId="city-from"
             onChange={(key) => {
-              if (typeof key === "string" && ~~key < sortedCities.length) {
-                setBaseZone(sortedCities[~~key].data);
+              const keyIndex = typeof key === "string" ? Math.trunc(Number(key)) : -1;
+              if (keyIndex >= 0 && keyIndex < sortedCities.length) {
+                setBaseZone(sortedCities[keyIndex].data);
               }
             }}
           />
@@ -196,14 +197,15 @@ export const Timezones = () => {
                 onInputChange={searchTargetCity}
                 testId="city-to"
                 onChange={(key) => {
-                  if (typeof key === "string" && ~~key < sortedCities.length) {
+                  const keyIndex = typeof key === "string" ? Math.trunc(Number(key)) : -1;
+                  if (keyIndex >= 0 && keyIndex < sortedCities.length) {
                     const newZone: CityDataWithExtras = {
-                      ...sortedCities[~~key].data,
+                      ...sortedCities[keyIndex].data,
                       id: crypto.randomUUID(),
                       color: getColor(zones.at(-1)?.color),
                       content: t.rich("output", {
-                        city: sortedCities[~~key].data.city,
-                        time: date.clone().tz(sortedCities[~~key].data.timezone).format("LLLL"),
+                        city: sortedCities[keyIndex].data.city,
+                        time: date.clone().tz(sortedCities[keyIndex].data.timezone).format("LLLL"),
                         cityWrapper: (chunk) => (
                           <div className="inline font-bold">
                             <span>{chunk}</span>
