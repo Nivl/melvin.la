@@ -1,4 +1,6 @@
-import "../globals.css";
+// Edge case, we need to import the global styles here
+// eslint-disable-next-line no-restricted-imports
+import "#app/globals.css";
 
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -105,6 +107,8 @@ function getFonts(locale: string) {
       primarySans = "var(--font-noto-sans-tc)";
       condensed = "var(--font-noto-sans-tc)";
       fortnite = "var(--font-noto-sans-tc)";
+      break;
+    default:
       break;
   }
 

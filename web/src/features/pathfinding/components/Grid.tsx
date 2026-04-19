@@ -11,7 +11,12 @@ import {
   useState,
 } from "react";
 
-import type { CellState, Coords, Grid, PlacementMode } from "#features/pathfinding/utils/types.ts";
+import {
+  CELL_COLORS,
+  type Coords,
+  type Grid,
+  type PlacementMode,
+} from "#features/pathfinding/utils/types.ts";
 
 type DragMode = "add-wall" | "remove-wall" | undefined;
 
@@ -24,15 +29,6 @@ type GridProps = {
   placementMode: PlacementMode;
   onStartChange: (coords: Coords) => void;
   onEndChange: (coords: Coords) => void;
-};
-
-export const CELL_COLORS: Record<CellState, string> = {
-  empty: "bg-zinc-200/40 dark:bg-zinc-900",
-  wall: "bg-foreground/50",
-  start: "bg-green-400",
-  end: "bg-pink-500",
-  visited: "bg-blue-400",
-  path: "bg-amber-400",
 };
 
 export const PathfindingGrid = ({
@@ -188,6 +184,8 @@ export const PathfindingGrid = ({
           }
           break;
         }
+        default:
+          break;
       }
     },
     [

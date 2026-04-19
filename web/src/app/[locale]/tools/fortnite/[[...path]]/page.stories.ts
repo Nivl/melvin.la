@@ -3,9 +3,9 @@ import { TRPC_ERROR_CODE_NUMBER } from "@trpc/server";
 
 import { useStats } from "#features/fortnite/hooks/useStats.mock";
 import { FortniteStatsData } from "#features/fortnite/models";
+import validData from "#storybook/fixtures/valid_fortnite_data.json";
+import validNoData from "#storybook/fixtures/valid_fortnite_no_data.json";
 
-import validData from "../../../../../../.storybook/fixtures/valid_fortnite_data.json";
-import validNoData from "../../../../../../.storybook/fixtures/valid_fortnite_no_data.json";
 import page from "./page";
 
 const meta = {

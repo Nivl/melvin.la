@@ -1,3 +1,6 @@
+// This is a test file
+//eslint-disable only-export-components
+
 // hack for next-intl routing
 // https://github.com/vercel/next.js/discussions/48937#discussioncomment-6395245
 import {
@@ -8,9 +11,8 @@ import React, { useMemo } from "react";
 import { vitest } from "vitest";
 
 import { locales } from "#i18n/locales.ts";
+import messages from "#messages/en.json";
 import { Providers } from "#shared/components/Providers.tsx";
-
-import messages from "../../../messages/en.json";
 
 type AppRouterContextProviderMockProps = {
   router?: Partial<AppRouterInstance>;

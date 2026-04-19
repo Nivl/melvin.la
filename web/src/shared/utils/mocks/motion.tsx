@@ -1,3 +1,5 @@
+// This is a test file
+//eslint-disable only-export-components
 import { createElement, type ReactNode } from "react";
 
 const makeEl = (tag: string) => {

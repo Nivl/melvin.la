@@ -10,10 +10,6 @@ export const BlogHeading = ({
   className?: string;
   children?: React.ReactNode;
 }) => {
-  if (level < 1 || level > 6) {
-    throw new Error("Invalid heading level");
-  }
-
   let classname =
     "pb-2 md:pb-4 xl:pb-5 leading-none font-bold bg-linear-to-b from-nivl to-[#32c2ff] dark:to-[#066e9a] bg-clip-text text-transparent";
 
@@ -36,6 +32,8 @@ export const BlogHeading = ({
     case 6:
       classname = `${classname} uppercase text-xs md:text-sm xl:text-md`;
       break;
+    default:
+      throw new Error("Invalid heading level");
   }
 
   return createElement(

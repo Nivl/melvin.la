@@ -5,7 +5,7 @@ import { AnimatePresence } from "motion/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-import { Color, colors, LargePill } from "#shared/components/layout/LargePill.tsx";
+import { Color, colors, LargePill } from "#shared/components/layout/LargePill";
 import { Section } from "#shared/components/layout/Section";
 
 type Data = {

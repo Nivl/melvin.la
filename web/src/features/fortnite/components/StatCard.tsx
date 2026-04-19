@@ -31,7 +31,7 @@ export const StatCard = ({
             <ProgressCircle
               size="lg"
               aria-label={t("currentLevelProgression")}
-              value={isLoading ? undefined : Number(stat) || ~~stat}
+              value={isLoading ? undefined : Number(stat) || Math.trunc(Number(stat))}
               className="h-31 w-31"
               isIndeterminate={isLoading}
             >

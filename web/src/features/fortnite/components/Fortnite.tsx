@@ -6,12 +6,12 @@ import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
 import { useStats } from "#features/fortnite/hooks/useStats";
-import { AccountTypes, hasStats } from "#features/fortnite/models";
+import { AccountTypes, defaultPreset, hasStats, Preset } from "#features/fortnite/models";
 import { humanizeDuration } from "#features/fortnite/utils.ts";
 import { routing } from "#i18n/routing";
 import { Section } from "#shared/components/layout/Section";
 
-import { AccountPresets, defaults, Preset } from "./AccountPresets";
+import { AccountPresets } from "./AccountPresets";
 import { Form } from "./Form";
 import { MainData } from "./MainData";
 import { TableDesktop } from "./TableDesktop";
@@ -27,9 +27,9 @@ export const Fortnite = ({
   const providedTypeIsValid = providedType && Object.values(AccountTypes).includes(providedType);
 
   const [preset, setPreset] = useState({
-    accountName: providedName ? decodeURIComponent(providedName) : defaults.accountName,
-    accountType: providedType ?? defaults.accountType,
-    timeWindow: defaults.timeWindow,
+    accountName: providedName ? decodeURIComponent(providedName) : defaultPreset.accountName,
+    accountType: providedType ?? defaultPreset.accountType,
+    timeWindow: defaultPreset.timeWindow,
   });
 
   // `presetKey` is a monotonic counter included in the Form's `key` prop.

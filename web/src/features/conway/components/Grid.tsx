@@ -1,32 +1,11 @@
 "use client";
 
-import { memo, MouseEvent, PointerEvent, useCallback, useEffect, useRef, useState } from "react";
+import { MouseEvent, PointerEvent, useCallback, useEffect, useRef, useState } from "react";
 
+import { Cell } from "#features/conway/components/Cell";
 import type { Board, BoardValue } from "#features/conway/models";
 
 type DragMode = "set-alive" | "set-dead" | undefined;
-
-type CellProps = {
-  alive: boolean;
-  isHovered: boolean;
-};
-
-const Cell = memo(
-  ({ alive, isHovered }: CellProps) => (
-    <div
-      className={[
-        alive ? "bg-accent" : "bg-default-foreground/5 dark:bg-default-foreground/10",
-        "border-default-foreground/5 border transition-colors duration-75",
-        isHovered && !alive && "bg-default-foreground/15 dark:bg-default-foreground/20",
-      ]
-        .filter(Boolean)
-        .join(" ")}
-    />
-  ),
-  (prev, next) => prev.alive === next.alive && prev.isHovered === next.isHovered,
-);
-
-Cell.displayName = "ConwayCell";
 
 type GridProps = {
   board: Board;

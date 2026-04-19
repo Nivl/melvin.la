@@ -3,9 +3,10 @@ import { userEvent } from "@testing-library/user-event";
 import { afterEach, expect, test, vi } from "vitest";
 
 import { type Board, boardSizes } from "#features/conway/models";
+import { totalNeighbors } from "#features/conway/utils";
 import { testWrapper as wrapper } from "#shared/utils/tests";
 
-import { Conway, totalNeighbors } from "./Conway";
+import { Conway } from "./Conway";
 
 afterEach(() => {
   cleanup();

@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { readdir, readFile, rm } from "node:fs/promises";
 import path from "node:path";
-import { type DatabaseSync } from "node:sqlite";
+import type { DatabaseSync } from "node:sqlite";
 
 import matter from "gray-matter";
 
@@ -51,15 +51,6 @@ async function hashImageFile(slug: string, filename: string): Promise<string> {
     throw error;
   }
 }
-
-const main = async () => {
-  // we make sure we start from scratch
-  await rm(BUILD_DIR, { recursive: true, force: true });
-
-  await setup();
-  const db = database();
-  await createAndPopulatePosts(db);
-};
 
 // slug - unique (per language) identifier for the post. Every post must have the same slug across languages
 // language - language code
@@ -155,6 +146,15 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
       );
     }),
   );
+};
+
+const main = async () => {
+  // we make sure we start from scratch
+  await rm(BUILD_DIR, { recursive: true, force: true });
+
+  await setup();
+  const db = database();
+  await createAndPopulatePosts(db);
 };
 
 await main();

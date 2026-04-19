@@ -1,6 +1,6 @@
 import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
@@ -12,17 +12,17 @@ import { Beatmaker } from "./Beatmaker";
 
 // ── Mock audio engine ──────────────────────────────────────────────────────
 const mockEngine = {
-  init: vi.fn().mockImplementation(() => Promise.resolve()),
-  loadKit: vi.fn().mockImplementation(() => Promise.resolve()),
-  loadCustomFile: vi.fn().mockImplementation(() => Promise.resolve()),
+  init: vi.fn().mockResolvedValue(undefined),
+  loadKit: vi.fn().mockResolvedValue(undefined),
+  loadCustomFile: vi.fn().mockResolvedValue(undefined),
   start: vi.fn(),
   stop: vi.fn(),
-  dispose: vi.fn(),
+  dispose: vi.fn().mockResolvedValue(undefined),
   clearCustomFiles: vi.fn(),
 };
 
 vi.mock("next-themes", () => ({
-  ThemeProvider: ({ children }: { children: ReactNode }) => children,
+  ThemeProvider: ({ children }: { children: ReactElement }): ReactElement => children,
 }));
 
 vi.mock("#features/beatmaker/models", async (importOriginal) => {

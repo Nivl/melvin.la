@@ -4,6 +4,7 @@
 
 import * as Sentry from "@sentry/nextjs";
 
+// eslint-disable-next-line import/no-relative-parent-imports
 import { defaultConfig } from "../sentry.default.config";
 
 Sentry.init({

@@ -15,14 +15,12 @@ import { FaPlay as PlayIcon, FaStop as StopIcon } from "react-icons/fa6";
 import { GiMaze as MazeIcon } from "react-icons/gi";
 import { MdClear as ClearIcon } from "react-icons/md";
 
-import { CELL_COLORS } from "#features/pathfinding/components/Grid";
-import type { Algorithm, PlacementMode } from "#features/pathfinding/utils/types.ts";
-
-export const SPEED_VALUES = {
-  slow: 80,
-  medium: 30,
-  fast: 5,
-} as const;
+import {
+  type Algorithm,
+  CELL_COLORS,
+  type PlacementMode,
+  SPEED_VALUES,
+} from "#features/pathfinding/utils/types.ts";
 
 const GRID_SIZE_CONSTRAINTS = {
   MIN_ROWS: 5,

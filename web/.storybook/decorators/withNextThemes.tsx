@@ -1,4 +1,5 @@
-// .storybook/decorators/with-next-themes.tsx
+// This is a test file, we don't care too much about high react perf
+//eslint-disable only-export-components
 
 import { DecoratorHelpers } from "@storybook/addon-themes";
 import type { ReactRenderer } from "@storybook/nextjs";

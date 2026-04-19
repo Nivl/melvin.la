@@ -22,8 +22,8 @@ const mockCreateGain = vi.fn(() => mockGainNode);
 const mockCreateStereoPanner = vi.fn(() => mockPanNode);
 const mockDecodeAudioData = vi.fn().mockResolvedValue({});
 const mockCreateBuffer = vi.fn(() => ({}));
-const mockResume = vi.fn().mockImplementation(() => Promise.resolve());
-const mockClose = vi.fn().mockImplementation(() => Promise.resolve());
+const mockResume = vi.fn().mockImplementation(() => {});
+const mockClose = vi.fn().mockImplementation(() => {});
 const mockAddEventListener = vi.fn();
 
 beforeEach(() => {
@@ -102,7 +102,7 @@ describe("createEngine", () => {
   test("dispose() closes the AudioContext", async () => {
     const engine = createEngine();
     await engine.init();
-    engine.dispose();
+    await engine.dispose();
     expect(mockClose).toHaveBeenCalledTimes(1);
   });
 
@@ -129,7 +129,7 @@ describe("createEngine", () => {
       },
     };
 
-    engine.start(() => state);
+    await engine.start(() => state);
     // Advance timers so the scheduler interval fires and sources get created
     vi.advanceTimersByTime(25);
 
@@ -145,18 +145,18 @@ describe("createEngine", () => {
     const seenBuffers = new WeakSet<ArrayBuffer>();
     mockDecodeAudioData.mockImplementation((arrayBuffer: ArrayBuffer) => {
       if (seenBuffers.has(arrayBuffer)) {
-        return Promise.reject(new Error("duplicate decode"));
+        throw new Error("duplicate decode");
       }
 
       seenBuffers.add(arrayBuffer);
-      return Promise.resolve({});
+      return {};
     });
 
     vi.stubGlobal(
       "fetch",
       vi.fn().mockResolvedValue({
         ok: true,
-        arrayBuffer: vi.fn().mockImplementation(() => Promise.resolve(new ArrayBuffer(8))),
+        arrayBuffer: vi.fn().mockImplementation(() => new ArrayBuffer(8)),
       }),
     );
 

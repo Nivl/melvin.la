@@ -1,14 +1,16 @@
 /* eslint-disable import/no-default-export */
 
-import "../src/app/globals.css";
+// globals.css is a special case and is expected to be imported
+// eslint-disable import/no-restricted-imports
+import "#app/globals.css";
 import "./fonts.css";
 
 import type { Preview } from "@storybook/nextjs";
 import { NextIntlClientProvider } from "next-intl";
 
-import { TRPCReactProvider } from "#trpc/client";
+import defaultMessages from "#messages/en.json";
+import { TRPCReactProvider } from "#trpc/provider";
 
-import defaultMessages from "../messages/en.json";
 import { withNextThemes } from "./decorators/withNextThemes";
 import { supportedModes } from "./modes";
 

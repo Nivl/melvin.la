@@ -62,7 +62,7 @@ type GameMode = {
   // we want to make sure it's still nullable and that we don't introduce
   // a bug by forgetting to update it here.
   // eslint-disable-next-line typescript/no-duplicate-type-constituents
-  trio?: TrioDetails | null;
+  trio?: TrioDetails;
   squad?: SquadDetails | null;
   ltm?: LtmDetails | null;
 };
@@ -104,4 +104,16 @@ export const hasStats = (
   };
 } => {
   return !!data?.stats?.all?.overall;
+};
+
+export type Preset = {
+  accountName: string;
+  accountType: AccountTypes;
+  timeWindow: TimeWindow;
+};
+
+export const defaultPreset: Preset = {
+  accountName: "",
+  accountType: AccountTypes.Epic,
+  timeWindow: TimeWindow.Lifetime,
 };

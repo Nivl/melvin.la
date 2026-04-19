@@ -1,4 +1,4 @@
-import { Board } from ".";
+import { Board } from "./board";
 
 export const defaultPresets: Board = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
