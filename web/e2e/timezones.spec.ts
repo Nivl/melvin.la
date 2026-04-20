@@ -178,8 +178,8 @@ test.describe("Timezones Tool", () => {
     expectToBeTruthy(laTimeMatch);
 
     // Extract hours for comparison - they should be different due to significant timezone difference
-    const tokyoHour = Number.parseInt(tokyoTimeMatch[1]);
-    const laHour = Number.parseInt(laTimeMatch[1]);
+    const tokyoHour = Number.parseInt(tokyoTimeMatch[1], 10);
+    const laHour = Number.parseInt(laTimeMatch[1], 10);
 
     // Tokyo is typically 17 hours ahead of LA, so they should definitely be different
     expect(tokyoHour).not.toBe(laHour);

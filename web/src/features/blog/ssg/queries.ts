@@ -32,7 +32,6 @@ export const getAllBlogPosts = () => {
   return stmt.all().filter((post) => isBlogPost(post));
 };
 
-// TODO(melvin): Add pagination
 export const getLatestBlogPosts = (language: string) => {
   const db = database();
   const stmt = db.prepare("SELECT * FROM blog_posts WHERE language = ? ORDER BY createdAt DESC");

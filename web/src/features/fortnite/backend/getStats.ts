@@ -32,7 +32,7 @@ export const endpoint = baseProcedure
     params.append("accountType", input.platform);
     params.append("timeWindow", input.timeWindow);
 
-    if (!process.env.API_FORTNITE_API_KEY) {
+    if (process.env.API_FORTNITE_API_KEY === undefined || process.env.API_FORTNITE_API_KEY === "") {
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "API key is missing" });
     }
 

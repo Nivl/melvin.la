@@ -28,7 +28,7 @@ const allMessages: Record<Locales, MessagesType> = {
 
 export const buildGetMessageFallback = (locale: string) => {
   return ({ namespace, key }: { key: string; namespace?: string }) => {
-    const path = [namespace, key].filter((part) => part != undefined).join(".");
+    const path = [namespace, key].filter((part) => part !== undefined).join(".");
     Sentry.logger.error(Sentry.logger.fmt`Missing translation for ${path} in ${locale}`);
 
     // We'll try to get that path from the default messages
@@ -51,21 +51,21 @@ export const buildGetMessageFallback = (locale: string) => {
 
     if (typeof k === "string") {
       return k;
-    } else {
-      // weird case where the key has children instead of being a string
-      Sentry.logger.error(Sentry.logger.fmt`Missing or invalid path in default local: ${path}`, {
-        path,
-        valueAtPath: k,
-      });
-      return paths.at(-1) ?? "???";
     }
+
+    // weird case where the key has children instead of being a string
+    Sentry.logger.error(Sentry.logger.fmt`Missing or invalid path in default local: ${path}`, {
+      path,
+      valueAtPath: k,
+    });
+    return paths.at(-1) ?? "???";
   };
 };
 
 export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale;
 
-  if (!locale || !isLocale(locale)) {
+  if (!isLocale(locale)) {
     locale = routing.defaultLocale;
   }
 
