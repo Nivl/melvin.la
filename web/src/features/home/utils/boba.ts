@@ -18,7 +18,6 @@ const bobaMaxPositionY = 2400;
 const bobaMinAnimationDuration = 3000;
 export const bobaMaxAnimationDuration = 5000;
 export const bobaSoftShakeDuration = 800;
-export const bobaDefaultShakeOffset = 25;
 
 const randomDuration = () => randomInt(bobaMinAnimationDuration, bobaMaxAnimationDuration);
 

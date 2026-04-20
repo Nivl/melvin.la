@@ -32,7 +32,7 @@ export function TrackRow({
   function handleDrop(e: React.DragEvent<HTMLButtonElement>) {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    if (file) onFileLoad(file);
+    onFileLoad(file);
   }
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {

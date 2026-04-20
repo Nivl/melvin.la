@@ -40,7 +40,7 @@ test("Grid renders correct number of cells for default board size", () => {
   expect(grid).toBeDefined();
   // Derive expected cell count from the shared boardSizes constant to stay in sync with defaults
   const defaultSize = boardSizes[0];
-  expect(grid?.children.length).toBe(defaultSize * defaultSize);
+  expect(grid.children.length).toBe(defaultSize * defaultSize);
 });
 
 // ── totalNeighbors unit tests ────────────────────────────────────────────────

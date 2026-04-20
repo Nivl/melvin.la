@@ -32,7 +32,9 @@ export const Conway = () => {
   }, [toroidal]);
 
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying) {
+      return undefined;
+    }
     const baseSpeed = 1000;
     const refreshRate = baseSpeed / speed;
     const interval = setInterval(updateBoard, refreshRate);

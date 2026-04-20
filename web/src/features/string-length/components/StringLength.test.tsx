@@ -94,7 +94,9 @@ describe("StringLength", () => {
       expect(text.length).toBe(16); // Verify our expectation
 
       // Wait a bit for state updates
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise<void>((resolve) => {
+        setTimeout(resolve, 100);
+      });
 
       // Check character count (16 characters: "Hello world test") and byte count (16 bytes for ASCII)
       const sixteenElements = screen.getAllByText("16");
@@ -118,7 +120,9 @@ describe("StringLength", () => {
       expect(textarea.value).toBe(text);
 
       // Wait a bit for state updates
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise<void>((resolve) => {
+        setTimeout(resolve, 100);
+      });
 
       // Check character count (5 Korean characters)
       expect(screen.getAllByText("5").length).toBeGreaterThan(0);
@@ -144,7 +148,9 @@ describe("StringLength", () => {
       expect(textarea.value).toBe(text);
 
       // Wait a bit for state updates
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise<void>((resolve) => {
+        setTimeout(resolve, 100);
+      });
 
       // Check character count (13 characters)
       expect(screen.getAllByText("13").length).toBeGreaterThan(0);
@@ -171,7 +177,9 @@ describe("StringLength", () => {
       expect(textarea.value).toBe(text);
 
       // Wait a bit for state updates
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise<void>((resolve) => {
+        setTimeout(resolve, 100);
+      });
 
       // Check character count (4 Chinese characters)
       expect(screen.getAllByText("4").length).toBeGreaterThan(0);
@@ -197,7 +205,9 @@ describe("StringLength", () => {
       expect(textarea.value).toBe(text);
 
       // Wait a bit for state updates
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise<void>((resolve) => {
+        setTimeout(resolve, 100);
+      });
 
       // Check character count: H(1) + e(1) + l(1) + l(1) + o(1) + space(1) + 안(1) + 녕(1) + space(1) + c(1) + a(1) + f(1) + é(1) + space(1) + 你(1) + 好(1) = 16 characters
       expect(screen.getAllByText("16").length).toBeGreaterThan(0);
@@ -257,7 +267,9 @@ describe("StringLength", () => {
       expect(textarea.value).toBe(text);
 
       // Wait a bit for state updates
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise<void>((resolve) => {
+        setTimeout(resolve, 100);
+      });
 
       // Check character count (9 Korean characters)
       expect(screen.getAllByText("9").length).toBeGreaterThan(0);

@@ -160,7 +160,7 @@ describe("createEngine", () => {
       }),
     );
 
-    const onError = vi.fn();
+    const onError = vi.fn<(error: Error) => void>();
     const engine = createEngine({ onError });
 
     await engine.loadKit("808");

@@ -103,7 +103,7 @@ export const hasStats = (
     };
   };
 } => {
-  return !!data?.stats?.all?.overall;
+  return !!data?.stats.all?.overall;
 };
 
 export type Preset = {

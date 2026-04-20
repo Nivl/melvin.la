@@ -33,7 +33,7 @@ test("renders 16 step buttons", () => {
 
 test("toggles step on click", async () => {
   const user = userEvent.setup();
-  const onStepToggle = vi.fn();
+  const onStepToggle = vi.fn<(index: number) => void>();
   const { getAllByRole } = render(<TrackRow {...defaultProps} onStepToggle={onStepToggle} />, {
     wrapper,
   });
@@ -63,7 +63,7 @@ test("shows decode error when provided", () => {
 
 test("clicking the drop zone label triggers file selection (calls onFileLoad via change)", async () => {
   const user = userEvent.setup();
-  const onFileLoad = vi.fn();
+  const onFileLoad = vi.fn<(file: File) => void>();
   const file = new File(["audio"], "kick.mp3", { type: "audio/mpeg" });
   const { container } = render(<TrackRow {...defaultProps} onFileLoad={onFileLoad} />, { wrapper });
   const fileInput = container.querySelector<HTMLInputElement>('input[type="file"]');

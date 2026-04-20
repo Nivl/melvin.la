@@ -20,7 +20,7 @@ export const LargePill = forwardRef(({ item, onDelete }: Props, ref: Ref<HTMLDiv
 
   useEffect(() => {
     if (!isBooped) {
-      return;
+      return undefined;
     }
 
     const timeout = setTimeout(() => {

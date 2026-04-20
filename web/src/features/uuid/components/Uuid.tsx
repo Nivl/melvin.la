@@ -125,14 +125,11 @@ export const Uuid = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (uuidKeyToGenerate[version]) {
-      const namespaceToUse =
-        namespace === "custom" ? customNamespace : namespaceKeyToUuid[namespace];
+    const namespaceToUse = namespace === "custom" ? customNamespace : namespaceKeyToUuid[namespace];
 
-      const generate = uuidKeyToGenerate[version];
-      const newUuids = Array.from({ length: count }, () => generate(name, namespaceToUse ?? ""));
-      setUuids([...newUuids]);
-    }
+    const generate = uuidKeyToGenerate[version];
+    const newUuids = Array.from({ length: count }, () => generate(name, namespaceToUse));
+    setUuids([...newUuids]);
   };
 
   return (
@@ -228,7 +225,7 @@ export const Uuid = () => {
                       /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
                     return isValidCustomNamespace ? undefined : t("customNamespaceError");
                   }}
-                  isRequired={needsExtraFields && namespace === "custom"}
+                  isRequired
                   className="w-full max-w-[400px]"
                   type="text"
                   value={customNamespace}

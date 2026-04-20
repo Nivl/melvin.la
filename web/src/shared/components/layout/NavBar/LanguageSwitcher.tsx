@@ -63,7 +63,7 @@ export const LanguageSwitcher = () => {
 
   useEffect(() => {
     if (!isBooped) {
-      return;
+      return undefined;
     }
 
     const timeout = setTimeout(() => {

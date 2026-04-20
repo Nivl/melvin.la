@@ -3,14 +3,16 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { useState } from "react";
 
+import { getWindow } from "#shared/utils/window.ts";
+
 import { TRPCProvider } from "./client";
 import { makeQueryClient } from "./query-client";
 import type { AppRouter } from "./routers/_app";
 
-let browserQueryClient: QueryClient;
+let browserQueryClient: QueryClient | undefined = undefined;
 
 function getQueryClient() {
-  if (globalThis.window === undefined) {
+  if (getWindow() === undefined) {
     // Server: always make a new query client
     return makeQueryClient();
   }
@@ -24,7 +26,7 @@ function getQueryClient() {
 
 function getUrl() {
   const base = (() => {
-    if (globalThis.window !== undefined) {
+    if (getWindow() !== undefined) {
       return "";
     }
     if (process.env.VERCEL_URL) {

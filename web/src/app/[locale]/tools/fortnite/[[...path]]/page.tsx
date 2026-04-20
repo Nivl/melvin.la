@@ -41,9 +41,9 @@ export async function generateMetadata(props: {
   return {
     ...(await getMetadata({
       locale,
-      pageUrl: `/tools/fortnite/${path?.join("/")}`,
-      title: t("focusTitle", { username: decodeURI(path?.[0]) }),
-      description: t("focusDescription", { username: decodeURI(path?.[0]) }),
+      pageUrl: `/tools/fortnite/${path.join("/")}`,
+      title: t("focusTitle", { username: decodeURI(path[0]) }),
+      description: t("focusDescription", { username: decodeURI(path[0]) }),
       imageURL: `/assets/tools/fortnite/og.jpg`,
     })),
   };

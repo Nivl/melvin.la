@@ -8,8 +8,8 @@
     "perf": "error",
     // "pedantic": "error",
     // "style": "error",
-    "restriction": "error"
-    // "nursery": "error"
+    "restriction": "error",
+    "nursery": "error"
   },
   "options": {
     "typeAware": true,
@@ -31,6 +31,7 @@
     "src/gen/api.d.ts"
   ],
   "rules": {
+    "typescript/prefer-readonly-parameter-types": "off",
     "eslint/complexity": "off",
     "eslint/no-undefined": "off",
     "react/jsx-filename-extension": "off",

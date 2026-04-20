@@ -59,7 +59,7 @@ class MinHeap {
       const parent = Math.floor((i - 1) / 2);
       const p = heap[parent];
       const c = heap[i];
-      if (!p || !c || p[0] <= c[0]) break;
+      if (p[0] <= c[0]) break;
       heap[parent] = c;
       heap[i] = p;
       i = parent;
@@ -78,7 +78,6 @@ class MinHeap {
       if (min === i) break;
       const a = heap[i];
       const b = heap[min];
-      if (a === undefined || b === undefined) break;
       heap[i] = b;
       heap[min] = a;
       i = min;
