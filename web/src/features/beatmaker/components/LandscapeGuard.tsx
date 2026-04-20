@@ -24,7 +24,7 @@ export function LandscapeGuard({ children }: LandscapeGuardProps): React.JSX.Ele
   // Disable body scroll while the overlay is visible.
   useEffect(() => {
     if (!showOverlay) {
-      return;
+      return undefined;
     }
 
     const { body } = document;

@@ -7,25 +7,28 @@ export function useMediaQuery(
   options: { fallback?: boolean | undefined } = {},
 ): boolean {
   const { fallback } = options;
+  const win = (globalThis as { window?: Window & typeof globalThis }).window;
 
   const [queryValue, setQueryValue] = useState<boolean>(() => {
-    if (globalThis.window === undefined || typeof globalThis.window.matchMedia !== "function") {
+    if (win === undefined || typeof win.matchMedia !== "function") {
       return fallback ?? false;
     }
 
-    return globalThis.window.matchMedia(query).matches;
+    return win.matchMedia(query).matches;
   });
 
   useEffect(() => {
-    if (globalThis.window === undefined || typeof globalThis.window.matchMedia !== "function") {
-      return;
+    const w = (globalThis as { window?: Window & typeof globalThis }).window;
+
+    if (w === undefined || typeof w.matchMedia !== "function") {
+      return undefined;
     }
 
     const listener = (event: MediaQueryListEvent) => {
       setQueryValue(event.matches);
     };
 
-    const mediaQueryList = globalThis.window.matchMedia(query);
+    const mediaQueryList = w.matchMedia(query);
     mediaQueryList.addEventListener("change", listener);
 
     return () => {

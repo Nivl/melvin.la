@@ -139,7 +139,9 @@ test("Delete button removes timestamp from list", async () => {
   await user.click(deleteButton);
 
   // Wait a bit for animations to complete
-  await new Promise((resolve) => setTimeout(resolve, 600));
+  await new Promise<void>((resolve) => {
+    setTimeout(resolve, 600);
+  });
 
   // Verify timestamp is no longer in the document
   const { queryByText } = setup();
@@ -170,7 +172,9 @@ test("Can delete specific timestamp when multiple exist", async () => {
   await user.click(deleteButtons[0]);
 
   // Wait for animation
-  await new Promise((resolve) => setTimeout(resolve, 600));
+  await new Promise<void>((resolve) => {
+    setTimeout(resolve, 600);
+  });
 
   // Check that we now have only one delete button remaining
   const remainingDeleteButtons = getAllByRole("button", { name: /remove/i });

@@ -24,12 +24,12 @@ const setup = ({
   isPlaying?: boolean;
 } = {}) => {
   const user = userEvent.setup();
-  const setBoard = vi.fn();
-  const setBoardSize = vi.fn();
-  const setSpeed = vi.fn();
-  const setIsPlaying = vi.fn();
+  const setBoard = vi.fn<(value: Board) => void>();
+  const setBoardSize = vi.fn<(value: number) => void>();
+  const setSpeed = vi.fn<(value: number) => void>();
+  const setIsPlaying = vi.fn<(value: boolean) => void>();
 
-  const setToroidal = vi.fn();
+  const setToroidal = vi.fn<(value: boolean) => void>();
 
   const utils = render(
     <Side

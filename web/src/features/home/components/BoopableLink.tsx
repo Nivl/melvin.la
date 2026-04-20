@@ -23,7 +23,7 @@ export const BoopableLink = ({
 
   useEffect(() => {
     if (!isBooped) {
-      return;
+      return undefined;
     }
 
     const timeout = setTimeout(() => {

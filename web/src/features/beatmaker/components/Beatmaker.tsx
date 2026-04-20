@@ -19,6 +19,7 @@ import {
   type TrackId,
 } from "#features/beatmaker/models";
 import { Section } from "#shared/components/layout/Section";
+import { getWindow } from "#shared/utils/window.ts";
 
 import { KitSelector } from "./KitSelector";
 import { LandscapeGuard } from "./LandscapeGuard";
@@ -31,7 +32,9 @@ function readHashData(): {
   state: BeatmakerState;
   hasCustomSamples: boolean;
 } {
-  if (globalThis.window === undefined) {
+  const win = getWindow();
+
+  if (win === undefined) {
     return {
       state: buildDefaultState(),
       hasCustomSamples: false,
@@ -85,7 +88,8 @@ function getInitialBeatmakerView(): {
   hasCustomSamples: boolean;
   showIOSWarning: boolean;
 } {
-  const currentHash = globalThis.window === undefined ? "" : globalThis.location.hash;
+  const win = getWindow();
+  const currentHash = win === undefined ? "" : globalThis.location.hash;
   const showIOSWarning = isIOSDevice();
 
   if (
@@ -109,17 +113,18 @@ function getInitialBeatmakerView(): {
   return cachedBeatmakerView;
 }
 
-const noopUnsubscribe = () => 0;
+const noopUnsubscribe = () => undefined;
 
 function subscribeBeatmakerView(onStoreChange: () => void): () => void {
-  if (globalThis.window === undefined) {
+  const win = getWindow();
+  if (win === undefined) {
     return noopUnsubscribe;
   }
 
-  globalThis.window.addEventListener("hashchange", onStoreChange);
+  win.addEventListener("hashchange", onStoreChange);
 
   return () => {
-    globalThis.window.removeEventListener("hashchange", onStoreChange);
+    win.removeEventListener("hashchange", onStoreChange);
   };
 }
 
@@ -128,6 +133,7 @@ function getBeatmakerServerSnapshot(): ReturnType<typeof getInitialBeatmakerView
 }
 
 export function Beatmaker() {
+  const win = getWindow();
   const t = useTranslations("beatmaker");
   const tKits = useTranslations("beatmaker.kits");
   const initialView = useSyncExternalStore(
@@ -150,9 +156,7 @@ export function Beatmaker() {
   const engineRef = useRef<Engine | null>(null);
   const stateRef = useRef(state);
   const customBannerShownRef = useRef(false);
-  const skipInitialHashSyncRef = useRef(
-    globalThis.window !== undefined && globalThis.location.hash === "",
-  );
+  const skipInitialHashSyncRef = useRef(win !== undefined && globalThis.location.hash === "");
 
   useEffect(() => {
     stateRef.current = state;
@@ -236,7 +240,7 @@ export function Beatmaker() {
   useEffect(() => {
     if (skipInitialHashSyncRef.current) {
       skipInitialHashSyncRef.current = false;
-      return;
+      return undefined;
     }
 
     const hasCustom = TRACK_IDS.some((id) => !!state.tracks[id].customFile);
@@ -319,7 +323,6 @@ export function Beatmaker() {
   const handlePresetSelect = useCallback(
     async (presetId: string) => {
       const preset = PRESETS[presetId];
-      if (!preset) return;
       const engine = engineRef.current;
       const wasPlaying = stateRef.current.isPlaying;
       // Compute the next state and update stateRef synchronously so the engine
@@ -417,10 +420,15 @@ export function Beatmaker() {
   );
 
   const handleCopy = useCallback(async () => {
-    if (
-      typeof navigator === "undefined" ||
-      globalThis.navigator.clipboard?.writeText === undefined
-    ) {
+    const writeText = (
+      globalThis as {
+        navigator?: {
+          clipboard?: { writeText?: (string: string) => Promise<void> };
+        };
+      }
+    ).navigator?.clipboard?.writeText;
+
+    if (typeof writeText !== "function") {
       return;
     }
 
@@ -430,7 +438,7 @@ export function Beatmaker() {
       const hash = encode(currentState, hasCustom);
       const url = `${globalThis.location.origin}${globalThis.location.pathname}#${hash}`;
 
-      await globalThis.navigator.clipboard.writeText(url);
+      await writeText(url);
       setCopied(true);
       clearTimeout(copyTimerRef.current);
       copyTimerRef.current = setTimeout(() => {

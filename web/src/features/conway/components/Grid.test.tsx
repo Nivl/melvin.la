@@ -9,7 +9,7 @@ import { ConwayGrid } from "./Grid";
 // each test so call counts never leak across tests, and delete it afterwards
 // to avoid cross-file prototype pollution.
 beforeEach(() => {
-  HTMLElement.prototype.setPointerCapture = vi.fn();
+  HTMLElement.prototype.setPointerCapture = vi.fn<(pointerId: number) => void>();
 });
 
 afterEach(() => {
@@ -34,7 +34,7 @@ const setup = ({
   isPlaying: boolean;
   ariaLabel: string;
 }> = {}) => {
-  const onSetCell = vi.fn();
+  const onSetCell = vi.fn<(row: number, col: number, value: BoardValue) => void>();
   const utils = render(
     <ConwayGrid
       board={board}

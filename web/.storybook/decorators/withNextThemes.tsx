@@ -52,7 +52,7 @@ export const withNextThemes = ({ themes, defaultTheme, ...props }: NextThemesDec
     const params = hasThemeOverride(context.parameters) ? context.parameters : {};
 
     const { themeOverride } = params.themes ?? {};
-    const selected = themeOverride ?? selectedTheme ?? defaultTheme;
+    const selected = themeOverride ?? selectedTheme;
 
     return (
       <ThemeProvider {...props}>

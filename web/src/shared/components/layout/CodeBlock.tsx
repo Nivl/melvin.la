@@ -50,7 +50,7 @@ export const CodeBlock = ({
   );
 
   if (!didMount) {
-    return;
+    return undefined;
   }
 
   const theme = resolvedTheme === "dark" ? DarkTheme : LightTheme;

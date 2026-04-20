@@ -2,6 +2,7 @@ import { cleanup, render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { afterEach, expect, test, vi } from "vitest";
 
+import type { StepCount } from "#features/beatmaker/models/index.ts";
 import { testWrapper as wrapper } from "#shared/utils/tests";
 
 import { Transport } from "./Transport";
@@ -36,7 +37,7 @@ test("renders Stop button when playing", () => {
 
 test("calls onPlayToggle when Play button clicked", async () => {
   const user = userEvent.setup();
-  const onPlayToggle = vi.fn();
+  const onPlayToggle = vi.fn<() => void>();
   const { getByRole } = render(<Transport {...defaultProps} onPlayToggle={onPlayToggle} />, {
     wrapper,
   });
@@ -53,7 +54,7 @@ test("renders step count chips for 8, 16, 32", () => {
 
 test("calls onStepCountChange when a step chip is clicked", async () => {
   const user = userEvent.setup();
-  const onStepCountChange = vi.fn();
+  const onStepCountChange = vi.fn<(steps: StepCount) => void>();
   const { getByRole } = render(
     <Transport {...defaultProps} onStepCountChange={onStepCountChange} />,
     { wrapper },

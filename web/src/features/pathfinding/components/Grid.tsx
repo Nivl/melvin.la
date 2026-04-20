@@ -262,7 +262,7 @@ export const PathfindingGrid = ({
               aria-label={effectiveState}
               aria-selected={isFocused}
               className={[
-                CELL_COLORS[effectiveState] ?? CELL_COLORS.empty,
+                CELL_COLORS[effectiveState],
                 `border border-zinc-200 transition-colors duration-75 dark:border-zinc-800/90`,
                 effectiveState === "visited" && "animate-pathfinding-visited",
                 effectiveState === "path" && "animate-pathfinding-path border-amber-500/70!",

@@ -5,7 +5,6 @@ import { twMerge } from "tailwind-merge";
 
 import {
   BobaCoordinate,
-  bobaDefaultShakeOffset,
   bobaMaxAnimationDuration,
   bobaSoftShakeDuration,
   defaultBobaCoordinates,
@@ -33,8 +32,8 @@ function getBobaStyle(boba: BobaCoordinate): BobaStyle {
   return {
     "--boba-moving-duration": `${boba.durationMs.toString()}ms`,
     "--boba-soft-shake-duration": `${bobaSoftShakeDuration.toString()}ms`,
-    "--boba-soft-shake-offset": `${(boba.shakeOffset ?? bobaDefaultShakeOffset)?.toString()}px`,
-    "--boba-soft-shake-delay": `${(boba.shakeDelayMs ?? 0)?.toString()}ms`,
+    "--boba-soft-shake-offset": `${boba.shakeOffset.toString()}px`,
+    "--boba-soft-shake-delay": `${boba.shakeDelayMs.toString()}ms`,
     "--boba-soft-shake-iterations": roundOdd(boba.durationMs / bobaSoftShakeDuration),
   };
 }
@@ -57,7 +56,7 @@ export const Boba = ({ className }: { className: string }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (!isAnimating) {
-        return;
+        return undefined;
       }
 
       const interval = setInterval(() => {
@@ -75,7 +74,7 @@ export const Boba = ({ className }: { className: string }) => {
 
   useEffect(() => {
     if (!isAnimationStopping) {
-      return;
+      return undefined;
     }
 
     const timeout = setTimeout(() => {

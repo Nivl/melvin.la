@@ -21,7 +21,7 @@ export const TableMobile = ({
 
   return (
     <>
-      {(isLoading || data?.stats?.all?.overall) && (
+      {(isLoading || data?.stats.all?.overall) && (
         <>
           <h3 className="mb-3 flex items-center gap-3">
             <FaUser /> <span>{t("mobileTitles.overall")}</span>
@@ -36,13 +36,13 @@ export const TableMobile = ({
                 <Table.Row>
                   <Table.Cell>{t("gamePlayed")}</Table.Cell>
                   <Table.Cell>
-                    {isLoading ? skeletonRow : data?.stats?.all?.overall?.matches}
+                    {isLoading ? skeletonRow : data?.stats.all?.overall?.matches}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>{t("wins")}</Table.Cell>
                   <Table.Cell>
-                    {isLoading ? skeletonRow : data?.stats?.all?.overall?.wins}
+                    {isLoading ? skeletonRow : data?.stats.all?.overall?.wins}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
@@ -51,8 +51,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.overall?.wins ?? 0,
-                          data?.stats?.all?.overall?.matches ?? 0,
+                          data?.stats.all?.overall?.wins ?? 0,
+                          data?.stats.all?.overall?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -61,7 +61,7 @@ export const TableMobile = ({
                   <Table.Cell>
                     {isLoading
                       ? skeletonRow
-                      : Math.ceil((data?.stats?.all?.overall?.kd ?? 0) * 100) / 100}
+                      : Math.ceil((data?.stats.all?.overall?.kd ?? 0) * 100) / 100}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
@@ -70,8 +70,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.overall?.top10 ?? 0,
-                          data?.stats?.all?.overall?.matches ?? 0,
+                          data?.stats.all?.overall?.top10 ?? 0,
+                          data?.stats.all?.overall?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -81,8 +81,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.overall?.top25 ?? 0,
-                          data?.stats?.all?.overall?.matches ?? 0,
+                          data?.stats.all?.overall?.top25 ?? 0,
+                          data?.stats.all?.overall?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -91,7 +91,7 @@ export const TableMobile = ({
                   <Table.Cell>
                     {isLoading
                       ? skeletonRow
-                      : humanizeDuration(rootT, data?.stats?.all?.overall?.minutesPlayed ?? 0)}
+                      : humanizeDuration(rootT, data?.stats.all?.overall?.minutesPlayed ?? 0)}
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>
@@ -100,7 +100,7 @@ export const TableMobile = ({
         </>
       )}
 
-      {(isLoading || data?.stats?.all?.solo) && (
+      {(isLoading || data?.stats.all?.solo) && (
         <>
           <h3 className="mb-3 flex items-center gap-3">
             <FaUser /> <span>{t("mobileTitles.solo")}</span>
@@ -115,12 +115,12 @@ export const TableMobile = ({
                 <Table.Row>
                   <Table.Cell>{t("gamePlayed")}</Table.Cell>
                   <Table.Cell>
-                    {isLoading ? skeletonRow : data?.stats?.all?.solo?.matches}
+                    {isLoading ? skeletonRow : data?.stats.all?.solo?.matches}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>{t("wins")}</Table.Cell>
-                  <Table.Cell>{isLoading ? skeletonRow : data?.stats?.all?.solo?.wins}</Table.Cell>
+                  <Table.Cell>{isLoading ? skeletonRow : data?.stats.all?.solo?.wins}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>{t("winRate")}</Table.Cell>
@@ -128,8 +128,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.solo?.wins ?? 0,
-                          data?.stats?.all?.solo?.matches ?? 0,
+                          data?.stats.all?.solo?.wins ?? 0,
+                          data?.stats.all?.solo?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -138,7 +138,7 @@ export const TableMobile = ({
                   <Table.Cell>
                     {isLoading
                       ? skeletonRow
-                      : Math.ceil((data?.stats?.all?.solo?.kd ?? 0) * 100) / 100}
+                      : Math.ceil((data?.stats.all?.solo?.kd ?? 0) * 100) / 100}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
@@ -147,8 +147,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.solo?.top10 ?? 0,
-                          data?.stats?.all?.solo?.matches ?? 0,
+                          data?.stats.all?.solo?.top10 ?? 0,
+                          data?.stats.all?.solo?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -158,8 +158,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.solo?.top25 ?? 0,
-                          data?.stats?.all?.solo?.matches ?? 0,
+                          data?.stats.all?.solo?.top25 ?? 0,
+                          data?.stats.all?.solo?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -168,7 +168,7 @@ export const TableMobile = ({
                   <Table.Cell>
                     {isLoading
                       ? skeletonRow
-                      : humanizeDuration(rootT, data?.stats?.all?.solo?.minutesPlayed ?? 0)}
+                      : humanizeDuration(rootT, data?.stats.all?.solo?.minutesPlayed ?? 0)}
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>
@@ -177,7 +177,7 @@ export const TableMobile = ({
         </>
       )}
 
-      {(isLoading || data?.stats?.all?.duo) && (
+      {(isLoading || data?.stats.all?.duo) && (
         <>
           <h3 className="mb-3 flex items-center gap-3">
             <FaUserGroup /> <span>{t("mobileTitles.duo")}</span>
@@ -191,13 +191,11 @@ export const TableMobile = ({
               <Table.Body>
                 <Table.Row>
                   <Table.Cell>{t("gamePlayed")}</Table.Cell>
-                  <Table.Cell>
-                    {isLoading ? skeletonRow : data?.stats?.all?.duo?.matches}
-                  </Table.Cell>
+                  <Table.Cell>{isLoading ? skeletonRow : data?.stats.all?.duo?.matches}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>{t("wins")}</Table.Cell>
-                  <Table.Cell>{isLoading ? skeletonRow : data?.stats?.all?.duo?.wins}</Table.Cell>
+                  <Table.Cell>{isLoading ? skeletonRow : data?.stats.all?.duo?.wins}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>{t("winRate")}</Table.Cell>
@@ -205,8 +203,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.duo?.wins ?? 0,
-                          data?.stats?.all?.duo?.matches ?? 0,
+                          data?.stats.all?.duo?.wins ?? 0,
+                          data?.stats.all?.duo?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -215,7 +213,7 @@ export const TableMobile = ({
                   <Table.Cell>
                     {isLoading
                       ? skeletonRow
-                      : Math.ceil((data?.stats?.all?.duo?.kd ?? 0) * 100) / 100}
+                      : Math.ceil((data?.stats.all?.duo?.kd ?? 0) * 100) / 100}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
@@ -224,8 +222,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.duo?.top5 ?? 0,
-                          data?.stats?.all?.duo?.matches ?? 0,
+                          data?.stats.all?.duo?.top5 ?? 0,
+                          data?.stats.all?.duo?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -235,8 +233,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.duo?.top12 ?? 0,
-                          data?.stats?.all?.duo?.matches ?? 0,
+                          data?.stats.all?.duo?.top12 ?? 0,
+                          data?.stats.all?.duo?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -245,7 +243,7 @@ export const TableMobile = ({
                   <Table.Cell>
                     {isLoading
                       ? skeletonRow
-                      : humanizeDuration(rootT, data?.stats?.all?.duo?.minutesPlayed ?? 0)}
+                      : humanizeDuration(rootT, data?.stats.all?.duo?.minutesPlayed ?? 0)}
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>
@@ -253,7 +251,7 @@ export const TableMobile = ({
           </Table>
         </>
       )}
-      {(isLoading || data?.stats?.all?.squad) && (
+      {(isLoading || data?.stats.all?.squad) && (
         <>
           <h3 className="mb-3 flex items-center gap-3">
             <HiMiniUserGroup /> <span>{t("mobileTitles.squad")}</span>
@@ -268,12 +266,12 @@ export const TableMobile = ({
                 <Table.Row>
                   <Table.Cell>{t("gamePlayed")}</Table.Cell>
                   <Table.Cell>
-                    {isLoading ? skeletonRow : data?.stats?.all?.squad?.matches}
+                    {isLoading ? skeletonRow : data?.stats.all?.squad?.matches}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>{t("wins")}</Table.Cell>
-                  <Table.Cell>{isLoading ? skeletonRow : data?.stats?.all?.squad?.wins}</Table.Cell>
+                  <Table.Cell>{isLoading ? skeletonRow : data?.stats.all?.squad?.wins}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>{t("winRate")}</Table.Cell>
@@ -281,8 +279,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.squad?.wins ?? 0,
-                          data?.stats?.all?.squad?.matches ?? 0,
+                          data?.stats.all?.squad?.wins ?? 0,
+                          data?.stats.all?.squad?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -291,7 +289,7 @@ export const TableMobile = ({
                   <Table.Cell>
                     {isLoading
                       ? skeletonRow
-                      : Math.ceil((data?.stats?.all?.squad?.kd ?? 0) * 100) / 100}
+                      : Math.ceil((data?.stats.all?.squad?.kd ?? 0) * 100) / 100}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
@@ -300,8 +298,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.squad?.top3 ?? 0,
-                          data?.stats?.all?.squad?.matches ?? 0,
+                          data?.stats.all?.squad?.top3 ?? 0,
+                          data?.stats.all?.squad?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -311,8 +309,8 @@ export const TableMobile = ({
                     {isLoading
                       ? skeletonRow
                       : rateStr(
-                          data?.stats?.all?.squad?.top6 ?? 0,
-                          data?.stats?.all?.squad?.matches ?? 0,
+                          data?.stats.all?.squad?.top6 ?? 0,
+                          data?.stats.all?.squad?.matches ?? 0,
                         )}
                   </Table.Cell>
                 </Table.Row>
@@ -321,7 +319,7 @@ export const TableMobile = ({
                   <Table.Cell>
                     {isLoading
                       ? skeletonRow
-                      : humanizeDuration(rootT, data?.stats?.all?.squad?.minutesPlayed ?? 0)}
+                      : humanizeDuration(rootT, data?.stats.all?.squad?.minutesPlayed ?? 0)}
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>

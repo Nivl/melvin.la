@@ -42,7 +42,7 @@ test("renders mute button", () => {
 
 test("calls onMuteToggle when mute button pressed", async () => {
   const user = userEvent.setup();
-  const onMuteToggle = vi.fn();
+  const onMuteToggle = vi.fn<() => void>();
   const { getByRole } = render(<MixerStrip {...defaultProps} onMuteToggle={onMuteToggle} />, {
     wrapper,
   });

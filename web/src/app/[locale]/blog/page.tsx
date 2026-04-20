@@ -12,7 +12,7 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
   setRequestLocale(locale);
 
   const posts = getLatestBlogPosts(locale);
-  if (!posts || posts.length === 0) {
+  if (posts.length === 0) {
     return notFound();
   }
 

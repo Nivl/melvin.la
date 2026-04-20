@@ -36,7 +36,7 @@ export function SequencerGrid({
                   const n = gi * 4 + si + 1;
 
                   if (n > stepCount) {
-                    return;
+                    return undefined;
                   }
                   return (
                     <div

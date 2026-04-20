@@ -26,7 +26,7 @@ export const ThemeSwitcher = () => {
 
   useEffect(() => {
     if (!isBooped) {
-      return;
+      return undefined;
     }
 
     const timeout = setTimeout(() => {
