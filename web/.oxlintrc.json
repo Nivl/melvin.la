@@ -6,7 +6,7 @@
     "correctness": "error",
     "suspicious": "error",
     "perf": "error",
-    // "pedantic": "error",
+    "pedantic": "error",
     // "style": "error",
     "restriction": "error",
     "nursery": "error"
@@ -31,6 +31,21 @@
     "src/gen/api.d.ts"
   ],
   "rules": {
+    "max-lines-per-function": "off", // limit the size of a function. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "max-lines": "off", // limit the size of a file. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "max-depth": "off", // limit the nesting depth of blocks. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "max-dependencies": "off", // limit the amount of imports per file. Too opinionated, doesn't prevent anything useful.
+    "no-inline-comments": "off", // Prevent inline comments. WTF is that shit.
+    "require-await": "off", // All async methods require an await. Doesn't solve anything useful.
+    "switch-exhaustiveness-check": "off", // Force switch statements to be exhaustive. Conflicts with no-useless-switch-case and default-case.
+    "strict-boolean-expressions": "off", // force boolean expression to be actual boolean. Great on paper, but very verbose and unpractical. End up doing a lot of `xx !== undefined && xx !== ""`
+    //
+    "react/jsx-no-useless-fragment": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
     "typescript/prefer-readonly-parameter-types": "off",
     "eslint/complexity": "off",
     "eslint/no-undefined": "off",

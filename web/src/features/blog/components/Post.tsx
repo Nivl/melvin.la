@@ -46,7 +46,7 @@ export function Post({ post }: { post: BlogPost }) {
               <blockquote className="border-l-4 border-nivl pl-4 italic">{children}</blockquote>
             ),
             a: ({ children, href }: { children: React.ReactNode; href?: string }) => {
-              if (!href) {
+              if (href === undefined || href === "") {
                 return <>{children}</>;
               }
               const isExternalLink = href.startsWith("http");
@@ -78,10 +78,10 @@ export function Post({ post }: { post: BlogPost }) {
             Image,
             pre: ({ children }: { children?: React.ReactNode }) => {
               if (
-                !children ||
+                children === undefined ||
                 !isValidElement<{ className?: string; children?: ReactNode }>(children)
               ) {
-                return <></>;
+                return undefined;
               }
 
               const elementType =
@@ -97,21 +97,22 @@ export function Post({ post }: { post: BlogPost }) {
                 "className" in childrenProps
                   ? /language-(\w+)/.exec(childrenProps.className ?? "")
                   : "";
+              const hasAMatch = match !== null && match.length > 0;
 
               if (
-                !childrenProps.children ||
+                childrenProps.children === undefined ||
                 typeof childrenProps.children !== "string" ||
                 // we use "hidden" to keep track of the
                 // source code of the mermaid graphs
                 // We don't want to render it as a code block
-                (match && match[1] === "hidden")
+                (hasAMatch && match[1] === "hidden")
               ) {
-                return <></>;
+                return undefined;
               }
 
               return (
                 <div className="mb-8">
-                  <CodeBlock language={match ? match[1] : undefined} showlinenumbers={true}>
+                  <CodeBlock language={hasAMatch ? match[1] : undefined} showlinenumbers={true}>
                     {childrenProps.children}
                   </CodeBlock>
                 </div>

@@ -17,7 +17,7 @@ export const Providers = ({
   locale: string;
   messages: MessagesType;
 }) => {
-  const momentLocale = locale == "zh" ? "zh-cn" : locale;
+  const momentLocale = locale === "zh" ? "zh-cn" : locale;
   moment.locale(momentLocale);
 
   return (

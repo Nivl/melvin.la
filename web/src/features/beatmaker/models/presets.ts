@@ -16,8 +16,8 @@ function makeBlankTracks(stepCount: BeatmakerState["stepCount"]): BeatmakerState
 }
 
 // 16-step helpers: T=true, F=false
-const T = true,
-  F = false;
+const F = false,
+  T = true;
 
 const BASIC_ROCK: PresetDef = {
   kit: "808",

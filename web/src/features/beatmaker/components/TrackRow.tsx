@@ -127,7 +127,7 @@ export function TrackRow({
         ))}
       </div>
 
-      {decodeError && <p className="ml-2 text-xs text-danger">{decodeError}</p>}
+      {decodeError !== undefined && <p className="ml-2 text-xs text-danger">{decodeError}</p>}
     </div>
   );
 }
