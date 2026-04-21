@@ -2,11 +2,10 @@ import { BlogPost } from "#features/blog/models";
 
 import { database } from "./database";
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null;
-}
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null;
 
-function isBlogPost(value: unknown): value is BlogPost {
+const isBlogPost = (value: unknown): value is BlogPost => {
   if (!isRecord(value)) {
     return false;
   }
@@ -24,7 +23,7 @@ function isBlogPost(value: unknown): value is BlogPost {
     typeof value.createdAt === "string" &&
     typeof value.updatedAt === "string"
   );
-}
+};
 
 export const getAllBlogPosts = () => {
   const db = database();

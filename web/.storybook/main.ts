@@ -3,7 +3,6 @@
 import type { StorybookConfig } from "@storybook/nextjs";
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
     "@chromatic-com/storybook",
@@ -15,5 +14,6 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ["../public"],
+  stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
 };
 export default config;

@@ -27,60 +27,60 @@ const randomShakeDelayMs = () => randomInt(0, 500);
 // We hardcode everything to prevent hydration mismatches with SSR..
 export const defaultBobaCoordinates: BobaCoordinate[] = [
   {
-    x: 716.945,
-    y: 2326.95,
     durationMs: 3784,
     shakeDelayMs: 56,
     shakeOffset: 25,
+    x: 716.945,
+    y: 2326.95,
   },
   {
-    x: 874.945,
-    y: 2171.95,
     durationMs: 4357,
     shakeDelayMs: 383,
     shakeOffset: 21,
+    x: 874.945,
+    y: 2171.95,
   },
   {
-    x: 605.945,
-    y: 2129.95,
     durationMs: 3194,
     shakeDelayMs: 399,
     shakeOffset: 26,
+    x: 605.945,
+    y: 2129.95,
   },
   {
-    x: 1010.95,
-    y: 2319.95,
     durationMs: 4147,
     shakeDelayMs: 389,
     shakeOffset: 28,
+    x: 1010.95,
+    y: 2319.95,
   },
   {
-    x: 1253.95,
-    y: 2211.95,
     durationMs: 4981,
     shakeDelayMs: 365,
     shakeOffset: 26,
+    x: 1253.95,
+    y: 2211.95,
   },
   {
-    x: 1075.95,
-    y: 2106.95,
     durationMs: 4099,
     shakeDelayMs: 199,
     shakeOffset: 23,
+    x: 1075.95,
+    y: 2106.95,
   },
   {
-    x: 439.945,
-    y: 2254.95,
     durationMs: 3764,
     shakeDelayMs: 18,
     shakeOffset: 23,
+    x: 439.945,
+    y: 2254.95,
   },
 ];
 
 // roundOdd takes a number, rounds it, and ensures it's odd.
 export const roundOdd = (n: number) => {
-  const r = Math.round(n);
-  return r % 2 === 1 ? r : r + 1;
+  const rounded = Math.round(n);
+  return rounded % 2 === 1 ? rounded : rounded + 1;
 };
 
 // All the maths is AI generated because fuck doing this
@@ -123,8 +123,9 @@ export const generateBalls = () => {
   const balls: BobaCoordinate[] = [];
 
   for (let i = 0; i < 7; i += 1) {
-    let x: number, y: number;
-    let ok: boolean;
+    let x = 0;
+    let y = 0;
+    let ok = false;
     let tries = 0;
 
     do {
@@ -143,9 +144,9 @@ export const generateBalls = () => {
         const ty = random(bobaMinPositionY + bobaRadius, bobaMaxPositionY - bobaRadius);
         let overlap = 0;
 
-        for (const b of balls) {
-          const dx = b.x - tx;
-          const dy = b.y - ty;
+        for (const ball of balls) {
+          const dx = ball.x - tx;
+          const dy = ball.y - ty;
           const d2 = dx * dx + dy * dy;
 
           if (d2 < bobaDiameter * bobaDiameter) {
@@ -163,11 +164,11 @@ export const generateBalls = () => {
       y = bestY;
     }
     balls.push({
-      x,
-      y,
       durationMs: randomDuration(),
       shakeDelayMs: randomShakeDelayMs(),
       shakeOffset: randomShakeOffset(),
+      x,
+      y,
     });
   }
   return balls;
@@ -177,10 +178,10 @@ export const updateBallAt = (index: number, balls: BobaCoordinate[]): void => {
   const original = balls[index];
   // not super useful, but that's a useful variable to have around
   // in case we need some tweaking
-  const minDistance = 1 * separationDistance;
-  let x: number;
-  let y: number;
-  let ok: boolean;
+  const minDistance = separationDistance;
+  let x = 0;
+  let y = 0;
+  let ok = false;
   let tries = 1;
 
   do {
@@ -217,10 +218,10 @@ export const updateBallAt = (index: number, balls: BobaCoordinate[]): void => {
   // We want to modify the reference
   // eslint-disable-next-line no-param-reassign
   balls[index] = {
-    x,
-    y,
     durationMs: randomDuration(),
     shakeDelayMs: randomShakeDelayMs(),
     shakeOffset: randomShakeOffset(),
+    x,
+    y,
   };
 };

@@ -90,9 +90,8 @@ export type FortniteAPIStatsResponse = {
   data: FortniteStatsData;
 };
 
-export function isAccountType(value: string): value is AccountTypes {
-  return new Set<string>(Object.values(AccountTypes)).has(value);
-}
+export const isAccountType = (value: string): value is AccountTypes =>
+  new Set<string>(Object.values(AccountTypes)).has(value);
 
 export const hasStats = (
   data: FortniteStatsData | undefined,
@@ -102,9 +101,7 @@ export const hasStats = (
       overall: NonNullable<NonNullable<FortniteStatsData["stats"]["all"]>["overall"]>;
     };
   };
-} => {
-  return !!data?.stats.all?.overall;
-};
+} => Boolean(data?.stats.all?.overall);
 
 export type Preset = {
   accountName: string;

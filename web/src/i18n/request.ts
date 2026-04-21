@@ -1,6 +1,6 @@
 /* eslint-disable import/no-default-export */
 
-import * as Sentry from "@sentry/nextjs";
+import { logger } from "@sentry/nextjs";
 import { getRequestConfig } from "next-intl/server";
 
 import defaultLocalMessages from "#messages/en.json";
@@ -11,7 +11,8 @@ import koMessages from "#messages/ko.json";
 import zhMessages from "#messages/zh.json";
 import zhTwMessages from "#messages/zh-tw.json";
 
-import { isLocale, type Locales } from "./locales";
+import type { Locales } from "./locales";
+import { isLocale } from "./locales";
 import { routing } from "./routing";
 
 export type MessagesType = { [key: string]: string | MessagesType };
@@ -26,10 +27,11 @@ const allMessages: Record<Locales, MessagesType> = {
   "zh-tw": zhTwMessages,
 };
 
-export const buildGetMessageFallback = (locale: string) => {
-  return ({ namespace, key }: { key: string; namespace?: string }) => {
+export const buildGetMessageFallback =
+  (locale: string) =>
+  ({ namespace, key }: { key: string; namespace?: string }) => {
     const path = [namespace, key].filter((part) => part !== undefined).join(".");
-    Sentry.logger.error(Sentry.logger.fmt`Missing translation for ${path} in ${locale}`);
+    logger.error(logger.fmt`Missing translation for ${path} in ${locale}`);
 
     // We'll try to get that path from the default messages
     // It shouldn't fail unless we fucked up badly, since we have
@@ -41,7 +43,7 @@ export const buildGetMessageFallback = (locale: string) => {
         k = k[p];
       } else {
         // weird case where a parent key is a string instead of an object
-        Sentry.logger.error(Sentry.logger.fmt`Missing or invalid path in default local: ${path}`, {
+        logger.error(logger.fmt`Missing or invalid path in default local: ${path}`, {
           path,
           valueAtPath: k,
         });
@@ -54,13 +56,12 @@ export const buildGetMessageFallback = (locale: string) => {
     }
 
     // weird case where the key has children instead of being a string
-    Sentry.logger.error(Sentry.logger.fmt`Missing or invalid path in default local: ${path}`, {
+    logger.error(logger.fmt`Missing or invalid path in default local: ${path}`, {
       path,
       valueAtPath: k,
     });
     return paths.at(-1) ?? "???";
   };
-};
 
 export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale;
@@ -73,10 +74,10 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const messages = allMessages[activeLocale];
 
   return {
+    getMessageFallback: buildGetMessageFallback(locale),
     locale: activeLocale,
     messages,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onError: () => {},
-    getMessageFallback: buildGetMessageFallback(locale),
   };
 });

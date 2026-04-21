@@ -1,2 +1,2 @@
-export { LargePill } from "./LargePill";
+export { LargePill } from "./large-pill";
 export { type Color, colors } from "./types";

@@ -11,7 +11,19 @@ const withNextIntl = createNextIntlPlugin({
 });
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["next-mdx-remote"],
+  async headers() {
+    return await Promise.resolve([
+      {
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+        source: "/assets/games/beatmaker/samples/:version/:rest*",
+      },
+    ]);
+  },
   images: {
     localPatterns: [
       {
@@ -19,39 +31,23 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async headers() {
-    return await Promise.resolve([
-      {
-        source: "/assets/games/beatmaker/samples/:version/:rest*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-    ]);
-  },
+  transpilePackages: ["next-mdx-remote"],
 };
 
+// https://www.npmjs.com/package/@sentry/webpack-plugin#options
+//
+// For all available options, see:
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 const sentryOption: SentryBuildOptions = {
-  // https://www.npmjs.com/package/@sentry/webpack-plugin#options
-
-  org: process.env.NEXT_PUBLIC_SENTRY_ORG,
-  project: process.env.NEXT_PUBLIC_SENTRY_PROJECT,
-
   // Auth token for uploading source maps — set SENTRY_AUTH_TOKEN in CI secrets
   // or in a local .env.sentry-build-plugin file (gitignored).
   authToken: process.env.SENTRY_AUTH_TOKEN,
 
+  org: process.env.NEXT_PUBLIC_SENTRY_ORG,
+  project: process.env.NEXT_PUBLIC_SENTRY_PROJECT,
+
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
-
-  // For all available options, see:
-  // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-
-  // Upload a larger set of source maps for prettier stack traces (increases build time)
-  widenClientFileUpload: true,
 
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
   // This can increase your server load as well as your hosting bill.
@@ -66,6 +62,9 @@ const sentryOption: SentryBuildOptions = {
       removeDebugLogging: true,
     },
   },
+
+  // Upload a larger set of source maps for prettier stack traces (increases build time)
+  widenClientFileUpload: true,
 };
 
 export default withSentryConfig(withNextIntl(nextConfig), sentryOption);

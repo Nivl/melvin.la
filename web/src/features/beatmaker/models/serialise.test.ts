@@ -29,6 +29,29 @@ test("round-trip: decode(encode(state)) reproduces state", () => {
   expect(decoded?.tracks.kick.muted).toBe(state.tracks.kick.muted);
 });
 
+test("round-trip: decode(encode(state)) reproduces non-default track values", () => {
+  const customSteps = Array.from({ length: 16 }, (_, i) => i % 3 === 0);
+  const modified: BeatmakerState = {
+    ...state,
+    tracks: {
+      ...state.tracks,
+      kick: {
+        ...state.tracks.kick,
+        steps: customSteps,
+        volume: 0.42,
+        pan: -0.5,
+        muted: true,
+      },
+    },
+  };
+  const hash = encode(modified);
+  const decoded = decode(hash);
+  expect(decoded?.tracks.kick.steps).toEqual(customSteps);
+  expect(decoded?.tracks.kick.volume).toBe(0.42);
+  expect(decoded?.tracks.kick.pan).toBe(-0.5);
+  expect(decoded?.tracks.kick.muted).toBe(true);
+}, 5000);
+
 test("decode returns undefined for garbage input", () => {
   expect(decode("garbage")).toBeUndefined();
   expect(decode("")).toBeUndefined();

@@ -5,7 +5,9 @@ export const totalNeighbors = (board: Board, x: number, y: number, toroidal: boo
   let total = 0;
   for (let dy = -1; dy <= 1; dy += 1) {
     for (let dx = -1; dx <= 1; dx += 1) {
-      if (dy === 0 && dx === 0) continue;
+      if (dy === 0 && dx === 0) {
+        continue;
+      }
       if (toroidal) {
         const ny = (y + dy + size) % size;
         const nx = (x + dx + size) % size;

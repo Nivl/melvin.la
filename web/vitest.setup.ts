@@ -6,16 +6,16 @@ import { afterAll, afterEach, beforeAll, vi } from "vitest";
 import { server } from "#trpc/mock";
 
 Object.defineProperty(globalThis, "matchMedia", {
-  writable: true,
   value: vi.fn().mockImplementation((query: string) => ({
+    addEventListener: vi.fn(),
+    addListener: vi.fn(),
+    dispatchEvent: vi.fn(),
     matches: false,
     media: query,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
+    removeListener: vi.fn(),
   })),
+  writable: true,
 });
 
 afterEach(() => {

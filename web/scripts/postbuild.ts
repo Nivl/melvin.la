@@ -1,3 +1,6 @@
+// This scripts runs at build time in a Node environment.
+// eslint-disable import/no-nodejs-modules
+
 import { rm } from "node:fs/promises";
 
 import { database } from "#features/blog/ssg/database.ts";
@@ -10,7 +13,7 @@ const main = async () => {
   const db = database();
 
   db.close();
-  await rm(BUILD_DIR, { recursive: true, force: true });
+  await rm(BUILD_DIR, { force: true, recursive: true });
 };
 
 await main();

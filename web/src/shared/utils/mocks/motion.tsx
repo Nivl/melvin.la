@@ -1,9 +1,10 @@
 // This is a test file
 //eslint-disable only-export-components
-import { createElement, type ReactNode } from "react";
+import type { ReactNode } from "react";
+import { createElement } from "react";
 
 const makeEl = (tag: string) => {
-  function MotionComponent({
+  const MotionComponent = ({
     children,
     initial: _i,
     animate: _a,
@@ -12,27 +13,21 @@ const makeEl = (tag: string) => {
     layout: _l,
     layoutId: _li,
     ...props
-  }: Record<string, unknown> & { children?: ReactNode }) {
-    return createElement(tag, props, children);
-  }
+  }: Record<string, unknown> & { children?: ReactNode }) => createElement(tag, props, children);
   return MotionComponent;
 };
 
-function AnimatePresence({ children }: { children: unknown }) {
-  return children;
-}
+const AnimatePresence = ({ children }: { children: unknown }) => children;
 
-function MotionConfig({ children }: { children: unknown }) {
-  return children;
-}
+const MotionConfig = ({ children }: { children: unknown }) => children;
 
 export const motionMock = {
+  AnimatePresence,
+  MotionConfig,
   motion: new Proxy<Record<string, unknown>>(
     {},
     {
       get: (_, tag: string) => makeEl(tag),
     },
   ),
-  AnimatePresence,
-  MotionConfig,
 };

@@ -5,16 +5,14 @@ export type TrackId = "kick" | "snare" | "hihat" | "openhat" | "clap" | "ride";
 
 export const TRACK_IDS: TrackId[] = ["kick", "snare", "hihat", "openhat", "clap", "ride"];
 
-export function buildTrackRecord<T>(build: (trackId: TrackId) => T): Record<TrackId, T> {
-  return {
-    kick: build("kick"),
-    snare: build("snare"),
-    hihat: build("hihat"),
-    openhat: build("openhat"),
-    clap: build("clap"),
-    ride: build("ride"),
-  };
-}
+export const buildTrackRecord = <T>(build: (trackId: TrackId) => T): Record<TrackId, T> => ({
+  clap: build("clap"),
+  hihat: build("hihat"),
+  kick: build("kick"),
+  openhat: build("openhat"),
+  ride: build("ride"),
+  snare: build("snare"),
+});
 
 export const STEP_COUNTS = [8, 16, 32] as const;
 export type StepCount = (typeof STEP_COUNTS)[number];
@@ -31,12 +29,12 @@ export type TrackState = {
 };
 
 export const TRACK_COLORS: Record<TrackId, string> = {
-  kick: "var(--color-track-kick)",
-  snare: "var(--color-track-snare)",
-  hihat: "var(--color-track-hihat)",
-  openhat: "var(--color-track-openhat)",
   clap: "var(--color-track-clap)",
+  hihat: "var(--color-track-hihat)",
+  kick: "var(--color-track-kick)",
+  openhat: "var(--color-track-openhat)",
   ride: "var(--color-track-ride)",
+  snare: "var(--color-track-snare)",
 };
 
 export type BeatmakerState = {

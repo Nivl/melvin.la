@@ -11,40 +11,10 @@ import { NextIntlClientProvider } from "next-intl";
 import defaultMessages from "#messages/en.json";
 import { TRPCReactProvider } from "#trpc/provider";
 
-import { withNextThemes } from "./decorators/withNextThemes";
+import { withNextThemes } from "./decorators/with-next-themes";
 import { supportedModes } from "./modes";
 
 const preview: Preview = {
-  parameters: {
-    nextjs: {
-      appDirectory: true,
-    },
-    viewport: {
-      viewports: {
-        xsmall: { name: "XS", styles: { width: "320px", height: "490px" } },
-        small: { name: "Small", styles: { width: "700px", height: "800px" } },
-        medium: {
-          name: "Medium",
-          styles: { width: "768px", height: "1000px" },
-        },
-        large: { name: "Large", styles: { width: "1024px", height: "2000px" } },
-        xlarge: { name: "XL", styles: { width: "1280px", height: "2000px" } },
-        xxlarge: { name: "XXL", styles: { width: "1440px", height: "2000px" } },
-        FourK: { name: "4k", styles: { width: "2560px", height: "2000px" } },
-      },
-    },
-    chromatic: {
-      modes: {
-        ...supportedModes,
-      },
-    },
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
-      },
-    },
-  },
   decorators: [
     (Story) => {
       globalThis.window.localStorage.clear();
@@ -61,16 +31,46 @@ const preview: Preview = {
       </NextIntlClientProvider>
     ),
     withNextThemes({
-      themes: {
-        light: "light",
-        dark: "dark",
-        system: "system",
-      },
+      attribute: "class",
       defaultTheme: "system",
       enableSystem: true,
-      attribute: "class",
+      themes: {
+        dark: "dark",
+        light: "light",
+        system: "system",
+      },
     }),
   ],
+  parameters: {
+    chromatic: {
+      modes: {
+        ...supportedModes,
+      },
+    },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+    nextjs: {
+      appDirectory: true,
+    },
+    viewport: {
+      viewports: {
+        FourK: { name: "4k", styles: { height: "2000px", width: "2560px" } },
+        large: { name: "Large", styles: { height: "2000px", width: "1024px" } },
+        medium: {
+          name: "Medium",
+          styles: { height: "1000px", width: "768px" },
+        },
+        small: { name: "Small", styles: { height: "800px", width: "700px" } },
+        xlarge: { name: "XL", styles: { height: "2000px", width: "1280px" } },
+        xsmall: { name: "XS", styles: { height: "490px", width: "320px" } },
+        xxlarge: { name: "XXL", styles: { height: "2000px", width: "1440px" } },
+      },
+    },
+  },
 };
 
 export default preview;

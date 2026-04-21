@@ -6,7 +6,7 @@ import { expect, expectToBeTruthy, test } from "./helpers";
 // The popover contains a SearchField.Input (searchbox role, autoFocus).
 // We click the trigger group via data-testid, then fill the searchbox.
 // Options show "City Country" (no comma, no timezone) as their accessible name.
-async function selectCity(page: Page, testId: string, searchText: string, optionText: string) {
+const selectCity = async (page: Page, testId: string, searchText: string, optionText: string) => {
   // Convert "City, Country (Timezone)" → "City Country" to match the ARIA accessible name
   const accessibleName = optionText
     .replace(/ \([^)]+\)$/, "") // Remove " (timezone)" at end
@@ -17,7 +17,7 @@ async function selectCity(page: Page, testId: string, searchText: string, option
   const option = page.getByRole("option", { name: accessibleName });
   await option.waitFor();
   await option.click();
-}
+};
 
 const FROM_TESTID = "city-from";
 const TO_TESTID = "city-to";
@@ -171,8 +171,9 @@ test.describe("Timezones Tool", () => {
     expect(laText).toMatch(/\d{1,2}:\d{2}/);
 
     // Extract times for comparison - they should be different
-    const tokyoTimeMatch = tokyoText?.match(/(\d{1,2}):(\d{2})/);
-    const laTimeMatch = laText?.match(/(\d{1,2}):(\d{2})/);
+    const tokyoTimeMatch: RegExpMatchArray | null | undefined =
+      tokyoText?.match(/(\d{1,2}):(\d{2})/);
+    const laTimeMatch: RegExpMatchArray | null | undefined = laText?.match(/(\d{1,2}):(\d{2})/);
 
     expectToBeTruthy(tokyoTimeMatch);
     expectToBeTruthy(laTimeMatch);

@@ -22,5 +22,5 @@ export const sortedCities: City[] = Array.from({
 
 for (const [i, city] of cityMapping.entries()) {
   const lcName = city.city.toLocaleLowerCase();
-  sortedCities[i] = { lcName, data: city, entryIndex: i };
+  sortedCities[i] = { data: city, entryIndex: i, lcName };
 }

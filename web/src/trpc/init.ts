@@ -1,9 +1,7 @@
 import { trpcMiddleware as SentryTrpcMiddleware } from "@sentry/nextjs";
 import { initTRPC } from "@trpc/server";
 
-export const createTRPCContext = (_opts: { headers: Headers }) => {
-  return {};
-};
+export const createTRPCContext = (_opts: { headers: Headers }) => ({});
 
 const t = initTRPC.context<ReturnType<typeof createTRPCContext>>().create({});
 

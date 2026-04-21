@@ -12,7 +12,7 @@ import { vitest } from "vitest";
 
 import { locales } from "#i18n/locales.ts";
 import messages from "#messages/en.json";
-import { Providers } from "#shared/components/Providers.tsx";
+import { Providers } from "#shared/components/providers.tsx";
 
 type AppRouterContextProviderMockProps = {
   router?: Partial<AppRouterInstance>;
@@ -27,10 +27,10 @@ const AppRouterContextProviderMock = ({
     () => ({
       back: vitest.fn(),
       forward: vitest.fn(),
-      push: vitest.fn(),
-      replace: vitest.fn(),
-      refresh: vitest.fn(),
       prefetch: vitest.fn(),
+      push: vitest.fn(),
+      refresh: vitest.fn(),
+      replace: vitest.fn(),
       ...router,
     }),
     [router],
@@ -40,12 +40,10 @@ const AppRouterContextProviderMock = ({
 
 export const testWrapper: React.JSXElementConstructor<{
   children: React.ReactNode;
-}> = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <AppRouterContextProviderMock>
-      <Providers locale={locales[0]} messages={messages}>
-        {children}
-      </Providers>
-    </AppRouterContextProviderMock>
-  );
-};
+}> = ({ children }: { children: React.ReactNode }) => (
+  <AppRouterContextProviderMock>
+    <Providers locale={locales[0]} messages={messages}>
+      {children}
+    </Providers>
+  </AppRouterContextProviderMock>
+);

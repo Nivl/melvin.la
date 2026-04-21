@@ -7,7 +7,7 @@
     "suspicious": "error",
     "perf": "error",
     "pedantic": "error",
-    // "style": "error",
+    "style": "error",
     "restriction": "error",
     "nursery": "error"
   },
@@ -31,14 +31,48 @@
     "src/gen/api.d.ts"
   ],
   "rules": {
+    "new-cap": "off", // Forces the use of "new" in some cases. Too many false positives.
+    "import/exports-last": "off", // force exports at the end of file. Too opinionated, doesn't prevent anything useful.
+    "import/group-exports": "off", // force grouping exports together. Too opinionated, doesn't prevent anything useful.
+    "no-duplicate-imports": "off", // Prevent multiple imports of the same module. Conflicts with other rules.
+    "sort-imports": "off", // Sort imports. Conflicts with eslint-plugin-simple-import-sort.
     "max-lines-per-function": "off", // limit the size of a function. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "max-params": "off", // limit the number of parameters per function. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
     "max-lines": "off", // limit the size of a file. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
     "max-depth": "off", // limit the nesting depth of blocks. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "no-continue": "off", // Prevents the use of continue statements. Early exits are a good thing.
+    "prefer-template": "off", // Force the use of template literals. Good idea, but in some cases, string concatenation is more readable.
+    "prefer-destructuring": "off", // Prevent accessing an array doing "array[0]". Good idea on paper, but leads to less readable code in some cases.
+    "id-length": [
+      "error",
+      {
+        // _: common variable name for unused variables and throwaway values.
+        // x, y, z: standard variable names in math and loops.
+        // i, j, k: standard variable names in loops.
+        // t: standard variable name for translation.
+        // v: common variable name for "value".
+        // n: common variable name for "number".
+        // T: standard name for a Template param.
+        // d: required for motion when animating the "d" property.
+        // C: We have a icon named C.
+        "exceptions": ["_", "x", "y", "z", "i", "j", "k", "t", "n", "v", "T", "p", "d", "C"]
+      }
+    ], // limit the length of identifiers.
+    "no-magic-numbers": "off", // Prevent magic numbers. Good idea on paper, but hard to enforce in practice. We have close to 3k violations as of writing this comment.
+    "react/jsx-max-depth": "off", // limit the nesting depth of jsx. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
     "max-dependencies": "off", // limit the amount of imports per file. Too opinionated, doesn't prevent anything useful.
+    "max-statements": "off", // limit the amount of statements per function. Too opinionated, doesn't prevent anything useful.
+    "no-ternary": "off", // Prevents the use of ternary expressions. Too opinionated, doesn't prevent anything useful, especially with jsx.
+    "no-nested-ternary": "off", // Prevents the use of nested ternary expressions. Great on paper, but useful with jsx.
+    "unicorn/no-nested-ternary": "off", // Prevents the use of nested ternary expressions. Great on paper, but useful with jsx.
     "no-inline-comments": "off", // Prevent inline comments. WTF is that shit.
     "require-await": "off", // All async methods require an await. Doesn't solve anything useful.
     "switch-exhaustiveness-check": "off", // Force switch statements to be exhaustive. Conflicts with no-useless-switch-case and default-case.
     "strict-boolean-expressions": "off", // force boolean expression to be actual boolean. Great on paper, but very verbose and unpractical. End up doing a lot of `xx !== undefined && xx !== ""`
+    "no-named-export": "off", // Prevent named exports. That's the exact opposite of what we want.
+    "prefer-default-export": "off", // Prevent named exports. That's the exact opposite of what we want.
+    "capitalized-comments": "off", // Force comments to start with a capital letter. Has false positive.
+    "consistent-type-imports": "off", // Force the "type" keyword to be used consistently in imports. Conflicts with other rules.
     //
     "react/jsx-no-useless-fragment": [
       "error",
@@ -509,6 +543,7 @@
     {
       "files": ["src/**/*.test.ts", "src/**/*.test.tsx"],
       "rules": {
+        "react/jsx-props-no-spreading": "off",
         "eslint/no-empty-function": "off"
       }
     },

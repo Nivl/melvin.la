@@ -11,7 +11,7 @@ import type { AppRouter } from "./routers/_app";
 
 let browserQueryClient: QueryClient | undefined = undefined;
 
-function getQueryClient() {
+const getQueryClient = () => {
   if (getWindow() === undefined) {
     // Server: always make a new query client
     return makeQueryClient();
@@ -22,9 +22,9 @@ function getQueryClient() {
   // have a suspense boundary BELOW the creation of the query client
   browserQueryClient ??= makeQueryClient();
   return browserQueryClient;
-}
+};
 
-function getUrl() {
+const getUrl = () => {
   const base = (() => {
     if (getWindow() !== undefined) {
       return "";
@@ -36,13 +36,13 @@ function getUrl() {
   })();
 
   return `${base}/api/trpc`;
-}
+};
 
-export function TRPCReactProvider(
+export const TRPCReactProvider = (
   props: Readonly<{
     children: React.ReactNode;
   }>,
-) {
+) => {
   // NOTE: Avoid useState when initializing the query client if you don't
   //       have a suspense boundary between this and the code that may
   //       suspend because React will throw away the client on the initial
@@ -66,4 +66,4 @@ export function TRPCReactProvider(
       </TRPCProvider>
     </QueryClientProvider>
   );
-}
+};

@@ -4,11 +4,11 @@ import { getTranslations } from "next-intl/server";
 
 import { getMetadata } from "#shared/utils/metadata";
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+}): Promise<Metadata> => {
   const { locale } = await params;
 
   const t = await getTranslations({
@@ -17,11 +17,11 @@ export async function generateMetadata({
   });
 
   return await getMetadata({
+    description: t("description"),
     locale,
     title: t("title"),
-    description: t("description"),
   });
-}
+};
 
 export default function NotFound() {
   const t = useTranslations("errorPages.404");

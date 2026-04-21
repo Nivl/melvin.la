@@ -16,9 +16,9 @@ test("trap preset has stepCount 32", () => {
 });
 
 test("blank preset has all steps off", () => {
-  const blank = PRESETS.blank;
+  const { blank } = PRESETS;
   for (const trackId of TRACK_IDS) {
-    expect(blank.tracks[trackId].steps.every((s) => !s)).toBe(true);
+    expect(blank.tracks[trackId].steps.every((step) => !step)).toBe(true);
   }
 });
 

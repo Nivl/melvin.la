@@ -13,7 +13,7 @@ test.describe("UUID Tool", () => {
     await page.getByRole("option", { name: "v4" }).click();
 
     // Click generate button
-    await page.getByRole("button", { name: "Generate", exact: true }).click();
+    await page.getByRole("button", { exact: true, name: "Generate" }).click();
 
     // Verify a UUID is generated
     const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -36,7 +36,7 @@ test.describe("UUID Tool", () => {
     await countInput.fill("5");
 
     // Click generate button
-    await page.getByRole("button", { name: "Generate", exact: true }).click();
+    await page.getByRole("button", { exact: true, name: "Generate" }).click();
 
     // Verify 5 UUIDs are generated
     const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;

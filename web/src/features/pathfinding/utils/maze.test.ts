@@ -48,9 +48,11 @@ describe("generateMaze", () => {
       [sr, sc - 1],
       [sr, sc + 1],
     ];
-    const hasPassable = adjacent.some(([r, c]) => {
-      if (r < 0 || r >= grid.length || c < 0 || c >= (grid[0]?.length ?? 0)) return false;
-      return grid[r]?.[c] !== "wall";
+    const hasPassable = adjacent.some(([row, col]) => {
+      if (row < 0 || row >= grid.length || col < 0 || col >= (grid[0]?.length ?? 0)) {
+        return false;
+      }
+      return grid[row]?.[col] !== "wall";
     });
     expect(hasPassable).toBe(true);
   });
@@ -64,9 +66,11 @@ describe("generateMaze", () => {
       [er, ec - 1],
       [er, ec + 1],
     ];
-    const hasPassable = adjacent.some(([r, c]) => {
-      if (r < 0 || r >= grid.length || c < 0 || c >= (grid[0]?.length ?? 0)) return false;
-      return grid[r]?.[c] !== "wall";
+    const hasPassable = adjacent.some(([row, col]) => {
+      if (row < 0 || row >= grid.length || col < 0 || col >= (grid[0]?.length ?? 0)) {
+        return false;
+      }
+      return grid[row]?.[col] !== "wall";
     });
     expect(hasPassable).toBe(true);
   });
