@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 
-import { List } from "#features/blog/components/List";
+import { List } from "#features/blog/components/list";
 import { getLatestBlogPosts } from "#features/blog/ssg/queries.ts";
 import { getMetadata } from "#shared/utils/metadata";
 
@@ -19,18 +19,18 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
   return <List posts={posts} />;
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+}): Promise<Metadata> => {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "blog.metadata" });
 
   return await getMetadata({
+    description: t("description"),
     locale,
     pageUrl: "/blog",
     title: t("title"),
-    description: t("description"),
   });
-}
+};

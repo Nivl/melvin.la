@@ -4,11 +4,11 @@
   "private": true,
   "type": "module",
   "imports": {
-    "#features/fortnite/hooks/useStats": {
-      "test": "./src/features/fortnite/hooks/useStats.mock.ts",
-      "default": "./src/features/fortnite/hooks/useStats.tsx"
+    "#features/fortnite/hooks/use-stats": {
+      "test": "./src/features/fortnite/hooks/use-stats.mock.ts",
+      "default": "./src/features/fortnite/hooks/use-stats.tsx"
     },
-    "#features/fortnite/backend/getStats.mock": "./src/features/fortnite/backend/getStats.mock.ts",
+    "#features/fortnite/backend/get-stats.mock": "./src/features/fortnite/backend/get-stats.mock.ts",
     "#features/fortnite/models": "./src/features/fortnite/models.ts",
     "#storybook/*": "./.storybook/*",
     "#messages/*": "./messages/*",

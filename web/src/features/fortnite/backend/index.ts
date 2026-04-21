@@ -1,4 +1,4 @@
-import { endpoint as getStats } from "./getStats";
+import { endpoint as getStats } from "./get-stats";
 
 export const routes = {
   fortniteGetStats: getStats,

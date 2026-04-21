@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { Timezones } from "#features/timezones/components/Timezones";
+import { Timezones } from "#features/timezones/components/timezones";
 import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home() {
   return <Timezones />;
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+}): Promise<Metadata> => {
   const { locale } = await params;
 
   const t = await getTranslations({
@@ -21,9 +21,9 @@ export async function generateMetadata({
   });
 
   return await getMetadata({
+    description: t("description"),
     locale,
     pageUrl: "/tools/timezones",
     title: t("title"),
-    description: t("description"),
   });
-}
+};

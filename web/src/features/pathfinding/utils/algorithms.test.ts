@@ -17,7 +17,9 @@ const isConnectedPath = (path: Coords[]): boolean => {
   for (let i = 1; i < path.length; i += 1) {
     const dr = Math.abs(path[i][0] - path[i - 1][0]);
     const dc = Math.abs(path[i][1] - path[i - 1][1]);
-    if (dr + dc !== 1) return false;
+    if (dr + dc !== 1) {
+      return false;
+    }
   }
   return true;
 };
@@ -43,10 +45,10 @@ const START: Coords = [0, 0];
 const END_5x5: Coords = [4, 4];
 
 const ALGORITHMS = [
-  { name: "BFS", fn: runBFS },
-  { name: "DFS", fn: runDFS },
-  { name: "A*", fn: runAStar },
-  { name: "Dijkstra", fn: runDijkstra },
+  { fn: runBFS, name: "BFS" },
+  { fn: runDFS, name: "DFS" },
+  { fn: runAStar, name: "A*" },
+  { fn: runDijkstra, name: "Dijkstra" },
 ] as const;
 
 // ─── Shared tests ────────────────────────────────────────────────────────────
@@ -86,16 +88,16 @@ describe.each(ALGORITHMS)("$name", ({ fn }) => {
 
   it("does not include wall cells in the path", () => {
     const { path } = fn(MAZE, [0, 0], [2, 4]);
-    for (const [r, c] of path) {
-      expect(MAZE[r][c]).not.toBe("wall");
+    for (const [row, col] of path) {
+      expect(MAZE[row][col]).not.toBe("wall");
     }
   });
 
   it("path does not include walls even when destination is blocked", () => {
     const grid: Grid = fromAscii(["....", ".##.", ".##.", "...."]);
     const { path } = fn(grid, [0, 0], [2, 3]);
-    for (const [r, c] of path) {
-      expect(grid[r][c]).not.toBe("wall");
+    for (const [row, col] of path) {
+      expect(grid[row][col]).not.toBe("wall");
     }
   });
 });
@@ -103,9 +105,9 @@ describe.each(ALGORITHMS)("$name", ({ fn }) => {
 // ─── BFS/Dijkstra/A* shortest-path guarantee ────────────────────────────────
 
 describe.each([
-  { name: "BFS", fn: runBFS },
-  { name: "Dijkstra", fn: runDijkstra },
-  { name: "A*", fn: runAStar },
+  { fn: runBFS, name: "BFS" },
+  { fn: runDijkstra, name: "Dijkstra" },
+  { fn: runAStar, name: "A*" },
 ] as const)("$name — shortest path", ({ fn }) => {
   it("returns a shortest path (Manhattan distance lower bound) in an open grid", () => {
     // Manhattan distance from [0,0] to [4,4] is 8 — shortest possible path length

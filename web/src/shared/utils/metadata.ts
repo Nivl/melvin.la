@@ -31,43 +31,43 @@ export const getMetadata = async ({
 
   // We list all languages for the alternate links, for SEO purposes
   const languages: Record<string, string> = {
-    ["x-default"]: domain + pageUrl,
+    "x-default": domain + pageUrl,
   };
   for (const loc of locales) {
     languages[loc] = loc === "en" ? domain + pageUrl : `${domain}/${loc}${pageUrl}`;
   }
 
   return {
-    metadataBase: new URL(domain),
-    title: (title ?? "Melvin Laplanche") + " - melvin.la",
-    description: description ?? t("description"),
-    keywords: [],
+    alternates: {
+      canonical: url,
+      languages,
+    },
     authors: [
       {
         name: "Melvin Laplanche",
         url: domain,
       },
     ],
-    robots: "index, follow",
-    alternates: {
-      canonical: url,
-      languages,
-    },
+    description: description ?? t("description"),
+    keywords: [],
+    metadataBase: new URL(domain),
     openGraph: {
-      title,
       description,
-      url: url,
-      siteName: "melvin.la",
       images,
-      type: "website",
       locale,
+      siteName: "melvin.la",
+      title,
+      type: "website",
+      url: url,
       ...extraOg,
     },
+    robots: "index, follow",
+    title: (title ?? "Melvin Laplanche") + " - melvin.la",
     twitter: {
       card: "summary_large_image",
-      title,
       description,
       images,
+      title,
     },
   };
 };

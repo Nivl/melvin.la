@@ -1,6 +1,6 @@
-import * as Sentry from "@sentry/nextjs";
+import { captureRequestError } from "@sentry/nextjs";
 
-export async function register() {
+export const register = async () => {
   if (process.env.NEXT_RUNTIME === "nodejs") {
     // eslint-disable-next-line import/no-relative-parent-imports
     await import("../sentry.server.config");
@@ -10,6 +10,6 @@ export async function register() {
     // eslint-disable-next-line import/no-relative-parent-imports
     await import("../sentry.edge.config");
   }
-}
+};
 
-export const onRequestError = Sentry.captureRequestError;
+export const onRequestError = captureRequestError;

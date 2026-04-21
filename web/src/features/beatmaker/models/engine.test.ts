@@ -9,15 +9,15 @@ const mockStart = vi.fn();
 const mockStop = vi.fn();
 const mockConnect = vi.fn();
 const mockCreateBufferSource = vi.fn(() => ({
+  addEventListener: vi.fn(),
   buffer: undefined,
   connect: mockConnect,
+  onended: undefined,
   start: mockStart,
   stop: mockStop,
-  addEventListener: vi.fn(),
-  onended: undefined,
 }));
-const mockGainNode = { gain: { value: 0 }, connect: mockConnect };
-const mockPanNode = { pan: { value: 0 }, connect: mockConnect };
+const mockGainNode = { connect: mockConnect, gain: { value: 0 } };
+const mockPanNode = { connect: mockConnect, pan: { value: 0 } };
 const mockCreateGain = vi.fn(() => mockGainNode);
 const mockCreateStereoPanner = vi.fn(() => mockPanNode);
 const mockDecodeAudioData = vi.fn().mockResolvedValue({});
@@ -28,28 +28,28 @@ const mockAddEventListener = vi.fn();
 
 beforeEach(() => {
   mockAddEventListener.mockClear();
-  const MockAudioContext = vi.fn(function (this: object) {
+  const MockAudioContext = vi.fn(function MockAudioContext(this: object) {
     Object.assign(this, {
+      addEventListener: mockAddEventListener,
+      close: mockClose,
+      createBuffer: mockCreateBuffer,
       createBufferSource: mockCreateBufferSource,
       createGain: mockCreateGain,
       createStereoPanner: mockCreateStereoPanner,
-      decodeAudioData: mockDecodeAudioData,
-      createBuffer: mockCreateBuffer,
-      addEventListener: mockAddEventListener,
-      destination: {},
       currentTime: 0,
+      decodeAudioData: mockDecodeAudioData,
+      destination: {},
+      resume: mockResume,
       sampleRate: 44_100,
       state: "running",
-      resume: mockResume,
-      close: mockClose,
     });
   });
   vi.stubGlobal("AudioContext", MockAudioContext);
   vi.stubGlobal(
     "fetch",
     vi.fn().mockResolvedValue({
-      ok: true,
       arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(8)),
+      ok: true,
     }),
   );
 });
@@ -113,19 +113,19 @@ describe("createEngine", () => {
     await engine.loadKit("808");
 
     const steps = Array.from<boolean>({ length: 16 }).fill(true);
-    const track = { steps, volume: 1, muted: false, pan: 0, customFile: undefined };
+    const track = { customFile: undefined, muted: false, pan: 0, steps, volume: 1 };
     const state: BeatmakerState = {
-      kit: "808" as const,
       bpm: 120,
-      stepCount: 16,
       isPlaying: false,
+      kit: "808" as const,
+      stepCount: 16,
       tracks: {
-        kick: track,
-        snare: track,
-        hihat: track,
-        openhat: track,
         clap: track,
+        hihat: track,
+        kick: track,
+        openhat: track,
         ride: track,
+        snare: track,
       },
     };
 
@@ -155,8 +155,8 @@ describe("createEngine", () => {
     vi.stubGlobal(
       "fetch",
       vi.fn().mockResolvedValue({
-        ok: true,
         arrayBuffer: vi.fn().mockImplementation(() => new ArrayBuffer(8)),
+        ok: true,
       }),
     );
 

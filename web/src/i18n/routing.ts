@@ -4,17 +4,17 @@ import { defineRouting } from "next-intl/routing";
 import { locales } from "./locales.ts";
 
 export const routing = defineRouting({
-  // A list of all locales that are supported
-  locales,
-
   // Used when no locale matches
   defaultLocale: "en",
+
+  localeDetection: true,
 
   // Makes the default locale have no prefix.
   // so 'en' is served at '/' instead of '/en'
   localePrefix: "as-needed",
 
-  localeDetection: true,
+  // A list of all locales that are supported
+  locales,
 });
 
 // Lightweight wrappers around Next.js' navigation APIs

@@ -8,7 +8,6 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: "jsdom",
-    setupFiles: ["./vitest.setup.ts"],
     exclude: [...configDefaults.exclude, "e2e/*"],
     server: {
       deps: {
@@ -17,5 +16,6 @@ export default defineConfig({
         inline: ["next-intl"],
       },
     },
+    setupFiles: ["./vitest.setup.ts"],
   },
 });

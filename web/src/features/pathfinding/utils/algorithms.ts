@@ -18,8 +18,8 @@ const reconstructPath = (cameFrom: Map<string, string>, endKey: string): Coords[
   const path: Coords[] = [];
   let current: string | undefined = endKey;
   while (current !== undefined) {
-    const [r, c] = keyToCoords(current);
-    path.push([r, c]);
+    const [row, col] = keyToCoords(current);
+    path.push([row, col]);
     current = cameFrom.get(current);
   }
   path.reverse();
@@ -39,7 +39,9 @@ class MinHeap {
 
   pop(): [number, string] | undefined {
     const { heap } = this;
-    if (heap.length === 0) return undefined;
+    if (heap.length === 0) {
+      return undefined;
+    }
     const top = heap[0];
     const last = heap.pop();
     if (heap.length > 0 && last !== undefined) {
@@ -57,29 +59,40 @@ class MinHeap {
     const { heap } = this;
     while (i > 0) {
       const parent = Math.floor((i - 1) / 2);
-      const p = heap[parent];
-      const c = heap[i];
-      if (p[0] <= c[0]) break;
-      heap[parent] = c;
-      heap[i] = p;
+      const parentEntry = heap[parent];
+      const childEntry = heap[i];
+      if (parentEntry[0] <= childEntry[0]) {
+        break;
+      }
+      heap[parent] = childEntry;
+      heap[i] = parentEntry;
       i = parent;
     }
   }
 
   private siftDown(i: number): void {
     const { heap } = this;
-    const n = heap.length;
+    const heapLength = heap.length;
     for (;;) {
       let min = i;
-      const l = 2 * i + 1;
-      const r = 2 * i + 2;
-      if (l < n && (heap[l]?.[0] ?? Infinity) < (heap[min]?.[0] ?? Infinity)) min = l;
-      if (r < n && (heap[r]?.[0] ?? Infinity) < (heap[min]?.[0] ?? Infinity)) min = r;
-      if (min === i) break;
-      const a = heap[i];
-      const b = heap[min];
-      heap[i] = b;
-      heap[min] = a;
+      const leftIdx = 2 * i + 1;
+      const rightIdx = 2 * i + 2;
+      if (leftIdx < heapLength && (heap[leftIdx]?.[0] ?? Infinity) < (heap[min]?.[0] ?? Infinity)) {
+        min = leftIdx;
+      }
+      if (
+        rightIdx < heapLength &&
+        (heap[rightIdx]?.[0] ?? Infinity) < (heap[min]?.[0] ?? Infinity)
+      ) {
+        min = rightIdx;
+      }
+      if (min === i) {
+        break;
+      }
+      const entryI = heap[i];
+      const minEntry = heap[min];
+      heap[i] = minEntry;
+      heap[min] = entryI;
       i = min;
     }
   }
@@ -105,27 +118,35 @@ export const runAStar = (grid: Grid, start: Coords, end: Coords): AlgorithmResul
 
   while (open.size > 0) {
     const entry = open.pop();
-    if (!entry) break;
+    if (!entry) {
+      break;
+    }
     const [, currentKey] = entry;
 
-    if (settled.has(currentKey)) continue;
+    if (settled.has(currentKey)) {
+      continue;
+    }
     settled.add(currentKey);
 
     const [cr, cc] = keyToCoords(currentKey);
     visitedNodes.push([cr, cc]);
 
     if (currentKey === endKey) {
-      return { visitedNodes, path: reconstructPath(cameFrom, endKey) };
+      return { path: reconstructPath(cameFrom, endKey), visitedNodes };
     }
 
-    const g = gScore.get(currentKey) ?? Infinity;
+    const gAtCurrent = gScore.get(currentKey) ?? Infinity;
     for (const [dr, dc] of DIRS) {
       const nr = cr + dr;
       const nc = cc + dc;
-      if (!isPassable(grid, nr, nc)) continue;
+      if (!isPassable(grid, nr, nc)) {
+        continue;
+      }
       const neighborKey = coordsToKey(nr, nc);
-      if (settled.has(neighborKey)) continue;
-      const tentativeG = g + 1;
+      if (settled.has(neighborKey)) {
+        continue;
+      }
+      const tentativeG = gAtCurrent + 1;
       if (tentativeG < (gScore.get(neighborKey) ?? Infinity)) {
         cameFrom.set(neighborKey, currentKey);
         gScore.set(neighborKey, tentativeG);
@@ -134,7 +155,7 @@ export const runAStar = (grid: Grid, start: Coords, end: Coords): AlgorithmResul
     }
   }
 
-  return { visitedNodes, path: [] };
+  return { path: [], visitedNodes };
 };
 
 // ─── Dijkstra ────────────────────────────────────────────────────────────────
@@ -153,26 +174,34 @@ export const runDijkstra = (grid: Grid, start: Coords, end: Coords): AlgorithmRe
 
   while (pq.size > 0) {
     const entry = pq.pop();
-    if (!entry) break;
-    const [d, currentKey] = entry;
+    if (!entry) {
+      break;
+    }
+    const [currentDist, currentKey] = entry;
 
-    if (settled.has(currentKey)) continue;
+    if (settled.has(currentKey)) {
+      continue;
+    }
     settled.add(currentKey);
 
     const [cr, cc] = keyToCoords(currentKey);
     visitedNodes.push([cr, cc]);
 
     if (currentKey === endKey) {
-      return { visitedNodes, path: reconstructPath(cameFrom, endKey) };
+      return { path: reconstructPath(cameFrom, endKey), visitedNodes };
     }
 
     for (const [dr, dc] of DIRS) {
       const nr = cr + dr;
       const nc = cc + dc;
-      if (!isPassable(grid, nr, nc)) continue;
+      if (!isPassable(grid, nr, nc)) {
+        continue;
+      }
       const neighborKey = coordsToKey(nr, nc);
-      if (settled.has(neighborKey)) continue;
-      const newDist = d + 1;
+      if (settled.has(neighborKey)) {
+        continue;
+      }
+      const newDist = currentDist + 1;
       if (newDist < (dist.get(neighborKey) ?? Infinity)) {
         dist.set(neighborKey, newDist);
         cameFrom.set(neighborKey, currentKey);
@@ -181,7 +210,7 @@ export const runDijkstra = (grid: Grid, start: Coords, end: Coords): AlgorithmRe
     }
   }
 
-  return { visitedNodes, path: [] };
+  return { path: [], visitedNodes };
 };
 
 // ─── BFS ─────────────────────────────────────────────────────────────────────
@@ -200,15 +229,17 @@ export const runBFS = (grid: Grid, start: Coords, end: Coords): AlgorithmResult 
 
     if (currentKey === endKey) {
       return {
-        visitedNodes,
         path: reconstructPath(cameFrom, endKey),
+        visitedNodes,
       };
     }
 
     for (const [dr, dc] of DIRS) {
       const nr = cr + dr;
       const nc = cc + dc;
-      if (!isPassable(grid, nr, nc)) continue;
+      if (!isPassable(grid, nr, nc)) {
+        continue;
+      }
       const neighborKey = coordsToKey(nr, nc);
       if (!visited.has(neighborKey)) {
         visited.add(neighborKey);
@@ -218,7 +249,7 @@ export const runBFS = (grid: Grid, start: Coords, end: Coords): AlgorithmResult 
     }
   }
 
-  return { visitedNodes, path: [] };
+  return { path: [], visitedNodes };
 };
 
 // ─── DFS ─────────────────────────────────────────────────────────────────────
@@ -233,22 +264,26 @@ export const runDFS = (grid: Grid, start: Coords, end: Coords): AlgorithmResult 
 
   while (stack.length > 0) {
     const currentKey = stack.pop();
-    if (currentKey === undefined) break;
+    if (currentKey === undefined) {
+      break;
+    }
 
     const [cr, cc] = keyToCoords(currentKey);
     visitedNodes.push([cr, cc]);
 
     if (currentKey === endKey) {
       return {
-        visitedNodes,
         path: reconstructPath(cameFrom, endKey),
+        visitedNodes,
       };
     }
 
     for (const [dr, dc] of DIRS) {
       const nr = cr + dr;
       const nc = cc + dc;
-      if (!isPassable(grid, nr, nc)) continue;
+      if (!isPassable(grid, nr, nc)) {
+        continue;
+      }
       const neighborKey = coordsToKey(nr, nc);
       if (!visited.has(neighborKey)) {
         visited.add(neighborKey);
@@ -258,5 +293,5 @@ export const runDFS = (grid: Grid, start: Coords, end: Coords): AlgorithmResult 
     }
   }
 
-  return { visitedNodes, path: [] };
+  return { path: [], visitedNodes };
 };

@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 
 import { test } from "./helpers";
 
-test.describe("Beatmaker", () => {
+test.describe("beatmaker", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/en/games/beatmaker");
     await expect(page.getByRole("button", { name: "Kick step 1 on" })).toBeVisible();

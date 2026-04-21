@@ -1,3 +1,6 @@
+// This scripts runs at build time in a Node environment.
+// eslint-disable import/no-nodejs-modules
+
 import { createHash } from "node:crypto";
 import { readdir, readFile, rm } from "node:fs/promises";
 import path from "node:path";
@@ -15,31 +18,28 @@ type Frontmatter = Omit<BlogPost, "updatedAt" | "imageHash" | "ogImageHash"> & {
   updatedAt?: string;
 };
 
-function isFrontmatter(value: Record<string, unknown>): value is Frontmatter {
-  return (
-    typeof value.slug === "string" &&
-    typeof value.language === "string" &&
-    typeof value.title === "string" &&
-    typeof value.content === "string" &&
-    typeof value.excerpt === "string" &&
-    typeof value.image === "string" &&
-    typeof value.ogImage === "string" &&
-    typeof value.createdAt === "string" &&
-    (typeof value.updatedAt === "string" || value.updatedAt === undefined)
-  );
-}
+const isFrontmatter = (value: Record<string, unknown>): value is Frontmatter =>
+  typeof value.slug === "string" &&
+  typeof value.language === "string" &&
+  typeof value.title === "string" &&
+  typeof value.content === "string" &&
+  typeof value.excerpt === "string" &&
+  typeof value.image === "string" &&
+  typeof value.ogImage === "string" &&
+  typeof value.createdAt === "string" &&
+  (typeof value.updatedAt === "string" || value.updatedAt === undefined);
 
-function parseFrontmatter(
+const parseFrontmatter = (
   value: Record<string, unknown>,
   slug: string,
   language: string,
   content: string,
-): Frontmatter | undefined {
-  const candidate = { ...value, slug, language, content };
+): Frontmatter | undefined => {
+  const candidate = { ...value, content, language, slug };
   return isFrontmatter(candidate) ? candidate : undefined;
-}
+};
 
-async function hashImageFile(slug: string, filename: string): Promise<string> {
+const hashImageFile = async (slug: string, filename: string): Promise<string> => {
   const filePath = path.join("public/assets/blog", slug, filename);
   try {
     const data = await readFile(filePath);
@@ -50,7 +50,7 @@ async function hashImageFile(slug: string, filename: string): Promise<string> {
     }
     throw error;
   }
-}
+};
 
 // slug - unique (per language) identifier for the post. Every post must have the same slug across languages
 // language - language code
@@ -87,7 +87,7 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
 
       const files = await readdir(articleDirPath, { withFileTypes: true });
 
-      const mdxFiles = files.filter((f) => f.isFile() && f.name.endsWith(".mdx"));
+      const mdxFiles = files.filter((file) => file.isFile() && file.name.endsWith(".mdx"));
       if (mdxFiles.length === 0) {
         throw new Error(`no MDX files found in ${articleDirPath}`);
       }
@@ -150,7 +150,7 @@ const createAndPopulatePosts = async (db: DatabaseSync) => {
 
 const main = async () => {
   // we make sure we start from scratch
-  await rm(BUILD_DIR, { recursive: true, force: true });
+  await rm(BUILD_DIR, { force: true, recursive: true });
 
   await setup();
   const db = database();

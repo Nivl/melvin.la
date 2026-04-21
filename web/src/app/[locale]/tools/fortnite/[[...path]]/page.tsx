@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { use } from "react";
 
-import { Fortnite } from "#features/fortnite/components/Fortnite";
+import { Fortnite } from "#features/fortnite/components/fortnite";
 import { isAccountType } from "#features/fortnite/models";
 import { getMetadata } from "#shared/utils/metadata";
 
@@ -19,9 +19,9 @@ export default function Home(props: { params: Promise<{ path?: string[]; locale?
   return <Fortnite providedName={path?.[0]} providedType={accountType} />;
 }
 
-export async function generateMetadata(props: {
+export const generateMetadata = async (props: {
   params: Promise<{ path?: string[]; locale: string }>;
-}): Promise<Metadata> {
+}): Promise<Metadata> => {
   // read route params
   const { path, locale } = await props.params;
   const t = await getTranslations({ locale, namespace: "fortnite.metadata" });
@@ -29,22 +29,22 @@ export async function generateMetadata(props: {
   if (!path || path.length === 0) {
     return {
       ...(await getMetadata({
+        description: t("description"),
+        imageURL: "/assets/tools/fortnite/og.jpg",
         locale,
         pageUrl: "/tools/fortnite",
         title: t("title"),
-        description: t("description"),
-        imageURL: "/assets/tools/fortnite/og.jpg",
       })),
     };
   }
 
   return {
     ...(await getMetadata({
+      description: t("focusDescription", { username: decodeURI(path[0]) }),
+      imageURL: `/assets/tools/fortnite/og.jpg`,
       locale,
       pageUrl: `/tools/fortnite/${path.join("/")}`,
       title: t("focusTitle", { username: decodeURI(path[0]) }),
-      description: t("focusDescription", { username: decodeURI(path[0]) }),
-      imageURL: `/assets/tools/fortnite/og.jpg`,
     })),
   };
-}
+};

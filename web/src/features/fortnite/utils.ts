@@ -5,28 +5,26 @@ export const rate = (value: number, total: number) => {
   if (total === 0) {
     return value;
   }
-  const r = total ? (value / total) * 100 : 0;
-  return Math.ceil(r * 100) / 100;
+  const rawRate = total ? (value / total) * 100 : 0;
+  return Math.ceil(rawRate * 100) / 100;
 };
 
-export const rateStr = (value: number, total: number) => {
-  return `${rate(value, total).toFixed(2)}%`;
-};
+export const rateStr = (value: number, total: number) => `${rate(value, total).toFixed(2)}%`;
 
 // convert minutes to human readable duration
 export const humanizeDuration = (t: ReturnType<typeof useTranslations>, minutes: number) => {
   let output = "";
-  const d = Math.floor(minutes / 1440);
-  const h = Math.floor((minutes % 1440) / 60);
-  const m = minutes % 60;
-  if (d > 0) {
-    output += t("fortnite.daysSpent", { days: d }) + " ";
+  const days = Math.floor(minutes / 1440);
+  const hours = Math.floor((minutes % 1440) / 60);
+  const mins = minutes % 60;
+  if (days > 0) {
+    output += t("fortnite.daysSpent", { days }) + " ";
   }
-  if (h > 0) {
-    output += t("fortnite.hoursSpent", { hours: h }) + " ";
+  if (hours > 0) {
+    output += t("fortnite.hoursSpent", { hours }) + " ";
   }
-  if (m > 0) {
-    output += t("fortnite.minutesSpent", { minutes: m }) + " ";
+  if (mins > 0) {
+    output += t("fortnite.minutesSpent", { minutes: mins }) + " ";
   }
   return output;
 };

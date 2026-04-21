@@ -1,9 +1,11 @@
+import type { NetworkFixture } from "@msw/playwright";
+import { defineNetworkFixture } from "@msw/playwright";
 import { expect, test as testBase } from "@playwright/test";
-export * from "@playwright/test";
-import { defineNetworkFixture, type NetworkFixture } from "@msw/playwright";
 import type { AnyHandler } from "msw";
 
-import { handler as getStats } from "#features/fortnite/backend/getStats.mock";
+import { handler as getStats } from "#features/fortnite/backend/get-stats.mock";
+
+export * from "@playwright/test";
 
 type Fixtures = {
   handlers: AnyHandler[];
@@ -28,6 +30,6 @@ export const test = testBase.extend<Fixtures>({
   ],
 });
 
-export function expectToBeTruthy<T>(value: T | undefined | null): asserts value is T {
+export const expectToBeTruthy: <T>(value: T | undefined | null) => asserts value is T = (value) => {
   expect(value).toBeTruthy();
-}
+};

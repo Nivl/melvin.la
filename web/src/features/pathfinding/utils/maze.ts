@@ -8,12 +8,12 @@ type MazeResult = {
 };
 
 const shuffle = <T>(arr: T[]): T[] => {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i -= 1) {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+    [copy[i], copy[j]] = [copy[j], copy[i]];
   }
-  return a;
+  return copy;
 };
 
 const DIRS: Coords[] = [
@@ -49,17 +49,19 @@ export const generateMaze = (
 
     while (stack.length > 0) {
       const top = stack.at(-1);
-      if (!top) break;
-      const [r, c] = top;
+      if (!top) {
+        break;
+      }
+      const [row, col] = top;
 
       const dirs = shuffle(DIRS);
       let moved = false;
 
       for (const [dr, dc] of dirs) {
-        const nr = r + dr;
-        const nc = c + dc;
-        const mr = r + dr / 2;
-        const mc = c + dc / 2;
+        const nr = row + dr;
+        const nc = col + dc;
+        const mr = row + dr / 2;
+        const mc = col + dc / 2;
         if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && !visited.has(coordsToKey(nr, nc))) {
           visited.add(coordsToKey(nr, nc));
           grid[mr][mc] = "empty";
@@ -92,16 +94,16 @@ export const generateMaze = (
     [0, 1],
   ];
 
-  const ensureAccessible = (r: number, c: number) => {
+  const ensureAccessible = (row: number, col: number) => {
     const hasEmpty = ADJACENT.some(([dr, dc]) => {
-      const nr = r + dr;
-      const nc = c + dc;
+      const nr = row + dr;
+      const nc = col + dc;
       return nr >= 0 && nr < rows && nc >= 0 && nc < cols && grid[nr][nc] === "empty";
     });
     if (!hasEmpty) {
       for (const [dr, dc] of ADJACENT) {
-        const nr = r + dr;
-        const nc = c + dc;
+        const nr = row + dr;
+        const nc = col + dc;
         if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
           grid[nr][nc] = "empty";
           return;
@@ -118,5 +120,5 @@ export const generateMaze = (
   grid[sr][sc] = "start";
   grid[er][ec] = "end";
 
-  return { grid, startUnder, endUnder };
+  return { endUnder, grid, startUnder };
 };

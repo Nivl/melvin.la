@@ -12,6 +12,9 @@
 // With all the modes on, we run out of snapshots after a few weeks.
 //
 // /!\/!\/!\
+//
+// Want want the order to be per screen size and not alphabetical
+// eslint-disable-next-line sort-keys
 export const supportedModes = {
   xsmall: {
     theme: "dark",

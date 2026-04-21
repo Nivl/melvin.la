@@ -1,3 +1,2 @@
-export const getWindow = (): Window | undefined => {
-  return (globalThis as { window?: Window & typeof globalThis }).window;
-};
+export const getWindow = (): Window | undefined =>
+  (globalThis as { window?: Window & typeof globalThis }).window;

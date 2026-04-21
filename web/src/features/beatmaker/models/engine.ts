@@ -23,11 +23,10 @@ type EngineOptions = {
   onStateChange?: (state: AudioContextState) => void;
 };
 
-function toError(error: unknown): Error {
-  return error instanceof Error ? error : new Error(String(error));
-}
+const toError = (error: unknown): Error =>
+  error instanceof Error ? error : new Error(String(error));
 
-function unlockAudioOutput(context: AudioContext): void {
+const unlockAudioOutput = (context: AudioContext): void => {
   // 0.1s silent buffer to wake up the audio context on iOS
   const silentBuf = context.createBuffer(1, context.sampleRate / 10, context.sampleRate);
   const silentSrc = context.createBufferSource();
@@ -35,41 +34,43 @@ function unlockAudioOutput(context: AudioContext): void {
   silentSrc.buffer = silentBuf;
   silentSrc.connect(context.destination);
   silentSrc.start(0);
-}
+};
 
-export function createEngine(onErrorOrOptions?: ((error: Error) => void) | EngineOptions): Engine {
+export const createEngine = (
+  onErrorOrOptions?: ((error: Error) => void) | EngineOptions,
+): Engine => {
   const opts: EngineOptions =
     typeof onErrorOrOptions === "function"
       ? { onError: onErrorOrOptions }
       : (onErrorOrOptions ?? {});
   const { onError, onStep, onStateChange } = opts;
-  let ctx: AudioContext | undefined;
+  let ctx: AudioContext | undefined = undefined;
   const buffers = new Map<string, AudioBuffer>();
   // Raw fetched data waiting to be decoded once an AudioContext is available.
   // AudioContext must be created inside a user gesture on iOS Safari, so we
   // defer decoding until init() is called from the Play button handler.
   const pendingArrayBuffers = new Map<string, ArrayBuffer>();
-  let schedulerTimer: ReturnType<typeof setInterval> | undefined;
+  let schedulerTimer: ReturnType<typeof setInterval> | undefined = undefined;
   const pendingTimeouts = new Set<ReturnType<typeof setTimeout>>();
   const activeSources = new Set<AudioBufferSourceNode>();
-  let initPromise: Promise<void> | undefined;
+  let initPromise: Promise<void> | undefined = undefined;
   let currentStep = 0;
   let nextNoteTime = 0;
 
-  function reportError(error: unknown): void {
+  const reportError = (error: unknown): void => {
     onError?.(toError(error));
-  }
+  };
 
-  async function decodeAndStoreBuffer(
+  const decodeAndStoreBuffer = async (
     context: AudioContext,
     key: string,
     arrayBuf: ArrayBuffer,
-  ): Promise<void> {
+  ): Promise<void> => {
     const audioBuf = await context.decodeAudioData(arrayBuf);
     buffers.set(key, audioBuf);
-  }
+  };
 
-  async function storeBuffer(key: string, arrayBuf: ArrayBuffer): Promise<void> {
+  const storeBuffer = async (key: string, arrayBuf: ArrayBuffer): Promise<void> => {
     const context = ctx;
     if (context) {
       await decodeAndStoreBuffer(context, key, arrayBuf);
@@ -77,9 +78,9 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
     }
 
     pendingArrayBuffers.set(key, arrayBuf);
-  }
+  };
 
-  async function decodePending(context: AudioContext): Promise<void> {
+  const decodePending = async (context: AudioContext): Promise<void> => {
     await Promise.all(
       [...pendingArrayBuffers.entries()].map(async ([key, arrayBuf]) => {
         try {
@@ -91,9 +92,9 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
         }
       }),
     );
-  }
+  };
 
-  async function init(): Promise<void> {
+  const init = async (): Promise<void> => {
     if (initPromise) {
       await initPromise;
       return;
@@ -129,15 +130,17 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
     } finally {
       initPromise = undefined;
     }
-  }
+  };
 
-  async function loadKit(kit: Kit): Promise<void> {
+  const loadKit = async (kit: Kit): Promise<void> => {
     await Promise.all(
       TRACK_IDS.map(async (trackId) => {
         const url = getSampleUrl(kit, trackId);
         try {
           const res = await fetch(url);
-          if (!res.ok) throw new Error(`HTTP ${String(res.status)}`);
+          if (!res.ok) {
+            throw new Error(`HTTP ${String(res.status)}`);
+          }
           const arrayBuf = await res.arrayBuffer();
           await storeBuffer(`${kit}/${trackId}`, arrayBuf);
         } catch (error) {
@@ -146,22 +149,25 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
         }
       }),
     );
-  }
+  };
 
-  async function loadCustomFile(trackId: TrackId, file: File): Promise<void> {
+  const loadCustomFile = async (trackId: TrackId, file: File): Promise<void> => {
     const arrayBuf = await file.arrayBuffer();
     await storeBuffer(`custom/${trackId}`, arrayBuf);
-  }
+  };
 
-  function getBuffer(state: BeatmakerState, trackId: TrackId): AudioBuffer | undefined {
-    return buffers.get(`custom/${trackId}`) ?? buffers.get(`${state.kit}/${trackId}`);
-  }
+  const getBuffer = (state: BeatmakerState, trackId: TrackId): AudioBuffer | undefined =>
+    buffers.get(`custom/${trackId}`) ?? buffers.get(`${state.kit}/${trackId}`);
 
-  function scheduleNote(state: BeatmakerState, trackId: TrackId, time: number): void {
-    if (!ctx) return;
+  const scheduleNote = (state: BeatmakerState, trackId: TrackId, time: number): void => {
+    if (!ctx) {
+      return;
+    }
     const track = state.tracks[trackId];
     const buffer = getBuffer(state, trackId);
-    if (!buffer) return;
+    if (!buffer) {
+      return;
+    }
 
     const src = ctx.createBufferSource();
     src.buffer = buffer;
@@ -182,10 +188,12 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
     });
 
     src.start(time);
-  }
+  };
 
-  function scheduler(getState: () => BeatmakerState): void {
-    if (!ctx) return;
+  const scheduler = (getState: () => BeatmakerState): void => {
+    if (!ctx) {
+      return;
+    }
     const state = getState();
     const secondsPerBeat = 60 / state.bpm;
     const secondsPerStep = secondsPerBeat / 4; // 16th-note grid
@@ -208,11 +216,15 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
       currentStep += 1;
       nextNoteTime += secondsPerStep;
     }
-  }
+  };
 
-  async function start(getState: () => BeatmakerState) {
-    if (schedulerTimer !== undefined) return;
-    if (!ctx) return;
+  const start = async (getState: () => BeatmakerState) => {
+    if (schedulerTimer !== undefined) {
+      return;
+    }
+    if (!ctx) {
+      return;
+    }
     if (ctx.state === "suspended") {
       await ctx.resume();
     }
@@ -221,14 +233,16 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
     schedulerTimer = setInterval(() => {
       scheduler(getState);
     }, SCHEDULE_INTERVAL_MS);
-  }
+  };
 
-  function stop(): void {
+  const stop = (): void => {
     if (schedulerTimer !== undefined) {
       clearInterval(schedulerTimer);
       schedulerTimer = undefined;
     }
-    for (const id of pendingTimeouts) clearTimeout(id);
+    for (const id of pendingTimeouts) {
+      clearTimeout(id);
+    }
     pendingTimeouts.clear();
     for (const src of activeSources) {
       try {
@@ -239,29 +253,29 @@ export function createEngine(onErrorOrOptions?: ((error: Error) => void) | Engin
     }
     activeSources.clear();
     currentStep = 0;
-  }
+  };
 
-  function clearCustomFiles(): void {
+  const clearCustomFiles = (): void => {
     for (const trackId of TRACK_IDS) {
       buffers.delete(`custom/${trackId}`);
       pendingArrayBuffers.delete(`custom/${trackId}`);
     }
-  }
+  };
 
-  async function dispose(): Promise<void> {
+  const dispose = async (): Promise<void> => {
     stop();
     pendingArrayBuffers.clear();
     await ctx?.close();
     ctx = undefined;
-  }
+  };
 
   return {
-    init,
-    loadKit,
-    loadCustomFile,
     clearCustomFiles,
+    dispose,
+    init,
+    loadCustomFile,
+    loadKit,
     start,
     stop,
-    dispose,
   };
-}
+};

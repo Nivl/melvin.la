@@ -1,3 +1,3 @@
-import { handler as getStats } from "#features/fortnite/backend/getStats.mock";
+import { handler as getStats } from "#features/fortnite/backend/get-stats.mock";
 
 export const handlers = [getStats];

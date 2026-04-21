@@ -29,15 +29,15 @@ export const DEFAULT_END: Coords = [10, 35];
 
 export const CELL_COLORS: Record<CellState, string> = {
   empty: "bg-zinc-200/40 dark:bg-zinc-900",
-  wall: "bg-foreground/50",
-  start: "bg-green-400",
   end: "bg-pink-500",
-  visited: "bg-blue-400",
   path: "bg-amber-400",
+  start: "bg-green-400",
+  visited: "bg-blue-400",
+  wall: "bg-foreground/50",
 };
 
 export const SPEED_VALUES = {
-  slow: 80,
-  medium: 30,
   fast: 5,
+  medium: 30,
+  slow: 80,
 } as const;

@@ -18,8 +18,8 @@ import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
 
 import { isLocale, locales } from "#i18n/locales";
-import { Navbar } from "#shared/components/layout/NavBar/Navbar.tsx";
-import { Providers } from "#shared/components/Providers";
+import { Navbar } from "#shared/components/layout/NavBar/navbar.tsx";
+import { Providers } from "#shared/components/providers";
 import { getMetadata } from "#shared/utils/metadata";
 
 type RootStyle = React.CSSProperties &
@@ -32,26 +32,26 @@ const notoSans = Noto_Sans({
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
-  weight: "variable",
   variable: "--font-noto-sans-jp",
+  weight: "variable",
 });
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ["latin"],
-  weight: "variable",
   variable: "--font-noto-sans-kr",
+  weight: "variable",
 });
 
 const notoSansSC = Noto_Sans_SC({
   subsets: ["latin"],
-  weight: "variable",
   variable: "--font-noto-sans-sc",
+  weight: "variable",
 });
 
 const notoSansTC = Noto_Sans_TC({
   subsets: ["latin"],
-  weight: "variable",
   variable: "--font-noto-sans-tc",
+  weight: "variable",
 });
 
 const firaCode = Fira_Code({
@@ -79,7 +79,7 @@ const fonts = [notoSans, notoSansJP, notoSansKR, notoSansSC, notoSansTC, firaCod
 const systemFonts =
   "'-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif";
 
-function getFonts(locale: string) {
+const getFonts = (locale: string) => {
   let primarySans = "var(--font-noto-sans)";
   let condensed = "var(--font-baikal)";
   let fortnite = "var(--font-burbank)";
@@ -88,49 +88,52 @@ function getFonts(locale: string) {
   // For other languages, we fallback to the appropriate Noto Sans font
   // to ensure characters are rendered correctly.
   switch (locale) {
-    case "ja":
+    case "ja": {
       primarySans = "var(--font-noto-sans-jp)";
       condensed = "var(--font-noto-sans-jp)";
       fortnite = "var(--font-noto-sans-jp)";
       break;
-    case "ko":
+    }
+    case "ko": {
       primarySans = "var(--font-noto-sans-kr)";
       condensed = "var(--font-noto-sans-kr)";
       fortnite = "var(--font-noto-sans-kr)";
       break;
-    case "zh":
+    }
+    case "zh": {
       primarySans = "var(--font-noto-sans-sc)";
       condensed = "var(--font-noto-sans-sc)";
       fortnite = "var(--font-noto-sans-sc)";
       break;
-    case "zh-tw":
+    }
+    case "zh-tw": {
       primarySans = "var(--font-noto-sans-tc)";
       condensed = "var(--font-noto-sans-tc)";
       fortnite = "var(--font-noto-sans-tc)";
       break;
-    default:
+    }
+    default: {
       break;
+    }
   }
 
   return {
-    sans: `${primarySans}, var(--font-noto-sans), var(--font-noto-sans-jp), var(--font-noto-sans-kr), var(--font-noto-sans-sc), var(--font-noto-sans-tc), ${systemFonts}`,
     condensed,
     fortnite,
+    sans: `${primarySans}, var(--font-noto-sans), var(--font-noto-sans-jp), var(--font-noto-sans-kr), var(--font-noto-sans-sc), var(--font-noto-sans-tc), ${systemFonts}`,
   };
-}
+};
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+}): Promise<Metadata> => {
   const { locale } = await params;
   return await getMetadata({ locale });
-}
+};
 
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
+export const generateStaticParams = () => locales.map((locale) => ({ locale }));
 
 export default async function RootLayout({
   children,
@@ -152,9 +155,9 @@ export default async function RootLayout({
   const msg = await getMessages();
   const { sans, condensed, fortnite } = getFonts(locale);
   const style: RootStyle = {
-    "--font-sans": sans,
     "--font-condensed": condensed,
     "--font-fortnite": fortnite,
+    "--font-sans": sans,
   };
 
   return (

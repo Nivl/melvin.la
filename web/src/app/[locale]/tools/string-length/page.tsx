@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { StringLength } from "#features/string-length/components/StringLength";
+import { StringLength } from "#features/string-length/components/string-length";
 import { getMetadata } from "#shared/utils/metadata";
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+}): Promise<Metadata> => {
   const { locale } = await params;
 
   const t = await getTranslations({
@@ -17,12 +17,12 @@ export async function generateMetadata({
   });
 
   return await getMetadata({
+    description: t("description"),
     locale,
     pageUrl: "/tools/string-length",
     title: t("title"),
-    description: t("description"),
   });
-}
+};
 
 export default function Home() {
   return <StringLength />;
