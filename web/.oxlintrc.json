@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["eslint", "typescript", "unicorn", "react", "react-perf", "nextjs", "import"],
+  "plugins": ["eslint", "typescript", "unicorn", "react", "react-perf", "nextjs", "oxc", "import"],
   "jsPlugins": ["eslint-plugin-simple-import-sort"],
   "categories": {
     "correctness": "error",
@@ -30,6 +30,7 @@
     "src/gen/api.d.ts"
   ],
   "rules": {
+    "vitest/no-importing-vitest-globals": "off",
     "react-perf/jsx-no-new-object-as-prop": "warn",
     "react-perf/jsx-no-new-array-as-prop": "warn",
     "react-perf/jsx-no-new-function-as-prop": "warn",
@@ -46,6 +47,9 @@
     "no-continue": "off", // Prevents the use of continue statements. Early exits are a good thing.
     "prefer-template": "off", // Force the use of template literals. Good idea, but in some cases, string concatenation is more readable.
     "prefer-destructuring": "off", // Prevent accessing an array doing "array[0]". Good idea on paper, but leads to less readable code in some cases.
+    "oxc/no-async-await": "off", // Prevent using async/await.
+    "oxc/no-rest-spread-properties": "off", // Prevent using rest/spread properties. Only useful if we want to support older browsers, which we don't.
+    "oxc/no-optional-chaining": "off", // Prevent using optional chaining. Only useful if we want to support older browsers, which we don't.
     "id-length": [
       "error",
       {

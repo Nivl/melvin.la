@@ -21,15 +21,16 @@ const resizeBoard = (board: Board, newSize: number): Board => {
   const numRows = board.length;
 
   // Adjust each existing row to newSize columns (handles non-square presets)
-  const newBoard: Board = board.slice(0, newSize).map((row) => {
+  const newBoard: Board = [];
+  for (const row of board.slice(0, newSize)) {
     if (row.length === newSize) {
-      return row;
+      newBoard.push(row);
+    } else if (row.length > newSize) {
+      newBoard.push(row.slice(0, newSize));
+    } else {
+      newBoard.push([...row, ...newRow(newSize - row.length)]);
     }
-    if (row.length > newSize) {
-      return row.slice(0, newSize);
-    }
-    return [...row, ...newRow(newSize - row.length)];
-  });
+  }
 
   // Add extra rows if needed
   for (let i = numRows; i < newSize; i += 1) {
