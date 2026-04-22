@@ -29,7 +29,7 @@
     "postbuild": "tsx ./scripts/postbuild.ts",
     "start": "next start",
     "check-types": "tsc --noemit",
-    "lint": "oxlint .",
+    "lint": "oxlint . --quiet",
     "fmt": "oxfmt .",
     "fmt:check": "oxfmt --check .",
     "storybook": "storybook dev -p 6006",
