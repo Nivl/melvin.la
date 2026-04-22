@@ -9,17 +9,18 @@
     "nextjs",
     "oxc",
     "import",
+    "jsx-a11y",
     "vitest"
   ],
   "jsPlugins": ["eslint-plugin-simple-import-sort"],
   "categories": {
     "correctness": "error",
-    "suspicious": "error",
-    "perf": "error",
+    "nursery": "error",
     "pedantic": "error",
-    "style": "error",
+    "perf": "error",
     "restriction": "error",
-    "nursery": "error"
+    "style": "error",
+    "suspicious": "error"
   },
   "options": {
     "typeAware": true,
@@ -34,35 +35,60 @@
     "out/**",
     "build/**",
     "next-env.d.ts",
-    "src/gen/**",
     "public/mockServiceWorker.js",
-    "messages/**.ts",
-    "src/gen/api.d.ts"
+    "messages/**.ts"
   ],
   "rules": {
-    "vitest/no-importing-vitest-globals": "off",
-    "vitest/prefer-called-once": "off",
-    "vitest/prefer-to-be-truthy": "off",
-    "vitest/prefer-to-be-falsy": "off",
-    "react-perf/jsx-no-new-object-as-prop": "warn",
-    "react-perf/jsx-no-new-array-as-prop": "warn",
-    "react-perf/jsx-no-new-function-as-prop": "warn",
-    "react-perf/jsx-no-jsx-as-prop": "warn",
-    "new-cap": "off", // Forces the use of "new" in some cases. Too many false positives.
+    // off
+    "capitalized-comments": "off", // Force comments to start with a capital letter. Has false positive.
+    "consistent-type-imports": "off", // Force the "type" keyword to be used consistently in imports. Conflicts with other rules.
+    "eslint/complexity": "off", // Limit cyclomatic complexity. Too opinionated.
+    "eslint/no-undefined": "off", // Prevent using undefined as an identifier. Too opinionated.
     "import/exports-last": "off", // force exports at the end of file. Too opinionated, doesn't prevent anything useful.
     "import/group-exports": "off", // force grouping exports together. Too opinionated, doesn't prevent anything useful.
-    "no-duplicate-imports": "off", // Prevent multiple imports of the same module. Conflicts with other rules.
-    "sort-imports": "off", // Sort imports. Conflicts with eslint-plugin-simple-import-sort.
+    "import/no-unassigned-import": "off", // Prevent side-effect imports. Needed for CSS and polyfill imports.
+    "max-dependencies": "off", // limit the amount of imports per file. Too opinionated, doesn't prevent anything useful.
+    "max-depth": "off", // limit the nesting depth of blocks. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "max-lines": "off", // limit the size of a file. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
     "max-lines-per-function": "off", // limit the size of a function. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
     "max-params": "off", // limit the number of parameters per function. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
-    "max-lines": "off", // limit the size of a file. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
-    "max-depth": "off", // limit the nesting depth of blocks. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "max-statements": "off", // limit the amount of statements per function. Too opinionated, doesn't prevent anything useful.
+    "new-cap": "off", // Forces the use of "new" in some cases. Too many false positives.
     "no-continue": "off", // Prevents the use of continue statements. Early exits are a good thing.
-    "prefer-template": "off", // Force the use of template literals. Good idea, but in some cases, string concatenation is more readable.
-    "prefer-destructuring": "off", // Prevent accessing an array doing "array[0]". Good idea on paper, but leads to less readable code in some cases.
+    "no-duplicate-imports": "off", // Prevent multiple imports of the same module. Conflicts with other rules.
+    "no-inline-comments": "off", // Prevent inline comments. WTF is that shit.
+    "no-magic-numbers": "off", // Prevent magic numbers. Good idea on paper, but hard to enforce in practice. We have close to 3k violations as of writing this comment.
+    "no-named-export": "off", // Prevent named exports. That's the exact opposite of what we want.
+    "no-nested-ternary": "off", // Prevents the use of nested ternary expressions. Great on paper, but useful with jsx.
+    "no-param-reassign": "off", // Prevent reassigning function parameters. Too restrictive for reducers and event handlers.
+    "no-ternary": "off", // Prevents the use of ternary expressions. Too opinionated, doesn't prevent anything useful, especially with jsx.
     "oxc/no-async-await": "off", // Prevent using async/await.
-    "oxc/no-rest-spread-properties": "off", // Prevent using rest/spread properties. Only useful if we want to support older browsers, which we don't.
     "oxc/no-optional-chaining": "off", // Prevent using optional chaining. Only useful if we want to support older browsers, which we don't.
+    "oxc/no-rest-spread-properties": "off", // Prevent using rest/spread properties. Only useful if we want to support older browsers, which we don't.
+    "prefer-default-export": "off", // Prevent named exports. That's the exact opposite of what we want.
+    "prefer-destructuring": "off", // Prevent accessing an array doing "array[0]". Good idea on paper, but leads to less readable code in some cases.
+    "prefer-template": "off", // Force the use of template literals. Good idea, but in some cases, string concatenation is more readable.
+    "react/jsx-filename-extension": "off", // Restrict JSX to .jsx files only. We use .tsx.
+    "react/jsx-max-depth": "off", // limit the nesting depth of jsx. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "require-await": "off", // All async methods require an await. Doesn't solve anything useful.
+    "sort-imports": "off", // Sort imports. Conflicts with eslint-plugin-simple-import-sort.
+    "strict-boolean-expressions": "off", // force boolean expression to be actual boolean. Great on paper, but very verbose and unpractical. End up doing a lot of `xx !== undefined && xx !== ""`
+    "switch-exhaustiveness-check": "off", // Force switch statements to be exhaustive. Conflicts with no-useless-switch-case and default-case.
+    "typescript/explicit-function-return-type": "off", // Require explicit return types on functions. Too verbose with type inference.
+    "typescript/explicit-module-boundary-types": "off", // Require explicit return types on module exports. Too verbose with type inference.
+    "typescript/prefer-readonly-parameter-types": "off", // Require readonly on function params. Too verbose and restrictive.
+    "unicorn/no-nested-ternary": "off", // Prevents the use of nested ternary expressions. Great on paper, but useful with jsx.
+    "unicorn/no-useless-undefined": "off", // Prevent redundant undefined in returns/assignments. Conflicts with consistent-return style.
+    "vitest/no-importing-vitest-globals": "off", // Prevent explicit vitest imports. We don't use auto-imports.
+    "vitest/prefer-called-once": "off", // Prefer toHaveBeenCalledOnce(). Conflicts with prefer-called-times.
+    "vitest/prefer-to-be-falsy": "off", // Prefer toBeFalsy(). Conflicts with prefer-strict-boolean-matchers.
+    "vitest/prefer-to-be-truthy": "off", // Prefer toBeTruthy(). Conflicts with prefer-strict-boolean-matchers.
+    // warn
+    "react-perf/jsx-no-jsx-as-prop": "warn", // Passing JSX as prop creates new references on each render.
+    "react-perf/jsx-no-new-array-as-prop": "warn", // Passing new arrays as prop creates new references on each render.
+    "react-perf/jsx-no-new-function-as-prop": "warn", // Passing new functions as prop creates new references on each render.
+    "react-perf/jsx-no-new-object-as-prop": "warn", // Passing new objects as prop creates new references on each render.
+    // Custom rules
     "id-length": [
       "error",
       {
@@ -78,238 +104,6 @@
         "exceptions": ["_", "x", "y", "z", "i", "j", "k", "t", "n", "v", "T", "p", "d", "C"]
       }
     ], // limit the length of identifiers.
-    "no-magic-numbers": "off", // Prevent magic numbers. Good idea on paper, but hard to enforce in practice. We have close to 3k violations as of writing this comment.
-    "react/jsx-max-depth": "off", // limit the nesting depth of jsx. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
-    "max-dependencies": "off", // limit the amount of imports per file. Too opinionated, doesn't prevent anything useful.
-    "max-statements": "off", // limit the amount of statements per function. Too opinionated, doesn't prevent anything useful.
-    "no-ternary": "off", // Prevents the use of ternary expressions. Too opinionated, doesn't prevent anything useful, especially with jsx.
-    "no-nested-ternary": "off", // Prevents the use of nested ternary expressions. Great on paper, but useful with jsx.
-    "unicorn/no-nested-ternary": "off", // Prevents the use of nested ternary expressions. Great on paper, but useful with jsx.
-    "no-inline-comments": "off", // Prevent inline comments. WTF is that shit.
-    "require-await": "off", // All async methods require an await. Doesn't solve anything useful.
-    "switch-exhaustiveness-check": "off", // Force switch statements to be exhaustive. Conflicts with no-useless-switch-case and default-case.
-    "strict-boolean-expressions": "off", // force boolean expression to be actual boolean. Great on paper, but very verbose and unpractical. End up doing a lot of `xx !== undefined && xx !== ""`
-    "no-named-export": "off", // Prevent named exports. That's the exact opposite of what we want.
-    "prefer-default-export": "off", // Prevent named exports. That's the exact opposite of what we want.
-    "capitalized-comments": "off", // Force comments to start with a capital letter. Has false positive.
-    "consistent-type-imports": "off", // Force the "type" keyword to be used consistently in imports. Conflicts with other rules.
-    //
-    "react/jsx-no-useless-fragment": [
-      "error",
-      {
-        "allowExpressions": true
-      }
-    ],
-    "typescript/prefer-readonly-parameter-types": "off",
-    "eslint/complexity": "off",
-    "eslint/no-undefined": "off",
-    "react/jsx-filename-extension": "off",
-    "typescript/explicit-module-boundary-types": "off",
-    "typescript/explicit-function-return-type": "off",
-    "import/no-unassigned-import": "off",
-    "no-param-reassign": "off",
-    "constructor-super": "error",
-    "for-direction": "error",
-    "getter-return": "error",
-    "no-async-promise-executor": "error",
-    "no-case-declarations": "error",
-    "no-class-assign": "error",
-    "no-compare-neg-zero": "error",
-    "no-cond-assign": "error",
-    "no-const-assign": "error",
-    "no-constant-binary-expression": "error",
-    "no-constant-condition": "error",
-    "no-control-regex": "error",
-    "no-debugger": "error",
-    "no-delete-var": "error",
-    "no-dupe-class-members": "error",
-    "no-dupe-else-if": "error",
-    "no-dupe-keys": "error",
-    "no-duplicate-case": "error",
-    "no-empty": "error",
-    "no-empty-character-class": "error",
-    "no-empty-pattern": "error",
-    "no-empty-static-block": "error",
-    "no-ex-assign": "error",
-    "no-extra-boolean-cast": "error",
-    "no-fallthrough": "error",
-    "no-func-assign": "error",
-    "no-global-assign": "error",
-    "no-import-assign": "error",
-    "no-invalid-regexp": "error",
-    "no-irregular-whitespace": "error",
-    "no-loss-of-precision": "error",
-    "no-misleading-character-class": "error",
-    "no-new-native-nonconstructor": "error",
-    "no-nonoctal-decimal-escape": "error",
-    "no-obj-calls": "error",
-    "no-prototype-builtins": "error",
-    "no-redeclare": "error",
-    "no-regex-spaces": "error",
-    "no-self-assign": "error",
-    "no-setter-return": "error",
-    "no-shadow-restricted-names": "error",
-    "no-sparse-arrays": "error",
-    "no-this-before-super": "error",
-    "no-undef": "error",
-    "no-unreachable": "error",
-    "no-unsafe-finally": "error",
-    "no-unsafe-negation": "error",
-    "no-unsafe-optional-chaining": "error",
-    "no-unused-labels": "error",
-    "no-unused-private-class-members": "error",
-    "no-unused-vars": [
-      "error",
-      {
-        "args": "all",
-        "argsIgnorePattern": "^_",
-        "caughtErrors": "all",
-        "caughtErrorsIgnorePattern": "^_",
-        "destructuredArrayIgnorePattern": "^_",
-        "varsIgnorePattern": "^_",
-        "ignoreRestSiblings": true
-      }
-    ],
-    "no-useless-backreference": "error",
-    "no-useless-catch": "error",
-    "no-useless-escape": "error",
-    "no-with": "error",
-    "require-yield": "error",
-    "use-isnan": "error",
-    "valid-typeof": "error",
-    "no-array-constructor": "error",
-    "no-unused-expressions": "error",
-    "no-useless-constructor": "error",
-    "no-empty-function": "error",
-    "unicorn/catch-error-name": "error",
-    "unicorn/consistent-assert": "error",
-    "unicorn/consistent-date-clone": "error",
-    "unicorn/consistent-empty-array-spread": "error",
-    "unicorn/consistent-existence-index-check": "error",
-    "unicorn/error-message": "error",
-    "unicorn/escape-case": "error",
-    "unicorn/explicit-length-check": "error",
-    "unicorn/new-for-builtins": "error",
-    "unicorn/no-abusive-eslint-disable": "error",
-    "unicorn/no-accessor-recursion": "error",
-    "unicorn/no-anonymous-default-export": "error",
-    "unicorn/no-array-callback-reference": "error",
-    "unicorn/no-array-for-each": "error",
-    "unicorn/no-array-method-this-argument": "error",
-    "unicorn/no-array-reduce": "error",
-    "unicorn/no-array-reverse": "error",
-    "unicorn/no-array-sort": "error",
-    "unicorn/no-await-expression-member": "error",
-    "unicorn/no-await-in-promise-methods": "error",
-    "unicorn/no-console-spaces": "error",
-    "unicorn/no-document-cookie": "error",
-    "unicorn/no-empty-file": "error",
-    "unicorn/no-hex-escape": "error",
-    "unicorn/no-immediate-mutation": "error",
-    "unicorn/no-instanceof-builtins": "error",
-    "unicorn/no-invalid-fetch-options": "error",
-    "unicorn/no-invalid-remove-event-listener": "error",
-    "unicorn/no-lonely-if": "error",
-    "unicorn/no-magic-array-flat-depth": "error",
-    "unicorn/no-negated-condition": "error",
-    "unicorn/no-negation-in-equality-check": "error",
-    "unicorn/no-new-array": "error",
-    "unicorn/no-new-buffer": "error",
-    "unicorn/no-null": "error",
-    "unicorn/no-object-as-default-parameter": "error",
-    "unicorn/no-process-exit": "error",
-    "unicorn/no-single-promise-in-promise-methods": "error",
-    "unicorn/no-static-only-class": "error",
-    "unicorn/no-thenable": "error",
-    "unicorn/no-this-assignment": "error",
-    "unicorn/no-typeof-undefined": "error",
-    "unicorn/no-unnecessary-array-flat-depth": "error",
-    "unicorn/no-unnecessary-array-splice-count": "error",
-    "unicorn/no-unnecessary-await": "error",
-    "unicorn/no-unnecessary-slice-end": "error",
-    "unicorn/no-unreadable-array-destructuring": "error",
-    "unicorn/no-unreadable-iife": "error",
-    "unicorn/no-useless-collection-argument": "error",
-    "unicorn/no-useless-error-capture-stack-trace": "error",
-    "unicorn/no-useless-fallback-in-spread": "error",
-    "unicorn/no-useless-length-check": "error",
-    "unicorn/no-useless-promise-resolve-reject": "error",
-    "unicorn/no-useless-spread": "error",
-    "unicorn/no-useless-switch-case": "error",
-    "unicorn/no-useless-undefined": "off",
-    "unicorn/no-zero-fractions": "error",
-    "unicorn/numeric-separators-style": "error",
-    "unicorn/prefer-add-event-listener": "error",
-    "unicorn/prefer-array-find": "error",
-    "unicorn/prefer-array-flat": "error",
-    "unicorn/prefer-array-flat-map": "error",
-    "unicorn/prefer-array-index-of": "error",
-    "unicorn/prefer-array-some": "error",
-    "unicorn/prefer-at": "error",
-    "unicorn/prefer-bigint-literals": "error",
-    "unicorn/prefer-blob-reading-methods": "error",
-    "unicorn/prefer-class-fields": "error",
-    "unicorn/prefer-classlist-toggle": "error",
-    "unicorn/prefer-code-point": "error",
-    "unicorn/prefer-date-now": "error",
-    "unicorn/prefer-default-parameters": "error",
-    "unicorn/prefer-dom-node-append": "error",
-    "unicorn/prefer-dom-node-dataset": "error",
-    "unicorn/prefer-dom-node-remove": "error",
-    "unicorn/prefer-dom-node-text-content": "error",
-    "unicorn/prefer-event-target": "error",
-    "unicorn/prefer-global-this": "error",
-    "unicorn/prefer-includes": "error",
-    "unicorn/prefer-keyboard-event-key": "error",
-    "unicorn/prefer-logical-operator-over-ternary": "error",
-    "unicorn/prefer-math-min-max": "error",
-    "unicorn/prefer-modern-dom-apis": "error",
-    "unicorn/prefer-modern-math-apis": "error",
-    "unicorn/prefer-module": "error",
-    "unicorn/prefer-native-coercion-functions": "error",
-    "unicorn/prefer-negative-index": "error",
-    "unicorn/prefer-node-protocol": "error",
-    "unicorn/prefer-number-properties": "error",
-    "unicorn/prefer-object-from-entries": "error",
-    "unicorn/prefer-optional-catch-binding": "error",
-    "unicorn/prefer-prototype-methods": "error",
-    "unicorn/prefer-query-selector": "error",
-    "unicorn/prefer-reflect-apply": "error",
-    "unicorn/prefer-regexp-test": "error",
-    "unicorn/prefer-response-static-json": "error",
-    "unicorn/prefer-set-has": "error",
-    "unicorn/prefer-set-size": "error",
-    "unicorn/prefer-spread": "error",
-    "unicorn/prefer-string-raw": "error",
-    "unicorn/prefer-string-replace-all": "error",
-    "unicorn/prefer-string-slice": "error",
-    "unicorn/prefer-string-starts-ends-with": "error",
-    "unicorn/prefer-string-trim-start-end": "error",
-    "unicorn/prefer-structured-clone": "error",
-    "unicorn/prefer-ternary": "error",
-    "unicorn/prefer-top-level-await": "error",
-    "unicorn/prefer-type-error": "error",
-    "unicorn/relative-url-style": "error",
-    "unicorn/require-array-join-separator": "error",
-    "unicorn/require-module-attributes": "error",
-    "unicorn/require-module-specifiers": "error",
-    "unicorn/require-number-to-fixed-digits-argument": "error",
-    "unicorn/text-encoding-identifier-case": "error",
-    "unicorn/throw-new-error": "error",
-    "import/namespace": "error",
-    "import/default": "error",
-    "import/export": "error",
-    "import/no-named-as-default": "warn",
-    "import/no-duplicates": "error",
-    "simple-import-sort/exports": "error",
-    "simple-import-sort/imports": [
-      "error",
-      {
-        "groups": [["^\\u0000"], ["^node:"], ["^@?\\w"], ["^"], ["^#"], ["^\\."]]
-      }
-    ],
-    "import/no-default-export": "error",
-    "no-console": "error",
     "no-restricted-imports": [
       "error",
       {
@@ -332,98 +126,32 @@
         ]
       }
     ],
-    "nextjs/google-font-display": "warn",
-    "nextjs/google-font-preconnect": "warn",
-    "nextjs/next-script-for-ga": "warn",
-    "nextjs/no-async-client-component": "warn",
-    "nextjs/no-before-interactive-script-outside-document": "warn",
-    "nextjs/no-css-tags": "warn",
-    "nextjs/no-head-element": "warn",
-    "nextjs/no-html-link-for-pages": "error",
-    "nextjs/no-img-element": "warn",
-    "nextjs/no-page-custom-font": "warn",
-    "nextjs/no-styled-jsx-in-document": "warn",
-    "nextjs/no-sync-scripts": "error",
-    "nextjs/no-title-in-document-head": "warn",
-    "nextjs/no-typos": "warn",
-    "nextjs/no-unwanted-polyfillio": "warn",
-    "nextjs/inline-script-id": "error",
-    "nextjs/no-assign-module-variable": "error",
-    "nextjs/no-document-import-in-page": "error",
-    "nextjs/no-duplicate-head": "error",
-    "nextjs/no-head-import-in-document": "error",
-    "nextjs/no-script-component-in-head": "error",
-    "typescript/await-thenable": "error",
-    "typescript/ban-ts-comment": [
+    "no-unused-vars": [
       "error",
       {
-        "minimumDescriptionLength": 10
+        "args": "all",
+        "argsIgnorePattern": "^_",
+        "caughtErrors": "all",
+        "caughtErrorsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
       }
     ],
-    "typescript/no-array-delete": "error",
-    "typescript/no-base-to-string": "error",
-    "typescript/no-confusing-void-expression": "error",
-    "typescript/no-deprecated": "error",
-    "typescript/no-duplicate-enum-values": "error",
-    "typescript/no-duplicate-type-constituents": "error",
-    "typescript/no-dynamic-delete": "error",
-    "typescript/no-empty-object-type": "error",
-    "typescript/no-explicit-any": "error",
-    "typescript/no-extra-non-null-assertion": "error",
-    "typescript/no-extraneous-class": "error",
-    "typescript/no-floating-promises": "error",
-    "typescript/no-for-in-array": "error",
-    "typescript/no-implied-eval": "error",
-    "typescript/no-invalid-void-type": "error",
-    "typescript/no-meaningless-void-operator": "error",
-    "typescript/no-misused-new": "error",
-    "typescript/no-misused-promises": "error",
-    "typescript/no-misused-spread": "error",
-    "typescript/no-mixed-enums": "error",
-    "typescript/no-namespace": "error",
-    "typescript/no-non-null-asserted-nullish-coalescing": "error",
-    "typescript/no-non-null-asserted-optional-chain": "error",
-    "typescript/no-non-null-assertion": "error",
-    "typescript/no-redundant-type-constituents": "error",
-    "typescript/no-require-imports": "error",
-    "typescript/no-this-alias": "error",
-    "typescript/no-unnecessary-boolean-literal-compare": "error",
-    "typescript/no-unnecessary-template-expression": "error",
-    "typescript/no-unnecessary-type-arguments": "error",
-    "typescript/no-unnecessary-type-assertion": "error",
-    "typescript/no-unnecessary-type-constraint": "error",
-    "typescript/no-unnecessary-type-conversion": "error",
-    "typescript/no-unnecessary-type-parameters": "error",
-    "typescript/no-unsafe-argument": "error",
-    "typescript/no-unsafe-assignment": "error",
-    "typescript/no-unsafe-call": "error",
-    "typescript/no-unsafe-declaration-merging": "error",
-    "typescript/no-unsafe-enum-comparison": "error",
-    "typescript/no-unsafe-function-type": "error",
-    "typescript/no-unsafe-member-access": "error",
-    "typescript/no-unsafe-return": "error",
-    "typescript/no-unsafe-unary-minus": "error",
-    "typescript/no-useless-default-assignment": "error",
-    "typescript/no-wrapper-object-types": "error",
-    "typescript/only-throw-error": "error",
-    "typescript/prefer-as-const": "error",
-    "typescript/prefer-literal-enum-member": "error",
-    "typescript/prefer-namespace-keyword": "error",
-    "typescript/prefer-promise-reject-errors": "error",
-    "typescript/prefer-reduce-type-parameter": "error",
-    "typescript/prefer-return-this-type": "error",
-    "typescript/related-getter-setter-pairs": "error",
-    "typescript/require-await": "error",
-    "typescript/restrict-plus-operands": [
+    "react/jsx-no-useless-fragment": [
       "error",
       {
-        "allowAny": false,
-        "allowBoolean": false,
-        "allowNullish": false,
-        "allowNumberAndString": false,
-        "allowRegExp": false
+        "allowExpressions": true
       }
     ],
+    "simple-import-sort/exports": "error", // Auto-sort export statements.
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [["^\\u0000"], ["^node:"], ["^@?\\w"], ["^"], ["^#"], ["^\\."]]
+      }
+    ],
+    "typescript/consistent-type-definitions": ["error", "type"], // Enforce type over interface.
     "typescript/restrict-template-expressions": [
       "error",
       {
@@ -435,99 +163,43 @@
         "allowRegExp": false
       }
     ],
-    "typescript/return-await": ["error", "error-handling-correctness-only"],
-    "typescript/triple-slash-reference": "error",
-    "typescript/unbound-method": "error",
-    "typescript/unified-signatures": "error",
-    "typescript/use-unknown-in-catch-callback-variable": "error",
-    "typescript/adjacent-overload-signatures": "error",
-    "typescript/array-type": "error",
-    "typescript/ban-tslint-comment": "error",
-    "typescript/class-literal-property-style": "error",
-    "typescript/consistent-generic-constructors": "error",
-    "typescript/consistent-indexed-object-style": "error",
-    "typescript/consistent-type-assertions": "error",
-    "typescript/consistent-type-definitions": ["error", "type"],
-    "typescript/dot-notation": "error",
-    "typescript/no-confusing-non-null-assertion": "error",
-    "typescript/no-inferrable-types": "error",
-    "typescript/non-nullable-type-assertion-style": "error",
-    "typescript/prefer-find": "error",
-    "typescript/prefer-for-of": "error",
-    "typescript/prefer-function-type": "error",
-    "typescript/prefer-includes": "error",
-    "typescript/prefer-nullish-coalescing": "error",
-    "typescript/prefer-regexp-exec": "error",
-    "typescript/prefer-string-starts-ends-with": "error"
+    "typescript/return-await": ["error", "error-handling-correctness-only"] // Require return await only inside try/catch for correct error handling.
   },
   "overrides": [
     {
       "files": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
       "rules": {
-        "constructor-super": "off",
-        "getter-return": "off",
-        "no-class-assign": "off",
-        "no-const-assign": "off",
-        "no-dupe-class-members": "off",
-        "no-dupe-keys": "off",
-        "no-func-assign": "off",
-        "no-import-assign": "off",
-        "no-new-native-nonconstructor": "off",
-        "no-obj-calls": "off",
-        "no-redeclare": "off",
-        "no-setter-return": "off",
-        "no-this-before-super": "off",
-        "no-undef": "off",
-        "no-unreachable": "off",
-        "no-unsafe-negation": "off",
-        "no-var": "error",
-        "no-with": "off",
-        "prefer-const": "error",
-        "prefer-rest-params": "error",
-        "prefer-spread": "error"
+        // off
+        "constructor-super": "off", // Handled by TypeScript.
+        "getter-return": "off", // Handled by TypeScript.
+        "no-class-assign": "off", // Handled by TypeScript.
+        "no-const-assign": "off", // Handled by TypeScript.
+        "no-dupe-class-members": "off", // Handled by TypeScript.
+        "no-dupe-keys": "off", // Handled by TypeScript.
+        "no-func-assign": "off", // Handled by TypeScript.
+        "no-import-assign": "off", // Handled by TypeScript.
+        "no-new-native-nonconstructor": "off", // Handled by TypeScript.
+        "no-obj-calls": "off", // Handled by TypeScript.
+        "no-redeclare": "off", // Handled by TypeScript.
+        "no-setter-return": "off", // Handled by TypeScript.
+        "no-this-before-super": "off", // Handled by TypeScript.
+        "no-undef": "off", // Handled by TypeScript.
+        "no-unreachable": "off", // Handled by TypeScript.
+        "no-unsafe-negation": "off", // Handled by TypeScript.
+        "no-with": "off" // Handled by TypeScript.
       }
     },
     {
       "files": ["**/*.{js,jsx,mjs,ts,tsx,mts,cts}"],
       "rules": {
-        "react/display-name": "error",
-        "react/jsx-key": "error",
-        "react/jsx-no-comment-textnodes": "error",
-        "react/jsx-no-duplicate-props": "error",
-        "react/jsx-no-target-blank": "off",
-        "react/jsx-no-undef": "error",
-        "react/no-children-prop": "error",
-        "react/no-danger-with-children": "error",
-        "react/no-direct-mutation-state": "error",
-        "react/no-find-dom-node": "error",
-        "react/no-is-mounted": "error",
-        "react/no-render-return-value": "error",
-        "react/no-string-refs": "error",
-        "react/no-unescaped-entities": "error",
-        "react/no-unknown-property": "off",
-        "react/no-unsafe": "off",
-        "react/react-in-jsx-scope": "off",
-        "react/require-render-return": "error",
-        "import/no-anonymous-default-export": "warn",
-        "jsx-a11y/alt-text": [
-          "warn",
-          {
-            "elements": ["img"],
-            "img": ["Image"]
-          }
-        ],
-        "jsx-a11y/aria-props": "warn",
-        "jsx-a11y/aria-proptypes": "warn",
-        "jsx-a11y/aria-unsupported-elements": "warn",
-        "jsx-a11y/no-autofocus": "off",
-        "jsx-a11y/click-events-have-key-events": "off",
-        "jsx-a11y/no-static-element-interactions": "off",
-        "jsx-a11y/role-has-required-aria-props": "warn",
-        "jsx-a11y/role-supports-aria-props": "warn",
-        "nextjs/no-html-link-for-pages": "warn",
-        "nextjs/no-sync-scripts": "warn",
-        "react/rules-of-hooks": "error",
-        "react/exhaustive-deps": "warn"
+        // off
+        "jsx-a11y/click-events-have-key-events": "off", // Require keyboard events alongside click. We use role-based interactions instead.
+        "jsx-a11y/no-autofocus": "off", // Prevent autofocus attribute. Acceptable UX pattern in controlled contexts.
+        "jsx-a11y/no-static-element-interactions": "off", // Prevent event handlers on non-interactive elements. Handled via ARIA roles.
+        "react/jsx-no-target-blank": "off", // Handled by React 18+.
+        "react/no-unknown-property": "off", // Handled by TypeScript.
+        "react/no-unsafe": "off", // Deprecated lifecycle methods. Handled by TypeScript/React.
+        "react/react-in-jsx-scope": "off" // React 17+ automatic JSX transform; no import needed.
       },
       "globals": {
         "AudioWorkletGlobalScope": "readonly",
@@ -538,7 +210,6 @@
         "sampleRate": "readonly",
         "WorkletGlobalScope": "readonly"
       },
-      "plugins": ["react", "jsx-a11y"],
       "env": {
         "browser": true,
         "node": true
@@ -547,72 +218,77 @@
     {
       "files": ["src/app/**/*.tsx"],
       "rules": {
-        "import/no-default-export": "off",
-        "no-empty-function": "off",
-        "react/only-export-components": "off"
+        // off
+        "import/no-default-export": "off", // Next.js page/layout files require default exports.
+        "no-empty-function": "off", // Next.js routes export empty functions (e.g. generateStaticParams).
+        "react/only-export-components": "off" // Next.js route files export non-component values (metadata, config).
       }
     },
     {
       "files": ["src/**/*.stories.ts", "src/**/*.stories.tsx"],
       "rules": {
-        "import/no-default-export": "off",
-        "no-empty-function": "off",
-        "unicorn/no-null": "off"
+        // off
+        "import/no-default-export": "off", // Storybook requires a default export for the story meta object.
+        "no-empty-function": "off", // Story action handlers are often intentionally empty.
+        "unicorn/no-null": "off" // Story args use null for optional props.
       }
     },
     {
       "files": ["src/**/*.test.ts", "src/**/*.test.tsx"],
       "rules": {
-        "react/jsx-props-no-spreading": "off",
-        "eslint/no-empty-function": "off",
-        "no-unsafe-type-assertion": "off",
-        "@typescript-eslint/require-await": "off"
+        // off
+        "@typescript-eslint/require-await": "off", // Mock implementations are often async without await.
+        "eslint/no-empty-function": "off", // Mock functions and test stubs are intentionally empty.
+        "no-unsafe-type-assertion": "off", // vi.mock imports require type assertions.
+        "react/jsx-props-no-spreading": "off" // Test utilities spread props freely.
       }
     },
     {
       "files": ["e2e/**"],
       "rules": {
-        "no-empty-pattern": "off",
-        "react/rules-of-hooks": "off",
-        "import/export": "off",
-        "playwright/consistent-spacing-between-blocks": "warn",
-        "playwright/expect-expect": "warn",
-        "playwright/max-nested-describe": "warn",
-        "playwright/missing-playwright-await": "error",
-        "playwright/no-conditional-expect": "warn",
-        "playwright/no-conditional-in-test": "warn",
-        "playwright/no-duplicate-hooks": "warn",
-        "playwright/no-duplicate-slow": "warn",
-        "playwright/no-element-handle": "warn",
-        "playwright/no-eval": "warn",
-        "playwright/no-focused-test": "error",
-        "playwright/no-force-option": "warn",
-        "playwright/no-nested-step": "warn",
-        "playwright/no-networkidle": "error",
-        "playwright/no-page-pause": "warn",
-        "playwright/no-skipped-test": "warn",
-        "playwright/no-standalone-expect": "error",
-        "playwright/no-unsafe-references": "error",
-        "playwright/no-unused-locators": "error",
-        "playwright/no-useless-await": "warn",
-        "playwright/no-useless-not": "warn",
-        "playwright/no-wait-for-navigation": "error",
-        "playwright/no-wait-for-selector": "warn",
-        "playwright/no-wait-for-timeout": "warn",
-        "playwright/prefer-hooks-in-order": "warn",
-        "playwright/prefer-hooks-on-top": "warn",
-        "playwright/prefer-locator": "warn",
-        "playwright/prefer-to-have-count": "warn",
-        "playwright/prefer-to-have-length": "warn",
-        "playwright/prefer-web-first-assertions": "error",
-        "playwright/valid-describe-callback": "error",
-        "playwright/valid-expect": "error",
-        "playwright/valid-expect-in-promise": "error",
-        "playwright/valid-test-tags": "error",
-        "playwright/valid-title": "error"
+        // off
+        "import/export": "off", // Playwright fixture files re-export test helpers, triggering false positives.
+        "no-empty-pattern": "off", // Playwright fixtures use empty destructuring to opt into fixture context.
+        "react/rules-of-hooks": "off", // Not applicable to Playwright test files.
+        "vitest/consistent-test-filename": "off", // E2E files use .spec.ts naming, not .test.ts.
+        // Custom rules
+        "playwright/consistent-spacing-between-blocks": "error", // Enforce blank lines between test/describe blocks.
+        "playwright/expect-expect": "error", // Require at least one assertion per test.
+        "playwright/max-nested-describe": "error", // Limit nesting depth of describe blocks.
+        "playwright/missing-playwright-await": "error", // Require await on async Playwright assertions.
+        "playwright/no-conditional-expect": "error", // Prevent conditionally-called assertions.
+        "playwright/no-conditional-in-test": "error", // Prevent if/else branching inside tests.
+        "playwright/no-duplicate-hooks": "error", // Prevent duplicate beforeEach/afterEach in same scope.
+        "playwright/no-duplicate-slow": "error", // Prevent multiple test.slow() calls.
+        "playwright/no-element-handle": "error", // Prefer locators over legacy ElementHandle API.
+        "playwright/no-eval": "error", // Prevent eval() inside tests.
+        "playwright/no-focused-test": "error", // Prevent test.only() from being committed.
+        "playwright/no-force-option": "error", // Prevent force: true that bypasses actionability checks.
+        "playwright/no-nested-step": "error", // Prevent nesting test.step() calls.
+        "playwright/no-networkidle": "error", // Prefer explicit waits over fragile networkidle state.
+        "playwright/no-page-pause": "error", // Prevent page.pause() from being committed.
+        "playwright/no-skipped-test": "error", // Prevent test.skip() from being committed.
+        "playwright/no-standalone-expect": "error", // Prevent assertions outside of test blocks.
+        "playwright/no-unsafe-references": "error", // Prevent accessing variables declared in outer test scopes.
+        "playwright/no-unused-locators": "error", // Prevent locators that are declared but never used.
+        "playwright/no-useless-await": "error", // Prevent unnecessary await on non-Promise values.
+        "playwright/no-useless-not": "error", // Prevent double negation (e.g. not.not) in assertions.
+        "playwright/no-wait-for-navigation": "error", // Deprecated API; use waitForURL or waitForLoadState instead.
+        "playwright/no-wait-for-selector": "error", // Prefer locators over waitForSelector.
+        "playwright/no-wait-for-timeout": "error", // Prevent arbitrary timeouts; use explicit condition waits.
+        "playwright/prefer-hooks-in-order": "error", // Enforce before* hooks before after* hooks.
+        "playwright/prefer-hooks-on-top": "error", // Enforce hooks at the top of describe blocks.
+        "playwright/prefer-locator": "error", // Prefer page.locator() over older element query APIs.
+        "playwright/prefer-to-have-count": "error", // Prefer toHaveCount() over asserting on length.
+        "playwright/prefer-to-have-length": "error", // Prefer toHaveLength() over asserting on length.
+        "playwright/prefer-web-first-assertions": "error", // Prefer auto-retrying web-first assertions.
+        "playwright/valid-describe-callback": "error", // Ensure describe callbacks are synchronous functions.
+        "playwright/valid-expect": "error", // Ensure expect() is called with an assertion matcher.
+        "playwright/valid-expect-in-promise": "error", // Require await on expect() inside promise chains.
+        "playwright/valid-test-tags": "error", // Ensure test tags are valid strings.
+        "playwright/valid-title": "error" // Ensure test and describe titles are non-empty strings.
       },
       "jsPlugins": ["eslint-plugin-playwright"],
-      "plugins": ["react"],
       "env": {
         "shared-node-browser": true
       }
@@ -620,13 +296,8 @@
     {
       "files": ["src/**/*.mock.ts"],
       "rules": {
-        "import/export": "off"
-      }
-    },
-    {
-      "files": ["e2e/**"],
-      "rules": {
-        "vitest/consistent-test-filename": "off"
+        // off
+        "import/export": "off" // Mock files re-export module members, triggering false positives.
       }
     }
   ]
