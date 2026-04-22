@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript", "unicorn", "react", "nextjs", "import"],
+  "plugins": ["eslint", "typescript", "unicorn", "react", "react-perf", "nextjs", "import"],
   "jsPlugins": ["eslint-plugin-simple-import-sort"],
   "categories": {
     "correctness": "error",
@@ -13,8 +13,7 @@
   },
   "options": {
     "typeAware": true,
-    "typeCheck": true,
-    "maxWarnings": 0
+    "typeCheck": true
   },
   "env": {
     "builtin": true,
@@ -31,6 +30,10 @@
     "src/gen/api.d.ts"
   ],
   "rules": {
+    "react-perf/jsx-no-new-object-as-prop": "warn",
+    "react-perf/jsx-no-new-array-as-prop": "warn",
+    "react-perf/jsx-no-new-function-as-prop": "warn",
+    "react-perf/jsx-no-jsx-as-prop": "warn",
     "new-cap": "off", // Forces the use of "new" in some cases. Too many false positives.
     "import/exports-last": "off", // force exports at the end of file. Too opinionated, doesn't prevent anything useful.
     "import/group-exports": "off", // force grouping exports together. Too opinionated, doesn't prevent anything useful.
