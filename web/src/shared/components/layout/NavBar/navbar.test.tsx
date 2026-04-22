@@ -6,14 +6,14 @@ import { testWrapper as wrapper } from "#shared/utils/tests";
 
 import { Navbar } from "./navbar";
 
-vi.mock("motion/react", async () => {
+vi.mock(import("motion/react"), async () => {
   const { motionMock } = await import("#shared/utils/mocks/motion");
-  return motionMock;
+  return motionMock as unknown as Awaited<typeof import("motion/react")>;
 });
 
 let mockPathname = "/";
 
-vi.mock("#i18n/routing", async (importOriginal) => {
+vi.mock(import("#i18n/routing"), async (importOriginal) => {
   const actual = await importOriginal<typeof import("#i18n/routing")>();
   return {
     ...actual,
@@ -29,7 +29,7 @@ const setup = (pathname = "/") => {
 describe("navbar", () => {
   it("renders without crashing", () => {
     expect(() => setup()).not.toThrow();
-  });
+  }, 5000);
 
   it("renders all nav items", () => {
     setup();
@@ -37,7 +37,7 @@ describe("navbar", () => {
     expect(screen.getByRole("link", { name: "Blog" })).toBeDefined();
     expect(screen.getByRole("button", { name: /Games/i })).toBeDefined();
     expect(screen.getByRole("button", { name: /Tools/i })).toBeDefined();
-  });
+  }, 5000);
 
   it("shows nav indicator on home route", () => {
     setup("/");
@@ -46,37 +46,37 @@ describe("navbar", () => {
     // At least one indicator span exists when on home route
     const activeLink = screen.getByRole("link", { name: "Home" });
     expect(activeLink.closest("span")?.querySelector("span")).not.toBeNull();
-  });
+  }, 5000);
 
   it("shows nav indicator on blog route", () => {
     setup("/blog");
     const activeLink = screen.getByRole("link", { name: "Blog" });
     expect(activeLink.closest("span")?.querySelector("span")).not.toBeNull();
-  });
+  }, 5000);
 
   it("shows nav indicator on games route", () => {
     setup("/games/conway");
     const gamesButton = screen.getByRole("button", { name: /Games/i });
     expect(gamesButton.closest("span")?.querySelector("span")).not.toBeNull();
-  });
+  }, 5000);
 
   it("shows nav indicator on tools route", () => {
     setup("/tools/uuid");
     const toolsButton = screen.getByRole("button", { name: /Tools/i });
     expect(toolsButton.closest("span")?.querySelector("span")).not.toBeNull();
-  });
+  }, 5000);
 
   it("games indicator absent on non-games route", () => {
     setup("/");
     const gamesButton = screen.getByRole("button", { name: /Games/i });
     expect(gamesButton.closest("span")?.querySelector("span")).toBeNull();
-  });
+  }, 5000);
 
   it("tools indicator absent on non-tools route", () => {
     setup("/");
     const toolsButton = screen.getByRole("button", { name: /Tools/i });
     expect(toolsButton.closest("span")?.querySelector("span")).toBeNull();
-  });
+  }, 5000);
 
   it("home link is active on / route", () => {
     setup("/");
@@ -85,7 +85,7 @@ describe("navbar", () => {
     // Blog link should not have an indicator span sibling
     const blogLink = screen.getByRole("link", { name: "Blog" });
     expect(blogLink.closest("span")?.querySelector("span")).toBeNull();
-  });
+  }, 5000);
 
   it("blog link is active on /blog route", () => {
     setup("/blog");
@@ -94,61 +94,61 @@ describe("navbar", () => {
     // Home link should not have an indicator span sibling
     const homeLink = screen.getByRole("link", { name: "Home" });
     expect(homeLink.closest("span")?.querySelector("span")).toBeNull();
-  });
+  }, 5000);
 
   it("games button has bold style on /games route", () => {
     setup("/games/conway");
     const gamesButton = screen.getByRole("button", { name: /Games/i });
     expect(gamesButton.className).toContain("font-semibold");
-  });
+  }, 5000);
 
   it("games button does not have bold style on non-games route", () => {
     setup("/");
     const gamesButton = screen.getByRole("button", { name: /Games/i });
     expect(gamesButton.className).not.toContain("font-semibold");
-  });
+  }, 5000);
 
   it("tools button has bold style on /tools route", () => {
     setup("/tools/uuid");
     const toolsButton = screen.getByRole("button", { name: /Tools/i });
     expect(toolsButton.className).toContain("font-semibold");
-  });
+  }, 5000);
 
   it("tools button does not have bold style on non-tools route", () => {
     setup("/");
     const toolsButton = screen.getByRole("button", { name: /Tools/i });
     expect(toolsButton.className).not.toContain("font-semibold");
-  });
+  }, 5000);
 
   it("dropdown buttons use h-8 to fix button height", () => {
     setup();
     const gamesButton = screen.getByRole("button", { name: /Games/i });
     expect(gamesButton.className).toContain("h-8");
-  });
+  }, 5000);
 
   it("home link points to /", () => {
     setup();
     const homeLink = screen.getByRole("link", { name: "Home" });
     expect(homeLink.getAttribute("href")).toBe("/");
-  });
+  }, 5000);
 
   it("blog link points to /blog", () => {
     setup();
     const blogLink = screen.getByRole("link", { name: "Blog" });
     expect(blogLink.getAttribute("href")).toBe("/blog");
-  });
+  }, 5000);
 
   it('hamburger toggle shows "Open menu" when menu is closed', () => {
     setup();
     expect(screen.getByRole("button", { name: "Open menu" })).toBeDefined();
-  });
+  }, 5000);
 
   it("hamburger toggle updates accessible name when clicked", async () => {
     setup();
     const user = userEvent.setup();
     await user.click(screen.getByRole("button", { name: "Open menu" }));
     expect(screen.getByRole("button", { name: "Close menu" })).toBeDefined();
-  });
+  }, 5000);
 
   it("clicking a mobile menu link closes the menu", async () => {
     setup();
@@ -159,5 +159,5 @@ describe("navbar", () => {
     await user.click(within(mobileMenu).getByRole("link", { name: "Home" }));
     // Toggle should revert to "Open menu" label
     expect(screen.getByRole("button", { name: "Open menu" })).toBeDefined();
-  });
+  }, 5000);
 });

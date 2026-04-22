@@ -9,13 +9,13 @@ const state: BeatmakerState = buildDefaultState();
 test('encode produces a string starting with "v1:"', () => {
   const hash = encode(state);
   expect(hash).toMatch(/^v1:/);
-});
+}, 5000);
 
 test("encode excludes isPlaying", () => {
   const playing = { ...state, isPlaying: true };
   const notPlaying = { ...state, isPlaying: false };
   expect(encode(playing)).toBe(encode(notPlaying));
-});
+}, 5000);
 
 test("round-trip: decode(encode(state)) reproduces state", () => {
   const hash = encode(state);
@@ -27,7 +27,7 @@ test("round-trip: decode(encode(state)) reproduces state", () => {
   expect(decoded?.tracks.kick.steps).toEqual(state.tracks.kick.steps);
   expect(decoded?.tracks.kick.volume).toBe(state.tracks.kick.volume);
   expect(decoded?.tracks.kick.muted).toBe(state.tracks.kick.muted);
-});
+}, 5000);
 
 test("round-trip: decode(encode(state)) reproduces non-default track values", () => {
   const customSteps = Array.from({ length: 16 }, (_, i) => i % 3 === 0);
@@ -56,10 +56,10 @@ test("decode returns undefined for garbage input", () => {
   expect(decode("garbage")).toBeUndefined();
   expect(decode("")).toBeUndefined();
   expect(decode("v1:!!notbase64!!")).toBeUndefined();
-});
+}, 5000);
 
 test("hasCustomSamples flag survives round-trip when true", () => {
   const hash = encode(state, true);
   const decoded = decode(hash);
   expect(decoded?.hasCustomSamples).toBe(true);
-});
+}, 5000);

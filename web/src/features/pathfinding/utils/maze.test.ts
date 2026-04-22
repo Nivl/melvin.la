@@ -7,14 +7,14 @@ import type { Coords } from "./types";
 const START: Coords = [1, 1];
 const END: Coords = [8, 18];
 
-describe("generateMaze", () => {
+describe(generateMaze, () => {
   it("returns a grid with the correct dimensions", () => {
     const { grid } = generateMaze(10, 20, START, END);
     expect(grid).toHaveLength(10);
     for (const row of grid) {
       expect(row).toHaveLength(20);
     }
-  });
+  }, 5000);
 
   it("marks start and end cells correctly", () => {
     const { grid } = generateMaze(10, 20, START, END);
@@ -22,7 +22,7 @@ describe("generateMaze", () => {
     const [er, ec] = END;
     expect(grid[sr][sc]).toBe("start");
     expect(grid[er][ec]).toBe("end");
-  });
+  }, 5000);
 
   it("produces a solvable maze (start is reachable from end via BFS)", () => {
     // Run several times to account for randomness
@@ -37,7 +37,7 @@ describe("generateMaze", () => {
       const { path } = runBFS(passable, START, end);
       expect(path.length).toBeGreaterThan(0);
     }
-  });
+  }, 5000);
 
   it("start cell has at least one passable neighbour", () => {
     const { grid } = generateMaze(10, 20, START, END);
@@ -55,7 +55,7 @@ describe("generateMaze", () => {
       return grid[row]?.[col] !== "wall";
     });
     expect(hasPassable).toBe(true);
-  });
+  }, 5000);
 
   it("end cell has at least one passable neighbour", () => {
     const { grid } = generateMaze(10, 20, START, END);
@@ -73,9 +73,9 @@ describe("generateMaze", () => {
       return grid[row]?.[col] !== "wall";
     });
     expect(hasPassable).toBe(true);
-  });
+  }, 5000);
 
   it("does not overflow the call stack on a large grid (40×70)", () => {
     expect(() => generateMaze(40, 70, [1, 1], [38, 68])).not.toThrow();
-  });
+  }, 5000);
 });

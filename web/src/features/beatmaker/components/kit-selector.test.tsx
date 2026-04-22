@@ -20,7 +20,7 @@ test("renders a button for each kit", () => {
   expect(getByRole("button", { name: "808" })).toBeDefined();
   expect(getByRole("button", { name: "Acoustic" })).toBeDefined();
   expect(getByRole("button", { name: "Lo-fi" })).toBeDefined();
-});
+}, 5000);
 
 test("calls onKitChange with kit id on click", async () => {
   const user = userEvent.setup();
@@ -30,4 +30,4 @@ test("calls onKitChange with kit id on click", async () => {
   });
   await user.click(getByRole("button", { name: "Acoustic" }));
   expect(onKitChange).toHaveBeenCalledWith("acoustic");
-});
+}, 5000);

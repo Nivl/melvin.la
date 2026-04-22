@@ -51,12 +51,12 @@ test("renders the correct number of cells", () => {
   const { getByRole } = setup({ board: makeBoard(4), boardSize: 4 });
   const grid = getByRole("region");
   expect(grid.children.length).toBe(16);
-});
+}, 5000);
 
 test("applies the aria-label prop", () => {
   const { getByRole } = setup({ ariaLabel: "My game grid" });
   expect(getByRole("region", { name: "My game grid" })).toBeDefined();
-});
+}, 5000);
 
 test("calls onSetCell when pointer is pressed on a dead cell while not playing", () => {
   const { getByRole, onSetCell } = setup({ board: makeBoard(3), boardSize: 3 });
@@ -78,7 +78,7 @@ test("calls onSetCell when pointer is pressed on a dead cell while not playing",
   fireEvent.pointerDown(grid, { clientX: 50, clientY: 50, pointerId: 1 });
 
   expect(onSetCell).toHaveBeenCalledWith(0, 0, 1);
-});
+}, 5000);
 
 test("calls onSetCell to kill an alive cell on pointer down", () => {
   const board = makeBoard(3);
@@ -104,11 +104,11 @@ test("calls onSetCell to kill an alive cell on pointer down", () => {
   fireEvent.pointerDown(grid, { clientX: 150, clientY: 150, pointerId: 1 });
 
   expect(onSetCell).toHaveBeenCalledWith(1, 1, 0);
-});
+}, 5000);
 
 test("does not call onSetCell on pointer down while playing", () => {
   const { getByRole, onSetCell } = setup({ isPlaying: true });
   const grid = getByRole("region");
   fireEvent.pointerDown(grid, { clientX: 50, clientY: 50, pointerId: 1 });
   expect(onSetCell).not.toHaveBeenCalled();
-});
+}, 5000);

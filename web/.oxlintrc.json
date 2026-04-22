@@ -1,6 +1,16 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["eslint", "typescript", "unicorn", "react", "react-perf", "nextjs", "oxc", "import"],
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "react",
+    "react-perf",
+    "nextjs",
+    "oxc",
+    "import",
+    "vitest"
+  ],
   "jsPlugins": ["eslint-plugin-simple-import-sort"],
   "categories": {
     "correctness": "error",
@@ -31,6 +41,9 @@
   ],
   "rules": {
     "vitest/no-importing-vitest-globals": "off",
+    "vitest/prefer-called-once": "off",
+    "vitest/prefer-to-be-truthy": "off",
+    "vitest/prefer-to-be-falsy": "off",
     "react-perf/jsx-no-new-object-as-prop": "warn",
     "react-perf/jsx-no-new-array-as-prop": "warn",
     "react-perf/jsx-no-new-function-as-prop": "warn",
@@ -551,7 +564,9 @@
       "files": ["src/**/*.test.ts", "src/**/*.test.tsx"],
       "rules": {
         "react/jsx-props-no-spreading": "off",
-        "eslint/no-empty-function": "off"
+        "eslint/no-empty-function": "off",
+        "no-unsafe-type-assertion": "off",
+        "@typescript-eslint/require-await": "off"
       }
     },
     {
@@ -606,6 +621,12 @@
       "files": ["src/**/*.mock.ts"],
       "rules": {
         "import/export": "off"
+      }
+    },
+    {
+      "files": ["e2e/**"],
+      "rules": {
+        "vitest/consistent-test-filename": "off"
       }
     }
   ]

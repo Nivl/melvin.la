@@ -20,7 +20,7 @@ test("renders all preset buttons", () => {
   );
   expect(getByRole("button", { name: "Basic Rock" })).toBeDefined();
   expect(getByRole("button", { name: "Blank" })).toBeDefined();
-});
+}, 5000);
 
 test("calls onPresetSelect with preset id on click", async () => {
   const user = userEvent.setup();
@@ -28,4 +28,4 @@ test("calls onPresetSelect with preset id on click", async () => {
   const { getByRole } = render(<PatternPresets onPresetSelect={onPresetSelect} />, { wrapper });
   await user.click(getByRole("button", { name: "Blank" }));
   expect(onPresetSelect).toHaveBeenCalledWith("blank");
-});
+}, 5000);

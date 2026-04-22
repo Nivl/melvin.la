@@ -5,11 +5,11 @@ import type { BeatmakerState } from "#features/beatmaker/models/types";
 
 // ── Mock Web Audio API ─────────────────────────────────────────────────────
 
-const mockStart = vi.fn();
-const mockStop = vi.fn();
-const mockConnect = vi.fn();
-const mockCreateBufferSource = vi.fn(() => ({
-  addEventListener: vi.fn(),
+const mockStart = vi.fn<() => void>();
+const mockStop = vi.fn<() => void>();
+const mockConnect = vi.fn<() => void>();
+const mockCreateBufferSource = vi.fn<() => object>(() => ({
+  addEventListener: vi.fn<() => void>(),
   buffer: undefined,
   connect: mockConnect,
   onended: undefined,
@@ -18,17 +18,17 @@ const mockCreateBufferSource = vi.fn(() => ({
 }));
 const mockGainNode = { connect: mockConnect, gain: { value: 0 } };
 const mockPanNode = { connect: mockConnect, pan: { value: 0 } };
-const mockCreateGain = vi.fn(() => mockGainNode);
-const mockCreateStereoPanner = vi.fn(() => mockPanNode);
-const mockDecodeAudioData = vi.fn().mockResolvedValue({});
-const mockCreateBuffer = vi.fn(() => ({}));
-const mockResume = vi.fn().mockImplementation(() => {});
-const mockClose = vi.fn().mockImplementation(() => {});
-const mockAddEventListener = vi.fn();
+const mockCreateGain = vi.fn<() => object>(() => mockGainNode);
+const mockCreateStereoPanner = vi.fn<() => object>(() => mockPanNode);
+const mockDecodeAudioData = vi.fn<(buffer: ArrayBuffer) => Promise<object>>().mockResolvedValue({});
+const mockCreateBuffer = vi.fn<() => object>(() => ({}));
+const mockResume = vi.fn<() => void>().mockImplementation(() => {});
+const mockClose = vi.fn<() => void>().mockImplementation(() => {});
+const mockAddEventListener = vi.fn<(event: string, ...args: unknown[]) => void>();
 
 beforeEach(() => {
   mockAddEventListener.mockClear();
-  const MockAudioContext = vi.fn(function MockAudioContext(this: object) {
+  const MockAudioContext = vi.fn<() => void>(function MockAudioContext(this: object) {
     Object.assign(this, {
       addEventListener: mockAddEventListener,
       close: mockClose,
@@ -47,8 +47,8 @@ beforeEach(() => {
   vi.stubGlobal("AudioContext", MockAudioContext);
   vi.stubGlobal(
     "fetch",
-    vi.fn().mockResolvedValue({
-      arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(8)),
+    vi.fn<() => Promise<object>>().mockResolvedValue({
+      arrayBuffer: vi.fn<() => Promise<ArrayBuffer>>().mockResolvedValue(new ArrayBuffer(8)),
       ok: true,
     }),
   );
@@ -62,25 +62,25 @@ afterEach(() => {
 
 // ── Tests ──────────────────────────────────────────────────────────────────
 
-describe("createEngine", () => {
+describe(createEngine, () => {
   test("does not create AudioContext on construction", () => {
     createEngine();
     expect(vi.mocked(AudioContext)).not.toHaveBeenCalled();
-  });
+  }, 5000);
 
   test("init() creates AudioContext and resumes it", async () => {
     const engine = createEngine();
     await engine.init();
     expect(vi.mocked(AudioContext)).toHaveBeenCalledTimes(1);
     expect(mockResume).toHaveBeenCalledTimes(1);
-  });
+  }, 5000);
 
   test("init() called twice reuses the same context", async () => {
     const engine = createEngine();
     await engine.init();
     await engine.init();
     expect(vi.mocked(AudioContext)).toHaveBeenCalledTimes(1);
-  });
+  }, 5000);
 
   test("init() called twice adds only one statechange listener", async () => {
     const engine = createEngine();
@@ -91,20 +91,20 @@ describe("createEngine", () => {
       (args) => args[0] === "statechange",
     );
     expect(stateChangeCalls).toHaveLength(1);
-  });
+  }, 5000);
 
   test("loadKit() fetches 6 samples", async () => {
     const engine = createEngine();
     await engine.loadKit("808");
     expect(vi.mocked(fetch)).toHaveBeenCalledTimes(6);
-  });
+  }, 5000);
 
   test("dispose() closes the AudioContext", async () => {
     const engine = createEngine();
     await engine.init();
     await engine.dispose();
     expect(mockClose).toHaveBeenCalledTimes(1);
-  });
+  }, 5000);
 
   test("stop() immediately stops all active sources", async () => {
     vi.useFakeTimers();
@@ -139,11 +139,11 @@ describe("createEngine", () => {
     expect(mockStop).toHaveBeenCalled();
 
     vi.useRealTimers();
-  });
+  }, 5000);
 
   test("concurrent init calls do not report duplicate decode errors for the same pending kit buffers", async () => {
     const seenBuffers = new WeakSet<ArrayBuffer>();
-    mockDecodeAudioData.mockImplementation((arrayBuffer: ArrayBuffer) => {
+    mockDecodeAudioData.mockImplementation(async (arrayBuffer: ArrayBuffer) => {
       if (seenBuffers.has(arrayBuffer)) {
         throw new Error("duplicate decode");
       }
@@ -154,8 +154,8 @@ describe("createEngine", () => {
 
     vi.stubGlobal(
       "fetch",
-      vi.fn().mockResolvedValue({
-        arrayBuffer: vi.fn().mockImplementation(() => new ArrayBuffer(8)),
+      vi.fn<() => Promise<object>>().mockResolvedValue({
+        arrayBuffer: vi.fn<() => ArrayBuffer>().mockImplementation(() => new ArrayBuffer(8)),
         ok: true,
       }),
     );
@@ -167,5 +167,5 @@ describe("createEngine", () => {
     await Promise.all([engine.init(), engine.init()]);
 
     expect(onError).not.toHaveBeenCalled();
-  });
+  }, 5000);
 });
