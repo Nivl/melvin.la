@@ -8,7 +8,7 @@ import {
   AppRouterInstance,
 } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import React, { useMemo } from "react";
-import { vitest } from "vitest";
+import { vi } from "vitest";
 
 import { locales } from "#i18n/locales.ts";
 import messages from "#messages/en.json";
@@ -25,12 +25,12 @@ const AppRouterContextProviderMock = ({
 }: AppRouterContextProviderMockProps): React.ReactNode => {
   const mockedRouter: AppRouterInstance = useMemo(
     () => ({
-      back: vitest.fn(),
-      forward: vitest.fn(),
-      prefetch: vitest.fn(),
-      push: vitest.fn(),
-      refresh: vitest.fn(),
-      replace: vitest.fn(),
+      back: vi.fn<AppRouterInstance["back"]>(),
+      forward: vi.fn<AppRouterInstance["forward"]>(),
+      prefetch: vi.fn<AppRouterInstance["prefetch"]>(),
+      push: vi.fn<AppRouterInstance["push"]>(),
+      refresh: vi.fn<AppRouterInstance["refresh"]>(),
+      replace: vi.fn<AppRouterInstance["replace"]>(),
       ...router,
     }),
     [router],

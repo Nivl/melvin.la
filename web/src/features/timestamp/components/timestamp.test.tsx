@@ -34,7 +34,7 @@ test("All the elements are on the page", () => {
   expect(getByRole("heading", { level: 1, name: "Timestamp Lookup" })).toBeDefined();
 
   expect(getByLabelText("Timestamp")).toBeDefined();
-});
+}, 5000);
 
 test("Input accepts numeric characters", async () => {
   const { user, getByLabelText } = setup();
@@ -43,7 +43,7 @@ test("Input accepts numeric characters", async () => {
 
   await user.type(input, "123456789");
   expect(input.value).toBe("123456789");
-});
+}, 5000);
 
 test("Inserting a timestamp add it to the timestamp list", async () => {
   const { user, getByLabelText, findByText } = setup();
@@ -55,7 +55,7 @@ test("Inserting a timestamp add it to the timestamp list", async () => {
   await user.keyboard("{Enter}");
 
   expect(await findByText("2025/07/20 01:17:11 UTC")).toBeDefined();
-});
+}, 5000);
 
 test("Converts seconds timestamp (10 digits) to correct date", async () => {
   const { user, getByLabelText, findByText } = setup();
@@ -67,7 +67,7 @@ test("Converts seconds timestamp (10 digits) to correct date", async () => {
   await user.keyboard("{Enter}");
 
   expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
-});
+}, 5000);
 
 test("Converts milliseconds timestamp (13 digits) to correct date", async () => {
   const { user, getByLabelText, findByText } = setup();
@@ -79,7 +79,7 @@ test("Converts milliseconds timestamp (13 digits) to correct date", async () => 
   await user.keyboard("{Enter}");
 
   expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
-});
+}, 5000);
 
 test("Converts microseconds timestamp (16 digits) to correct date", async () => {
   const { user, getByLabelText, findByText } = setup();
@@ -91,7 +91,7 @@ test("Converts microseconds timestamp (16 digits) to correct date", async () => 
   await user.keyboard("{Enter}");
 
   expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
-});
+}, 5000);
 
 test("Converts nanoseconds timestamp (19 digits) to correct date", async () => {
   const { user, getByLabelText, findByText } = setup();
@@ -103,7 +103,7 @@ test("Converts nanoseconds timestamp (19 digits) to correct date", async () => {
   await user.keyboard("{Enter}");
 
   expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
-});
+}, 5000);
 
 test("Has delete button for timestamps", async () => {
   const { user, getByLabelText, findByText, getByRole } = setup();
@@ -119,7 +119,7 @@ test("Has delete button for timestamps", async () => {
   // Verify delete button exists with correct aria-label
   const deleteButton = getByRole("button", { name: /remove/i });
   expect(deleteButton).toBeDefined();
-});
+}, 5000);
 
 test("Delete button removes timestamp from list", async () => {
   const { user, getByLabelText, findByText, getByRole } = setup();
@@ -146,7 +146,7 @@ test("Delete button removes timestamp from list", async () => {
   // Verify timestamp is no longer in the document
   const { queryByText } = setup();
   expect(queryByText("2024/01/01 00:00:00 UTC")).toBeNull();
-});
+}, 5000);
 
 test("Can delete specific timestamp when multiple exist", async () => {
   const { user, getByLabelText, findByText, getAllByRole } = setup();
@@ -179,7 +179,7 @@ test("Can delete specific timestamp when multiple exist", async () => {
   // Check that we now have only one delete button remaining
   const remainingDeleteButtons = getAllByRole("button", { name: /remove/i });
   expect(remainingDeleteButtons.length).toBe(1);
-});
+}, 5000);
 
 test("Clears input after successful timestamp conversion", async () => {
   const { user, getByLabelText } = setup();
@@ -191,7 +191,7 @@ test("Clears input after successful timestamp conversion", async () => {
 
   // Input should be cleared after successful conversion
   expect(input.value).toBe("");
-});
+}, 5000);
 
 test("Shows multiple timestamps in order", async () => {
   const { user, getByLabelText, findByText } = setup();
@@ -208,7 +208,7 @@ test("Shows multiple timestamps in order", async () => {
 
   expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
   expect(await findByText("2024/01/02 00:00:00 UTC")).toBeDefined();
-});
+}, 5000);
 
 test("Shows description about automatic format detection", () => {
   const { getByText } = setup();
@@ -216,7 +216,7 @@ test("Shows description about automatic format detection", () => {
   expect(
     getByText("Automatically detects milliseconds, microseconds, and nanoseconds"),
   ).toBeDefined();
-});
+}, 5000);
 
 test("Handles edge case timestamps correctly", async () => {
   const { user, getByLabelText, findByText } = setup();
@@ -229,4 +229,4 @@ test("Handles edge case timestamps correctly", async () => {
   await user.keyboard("{Enter}");
 
   expect(await findByText("1970/01/01 00:00:00 UTC")).toBeDefined();
-});
+}, 5000);

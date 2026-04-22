@@ -60,38 +60,38 @@ describe.each(ALGORITHMS)("$name", ({ fn }) => {
     expect(path[0]).toEqual(START);
     expect(path.at(-1)).toEqual(END_5x5);
     expect(isConnectedPath(path)).toBe(true);
-  });
+  }, 5000);
 
   it("returns an empty path when destination is unreachable", () => {
     const grid: Grid = fromAscii(["S##", "###", "##E"]);
     const { path } = fn(grid, [0, 0], [2, 2]);
     expect(path).toHaveLength(0);
-  });
+  }, 5000);
 
   it("returns a single-node path when start equals end", () => {
     const { path } = fn(OPEN_5x5, START, START);
     expect(path).toEqual([START]);
-  });
+  }, 5000);
 
   it("visits at least the start node", () => {
     const { visitedNodes } = fn(OPEN_5x5, START, END_5x5);
     expect(visitedNodes.length).toBeGreaterThan(0);
     expect(visitedNodes[0]).toEqual(START);
-  });
+  }, 5000);
 
   it("finds a path along a single-row corridor", () => {
     const end: Coords = [0, 4];
     const { path } = fn(CORRIDOR, [0, 0], end);
     expect(path[0]).toEqual([0, 0]);
     expect(path.at(-1)).toEqual(end);
-  });
+  }, 5000);
 
   it("does not include wall cells in the path", () => {
     const { path } = fn(MAZE, [0, 0], [2, 4]);
     for (const [row, col] of path) {
       expect(MAZE[row][col]).not.toBe("wall");
     }
-  });
+  }, 5000);
 
   it("path does not include walls even when destination is blocked", () => {
     const grid: Grid = fromAscii(["....", ".##.", ".##.", "...."]);
@@ -99,7 +99,7 @@ describe.each(ALGORITHMS)("$name", ({ fn }) => {
     for (const [row, col] of path) {
       expect(grid[row][col]).not.toBe("wall");
     }
-  });
+  }, 5000);
 });
 
 // ─── BFS/Dijkstra/A* shortest-path guarantee ────────────────────────────────
@@ -113,7 +113,7 @@ describe.each([
     // Manhattan distance from [0,0] to [4,4] is 8 — shortest possible path length
     const { path } = fn(OPEN_5x5, START, END_5x5);
     expect(path.length).toBe(9); // 8 moves = 9 nodes
-  });
+  }, 5000);
 
   it("returns the shortest path in the maze fixture", () => {
     const end: Coords = [2, 4];
@@ -122,5 +122,5 @@ describe.each([
     expect(path.length).toBeLessThanOrEqual(7);
     expect(path[0]).toEqual([0, 0]);
     expect(path.at(-1)).toEqual(end);
-  });
+  }, 5000);
 });

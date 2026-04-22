@@ -16,8 +16,8 @@ const state = buildDefaultState();
 const defaultProps = {
   activeStep: undefined as number | undefined,
   decodeErrors: {} as Record<string, string>,
-  onFileLoad: vi.fn(),
-  onStepToggle: vi.fn(),
+  onFileLoad: vi.fn<() => void>(),
+  onStepToggle: vi.fn<() => void>(),
   tracks: state.tracks,
 };
 
@@ -30,4 +30,4 @@ test("renders one row per track (6 rows)", () => {
   );
   // 6 tracks × 16 steps = 96 step buttons
   expect(stepBtns).toHaveLength(6 * 16);
-});
+}, 5000);

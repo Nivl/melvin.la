@@ -70,7 +70,7 @@ test("starting the game", async () => {
   expect(playButton, "Play button not found").toBeDefined();
   await user.click(playButton);
   expect(setIsPlaying, "pressing play should start the game").toHaveBeenCalledWith(true);
-});
+}, 5000);
 
 test("pausing the game", async () => {
   const {
@@ -83,7 +83,7 @@ test("pausing the game", async () => {
   expect(pauseButton, "Pause button not found").toBeDefined();
   await user.click(pauseButton);
   expect(setIsPlaying, "pressing pause should pause the game").toHaveBeenCalledWith(false);
-});
+}, 5000);
 
 test("changing the speed", () => {
   const {
@@ -98,7 +98,7 @@ test("changing the speed", () => {
   fireEvent.change(speedInput, { target: { value: 2 } });
 
   expect(setSpeed, "changing speed should update speed").toHaveBeenCalledWith(2);
-});
+}, 5000);
 
 test("toggling wrap edges calls setToroidal", async () => {
   const {
@@ -113,7 +113,7 @@ test("toggling wrap edges calls setToroidal", async () => {
   expect(setToroidal, "toggling wrap edges should call setToroidal with true").toHaveBeenCalledWith(
     true,
   );
-});
+}, 5000);
 
 test("Can start/pause the game", () => {
   const {
@@ -130,4 +130,4 @@ test("Can start/pause the game", () => {
   expect(setBoardSize, "changing board size should update board size").toHaveBeenCalledWith(
     boardSizes[1],
   );
-});
+}, 5000);

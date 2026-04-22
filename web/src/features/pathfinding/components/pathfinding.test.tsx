@@ -31,18 +31,18 @@ test("All controls are rendered", () => {
   expect(getByRole("button", { name: /place end/i })).toBeDefined();
   // Clear Path is hidden when grid has no visited/path cells
   expect(queryByRole("button", { name: /clear path/i })).toBeNull();
-});
+}, 5000);
 
 test("Algorithm selector is present", () => {
   const { getByRole } = setup();
   // The algorithm select should be in the DOM
   expect(getByRole("button", { name: /algorithm/i })).toBeDefined();
-});
+}, 5000);
 
 test("Grid is rendered", () => {
   const { getByRole } = setup();
   expect(getByRole("grid", { name: /pathfinding grid/i })).toBeDefined();
-});
+}, 5000);
 
 test("Visualize button is disabled during animation", async () => {
   const { getByRole, findByRole, user } = setup();
@@ -51,7 +51,7 @@ test("Visualize button is disabled during animation", async () => {
   // After click, the button should be replaced by Stop button
   const stopBtn = await findByRole("button", { name: /stop/i });
   expect(stopBtn).toBeDefined();
-});
+}, 5000);
 
 test('Clicking "Place Start" toggles to place-start mode; clicking again is a no-op (mode stays)', async () => {
   const { getByRole, user } = setup();
@@ -61,7 +61,7 @@ test('Clicking "Place Start" toggles to place-start mode; clicking again is a no
   // Clicking the active button again should not crash (no-op)
   await user.click(placeStartBtn);
   expect(placeStartBtn).toBeDefined();
-});
+}, 5000);
 
 test('Activating "Place End" switches away from "Place Start"', async () => {
   const { getByRole, user } = setup();
@@ -71,13 +71,13 @@ test('Activating "Place End" switches away from "Place Start"', async () => {
   await user.click(placeStartBtn);
   await user.click(placeEndBtn);
   expect(placeEndBtn).toBeDefined();
-});
+}, 5000);
 
 test('"place walls" is the default active mode', () => {
   const { getByRole } = setup();
   // place walls button should be present from the start
   expect(getByRole("button", { name: /place walls/i })).toBeDefined();
-});
+}, 5000);
 
 test("Start cell moves when clicking in place-start mode", async () => {
   const { getByRole, user } = setup();
@@ -97,4 +97,4 @@ test("Start cell moves when clicking in place-start mode", async () => {
   }
   // Grid remains rendered without errors
   expect(getByRole("grid", { name: /pathfinding grid/i })).toBeDefined();
-});
+}, 5000);

@@ -18,14 +18,14 @@ const getTextarea = () => {
 describe("string-length", () => {
   it("renders without crashing", () => {
     expect(() => render(<StringLength />, { wrapper })).not.toThrow();
-  });
+  }, 5000);
 
   it("renders all count labels", () => {
     render(<StringLength />, { wrapper });
     expect(screen.getAllByText("Characters").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Words").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Bytes (UTF-8)").length).toBeGreaterThan(0);
-  });
+  }, 5000);
 
   it("shows zero counts for empty input", () => {
     render(<StringLength />, { wrapper });
@@ -33,7 +33,7 @@ describe("string-length", () => {
     // Should show 0 for all counts initially
     const zeroElements = screen.getAllByText("0");
     expect(zeroElements.length).toBeGreaterThanOrEqual(3); // Characters, Words, Bytes (may have more from other tests)
-  });
+  }, 5000);
 
   it("can type in the textarea", async () => {
     const user = userEvent.setup();
@@ -43,7 +43,7 @@ describe("string-length", () => {
     await user.type(textarea, "hello");
 
     expect(textarea.value).toBe("hello");
-  });
+  }, 5000);
 
   it("updates display when typing", async () => {
     const user = userEvent.setup();
@@ -56,7 +56,7 @@ describe("string-length", () => {
     const allElements = screen.getAllByText(/\d+/);
     const hasNonZero = allElements.some((el) => el.textContent !== "0");
     expect(hasNonZero).toBe(true);
-  });
+  }, 5000);
 
   it("has functional input element", async () => {
     const user = userEvent.setup();
@@ -72,7 +72,7 @@ describe("string-length", () => {
     // Should be able to clear
     await user.clear(textarea);
     expect(textarea.value).toBe("");
-  });
+  }, 5000);
 
   describe("Multi-language string counting", () => {
     it("counts English text correctly", async () => {
@@ -104,7 +104,7 @@ describe("string-length", () => {
 
       // Check word count (3 words)
       expect(screen.getAllByText("3").length).toBeGreaterThan(0);
-    });
+    }, 5000);
 
     it("counts Korean text without spaces correctly", async () => {
       const user = userEvent.setup();
@@ -132,7 +132,7 @@ describe("string-length", () => {
 
       // Check byte count (Korean characters are 3 bytes each in UTF-8: 5 * 3 = 15)
       expect(screen.getAllByText("15").length).toBeGreaterThan(0);
-    });
+    }, 5000);
 
     it("counts French text with accents correctly", async () => {
       const user = userEvent.setup();
@@ -161,7 +161,7 @@ describe("string-length", () => {
       // Check byte count (accented characters take more bytes: é=2, ç=2, à=2, others=1 each)
       // C(1) + a(1) + f(1) + é(2) + space(1) + f(1) + r(1) + a(1) + n(1) + ç(2) + a(1) + i(1) + s(1) = 15 bytes
       expect(screen.getAllByText("15").length).toBeGreaterThan(0);
-    });
+    }, 5000);
 
     it("counts Chinese text correctly", async () => {
       const user = userEvent.setup();
@@ -189,7 +189,7 @@ describe("string-length", () => {
 
       // Check byte count (Chinese characters are 3 bytes each in UTF-8: 4 * 3 = 12)
       expect(screen.getAllByText("12").length).toBeGreaterThan(0);
-    });
+    }, 5000);
 
     it("counts mixed language text correctly", async () => {
       const user = userEvent.setup();
@@ -217,7 +217,7 @@ describe("string-length", () => {
 
       // Check byte count: Hello(5) + space(1) + 안녕(6) + space(1) + café(5) + space(1) + 你好(6) = 25 bytes
       expect(screen.getAllByText("25").length).toBeGreaterThan(0);
-    });
+    }, 5000);
 
     it("handles empty text correctly", async () => {
       const user = userEvent.setup();
@@ -230,7 +230,7 @@ describe("string-length", () => {
       // All counts should be 0 for empty text
       const zeroElements = screen.getAllByText("0");
       expect(zeroElements.length).toBeGreaterThanOrEqual(3);
-    });
+    }, 5000);
 
     it("handles whitespace-only text correctly", async () => {
       const user = userEvent.setup();
@@ -251,7 +251,7 @@ describe("string-length", () => {
 
       // Check word count (0 words - only whitespace)
       expect(screen.getAllByText("0").length).toBeGreaterThan(0);
-    });
+    }, 5000);
 
     it("counts Korean sentence without spaces correctly", async () => {
       const user = userEvent.setup();
@@ -279,6 +279,6 @@ describe("string-length", () => {
 
       // Check byte count (Korean characters are 3 bytes each in UTF-8: 9 * 3 = 27)
       expect(screen.getAllByText("27").length).toBeGreaterThan(0);
-    });
+    }, 5000);
   });
 });

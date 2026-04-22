@@ -12,22 +12,28 @@ import { Beatmaker } from "./beatmaker";
 
 // ── Mock audio engine ──────────────────────────────────────────────────────
 const mockEngine = {
-  clearCustomFiles: vi.fn(),
-  dispose: vi.fn().mockResolvedValue(undefined),
-  init: vi.fn().mockResolvedValue(undefined),
-  loadCustomFile: vi.fn().mockResolvedValue(undefined),
-  loadKit: vi.fn().mockResolvedValue(undefined),
-  start: vi.fn(),
-  stop: vi.fn(),
+  clearCustomFiles: vi.fn<() => void>(),
+  dispose: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
+  init: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
+  loadCustomFile: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
+  loadKit: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
+  start: vi.fn<() => void>(),
+  stop: vi.fn<() => void>(),
 };
 
-vi.mock("next-themes", () => ({
-  ThemeProvider: ({ children }: { children: ReactElement }): ReactElement => children,
-}));
+vi.mock(
+  import("next-themes"),
+  () =>
+    ({
+      ThemeProvider: ({ children }: { children: ReactElement }): ReactElement => children,
+    }) as unknown as Awaited<typeof import("next-themes")>,
+);
 
-vi.mock("#features/beatmaker/models", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("#features/beatmaker/models")>();
-  return { ...actual, createEngine: () => mockEngine };
+vi.mock(import("#features/beatmaker/models"), async (importOriginal) => {
+  const actual = await importOriginal();
+  return { ...actual, createEngine: () => mockEngine } as unknown as Awaited<
+    typeof import("#features/beatmaker/models")
+  >;
 });
 
 beforeEach(() => {
@@ -72,7 +78,7 @@ const mockNavigator = ({
 test("renders the Play button on initial load", () => {
   const { getByRole } = render(<Beatmaker />, { wrapper });
   expect(getByRole("button", { name: "Play" })).toBeDefined();
-});
+}, 5000);
 
 test("clicking Play initialises engine and starts playback", async () => {
   const user = userEvent.setup();
@@ -80,7 +86,7 @@ test("clicking Play initialises engine and starts playback", async () => {
   await user.click(getByRole("button", { name: "Play" }));
   expect(mockEngine.init).toHaveBeenCalledTimes(1);
   expect(mockEngine.start).toHaveBeenCalledTimes(1);
-});
+}, 5000);
 
 test("mount hydration does not overwrite an early Play interaction", async () => {
   const user = userEvent.setup();
@@ -91,12 +97,12 @@ test("mount hydration does not overwrite an early Play interaction", async () =>
 
   expect(mockEngine.init).toHaveBeenCalledTimes(1);
   expect(mockEngine.start).toHaveBeenCalledTimes(1);
-  expect(screen.getByRole("button", { name: "Stop" })).toBeTruthy();
+  expect(screen.getByRole("button", { name: "Stop" })).toBeDefined();
 
   await waitFor(() => {
-    expect(screen.getByRole("button", { name: "Stop" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Stop" })).toBeDefined();
   });
-});
+}, 5000);
 
 test("initial mount does not write a default share hash before interaction", () => {
   vi.useFakeTimers();
@@ -110,7 +116,7 @@ test("initial mount does not write a default share hash before interaction", () 
   });
 
   expect(globalThis.location.hash).toBe("");
-});
+}, 5000);
 
 test("clicking Stop stops playback", async () => {
   const user = userEvent.setup();
@@ -118,7 +124,7 @@ test("clicking Stop stops playback", async () => {
   await user.click(getByRole("button", { name: "Play" }));
   await user.click(getByRole("button", { name: "Stop" }));
   expect(mockEngine.stop).toHaveBeenCalledTimes(1);
-});
+}, 5000);
 
 test("clicking a step button toggles it", async () => {
   const user = userEvent.setup();
@@ -134,7 +140,7 @@ test("clicking a step button toggles it", async () => {
   const wasPressed = stepBtn.getAttribute("aria-pressed") === "true";
   await user.click(stepBtn);
   expect(stepBtn.getAttribute("aria-pressed")).toBe(String(!wasPressed));
-});
+}, 5000);
 
 test("hydrates the UI from a shared hash on initial page load", async () => {
   const sharedState = {
@@ -165,13 +171,13 @@ test("hydrates the UI from a shared hash on initial page load", async () => {
   const root = hydrateRoot(container, renderWithWrapper(<Beatmaker />));
 
   await waitFor(() => {
-    expect(screen.getByText("173")).toBeTruthy();
+    expect(screen.getByText("173")).toBeDefined();
     expect(screen.getByRole("button", { name: "32" }).getAttribute("aria-pressed")).toBe("true");
   });
 
   root.unmount();
   container.remove();
-});
+}, 5000);
 
 test("shows an iOS warning banner on iOS and lets the user dismiss it", async () => {
   mockNavigator({
@@ -184,13 +190,13 @@ test("shows an iOS warning banner on iOS and lets the user dismiss it", async ()
 
   render(<Beatmaker />, { wrapper });
 
-  expect(await screen.findByText("No sounds?")).toBeTruthy();
+  expect(await screen.findByText("No sounds?")).toBeDefined();
   await user.click(screen.getByRole("button", { name: "Dismiss" }));
 
   await waitFor(() => {
     expect(screen.queryByText("No sounds?")).toBeNull();
   });
-});
+}, 5000);
 
 test("does not show the iOS warning banner on non-iOS devices", async () => {
   mockNavigator({
@@ -205,4 +211,4 @@ test("does not show the iOS warning banner on non-iOS devices", async () => {
   await waitFor(() => {
     expect(screen.queryByText("No sounds?")).toBeNull();
   });
-});
+}, 5000);

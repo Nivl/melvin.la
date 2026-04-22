@@ -17,8 +17,8 @@ const defaultProps = {
   activeStep: undefined as number | undefined,
   decodeError: undefined as string | undefined,
   hasCustomFile: false,
-  onFileLoad: vi.fn(),
-  onStepToggle: vi.fn(),
+  onFileLoad: vi.fn<() => void>(),
+  onStepToggle: vi.fn<() => void>(),
   steps: steps16,
   trackId: "kick" as const,
 };
@@ -29,7 +29,7 @@ test("renders 16 step buttons", () => {
     (btn) => btn.getAttribute("aria-pressed") !== null,
   );
   expect(stepBtns).toHaveLength(16);
-});
+}, 5000);
 
 test("toggles step on click", async () => {
   const user = userEvent.setup();
@@ -43,7 +43,7 @@ test("toggles step on click", async () => {
   }
   await user.click(stepBtn);
   expect(onStepToggle).toHaveBeenCalledWith(0);
-});
+}, 5000);
 
 test('active steps have aria-pressed="true"', () => {
   const activeSteps = steps16.map((_, i) => i === 3);
@@ -53,7 +53,7 @@ test('active steps have aria-pressed="true"', () => {
   );
   expect(stepBtns[3].getAttribute("aria-pressed")).toBe("true");
   expect(stepBtns[0].getAttribute("aria-pressed")).toBe("false");
-});
+}, 5000);
 
 test("shows decode error when provided", () => {
   const { getByText } = render(
@@ -61,7 +61,7 @@ test("shows decode error when provided", () => {
     { wrapper },
   );
   expect(getByText("Could not decode audio file.")).toBeDefined();
-});
+}, 5000);
 
 test("clicking the drop zone label triggers file selection (calls onFileLoad via change)", async () => {
   const user = userEvent.setup();
@@ -74,4 +74,4 @@ test("clicking the drop zone label triggers file selection (calls onFileLoad via
   }
   await user.upload(fileInput, file);
   expect(onFileLoad).toHaveBeenCalledWith(file);
-});
+}, 5000);

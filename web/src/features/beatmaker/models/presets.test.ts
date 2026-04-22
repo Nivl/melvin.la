@@ -9,18 +9,18 @@ test("each preset has steps arrays matching its stepCount", () => {
       expect(preset.tracks[trackId].steps).toHaveLength(preset.stepCount);
     }
   }
-});
+}, 5000);
 
 test("trap preset has stepCount 32", () => {
   expect(PRESETS.trap.stepCount).toBe(32);
-});
+}, 5000);
 
 test("blank preset has all steps off", () => {
   const { blank } = PRESETS;
   for (const trackId of TRACK_IDS) {
     expect(blank.tracks[trackId].steps.every((step) => !step)).toBe(true);
   }
-});
+}, 5000);
 
 test("buildDefaultState returns a valid BeatmakerState", () => {
   const state = buildDefaultState();
@@ -28,4 +28,4 @@ test("buildDefaultState returns a valid BeatmakerState", () => {
   expect(state.bpm).toBe(120);
   expect(state.stepCount).toBe(16);
   expect(state.kit).toBe("808");
-});
+}, 5000);

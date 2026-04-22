@@ -8,9 +8,9 @@ import { Skills } from "./skills";
 
 // Mock motion/react so AnimatePresence removes children synchronously in jsdom.
 // Without this, exit animations keep elements in the DOM forever (no RAF loop in jsdom).
-vi.mock("motion/react", async () => {
+vi.mock(import("motion/react"), async () => {
   const { motionMock } = await import("#shared/utils/mocks/motion");
-  return motionMock;
+  return motionMock as unknown as Awaited<typeof import("motion/react")>;
 });
 
 const setup = () => {
@@ -25,17 +25,17 @@ const setup = () => {
 describe("Skills Component", () => {
   it("renders without crashing", () => {
     expect(() => render(<Skills />, { wrapper })).not.toThrow();
-  });
+  }, 5000);
 
   it("displays the skills heading", () => {
     setup();
     expect(screen.getByRole("heading", { level: 2, name: "Skills" })).toBeDefined();
-  });
+  }, 5000);
 
   it("displays filter input", () => {
     setup();
     expect(screen.getByLabelText("Filter by name")).toBeDefined();
-  });
+  }, 5000);
 
   it("displays skills initially", () => {
     setup();
@@ -46,7 +46,7 @@ describe("Skills Component", () => {
     expect(screen.getByRole("link", { name: "Typescript" })).toBeDefined();
     expect(screen.getByRole("link", { name: "Javascript" })).toBeDefined();
     expect(screen.getByRole("link", { name: "ReactJS" })).toBeDefined();
-  });
+  }, 5000);
 
   it("name filter works correctly", async () => {
     const { user } = setup();
@@ -58,7 +58,7 @@ describe("Skills Component", () => {
 
     expect(screen.getByRole("link", { name: "Go" })).toBeDefined();
     expect(screen.queryByRole("link", { name: "ReactJS" })).toBeNull();
-  });
+  }, 5000);
 
   it("name filter is case insensitive", async () => {
     const { user } = setup();
@@ -70,7 +70,7 @@ describe("Skills Component", () => {
 
     expect(screen.getByRole("link", { name: "ReactJS" })).toBeDefined();
     expect(screen.queryByRole("link", { name: "Go" })).toBeNull();
-  });
+  }, 5000);
 
   it("displays year from slider", () => {
     setup();
@@ -92,7 +92,7 @@ describe("Skills Component", () => {
     // Check that there's one group element
     const groupElements = yearSliders.filter((el) => el.getAttribute("role") === "group");
     expect(groupElements.length).toBe(1);
-  });
+  }, 5000);
 
   it("skills have correct links", () => {
     setup();
@@ -103,7 +103,7 @@ describe("Skills Component", () => {
 
     const typescriptLink = screen.getByRole("link", { name: "Typescript" });
     expect(typescriptLink.getAttribute("href")).toBe("https://www.typescriptlang.org");
-  });
+  }, 5000);
 
   it("clear name filter works", async () => {
     const { user } = setup();
@@ -123,7 +123,7 @@ describe("Skills Component", () => {
     expect(screen.getByRole("link", { name: "Go" })).toBeDefined();
     expect(screen.getByRole("link", { name: "ReactJS" })).toBeDefined();
     expect(screen.getByRole("link", { name: "Javascript" })).toBeDefined();
-  });
+  }, 5000);
 
   it("no results message appears when no skills match filters", async () => {
     const { user } = setup();
@@ -137,7 +137,7 @@ describe("Skills Component", () => {
     // Verify no skill items are visible
     expect(screen.queryByRole("link", { name: "Go" })).toBeNull();
     expect(screen.queryByRole("link", { name: "ReactJS" })).toBeNull();
-  });
+  }, 5000);
 
   it("component renders successfully without hydration errors", () => {
     // Since we use useState with useEffect for randomization to avoid SSR issues,
@@ -154,7 +154,7 @@ describe("Skills Component", () => {
     // And that skills are displayed
     const links = screen.getAllByRole("link");
     expect(links.length).toBeGreaterThan(0);
-  });
+  }, 5000);
 
   it("skills from earliest year (2004) are shown at max slider value", async () => {
     const { user } = setup();
@@ -182,5 +182,5 @@ describe("Skills Component", () => {
     expect(screen.getByRole("link", { name: "PHP" })).toBeDefined();
     // MySQL also has usage from 2004
     expect(screen.getByRole("link", { name: "MySQL" })).toBeDefined();
-  });
+  }, 5000);
 });
