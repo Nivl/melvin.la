@@ -26,101 +26,103 @@ type RootStyle = React.CSSProperties &
   Record<"--font-sans" | "--font-condensed" | "--font-fortnite", string>;
 
 const notoSans = Noto_Sans({
+  display: "swap",
   subsets: ["latin"],
   variable: "--font-noto-sans",
 });
 
 const notoSansJP = Noto_Sans_JP({
+  display: "swap",
+  preload: false,
   subsets: ["latin"],
   variable: "--font-noto-sans-jp",
   weight: "variable",
 });
 
 const notoSansKR = Noto_Sans_KR({
+  display: "swap",
+  preload: false,
   subsets: ["latin"],
   variable: "--font-noto-sans-kr",
   weight: "variable",
 });
 
 const notoSansSC = Noto_Sans_SC({
+  display: "swap",
+  preload: false,
   subsets: ["latin"],
   variable: "--font-noto-sans-sc",
   weight: "variable",
 });
 
 const notoSansTC = Noto_Sans_TC({
+  display: "swap",
+  preload: false,
   subsets: ["latin"],
   variable: "--font-noto-sans-tc",
   weight: "variable",
 });
 
 const firaCode = Fira_Code({
+  display: "swap",
   subsets: ["latin"],
   variable: "--font-fira-code",
 });
 
 const baikal = localFont({
+  display: "swap",
   src: "../../bundled_static/fonts/baikal_trial_ultra_condensed.woff2",
   variable: "--font-baikal",
 });
 
 const burbank = localFont({
+  display: "swap",
   src: "../../bundled_static/fonts/burbank_big_condensed_bold.woff2",
   variable: "--font-burbank",
 });
 
-// Adding a new font?
-//
-// You'll need to add your fonts to:
-// - Tailwind's tailwind.config.ts file
-// - Storybook's fonts.css file
-const fonts = [notoSans, notoSansJP, notoSansKR, notoSansSC, notoSansTC, firaCode, baikal, burbank];
+// Core fonts are used by every locale. CJK fonts attach only for their
+// matching locale so the browser doesn't see unused @font-face rules.
+const coreFonts = [notoSans, firaCode, baikal, burbank];
+
+const localeFontMap = {
+  ja: notoSansJP,
+  ko: notoSansKR,
+  zh: notoSansSC,
+  "zh-tw": notoSansTC,
+} as const;
+
+const localePrimarySans = {
+  ja: "var(--font-noto-sans-jp)",
+  ko: "var(--font-noto-sans-kr)",
+  zh: "var(--font-noto-sans-sc)",
+  "zh-tw": "var(--font-noto-sans-tc)",
+} as const;
 
 const systemFonts =
   "'-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif";
 
-const getFonts = (locale: string) => {
-  let primarySans = "var(--font-noto-sans)";
-  let condensed = "var(--font-baikal)";
-  let fortnite = "var(--font-burbank)";
+const isCJKLocale = (locale: string): locale is keyof typeof localeFontMap =>
+  locale in localeFontMap;
 
-  // Baikal (Condensed) and Burbank (Fortnite) are western-only fonts.
-  // For other languages, we fallback to the appropriate Noto Sans font
-  // to ensure characters are rendered correctly.
-  switch (locale) {
-    case "ja": {
-      primarySans = "var(--font-noto-sans-jp)";
-      condensed = "var(--font-noto-sans-jp)";
-      fortnite = "var(--font-noto-sans-jp)";
-      break;
-    }
-    case "ko": {
-      primarySans = "var(--font-noto-sans-kr)";
-      condensed = "var(--font-noto-sans-kr)";
-      fortnite = "var(--font-noto-sans-kr)";
-      break;
-    }
-    case "zh": {
-      primarySans = "var(--font-noto-sans-sc)";
-      condensed = "var(--font-noto-sans-sc)";
-      fortnite = "var(--font-noto-sans-sc)";
-      break;
-    }
-    case "zh-tw": {
-      primarySans = "var(--font-noto-sans-tc)";
-      condensed = "var(--font-noto-sans-tc)";
-      fortnite = "var(--font-noto-sans-tc)";
-      break;
-    }
-    default: {
-      break;
-    }
+const getFontsForLocale = (locale: string) => {
+  if (!isCJKLocale(locale)) {
+    return {
+      condensed: "var(--font-baikal)",
+      fonts: coreFonts,
+      fortnite: "var(--font-burbank)",
+      sans: `var(--font-noto-sans), ${systemFonts}`,
+    };
   }
 
+  const extra = localeFontMap[locale];
+  const primarySans = localePrimarySans[locale];
+
   return {
-    condensed,
-    fortnite,
-    sans: `${primarySans}, var(--font-noto-sans), var(--font-noto-sans-jp), var(--font-noto-sans-kr), var(--font-noto-sans-sc), var(--font-noto-sans-tc), ${systemFonts}`,
+    condensed: primarySans,
+    fonts: [...coreFonts, extra],
+    fortnite: primarySans,
+    sans: `${primarySans}, ${systemFonts}`,
   };
 };
 
@@ -153,7 +155,7 @@ export default async function RootLayout({
   setRequestLocale(locale);
 
   const msg = await getMessages();
-  const { sans, condensed, fortnite } = getFonts(locale);
+  const { condensed, fonts, fortnite, sans } = getFontsForLocale(locale);
   const style: RootStyle = {
     "--font-condensed": condensed,
     "--font-fortnite": fortnite,
