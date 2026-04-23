@@ -4,7 +4,6 @@ import { Button, Dropdown, Label } from "@heroui/react";
 import {
   BookText as BlogIcon,
   Calendar as TimestampIcon,
-  ChevronDown as DownIcon,
   Dices as UuidIcon,
   Globe as TimezoneIcon,
   House as HomeIcon,
@@ -16,6 +15,7 @@ import { motion, MotionConfig } from "motion/react";
 import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useSyncExternalStore } from "react";
+import { FaChevronDown as DownIcon } from "react-icons/fa";
 import { GiConwayLifeGlider as ConwayIcon } from "react-icons/gi";
 import { TbBrandFortnite as FortniteIcon } from "react-icons/tb";
 
