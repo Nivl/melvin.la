@@ -37,10 +37,10 @@ test("round-trip: decode(encode(state)) reproduces non-default track values", ()
       ...state.tracks,
       kick: {
         ...state.tracks.kick,
+        muted: true,
+        pan: -0.5,
         steps: customSteps,
         volume: 0.42,
-        pan: -0.5,
-        muted: true,
       },
     },
   };

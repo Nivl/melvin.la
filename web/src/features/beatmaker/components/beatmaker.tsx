@@ -421,15 +421,15 @@ export const Beatmaker = () => {
   );
 
   const handleCopy = useCallback(async () => {
-    const writeText = (
+    const clipboard = (
       globalThis as {
         navigator?: {
           clipboard?: { writeText?: (string: string) => Promise<void> };
         };
       }
-    ).navigator?.clipboard?.writeText;
+    ).navigator?.clipboard;
 
-    if (typeof writeText !== "function") {
+    if (typeof clipboard?.writeText !== "function") {
       return;
     }
 
@@ -439,7 +439,7 @@ export const Beatmaker = () => {
       const hash = encode(currentState, hasCustom);
       const url = `${globalThis.location.origin}${globalThis.location.pathname}#${hash}`;
 
-      await writeText(url);
+      await clipboard.writeText(url);
       setCopied(true);
       clearTimeout(copyTimerRef.current);
       copyTimerRef.current = setTimeout(() => {
