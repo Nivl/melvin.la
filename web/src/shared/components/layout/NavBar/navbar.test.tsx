@@ -1,5 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import type { ComponentType } from "react";
+import { useEffect, useState } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 import { testWrapper as wrapper } from "#shared/utils/tests";
@@ -9,6 +11,28 @@ import { Navbar } from "./navbar";
 vi.mock(import("motion/react"), async () => {
   const { motionMock } = await import("#shared/utils/mocks/motion");
   return motionMock as unknown as Awaited<typeof import("motion/react")>;
+});
+
+vi.mock(import("next/dynamic"), async () => {
+  const dynamicMock = {
+    default: (factory: () => Promise<ComponentType<Record<string, unknown>>>) => {
+      const Wrapper = (props: Record<string, unknown>) => {
+        const [Comp, setComp] = useState<ComponentType<Record<string, unknown>> | undefined>(
+          undefined,
+        );
+        useEffect(() => {
+          factory()
+            .then((mod) => {
+              setComp(() => mod);
+            })
+            .catch(() => {}); // eslint-disable-line @typescript-eslint/no-empty-function
+        }, []);
+        return Comp ? <Comp {...props} /> : undefined;
+      };
+      return Wrapper;
+    },
+  };
+  return dynamicMock as unknown as Awaited<typeof import("next/dynamic")>;
 });
 
 let mockPathname = "/";
@@ -138,26 +162,26 @@ describe("navbar", () => {
     expect(blogLink.getAttribute("href")).toBe("/blog");
   }, 5000);
 
-  it('hamburger toggle shows "Open menu" when menu is closed', () => {
+  it('hamburger toggle shows "Open menu" when menu is closed', async () => {
     setup();
-    expect(screen.getByRole("button", { name: "Open menu" })).toBeDefined();
+    expect(await screen.findByRole("button", { name: "Open menu" })).toBeDefined();
   }, 5000);
 
   it("hamburger toggle updates accessible name when clicked", async () => {
     setup();
     const user = userEvent.setup();
-    await user.click(screen.getByRole("button", { name: "Open menu" }));
-    expect(screen.getByRole("button", { name: "Close menu" })).toBeDefined();
+    await user.click(await screen.findByRole("button", { name: "Open menu" }));
+    expect(await screen.findByRole("button", { name: "Close menu" })).toBeDefined();
   }, 5000);
 
   it("clicking a mobile menu link closes the menu", async () => {
     setup();
     const user = userEvent.setup();
-    await user.click(screen.getByRole("button", { name: "Open menu" }));
+    await user.click(await screen.findByRole("button", { name: "Open menu" }));
     // Scope to the mobile menu container to avoid ambiguity with desktop nav links
-    const mobileMenu = screen.getByTestId("navbar-mobile-menu");
+    const mobileMenu = await screen.findByTestId("navbar-mobile-menu");
     await user.click(within(mobileMenu).getByRole("link", { name: "Home" }));
     // Toggle should revert to "Open menu" label
-    expect(screen.getByRole("button", { name: "Open menu" })).toBeDefined();
+    expect(await screen.findByRole("button", { name: "Open menu" })).toBeDefined();
   }, 5000);
 });
