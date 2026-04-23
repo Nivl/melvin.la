@@ -41,5 +41,5 @@ export const defaultConfig: BrowserOptions | NodeOptions | EdgeOptions = {
   enableLogs: true,
 
   sendDefaultPii: false,
-  tracesSampleRate: process.env.NODE_ENV === "production" ? 0.1 : 1,
+  tracesSampleRate: process.env.NODE_ENV === "production" ? 0.01 : 1,
 };

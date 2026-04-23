@@ -4,8 +4,8 @@ import { Calendar, DateField, DatePicker, Label, TimeField } from "@heroui/react
 import { DateValue, getLocalTimeZone, now } from "@internationalized/date";
 import moment from "moment-timezone";
 import { AnimatePresence } from "motion/react";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 
 import { City, CityData, CityDataWithExtras, sortedCities } from "#features/timezones/models";
 import { Color, colors, LargePill } from "#shared/components/layout/LargePill";
@@ -20,6 +20,12 @@ const getColor = (skip?: Color): Color => {
 
 export const Timezones = () => {
   const t = useTranslations("timezones");
+  const locale = useLocale();
+
+  useEffect(() => {
+    const momentLocale = locale === "zh" ? "zh-cn" : locale;
+    moment.locale(momentLocale);
+  }, [locale]);
 
   const [zones, setZones] = useState<CityDataWithExtras[]>([]);
   const [baseZone, setBaseZone] = useState<CityData>();

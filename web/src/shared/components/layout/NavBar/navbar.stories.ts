@@ -45,6 +45,14 @@ export const MobileMenuOpen: Story = {
     viewport: { value: "xsmall" },
   },
   parameters: {
+    chromatic: {
+      delay: 300,
+      // Only snapshot at mobile viewports — the menu is hidden at large sizes.
+      modes: {
+        "light xsmall": { theme: "light", viewport: "xsmall" },
+        xsmall: { theme: "dark", viewport: "xsmall" },
+      },
+    },
     nextjs: {
       appDirectory: true,
       navigation: {
@@ -53,15 +61,35 @@ export const MobileMenuOpen: Story = {
     },
   },
   play: async ({ canvasElement }) => {
+    // Disable CSS transitions so the drawer snaps to its final open state
+    // immediately. This removes any timing/animation dependency and makes
+    // the Chromatic snapshot reliable regardless of transition duration.
+    const style = canvasElement.ownerDocument.createElement("style");
+    style.textContent =
+      "*, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; transition-delay: 0ms !important; animation-delay: 0ms !important; }";
+    canvasElement.ownerDocument.head.append(style);
+
     const canvas = within(canvasElement);
-    // The hamburger button is only accessible at mobile viewports (md:hidden on
-    // desktop). When Chromatic renders this story with a large viewport mode
-    // (xxlarge, FourK), the button is absent from the accessibility tree, so
-    // skip the interaction rather than error.
-    const button = canvas.queryByRole("button", { name: "Open menu" });
-    if (!button) {
+    // findByRole waits for the real MobileDrawer to mount after its dynamic
+    // import resolves (MobileDrawerLoading is aria-hidden and won't match).
+    // At large viewports md:hidden removes the button from the a11y tree, so
+    // the catch returns early without failing.
+    let button: HTMLElement | undefined = undefined;
+    try {
+      button = await canvas.findByRole("button", { name: "Open menu" }, { timeout: 5000 });
+    } catch {
       return;
     }
     await userEvent.click(button);
+    // Wait for the drawer body to appear in the DOM (portal renders to document.body).
+    try {
+      await within(canvasElement.ownerDocument.body).findByTestId(
+        "navbar-mobile-menu",
+        {},
+        { timeout: 5000 },
+      );
+    } catch {
+      // Button existed but drawer didn't open — nothing to wait for.
+    }
   },
 };

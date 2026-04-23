@@ -1,49 +1,42 @@
 "use client";
 
-import { Button, Drawer, Dropdown, Label } from "@heroui/react";
-import { motion, MotionConfig } from "motion/react";
-import { useLocale, useTranslations } from "next-intl";
-import { ReactNode, useState, useSyncExternalStore } from "react";
-import { FaChevronDown as DownIcon } from "react-icons/fa";
-import { FaRegCalendar as TimestampIcon } from "react-icons/fa6";
+import { Button, Dropdown, Label } from "@heroui/react";
 import {
-  GiConwayLifeGlider as ConwayIcon,
-  GiPerspectiveDiceSixFacesRandom as UuidIcon,
-} from "react-icons/gi";
-import { LuBookText as BlogIcon, LuHouse as HomeIcon, LuMenu as MenuIcon } from "react-icons/lu";
-import { MdOutlineTextFields as StringLengthIcon } from "react-icons/md";
-import { PiPathBold as PathfindingIcon } from "react-icons/pi";
-import { RiTimeZoneLine as TimezoneIcon } from "react-icons/ri";
+  BookText as BlogIcon,
+  Calendar as TimestampIcon,
+  Dices as UuidIcon,
+  Globe as TimezoneIcon,
+  House as HomeIcon,
+  LayoutGrid as BeatmakerIcon,
+  Route as PathfindingIcon,
+  Type as StringLengthIcon,
+} from "lucide-react";
+import { motion, MotionConfig } from "motion/react";
+import dynamic from "next/dynamic";
+import { useLocale, useTranslations } from "next-intl";
+import { useState, useSyncExternalStore } from "react";
+import { FaChevronDown as DownIcon } from "react-icons/fa";
+import { GiConwayLifeGlider as ConwayIcon } from "react-icons/gi";
 import { TbBrandFortnite as FortniteIcon } from "react-icons/tb";
-import { TfiLayoutGrid4Alt as BeatmakerIcon } from "react-icons/tfi";
 
 import { Link as NextLink, usePathname, useRouter } from "#i18n/routing";
 import { Section } from "#shared/components/layout/section";
 
 import { LanguageSwitcher } from "./language-switcher";
+import { MobileDrawerLoading } from "./mobile-drawer-loading";
+import type { NavSection } from "./nav-sections";
 import { ThemeSwitcher } from "./theme-switcher";
 
-type NavLink = {
-  type: "link";
-  key: string;
-  labelKey: string;
-  href: string;
-  logo: ReactNode;
-};
-
-type NavGroup = {
-  type: "group";
-  key: string;
-  labelKey: string;
-  pathPrefix: string;
-  items: {
-    key: string;
-    labelKey: string;
-    logo: ReactNode;
-  }[];
-};
-
-type NavSection = NavLink | NavGroup;
+const MobileDrawer = dynamic(
+  async () => {
+    const mod = await import("./mobile-drawer");
+    return mod.MobileDrawer;
+  },
+  {
+    loading: () => <MobileDrawerLoading />,
+    ssr: false,
+  },
+);
 
 const navSections: NavSection[] = [
   {
@@ -238,63 +231,13 @@ export const Navbar = () => {
               })}
             </div>
 
-            <Drawer isOpen={isMobileDrawerOpen} onOpenChange={setIsMobileDrawerOpen}>
-              <Button className="p-0 md:hidden" variant="ghost" aria-label={t("openMenu")}>
-                <MenuIcon className="h-5 w-5" />
-              </Button>
-
-              <Drawer.Backdrop variant="blur">
-                <Drawer.Content placement="left">
-                  <Drawer.Dialog className="">
-                    <Drawer.CloseTrigger aria-label={t("closeMenu")} />
-                    <Drawer.Header>
-                      <Drawer.Heading>{t("menu")}</Drawer.Heading>
-                    </Drawer.Header>
-                    <Drawer.Body>
-                      <nav className="flex flex-col gap-1" data-testid="navbar-mobile-menu">
-                        {navSections.map((section) => {
-                          const label = t(section.labelKey);
-
-                          if (section.type === "link") {
-                            return (
-                              <NextLink
-                                key={section.key}
-                                href={section.href}
-                                onClick={closeMobileDrawer}
-                                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
-                              >
-                                {section.logo}
-                                {label}
-                              </NextLink>
-                            );
-                          }
-
-                          return (
-                            <div key={section.key}>
-                              <div className="mt-5 mb-2 font-semibold uppercase">{label}</div>
-
-                              <div className="flex flex-col gap-1">
-                                {section.items.map((item) => (
-                                  <NextLink
-                                    key={item.key}
-                                    onClick={closeMobileDrawer}
-                                    href={`${section.pathPrefix}/${item.key}`}
-                                    className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
-                                  >
-                                    {item.logo}
-                                    {t(item.labelKey)}
-                                  </NextLink>
-                                ))}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </nav>
-                    </Drawer.Body>
-                  </Drawer.Dialog>
-                </Drawer.Content>
-              </Drawer.Backdrop>
-            </Drawer>
+            <MobileDrawer
+              isOpen={isMobileDrawerOpen}
+              onClose={closeMobileDrawer}
+              onOpenChange={setIsMobileDrawerOpen}
+              sections={navSections}
+              t={t}
+            />
 
             <div className="flex items-center gap-2">
               {didMount && <ThemeSwitcher />}

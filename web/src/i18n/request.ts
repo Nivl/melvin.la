@@ -4,12 +4,6 @@ import { logger } from "@sentry/nextjs";
 import { getRequestConfig } from "next-intl/server";
 
 import defaultLocalMessages from "#messages/en.json";
-import esMessages from "#messages/es.json";
-import frMessages from "#messages/fr.json";
-import jaMessages from "#messages/ja.json";
-import koMessages from "#messages/ko.json";
-import zhMessages from "#messages/zh.json";
-import zhTwMessages from "#messages/zh-tw.json";
 
 import type { Locales } from "./locales";
 import { isLocale } from "./locales";
@@ -17,14 +11,13 @@ import { routing } from "./routing";
 
 export type MessagesType = { [key: string]: string | MessagesType };
 
-const allMessages: Record<Locales, MessagesType> = {
-  en: defaultLocalMessages,
-  es: esMessages,
-  fr: frMessages,
-  ja: jaMessages,
-  ko: koMessages,
-  zh: zhMessages,
-  "zh-tw": zhTwMessages,
+const loadMessages = async (locale: Locales): Promise<MessagesType> => {
+  if (locale === "en") {
+    return defaultLocalMessages;
+  }
+  const mod: unknown = await import(`../../messages/${locale}.json`);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+  return (mod as { default: MessagesType }).default;
 };
 
 export const buildGetMessageFallback =
@@ -54,7 +47,6 @@ export const buildGetMessageFallback =
     if (typeof k === "string") {
       return k;
     }
-
     // weird case where the key has children instead of being a string
     logger.error(logger.fmt`Missing or invalid path in default local: ${path}`, {
       path,
@@ -66,12 +58,12 @@ export const buildGetMessageFallback =
 export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale;
 
-  if (!isLocale(locale)) {
+  if (!locale || !isLocale(locale)) {
     locale = routing.defaultLocale;
   }
 
   const activeLocale: Locales = isLocale(locale) ? locale : routing.defaultLocale;
-  const messages = allMessages[activeLocale];
+  const messages = await loadMessages(activeLocale);
 
   return {
     getMessageFallback: buildGetMessageFallback(locale),

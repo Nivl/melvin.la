@@ -11,6 +11,11 @@ vi.mock(import("motion/react"), async () => {
   return motionMock as unknown as Awaited<typeof import("motion/react")>;
 });
 
+vi.mock(import("next/dynamic"), async () => {
+  const { dynamicMock } = await import("#shared/utils/mocks/dynamic");
+  return dynamicMock as unknown as Awaited<typeof import("next/dynamic")>;
+});
+
 let mockPathname = "/";
 
 vi.mock(import("#i18n/routing"), async (importOriginal) => {
@@ -138,26 +143,26 @@ describe("navbar", () => {
     expect(blogLink.getAttribute("href")).toBe("/blog");
   }, 5000);
 
-  it('hamburger toggle shows "Open menu" when menu is closed', () => {
+  it('hamburger toggle shows "Open menu" when menu is closed', async () => {
     setup();
-    expect(screen.getByRole("button", { name: "Open menu" })).toBeDefined();
+    expect(await screen.findByRole("button", { name: "Open menu" })).toBeDefined();
   }, 5000);
 
   it("hamburger toggle updates accessible name when clicked", async () => {
     setup();
     const user = userEvent.setup();
-    await user.click(screen.getByRole("button", { name: "Open menu" }));
-    expect(screen.getByRole("button", { name: "Close menu" })).toBeDefined();
+    await user.click(await screen.findByRole("button", { name: "Open menu" }));
+    expect(await screen.findByRole("button", { name: "Close menu" })).toBeDefined();
   }, 5000);
 
   it("clicking a mobile menu link closes the menu", async () => {
     setup();
     const user = userEvent.setup();
-    await user.click(screen.getByRole("button", { name: "Open menu" }));
+    await user.click(await screen.findByRole("button", { name: "Open menu" }));
     // Scope to the mobile menu container to avoid ambiguity with desktop nav links
-    const mobileMenu = screen.getByTestId("navbar-mobile-menu");
+    const mobileMenu = await screen.findByTestId("navbar-mobile-menu");
     await user.click(within(mobileMenu).getByRole("link", { name: "Home" }));
     // Toggle should revert to "Open menu" label
-    expect(screen.getByRole("button", { name: "Open menu" })).toBeDefined();
+    expect(await screen.findByRole("button", { name: "Open menu" })).toBeDefined();
   }, 5000);
 });

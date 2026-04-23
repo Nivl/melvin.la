@@ -50,7 +50,9 @@ src/
 ├── shared/               # Cross-feature shared code
 │   ├── components/       # Shared React components (icons/, layout/)
 │   ├── hooks/            # Shared custom React hooks
-│   └── utils/            # Shared utility functions (tests.tsx for test helpers)
+│   └── utils/            # Shared utility functions
+    ├── tests.tsx     # React Testing Library helpers (re-export from here)
+    └── mocks/        # Shared vi.mock helpers (e.g. dynamic.tsx for next/dynamic)
 ├── trpc/                 # tRPC BFF setup
 │   ├── init.ts           # tRPC initialization (procedures, middleware)
 │   ├── client.tsx        # TRPCReactProvider + useTRPC hook
@@ -199,6 +201,13 @@ const { data } = useQuery(trpc.myEndpoint.queryOptions({ ... }));
 - New endpoints must have a mock handler registered in `src/trpc/mock.ts`.
 - Mocks should support triggering error states (pass a special value to the input).
 - Playwright tests should import helpers from `e2e/helpers.ts`.
+- `next/dynamic` imports must be mocked in unit tests using the shared helper:
+
+```typescript
+import { dynamicMock } from "#shared/utils/mocks/dynamic";
+
+vi.mock(import("next/dynamic"), () => dynamicMock);
+```
 
 ## INTERNATIONALIZATION (i18n)
 
@@ -358,6 +367,7 @@ logger.fatal("Database connection pool exhausted", {
 ```bash
 pnpm run dev          # Start dev server
 pnpm run build        # Production build
+ANALYZE=true pnpm run build  # Build + open bundle analyzer report
 pnpm run check-types  # TypeScript type check
 pnpm run lint         # oxlint check
 pnpm run fmt          # Format code with oxfmt
