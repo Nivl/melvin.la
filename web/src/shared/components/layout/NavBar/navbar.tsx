@@ -27,17 +27,22 @@ import { LanguageSwitcher } from "./language-switcher";
 import type { NavSection } from "./nav-sections";
 import { ThemeSwitcher } from "./theme-switcher";
 
+const MobileDrawerLoading = () => {
+  const t = useTranslations("navbar");
+  return (
+    <Button className="p-0 md:hidden" variant="ghost" aria-label={t("openMenu")}>
+      <MenuIcon className="h-5 w-5" />
+    </Button>
+  );
+};
+
 const MobileDrawer = dynamic(
   async () => {
     const mod = await import("./mobile-drawer");
     return mod.MobileDrawer;
   },
   {
-    loading: () => (
-      <Button className="p-0 md:hidden" variant="ghost" aria-label="menu">
-        <MenuIcon className="h-5 w-5" />
-      </Button>
-    ),
+    loading: () => <MobileDrawerLoading />,
     ssr: false,
   },
 );
