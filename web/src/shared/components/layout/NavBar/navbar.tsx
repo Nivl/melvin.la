@@ -1,22 +1,24 @@
 "use client";
 
 import { Button, Dropdown, Label } from "@heroui/react";
+import {
+  BookText as BlogIcon,
+  Calendar as TimestampIcon,
+  ChevronDown as DownIcon,
+  Dices as UuidIcon,
+  Globe as TimezoneIcon,
+  House as HomeIcon,
+  LayoutGrid as BeatmakerIcon,
+  Menu as MenuIcon,
+  Route as PathfindingIcon,
+  Type as StringLengthIcon,
+} from "lucide-react";
 import { motion, MotionConfig } from "motion/react";
 import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useSyncExternalStore } from "react";
-import { FaChevronDown as DownIcon } from "react-icons/fa";
-import { FaRegCalendar as TimestampIcon } from "react-icons/fa6";
-import {
-  GiConwayLifeGlider as ConwayIcon,
-  GiPerspectiveDiceSixFacesRandom as UuidIcon,
-} from "react-icons/gi";
-import { LuBookText as BlogIcon, LuHouse as HomeIcon, LuMenu as MenuIcon } from "react-icons/lu";
-import { MdOutlineTextFields as StringLengthIcon } from "react-icons/md";
-import { PiPathBold as PathfindingIcon } from "react-icons/pi";
-import { RiTimeZoneLine as TimezoneIcon } from "react-icons/ri";
+import { GiConwayLifeGlider as ConwayIcon } from "react-icons/gi";
 import { TbBrandFortnite as FortniteIcon } from "react-icons/tb";
-import { TfiLayoutGrid4Alt as BeatmakerIcon } from "react-icons/tfi";
 
 import { Link as NextLink, usePathname, useRouter } from "#i18n/routing";
 import { Section } from "#shared/components/layout/section";

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Drawer } from "@heroui/react";
-import { LuMenu as MenuIcon } from "react-icons/lu";
+import { Menu as MenuIcon } from "lucide-react";
 
 import { Link as NextLink } from "#i18n/routing";
 
