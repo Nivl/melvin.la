@@ -1,8 +1,11 @@
 /* eslint-disable import/no-default-export */
 
 import { SentryBuildOptions, withSentryConfig } from "@sentry/nextjs";
+import withBundleAnalyzer from "@next/bundle-analyzer";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+
+const bundleAnalyzer = withBundleAnalyzer({ enabled: process.env.ANALYZE === "true" });
 
 const withNextIntl = createNextIntlPlugin({
   experimental: {
@@ -50,10 +53,9 @@ const sentryOption: SentryBuildOptions = {
   silent: !process.env.CI,
 
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
-  // This can increase your server load as well as your hosting bill.
-  // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
-  // side errors will fail.
-  tunnelRoute: "/monitoring",
+  // Disabled: tunnelRoute adds a middleware match and cold-start overhead. Re-enable if
+  // ad-blocker interference becomes a significant concern.
+  // tunnelRoute: "/monitoring",
 
   webpack: {
     // Tree-shaking options for reducing bundle size
@@ -67,4 +69,4 @@ const sentryOption: SentryBuildOptions = {
   widenClientFileUpload: true,
 };
 
-export default withSentryConfig(withNextIntl(nextConfig), sentryOption);
+export default bundleAnalyzer(withSentryConfig(withNextIntl(nextConfig), sentryOption));
