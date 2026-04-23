@@ -45,6 +45,11 @@ export const MobileMenuOpen: Story = {
     viewport: { value: "xsmall" },
   },
   parameters: {
+    chromatic: {
+      // Pause CSS transitions at their final frame so the drawer is fully
+      // visible when Chromatic takes the snapshot (not mid-animation).
+      pauseAnimationAtEnd: true,
+    },
     nextjs: {
       appDirectory: true,
       navigation: {
@@ -68,5 +73,16 @@ export const MobileMenuOpen: Story = {
       return;
     }
     await userEvent.click(button);
+    // Wait for the drawer content to appear before Chromatic takes its snapshot.
+    // Without this the snapshot fires before the drawer finishes opening.
+    try {
+      await within(canvasElement.ownerDocument.body).findByTestId(
+        "navbar-mobile-menu",
+        {},
+        { timeout: 5000 },
+      );
+    } catch {
+      // Large viewports: button was hidden, drawer won't open — nothing to wait for.
+    }
   },
 };
