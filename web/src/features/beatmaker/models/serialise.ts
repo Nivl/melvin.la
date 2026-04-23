@@ -15,18 +15,18 @@ const fromUrlBase64 = (str: string): string => {
 
 // Compact JSON key mapping
 type Compact = {
-  k: Kit;
   b: number; // bpm
-  s: StepCount;
   c?: boolean; // hasCustomSamples
+  k: Kit;
+  s: StepCount;
   //tracks
   t: Record<
     TrackId,
     {
-      p: boolean[]; // steps
-      v: number; // volume
       n: number; // pan
       m: boolean; // muted
+      p: boolean[]; // steps
+      v: number; // volume
     }
   >;
 };
@@ -138,8 +138,7 @@ export const decode = (hash: string): DecodedState | undefined => {
 
         return {
           customFile: undefined,
-          muted:
-            typeof trackValue.m === "boolean" ? trackValue.m : defaults.tracks[id].muted,
+          muted: typeof trackValue.m === "boolean" ? trackValue.m : defaults.tracks[id].muted,
           pan,
           steps,
           volume,
