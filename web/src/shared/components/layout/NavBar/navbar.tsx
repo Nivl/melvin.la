@@ -9,7 +9,6 @@ import {
   Globe as TimezoneIcon,
   House as HomeIcon,
   LayoutGrid as BeatmakerIcon,
-  Menu as MenuIcon,
   Route as PathfindingIcon,
   Type as StringLengthIcon,
 } from "lucide-react";
@@ -24,17 +23,9 @@ import { Link as NextLink, usePathname, useRouter } from "#i18n/routing";
 import { Section } from "#shared/components/layout/section";
 
 import { LanguageSwitcher } from "./language-switcher";
+import { MobileDrawerLoading } from "./mobile-drawer-loading";
 import type { NavSection } from "./nav-sections";
 import { ThemeSwitcher } from "./theme-switcher";
-
-const MobileDrawerLoading = () => {
-  const t = useTranslations("navbar");
-  return (
-    <Button className="p-0 md:hidden" variant="ghost" aria-label={t("openMenu")}>
-      <MenuIcon className="h-5 w-5" />
-    </Button>
-  );
-};
 
 const MobileDrawer = dynamic(
   async () => {

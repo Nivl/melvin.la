@@ -1,7 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { ComponentType } from "react";
-import { useEffect, useState } from "react";
 import { describe, expect, it, vi } from "vitest";
 
 import { testWrapper as wrapper } from "#shared/utils/tests";
@@ -14,24 +12,7 @@ vi.mock(import("motion/react"), async () => {
 });
 
 vi.mock(import("next/dynamic"), async () => {
-  const dynamicMock = {
-    default: (factory: () => Promise<ComponentType<Record<string, unknown>>>) => {
-      const Wrapper = (props: Record<string, unknown>) => {
-        const [Comp, setComp] = useState<ComponentType<Record<string, unknown>> | undefined>(
-          undefined,
-        );
-        useEffect(() => {
-          factory()
-            .then((mod) => {
-              setComp(() => mod);
-            })
-            .catch(() => {}); // eslint-disable-line @typescript-eslint/no-empty-function
-        }, []);
-        return Comp ? <Comp {...props} /> : undefined;
-      };
-      return Wrapper;
-    },
-  };
+  const { dynamicMock } = await import("#shared/utils/mocks/dynamic");
   return dynamicMock as unknown as Awaited<typeof import("next/dynamic")>;
 });
 
