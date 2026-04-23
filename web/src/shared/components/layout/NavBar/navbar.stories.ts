@@ -46,8 +46,11 @@ export const MobileMenuOpen: Story = {
   },
   parameters: {
     chromatic: {
-      // Pause CSS transitions at their final frame so the drawer is fully
-      // visible when Chromatic takes the snapshot (not mid-animation).
+      // HeroUI Drawer uses CSS transitions (not keyframe animations), so
+      // pauseAnimationAtEnd alone doesn't freeze it at the open state.
+      // delay tells Chromatic to wait 500ms after the play function returns,
+      // giving the transition time to finish before the snapshot is taken.
+      delay: 500,
       pauseAnimationAtEnd: true,
     },
     nextjs: {
