@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Modal, useOverlayState } from "@heroui/react";
+import { useOverlayState } from "@heroui/react";
 import { Mail } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
@@ -9,6 +9,14 @@ import { LuGithub as Github, LuLinkedin as Linkedin } from "react-icons/lu";
 
 import { BoopableLink } from "#features/home/components/boopable-link";
 import { Heading } from "#shared/components/layout/heading";
+
+const LinkedInModal = dynamic(
+  async () => {
+    const mod = await import("./linked-in-modal");
+    return mod.LinkedInModal;
+  },
+  { ssr: false },
+);
 
 const Map = dynamic(
   async () => {
@@ -107,28 +115,14 @@ export const Contact = () => {
           ))}
         </div>
 
-        <Modal state={overlayState}>
-          <Modal.Backdrop isDismissable isKeyboardDismissDisabled>
-            <Modal.Container>
-              <Modal.Dialog>
-                <Modal.Header className="flex flex-col gap-1">{modalTitle}</Modal.Header>
-                <Modal.Body>
-                  <p>{modalContent}</p>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button
-                    variant="primary"
-                    onPress={() => {
-                      overlayState.close();
-                    }}
-                  >
-                    {t("linkedinModalClose")}
-                  </Button>
-                </Modal.Footer>
-              </Modal.Dialog>
-            </Modal.Container>
-          </Modal.Backdrop>
-        </Modal>
+        {overlayState.isOpen && (
+          <LinkedInModal
+            closeLabel={t("linkedinModalClose")}
+            content={modalContent}
+            state={overlayState}
+            title={modalTitle}
+          />
+        )}
       </div>
       <div ref={mapSentinelRef}>
         {shouldLoadMap ? (
