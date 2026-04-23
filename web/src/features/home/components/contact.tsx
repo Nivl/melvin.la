@@ -2,21 +2,61 @@
 
 import { Button, Modal, useOverlayState } from "@heroui/react";
 import { Mail } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LuGithub as Github, LuLinkedin as Linkedin } from "react-icons/lu";
 
 import { BoopableLink } from "#features/home/components/boopable-link";
 import { Heading } from "#shared/components/layout/heading";
 
-import { Map } from "./map";
+const Map = dynamic(
+  async () => {
+    const mod = await import("./map");
+    return mod.Map;
+  },
+  {
+    loading: () => (
+      <div
+        data-testid="map-placeholder"
+        className="h-200 w-full bg-surface-secondary"
+        aria-hidden="true"
+      />
+    ),
+    ssr: false,
+  },
+);
 
 export const Contact = () => {
   const overlayState = useOverlayState({ defaultOpen: false });
   const [modalContent, setModalContent] = useState("");
   const [modalTitle, setModalTitle] = useState("");
+  const mapSentinelRef = useRef<HTMLDivElement>(null);
+  const [shouldLoadMap, setShouldLoadMap] = useState(false);
 
   const t = useTranslations("home.contact");
+
+  useEffect(() => {
+    const el = mapSentinelRef.current;
+    let observer: IntersectionObserver | undefined = undefined;
+
+    if (el && !shouldLoadMap) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setShouldLoadMap(true);
+            observer?.disconnect();
+          }
+        },
+        { rootMargin: "400px 0px" },
+      );
+      observer.observe(el);
+    }
+
+    return () => {
+      observer?.disconnect();
+    };
+  }, [shouldLoadMap]);
 
   const contactInfos = [
     {
@@ -90,7 +130,17 @@ export const Contact = () => {
           </Modal.Backdrop>
         </Modal>
       </div>
-      <Map className="h-200 w-full" initialCenter={{ lat: 34.021_859_3, lng: -118.498_265 }} />
+      <div ref={mapSentinelRef}>
+        {shouldLoadMap ? (
+          <Map className="h-200 w-full" initialCenter={{ lat: 34.021_859_3, lng: -118.498_265 }} />
+        ) : (
+          <div
+            data-testid="map-placeholder"
+            className="h-200 w-full bg-surface-secondary"
+            aria-hidden="true"
+          />
+        )}
+      </div>
     </>
   );
 };
