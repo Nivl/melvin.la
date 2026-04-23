@@ -58,8 +58,13 @@ export const MobileMenuOpen: Story = {
     // desktop). When Chromatic renders this story with a large viewport mode
     // (xxlarge, FourK), the button is absent from the accessibility tree, so
     // skip the interaction rather than error.
-    const button = canvas.queryByRole("button", { name: "Open menu" });
-    if (!button) {
+    //
+    // findByRole waits for the real MobileDrawer to mount after its dynamic
+    // import resolves (MobileDrawerLoading is aria-hidden and won't match).
+    let button: HTMLElement | undefined = undefined;
+    try {
+      button = await canvas.findByRole("button", { name: "Open menu" }, { timeout: 5000 });
+    } catch {
       return;
     }
     await userEvent.click(button);
