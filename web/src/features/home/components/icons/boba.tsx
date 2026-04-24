@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "motion/react";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import {
@@ -40,33 +40,64 @@ export const Boba = ({ className }: { className: string }) => {
   const [bobaCoordinates, setBobaCoordinates] = useState([...defaultBobaCoordinates]);
   const strawMaskId = useId();
   const reducedMotion = usePrefersReducedMotion();
+  const bobaCoordinatesRef = useRef(bobaCoordinates);
+  const nextDueTimesRef = useRef<number[]>([]);
 
-  if (bobaCoordinates.length !== defaultBobaCoordinates.length) {
-    throw new Error("The amount of coordinates must be static");
-  }
+  useEffect(() => {
+    bobaCoordinatesRef.current = bobaCoordinates;
+  }, [bobaCoordinates]);
 
-  for (const [i, boba] of bobaCoordinates.entries()) {
-    // This is inside the loop on purpose to capture each boba correctly
-    // This is weird and unconventional, but as long as we make sure
-    // to keep the amount of boba static and in order, it's ok.
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (!isAnimating) {
-        return undefined;
-      }
+  useEffect(() => {
+    if (!isAnimating) {
+      nextDueTimesRef.current = [];
+      return undefined;
+    }
 
-      const interval = setInterval(() => {
-        setBobaCoordinates((coordinates) => {
-          const updatedCoordinates = [...coordinates];
+    const initialTime = performance.now();
+    // Each boba keeps its own "next due" timestamp so one RAF loop can preserve
+    // the original per-boba cadence without spinning up one timer per circle.
+    nextDueTimesRef.current = bobaCoordinatesRef.current.map(
+      (boba) => initialTime + boba.durationMs,
+    );
+
+    let animationFrameId = 0;
+
+    const animate = (now: number) => {
+      setBobaCoordinates((coordinates) => {
+        const currentDueTimes = nextDueTimesRef.current;
+        let updatedCoordinates: BobaCoordinate[] | undefined = undefined;
+        let updatedDueTimes = currentDueTimes;
+
+        for (const i of coordinates.keys()) {
+          if (now < (currentDueTimes[i] ?? 0)) {
+            continue;
+          }
+
+          // Only clone state once we know at least one boba is due for a move;
+          // otherwise we return the same array reference and skip a re-render.
+          updatedCoordinates ??= [...coordinates];
+
+          if (updatedDueTimes === currentDueTimes) {
+            updatedDueTimes = [...currentDueTimes];
+          }
+
           updateBallAt(i, updatedCoordinates);
-          return updatedCoordinates;
-        });
-      }, boba.durationMs);
-      return () => {
-        clearInterval(interval);
-      };
-    }, [isAnimating, boba, i]);
-  }
+          updatedDueTimes[i] = now + updatedCoordinates[i].durationMs;
+        }
+
+        nextDueTimesRef.current = updatedDueTimes;
+        return updatedCoordinates ?? coordinates;
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isAnimating]);
 
   useEffect(() => {
     if (!isAnimationStopping) {
