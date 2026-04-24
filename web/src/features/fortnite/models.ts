@@ -9,6 +9,8 @@ export enum TimeWindow {
   Lifetime = "lifetime",
 }
 
+export const userNameMaxLength = 30;
+
 type CommonDetails = {
   score: number;
   scorePerMin: number;
