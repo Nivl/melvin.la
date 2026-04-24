@@ -38,10 +38,9 @@ export const SubMenu: Story = {
 
 export const MobileMenuOpen: Story = {
   globals: {
-    // `globals.viewport` is applied before rendering, so Tailwind's md:hidden
-    // correctly hides the desktop nav and reveals the mobile hamburger button.
-    // `parameters.viewport.defaultViewport` is only a UI preference and does
-    // not resize the actual browser viewport when the play function runs.
+    // Keep Storybook's local preview on a small viewport, but don't rely on the
+    // viewport addon for the play function itself: Chromatic snapshots the
+    // standalone iframe, where globals alone don't change window width.
     viewport: { value: "xsmall" },
   },
   parameters: {
@@ -61,35 +60,23 @@ export const MobileMenuOpen: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    // Disable CSS transitions so the drawer snaps to its final open state
-    // immediately. This removes any timing/animation dependency and makes
-    // the Chromatic snapshot reliable regardless of transition duration.
+    // Force the mobile controls visible even when the standalone iframe is
+    // wider than the mobile breakpoint, then disable animations so the drawer
+    // settles synchronously before Chromatic snapshots it.
     const style = canvasElement.ownerDocument.createElement("style");
-    style.textContent =
-      "*, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; transition-delay: 0ms !important; animation-delay: 0ms !important; }";
+    style.textContent = String.raw`*, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; transition-delay: 0ms !important; animation-delay: 0ms !important; } .md\:flex { display: none !important; } .md\:hidden { display: inline-flex !important; }`;
     canvasElement.ownerDocument.head.append(style);
 
     const canvas = within(canvasElement);
     // findByRole waits for the real MobileDrawer to mount after its dynamic
     // import resolves (MobileDrawerLoading is aria-hidden and won't match).
-    // At large viewports md:hidden removes the button from the a11y tree, so
-    // the catch returns early without failing.
-    let button: HTMLElement | undefined = undefined;
-    try {
-      button = await canvas.findByRole("button", { name: "Open menu" }, { timeout: 5000 });
-    } catch {
-      return;
-    }
+    const button = await canvas.findByRole("button", { name: "Open menu" }, { timeout: 5000 });
     await userEvent.click(button);
     // Wait for the drawer body to appear in the DOM (portal renders to document.body).
-    try {
-      await within(canvasElement.ownerDocument.body).findByTestId(
-        "navbar-mobile-menu",
-        {},
-        { timeout: 5000 },
-      );
-    } catch {
-      // Button existed but drawer didn't open — nothing to wait for.
-    }
+    await within(canvasElement.ownerDocument.body).findByTestId(
+      "navbar-mobile-menu",
+      {},
+      { timeout: 5000 },
+    );
   },
 };
