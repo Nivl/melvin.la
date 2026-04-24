@@ -13,9 +13,65 @@ const withNextIntl = createNextIntlPlugin({
   },
 });
 
+const cspReportEndpoint = "/api/csp-report";
+
+const securityHeaders = [
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains; preload",
+  },
+  {
+    key: "X-Content-Type-Options",
+    value: "nosniff",
+  },
+  {
+    key: "X-Frame-Options",
+    value: "DENY",
+  },
+  {
+    key: "Referrer-Policy",
+    value: "strict-origin-when-cross-origin",
+  },
+  {
+    key: "Permissions-Policy",
+    value: [
+      "accelerometer=()",
+      "camera=()",
+      "geolocation=()",
+      "gyroscope=()",
+      "microphone=()",
+      "payment=()",
+      "usb=()",
+    ].join(", "),
+  },
+  {
+    // Roll out in report-only mode first so we can observe legitimate violations
+    // before switching to an enforcing CSP.
+    key: "Content-Security-Policy-Report-Only",
+    value: [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' https://*.googleapis.com https://*.gstatic.com https://*.sentry.io https://*.vercel-scripts.com",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' blob: data: https://*.googleapis.com https://*.gstatic.com",
+      "font-src 'self' data:",
+      "connect-src 'self' https://*.googleapis.com https://*.sentry.io https://*.vercel-insights.com https://fortnite-api.com",
+      "frame-ancestors 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "object-src 'none'",
+      `report-uri ${cspReportEndpoint}`,
+      "upgrade-insecure-requests",
+    ].join("; "),
+  },
+] satisfies { key: string; value: string }[];
+
 const nextConfig: NextConfig = {
   async headers() {
     return await Promise.resolve([
+      {
+        headers: securityHeaders,
+        source: "/:path*",
+      },
       {
         headers: [
           {
