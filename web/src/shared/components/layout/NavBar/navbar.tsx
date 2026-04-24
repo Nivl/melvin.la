@@ -212,7 +212,7 @@ export const Navbar = () => {
                           }
                           onAction={(key) => {
                             router.push(`${section.pathPrefix}/${key.toString()}`, {
-                              locale: locale,
+                              locale,
                             });
                           }}
                         >

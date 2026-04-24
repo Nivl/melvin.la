@@ -123,9 +123,9 @@ export const generateBalls = () => {
   const balls: BobaCoordinate[] = [];
 
   for (let i = 0; i < 7; i += 1) {
-    let x = 0;
-    let y = 0;
-    let ok = false;
+    let x: number;
+    let y: number;
+    let ok: boolean;
     let tries = 0;
 
     do {
@@ -179,9 +179,9 @@ export const updateBallAt = (index: number, balls: BobaCoordinate[]): void => {
   // not super useful, but that's a useful variable to have around
   // in case we need some tweaking
   const minDistance = separationDistance;
-  let x = 0;
-  let y = 0;
-  let ok = false;
+  let x: number;
+  let y: number;
+  let ok: boolean;
   let tries = 1;
 
   do {

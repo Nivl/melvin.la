@@ -2,7 +2,6 @@
 //eslint-disable only-export-components
 
 import { DecoratorHelpers } from "@storybook/addon-themes";
-import type { ReactRenderer } from "@storybook/nextjs";
 import type { ThemeProviderProps } from "next-themes";
 import { ThemeProvider, useTheme } from "next-themes";
 import type { PropsWithChildren } from "react";
@@ -49,7 +48,7 @@ const hasThemeOverride = (
 export const withNextThemes = ({ themes, defaultTheme, ...props }: NextThemesDecorator) => {
   initializeThemeState(Object.keys(themes), defaultTheme);
 
-  const decorator: DecoratorFunction<ReactRenderer> = (Story, context) => {
+  const decorator: DecoratorFunction = (Story, context) => {
     const selectedTheme = pluckThemeFromContext(context);
     const params = hasThemeOverride(context.parameters) ? context.parameters : {};
 
