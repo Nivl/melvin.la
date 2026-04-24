@@ -119,7 +119,9 @@ export const Fortnite = ({
               <>{t("errors.accountNoData")}</>
             ) : error?.data?.httpStatus === 403 ? (
               <>{t("errors.accountPrivate")}</>
-            ) : error?.data?.httpStatus === 404 ? (
+            ) : // We put 400 in there because the only way to trigger it is
+            // to enter a weird ass username that cannot exist.
+            error?.data?.httpStatus === 404 || error?.data?.httpStatus === 400 ? (
               <>{t("errors.notFound")}</>
             ) : (
               <>{t("errors.serverError")}</>

@@ -8,7 +8,12 @@ import { FaPlaystation, FaXbox } from "react-icons/fa";
 import { SiEpicgames } from "react-icons/si";
 import { useDebouncedCallback } from "use-debounce";
 
-import { AccountTypes, isAccountType, TimeWindow } from "#features/fortnite/models";
+import {
+  AccountTypes,
+  isAccountType,
+  TimeWindow,
+  userNameMaxLength,
+} from "#features/fortnite/models";
 
 export const Form = ({
   onAccountNameChange,
@@ -81,7 +86,9 @@ export const Form = ({
             autoComplete="off"
             autoCorrect="off"
             spellCheck="false"
+            maxLength={userNameMaxLength}
             data-1p-ignore
+            data-op-ignore
             data-lpignore
             data-protonpass-ignore
             data-bwignore
