@@ -56,17 +56,13 @@ export const buildGetMessageFallback =
   };
 
 export default getRequestConfig(async ({ requestLocale }) => {
-  let locale = await requestLocale;
-
-  if (!locale || !isLocale(locale)) {
-    locale = routing.defaultLocale;
-  }
+  const locale = await requestLocale;
 
   const activeLocale: Locales = isLocale(locale) ? locale : routing.defaultLocale;
   const messages = await loadMessages(activeLocale);
 
   return {
-    getMessageFallback: buildGetMessageFallback(locale),
+    getMessageFallback: buildGetMessageFallback(activeLocale),
     locale: activeLocale,
     messages,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
