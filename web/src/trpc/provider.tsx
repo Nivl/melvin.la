@@ -49,6 +49,7 @@ export const TRPCReactProvider = (
   //       render if it suspends and there is no boundary
   const queryClient = getQueryClient();
 
+  // eslint-disable-next-line react/hook-use-state
   const [trpcClient] = useState(() =>
     createTRPCClient<AppRouter>({
       links: [

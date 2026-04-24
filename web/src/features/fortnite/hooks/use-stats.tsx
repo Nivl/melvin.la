@@ -14,11 +14,11 @@ export const useStats = (
   const { data, isLoading, error } = useQuery({
     ...trpc.fortniteGetStats.queryOptions({
       platform: accountType,
-      timeWindow: timeWindow,
+      timeWindow,
       username: accountName,
     }),
     enabled: !disabled && Boolean(accountName),
   });
 
-  return { data: data, error, isLoading };
+  return { data, error, isLoading };
 };

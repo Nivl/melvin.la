@@ -60,7 +60,7 @@ export const Boba = ({ className }: { className: string }) => {
       (boba) => initialTime + boba.durationMs,
     );
 
-    let animationFrameId = 0;
+    let animationFrameId: number;
 
     const animate = (now: number) => {
       setBobaCoordinates((coordinates) => {

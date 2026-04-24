@@ -58,7 +58,7 @@ export const getMetadata = async ({
       siteName: "melvin.la",
       title,
       type: "website",
-      url: url,
+      url,
       ...extraOg,
     },
     robots: "index, follow",
