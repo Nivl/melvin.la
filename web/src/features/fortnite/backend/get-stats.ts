@@ -1,3 +1,4 @@
+import { getCurrentScope } from "@sentry/nextjs";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
@@ -24,6 +25,12 @@ const getStatsInputSchema = z.object({
     .max(userNameMaxLength, "Username too long")
     .regex(USERNAME_REGEX, "Username contains unsupported characters"),
 });
+type GetStatsInput = z.infer<typeof getStatsInputSchema>;
+
+export const getSafeRpcInput = (input: GetStatsInput) => ({
+  platform: input.platform,
+  timeWindow: input.timeWindow,
+});
 
 const isFortniteAPIStatsResponse = (value: unknown): value is FortniteAPIStatsResponse =>
   typeof value === "object" &&
@@ -35,6 +42,8 @@ const isFortniteAPIStatsResponse = (value: unknown): value is FortniteAPIStatsRe
   value.data !== null;
 
 export const endpoint = baseProcedure.input(getStatsInputSchema).query(async ({ input }) => {
+  getCurrentScope().setContext("rpcInput", getSafeRpcInput(input));
+
   const params = new URLSearchParams();
   params.append("name", input.username);
   params.append("accountType", input.platform);
