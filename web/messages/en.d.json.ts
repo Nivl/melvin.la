@@ -80,7 +80,8 @@ declare const messages: {
       "title": "Blog",
       "description": "See the latest blog posts"
     },
-    "listTitle": "Blog Posts"
+    "listTitle": "Blog Posts",
+    "defaultThumbnailAlt": "Thumbnail of the article"
   },
   "conway": {
     "metadata": {

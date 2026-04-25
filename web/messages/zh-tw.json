@@ -77,7 +77,8 @@
       "title": "部落格",
       "description": "查看最新文章"
     },
-    "listTitle": "部落格文章"
+    "listTitle": "部落格文章",
+    "defaultThumbnailAlt": "文章縮圖"
   },
   "conway": {
     "metadata": {

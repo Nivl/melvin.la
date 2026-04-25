@@ -77,7 +77,8 @@
       "title": "ブログ",
       "description": "最新のブログ記事を見る"
     },
-    "listTitle": "ブログ記事"
+    "listTitle": "ブログ記事",
+    "defaultThumbnailAlt": "記事のサムネイル"
   },
   "conway": {
     "metadata": {

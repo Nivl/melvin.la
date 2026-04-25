@@ -77,7 +77,8 @@
       "title": "Blog",
       "description": "Voir les derniers articles"
     },
-    "listTitle": "Articles"
+    "listTitle": "Articles",
+    "defaultThumbnailAlt": "Miniature de l'article"
   },
   "conway": {
     "metadata": {

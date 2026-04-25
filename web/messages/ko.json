@@ -77,7 +77,8 @@
       "title": "블로그",
       "description": "최신 블로그 게시물 확인"
     },
-    "listTitle": "게시물"
+    "listTitle": "게시물",
+    "defaultThumbnailAlt": "기사 썸네일"
   },
   "conway": {
     "metadata": {
