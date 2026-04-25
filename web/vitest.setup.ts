@@ -5,6 +5,8 @@ import { afterAll, afterEach, beforeAll, vi } from "vitest";
 
 import { server } from "#trpc/mock";
 
+vi.mock(import("server-only"), () => ({}));
+
 Object.defineProperty(globalThis, "matchMedia", {
   value: vi.fn<(query: string) => object>().mockImplementation((query: string) => ({
     addEventListener: vi.fn<() => void>(),
