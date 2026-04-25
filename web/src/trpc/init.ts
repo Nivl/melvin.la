@@ -1,3 +1,5 @@
+import "server-only";
+
 import { trpcMiddleware as SentryTrpcMiddleware } from "@sentry/nextjs";
 import { initTRPC } from "@trpc/server";
 

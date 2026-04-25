@@ -1,3 +1,5 @@
+import "server-only";
+
 import { getCurrentScope } from "@sentry/nextjs";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
