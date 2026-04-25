@@ -2,12 +2,15 @@
 
 import { Calendar, DateField, DatePicker, Label, TimeField } from "@heroui/react";
 import { DateValue, getLocalTimeZone, now } from "@internationalized/date";
-import moment from "moment-timezone";
 import { AnimatePresence } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { City, CityData, CityDataWithExtras, sortedCities } from "#features/timezones/models";
+import {
+  formatAbsoluteDateInTimeZone,
+  getAbsoluteDateForWallClock,
+} from "#features/timezones/utils/date-time";
 import { Color, colors, LargePill } from "#shared/components/layout/LargePill";
 import { Section } from "#shared/components/layout/section";
 
@@ -22,11 +25,6 @@ export const Timezones = () => {
   const t = useTranslations("timezones");
   const locale = useLocale();
 
-  useEffect(() => {
-    const momentLocale = locale === "zh" ? "zh-cn" : locale;
-    moment.locale(momentLocale);
-  }, [locale]);
-
   const [zones, setZones] = useState<CityDataWithExtras[]>([]);
   const [baseZone, setBaseZone] = useState<CityData>();
   const [baseSearchValue, setBaseSearchValue] = useState("");
@@ -37,17 +35,8 @@ export const Timezones = () => {
     now(getLocalTimeZone()).set({ millisecond: 0, second: 0 }),
   );
 
-  const date = dateTime
-    ? moment.tz(
-        // using the proper `dateTime.toDate('utc')` creates issues
-        // on some days where daylight saving time kicks off.
-        // For example, Saturday March 25th 1989 at 5pm in Paris
-        // Shows as 4pm in... Paris. It's off by one hour in every
-        // other timezones as well.
-        dateTime.toString().slice(0, 19),
-        baseZone?.timezone ?? getLocalTimeZone(),
-      )
-    : moment();
+  const baseTimeZone = baseZone?.timezone ?? getLocalTimeZone();
+  const date = dateTime ? getAbsoluteDateForWallClock(dateTime, baseTimeZone) : new Date();
 
   const search = (value: string): City[] => {
     if (!value) {
@@ -215,7 +204,11 @@ export const Timezones = () => {
                             <span>{chunk}</span>
                           </div>
                         ),
-                        time: date.clone().tz(sortedCities[keyIndex].data.timezone).format("LLLL"),
+                        time: formatAbsoluteDateInTimeZone(
+                          date,
+                          locale,
+                          sortedCities[keyIndex].data.timezone,
+                        ),
                       }),
                       id: crypto.randomUUID(),
                     };
