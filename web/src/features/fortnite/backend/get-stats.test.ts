@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { getSafeRpcInput } from "#features/fortnite/backend/get-stats";
 import type { FortniteStatsData } from "#features/fortnite/models";
 import { AccountTypes, TimeWindow } from "#features/fortnite/models";
 import { appRouter } from "#trpc/routers/_app";
@@ -59,6 +60,13 @@ describe("fortniteGetStats input validation", () => {
     await expect(caller.fortniteGetStats(buildInput("Player#1234"))).resolves.toEqual(
       mockStatsResponse,
     );
+  }, 5000);
+
+  it("omits the username from Sentry rpcInput context", () => {
+    expect(getSafeRpcInput(buildInput("Player#1234"))).toEqual({
+      platform: AccountTypes.Epic,
+      timeWindow: TimeWindow.Lifetime,
+    });
   }, 5000);
 
   it("rejects empty usernames after trimming", async () => {
