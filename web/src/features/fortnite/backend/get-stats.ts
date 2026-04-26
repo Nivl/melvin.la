@@ -44,10 +44,29 @@ const isAbortError = (error: unknown): error is { name: string } =>
   typeof error.name === "string" &&
   error.name === "AbortError";
 
+const isExpectedLookupError = (error: unknown): error is TRPCError =>
+  error instanceof TRPCError &&
+  ["FORBIDDEN", "NOT_FOUND", "CLIENT_CLOSED_REQUEST"].includes(error.code);
+
 export const endpoint = baseProcedure
   .input(getStatsInputSchema)
   .query(async ({ input, signal }) => {
-    getCurrentScope().setContext("rpcInput", input);
+    const scope = getCurrentScope();
+
+    scope.setContext("rpcInput", input);
+    // Some errors are expected to be thrown pretty often, like 404s and 403s,
+    // since they depend on whether or not the account exists and is public.
+    //
+    // We don't want them to be reported to Sentry since they are not actionable.
+    scope.addEventProcessor((event, hint) => {
+      if (isExpectedLookupError(hint.originalException)) {
+        // Sentry drops events from processors when they return null.
+        // eslint-disable-next-line unicorn/no-null
+        return null;
+      }
+
+      return event;
+    });
 
     const params = new URLSearchParams();
     params.append("name", input.username);
