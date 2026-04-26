@@ -27,12 +27,6 @@ const getStatsInputSchema = z.object({
     .max(userNameMaxLength, "Username too long")
     .regex(USERNAME_REGEX, "Username contains unsupported characters"),
 });
-type GetStatsInput = z.infer<typeof getStatsInputSchema>;
-
-export const getSafeRpcInput = (input: GetStatsInput) => ({
-  platform: input.platform,
-  timeWindow: input.timeWindow,
-});
 
 const isFortniteAPIStatsResponse = (value: unknown): value is FortniteAPIStatsResponse =>
   typeof value === "object" &&
@@ -43,49 +37,67 @@ const isFortniteAPIStatsResponse = (value: unknown): value is FortniteAPIStatsRe
   typeof value.data === "object" &&
   value.data !== null;
 
-export const endpoint = baseProcedure.input(getStatsInputSchema).query(async ({ input }) => {
-  getCurrentScope().setContext("rpcInput", getSafeRpcInput(input));
+const isAbortError = (error: unknown): error is { name: string } =>
+  typeof error === "object" &&
+  error !== null &&
+  "name" in error &&
+  typeof error.name === "string" &&
+  error.name === "AbortError";
 
-  const params = new URLSearchParams();
-  params.append("name", input.username);
-  params.append("accountType", input.platform);
-  params.append("timeWindow", input.timeWindow);
+export const endpoint = baseProcedure
+  .input(getStatsInputSchema)
+  .query(async ({ input, signal }) => {
+    getCurrentScope().setContext("rpcInput", input);
 
-  if (process.env.API_FORTNITE_API_KEY === undefined || process.env.API_FORTNITE_API_KEY === "") {
-    throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "API key is missing" });
-  }
+    const params = new URLSearchParams();
+    params.append("name", input.username);
+    params.append("accountType", input.platform);
+    params.append("timeWindow", input.timeWindow);
 
-  const rawRes = await fetch(`${fortniteStatsUrl}?${params.toString()}`, {
-    headers: {
-      Authorization: process.env.API_FORTNITE_API_KEY,
-      "content-type": "application/json",
-    },
-    method: "GET",
-  });
-
-  switch (rawRes.status) {
-    case 200: {
-      const res: unknown = await rawRes.json();
-
-      if (!isFortniteAPIStatsResponse(res)) {
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "invalid response shape from fortnite-api",
-        });
-      }
-      return res.data;
+    if (process.env.API_FORTNITE_API_KEY === undefined || process.env.API_FORTNITE_API_KEY === "") {
+      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "API key is missing" });
     }
-    case 403: {
-      throw new TRPCError({ code: "FORBIDDEN", message: "account is private" });
-    }
-    case 404: {
-      throw new TRPCError({ code: "NOT_FOUND", message: "account not found" });
-    }
-    default: {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: `unexpected status code from fortnite-api: ${rawRes.status.toString()}`,
+
+    try {
+      const rawRes = await fetch(`${fortniteStatsUrl}?${params.toString()}`, {
+        headers: {
+          Authorization: process.env.API_FORTNITE_API_KEY,
+          "content-type": "application/json",
+        },
+        method: "GET",
+        signal,
       });
+
+      switch (rawRes.status) {
+        case 200: {
+          const res: unknown = await rawRes.json();
+
+          if (!isFortniteAPIStatsResponse(res)) {
+            throw new TRPCError({
+              code: "INTERNAL_SERVER_ERROR",
+              message: "invalid response shape from fortnite-api",
+            });
+          }
+          return res.data;
+        }
+        case 403: {
+          throw new TRPCError({ code: "FORBIDDEN", message: "account is private" });
+        }
+        case 404: {
+          throw new TRPCError({ code: "NOT_FOUND", message: "account not found" });
+        }
+        default: {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `unexpected status code from fortnite-api: ${rawRes.status.toString()}`,
+          });
+        }
+      }
+    } catch (error) {
+      if (isAbortError(error)) {
+        // this will throw a non-standard 499 HTTP status code
+        throw new TRPCError({ code: "CLIENT_CLOSED_REQUEST", message: "cancelled" });
+      }
+      throw error;
     }
-  }
-});
+  });
