@@ -53,12 +53,17 @@ export const Fortnite = ({
   const rootT = useTranslations();
   const t = useTranslations("fortnite");
 
-  const { data, error, isLoading } = useStats(
-    name,
-    accountType,
-    timeWindow,
-    providedType && !providedTypeIsValid,
-  );
+  const {
+    data,
+    error: statsError,
+    isLoading: statsLoading,
+  } = useStats(name, accountType, timeWindow, providedType && !providedTypeIsValid);
+
+  // If the API returns a 499 status it means the request was cancelled
+  // because the user changed the search parameters before it completed.
+  // In that case we want to ignore the error and show the loading state instead.
+  const isLoading = statsLoading || statsError?.data?.httpStatus === 499;
+  const error = statsError?.data?.httpStatus === 499 ? undefined : statsError;
 
   useEffect(() => {
     let url = `${localePrefix}/tools/fortnite`;
