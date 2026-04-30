@@ -1,16 +1,3 @@
-ignoredBuiltDependencies:
-  - canvas
-  - core-js-pure
-  - esbuild
-  - sharp
-  - unrs-resolver
-  - "@swc/core"
-  - "msw"
-  - "@sentry/cli"
-  - "@parcel/watcher"
-
-minimumReleaseAge: 20160
-blockExoticSubdeps: true
-strictDepBuilds: true
-optimisticRepeatInstall: true
-verifyDepsBeforeRun: "install"
+packages:
+  - "apps/*"
+  - "packages/*"
