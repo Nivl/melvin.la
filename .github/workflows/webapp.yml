@@ -12,10 +12,6 @@ on:
 permissions:
   contents: read
 
-defaults:
-  run:
-    working-directory: ./web
-
 # Don't run more than one workflow for the same branch at a time
 # This is to save credits on the CI provider
 concurrency:
@@ -31,9 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - run: git config --global --add safe.directory /__w/melvin.la/melvin.la
-
       - name: Check for file changes
-        uses: dorny/paths-filter@61f87a10cd2c304679af17bb73ef192addf33c1c
+        uses: dorny/paths-filter@f3ceefdc7ef57bc2d8560787d4b6c33e44044cec
         id: changes
         with:
           token: ${{ github.token }}
@@ -52,7 +47,9 @@ jobs:
           #    - !web/**/*.md => Everything but the .md files
           filters: |
             src:
-              - 'web/**/!(*.md)'
+              - '!(.mcp)*.json'
+              - '*.y(a)?ml'
+              - '(apps|packages)/**/!(*.md|.gitkeep)'
               - '.github/workflows/webapp.yml'
               - '.github/actions/node-setup/**'
 
