@@ -6,13 +6,13 @@ runs:
   steps:
     - uses: pnpm/action-setup@v6.0.0
       with:
-        package_json_file: "web/package.json"
+        package_json_file: "package.json"
 
     - uses: actions/setup-node@v6
       with:
-        node-version-file: "web/.nvmrc"
+        node-version-file: ".nvmrc"
         cache: "pnpm"
-        cache-dependency-path: web/pnpm-lock.yaml
+        cache-dependency-path: pnpm-lock.yaml
 
     - name: Restore Turbo cache
       uses: actions/cache@v5
