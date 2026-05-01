@@ -106,10 +106,9 @@ jobs:
 
       - name: resolve-playwright-version
         id: resolve-playwright-version
-        working-directory: ./apps/www
         run: |
-          version="$(yq -r '.devDependencies["@playwright/test"] // .dependencies["@playwright/test"] // ""' package.json)"
-          test -n "$version" || { echo "No @playwright/test version found in package.json"; exit 1; }
+          version="$(yq -r '.catalog["@playwright/test"] // .dependencies["@playwright/test"] // ""' pnpm-workspace.yaml)"
+          test -n "$version" || { echo "No @playwright/test version found in pnpm-workspace.yaml"; exit 1; }
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
   e2e-test:
