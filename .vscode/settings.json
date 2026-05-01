@@ -1,5 +1,5 @@
 {
-  "i18n-ally.localesPaths": ["web/apps/www/messages", "web/apps/www/src/i18n"],
-  "oxc.configPath": "./web/apps/www/.oxlintrc.json",
-  "oxc.fmt.configPath": "./web/apps/www/.oxfmtrc.json"
+  "i18n-ally.localesPaths": ["apps/www/messages", "apps/www/src/i18n"],
+  "oxc.configPath": "./apps/www/.oxlintrc.json",
+  "oxc.fmt.configPath": "./apps/www/.oxfmtrc.json"
 }

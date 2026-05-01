@@ -20,6 +20,7 @@ blockExoticSubdeps: true
 strictDepBuilds: true
 optimisticRepeatInstall: true
 verifyDepsBeforeRun: "install"
+saveExact: true
 
 # Catalog configuration
 catalogMode: "strict"
@@ -28,7 +29,7 @@ catalog:
   "@chromatic-com/storybook": 5.1.1
   "@heroui/react": 3.0.2
   "@heroui/styles": 3.0.2
-  "@internationalized/date": 3.12.0
+  "@internationalized/date": 3.12.1
   "@lingual/i18n-check": 0.9.3
   "@msw/playwright": 0.6.7
   "@next/bundle-analyzer": 16.2.3
