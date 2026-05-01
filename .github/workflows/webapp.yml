@@ -49,6 +49,7 @@ jobs:
             src:
               - '!(.mcp)*.json'
               - '*.y(a)?ml'
+              - '.nvmrc'
               - '(apps|packages)/**/!(*.md|.gitkeep)'
               - '.github/workflows/webapp.yml'
               - '.github/actions/node-setup/**'
