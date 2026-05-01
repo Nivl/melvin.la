@@ -25,4 +25,4 @@ runs:
 
     - name: install deps
       shell: bash
-      run: cd web && pnpm install --frozen-lockfile
+      run: pnpm install --frozen-lockfile
