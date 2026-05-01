@@ -1,4 +1,4 @@
 {
-  "ignore": ["tsconfig.base.json", "messages/en.d.json.ts", "src/i18n/routing.ts"],
+  "ignore": ["tsconfig.base.json", "messages/en.d.json.ts"],
   "ignoreDependencies": []
 }

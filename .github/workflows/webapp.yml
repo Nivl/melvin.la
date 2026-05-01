@@ -80,18 +80,8 @@ jobs:
       - name: Setup
         uses: "./.github/actions/node-setup"
 
-      - name: Validate TS types
-        run: pnpm run check-types
-
-      - name: Lint the code
-        run: pnpm run lint
-
-      - name: Check the code format
-        run: pnpm run fmt:check
-
-      - name: Lint package.json
-        run: |
-          pnpm run knip
+      - name: Validate Code
+        run: pnpm run validate-code
 
   unit-test:
     if: needs.prepare-env.outputs.code-changed == 'true'
