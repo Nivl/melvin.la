@@ -128,7 +128,7 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: playwright-reports
-          path: "playwright-report/" # Set your reports path here
+          path: "apps/www/playwright-report/" # Set your reports path here
           retention-days: 3
 
   # sIn order to save chromatic credits, we only run this one:
