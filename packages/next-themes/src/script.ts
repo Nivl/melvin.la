@@ -9,17 +9,17 @@ export const script = (
   enableColorScheme,
 ) => {
   const el = document.documentElement;
-  const systemThemes = ["light", "dark"];
+  const systemThemes = new Set(["light", "dark"]);
 
   function updateDOM(theme: string) {
     const attributes = Array.isArray(attribute) ? attribute : [attribute];
 
     attributes.forEach((attr) => {
       const isClass = attr === "class";
-      const classes = isClass && value ? themes.map((t) => value[t] || t) : themes;
+      const classes = isClass && value ? themes.map((t) => value[t] ?? t) : themes;
       if (isClass) {
         el.classList.remove(...classes);
-        el.classList.add(value && value[theme] ? value[theme] : theme);
+        el.classList.add(value?.[theme] ?? theme);
       } else {
         el.setAttribute(attr, theme);
       }
@@ -29,7 +29,7 @@ export const script = (
   }
 
   function setColorScheme(theme: string) {
-    if (enableColorScheme && systemThemes.includes(theme)) {
+    if (enableColorScheme && systemThemes.has(theme)) {
       el.style.colorScheme = theme;
     }
   }
@@ -42,11 +42,11 @@ export const script = (
     updateDOM(forcedTheme);
   } else {
     try {
-      const themeName = localStorage.getItem(storageKey) || defaultTheme;
+      const themeName = localStorage.getItem(storageKey) ?? defaultTheme;
       const isSystem = enableSystem && themeName === "system";
       const theme = isSystem ? getSystemTheme() : themeName;
       updateDOM(theme);
-    } catch (e) {
+    } catch {
       //
     }
   }

@@ -1,0 +1,218 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "react",
+    "react-perf",
+    "nextjs",
+    "oxc",
+    "import",
+    "jsx-a11y",
+    "vitest"
+  ],
+  "jsPlugins": ["eslint-plugin-simple-import-sort"],
+  "categories": {
+    "correctness": "error",
+    "nursery": "error",
+    "pedantic": "error",
+    "perf": "error",
+    "restriction": "error",
+    "style": "error",
+    "suspicious": "error"
+  },
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
+  "env": {
+    "builtin": true,
+    "es2026": true
+  },
+  "ignorePatterns": [
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    "public/mockServiceWorker.js",
+    "messages/**.ts"
+  ],
+  "rules": {
+    // off
+    "capitalized-comments": "off", // Force comments to start with a capital letter. Has false positive.
+    "consistent-type-imports": "off", // Force the "type" keyword to be used consistently in imports. Conflicts with other rules.
+    "eslint/complexity": "off", // Limit cyclomatic complexity. Too opinionated.
+    "eslint/no-undefined": "off", // Prevent using undefined as an identifier. Too opinionated.
+    "import/exports-last": "off", // force exports at the end of file. Too opinionated, doesn't prevent anything useful.
+    "import/group-exports": "off", // force grouping exports together. Too opinionated, doesn't prevent anything useful.
+    "import/no-unassigned-import": "off", // Prevent side-effect imports. Needed for CSS and polyfill imports.
+    "init-declarations": "off", // force initialization in variable declarations. Too many conflicts with other more useful rules.
+    "max-dependencies": "off", // limit the amount of imports per file. Too opinionated, doesn't prevent anything useful.
+    "max-depth": "off", // limit the nesting depth of blocks. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "max-lines": "off", // limit the size of a file. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "max-lines-per-function": "off", // limit the size of a function. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "max-params": "off", // limit the number of parameters per function. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "max-statements": "off", // limit the amount of statements per function. Too opinionated, doesn't prevent anything useful.
+    "new-cap": "off", // Forces the use of "new" in some cases. Too many false positives.
+    "no-continue": "off", // Prevents the use of continue statements. Early exits are a good thing.
+    "no-duplicate-imports": "off", // Prevent multiple imports of the same module. Conflicts with other rules.
+    "no-inline-comments": "off", // Prevent inline comments. WTF is that shit.
+    "no-magic-numbers": "off", // Prevent magic numbers. Good idea on paper, but hard to enforce in practice. We have close to 3k violations as of writing this comment.
+    "no-named-export": "off", // Prevent named exports. That's the exact opposite of what we want.
+    "no-nested-ternary": "off", // Prevents the use of nested ternary expressions. Great on paper, but useful with jsx.
+    "no-param-reassign": "off", // Prevent reassigning function parameters. Too restrictive for reducers and event handlers.
+    "no-ternary": "off", // Prevents the use of ternary expressions. Too opinionated, doesn't prevent anything useful, especially with jsx.
+    "oxc/no-async-await": "off", // Prevent using async/await.
+    "oxc/no-optional-chaining": "off", // Prevent using optional chaining. Only useful if we want to support older browsers, which we don't.
+    "oxc/no-rest-spread-properties": "off", // Prevent using rest/spread properties. Only useful if we want to support older browsers, which we don't.
+    "prefer-default-export": "off", // Prevent named exports. That's the exact opposite of what we want.
+    "prefer-destructuring": "off", // Prevent accessing an array doing "array[0]". Good idea on paper, but leads to less readable code in some cases.
+    "prefer-template": "off", // Force the use of template literals. Good idea, but in some cases, string concatenation is more readable.
+    "react/jsx-filename-extension": "off", // Restrict JSX to .jsx files only. We use .tsx.
+    "react/jsx-max-depth": "off", // limit the nesting depth of jsx. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "require-await": "off", // All async methods require an await. Doesn't solve anything useful.
+    "sort-imports": "off", // Sort imports. Conflicts with eslint-plugin-simple-import-sort.
+    "strict-boolean-expressions": "off", // force boolean expression to be actual boolean. Great on paper, but very verbose and unpractical. End up doing a lot of `xx !== undefined && xx !== ""`
+    "switch-exhaustiveness-check": "off", // Force switch statements to be exhaustive. Conflicts with no-useless-switch-case and default-case.
+    "typescript/explicit-function-return-type": "off", // Require explicit return types on functions. Too verbose with type inference.
+    "typescript/explicit-module-boundary-types": "off", // Require explicit return types on module exports. Too verbose with type inference.
+    "typescript/prefer-readonly-parameter-types": "off", // Require readonly on function params. Too verbose and restrictive.
+    "unicorn/no-nested-ternary": "off", // Prevents the use of nested ternary expressions. Great on paper, but useful with jsx.
+    "unicorn/no-useless-undefined": "off", // Prevent redundant undefined in returns/assignments. Conflicts with consistent-return style.
+    "vitest/no-importing-vitest-globals": "off", // Prevent explicit vitest imports. We don't use auto-imports.
+    "vitest/prefer-called-once": "off", // Prefer toHaveBeenCalledOnce(). Conflicts with prefer-called-times.
+    "vitest/prefer-importing-vitest-globals": "off", // Force importing vitest instead of using globals. Tons of false positives and conflicts.
+    "vitest/prefer-to-be-falsy": "off", // Prefer toBeFalsy(). Conflicts with prefer-strict-boolean-matchers.
+    "vitest/prefer-to-be-truthy": "off", // Prefer toBeTruthy(). Conflicts with prefer-strict-boolean-matchers.
+    // warn
+    "react-perf/jsx-no-jsx-as-prop": "warn", // Passing JSX as prop creates new references on each render.
+    "react-perf/jsx-no-new-array-as-prop": "warn", // Passing new arrays as prop creates new references on each render.
+    "react-perf/jsx-no-new-function-as-prop": "warn", // Passing new functions as prop creates new references on each render.
+    "react-perf/jsx-no-new-object-as-prop": "warn", // Passing new objects as prop creates new references on each render.
+    // Custom rules
+    "id-length": [
+      "error",
+      {
+        // _: common variable name for unused variables and throwaway values.
+        // x, y, z: standard variable names in math and loops.
+        // i, j, k: standard variable names in loops.
+        // t: standard variable name for translation.
+        // v: common variable name for "value".
+        // n: common variable name for "number".
+        // T: standard name for a Template param.
+        // d: required for motion when animating the "d" property.
+        // C: We have a icon named C.
+        "exceptions": ["_", "x", "y", "z", "i", "j", "k", "t", "n", "v", "T", "p", "d", "C"]
+      }
+    ], // limit the length of identifiers.
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "all",
+        "argsIgnorePattern": "^_",
+        "caughtErrors": "all",
+        "caughtErrorsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "react/jsx-no-useless-fragment": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
+    "simple-import-sort/exports": "error", // Auto-sort export statements.
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [["^\\u0000"], ["^node:"], ["^@?\\w"], ["^"], ["^#"], ["^\\."]]
+      }
+    ],
+    "typescript/consistent-type-definitions": ["error", "type"], // Enforce type over interface.
+    "typescript/restrict-template-expressions": [
+      "error",
+      {
+        "allowAny": false,
+        "allowBoolean": false,
+        "allowNever": false,
+        "allowNullish": false,
+        "allowNumber": false,
+        "allowRegExp": false
+      }
+    ],
+    "typescript/return-await": ["error", "error-handling-correctness-only"] // Require return await only inside try/catch for correct error handling.
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+      "rules": {
+        // off
+        "constructor-super": "off", // Handled by TypeScript.
+        "getter-return": "off", // Handled by TypeScript.
+        "no-class-assign": "off", // Handled by TypeScript.
+        "no-const-assign": "off", // Handled by TypeScript.
+        "no-dupe-class-members": "off", // Handled by TypeScript.
+        "no-dupe-keys": "off", // Handled by TypeScript.
+        "no-func-assign": "off", // Handled by TypeScript.
+        "no-import-assign": "off", // Handled by TypeScript.
+        "no-new-native-nonconstructor": "off", // Handled by TypeScript.
+        "no-obj-calls": "off", // Handled by TypeScript.
+        "no-redeclare": "off", // Handled by TypeScript.
+        "no-setter-return": "off", // Handled by TypeScript.
+        "no-this-before-super": "off", // Handled by TypeScript.
+        "no-undef": "off", // Handled by TypeScript.
+        "no-unreachable": "off", // Handled by TypeScript.
+        "no-unsafe-negation": "off", // Handled by TypeScript.
+        "no-with": "off" // Handled by TypeScript.
+      }
+    },
+    {
+      "files": ["**/*.{js,jsx,mjs,ts,tsx,mts,cts}"],
+      "rules": {
+        // off
+        "jsx-a11y/click-events-have-key-events": "off", // Require keyboard events alongside click. We use role-based interactions instead.
+        "jsx-a11y/no-autofocus": "off", // Prevent autofocus attribute. Acceptable UX pattern in controlled contexts.
+        "jsx-a11y/no-static-element-interactions": "off", // Prevent event handlers on non-interactive elements. Handled via ARIA roles.
+        "react/jsx-no-target-blank": "off", // Handled by React 18+.
+        "react/no-unknown-property": "off", // Handled by TypeScript.
+        "react/no-unsafe": "off", // Deprecated lifecycle methods. Handled by TypeScript/React.
+        "react/react-in-jsx-scope": "off" // React 17+ automatic JSX transform; no import needed.
+      },
+      "globals": {
+        "AudioWorkletGlobalScope": "readonly",
+        "AudioWorkletProcessor": "readonly",
+        "currentFrame": "readonly",
+        "currentTime": "readonly",
+        "registerProcessor": "readonly",
+        "sampleRate": "readonly",
+        "WorkletGlobalScope": "readonly"
+      },
+      "env": {
+        "browser": true,
+        "node": true
+      }
+    },
+    {
+      "files": ["**/*.stories.ts", "**/*.stories.tsx"],
+      "rules": {
+        // off
+        "import/no-default-export": "off", // Storybook requires a default export for the story meta object.
+        "no-empty-function": "off", // Story action handlers are often intentionally empty.
+        "unicorn/no-null": "off" // Story args use null for optional props.
+      }
+    },
+    {
+      "files": ["**/*.test.ts", "**/*.test.tsx"],
+      "rules": {
+        // off
+        "@typescript-eslint/require-await": "off", // Mock implementations are often async without await.
+        "eslint/no-empty-function": "off", // Mock functions and test stubs are intentionally empty.
+        "no-unsafe-type-assertion": "off", // vi.mock imports require type assertions.
+        "react/jsx-props-no-spreading": "off" // Test utilities spread props freely.
+      }
+    }
+  ]
+}

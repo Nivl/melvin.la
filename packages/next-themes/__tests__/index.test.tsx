@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
 
-import * as React from "react";
 import { act, render, renderHook, screen } from "@testing-library/react";
-import { vi, beforeAll, beforeEach, afterEach, afterAll, describe, test, it, expect } from "vitest";
 import { cleanup } from "@testing-library/react";
+import * as React from "react";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect,it, test, vi } from "vitest";
 
 import { ThemeProvider, useTheme } from "../src/index";
 import { ThemeProviderProps } from "../src/types";
@@ -13,18 +13,18 @@ const localStorageMock: Storage = (() => {
   let store: Record<string, string> = {};
 
   return {
-    getItem: vi.fn((key: string): string => store[key] ?? null),
-    setItem: vi.fn((key: string, value: string): void => {
-      store[key] = value.toString();
-    }),
-    removeItem: vi.fn((key: string): void => {
-      delete store[key];
-    }),
     clear: vi.fn((): void => {
       store = {};
     }),
+    getItem: vi.fn((key: string): string => store[key] ?? null),
     key: vi.fn((index: number): string | null => ""),
     length: Object.keys(store).length,
+    removeItem: vi.fn((key: string): void => {
+      delete store[key];
+    }),
+    setItem: vi.fn((key: string, value: string): void => {
+      store[key] = value.toString();
+    }),
   };
 })();
 
@@ -52,7 +52,6 @@ function setDeviceTheme(theme: "light" | "dark") {
   // Create a mock of the window.matchMedia function
   // Based on: https://stackoverflow.com/questions/39830580/jest-test-fails-typeerror-window-matchmedia-is-not-a-function
   Object.defineProperty(window, "matchMedia", {
-    writable: true,
     value: vi.fn().mockImplementation((query) => ({
       matches: theme === "dark" ? true : false,
       media: query,
@@ -63,6 +62,7 @@ function setDeviceTheme(theme: "light" | "dark") {
       removeEventListener: vi.fn(),
       dispatchEvent: vi.fn(),
     })),
+    writable: true,
   });
 }
 
@@ -76,7 +76,7 @@ beforeEach(() => {
   // Reset window side-effects
   setDeviceTheme("light");
   document.documentElement.style.colorScheme = "";
-  document.documentElement.removeAttribute("data-theme");
+  delete document.documentElement.dataset.theme;
   document.documentElement.removeAttribute("class");
 
   // Clear the localStorage-mock
@@ -210,7 +210,7 @@ describe("custom attribute", () => {
       );
     });
 
-    expect(document.documentElement.getAttribute("data-theme")).toBe("light");
+    expect(document.documentElement.dataset.theme).toBe("light");
   });
 
   test('should use class attribute (CSS-class) when attribute="class"', () => {
@@ -222,7 +222,7 @@ describe("custom attribute", () => {
       );
     });
 
-    expect(document.documentElement.classList.contains("light")).toBeTruthy();
+    expect(document.documentElement.classList.contains("light")).toBe(true);
   });
 
   test('should use "data-example"-attribute when attribute="data-example"', () => {
@@ -234,7 +234,7 @@ describe("custom attribute", () => {
       );
     });
 
-    expect(document.documentElement.getAttribute("data-example")).toBe("light");
+    expect(document.documentElement.dataset.example).toBe("light");
   });
 
   test("supports multiple attributes", () => {
@@ -246,8 +246,8 @@ describe("custom attribute", () => {
       );
     });
 
-    expect(document.documentElement.getAttribute("data-example")).toBe("light");
-    expect(document.documentElement.getAttribute("data-theme-test")).toBe("light");
+    expect(document.documentElement.dataset.example).toBe("light");
+    expect(document.documentElement.dataset.themeTest).toBe("light");
   });
 });
 
@@ -266,7 +266,7 @@ describe("custom value-mapping", () => {
       );
     });
 
-    expect(document.documentElement.getAttribute("data-theme")).toBe("my-pink-theme");
+    expect(document.documentElement.dataset.theme).toBe("my-pink-theme");
     expect(window.localStorage.setItem).toHaveBeenCalledWith("theme", "pink");
   });
 
@@ -279,7 +279,7 @@ describe("custom value-mapping", () => {
       );
     });
 
-    expect(document.documentElement.hasAttribute("data-theme")).toBeFalsy();
+    expect(Object.hasOwn(document.documentElement.dataset, "theme")).toBe(false);
   });
 
   test("should allow missing values (class)", () => {
@@ -291,7 +291,7 @@ describe("custom value-mapping", () => {
       );
     });
 
-    expect(document.documentElement.classList.contains("light")).toBeFalsy();
+    expect(document.documentElement.classList.contains("light")).toBe(false);
   });
 
   test("supports multiple attributes", () => {
@@ -307,8 +307,8 @@ describe("custom value-mapping", () => {
       );
     });
 
-    expect(document.documentElement.getAttribute("data-example")).toBe("my-pink-theme");
-    expect(document.documentElement.getAttribute("data-theme-test")).toBe("my-pink-theme");
+    expect(document.documentElement.dataset.example).toBe("my-pink-theme");
+    expect(document.documentElement.dataset.themeTest).toBe("my-pink-theme");
   });
 });
 
@@ -373,7 +373,7 @@ describe("system theme", () => {
     setDeviceTheme("dark");
 
     const { result } = renderHook(() => useTheme(), {
-      wrapper: makeWrapper({ enableSystem: false, defaultTheme: "light" }),
+      wrapper: makeWrapper({ defaultTheme: "light", enableSystem: false }),
     });
 
     expect(result.current.theme).toBe("light");
@@ -405,7 +405,7 @@ describe("color-scheme", () => {
       );
     });
 
-    expect(document.documentElement.getAttribute("data-theme")).toBe("light");
+    expect(document.documentElement.dataset.theme).toBe("light");
     expect(document.documentElement.style.colorScheme).toBe("light");
   });
 
@@ -418,7 +418,7 @@ describe("color-scheme", () => {
       );
     });
 
-    expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
+    expect(document.documentElement.dataset.theme).toBe("dark");
     expect(document.documentElement.style.colorScheme).toBe("dark");
   });
 });
@@ -496,6 +496,6 @@ describe("inline script", () => {
       );
     });
 
-    expect(document.querySelector('script[data-test="1234"]')).toBeTruthy();
+    expect(document.querySelector('script[data-test="1234"]')).toBe(true);
   });
 });

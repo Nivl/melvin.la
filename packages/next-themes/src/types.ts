@@ -1,19 +1,10 @@
-import * as React from "react";
-
-interface ValueObject {
-  [themeName: string]: string;
-}
+type ValueObject = Record<string, string>;
 
 type DataAttribute = `data-${string}`;
 
-interface ScriptProps extends React.DetailedHTMLProps<
-  React.ScriptHTMLAttributes<HTMLScriptElement>,
-  HTMLScriptElement
-> {
-  [dataAttribute: DataAttribute]: any;
-}
+type ScriptProps = Record<DataAttribute, unknown>;
 
-export interface UseThemeProps {
+export type UseThemeProps = {
   /** List of all available theme names */
   themes: string[];
   /** Forced theme name for the current page */
@@ -26,11 +17,11 @@ export interface UseThemeProps {
   resolvedTheme?: string | undefined;
   /** If enableSystem is true, returns the System theme preference ("dark" or "light"), regardless what the active theme is */
   systemTheme?: "dark" | "light" | undefined;
-}
+};
 
 export type Attribute = DataAttribute | "class";
 
-export interface ThemeProviderProps extends React.PropsWithChildren<unknown> {
+export type ThemeProviderProps = {
   /** List of all available theme names */
   themes?: string[] | undefined;
   /** Forced theme name for the current page */
@@ -53,4 +44,4 @@ export interface ThemeProviderProps extends React.PropsWithChildren<unknown> {
   nonce?: string;
   /** Props to pass the inline script */
   scriptProps?: ScriptProps;
-}
+} & React.PropsWithChildren;

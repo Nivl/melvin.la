@@ -26,8 +26,12 @@
     "dev": "tsdown --watch",
     "test:unit": "vitest run __tests__",
     "test:e2e": "echo 1",
-    "validate-code": "oxfmt --check .",
-    "validate-code:fix": "oxfmt ."
+    "lint": "oxlint . --quiet",
+    "lint:fix": "oxlint . --fix",
+    "fmt": "oxfmt --check .",
+    "fmt:fix": "oxfmt .",
+    "validate-code": "pnpm run lint && pnpm run fmt",
+    "validate-code:fix": "pnpm run lint:fix && pnpm run fmt:fix"
   },
   "devDependencies": {
     "@testing-library/react": "catalog:",
@@ -35,6 +39,8 @@
     "@types/react": "catalog:",
     "jsdom": "catalog:",
     "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tsdown": "catalog:",

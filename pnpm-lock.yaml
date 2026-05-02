@@ -417,6 +417,12 @@ importers:
       oxfmt:
         specifier: 'catalog:'
         version: 0.45.0
+      oxlint:
+        specifier: 'catalog:'
+        version: 1.60.0(oxlint-tsgolint@0.21.1)
+      oxlint-tsgolint:
+        specifier: 'catalog:'
+        version: 0.21.1
       react:
         specifier: 'catalog:'
         version: 19.2.5
