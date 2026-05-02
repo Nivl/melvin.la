@@ -21,6 +21,12 @@ optimisticRepeatInstall: true
 verifyDepsBeforeRun: "install"
 saveExact: true
 
+trustPolicy: "no-downgrade"
+trustPolicyExclude:
+  # Nested deps from @storybook/nextjs@10.3.5
+  - "semver@6.3.1"
+  - "chokidar@4.0.3"
+
 # Catalog configuration
 catalogMode: "strict"
 cleanupUnusedCatalogs: true
