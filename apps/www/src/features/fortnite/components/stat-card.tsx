@@ -9,7 +9,7 @@ export const StatCard = ({
   className = "",
   isLoading = false,
   ...delegated
-}: CardRootProps & {
+}: Omit<CardRootProps, "children"> & {
   title: string;
   isProgress?: boolean;
   stat: string | number;
