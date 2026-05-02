@@ -11,7 +11,7 @@ export const Pill = ({
   className = "",
   isLoading = false,
   ...delegated
-}: CardRootProps & {
+}: Omit<CardRootProps, "children"> & {
   title: string;
   icon: React.ReactNode;
   onPress: () => void;

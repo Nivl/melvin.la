@@ -26,8 +26,8 @@ catalogMode: "strict"
 cleanupUnusedCatalogs: true
 catalog:
   "@chromatic-com/storybook": 5.1.2
-  "@heroui/react": 3.0.2
-  "@heroui/styles": 3.0.2
+  "@heroui/react": 3.0.3
+  "@heroui/styles": 3.0.3
   "@internationalized/date": 3.12.1
   "@lingual/i18n-check": 0.9.3
   "@msw/playwright": 0.6.7
