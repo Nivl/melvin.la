@@ -1,0 +1,55 @@
+{
+  "name": "@melvinla/next-themes",
+  "version": "0.4.6",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pacocoursey/next-themes.git"
+  },
+  "files": [
+    "src"
+  ],
+  "type": "module",
+  "main": "./src/index.tsx",
+  "module": "./src/index.tsx",
+  "types": "./src/index.tsx",
+  "exports": {
+    ".": {
+      "types": "./src/index.tsx",
+      "import": "./src/index.tsx",
+      "default": "./src/index.tsx"
+    }
+  },
+  "scripts": {
+    "build": "echo 1",
+    "dev": "echo 1",
+    "test:unit": "vitest run __tests__",
+    "test:e2e": "echo 1",
+    "lint": "oxlint . --quiet",
+    "lint:fix": "oxlint . --fix",
+    "fmt": "oxfmt --check .",
+    "fmt:fix": "oxfmt .",
+    "validate-code": "pnpm run lint && pnpm run fmt",
+    "validate-code:fix": "pnpm run lint:fix && pnpm run fmt:fix"
+  },
+  "devDependencies": {
+    "@testing-library/react": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "eslint-plugin-simple-import-sort": "catalog:",
+    "jsdom": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  }
+}

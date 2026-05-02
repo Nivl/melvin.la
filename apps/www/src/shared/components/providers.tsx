@@ -1,8 +1,8 @@
 "use client";
 
 import { I18nProvider, Toast } from "@heroui/react";
+import { ThemeProvider as NextThemesProvider } from "@melvinla/next-themes";
 import { NextIntlClientProvider } from "next-intl";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 import { buildGetMessageFallback, MessagesType } from "#i18n/request";
 import { TRPCReactProvider } from "#trpc/provider";

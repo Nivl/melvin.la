@@ -22,11 +22,11 @@ const mockEngine = {
 };
 
 vi.mock(
-  import("next-themes"),
+  import("@melvinla/next-themes"),
   () =>
     ({
       ThemeProvider: ({ children }: { children: ReactElement }): ReactElement => children,
-    }) as unknown as Awaited<typeof import("next-themes")>,
+    }) as unknown as Awaited<typeof import("@melvinla/next-themes")>,
 );
 
 vi.mock(import("#features/beatmaker/models"), async (importOriginal) => {

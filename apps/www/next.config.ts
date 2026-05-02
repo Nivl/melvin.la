@@ -90,7 +90,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  transpilePackages: ["next-mdx-remote"],
+  transpilePackages: ["next-mdx-remote", "@melvinla/next-themes"],
 };
 
 // https://www.npmjs.com/package/@sentry/webpack-plugin#options

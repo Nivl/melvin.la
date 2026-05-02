@@ -1,9 +1,9 @@
 // This is a test file, we don't care too much about high react perf
 //eslint-disable only-export-components
 
+import type { ThemeProviderProps } from "@melvinla/next-themes";
+import { ThemeProvider, useTheme } from "@melvinla/next-themes";
 import { DecoratorHelpers } from "@storybook/addon-themes";
-import type { ThemeProviderProps } from "next-themes";
-import { ThemeProvider, useTheme } from "next-themes";
 import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
 import type { DecoratorFunction } from "storybook/internal/types";
