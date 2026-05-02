@@ -1,13 +1,13 @@
 "use client";
 
 import { Button, Dropdown } from "@heroui/react";
+import { useTheme } from "@melvinla/next-themes";
 import {
   Moon as DarkThemeIcon,
   Palette as SystemThemeIcon,
   Sun as LightThemeIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 import { ThemeSwitcherIcon } from "#shared/components/icons/theme-switcher-icon.tsx";

@@ -2,10 +2,6 @@
   "name": "@melvinla/root",
   "private": true,
   "scripts": {
-    "lint": "turbo run lint",
-    "lint:fix": "turbo run lint:fix",
-    "format": "turbo run format",
-    "format:fix": "turbo run format:fix",
     "build": "turbo run build",
     "validate-code": "turbo run validate-code",
     "validate-code:fix": "turbo run validate-code:fix",

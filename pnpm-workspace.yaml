@@ -1,35 +1,7 @@
 packages:
   - "apps/*"
   - "packages/*"
-
-# Supply chain attack mitigation
-ignoredBuiltDependencies:
-  - canvas
-  - core-js-pure
-  - esbuild
-  - sharp
-  - unrs-resolver
-  - "@swc/core"
-  - "msw"
-  - "@sentry/cli"
-  - "@parcel/watcher"
-
-minimumReleaseAge: 20160
 blockExoticSubdeps: true
-strictDepBuilds: true
-optimisticRepeatInstall: true
-verifyDepsBeforeRun: "install"
-saveExact: true
-
-trustPolicy: "no-downgrade"
-trustPolicyExclude:
-  # Nested deps from @storybook/nextjs@10.3.5
-  - "semver@6.3.1"
-  - "chokidar@4.0.3"
-
-# Catalog configuration
-catalogMode: "strict"
-cleanupUnusedCatalogs: true
 catalog:
   "@chromatic-com/storybook": 5.1.2
   "@heroui/react": 3.0.3
@@ -74,7 +46,6 @@ catalog:
   next: 16.2.4
   next-intl: 4.9.1
   next-mdx-remote: 6.0.0
-  next-themes: 0.4.6
   oxfmt: 0.45.0
   oxlint: 1.60.0
   oxlint-tsgolint: 0.21.1
@@ -87,6 +58,7 @@ catalog:
   storybook: 10.3.5
   tailwind-merge: 3.5.0
   tailwindcss: 4.2.2
+  tsdown: 0.21.9
   tsx: 4.21.0
   turbo: 2.9.6
   typescript: 6.0.3
@@ -95,3 +67,31 @@ catalog:
   vitest: 4.1.4
   vitest-canvas-mock: 1.1.4
   zod: 4.3.6
+
+# Catalog configuration
+catalogMode: "strict"
+cleanupUnusedCatalogs: true
+
+# Supply chain attack mitigation
+ignoredBuiltDependencies:
+  - canvas
+  - core-js-pure
+  - esbuild
+  - sharp
+  - unrs-resolver
+  - "@swc/core"
+  - "msw"
+  - "@sentry/cli"
+  - "@parcel/watcher"
+
+minimumReleaseAge: 20160
+optimisticRepeatInstall: true
+saveExact: true
+strictDepBuilds: true
+
+trustPolicy: "no-downgrade"
+trustPolicyExclude:
+  # Nested deps from @storybook/nextjs@10.3.5
+  - "semver@6.3.1"
+  - "chokidar@4.0.3"
+verifyDepsBeforeRun: "install"
