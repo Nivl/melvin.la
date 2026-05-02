@@ -161,6 +161,7 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: ./apps/www
+          storybookBaseDir: ./apps/www
           exitZeroOnChanges: true
           autoAcceptChanges: main
           onlyChanged: true
