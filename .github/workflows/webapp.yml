@@ -33,6 +33,9 @@ jobs:
         with:
           token: ${{ github.token }}
           # Negation is kinda weird in paths-filter (picomatch).
+          # Test at https://rapidtoolset.com/en/tool/glob-pattern-tester
+          #   Make sure to enable "Match Dotfiles"
+          #
           # If you want everything BUT markdown files, you cannot say:
           #    - 'web/**'
           #    - '!web/**/*.md'
@@ -111,7 +114,7 @@ jobs:
           test -n "$version" || { echo "No @playwright/test version found in pnpm-workspace.yaml"; exit 1; }
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-  e2e-test:
+  www-e2e-test:
     if: needs.prepare-env.outputs.code-changed == 'true'
     needs: [ resolve-playwright-version ]
     runs-on: ubuntu-latest
@@ -137,12 +140,12 @@ jobs:
   #  - after everything else has passed
   #  - On any non-draft PRs
   #  - On any push to the main branch
-  chromatic:
+  www-chromatic:
     if: |
       needs.prepare-env.outputs.code-changed == 'true' &&
       ((github.event_name == 'push' && github.ref == 'refs/heads/main') ||
         (github.event.pull_request.draft == false))
-    needs: [ prepare-env, lint, unit-test, e2e-test, build ]
+    needs: [ prepare-env, lint, unit-test, www-e2e-test, build ]
     name: Run Chromatic
     runs-on: ubuntu-latest
     steps:
@@ -157,7 +160,7 @@ jobs:
         uses: chromaui/action@8a2b82547aef5a3efc8ec3c7905f4ab09a76ed0b
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: ./web
+          workingDir: ./apps/www
           exitZeroOnChanges: true
           autoAcceptChanges: main
           onlyChanged: true
@@ -165,7 +168,7 @@ jobs:
   # This job is what github action will check to see if a PR is ready to
   # be merged.
   webapp-required-check:
-    needs: [ prepare-env, build, lint, unit-test, e2e-test, chromatic ]
+    needs: [ prepare-env, build, lint, unit-test, www-e2e-test, www-chromatic ]
     # This is necessary since a failed/skipped dependent job would cause this job to be skipped
     if: always()
     runs-on: ubuntu-latest
