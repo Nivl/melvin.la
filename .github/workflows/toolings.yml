@@ -3,10 +3,10 @@ name: tooling
 on:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
-    - main
+      - main
 
 permissions:
   contents: read
@@ -28,7 +28,7 @@ jobs:
       - run: git config --global --add safe.directory /__w/melvin.la/melvin.la
 
       - name: Check for file changes
-        uses: dorny/paths-filter@61f87a10cd2c304679af17bb73ef192addf33c1c
+        uses: dorny/paths-filter@f3ceefdc7ef57bc2d8560787d4b6c33e44044cec
         id: changes
         with:
           token: ${{ github.token }}
@@ -41,18 +41,15 @@ jobs:
     needs: prepare-env
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
-    - uses: actions/setup-node@v6
-    - run: npx --yes --package renovate -- renovate-config-validator --strict .github/renovate.json
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+      - run: npx --yes --package renovate -- renovate-config-validator --strict
+          .github/renovate.json
 
   # This job is what github action will check to see if a PR is ready to
   # be merged.
   tooling-required-check:
-    needs:
-      [
-        prepare-env,
-        renovate-lint,
-      ]
+    needs: [ prepare-env, renovate-lint ]
     # This is necessary since a failed/skipped dependent job would cause this job to be skipped
     if: always()
     runs-on: ubuntu-latest
