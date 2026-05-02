@@ -1,22 +1,27 @@
+import type { ThemeProviderProps } from "./types";
+
+type ThemeValueMap = NonNullable<ThemeProviderProps["value"]>;
+
 export const script = (
-  attribute,
-  storageKey,
-  defaultTheme,
-  forcedTheme,
-  themes,
-  value,
-  enableSystem,
-  enableColorScheme,
+  attribute: ThemeProviderProps["attribute"],
+  storageKey: string,
+  defaultTheme: string,
+  forcedTheme: string | undefined,
+  themes: string[],
+  value: ThemeValueMap | undefined,
+  enableSystem: boolean,
+  enableColorScheme: boolean,
 ) => {
   const el = document.documentElement;
   const systemThemes = new Set(["light", "dark"]);
 
   function updateDOM(theme: string) {
-    const attributes = Array.isArray(attribute) ? attribute : [attribute];
+    const attributes = Array.isArray(attribute) ? attribute : [attribute ?? "data-theme"];
 
     attributes.forEach((attr) => {
       const isClass = attr === "class";
-      const classes = isClass && value ? themes.map((t) => value[t] ?? t) : themes;
+      const classes =
+        isClass && value ? themes.map((themeName) => value[themeName] ?? themeName) : themes;
       if (isClass) {
         el.classList.remove(...classes);
         el.classList.add(value?.[theme] ?? theme);

@@ -3,7 +3,7 @@
 import { act, render, renderHook, screen } from "@testing-library/react";
 import { cleanup } from "@testing-library/react";
 import * as React from "react";
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect,it, test, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, test, vi } from "vitest";
 
 import { ThemeProvider, useTheme } from "../src/index";
 import { ThemeProviderProps } from "../src/types";
@@ -496,6 +496,6 @@ describe("inline script", () => {
       );
     });
 
-    expect(document.querySelector('script[data-test="1234"]')).toBe(true);
+    expect(document.querySelector('script[data-test="1234"]')).not.toBeNull();
   });
 });

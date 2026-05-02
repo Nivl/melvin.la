@@ -8,22 +8,22 @@
     "url": "https://github.com/pacocoursey/next-themes.git"
   },
   "files": [
-    "dist"
+    "src"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.tsx",
+  "module": "./src/index.tsx",
+  "types": "./src/index.tsx",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "types": "./src/index.tsx",
+      "import": "./src/index.tsx",
+      "default": "./src/index.tsx"
     }
   },
   "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
+    "build": "echo 1",
+    "dev": "echo 1",
     "test:unit": "vitest run __tests__",
     "test:e2e": "echo 1",
     "lint": "oxlint . --quiet",
@@ -37,6 +37,7 @@
     "@testing-library/react": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
+    "eslint-plugin-simple-import-sort": "catalog:",
     "jsdom": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",

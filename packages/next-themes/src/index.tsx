@@ -55,7 +55,7 @@ const Theme = ({
   const attrs = !value ? themes : Object.values(value);
 
   const applyTheme = React.useCallback(
-    (theme) => {
+    (theme: string | undefined) => {
       let resolved = theme;
       if (!resolved) {
         return;
@@ -92,9 +92,8 @@ const Theme = ({
       }
 
       if (enableColorScheme) {
-        const fallback = colorSchemes.has(defaultTheme) ? defaultTheme : null;
+        const fallback = colorSchemes.has(defaultTheme) ? defaultTheme : "";
         const colorScheme = colorSchemes.has(resolved) ? resolved : fallback;
-        // @ts-expect-error
         d.style.colorScheme = colorScheme;
       }
 
@@ -103,10 +102,10 @@ const Theme = ({
     [nonce],
   );
 
-  const setTheme = React.useCallback((value) => {
+  const setTheme = React.useCallback<React.Dispatch<React.SetStateAction<string>>>((value) => {
     if (typeof value === "function") {
       setThemeState((prevTheme) => {
-        const newTheme = value(prevTheme);
+        const newTheme = value(prevTheme ?? defaultTheme);
 
         saveToLS(storageKey, newTheme);
 

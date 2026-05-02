@@ -411,6 +411,9 @@ importers:
       '@types/react':
         specifier: 'catalog:'
         version: 19.2.14
+      eslint-plugin-simple-import-sort:
+        specifier: 'catalog:'
+        version: 13.0.0(eslint@10.2.0(jiti@2.6.1))
       jsdom:
         specifier: 'catalog:'
         version: 29.0.2
