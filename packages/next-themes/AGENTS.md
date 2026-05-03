@@ -1,34 +1,70 @@
-# AGENTS.md
+Read the repository root `AGENTS.md` first, then use this file for workspace-local
+guidance inside `packages/next-themes`.
+
+This package owns the split appearance/theme runtime used by the app. Run
+package-local scripts from `packages/next-themes` unless the task explicitly
+needs repo-wide orchestration from the root.
 
 ## Build, test, and lint commands
 
-- Use `pnpm` at the repository root. The workspace expects Node `>=20` and pnpm `>=9`.
-- Install dependencies: `pnpm install`
-- Build everything in the workspace: `pnpm build`
-- Build only the published package: `pnpm --filter next-themes build`
-- Run the library unit tests: `pnpm test`
-- Run a single Vitest file: `pnpm --filter next-themes exec vitest run __tests__/index.test.tsx`
-- Run a single Vitest test by name: `pnpm --filter next-themes exec vitest run __tests__/index.test.tsx -t "should return system-theme when no default-theme is set"`
-- Run the Playwright suite: `pnpm test:e2e`
-- Run a single Playwright file: `pnpm exec playwright test test/system-theme.test.ts`
-- `pnpm lint` is a formatting pass, not a read-only lint check. It runs `prettier . --write` across the repo.
+- Install dependencies from the repository root with `pnpm install`.
+- From `packages/next-themes`, use `pnpm run test:unit` for the real test suite.
+- From `packages/next-themes`, use `pnpm run validate-code` or
+  `pnpm run validate-code:fix` for the package-level lint/format pass.
+- The package also exposes `pnpm run lint`, `pnpm run lint:fix`, `pnpm run fmt`,
+  and `pnpm run fmt:fix`.
+- `pnpm run build`, `pnpm run dev`, and `pnpm run test:e2e` are currently
+  placeholder scripts that only run `echo 1`. Do not treat them as meaningful
+  validation.
+- From the repository root, the equivalent targeted commands are
+  `pnpm --filter @melvinla/next-themes test:unit` and
+  `pnpm --filter @melvinla/next-themes validate-code`.
 
 ## High-level architecture
 
-- This is a small `pnpm` workspace orchestrated by `turbo`. The root scripts fan out to the published package in `next-themes/` and the runnable example apps in `examples/*`.
-- `next-themes/src/index.tsx` is the main runtime entry point. It owns the React context, `ThemeProvider`, `useTheme`, `ThemeScript`, DOM updates on `document.documentElement`, localStorage persistence, system theme listeners, and cross-tab storage synchronization.
-- `next-themes/src/script.ts` is the pre-hydration inline script injected by `ThemeScript`. If you change theme application behavior, check both `index.tsx` and `script.ts` so the early no-flash path stays aligned with the runtime path.
-- `next-themes/src/types.ts` defines the public API types, and `next-themes/tsup.config.ts` bundles only `src/index.tsx` into `dist/` as ESM, CJS, and `.d.ts` output.
-- `examples/example` is the main pages-router integration surface and the app exercised by Playwright. Its `/`, `/dark`, and `/light` routes cover normal switching plus forced-theme behavior.
-- The other examples document distinct integration modes: `examples/with-app-dir` shows the app router setup, `examples/tailwind` shows `attribute="class"` usage, and `examples/multi-theme` shows multi-theme configuration.
-- `test/` contains Playwright coverage for system theme resolution, switching, forced themes, and storage-event syncing. `test/util.ts` centralizes browser-context setup, especially seeded localStorage and preferred color scheme.
+- `src/index.tsx` is the main runtime entry point and the package export target
+  referenced by `package.json`. It owns the React context, `ThemeProvider`,
+  `useTheme`, the inline `ThemeScript`, localStorage persistence, DOM updates on
+  `document.documentElement`, system appearance tracking, storage-event syncing,
+  and the legacy storage migration shim.
+- `src/script.ts` is the pre-hydration inline script injected by
+  `ThemeScript`. Runtime behavior changes must keep `src/index.tsx` and
+  `src/script.ts` aligned so the no-flash path matches the hydrated path.
+- `src/types.ts` defines the public API for the split appearance/theme model.
+- `__tests__/index.test.tsx` covers provider and hook behavior, attribute and
+  class application, persistence, forced values, storage events, system
+  appearance handling, and legacy migration.
+- `__tests__/script.test.ts` covers the inline script path and parity-sensitive
+  edge cases such as unavailable localStorage, mapping omissions, and legacy
+  migration.
+- `tsdown.config.ts` exists for bundling, but the current package `build`
+  script is still a placeholder. Check both the config and `package.json` before
+  assuming a bundling change is wired into the workflow.
 
 ## Key conventions
 
-- Treat `ThemeProvider`, `ThemeScript`, and `useTheme` as one behavior surface. A change in provider logic often also needs updates in the serialized script path and example/e2e coverage.
-- The persisted localStorage value is the semantic theme name (`theme` by default), even when the `value` prop remaps DOM attribute values. Do not assume the DOM value and stored value are identical.
-- Theme mutations target `document.documentElement`, not `body`. `attribute` can be `'class'`, any `data-*` attribute, or an array of attributes.
-- Hydration safety matters throughout this repo. UI that reads `theme` directly should be gated until mount, and app-router examples rely on `suppressHydrationWarning` on `<html>` because `next-themes` mutates that element.
-- Nested `ThemeProvider`s are intentionally ignored; the outer provider wins and inner providers just render children.
-- Cross-tab syncing is part of the contract. Storage-event handling updates state without writing back to localStorage again to avoid loops, and forced-theme pages should ignore user switching until the page is no longer forced.
-- The media-query listener intentionally uses `addListener`/`removeListener` for older browser and iOS compatibility. Do not “modernize” that behavior without checking compatibility expectations and tests.
+- Appearance and theme are separate axes. Appearance is
+  `light | dark | system`; theme is an arbitrary named family such as `pink` or
+  `blue`. They persist independently under `appearance` and `theme` by default.
+- Preserve the legacy migration behavior in both runtime paths: if the
+  appearance key is missing and the stored theme value is `light`, `dark`, or
+  `system`, treat that legacy theme value as appearance and fall back to the
+  configured default theme family.
+- Theme mutations target `document.documentElement`, not `body`.
+- `appearanceAttribute` and `themeAttribute` each support `"class"`, any
+  `data-*` attribute, or an array of attributes.
+- `appearanceValue` and `themeValue` remap DOM values only. Stored localStorage
+  values stay semantic. If a mapping omits the active key, the package removes
+  the attribute or class instead of falling back to the raw value.
+- Nested `ThemeProvider` instances are intentionally ignored. The outer provider
+  owns the behavior surface and inner providers only render children.
+- Forced values are axis-specific. `forcedAppearance` blocks appearance writes
+  and appearance storage-event updates; `forcedTheme` does the same for theme.
+- When `enableSystem` is false, resolved appearance normalizes `"system"` to
+  `"light"` for DOM updates and `color-scheme`.
+- The media-query subscription intentionally uses
+  `addListener` and `removeListener` for compatibility with older browsers and
+  iOS WebKit. Do not change that casually.
+- The package oxlint config ignores `src/index.tsx`, `src/script.ts`, and
+  `__tests__/**`. When you touch those files, rely on targeted tests and careful
+  review rather than assuming `pnpm run lint` covers them.

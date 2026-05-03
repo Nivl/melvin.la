@@ -1,6 +1,6 @@
 # next-themes
 
-This is a forked of [pacocoursey/next-themes](https://github.com/pacocoursey/next-themes).
+This is a fork of [pacocoursey/next-themes](https://github.com/pacocoursey/next-themes).
 
 Main list of changes:
 
@@ -25,14 +25,6 @@ An abstraction for themes in your React app.
 - ✅ `useTheme` hook
 
 Check out the [Live Example](https://next-themes-example.vercel.app/) to try it for yourself.
-
-## Install
-
-```bash
-$ npm install next-themes
-# or
-$ yarn add next-themes
-```
 
 ## Use
 

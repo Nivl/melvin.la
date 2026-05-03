@@ -32,9 +32,9 @@ const ThemeSwitcher = ({ appearance, children }: ThemeSwitcherProps) => {
   return <div className="bg-background">{children}</div>;
 };
 
-type NextThemesDecorator = Omit<ThemeProviderProps, "defaultTheme" | "themes"> & {
+type NextThemesDecorator = Omit<ThemeProviderProps, "themes"> & {
   themes: Record<string, string>;
-  defaultTheme: string;
+  defaultAppearance: string;
 };
 
 const { initializeThemeState, pluckThemeFromContext } = DecoratorHelpers;
@@ -45,8 +45,8 @@ const hasThemeOverride = (
   themes?: { themeOverride?: string };
 } => typeof value === "object" && value !== null;
 
-export const withNextThemes = ({ themes, defaultTheme, ...props }: NextThemesDecorator) => {
-  initializeThemeState(Object.keys(themes), defaultTheme);
+export const withNextThemes = ({ themes, defaultAppearance, ...props }: NextThemesDecorator) => {
+  initializeThemeState(Object.keys(themes), defaultAppearance);
 
   const decorator: DecoratorFunction = (Story, context) => {
     const selectedTheme = pluckThemeFromContext(context);

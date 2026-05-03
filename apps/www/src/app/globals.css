@@ -5,14 +5,6 @@
 
 @custom-variant dark (&:is([data-appearance="dark"] *));
 
-@theme {
-  --color-nivl: #26ace6;
-
-  /* https://oklch.com */
-  --color-grad-from: var(--color-nivl);
-  --color-grad-to: #32c2ff;
-}
-
 @import "../themes/blue.css" layer(theme);
 @import "../themes/green.css" layer(theme);
 @import "../themes/pink.css" layer(theme);

@@ -31,7 +31,8 @@ const preview: Preview = {
       </NextIntlClientProvider>
     ),
     withNextThemes({
-      defaultTheme: "system",
+      defaultAppearance: "light",
+      defaultTheme: "blue",
       enableSystem: true,
       themes: {
         dark: "dark",
