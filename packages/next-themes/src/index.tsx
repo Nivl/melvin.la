@@ -373,7 +373,7 @@ const disableAnimation = (nonce?: string) => {
   };
 };
 
-export const isAppearance = (value: string): value is Appearance =>
+export const isAppearance = (value: string | undefined): value is Appearance =>
   value === "light" || value === "dark" || value === "system";
 
 // Re-export types

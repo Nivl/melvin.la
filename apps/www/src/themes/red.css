@@ -1,0 +1,85 @@
+@theme {
+  --color-theme-red: oklch(79.36% 0.1276 19.99);
+}
+
+
+/*
+  Editor Link:
+    https://heroui.com/themes?base=0.0145&chroma=0.12764287182303632&hue=19.99391388798363&lightness=0.7935800555021534&radius=small&formRadius=small
+*/
+[data-theme="red"] {
+  /* Border Radius */
+  --radius: 0.25rem;
+  --field-radius: 0.25rem;
+
+  /* Colors */
+  --accent: oklch(79.36% 0.1276 19.99);
+  --accent-foreground: oklch(99.11% 0 0);
+  --background: oklch(97.02% 0.0145 19.99);
+  --border: oklch(90% 0.0145 19.99);
+  --danger: oklch(65.32% 0.2396 357.68);
+  --danger-foreground: oklch(99.11% 0 0);
+  --default: oklch(94% 0.0145 19.99);
+  --default-foreground: oklch(21.03% 0.0059 19.99);
+  --field-background: oklch(100% 0.0073 19.99);
+  --field-foreground: oklch(21.03% 0.0145 19.99);
+  --field-placeholder: oklch(55.17% 0.029 19.99);
+  --focus: oklch(79.36% 0.1276 19.99);
+  --foreground: oklch(21.03% 0.0145 19.99);
+  --muted: oklch(55.17% 0.029 19.99);
+  --overlay: oklch(100% 0.0043 19.99);
+  --overlay-foreground: oklch(21.03% 0.0145 19.99);
+  --scrollbar: oklch(87.1% 0.0145 19.99);
+  --segment: oklch(100% 0.0145 19.99);
+  --segment-foreground: oklch(21.03% 0.0145 19.99);
+  --separator: oklch(92% 0.0145 19.99);
+  --success: oklch(73.29% 0.1991 122.75);
+  --success-foreground: oklch(21.03% 0.0059 122.75);
+  --surface: oklch(100% 0.0073 19.99);
+  --surface-foreground: oklch(21.03% 0.0145 19.99);
+  --surface-secondary: oklch(95.24% 0.0116 19.99);
+  --surface-secondary-foreground: oklch(21.03% 0.0145 19.99);
+  --surface-tertiary: oklch(93.73% 0.0116 19.99);
+  --surface-tertiary-foreground: oklch(21.03% 0.0145 19.99);
+  --warning: oklch(78.19% 0.1631 44.27);
+  --warning-foreground: oklch(21.03% 0.0059 44.27);
+}
+
+/*
+  Editor Link:
+    https://heroui.com/themes?chroma=0.12764287182303632&hue=19.99391388798363&lightness=0.7935800555021534&radius=small&formRadius=small&base=0.0036
+*/
+[data-appearance="dark"][data-theme="red"] {
+  color-scheme: dark;
+
+  --accent: oklch(79.36% 0.1276 19.99);
+  --accent-foreground: oklch(15% 0.0255 19.99);
+  --background: oklch(12% 0.0036 19.99);
+  --border: oklch(28% 0.0036 19.99);
+  --danger: oklch(59.4% 0.1981 356.57);
+  --danger-foreground: oklch(99.11% 0 0);
+  --default: oklch(27.4% 0.0036 19.99);
+  --default-foreground: oklch(99.11% 0 0);
+  --field-background: oklch(21.03% 0.0072 19.99);
+  --field-foreground: oklch(99.11% 0.0036 19.99);
+  --field-placeholder: oklch(70.5% 0.0072 19.99);
+  --focus: oklch(79.36% 0.1276 19.99);
+  --foreground: oklch(99.11% 0.0036 19.99);
+  --muted: oklch(70.5% 0.0072 19.99);
+  --overlay: oklch(21.03% 0.0072 19.99);
+  --overlay-foreground: oklch(99.11% 0.0036 19.99);
+  --scrollbar: oklch(70.5% 0.0036 19.99);
+  --segment: oklch(39.64% 0.0036 19.99);
+  --segment-foreground: oklch(99.11% 0.0036 19.99);
+  --separator: oklch(25% 0.0036 19.99);
+  --success: oklch(73.29% 0.1949 122.75);
+  --success-foreground: oklch(21.03% 0.0059 122.75);
+  --surface: oklch(21.03% 0.0072 19.99);
+  --surface-foreground: oklch(99.11% 0.0036 19.99);
+  --surface-secondary: oklch(25.7% 0.0054 19.99);
+  --surface-secondary-foreground: oklch(99.11% 0.0036 19.99);
+  --surface-tertiary: oklch(27.21% 0.0054 19.99);
+  --surface-tertiary-foreground: oklch(99.11% 0.0036 19.99);
+  --warning: oklch(82.03% 0.1398 48.28);
+  --warning-foreground: oklch(21.03% 0.0059 48.28);
+}

@@ -71,6 +71,7 @@
     "prefer-template": "off", // Force the use of template literals. Good idea, but in some cases, string concatenation is more readable.
     "react/jsx-filename-extension": "off", // Restrict JSX to .jsx files only. We use .tsx.
     "react/jsx-max-depth": "off", // limit the nesting depth of jsx. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "react-perf/jsx-no-new-function-as-prop": "off", // Prevent passing inline functions as prop. Too opinionated, and too spammy to keep as warning.
     "require-await": "off", // All async methods require an await. Doesn't solve anything useful.
     "sort-imports": "off", // Sort imports. Conflicts with eslint-plugin-simple-import-sort.
     "strict-boolean-expressions": "off", // force boolean expression to be actual boolean. Great on paper, but very verbose and unpractical. End up doing a lot of `xx !== undefined && xx !== ""`
@@ -88,7 +89,6 @@
     // warn
     "react-perf/jsx-no-jsx-as-prop": "warn", // Passing JSX as prop creates new references on each render.
     "react-perf/jsx-no-new-array-as-prop": "warn", // Passing new arrays as prop creates new references on each render.
-    "react-perf/jsx-no-new-function-as-prop": "warn", // Passing new functions as prop creates new references on each render.
     "react-perf/jsx-no-new-object-as-prop": "warn", // Passing new objects as prop creates new references on each render.
     // Custom rules
     "id-length": [
