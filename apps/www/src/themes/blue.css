@@ -1,0 +1,87 @@
+@theme {
+  --color-theme-blue: oklch(79.36% 0.1276 233.34);
+}
+
+/*
+  Editor Link:
+    https://heroui.com/themes?base=0.0145&chroma=0.12764287182303632&hue=233.34319724367322&lightness=0.7935800555021534&radius=small&formRadius=small
+*/
+[data-theme="blue"] {
+  /* Border Radius */
+  --radius: 0.25rem;
+  --field-radius: 0.25rem;
+
+  /* Colors */
+  --accent: oklch(79.36% 0.1276 233.34);
+  --accent-foreground: oklch(99.11% 0 0);
+  --background: oklch(97.02% 0.0145 233.34);
+  --border: oklch(90% 0.0145 233.34);
+  --danger: oklch(65.32% 0.2396 23.28);
+  --danger-foreground: oklch(99.11% 0 0);
+  --default: oklch(94% 0.0145 233.34);
+  --default-foreground: oklch(21.03% 0.0059 233.34);
+  --field-background: oklch(100% 0.0073 233.34);
+  --field-foreground: oklch(21.03% 0.0145 233.34);
+  --field-placeholder: oklch(55.17% 0.029 233.34);
+  --focus: oklch(79.36% 0.1276 233.34);
+  --foreground: oklch(21.03% 0.0145 233.34);
+  --muted: oklch(55.17% 0.029 233.34);
+  --overlay: oklch(100% 0.0043 233.34);
+  --overlay-foreground: oklch(21.03% 0.0145 233.34);
+  --scrollbar: oklch(87.1% 0.0145 233.34);
+  --segment: oklch(100% 0.0145 233.34);
+  --segment-foreground: oklch(21.03% 0.0145 233.34);
+  --separator: oklch(92% 0.0145 233.34);
+  --success: oklch(73.29% 0.1991 148.35);
+  --success-foreground: oklch(21.03% 0.0059 148.35);
+  --surface: oklch(100% 0.0073 233.34);
+  --surface-foreground: oklch(21.03% 0.0145 233.34);
+  --surface-secondary: oklch(95.24% 0.0116 233.34);
+  --surface-secondary-foreground: oklch(21.03% 0.0145 233.34);
+  --surface-tertiary: oklch(93.73% 0.0116 233.34);
+  --surface-tertiary-foreground: oklch(21.03% 0.0145 233.34);
+  --warning: oklch(78.19% 0.1631 69.87);
+  --warning-foreground: oklch(21.03% 0.0059 69.87);
+}
+
+/*
+  Editor Link:
+    https://heroui.com/themes?base=0.0054&chroma=0.12764287182303632&hue=233.34319724367322&lightness=0.7935800555021534&radius=small&formRadius=small
+*/
+[data-appearance="dark"][data-theme="blue"] {
+  color-scheme: dark;
+
+  --accent: oklch(79.36% 0.1276 233.34);
+  --accent-foreground: oklch(15% 0.0255 233.34);
+  --background: oklch(12% 0.0054 233.34);
+  --border: oklch(28% 0.0054 233.34);
+  --danger: oklch(59.4% 0.1988 22.17);
+  --danger-foreground: oklch(99.11% 0 0);
+  --default: oklch(27.4% 0.0054 233.34);
+  --default-foreground: oklch(99.11% 0 0);
+  --field-background: oklch(21.03% 0.0108 233.34);
+  --field-foreground: oklch(99.11% 0.0054 233.34);
+  --field-placeholder: oklch(70.5% 0.0108 233.34);
+  --focus: oklch(79.36% 0.1276 233.34);
+  --foreground: oklch(99.11% 0.0054 233.34);
+  --muted: oklch(70.5% 0.0108 233.34);
+  --overlay: oklch(21.03% 0.0108 233.34);
+  --overlay-foreground: oklch(99.11% 0.0054 233.34);
+  --scrollbar: oklch(70.5% 0.0054 233.34);
+  --segment: oklch(39.64% 0.0054 233.34);
+  --segment-foreground: oklch(99.11% 0.0054 233.34);
+  --separator: oklch(25% 0.0054 233.34);
+  --success: oklch(73.29% 0.1956 148.35);
+  --success-foreground: oklch(21.03% 0.0059 148.35);
+  --surface: oklch(21.03% 0.0108 233.34);
+  --surface-foreground: oklch(99.11% 0.0054 233.34);
+  --surface-secondary: oklch(25.7% 0.0081 233.34);
+  --surface-secondary-foreground: oklch(99.11% 0.0054 233.34);
+  --surface-tertiary: oklch(27.21% 0.0081 233.34);
+  --surface-tertiary-foreground: oklch(99.11% 0.0054 233.34);
+  --warning: oklch(82.03% 0.1403 73.88);
+  --warning-foreground: oklch(21.03% 0.0059 73.88);
+
+  /* extra */
+  --color-grad-to: oklch(50.875% 0.107 235.519);
+}

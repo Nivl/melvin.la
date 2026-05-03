@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 
 import { PostDetails } from "#features/blog/components/post-details";
-import { BlogPost } from "#features/blog/models.ts";
+import { BlogPost } from "#features/blog/models";
 import { Section } from "#shared/components/layout/section";
 
 export const List = ({ posts }: { posts: BlogPost[] }) => {

@@ -11,8 +11,8 @@ import {
   generateBalls,
   roundOdd,
   updateBallAt,
-} from "#features/home/utils/boba.ts";
-import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion.ts";
+} from "#features/home/utils/boba";
+import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion";
 
 type BobaStyle = React.CSSProperties &
   Record<
@@ -165,7 +165,7 @@ export const Boba = ({ className }: { className: string }) => {
           C 548.088 1649.95 512.945 1615.03 512.945 1571.95
           C 512.945 1528.88 548.088 1493.95 591.445 1493.95
           Z"
-        className="fill-nivl"
+        className="fill-accent"
       />
 
       {/* Right Eye */}
@@ -176,7 +176,7 @@ export const Boba = ({ className }: { className: string }) => {
         C 1032.09 1649.95 996.945 1615.03 996.945 1571.95
         C 996.945 1528.88 1032.09 1493.95 1075.45 1493.95
         Z"
-        className="fill-nivl"
+        className="fill-accent"
       />
 
       {/* Mouth */}
@@ -185,7 +185,7 @@ export const Boba = ({ className }: { className: string }) => {
         initial={false}
         strokeWidth="81"
         strokeLinecap="round"
-        className="stroke-nivl"
+        className="stroke-accent"
         transition={{ delay: 0, duration: 0.2, ease: "easeInOut" }}
         animate={{
           d: isAnimating

@@ -5,7 +5,7 @@ import { hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 
-import { buildDefaultState, encode } from "#features/beatmaker/models/index.ts";
+import { buildDefaultState, encode } from "#features/beatmaker/models/index";
 import { testWrapper as wrapper } from "#shared/utils/tests";
 
 import { Beatmaker } from "./beatmaker";

@@ -18,7 +18,7 @@ import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
 
 import { isLocale, locales } from "#i18n/locales";
-import { Navbar } from "#shared/components/layout/NavBar/navbar.tsx";
+import { Navbar } from "#shared/components/layout/NavBar/navbar";
 import { Providers } from "#shared/components/providers";
 import { getMetadata } from "#shared/utils/metadata";
 

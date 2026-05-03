@@ -5,7 +5,7 @@ import { X as DeleteIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { forwardRef, Ref, useEffect, useState } from "react";
 
-import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion.ts";
+import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion";
 
 import { Color } from "./types";
 

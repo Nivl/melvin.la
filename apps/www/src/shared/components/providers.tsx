@@ -25,7 +25,7 @@ export const Providers = ({
       onError={() => {}}
     >
       <I18nProvider locale={locale}>
-        <NextThemesProvider attribute="class">
+        <NextThemesProvider defaultTheme="blue">
           <Toast.Provider placement="bottom end" />
           {children}
         </NextThemesProvider>

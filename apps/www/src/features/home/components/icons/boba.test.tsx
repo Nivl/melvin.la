@@ -1,18 +1,18 @@
 import { act, fireEvent, render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import type { BobaCoordinate } from "#features/home/utils/boba.ts";
-import { bobaMaxAnimationDuration, defaultBobaCoordinates } from "#features/home/utils/boba.ts";
+import type { BobaCoordinate } from "#features/home/utils/boba";
+import { bobaMaxAnimationDuration, defaultBobaCoordinates } from "#features/home/utils/boba";
 
 import { Boba } from "./boba";
 
-vi.mock(import("#features/home/utils/boba.ts"), async (importOriginal) => {
+vi.mock(import("#features/home/utils/boba"), async (importOriginal) => {
   const actual = await importOriginal();
 
   return {
     ...actual,
     generateBalls: vi.fn<() => BobaCoordinate[]>(() => actual.defaultBobaCoordinates.slice(0, 3)),
-  } as Awaited<typeof import("#features/home/utils/boba.ts")>;
+  } as Awaited<typeof import("#features/home/utils/boba")>;
 });
 
 describe(Boba, () => {

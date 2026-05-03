@@ -14,7 +14,7 @@ import {
 import { Color, colors, LargePill } from "#shared/components/layout/LargePill";
 import { Section } from "#shared/components/layout/section";
 
-import { CityAutoComplete } from "./city-auto-complete.tsx";
+import { CityAutoComplete } from "./city-auto-complete";
 
 const getColor = (skip?: Color): Color => {
   const availableColors = colors.filter((color) => color !== skip);

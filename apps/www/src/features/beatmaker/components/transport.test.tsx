@@ -2,7 +2,7 @@ import { cleanup, render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { afterEach, expect, test, vi } from "vitest";
 
-import type { StepCount } from "#features/beatmaker/models/index.ts";
+import type { StepCount } from "#features/beatmaker/models/index";
 import { testWrapper as wrapper } from "#shared/utils/tests";
 
 import { Transport } from "./transport";

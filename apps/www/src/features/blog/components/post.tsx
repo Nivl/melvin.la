@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { isValidElement } from "react";
 
 import { BlogHeading } from "#features/blog/components/blog-heading";
-import { BlogPost } from "#features/blog/models.ts";
+import { BlogPost } from "#features/blog/models";
 import { Link as NextLink } from "#i18n/routing";
 import { CodeBlock } from "#shared/components/layout/code-block";
 import { Section } from "#shared/components/layout/section";
@@ -24,20 +24,25 @@ const htmlToJsx: MDXRemoteProps["components"] = {
     const isExternalLink = href.startsWith("http");
     if (isExternalLink) {
       return (
-        <Link className="text-nivl underline" href={href} target="_blank" rel="noopener noreferrer">
+        <Link
+          className="text-accent underline"
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {children}
           <Link.Icon />
         </Link>
       );
     }
     return (
-      <NextLink className="link text-nivl underline" href={href}>
+      <NextLink className="link text-accent underline" href={href}>
         {children}
       </NextLink>
     );
   },
   blockquote: ({ children }) => (
-    <blockquote className="border-l-4 border-nivl pl-4 italic">{children}</blockquote>
+    <blockquote className="border-l-4 border-accent pl-4 italic">{children}</blockquote>
   ),
   code: ({ children }) => (
     <code className="inline-block h-fit rounded-lg bg-default/70 px-2 py-1 font-monospace text-sm font-normal whitespace-nowrap text-default-foreground">

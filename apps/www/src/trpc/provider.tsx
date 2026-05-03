@@ -3,7 +3,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { useState } from "react";
 
-import { getWindow } from "#shared/utils/window.ts";
+import { getWindow } from "#shared/utils/window";
 
 import { TRPCProvider } from "./client";
 import { makeQueryClient } from "./query-client";

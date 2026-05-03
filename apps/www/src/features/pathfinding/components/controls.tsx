@@ -15,8 +15,8 @@ import { FaPlay as PlayIcon, FaStop as StopIcon } from "react-icons/fa6";
 import { GiMaze as MazeIcon } from "react-icons/gi";
 import { MdClear as ClearIcon } from "react-icons/md";
 
-import type { Algorithm, PlacementMode } from "#features/pathfinding/utils/types.ts";
-import { CELL_COLORS, SPEED_VALUES } from "#features/pathfinding/utils/types.ts";
+import type { Algorithm, PlacementMode } from "#features/pathfinding/utils/types";
+import { CELL_COLORS, SPEED_VALUES } from "#features/pathfinding/utils/types";
 
 const GRID_SIZE_CONSTRAINTS = {
   MAX_COLS: 70,

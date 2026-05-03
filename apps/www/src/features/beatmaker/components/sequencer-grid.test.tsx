@@ -1,7 +1,7 @@
 import { cleanup, render } from "@testing-library/react";
 import { afterEach, expect, test, vi } from "vitest";
 
-import { buildDefaultState } from "#features/beatmaker/models/index.ts";
+import { buildDefaultState } from "#features/beatmaker/models/index";
 import { testWrapper as wrapper } from "#shared/utils/tests";
 
 import { SequencerGrid } from "./sequencer-grid";

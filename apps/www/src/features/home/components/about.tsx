@@ -13,7 +13,10 @@ export const About = () => {
           <Heading level={2}>{t("title")}</Heading>
           <p> {t("content")} </p>
           <div className="flex items-center justify-end text-base font-bold uppercase">
-            <a href="https://github.com/Nivl" className="border-none text-nivl visited:text-nivl">
+            <a
+              href="https://github.com/Nivl"
+              className="border-none text-accent visited:text-accent"
+            >
               {t("cta")}
             </a>
           </div>
