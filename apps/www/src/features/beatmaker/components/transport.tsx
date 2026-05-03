@@ -4,8 +4,8 @@ import { useTranslations } from "next-intl";
 import { FaPlay as PlayIcon, FaStop as StopIcon } from "react-icons/fa6";
 import { LuShare2 } from "react-icons/lu";
 
-import type { StepCount } from "#features/beatmaker/models/index.ts";
-import { BPM_MAX, BPM_MIN, STEP_COUNTS } from "#features/beatmaker/models/index.ts";
+import type { StepCount } from "#features/beatmaker/models/index";
+import { BPM_MAX, BPM_MIN, STEP_COUNTS } from "#features/beatmaker/models/index";
 
 type TransportProps = {
   isPlaying: boolean;

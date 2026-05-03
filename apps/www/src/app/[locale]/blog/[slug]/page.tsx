@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { use } from "react";
 
 import { Post } from "#features/blog/components/post";
-import { getAllBlogPosts, getBlogPost } from "#features/blog/ssg/queries.ts";
+import { getAllBlogPosts, getBlogPost } from "#features/blog/ssg/queries";
 import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home(props: { params: Promise<{ slug: string; locale: string }> }) {

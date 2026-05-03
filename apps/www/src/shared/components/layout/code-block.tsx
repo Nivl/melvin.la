@@ -37,7 +37,7 @@ export const CodeBlock = ({
   showlinenumbers: boolean;
   className?: string;
 }) => {
-  const { resolvedTheme } = useTheme();
+  const { resolvedAppearance } = useTheme();
 
   // Prevents hydration mismatch by ensuring the component is only rendered
   // after the theme is resolved.
@@ -53,7 +53,7 @@ export const CodeBlock = ({
     return undefined;
   }
 
-  const theme = resolvedTheme === "dark" ? DarkTheme : LightTheme;
+  const theme = resolvedAppearance === "dark" ? DarkTheme : LightTheme;
 
   return (
     <SyntaxHighlighter

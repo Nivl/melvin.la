@@ -11,8 +11,8 @@ import {
   useState,
 } from "react";
 
-import type { Coords, Grid, PlacementMode } from "#features/pathfinding/utils/types.ts";
-import { CELL_COLORS } from "#features/pathfinding/utils/types.ts";
+import type { Coords, Grid, PlacementMode } from "#features/pathfinding/utils/types";
+import { CELL_COLORS } from "#features/pathfinding/utils/types";
 
 type DragMode = "add-wall" | "remove-wall" | undefined;
 

@@ -1,11 +1,13 @@
 # next-themes
 
-This is a forked version.
+This is a forked of [pacocoursey/next-themes](https://github.com/pacocoursey/next-themes).
 
 Main list of changes:
 
 - Make the code compatible with TypeScript 6
-  - Use tsdown instead of tsup
+  - Remove build system
+  - theme is now called appearance, and can be light, dark, or system
+  - theme families are now called themes, and are separate from appearance
 
 ---
 
@@ -23,6 +25,14 @@ An abstraction for themes in your React app.
 - ✅ `useTheme` hook
 
 Check out the [Live Example](https://next-themes-example.vercel.app/) to try it for yourself.
+
+## Install
+
+```bash
+$ npm install next-themes
+# or
+$ yarn add next-themes
+```
 
 ## Use
 
@@ -66,7 +76,7 @@ Note that `ThemeProvider` is a client component, not a server component.
 
 ### HTML & CSS
 
-That's it, your Next.js app fully supports dark mode, including System preference with `prefers-color-scheme`. The theme is also immediately synced between tabs. By default, next-themes modifies the `data-theme` attribute on the `html` element, which you can easily use to style your app:
+That's it, your Next.js app fully supports dark mode, including System preference with `prefers-color-scheme`. The theme is also immediately synced between tabs. By default, next-themes sets the `data-appearance` attribute on the `html` element to the resolved appearance (`light` or `dark`), which you can use to style your app:
 
 ```css
 :root {
@@ -75,7 +85,7 @@ That's it, your Next.js app fully supports dark mode, including System preferenc
   --foreground: black;
 }
 
-[data-theme="dark"] {
+[data-appearance="dark"] {
   --background: black;
   --foreground: white;
 }
@@ -85,19 +95,20 @@ That's it, your Next.js app fully supports dark mode, including System preferenc
 
 ### useTheme
 
-Your UI will need to know the current theme and be able to change it. The `useTheme` hook provides theme information:
+Your UI will need to know the current appearance/theme and be able to change it. The `useTheme` hook provides this information:
 
 ```jsx
 import { useTheme } from "@melvinla/next-themes";
 
 const ThemeChanger = () => {
-  const { theme, setTheme } = useTheme();
+  const { appearance, setAppearance } = useTheme();
 
   return (
     <div>
-      The current theme is: {theme}
-      <button onClick={() => setTheme("light")}>Light Mode</button>
-      <button onClick={() => setTheme("dark")}>Dark Mode</button>
+      The current appearance is: {appearance}
+      <button onClick={() => setAppearance("light")}>Light</button>
+      <button onClick={() => setAppearance("dark")}>Dark</button>
+      <button onClick={() => setAppearance("system")}>System</button>
     </div>
   );
 };
@@ -115,17 +126,22 @@ Let's dig into the details.
 
 All your theme configuration is passed to ThemeProvider.
 
-- `storageKey = 'theme'`: Key used to store theme setting in localStorage
-- `defaultTheme = 'system'`: Default theme name (for v0.0.12 and lower the default was `light`). If `enableSystem` is false, the default theme is `light`
-- `forcedTheme`: Forced theme name for the current page (does not modify saved theme settings)
-- `enableSystem = true`: Whether to switch between `dark` and `light` based on `prefers-color-scheme`
-- `enableColorScheme = true`: Whether to indicate to browsers which color scheme is used (dark or light) for built-in UI like inputs and buttons
+- `defaultAppearance = 'system'`: Default appearance (`light`, `dark`, or `system`). When `enableSystem` is false, the default is `light`
+- `defaultTheme`: Default theme family name (e.g. `'pink'`)
+- `forcedAppearance`: Forced appearance for the current page (does not modify saved settings)
+- `forcedTheme`: Forced theme family for the current page (does not modify saved settings)
+- `enableSystem = true`: Whether to follow `prefers-color-scheme` when appearance is `'system'`
+- `enableColorScheme = true`: Whether to set `color-scheme` on `<html>` so browsers render built-in UI (inputs, scrollbars, etc.) in the correct palette
 - `disableTransitionOnChange = false`: Optionally disable all CSS transitions when switching themes ([example](#disable-transitions-on-theme-change))
-- `themes = ['light', 'dark']`: List of theme names
-- `attribute = 'data-theme'`: HTML attribute modified based on the active theme
-  - accepts `class` and `data-*` (meaning any data attribute, `data-mode`, `data-color`, etc.) ([example](#class-instead-of-data-attribute))
-- `value`: Optional mapping of theme name to attribute value
-  - value is an `object` where key is the theme name and value is the attribute value ([example](#differing-dom-attribute-and-theme-name))
+- `themes = []`: List of named theme family names (e.g. `['pink', 'blue']`)
+- `appearanceAttribute = 'data-appearance'`: HTML attribute modified based on the resolved appearance (`light` or `dark`)
+  - accepts `class` and `data-*` ([example](#class-instead-of-data-attribute))
+- `themeAttribute = 'data-theme'`: HTML attribute modified based on the active theme family
+  - accepts `class` and `data-*`
+- `appearanceStorageKey = 'appearance'`: localStorage key used to persist the appearance
+- `themeStorageKey = 'theme'`: localStorage key used to persist the theme family
+- `appearanceValue`: Optional mapping of appearance name to attribute value
+- `themeValue`: Optional mapping of theme family name to attribute value ([example](#differing-dom-attribute-and-theme-name))
 - `nonce`: Optional nonce passed to the injected `script` tag, used to allow-list the next-themes script in your CSP
 - `scriptProps`: Optional props to pass to the injected `script` tag ([example](#using-with-cloudflare-rocket-loader))
 
@@ -133,12 +149,31 @@ All your theme configuration is passed to ThemeProvider.
 
 useTheme takes no parameters, but returns:
 
-- `theme`: Active theme name
-- `setTheme(name)`: Function to update the theme. The API is identical to the [set function](https://react.dev/reference/react/useState#setstate) returned by `useState`-hook. Pass the new theme value or use a callback to set the new theme based on the current theme.
-- `forcedTheme`: Forced page theme or falsy. If `forcedTheme` is set, you should disable any theme switching UI
-- `resolvedTheme`: If `enableSystem` is true and the active theme is "system", this returns whether the system preference resolved to "dark" or "light". Otherwise, identical to `theme`
-- `systemTheme`: If `enableSystem` is true, represents the System theme preference ("dark" or "light"), regardless what the active theme is
-- `themes`: The list of themes passed to `ThemeProvider` (with "system" appended, if `enableSystem` is true)
+- `appearance`: Active appearance value — `'light'`, `'dark'`, or `'system'`
+- `setAppearance(value)`: Update the appearance. Accepts `'light'`, `'dark'`, or `'system'`. API identical to the [set function](https://react.dev/reference/react/useState#setstate) returned by `useState`
+- `resolvedAppearance`: The concrete appearance after resolving `'system'` to `'light'` or `'dark'` based on `prefers-color-scheme`. Otherwise identical to `appearance`
+- `systemAppearance`: The current OS appearance preference (`'dark'` or `'light'`), regardless of the selected appearance
+- `theme`: Active named theme family (e.g. `'pink'`), or `undefined` when no theme families are configured
+- `setTheme(name)`: Update the theme family. API identical to the [set function](https://react.dev/reference/react/useState#setstate) returned by `useState`
+- `forcedAppearance`: Forced page appearance or `undefined`. If set, you should disable any appearance-switching UI
+- `forcedTheme`: Forced page theme family or `undefined`. If set, you should disable any theme-switching UI
+- `themes`: The list of theme family names passed to `ThemeProvider`
+
+Quick reference — all returned members:
+
+```jsx
+const {
+  appearance,
+  resolvedAppearance,
+  systemAppearance,
+  setAppearance,
+  theme,
+  setTheme,
+  forcedAppearance,
+  forcedTheme,
+  themes,
+} = useTheme();
+```
 
 Not too bad, right? Let's see how to use these properties with examples:
 
@@ -148,7 +183,7 @@ The [Live Example](https://next-themes-example.vercel.app/) shows next-themes in
 
 ### Use System preference by default
 
-For versions above v0.0.12, the `defaultTheme` is automatically set to "system", so to use System preference you can simply use:
+The `defaultAppearance` is automatically set to `"system"`, so to follow the OS preference you can simply use:
 
 ```jsx
 <ThemeProvider>
@@ -156,7 +191,13 @@ For versions above v0.0.12, the `defaultTheme` is automatically set to "system",
 
 ### Ignore System preference
 
-If you don't want a System theme, disable it via `enableSystem`:
+If you want a different starting point, set `defaultAppearance` — the user can still manually pick `"system"` later:
+
+```jsx
+<ThemeProvider defaultAppearance="light">
+```
+
+To remove `"system"` as a valid option entirely (no OS listener, no system choice in your UI), use `enableSystem={false}`:
 
 ```jsx
 <ThemeProvider enableSystem={false}>
@@ -164,35 +205,45 @@ If you don't want a System theme, disable it via `enableSystem`:
 
 ### Class instead of data attribute
 
-If your Next.js app uses a class to style the page based on the theme, change the attribute prop to `class`:
+If your Next.js app uses a class to style the page based on the appearance, change the `appearanceAttribute` prop to `class`:
 
 ```jsx
-<ThemeProvider attribute="class">
+<ThemeProvider appearanceAttribute="class">
 ```
 
-Now, setting the theme to "dark" will set `class="dark"` on the `html` element.
+Now, setting the appearance to `"dark"` will set `class="dark"` on the `html` element.
 
-### Force page to a theme
+### Force page to an appearance
 
-Let's say your cool new marketing page is dark mode only. The page should always use the dark theme, and changing the theme should have no effect. To force a theme on your Next.js pagesm, read the variable and pass it to ThemeProvider:
+Let's say your cool new marketing page is dark mode only. The page should always use the dark appearance, and changing the appearance should have no effect. To force an appearance on your Next.js pages, simply set a variable on the page component:
+
+```js
+// pages/awesome-page.js
+
+const Page = () => { ... }
+Page.appearance = 'dark'
+export default Page
+```
+
+In your `_app`, read the variable and pass it to ThemeProvider:
 
 ```jsx
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider forcedTheme={Component.theme || null}>
+    <ThemeProvider forcedAppearance={Component.appearance || null}>
       <Component {...pageProps} />
     </ThemeProvider>
   );
 }
 ```
 
-Done! Your page is always dark theme (regardless of user preference), and calling `setTheme` from `useTheme` is now a no-op. However, you should make sure to disable any of your UI that would normally change the theme:
+Done! Your page is always dark (regardless of user preference), and calling `setAppearance` from `useTheme` is now a no-op. However, you should make sure to disable any of your UI that would normally change the appearance:
 
 ```js
-const { forcedTheme } = useTheme();
+const { forcedAppearance } = useTheme();
 
-// Theme is forced, we shouldn't allow user to change the theme
-const disabled = !!forcedTheme;
+// Appearance is forced, we shouldn't allow user to change it
+const disabled = !!forcedAppearance;
 ```
 
 ### Disable transitions on theme change
@@ -207,12 +258,12 @@ To enable this behavior, pass the `disableTransitionOnChange` prop:
 
 ### Differing DOM attribute and theme name
 
-The name of the active theme is used as both the localStorage value and the value of the DOM attribute. If the theme name is "pink", localStorage will contain `theme=pink` and the DOM will be `data-theme="pink"`. You **cannot** modify the localStorage value, but you **can** modify the DOM value.
+The active theme family name is used as both the localStorage value and the value of the DOM attribute. If the theme family is "pink", localStorage will contain `theme=pink` and the DOM will be `data-theme="pink"`. You **cannot** modify the localStorage value, but you **can** modify the DOM value.
 
-If we want the DOM to instead render `data-theme="my-pink-theme"` when the theme is "pink", pass the `value` prop:
+If we want the DOM to instead render `data-theme="my-pink-theme"` when the theme family is "pink", pass the `themeValue` prop:
 
 ```jsx
-<ThemeProvider value={{ pink: 'my-pink-theme' }}>
+<ThemeProvider themeValue={{ pink: 'my-pink-theme' }}>
 ```
 
 Done! To be extra clear, this affects only the DOM. Here's how all the values will look:
@@ -238,19 +289,33 @@ document.documentElement.getAttribute("data-theme");
 
 ### More than light and dark mode
 
-next-themes is designed to support any number of themes! Simply pass a list of themes:
+next-themes uses a two-axis model: **appearance** (`light`, `dark`, `system`) controls the light/dark axis, while a separate **theme family** axis handles named palettes like `pink` or `blue`.
+
+Pass your named theme families to `ThemeProvider`:
 
 ```jsx
 <ThemeProvider themes={['pink', 'red', 'blue']}>
 ```
 
-> **Note!** When you pass `themes`, the default set of themes ("light" and "dark") are overridden. Make sure you include those if you still want your light and dark themes:
+Style them with composed CSS selectors that target both axes independently:
 
-```jsx
-<ThemeProvider themes={['pink', 'red', 'blue', 'light', 'dark']}>
+```css
+[data-theme="pink"][data-appearance="dark"] {
+  --background: #120f1f;
+  --foreground: white;
+}
+
+[data-theme="pink"][data-appearance="light"] {
+  --background: #fff0f5;
+  --foreground: black;
+}
 ```
 
-For an example on how to use this, check out the [multi-theme example](./examples/multi-theme/README.md)
+When `appearance="system"` and `theme="pink"`, next-themes keeps `data-theme="pink"` constant and only toggles `data-appearance` between `"light"` and `"dark"` as the OS preference changes.
+
+Use composed selectors like `[data-theme='pink'][data-appearance='dark']` or `.pink.dark` instead of flattened names like `pink-dark`.
+
+For a full example, check out the [multi-theme example](./examples/multi-theme/README.md)
 
 ### Without CSS variables
 
@@ -263,8 +328,8 @@ body {
   background: #fff;
 }
 
-[data-theme="dark"],
-[data-theme="dark"] body {
+[data-appearance="dark"],
+[data-appearance="dark"] body {
   color: #fff;
   background: #000;
 }
@@ -286,7 +351,7 @@ const GlobalStyle = createGlobalStyle`
     --bg: #fff;
   }
 
-  [data-theme="dark"] {
+  [data-appearance="dark"] {
     --fg: #fff;
     --bg: #000;
   }
@@ -315,10 +380,10 @@ import { useTheme } from "@melvinla/next-themes";
 
 // Do NOT use this! It will throw a hydration mismatch error.
 const ThemeSwitch = () => {
-  const { theme, setTheme } = useTheme();
+  const { appearance, setAppearance } = useTheme();
 
   return (
-    <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+    <select value={appearance} onChange={(e) => setAppearance(e.target.value)}>
       <option value="system">System</option>
       <option value="dark">Dark</option>
       <option value="light">Light</option>
@@ -337,7 +402,7 @@ import { useTheme } from "@melvinla/next-themes";
 
 const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { appearance, setAppearance } = useTheme();
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
@@ -349,7 +414,7 @@ const ThemeSwitch = () => {
   }
 
   return (
-    <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+    <select value={appearance} onChange={(e) => setAppearance(e.target.value)}>
       <option value="system">System</option>
       <option value="dark">Dark</option>
       <option value="light">Light</option>
@@ -389,10 +454,10 @@ import Image from "next/image";
 import { useTheme } from "@melvinla/next-themes";
 
 function ThemedImage() {
-  const { resolvedTheme } = useTheme();
+  const { resolvedAppearance } = useTheme();
   let src;
 
-  switch (resolvedTheme) {
+  switch (resolvedAppearance) {
     case "light":
       src = "/light.png";
       break;
@@ -418,13 +483,13 @@ You can also use CSS to hide or show content based on the current theme. To avoi
 function ThemedImage() {
   return (
     <>
-      {/* When the theme is dark, hide this div */}
-      <div data-hide-on-theme="dark">
+      {/* When the appearance is dark, hide this div */}
+      <div data-hide-on-appearance="dark">
         <Image src="light.png" width={400} height={400} />
       </div>
 
-      {/* When the theme is light, hide this div */}
-      <div data-hide-on-theme="light">
+      {/* When the appearance is light, hide this div */}
+      <div data-hide-on-appearance="light">
         <Image src="dark.png" width={400} height={400} />
       </div>
     </>
@@ -435,8 +500,8 @@ export default ThemedImage;
 ```
 
 ```css
-[data-theme="dark"] [data-hide-on-theme="dark"],
-[data-theme="light"] [data-hide-on-theme="light"] {
+[data-appearance="dark"] [data-hide-on-appearance="dark"],
+[data-appearance="light"] [data-hide-on-appearance="light"] {
   display: none;
 }
 ```
@@ -462,10 +527,10 @@ Set the attribute for your Theme Provider to class:
 
 ```tsx
 // pages/_app.tsx
-<ThemeProvider attribute="class">
+<ThemeProvider appearanceAttribute="class">
 ```
 
-If you're using the value prop to specify different attribute values, make sure your dark theme explicitly uses the "dark" value, as required by Tailwind.
+If you're using the `appearanceValue` prop to specify different attribute values, make sure your dark appearance explicitly uses the `"dark"` value, as required by Tailwind.
 
 That's it! Now you can use dark-mode specific classes:
 
@@ -492,7 +557,7 @@ Now set the attribute for your ThemeProvider to `data-mode`:
 
 ```tsx
 // pages/_app.tsx
-<ThemeProvider attribute="data-mode">
+<ThemeProvider appearanceAttribute="data-mode">
 ```
 
 With this setup, you can now use Tailwind's dark mode classes, as in the previous example:
@@ -543,18 +608,18 @@ Yes.
 
 ---
 
-**Why is `resolvedTheme` necessary?**
+**Why is `resolvedAppearance` necessary?**
 
-When supporting the System theme preference, you want to make sure that's reflected in your UI. This means your buttons, selects, dropdowns, or whatever you use to indicate the current theme should say "System" when the System theme preference is active.
+When supporting the System appearance preference, you want to make sure that's reflected in your UI. This means your buttons, selects, dropdowns, or whatever you use to indicate the current appearance should say "System" when the System preference is active.
 
-If we didn't distinguish between `theme` and `resolvedTheme`, the UI would show "Dark" or "Light", when it should really be "System".
+If we didn't distinguish between `appearance` and `resolvedAppearance`, the UI would show "Dark" or "Light", when it should really be "System".
 
-`resolvedTheme` is then useful for modifying behavior or styles at runtime:
+`resolvedAppearance` is then useful for modifying behavior or styles at runtime:
 
 ```jsx
-const { resolvedTheme } = useTheme()
+const { resolvedAppearance } = useTheme()
 
-<div style={{ color: resolvedTheme === 'dark' ? 'white' : 'black' }}>
+<div style={{ color: resolvedAppearance === 'dark' ? 'white' : 'black' }}>
 ```
 
-If we didn't have `resolvedTheme` and only used `theme`, you'd lose information about the state of your UI (you would only know the theme is "system", and not what it resolved to).
+If we didn't have `resolvedAppearance` and only used `appearance`, you'd lose information about the state of your UI (you would only know the appearance is "system", and not what it resolved to).

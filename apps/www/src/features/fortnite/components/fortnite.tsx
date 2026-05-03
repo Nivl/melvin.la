@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { useStats } from "#features/fortnite/hooks/use-stats";
 import { AccountTypes, defaultPreset, hasStats, Preset } from "#features/fortnite/models";
-import { humanizeDuration } from "#features/fortnite/utils.ts";
+import { humanizeDuration } from "#features/fortnite/utils";
 import { routing } from "#i18n/routing";
 import { Section } from "#shared/components/layout/section";
 

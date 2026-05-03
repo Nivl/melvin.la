@@ -11,8 +11,8 @@ import {
   generateBalls,
   roundOdd,
   updateBallAt,
-} from "#features/home/utils/boba.ts";
-import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion.ts";
+} from "#features/home/utils/boba";
+import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion";
 
 type BobaStyle = React.CSSProperties &
   Record<

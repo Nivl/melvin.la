@@ -10,7 +10,7 @@ import { GiSmartphone } from "react-icons/gi";
 import { TfiInfinite } from "react-icons/tfi";
 
 import { FortniteStatsData } from "#features/fortnite/models";
-import { humanizeDuration, rateStr } from "#features/fortnite/utils.ts";
+import { humanizeDuration, rateStr } from "#features/fortnite/utils";
 
 import { Pill } from "./pill";
 

@@ -31,7 +31,6 @@ const preview: Preview = {
       </NextIntlClientProvider>
     ),
     withNextThemes({
-      attribute: "class",
       defaultTheme: "system",
       enableSystem: true,
       themes: {

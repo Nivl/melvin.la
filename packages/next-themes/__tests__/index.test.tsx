@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
 
-import { act, render, renderHook, screen } from "@testing-library/react";
-import { cleanup } from "@testing-library/react";
 import * as React from "react";
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, test, vi } from "vitest";
+import { act, render, renderHook } from "@testing-library/react";
+import { vi, beforeAll, beforeEach, afterEach, afterAll, describe, test, it, expect } from "vitest";
+import { cleanup } from "@testing-library/react";
 
 import { ThemeProvider, useTheme } from "../src/index";
 import { ThemeProviderProps } from "../src/types";
@@ -13,37 +13,39 @@ const localStorageMock: Storage = (() => {
   let store: Record<string, string> = {};
 
   return {
-    clear: vi.fn((): void => {
-      store = {};
-    }),
     getItem: vi.fn((key: string): string => store[key] ?? null),
-    key: vi.fn((index: number): string | null => ""),
-    length: Object.keys(store).length,
-    removeItem: vi.fn((key: string): void => {
-      delete store[key];
-    }),
     setItem: vi.fn((key: string, value: string): void => {
       store[key] = value.toString();
     }),
+    removeItem: vi.fn((key: string): void => {
+      delete store[key];
+    }),
+    clear: vi.fn((): void => {
+      store = {};
+    }),
+    key: vi.fn((index: number): string | null => ""),
+    length: Object.keys(store).length,
   };
 })();
 
-// HelperComponent to render the theme inside a paragraph-tag and setting a theme via the forceSetTheme prop
-const HelperComponent = ({ forceSetTheme }: { forceSetTheme?: string }) => {
-  const { setTheme, theme, forcedTheme, resolvedTheme, systemTheme } = useTheme();
+const HelperComponent = ({
+  forceSetAppearance,
+  forceSetTheme,
+}: {
+  forceSetAppearance?: "light" | "dark" | "system";
+  forceSetTheme?: string;
+}) => {
+  const { setAppearance, setTheme, appearance, theme } = useTheme();
 
   React.useEffect(() => {
-    if (forceSetTheme) {
-      setTheme(forceSetTheme);
-    }
-  }, [forceSetTheme]);
+    if (forceSetAppearance) setAppearance(forceSetAppearance);
+    if (forceSetTheme) setTheme(forceSetTheme);
+  }, [forceSetAppearance, forceSetTheme, setAppearance, setTheme]);
 
   return (
     <>
+      <p data-testid="appearance">{appearance}</p>
       <p data-testid="theme">{theme}</p>
-      <p data-testid="forcedTheme">{forcedTheme}</p>
-      <p data-testid="resolvedTheme">{resolvedTheme}</p>
-      <p data-testid="systemTheme">{systemTheme}</p>
     </>
   );
 };
@@ -52,6 +54,7 @@ function setDeviceTheme(theme: "light" | "dark") {
   // Create a mock of the window.matchMedia function
   // Based on: https://stackoverflow.com/questions/39830580/jest-test-fails-typeerror-window-matchmedia-is-not-a-function
   Object.defineProperty(window, "matchMedia", {
+    writable: true,
     value: vi.fn().mockImplementation((query) => ({
       matches: theme === "dark" ? true : false,
       media: query,
@@ -62,7 +65,6 @@ function setDeviceTheme(theme: "light" | "dark") {
       removeEventListener: vi.fn(),
       dispatchEvent: vi.fn(),
     })),
-    writable: true,
   });
 }
 
@@ -76,7 +78,8 @@ beforeEach(() => {
   // Reset window side-effects
   setDeviceTheme("light");
   document.documentElement.style.colorScheme = "";
-  delete document.documentElement.dataset.theme;
+  document.documentElement.removeAttribute("data-theme");
+  document.documentElement.removeAttribute("data-appearance");
   document.documentElement.removeAttribute("class");
 
   // Clear the localStorage-mock
@@ -98,41 +101,42 @@ function makeWrapper(props: ThemeProviderProps) {
 }
 
 describe("defaultTheme", () => {
-  test("should return system-theme when no default-theme is set", () => {
+  test("should return system appearance when no defaults are set", () => {
     setDeviceTheme("light");
 
     const { result } = renderHook(() => useTheme(), {
       wrapper: makeWrapper({}),
     });
-    expect(result.current.theme).toBe("system");
-    expect(result.current.systemTheme).toBe("light");
-    expect(result.current.resolvedTheme).toBe("light");
+    expect(result.current.appearance).toBe("system");
+    expect(result.current.theme).toBeUndefined();
+    expect(result.current.systemAppearance).toBe("light");
+    expect(result.current.resolvedAppearance).toBe("light");
   });
 
-  test("should return light when no default-theme is set and enableSystem=false", () => {
+  test("should return light appearance when no default-theme is set and enableSystem=false", () => {
     const { result } = renderHook(() => useTheme(), {
       wrapper: makeWrapper({ enableSystem: false }),
     });
 
-    expect(result.current.theme).toBe("light");
-    expect(result.current.resolvedTheme).toBe("light");
+    expect(result.current.appearance).toBe("light");
+    expect(result.current.theme).toBeUndefined();
+    expect(result.current.resolvedAppearance).toBe("light");
   });
 
-  test("should return light when light is set as default-theme", () => {
+  test("should return light theme-family when light is set as default-theme", () => {
     const { result } = renderHook(() => useTheme(), {
       wrapper: makeWrapper({ defaultTheme: "light" }),
     });
 
     expect(result.current.theme).toBe("light");
-    expect(result.current.resolvedTheme).toBe("light");
+    expect(result.current.appearance).toBe("system");
   });
 
-  test("should return dark when dark is set as default-theme", () => {
+  test("should return dark theme-family when dark is set as default-theme", () => {
     const { result } = renderHook(() => useTheme(), {
       wrapper: makeWrapper({ defaultTheme: "dark" }),
     });
     expect(result.current.theme).toBe("dark");
-    expect(result.current.resolvedTheme).toBe("dark");
   });
 });
 
@@ -147,7 +151,6 @@ describe("provider", () => {
     });
 
     expect(result.current.theme).toBe("dark");
-    expect(result.current.resolvedTheme).toBe("dark");
   });
 });
 
@@ -186,10 +189,10 @@ describe("custom storageKey", () => {
     expect(window.localStorage.setItem).toHaveBeenCalledWith("theme", "light");
   });
 
-  test("should save to localStorage with 'custom' when setting prop 'storageKey' to 'customKey'", () => {
+  test("should save to localStorage with 'custom' when setting prop 'themeStorageKey' to 'customKey'", () => {
     act(() => {
       render(
-        <ThemeProvider storageKey="customKey">
+        <ThemeProvider themeStorageKey="customKey">
           <HelperComponent forceSetTheme="light" />
         </ThemeProvider>,
       );
@@ -210,121 +213,119 @@ describe("custom attribute", () => {
       );
     });
 
-    expect(document.documentElement.dataset.theme).toBe("light");
+    expect(document.documentElement.getAttribute("data-theme")).toBe("light");
   });
 
-  test('should use class attribute (CSS-class) when attribute="class"', () => {
+  test('should use class attribute (CSS-class) when themeAttribute="class"', () => {
     act(() => {
       render(
-        <ThemeProvider attribute="class">
+        <ThemeProvider themeAttribute="class">
           <HelperComponent forceSetTheme="light" />
         </ThemeProvider>,
       );
     });
 
-    expect(document.documentElement.classList.contains("light")).toBe(true);
+    expect(document.documentElement.classList.contains("light")).toBeTruthy();
   });
 
-  test('should use "data-example"-attribute when attribute="data-example"', () => {
+  test('should use "data-example"-attribute when themeAttribute="data-example"', () => {
     act(() => {
       render(
-        <ThemeProvider attribute="data-example">
+        <ThemeProvider themeAttribute="data-example">
           <HelperComponent forceSetTheme="light" />
         </ThemeProvider>,
       );
     });
 
-    expect(document.documentElement.dataset.example).toBe("light");
+    expect(document.documentElement.getAttribute("data-example")).toBe("light");
   });
 
   test("supports multiple attributes", () => {
     act(() => {
       render(
-        <ThemeProvider attribute={["data-example", "data-theme-test"]}>
+        <ThemeProvider themeAttribute={["data-example", "data-theme-test"]}>
           <HelperComponent forceSetTheme="light" />
         </ThemeProvider>,
       );
     });
 
-    expect(document.documentElement.dataset.example).toBe("light");
-    expect(document.documentElement.dataset.themeTest).toBe("light");
+    expect(document.documentElement.getAttribute("data-example")).toBe("light");
+    expect(document.documentElement.getAttribute("data-theme-test")).toBe("light");
   });
 });
 
 describe("custom value-mapping", () => {
-  test('should use custom value mapping when using value={{pink:"my-pink-theme"}}', () => {
+  test('should use custom value mapping when using themeValue={{pink:"my-pink-theme"}}', () => {
     localStorageMock.setItem("theme", "pink");
 
     act(() => {
       render(
-        <ThemeProvider
-          themes={["pink", "light", "dark", "system"]}
-          value={{ pink: "my-pink-theme" }}
-        >
+        <ThemeProvider themes={["pink", "light", "dark"]} themeValue={{ pink: "my-pink-theme" }}>
           <HelperComponent forceSetTheme="pink" />
         </ThemeProvider>,
       );
     });
 
-    expect(document.documentElement.dataset.theme).toBe("my-pink-theme");
+    expect(document.documentElement.getAttribute("data-theme")).toBe("my-pink-theme");
     expect(window.localStorage.setItem).toHaveBeenCalledWith("theme", "pink");
   });
 
   test("should allow missing values (attribute)", () => {
     act(() => {
       render(
-        <ThemeProvider value={{ dark: "dark-mode" }}>
+        <ThemeProvider themeValue={{ dark: "dark-mode" }}>
           <HelperComponent forceSetTheme="light" />
         </ThemeProvider>,
       );
     });
 
-    expect(Object.hasOwn(document.documentElement.dataset, "theme")).toBe(false);
+    expect(document.documentElement.hasAttribute("data-theme")).toBeFalsy();
   });
 
   test("should allow missing values (class)", () => {
     act(() => {
       render(
-        <ThemeProvider attribute="class" value={{ dark: "dark-mode" }}>
+        <ThemeProvider themeAttribute="class" themeValue={{ dark: "dark-mode" }}>
           <HelperComponent forceSetTheme="light" />
         </ThemeProvider>,
       );
     });
 
-    expect(document.documentElement.classList.contains("light")).toBe(false);
+    expect(document.documentElement.classList.contains("light")).toBeFalsy();
   });
 
   test("supports multiple attributes", () => {
     act(() => {
       render(
         <ThemeProvider
-          attribute={["data-example", "data-theme-test"]}
-          themes={["pink", "light", "dark", "system"]}
-          value={{ pink: "my-pink-theme" }}
+          themeAttribute={["data-example", "data-theme-test"]}
+          themes={["pink", "light", "dark"]}
+          themeValue={{ pink: "my-pink-theme" }}
         >
           <HelperComponent forceSetTheme="pink" />
         </ThemeProvider>,
       );
     });
 
-    expect(document.documentElement.dataset.example).toBe("my-pink-theme");
-    expect(document.documentElement.dataset.themeTest).toBe("my-pink-theme");
+    expect(document.documentElement.getAttribute("data-example")).toBe("my-pink-theme");
+    expect(document.documentElement.getAttribute("data-theme-test")).toBe("my-pink-theme");
   });
 });
 
 describe("forcedTheme", () => {
   test("should render saved theme when no forcedTheme is set", () => {
-    localStorageMock.setItem("theme", "dark");
+    // Use a non-appearance theme name so the migration shim does not trigger
+    localStorageMock.setItem("theme", "ocean");
 
     const { result } = renderHook(() => useTheme(), {
       wrapper: makeWrapper({}),
     });
 
-    expect(result.current.theme).toBe("dark");
+    expect(result.current.theme).toBe("ocean");
     expect(result.current.forcedTheme).toBeUndefined();
   });
 
-  test("should render light theme when forcedTheme is set to light", () => {
+  test("should render forced theme when forcedTheme is set to light", () => {
     localStorageMock.setItem("theme", "dark");
 
     const { result } = renderHook(() => useTheme(), {
@@ -333,52 +334,47 @@ describe("forcedTheme", () => {
       }),
     });
 
-    expect(result.current.theme).toBe("dark");
+    expect(result.current.theme).toBe("light");
     expect(result.current.forcedTheme).toBe("light");
   });
 });
 
 describe("system theme", () => {
-  test("resolved theme should be set", () => {
+  test("resolved appearance should be set", () => {
     setDeviceTheme("dark");
 
     const { result } = renderHook(() => useTheme(), {
       wrapper: makeWrapper({}),
     });
 
-    expect(result.current.theme).toBe("system");
-    expect(result.current.systemTheme).toBe("dark");
-    expect(result.current.resolvedTheme).toBe("dark");
+    expect(result.current.appearance).toBe("system");
+    expect(result.current.systemAppearance).toBe("dark");
+    expect(result.current.resolvedAppearance).toBe("dark");
     expect(result.current.forcedTheme).toBeUndefined();
   });
 
-  test("system theme should be set, even if theme is not system", () => {
-    setDeviceTheme("dark");
-
-    act(() => {
-      render(
-        <ThemeProvider defaultTheme="light">
-          <HelperComponent />
-        </ThemeProvider>,
-      );
-    });
-
-    expect(screen.getByTestId("theme").textContent).toBe("light");
-    expect(screen.getByTestId("forcedTheme").textContent).toBe("");
-    expect(screen.getByTestId("resolvedTheme").textContent).toBe("light");
-    expect(screen.getByTestId("systemTheme").textContent).toBe("dark");
-  });
-
-  test("system theme should not be set if enableSystem is false", () => {
+  test("system appearance should be tracked even when appearance is not system", () => {
     setDeviceTheme("dark");
 
     const { result } = renderHook(() => useTheme(), {
-      wrapper: makeWrapper({ defaultTheme: "light", enableSystem: false }),
+      wrapper: makeWrapper({ defaultAppearance: "light" }),
+    });
+
+    expect(result.current.appearance).toBe("light");
+    expect(result.current.resolvedAppearance).toBe("light");
+    expect(result.current.systemAppearance).toBe("dark");
+  });
+
+  test("system appearance should not be set if enableSystem is false", () => {
+    setDeviceTheme("dark");
+
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ enableSystem: false, defaultTheme: "light" }),
     });
 
     expect(result.current.theme).toBe("light");
-    expect(result.current.systemTheme).toBeUndefined();
-    expect(result.current.resolvedTheme).toBe("light");
+    expect(result.current.systemAppearance).toBeUndefined();
+    expect(result.current.resolvedAppearance).toBe("light");
     expect(result.current.forcedTheme).toBeUndefined();
   });
 });
@@ -396,7 +392,7 @@ describe("color-scheme", () => {
     expect(document.documentElement.style.colorScheme).toBe("");
   });
 
-  test("should set color-scheme light when light theme is active", () => {
+  test("should set color-scheme light when light appearance is active", () => {
     act(() => {
       render(
         <ThemeProvider>
@@ -405,20 +401,19 @@ describe("color-scheme", () => {
       );
     });
 
-    expect(document.documentElement.dataset.theme).toBe("light");
     expect(document.documentElement.style.colorScheme).toBe("light");
   });
 
-  test("should set color-scheme dark when dark theme is active", () => {
+  test("should set color-scheme dark when dark appearance is active", () => {
     act(() => {
       render(
-        <ThemeProvider defaultTheme="dark">
-          <HelperComponent forceSetTheme="dark" />
+        <ThemeProvider defaultAppearance="dark">
+          <HelperComponent forceSetAppearance="dark" />
         </ThemeProvider>,
       );
     });
 
-    expect(document.documentElement.dataset.theme).toBe("dark");
+    expect(document.documentElement.getAttribute("data-appearance")).toBe("dark");
     expect(document.documentElement.style.colorScheme).toBe("dark");
   });
 });
@@ -429,10 +424,10 @@ describe("setTheme", () => {
       wrapper: ({ children }) => <ThemeProvider defaultTheme="light">{children}</ThemeProvider>,
     });
     expect(result.current?.setTheme).toBeDefined();
-    expect(result.current.resolvedTheme).toBe("light");
+    expect(result.current.theme).toBe("light");
     result.current.setTheme("dark");
     rerender();
-    expect(result.current.resolvedTheme).toBe("dark");
+    expect(result.current.theme).toBe("dark");
   });
 
   test("setTheme(<function>)", () => {
@@ -441,7 +436,6 @@ describe("setTheme", () => {
     });
     expect(result.current?.setTheme).toBeDefined();
     expect(result.current.theme).toBe("light");
-    expect(result.current.resolvedTheme).toBe("light");
 
     const toggleTheme = vi.fn((theme: string) => (theme === "light" ? "dark" : "light"));
 
@@ -450,14 +444,12 @@ describe("setTheme", () => {
     rerender();
 
     expect(result.current.theme).toBe("dark");
-    expect(result.current.resolvedTheme).toBe("dark");
 
     result.current.setTheme(toggleTheme);
     expect(toggleTheme).toBeCalledTimes(2);
     rerender();
 
     expect(result.current.theme).toBe("light");
-    expect(result.current.resolvedTheme).toBe("light");
   });
 
   test("setTheme(<function>) gets relevant state value", () => {
@@ -496,6 +488,259 @@ describe("inline script", () => {
       );
     });
 
-    expect(document.querySelector('script[data-test="1234"]')).not.toBeNull();
+    expect(document.querySelector('script[data-test="1234"]')).toBeTruthy();
+  });
+});
+
+describe("appearance defaults", () => {
+  test("returns system appearance by default and keeps the default theme family", () => {
+    setDeviceTheme("light");
+
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ defaultTheme: "pink", themes: ["pink", "blue"] }),
+    });
+
+    expect(result.current.appearance).toBe("system");
+    expect(result.current.systemAppearance).toBe("light");
+    expect(result.current.resolvedAppearance).toBe("light");
+    expect(result.current.theme).toBe("pink");
+    expect(result.current.themes).toEqual(["pink", "blue"]);
+  });
+});
+
+describe("split storage persistence", () => {
+  test("persists appearance and theme independently", () => {
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ defaultTheme: "pink", themes: ["pink", "blue"] }),
+    });
+
+    act(() => {
+      result.current.setAppearance("dark");
+      result.current.setTheme("blue");
+    });
+
+    expect(window.localStorage.setItem).toHaveBeenCalledWith("appearance", "dark");
+    expect(window.localStorage.setItem).toHaveBeenCalledWith("theme", "blue");
+  });
+});
+
+describe("attributes", () => {
+  test("applies both theme and appearance data attributes", () => {
+    act(() => {
+      render(
+        <ThemeProvider
+          defaultTheme="pink"
+          themes={["pink", "blue"]}
+          themeAttribute="data-theme"
+          appearanceAttribute="data-appearance"
+        >
+          <HelperComponent forceSetAppearance="dark" forceSetTheme="pink" />
+        </ThemeProvider>,
+      );
+    });
+
+    expect(document.documentElement.getAttribute("data-theme")).toBe("pink");
+    expect(document.documentElement.getAttribute("data-appearance")).toBe("dark");
+  });
+});
+
+describe("class attributes", () => {
+  test("applies both theme and resolved appearance classes", () => {
+    act(() => {
+      render(
+        <ThemeProvider
+          themes={["pink", "blue"]}
+          defaultTheme="pink"
+          themeAttribute="class"
+          appearanceAttribute="class"
+        >
+          <HelperComponent forceSetAppearance="dark" forceSetTheme="pink" />
+        </ThemeProvider>,
+      );
+    });
+
+    expect(document.documentElement.classList.contains("pink")).toBe(true);
+    expect(document.documentElement.classList.contains("dark")).toBe(true);
+  });
+});
+
+describe("forced values", () => {
+  test("blocks appearance changes when forcedAppearance is set", () => {
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({
+        forcedAppearance: "light",
+        defaultTheme: "pink",
+        themes: ["pink", "blue"],
+      }),
+    });
+
+    act(() => result.current.setAppearance("dark"));
+
+    expect(result.current.appearance).toBe("light");
+    expect(result.current.resolvedAppearance).toBe("light");
+  });
+
+  test("blocks theme changes when forcedTheme is set", () => {
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({
+        forcedTheme: "pink",
+        defaultTheme: "blue",
+        themes: ["pink", "blue"],
+      }),
+    });
+
+    act(() => result.current.setTheme("blue"));
+
+    expect(result.current.theme).toBe("pink");
+  });
+});
+
+describe("storage events", () => {
+  test("storage event updates appearance when not forced", () => {
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ defaultAppearance: "light" }),
+    });
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", { key: "appearance", newValue: "dark" }));
+    });
+
+    expect(result.current.appearance).toBe("dark");
+  });
+
+  test("storage event does not update appearance when forcedAppearance is set", () => {
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ forcedAppearance: "light" }),
+    });
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", { key: "appearance", newValue: "dark" }));
+    });
+
+    expect(result.current.appearance).toBe("light");
+  });
+
+  test("storage event updates theme when not forced", () => {
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ defaultTheme: "pink", themes: ["pink", "blue"] }),
+    });
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", { key: "theme", newValue: "blue" }));
+    });
+
+    expect(result.current.theme).toBe("blue");
+  });
+
+  test("storage event does not update theme when forcedTheme is set", () => {
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ forcedTheme: "pink", defaultTheme: "pink", themes: ["pink", "blue"] }),
+    });
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", { key: "theme", newValue: "blue" }));
+    });
+
+    expect(result.current.theme).toBe("pink");
+  });
+});
+
+describe("legacy localStorage migration (v1→v2)", () => {
+  test('treats legacy theme="dark" as appearance when appearance key is absent', () => {
+    // Old next-themes stored appearance in localStorage.theme; new code uses localStorage.appearance
+    localStorageMock.setItem("theme", "dark");
+
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ defaultTheme: "blue", themes: ["blue", "green"] }),
+    });
+
+    expect(result.current.appearance).toBe("dark");
+    expect(result.current.theme).toBe("blue");
+  });
+
+  test('treats legacy theme="light" as appearance when appearance key is absent', () => {
+    localStorageMock.setItem("theme", "light");
+
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ defaultTheme: "blue", themes: ["blue", "green"] }),
+    });
+
+    expect(result.current.appearance).toBe("light");
+    expect(result.current.theme).toBe("blue");
+  });
+
+  test('treats legacy theme="system" as appearance when appearance key is absent', () => {
+    localStorageMock.setItem("theme", "system");
+
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ defaultTheme: "blue", themes: ["blue", "green"] }),
+    });
+
+    expect(result.current.appearance).toBe("system");
+    expect(result.current.theme).toBe("blue");
+  });
+
+  test("does not migrate when the stored theme is not a legacy appearance value", () => {
+    localStorageMock.setItem("theme", "pink");
+
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ defaultTheme: "blue", themes: ["pink", "blue"] }),
+    });
+
+    // 'pink' is not a legacy appearance value — it stays as theme-family
+    expect(result.current.theme).toBe("pink");
+    expect(result.current.appearance).toBe("system");
+  });
+
+  test("does not migrate when the appearance key is already present", () => {
+    localStorageMock.setItem("theme", "dark");
+    localStorageMock.setItem("appearance", "light");
+
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ defaultTheme: "blue", themes: ["blue", "green", "dark"] }),
+    });
+
+    expect(result.current.appearance).toBe("light");
+    // theme-family from the theme key (not migrated)
+    expect(result.current.theme).toBe("dark");
+  });
+});
+
+describe('enableSystem=false with "system" appearance', () => {
+  test('resolves stored "system" appearance to "light" when enableSystem=false', () => {
+    localStorageMock.setItem("appearance", "system");
+
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: makeWrapper({ enableSystem: false }),
+    });
+
+    expect(result.current.resolvedAppearance).toBe("light");
+  });
+
+  test('does not write "system" to data-appearance when enableSystem=false and stored appearance is "system"', () => {
+    localStorageMock.setItem("appearance", "system");
+
+    act(() => {
+      render(
+        <ThemeProvider enableSystem={false}>
+          <HelperComponent />
+        </ThemeProvider>,
+      );
+    });
+
+    expect(document.documentElement.getAttribute("data-appearance")).toBe("light");
+    expect(document.documentElement.style.colorScheme).toBe("light");
+  });
+
+  test('does not write "system" to data-appearance when forcedAppearance="system" and enableSystem=false', () => {
+    act(() => {
+      render(
+        <ThemeProvider enableSystem={false} forcedAppearance={"system" as any}>
+          <HelperComponent />
+        </ThemeProvider>,
+      );
+    });
+
+    expect(document.documentElement.getAttribute("data-appearance")).toBe("light");
   });
 });

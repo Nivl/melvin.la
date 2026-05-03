@@ -2,7 +2,7 @@
 import { Button } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
-import { PRESETS } from "#features/beatmaker/models/index.ts";
+import { PRESETS } from "#features/beatmaker/models/index";
 
 type PresetKey = keyof typeof PRESETS;
 

@@ -2,8 +2,8 @@
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 
-import type { TrackId } from "#features/beatmaker/models/index.ts";
-import { TRACK_COLORS } from "#features/beatmaker/models/index.ts";
+import type { TrackId } from "#features/beatmaker/models/index";
+import { TRACK_COLORS } from "#features/beatmaker/models/index";
 
 type TrackRowProps = {
   trackId: TrackId;

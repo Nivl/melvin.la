@@ -10,9 +10,9 @@ import {
 import React, { useMemo } from "react";
 import { vi } from "vitest";
 
-import { locales } from "#i18n/locales.ts";
+import { locales } from "#i18n/locales";
 import messages from "#messages/en.json";
-import { Providers } from "#shared/components/providers.tsx";
+import { Providers } from "#shared/components/providers";
 
 type AppRouterContextProviderMockProps = {
   router?: Partial<AppRouterInstance>;

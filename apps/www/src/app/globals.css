@@ -1,13 +1,10 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is([data-appearance="dark"] *));
 
 :root,
-.light,
-.default,
-[data-theme="light"],
-[data-theme="default"] {
+[data-appearance="light"] {
   /* Border Radius */
   --radius: 0.25rem;
   --field-radius: 0.25rem;
@@ -45,8 +42,7 @@
   --warning-foreground: oklch(21.03% 0.0059 69.88);
 }
 
-.dark,
-[data-theme="dark"] {
+[data-appearance="dark"] {
   color-scheme: dark;
 
   --accent: oklch(70.22% 0.1366 233.37);

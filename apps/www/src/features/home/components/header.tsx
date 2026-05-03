@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 
-import { Boba } from "#features/home/components/icons/boba.tsx";
+import { Boba } from "#features/home/components/icons/boba";
 import { Heading } from "#shared/components/layout/heading";
 
 export const Header = () => {

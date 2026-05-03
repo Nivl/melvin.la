@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { MdScreenRotation } from "react-icons/md";
 
-import { useMediaQuery } from "#shared/hooks/use-media-query.ts";
+import { useMediaQuery } from "#shared/hooks/use-media-query";
 
 const PORTRAIT_QUERY = "(max-width: 767px) and (orientation: portrait)";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Dropdown } from "@heroui/react";
-import { useTheme } from "@melvinla/next-themes";
+import { isAppearance, useTheme } from "@melvinla/next-themes";
 import {
   Moon as DarkThemeIcon,
   Palette as SystemThemeIcon,
@@ -10,15 +10,12 @@ import {
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
-import { ThemeSwitcherIcon } from "#shared/components/icons/theme-switcher-icon.tsx";
-import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion.ts";
-
-const isThemeOption = (value: string): value is "light" | "dark" | "system" =>
-  value === "light" || value === "dark" || value === "system";
+import { ThemeSwitcherIcon } from "#shared/components/icons/theme-switcher-icon";
+import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion";
 
 export const ThemeSwitcher = () => {
   const t = useTranslations("navbar");
-  const { resolvedTheme, theme, setTheme } = useTheme();
+  const { resolvedAppearance, appearance, setAppearance } = useTheme();
   const [animationFocus, setAnimationFocus] = useState<"boop" | "themeChange">("boop");
   const [isBooped, setIsBooped] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
@@ -53,7 +50,7 @@ export const ThemeSwitcher = () => {
       >
         <span className="text-amber-400">
           <ThemeSwitcherIcon
-            theme={resolvedTheme === "dark" ? "dark" : "light"}
+            theme={resolvedAppearance === "dark" ? "dark" : "light"}
             animationFocus={animationFocus}
             width={24}
             height={24}
@@ -65,11 +62,11 @@ export const ThemeSwitcher = () => {
         <Dropdown.Menu
           aria-label={t("theme")}
           selectionMode="single"
-          selectedKeys={theme ? new Set([theme]) : new Set(["light"])}
+          selectedKeys={appearance ? new Set([appearance]) : new Set(["light"])}
           onAction={(key) => {
             const value = key.toString();
-            if (isThemeOption(value)) {
-              setTheme(value);
+            if (isAppearance(value)) {
+              setAppearance(value);
               setAnimationFocus("themeChange");
             }
           }}

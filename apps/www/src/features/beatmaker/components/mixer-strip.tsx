@@ -2,8 +2,8 @@
 import { Button, NumberField, Slider } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
-import type { TrackId } from "#features/beatmaker/models/index.ts";
-import { TRACK_COLORS } from "#features/beatmaker/models/index.ts";
+import type { TrackId } from "#features/beatmaker/models/index";
+import { TRACK_COLORS } from "#features/beatmaker/models/index";
 
 type TrackStyle = React.CSSProperties & Record<"--track-color", string>;
 

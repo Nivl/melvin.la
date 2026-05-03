@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { isValidElement } from "react";
 
 import { BlogHeading } from "#features/blog/components/blog-heading";
-import { BlogPost } from "#features/blog/models.ts";
+import { BlogPost } from "#features/blog/models";
 import { Link as NextLink } from "#i18n/routing";
 import { CodeBlock } from "#shared/components/layout/code-block";
 import { Section } from "#shared/components/layout/section";

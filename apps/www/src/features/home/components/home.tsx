@@ -5,7 +5,7 @@ import { Contact } from "#features/home/components/contact";
 import { Header } from "#features/home/components/header";
 import { Skills } from "#features/home/components/skills";
 import { Tech } from "#features/home/components/tech";
-import { Sections } from "#features/home/models.ts";
+import { Sections } from "#features/home/models";
 import { Footer } from "#shared/components/layout/footer";
 import { Section } from "#shared/components/layout/section";
 

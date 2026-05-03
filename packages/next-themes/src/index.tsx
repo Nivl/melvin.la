@@ -1,21 +1,45 @@
 "use client";
 
 import * as React from "react";
-
 import { script } from "./script";
-import type { Attribute, ThemeProviderProps, UseThemeProps } from "./types";
+import type { Attribute, Appearance, ThemeProviderProps, UseThemeProps } from "./types";
 
-const colorSchemes = new Set(["light", "dark"]);
+const colorSchemes = ["light", "dark"] as const;
+
 const MEDIA = "(prefers-color-scheme: dark)";
 const isServer = typeof window === "undefined";
+
+const LEGACY_APPEARANCE_VALUES: string[] = ["light", "dark", "system"];
+
+// Migration shim: old versions stored appearance ('light'|'dark'|'system') in the theme key.
+// Returns the migrated values when applicable.
+const checkLegacyMigration = (
+  appearanceStorageKey: string,
+  themeStorageKey: string,
+): { migratedAppearance: Appearance | null; useFallbackTheme: boolean } => {
+  if (isServer) return { migratedAppearance: null, useFallbackTheme: false };
+  try {
+    const storedAppearance = localStorage.getItem(appearanceStorageKey);
+    if (!storedAppearance) {
+      const storedTheme = localStorage.getItem(themeStorageKey);
+      if (storedTheme && LEGACY_APPEARANCE_VALUES.includes(storedTheme)) {
+        return { migratedAppearance: storedTheme as Appearance, useFallbackTheme: true };
+      }
+    }
+  } catch {}
+  return { migratedAppearance: null, useFallbackTheme: false };
+};
 const ThemeContext = React.createContext<UseThemeProps | undefined>(undefined);
-const defaultContext: UseThemeProps = { setTheme: (_) => {}, themes: [] };
+const defaultContext: UseThemeProps = {
+  setTheme: (_) => {},
+  setAppearance: (_) => {},
+  themes: [],
+};
 
 const saveToLS = (storageKey: string, value: string) => {
-  // Save to storage
   try {
     localStorage.setItem(storageKey, value);
-  } catch {
+  } catch (e) {
     // Unsupported
   }
 };
@@ -26,110 +50,163 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
   const context = React.useContext(ThemeContext);
 
   // Ignore nested context providers, just passthrough children
-  if (context) {
-    return <>{props.children}</>;
-  }
+  if (context) return <>{props.children}</>;
   return <Theme {...props} />;
 };
 
-const defaultThemes = ["light", "dark"];
+const getValue = (key: string, fallback?: string): string | undefined => {
+  if (isServer) return fallback;
+  try {
+    return localStorage.getItem(key) || fallback;
+  } catch (e) {
+    return fallback;
+  }
+};
+
+const getSystemAppearance = (e?: MediaQueryList | MediaQueryListEvent): "light" | "dark" => {
+  const media = e ?? (typeof window !== "undefined" ? window.matchMedia(MEDIA) : null);
+  if (!media) return "light";
+  return media.matches ? "dark" : "light";
+};
+
+const applyAttribute = (
+  node: HTMLElement,
+  attr: Attribute | Attribute[],
+  values: string[],
+  active: string | undefined,
+  mapping?: Record<string, string>,
+) => {
+  const attributes = Array.isArray(attr) ? attr : [attr];
+
+  attributes.forEach((current) => {
+    const isClass = current === "class";
+    // When a mapping is provided, use mapped value; if key missing from mapping, treat as absent
+    const mappedActive = active ? (mapping ? mapping[active] || null : active) : null;
+
+    if (isClass) {
+      const toRemove = values.map((v) => (mapping && mapping[v]) || v);
+      if (toRemove.length > 0) node.classList.remove(...toRemove);
+      if (mappedActive) node.classList.add(mappedActive);
+    } else {
+      if (mappedActive) {
+        node.setAttribute(current, mappedActive);
+      } else {
+        node.removeAttribute(current);
+      }
+    }
+  });
+};
 
 const Theme = ({
+  forcedAppearance,
   forcedTheme,
-  disableTransitionOnChange = false,
   enableSystem = true,
   enableColorScheme = true,
-  storageKey = "theme",
-  themes = defaultThemes,
-  defaultTheme = enableSystem ? "system" : "light",
-  attribute = "data-theme",
-  value,
+  disableTransitionOnChange = false,
+  appearanceStorageKey = "appearance",
+  themeStorageKey = "theme",
+  defaultAppearance = enableSystem ? "system" : "light",
+  defaultTheme,
+  themes = [],
+  appearanceAttribute = "data-appearance",
+  themeAttribute = "data-theme",
+  appearanceValue,
+  themeValue,
   children,
   nonce,
   scriptProps,
 }: ThemeProviderProps) => {
-  const [theme, setThemeState] = React.useState(() => getTheme(storageKey, defaultTheme));
-  const [resolvedTheme, setResolvedTheme] = React.useState(() =>
-    theme === "system" ? getSystemTheme() : theme,
+  const [appearance, setAppearanceState] = React.useState<Appearance>(() => {
+    const { migratedAppearance } = checkLegacyMigration(appearanceStorageKey, themeStorageKey);
+    if (migratedAppearance !== null) return migratedAppearance;
+    return (getValue(appearanceStorageKey, defaultAppearance) as Appearance) ?? "light";
+  });
+  const [theme, setThemeState] = React.useState<string | undefined>(() => {
+    const { useFallbackTheme } = checkLegacyMigration(appearanceStorageKey, themeStorageKey);
+    if (useFallbackTheme) return defaultTheme ?? themes[0];
+    return getValue(themeStorageKey, defaultTheme ?? themes[0]);
+  });
+  const [resolvedAppearance, setResolvedAppearance] = React.useState<"light" | "dark">(() =>
+    getSystemAppearance(),
   );
-  const attrs = !value ? themes : Object.values(value);
 
-  const applyTheme = React.useCallback(
-    (theme: string | undefined) => {
-      let resolved = theme;
-      if (!resolved) {
-        return;
-      }
+  const applyState = React.useCallback(
+    (
+      nextAppearance: Appearance,
+      nextTheme: string | undefined,
+      currentResolved: "light" | "dark",
+    ) => {
+      const effectiveAppearance = forcedAppearance ?? nextAppearance;
+      const effectiveTheme = forcedTheme ?? nextTheme;
 
-      // If theme is system, resolve it before setting theme
-      if (theme === "system" && enableSystem) {
-        resolved = getSystemTheme();
-      }
+      const resolved: "light" | "dark" =
+        effectiveAppearance === "system"
+          ? enableSystem
+            ? currentResolved
+            : "light"
+          : (effectiveAppearance as "light" | "dark");
 
-      const name = value ? value[resolved] : resolved;
-      const enable = disableTransitionOnChange ? disableAnimation(nonce) : null;
       const d = document.documentElement;
+      const enable = disableTransitionOnChange ? disableAnimation(nonce) : null;
 
-      const handleAttribute = (attr: Attribute) => {
-        if (attr === "class") {
-          d.classList.remove(...attrs);
-          if (name) {
-            d.classList.add(name);
-          }
-        } else if (attr.startsWith("data-")) {
-          if (name) {
-            d.setAttribute(attr, name);
-          } else {
-            d.removeAttribute(attr);
-          }
-        }
-      };
+      applyAttribute(d, appearanceAttribute, ["light", "dark"], resolved, appearanceValue);
+      applyAttribute(d, themeAttribute, themes, effectiveTheme, themeValue);
 
-      if (Array.isArray(attribute)) {
-        attribute.forEach(handleAttribute);
-      } else {
-        handleAttribute(attribute);
-      }
-
-      if (enableColorScheme) {
-        const fallback = colorSchemes.has(defaultTheme) ? defaultTheme : "";
-        const colorScheme = colorSchemes.has(resolved) ? resolved : fallback;
-        d.style.colorScheme = colorScheme;
+      if (enableColorScheme && colorSchemes.includes(resolved)) {
+        d.style.colorScheme = resolved;
       }
 
       enable?.();
     },
-    [nonce],
+    [
+      appearanceAttribute,
+      appearanceValue,
+      disableTransitionOnChange,
+      enableColorScheme,
+      enableSystem,
+      forcedAppearance,
+      forcedTheme,
+      nonce,
+      themeAttribute,
+      themeValue,
+      themes,
+    ],
   );
 
-  const setTheme = React.useCallback<React.Dispatch<React.SetStateAction<string>>>((value) => {
-    if (typeof value === "function") {
-      setThemeState((prevTheme) => {
-        const newTheme = value(prevTheme ?? defaultTheme);
+  const appearanceRef = React.useRef(appearance);
+  appearanceRef.current = appearance;
+  const themeRef = React.useRef(theme);
+  themeRef.current = theme;
 
-        saveToLS(storageKey, newTheme);
+  const setAppearance = React.useCallback(
+    (value: React.SetStateAction<Appearance>) => {
+      if (forcedAppearance) return;
+      const current = appearanceRef.current;
+      const next = typeof value === "function" ? value(current) : value;
+      saveToLS(appearanceStorageKey, next);
+      appearanceRef.current = next;
+      setAppearanceState(next);
+    },
+    [appearanceStorageKey, forcedAppearance],
+  );
 
-        return newTheme;
-      });
-    } else {
-      setThemeState(value);
-      saveToLS(storageKey, value);
-    }
+  const setTheme = React.useCallback(
+    (value: React.SetStateAction<string>) => {
+      if (forcedTheme) return;
+      const current = themeRef.current ?? defaultTheme ?? themes[0] ?? "";
+      const next = typeof value === "function" ? value(current) : value;
+      saveToLS(themeStorageKey, next);
+      themeRef.current = next;
+      setThemeState(next);
+    },
+    [defaultTheme, forcedTheme, themeStorageKey, themes],
+  );
+
+  const handleMediaQuery = React.useCallback((e: MediaQueryListEvent | MediaQueryList) => {
+    setResolvedAppearance(getSystemAppearance(e));
   }, []);
 
-  const handleMediaQuery = React.useCallback(
-    (e: MediaQueryListEvent | MediaQueryList) => {
-      const resolved = getSystemTheme(e);
-      setResolvedTheme(resolved);
-
-      if (theme === "system" && enableSystem && !forcedTheme) {
-        applyTheme("system");
-      }
-    },
-    [theme, forcedTheme],
-  );
-
-  // Always listen to System preference
+  // Always listen to system appearance
   React.useEffect(() => {
     const media = window.matchMedia(MEDIA);
 
@@ -137,63 +214,87 @@ const Theme = ({
     media.addListener(handleMediaQuery);
     handleMediaQuery(media);
 
-    return () => {
-      media.removeListener(handleMediaQuery);
-    };
+    return () => media.removeListener(handleMediaQuery);
   }, [handleMediaQuery]);
 
-  // localStorage event handling
+  // localStorage event handling — skip axes that are currently forced to avoid state drift
   React.useEffect(() => {
     const handleStorage = (e: StorageEvent) => {
-      if (e.key !== storageKey) {
-        return;
-      }
-
-      // If default theme set, use it if localstorage === null (happens on local storage manual deletion)
-      if (!e.newValue) {
-        setTheme(defaultTheme);
-      } else {
-        setThemeState(e.newValue); // Direct state update to avoid loops
+      if (e.key === appearanceStorageKey && !forcedAppearance) {
+        setAppearanceState(
+          e.newValue ? (e.newValue as Appearance) : (defaultAppearance as Appearance),
+        );
+      } else if (e.key === themeStorageKey && !forcedTheme) {
+        setThemeState(e.newValue || defaultTheme || themes[0]);
       }
     };
 
     window.addEventListener("storage", handleStorage);
-    return () => {
-      window.removeEventListener("storage", handleStorage);
-    };
-  }, [setTheme]);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, [
+    appearanceStorageKey,
+    defaultAppearance,
+    defaultTheme,
+    forcedAppearance,
+    forcedTheme,
+    themeStorageKey,
+    themes,
+  ]);
 
-  // Whenever theme or forcedTheme changes, apply it
+  // Apply both axes to the DOM whenever any relevant state changes
   React.useEffect(() => {
-    applyTheme(forcedTheme ?? theme);
-  }, [forcedTheme, theme]);
+    applyState(appearance, theme, resolvedAppearance);
+  }, [applyState, appearance, theme, resolvedAppearance]);
 
   const providerValue = React.useMemo(
     () => ({
-      forcedTheme,
-      resolvedTheme: theme === "system" ? resolvedTheme : theme,
+      appearance: forcedAppearance ?? appearance,
+      resolvedAppearance:
+        (forcedAppearance ?? appearance) === "system"
+          ? enableSystem
+            ? resolvedAppearance
+            : "light"
+          : ((forcedAppearance ?? appearance) as "light" | "dark"),
+      systemAppearance: enableSystem ? resolvedAppearance : undefined,
+      setAppearance,
+      theme: forcedTheme ?? theme,
       setTheme,
-      systemTheme: (enableSystem ? resolvedTheme : undefined) as "light" | "dark" | undefined,
-      theme,
-      themes: enableSystem ? [...themes, "system"] : themes,
+      themes,
+      forcedAppearance,
+      forcedTheme,
     }),
-    [theme, setTheme, forcedTheme, resolvedTheme, enableSystem, themes],
+    [
+      appearance,
+      enableSystem,
+      forcedAppearance,
+      forcedTheme,
+      resolvedAppearance,
+      setAppearance,
+      setTheme,
+      theme,
+      themes,
+    ],
   );
 
   return (
     <ThemeContext.Provider value={providerValue}>
       <ThemeScript
         {...{
-          attribute,
-          defaultTheme,
-          enableColorScheme,
-          enableSystem,
+          forcedAppearance,
           forcedTheme,
+          appearanceStorageKey,
+          themeStorageKey,
+          appearanceAttribute,
+          themeAttribute,
+          defaultAppearance,
+          defaultTheme,
+          enableSystem,
+          enableColorScheme,
+          appearanceValue,
+          themeValue,
+          themes,
           nonce,
           scriptProps,
-          storageKey,
-          themes,
-          value,
         }}
       />
 
@@ -204,24 +305,37 @@ const Theme = ({
 
 export const ThemeScript = React.memo(
   ({
+    forcedAppearance,
     forcedTheme,
-    storageKey,
-    attribute,
+    appearanceStorageKey = "appearance",
+    themeStorageKey,
+    appearanceAttribute = "data-appearance",
+    themeAttribute,
+    defaultAppearance,
+    defaultTheme,
     enableSystem,
     enableColorScheme,
-    defaultTheme,
-    value,
+    appearanceValue,
+    themeValue,
     themes,
     nonce,
     scriptProps,
-  }: Omit<ThemeProviderProps, "children"> & { defaultTheme: string }) => {
+  }: Omit<ThemeProviderProps, "children"> & {
+    defaultAppearance?: string;
+    defaultTheme?: string;
+  }) => {
     const scriptArgs = JSON.stringify([
-      attribute,
-      storageKey,
+      appearanceAttribute,
+      themeAttribute,
+      appearanceStorageKey,
+      themeStorageKey,
+      defaultAppearance,
       defaultTheme,
+      forcedAppearance,
       forcedTheme,
       themes,
-      value,
+      appearanceValue,
+      themeValue,
       enableSystem,
       enableColorScheme,
     ]).slice(1, -1);
@@ -238,30 +352,15 @@ export const ThemeScript = React.memo(
 );
 
 // Helpers
-const getTheme = (key: string, fallback?: string) => {
-  if (isServer) {
-    return undefined;
-  }
-  let theme;
-  try {
-    theme = localStorage.getItem(key) ?? undefined;
-  } catch {
-    // Unsupported
-  }
-  return theme ?? fallback;
-};
-
 const disableAnimation = (nonce?: string) => {
   const css = document.createElement("style");
-  if (nonce) {
-    css.setAttribute("nonce", nonce);
-  }
-  css.append(
+  if (nonce) css.setAttribute("nonce", nonce);
+  css.appendChild(
     document.createTextNode(
       `*,*::before,*::after{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}`,
     ),
   );
-  document.head.append(css);
+  document.head.appendChild(css);
 
   return () => {
     // Force restyle
@@ -274,12 +373,14 @@ const disableAnimation = (nonce?: string) => {
   };
 };
 
-const getSystemTheme = (e?: MediaQueryList | MediaQueryListEvent) => {
-  e ??= window.matchMedia(MEDIA);
-  const isDark = e.matches;
-  const systemTheme = isDark ? "dark" : "light";
-  return systemTheme;
-};
+export const isAppearance = (value: string): value is Appearance =>
+  value === "light" || value === "dark" || value === "system";
 
 // Re-export types
-export type { Attribute, ThemeProviderProps, UseThemeProps } from "./types";
+export type {
+  Attribute,
+  Appearance,
+  ResolvedAppearance,
+  ThemeProviderProps,
+  UseThemeProps,
+} from "./types";

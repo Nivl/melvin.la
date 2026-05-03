@@ -5,8 +5,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { usePathname, useRouter } from "#i18n/routing";
-import { LanguageSwitcherIcon } from "#shared/components/icons/language-switcher-icon.tsx";
-import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion.ts";
+import { LanguageSwitcherIcon } from "#shared/components/icons/language-switcher-icon";
+import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion";
 
 type Language = {
   key: string;

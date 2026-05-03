@@ -15,7 +15,7 @@ import {
   TRACK_IDS,
 } from "#features/beatmaker/models";
 import { Section } from "#shared/components/layout/section";
-import { getWindow } from "#shared/utils/window.ts";
+import { getWindow } from "#shared/utils/window";
 
 import { KitSelector } from "./kit-selector";
 import { LandscapeGuard } from "./landscape-guard";

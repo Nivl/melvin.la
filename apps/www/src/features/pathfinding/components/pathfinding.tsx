@@ -4,8 +4,8 @@ import { toast } from "@heroui/react";
 import { useTranslations } from "next-intl";
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { runAStar, runBFS, runDFS, runDijkstra } from "#features/pathfinding/utils/algorithms.ts";
-import { generateMaze } from "#features/pathfinding/utils/maze.ts";
+import { runAStar, runBFS, runDFS, runDijkstra } from "#features/pathfinding/utils/algorithms";
+import { generateMaze } from "#features/pathfinding/utils/maze";
 import {
   Algorithm,
   AlgorithmResult,
@@ -18,9 +18,9 @@ import {
   Grid,
   PlacementMode,
   SPEED_VALUES,
-} from "#features/pathfinding/utils/types.ts";
+} from "#features/pathfinding/utils/types";
 import { Section } from "#shared/components/layout/section";
-import { useAnimationTimeouts } from "#shared/hooks/use-animation-timeouts.ts";
+import { useAnimationTimeouts } from "#shared/hooks/use-animation-timeouts";
 
 import { Controls } from "./controls";
 import { PathfindingGrid } from "./grid";
