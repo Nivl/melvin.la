@@ -1,4 +1,4 @@
-@theme  {
+@theme {
   --color-theme-blue: oklch(79.36% 0.1276 233.34);
 }
 
@@ -85,7 +85,3 @@
   /* extra */
   --color-grad-to: oklch(50.875% 0.107 235.519);
 }
-
-
-
-

@@ -1,5 +1,5 @@
 @theme {
-  --color-theme-purple: oklch(79.36% 0.1276 308.90);
+  --color-theme-purple: oklch(79.36% 0.1276 308.9);
 }
 
 /*
@@ -44,7 +44,7 @@
   --warning-foreground: oklch(21.03% 0.0059 78.94);
 
   /* extra */
-  --color-grad-from: oklch(79.36% 0.1276 308.90);
+  --color-grad-from: oklch(79.36% 0.1276 308.9);
   --color-grad-to: oklch(83.916% 0.09345 308.92);
 }
 

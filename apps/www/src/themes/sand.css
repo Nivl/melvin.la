@@ -1,8 +1,6 @@
 @theme {
-  --color-theme-sand: oklch(81.27% 0.0967 62.00);
+  --color-theme-sand: oklch(81.27% 0.0967 62);
 }
-
-
 
 [data-theme="sand"] {
   /* Border Radius */

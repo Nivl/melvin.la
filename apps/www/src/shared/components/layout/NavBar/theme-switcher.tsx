@@ -122,7 +122,7 @@ export const ThemeSwitcher = () => {
             <Header>{t("hue")}</Header>
             {themesColors.map((color) => (
               <Dropdown.Item key={color.key} id={color.key} textValue={t(color.i18nKey)}>
-                <ThemeIcon width={20} className={`${color.className}`} /> {t(color.i18nKey)}
+                <ThemeIcon width={20} className={color.className} /> {t(color.i18nKey)}
                 <Dropdown.ItemIndicator />
               </Dropdown.Item>
             ))}

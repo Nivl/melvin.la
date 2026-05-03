@@ -1,4 +1,4 @@
-@theme{
+@theme {
   --color-theme-orange: oklch(79.36% 0.1276 51.85);
 }
 
@@ -89,5 +89,3 @@
   /* extra */
   --color-grad-to: oklch(0.5512 0.1276 51.85);
 }
-
-
