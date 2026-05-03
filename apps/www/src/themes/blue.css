@@ -81,6 +81,9 @@
   --surface-tertiary-foreground: oklch(99.11% 0.0054 233.34);
   --warning: oklch(82.03% 0.1403 73.88);
   --warning-foreground: oklch(21.03% 0.0059 73.88);
+
+  /* extra */
+  --color-grad-to: oklch(50.875% 0.107 235.519);
 }
 
 

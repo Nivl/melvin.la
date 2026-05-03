@@ -42,6 +42,10 @@
   --surface-tertiary-foreground: oklch(21.03% 0.0145 51.85);
   --warning: oklch(78.19% 0.1631 48.09);
   --warning-foreground: oklch(21.03% 0.0059 48.09);
+
+  /* extra */
+  --color-grad-from: oklch(79.36% 0.1276 51.85);
+  --color-grad-to: oklch(85.045% 0.08432 52.174);
 }
 
 /*
@@ -81,6 +85,9 @@
   --surface-tertiary-foreground: oklch(99.11% 0.0031 51.85);
   --warning: oklch(82.03% 0.1397 52.1);
   --warning-foreground: oklch(21.03% 0.0059 52.1);
+
+  /* extra */
+  --color-grad-to: oklch(0.5512 0.1276 51.85);
 }
 
 

@@ -5,6 +5,14 @@
 
 @custom-variant dark (&:is([data-appearance="dark"] *));
 
+@theme {
+  --color-nivl: #26ace6;
+
+  /* https://oklch.com */
+  --color-grad-from: var(--color-nivl);
+  --color-grad-to: #32c2ff;
+}
+
 @import "../themes/blue.css" layer(theme);
 @import "../themes/green.css" layer(theme);
 @import "../themes/pink.css" layer(theme);
@@ -23,8 +31,6 @@
 /* Tailwind specific variables */
 @theme {
   --navbar-height: 4rem;
-
-  --color-nivl: #26ace6;
 
   --leading-tight-xl: 6rem;
   --leading-tight-sm: 4.75rem;
@@ -280,7 +286,7 @@
 }
 
 #blog-post-page a {
-  @apply text-nivl;
+  @apply text-accent;
 }
 
 #home-page p {

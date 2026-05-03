@@ -14,18 +14,14 @@ import { useEffect, useState } from "react";
 import { ThemeSwitcherIcon } from "#shared/components/icons/theme-switcher-icon";
 import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion";
 
-// Adding or removing something in this array requires updating the translations.
-// navbar.themeSwitcher.colors
-// const themesColors = ["blue", "green", "orange", "pink", "purple", "red", "sand"];
-
 const themesColors = [
   { className: "text-theme-blue", i18nKey: "colors.blue", key: "blue" },
+  { className: "text-theme-sand", i18nKey: "colors.sand", key: "sand" },
+  { className: "text-theme-purple", i18nKey: "colors.purple", key: "purple" },
+  { className: "text-theme-pink", i18nKey: "colors.pink", key: "pink" },
+  { className: "text-theme-red", i18nKey: "colors.red", key: "red" },
   { className: "text-theme-green", i18nKey: "colors.green", key: "green" },
   { className: "text-theme-orange", i18nKey: "colors.orange", key: "orange" },
-  { className: "text-theme-pink", i18nKey: "colors.pink", key: "pink" },
-  { className: "text-theme-purple", i18nKey: "colors.purple", key: "purple" },
-  { className: "text-theme-red", i18nKey: "colors.red", key: "red" },
-  { className: "text-theme-sand", i18nKey: "colors.sand", key: "sand" },
 ];
 
 const isTheme = (value: string | undefined): value is (typeof themesColors)[number]["key"] =>
