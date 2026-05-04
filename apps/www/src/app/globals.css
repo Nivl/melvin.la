@@ -5,6 +5,22 @@
 
 @custom-variant dark (&:is([data-appearance="dark"] *));
 
+/* Variables that get overridden by imports */
+@theme {
+  --color-nivl: #26ace6;
+
+  /*
+    Keep those 2 variables here.
+    The value don't matter because the active theme will override
+    them, but they need to be defined otherwise tailwind won't know
+    they exists.
+
+    You can use https://oklch.com to figure out some values
+   */
+  --color-grad-from: var(--color-nivl);
+  --color-grad-to: #32c2ff;
+}
+
 @import "../themes/blue.css" layer(theme);
 @import "../themes/green.css" layer(theme);
 @import "../themes/pink.css" layer(theme);
