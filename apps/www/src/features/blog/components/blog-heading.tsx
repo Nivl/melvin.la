@@ -11,7 +11,7 @@ export const BlogHeading = ({
   children?: React.ReactNode;
 }) => {
   let classname =
-    "pb-2 md:pb-4 xl:pb-5 leading-none font-bold bg-linear-to-b from-nivl to-[#32c2ff] dark:to-[#066e9a] bg-clip-text text-transparent";
+    "pb-2 md:pb-4 xl:pb-5 leading-none font-bold bg-linear-to-b from-grad-from to-grad-to bg-clip-text text-transparent";
 
   switch (level) {
     case 1: {
@@ -19,7 +19,7 @@ export const BlogHeading = ({
       break;
     }
     case 2: {
-      classname = `${classname} uppercase text-xl md:text-2xl xl:text-3xl border-b-nivl border-solid border-b mb-2 md:mb-4 xl:mb-5`;
+      classname = `${classname} uppercase text-xl md:text-2xl xl:text-3xl border-b-accent border-solid border-b mb-2 md:mb-4 xl:mb-5`;
       break;
     }
     case 3: {

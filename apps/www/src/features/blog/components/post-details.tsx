@@ -2,7 +2,7 @@ import { Card } from "@heroui/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-import { BlogPost } from "#features/blog/models.ts";
+import { BlogPost } from "#features/blog/models";
 import { Link } from "#i18n/routing";
 
 export const PostDetails = ({ post }: { post: BlogPost }) => {

@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 
 import { FortniteStatsData, hasStats } from "#features/fortnite/models";
-import { rate } from "#features/fortnite/utils.ts";
+import { rate } from "#features/fortnite/utils";
 
 import { StatCard } from "./stat-card";
 

@@ -1,7 +1,7 @@
 import { createNavigation } from "next-intl/navigation";
 import { defineRouting } from "next-intl/routing";
 
-import { locales } from "./locales.ts";
+import { locales } from "./locales";
 
 export const routing = defineRouting({
   // Used when no locale matches

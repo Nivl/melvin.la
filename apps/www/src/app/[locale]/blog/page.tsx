@@ -4,7 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 
 import { List } from "#features/blog/components/list";
-import { getLatestBlogPosts } from "#features/blog/ssg/queries.ts";
+import { getLatestBlogPosts } from "#features/blog/ssg/queries";
 import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home({ params }: { params: Promise<{ locale: string }> }) {

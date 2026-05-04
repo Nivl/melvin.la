@@ -23,19 +23,19 @@ import {
   SiTypescript as Typescript,
 } from "react-icons/si";
 
-import { Amplitude } from "#features/home/components/icons/amplitude.tsx";
-import { C } from "#features/home/components/icons/c.tsx";
-import { CSharp } from "#features/home/components/icons/c-sharp.tsx";
-import { Clojure } from "#features/home/components/icons/clojure.tsx";
-import { Cpp } from "#features/home/components/icons/cpp.tsx";
-import { Electron } from "#features/home/components/icons/electron.tsx";
-import { EmacsLisp } from "#features/home/components/icons/emacs-lisp.tsx";
-import { Grpc } from "#features/home/components/icons/grpc.tsx";
-import { Java } from "#features/home/components/icons/java.tsx";
-import { NewRelic } from "#features/home/components/icons/new-relic.tsx";
-import { ObjectiveC } from "#features/home/components/icons/objective-c.tsx";
-import { Python } from "#features/home/components/icons/python.tsx";
-import { Swift } from "#features/home/components/icons/swift.tsx";
+import { Amplitude } from "#features/home/components/icons/amplitude";
+import { C } from "#features/home/components/icons/c";
+import { CSharp } from "#features/home/components/icons/c-sharp";
+import { Clojure } from "#features/home/components/icons/clojure";
+import { Cpp } from "#features/home/components/icons/cpp";
+import { Electron } from "#features/home/components/icons/electron";
+import { EmacsLisp } from "#features/home/components/icons/emacs-lisp";
+import { Grpc } from "#features/home/components/icons/grpc";
+import { Java } from "#features/home/components/icons/java";
+import { NewRelic } from "#features/home/components/icons/new-relic";
+import { ObjectiveC } from "#features/home/components/icons/objective-c";
+import { Python } from "#features/home/components/icons/python";
+import { Swift } from "#features/home/components/icons/swift";
 
 export const Logo = ({ name, className }: { name: string; className: string }) => {
   // all the logos we support, ordered alphabetically by name

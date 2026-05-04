@@ -1,12 +1,8 @@
 {
   "name": "@melvinla/next-themes",
-  "version": "0.4.6",
+  "version": "0.0.1",
   "private": true,
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pacocoursey/next-themes.git"
-  },
   "files": [
     "src"
   ],
@@ -44,7 +40,6 @@
     "oxlint-tsgolint": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "tsdown": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   },

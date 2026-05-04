@@ -1,6 +1,6 @@
 "use client";
-import type { BeatmakerState, TrackId } from "#features/beatmaker/models/index.ts";
-import { TRACK_IDS } from "#features/beatmaker/models/index.ts";
+import type { BeatmakerState, TrackId } from "#features/beatmaker/models/index";
+import { TRACK_IDS } from "#features/beatmaker/models/index";
 
 import { TrackRow } from "./track-row";
 

@@ -1,85 +1,33 @@
+@layer theme, base, components, utilities;
+
 @import "tailwindcss";
 @import "@heroui/styles";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is([data-appearance="dark"] *));
 
-:root,
-.light,
-.default,
-[data-theme="light"],
-[data-theme="default"] {
-  /* Border Radius */
-  --radius: 0.25rem;
-  --field-radius: 0.25rem;
+/* Variables that get overridden by imports */
+@theme {
+  --color-nivl: #26ace6;
 
-  /* Colors */
-  --accent: oklch(70.22% 0.1366 233.37);
-  --accent-foreground: oklch(99.11% 0 0);
-  --background: oklch(97.02% 0.0044 233.37);
-  --border: oklch(90% 0.0044 233.37);
-  --danger: oklch(65.32% 0.2348 23.29);
-  --danger-foreground: oklch(99.11% 0 0);
-  --default: oklch(94% 0.0044 233.37);
-  --default-foreground: oklch(21.03% 0.0059 233.37);
-  --field-background: oklch(100% 0.0022 233.37);
-  --field-foreground: oklch(21.03% 0.0044 233.37);
-  --field-placeholder: oklch(55.17% 0.0088 233.37);
-  --focus: oklch(70.22% 0.1366 233.37);
-  --foreground: oklch(21.03% 0.0044 233.37);
-  --muted: oklch(55.17% 0.0088 233.37);
-  --overlay: oklch(100% 0.0013 233.37);
-  --overlay-foreground: oklch(21.03% 0.0044 233.37);
-  --scrollbar: oklch(87.1% 0.0044 233.37);
-  --segment: oklch(100% 0.0044 233.37);
-  --segment-foreground: oklch(21.03% 0.0044 233.37);
-  --separator: oklch(92% 0.0044 233.37);
-  --success: oklch(73.29% 0.1952 148.36);
-  --success-foreground: oklch(21.03% 0.0059 148.36);
-  --surface: oklch(100% 0.0022 233.37);
-  --surface-foreground: oklch(21.03% 0.0044 233.37);
-  --surface-secondary: oklch(95.24% 0.0035 233.37);
-  --surface-secondary-foreground: oklch(21.03% 0.0044 233.37);
-  --surface-tertiary: oklch(93.73% 0.0035 233.37);
-  --surface-tertiary-foreground: oklch(21.03% 0.0044 233.37);
-  --warning: oklch(78.19% 0.1599 69.88);
-  --warning-foreground: oklch(21.03% 0.0059 69.88);
+  /*
+    Keep those 2 variables here.
+    The value don't matter because the active theme will override
+    them, but they need to be defined otherwise tailwind won't know
+    they exists.
+
+    You can use https://oklch.com to figure out some values
+   */
+  --color-grad-from: var(--color-nivl);
+  --color-grad-to: #32c2ff;
 }
 
-.dark,
-[data-theme="dark"] {
-  color-scheme: dark;
-
-  --accent: oklch(70.22% 0.1366 233.37);
-  --accent-foreground: oklch(99.11% 0 0);
-  --background: oklch(12% 0.0044 233.37);
-  --border: oklch(28% 0.0044 233.37);
-  --danger: oklch(59.4% 0.1984 22.18);
-  --danger-foreground: oklch(99.11% 0 0);
-  --default: oklch(27.4% 0.0044 233.37);
-  --default-foreground: oklch(99.11% 0 0);
-  --field-background: oklch(21.03% 0.0088 233.37);
-  --field-foreground: oklch(99.11% 0.0044 233.37);
-  --field-placeholder: oklch(70.5% 0.0088 233.37);
-  --focus: oklch(70.22% 0.1366 233.37);
-  --foreground: oklch(99.11% 0.0044 233.37);
-  --muted: oklch(70.5% 0.0088 233.37);
-  --overlay: oklch(21.03% 0.0088 233.37);
-  --overlay-foreground: oklch(99.11% 0.0044 233.37);
-  --scrollbar: oklch(70.5% 0.0044 233.37);
-  --segment: oklch(39.64% 0.0044 233.37);
-  --segment-foreground: oklch(99.11% 0.0044 233.37);
-  --separator: oklch(25% 0.0044 233.37);
-  --success: oklch(73.29% 0.1952 148.36);
-  --success-foreground: oklch(21.03% 0.0059 148.36);
-  --surface: oklch(21.03% 0.0088 233.37);
-  --surface-foreground: oklch(99.11% 0.0044 233.37);
-  --surface-secondary: oklch(25.7% 0.0066 233.37);
-  --surface-secondary-foreground: oklch(99.11% 0.0044 233.37);
-  --surface-tertiary: oklch(27.21% 0.0066 233.37);
-  --surface-tertiary-foreground: oklch(99.11% 0.0044 233.37);
-  --warning: oklch(82.03% 0.14 73.89);
-  --warning-foreground: oklch(21.03% 0.0059 73.89);
-}
+@import "../themes/blue.css" layer(theme);
+@import "../themes/green.css" layer(theme);
+@import "../themes/pink.css" layer(theme);
+@import "../themes/purple.css" layer(theme);
+@import "../themes/red.css" layer(theme);
+@import "../themes/orange.css" layer(theme);
+@import "../themes/sand.css" layer(theme);
 
 @layer components {
   .card,
@@ -91,8 +39,6 @@
 /* Tailwind specific variables */
 @theme {
   --navbar-height: 4rem;
-
-  --color-nivl: #26ace6;
 
   --leading-tight-xl: 6rem;
   --leading-tight-sm: 4.75rem;
@@ -348,7 +294,7 @@
 }
 
 #blog-post-page a {
-  @apply text-nivl;
+  @apply text-accent;
 }
 
 #home-page p {

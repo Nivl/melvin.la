@@ -5,7 +5,7 @@ import { FaUserGroup } from "react-icons/fa6";
 import { HiMiniUserGroup } from "react-icons/hi2";
 
 import { FortniteStatsData } from "#features/fortnite/models";
-import { humanizeDuration, rateStr } from "#features/fortnite/utils.ts";
+import { humanizeDuration, rateStr } from "#features/fortnite/utils";
 
 export const TableMobile = ({
   data,

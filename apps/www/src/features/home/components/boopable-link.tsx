@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion.ts";
+import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion";
 
 export const BoopableLink = ({
   icon,

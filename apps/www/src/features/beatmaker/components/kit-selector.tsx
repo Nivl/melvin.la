@@ -2,8 +2,8 @@
 import { Button } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
-import type { Kit } from "#features/beatmaker/models/index.ts";
-import { KIT_IDS } from "#features/beatmaker/models/index.ts";
+import type { Kit } from "#features/beatmaker/models/index";
+import { KIT_IDS } from "#features/beatmaker/models/index";
 
 type KitSelectorProps = {
   activeKit: Kit;

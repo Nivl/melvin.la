@@ -1,40 +1,40 @@
 // This is a test file, we don't care too much about high react perf
 //eslint-disable only-export-components
 
-import type { ThemeProviderProps } from "@melvinla/next-themes";
-import { ThemeProvider, useTheme } from "@melvinla/next-themes";
+import { isAppearance, ThemeProvider, ThemeProviderProps, useTheme } from "@melvinla/next-themes";
 import { DecoratorHelpers } from "@storybook/addon-themes";
 import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
 import type { DecoratorFunction } from "storybook/internal/types";
 
 type ThemeSwitcherProps = PropsWithChildren<{
-  theme: string;
+  appearance: string;
 }>;
 
-const ThemeSwitcher = ({ theme, children }: ThemeSwitcherProps) => {
-  const { setTheme, resolvedTheme, theme: currentTheme } = useTheme();
+const ThemeSwitcher = ({ appearance, children }: ThemeSwitcherProps) => {
+  const { setAppearance, resolvedAppearance, appearance: currentAppearance } = useTheme();
 
   useEffect(() => {
     if (
-      (theme === "" && currentTheme === "system") ||
-      theme === currentTheme ||
-      theme === resolvedTheme
+      (appearance === "" && currentAppearance === "system") ||
+      appearance === currentAppearance ||
+      appearance === resolvedAppearance ||
+      !isAppearance(appearance)
     ) {
       return;
     }
 
-    setTheme(theme);
+    setAppearance(appearance);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [theme]);
+  }, [appearance]);
 
   return <div className="bg-background">{children}</div>;
 };
 
-type NextThemesDecorator = Omit<ThemeProviderProps, "defaultTheme" | "themes"> & {
+type NextThemesDecorator = Omit<ThemeProviderProps, "themes"> & {
   themes: Record<string, string>;
-  defaultTheme: string;
+  defaultAppearance: string;
 };
 
 const { initializeThemeState, pluckThemeFromContext } = DecoratorHelpers;
@@ -45,8 +45,8 @@ const hasThemeOverride = (
   themes?: { themeOverride?: string };
 } => typeof value === "object" && value !== null;
 
-export const withNextThemes = ({ themes, defaultTheme, ...props }: NextThemesDecorator) => {
-  initializeThemeState(Object.keys(themes), defaultTheme);
+export const withNextThemes = ({ themes, defaultAppearance, ...props }: NextThemesDecorator) => {
+  initializeThemeState(Object.keys(themes), defaultAppearance);
 
   const decorator: DecoratorFunction = (Story, context) => {
     const selectedTheme = pluckThemeFromContext(context);
@@ -60,7 +60,7 @@ export const withNextThemes = ({ themes, defaultTheme, ...props }: NextThemesDec
       // so the spread is safe.
       // eslint-disable-next-line react/jsx-props-no-spreading
       <ThemeProvider {...props}>
-        <ThemeSwitcher theme={selected}>
+        <ThemeSwitcher appearance={selected}>
           <Story />
         </ThemeSwitcher>
       </ThemeProvider>

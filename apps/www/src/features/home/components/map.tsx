@@ -11,9 +11,9 @@ const MapContainer = ({
   className: string;
   initialCenter: { lat: number; lng: number };
 }) => {
-  const { resolvedTheme } = useTheme();
+  const { resolvedAppearance } = useTheme();
 
-  const mapId = resolvedTheme === "dark" ? "cdfadb8c71aaba12" : "70614a0367adfbc3";
+  const mapId = resolvedAppearance === "dark" ? "cdfadb8c71aaba12" : "70614a0367adfbc3";
   return (
     <div data-chromatic="ignore">
       <APIProvider apiKey={process.env.NEXT_PUBLIC_GCP_MAP_API_KEY ?? ""}>
