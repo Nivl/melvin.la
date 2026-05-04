@@ -37,9 +37,6 @@ needs repo-wide orchestration from the root.
 - `__tests__/script.test.ts` covers the inline script path and parity-sensitive
   edge cases such as unavailable localStorage, mapping omissions, and legacy
   migration.
-- `tsdown.config.ts` exists for bundling, but the current package `build`
-  script is still a placeholder. Check both the config and `package.json` before
-  assuming a bundling change is wired into the workflow.
 
 ## Key conventions
 
