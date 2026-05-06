@@ -116,7 +116,7 @@ test.concurrent('test 2', async ({ expect }) => {
 
 ```ts
 // Force sequential in concurrent context
-test.sequential('must run alone', () => {})
+test.sequential('must run alone', async () => {})
 ```
 
 ## Parameterized Tests
@@ -209,13 +209,13 @@ test('with delay', {
     delay: 1000,
     condition: /timeout/i, // Only retry on timeout errors
   },
-}, () => {})
+}, async () => {})
 ```
 
 ## Tags
 
 ```ts
-test('database test', { tags: ['db', 'slow'] }, () => {})
+test('database test', { tags: ['db', 'slow'] }, async () => {})
 
 // Run with: vitest --tags db
 ```

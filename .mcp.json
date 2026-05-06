@@ -2,25 +2,7 @@
   "mcpServers": {
     "heroui-react": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@heroui/react-mcp@latest"
-      ]
-    },
-    "serena": {
-      "command": "uvx",
-      "args": [
-        "--from",
-        "git+https://github.com/oraios/serena",
-        "serena",
-        "start-mcp-server",
-        "--open-web-dashboard",
-        "false",
-        "--context",
-        "claude-code",
-        "--project",
-        "$(pwd)"
-      ]
+      "args": ["-y", "@heroui/react-mcp@latest"]
     }
   }
 }
