@@ -57,7 +57,7 @@ catalog:
   server-only: 0.0.1
   storybook: 10.3.5
   tailwind-merge: 3.5.0
-  tailwindcss: 4.2.2
+  tailwindcss: 4.2.4
   tsx: 4.21.0
   turbo: 2.9.6
   typescript: 6.0.3
