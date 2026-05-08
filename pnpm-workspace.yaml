@@ -62,7 +62,7 @@ catalog:
   turbo: 2.9.6
   typescript: 6.0.3
   use-debounce: 10.1.1
-  uuid: 13.0.0
+  uuid: 14.0.0
   vitest: 4.1.4
   vitest-canvas-mock: 1.1.4
   zod: 4.3.6
