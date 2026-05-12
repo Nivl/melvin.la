@@ -17,10 +17,12 @@ const getTextarea = () => {
 
 describe("string-length", () => {
   it("renders without crashing", () => {
+    expect.assertions(1);
     expect(() => render(<StringLength />, { wrapper })).not.toThrow();
   }, 5000);
 
   it("renders all count labels", () => {
+    expect.assertions(3);
     render(<StringLength />, { wrapper });
     expect(screen.getAllByText("Characters").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Words").length).toBeGreaterThan(0);
@@ -28,6 +30,7 @@ describe("string-length", () => {
   }, 5000);
 
   it("shows zero counts for empty input", () => {
+    expect.assertions(1);
     render(<StringLength />, { wrapper });
 
     // Should show 0 for all counts initially
@@ -36,6 +39,7 @@ describe("string-length", () => {
   }, 5000);
 
   it("can type in the textarea", async () => {
+    expect.assertions(1);
     const user = userEvent.setup();
     render(<StringLength />, { wrapper });
 
@@ -46,6 +50,7 @@ describe("string-length", () => {
   }, 5000);
 
   it("updates display when typing", async () => {
+    expect.assertions(1);
     const user = userEvent.setup();
     render(<StringLength />, { wrapper });
 
@@ -59,6 +64,7 @@ describe("string-length", () => {
   }, 5000);
 
   it("has functional input element", async () => {
+    expect.assertions(2);
     const user = userEvent.setup();
     render(<StringLength />, { wrapper });
 
@@ -74,8 +80,9 @@ describe("string-length", () => {
     expect(textarea.value).toBe("");
   }, 5000);
 
-  describe("Multi-language string counting", () => {
+  describe("multi-language string counting", () => {
     it("counts English text correctly", async () => {
+      expect.assertions(5);
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
@@ -91,7 +98,7 @@ describe("string-length", () => {
 
       // Verify the text was typed correctly - should be exactly 16 characters
       expect(textarea.value).toBe(text);
-      expect(text.length).toBe(16); // Verify our expectation
+      expect(text).toHaveLength(16); // Verify our expectation
 
       // Wait a bit for state updates
       await new Promise<void>((resolve) => {
@@ -107,6 +114,7 @@ describe("string-length", () => {
     }, 5000);
 
     it("counts Korean text without spaces correctly", async () => {
+      expect.assertions(4);
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
@@ -135,6 +143,7 @@ describe("string-length", () => {
     }, 5000);
 
     it("counts French text with accents correctly", async () => {
+      expect.assertions(4);
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
@@ -164,6 +173,7 @@ describe("string-length", () => {
     }, 5000);
 
     it("counts Chinese text correctly", async () => {
+      expect.assertions(4);
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
@@ -192,6 +202,7 @@ describe("string-length", () => {
     }, 5000);
 
     it("counts mixed language text correctly", async () => {
+      expect.assertions(4);
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
@@ -220,6 +231,7 @@ describe("string-length", () => {
     }, 5000);
 
     it("handles empty text correctly", async () => {
+      expect.assertions(1);
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
@@ -233,6 +245,7 @@ describe("string-length", () => {
     }, 5000);
 
     it("handles whitespace-only text correctly", async () => {
+      expect.assertions(3);
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 
@@ -254,6 +267,7 @@ describe("string-length", () => {
     }, 5000);
 
     it("counts Korean sentence without spaces correctly", async () => {
+      expect.assertions(4);
       const user = userEvent.setup();
       render(<StringLength />, { wrapper });
 

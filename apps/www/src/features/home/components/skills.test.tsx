@@ -22,22 +22,26 @@ const setup = () => {
   };
 };
 
-describe("Skills Component", () => {
+describe("skills Component", () => {
   it("renders without crashing", () => {
+    expect.assertions(1);
     expect(() => render(<Skills />, { wrapper })).not.toThrow();
   }, 5000);
 
   it("displays the skills heading", () => {
+    expect.assertions(1);
     setup();
     expect(screen.getByRole("heading", { level: 2, name: "Skills" })).toBeDefined();
   }, 5000);
 
   it("displays filter input", () => {
+    expect.assertions(1);
     setup();
     expect(screen.getByLabelText("Filter by name")).toBeDefined();
   }, 5000);
 
   it("displays skills initially", () => {
+    expect.assertions(4);
     setup();
 
     // Check that some skills are visible (they should all be visible initially)
@@ -49,6 +53,7 @@ describe("Skills Component", () => {
   }, 5000);
 
   it("name filter works correctly", async () => {
+    expect.assertions(2);
     const { user } = setup();
 
     const nameFilter = screen.getByLabelText("Filter by name");
@@ -61,6 +66,7 @@ describe("Skills Component", () => {
   }, 5000);
 
   it("name filter is case insensitive", async () => {
+    expect.assertions(2);
     const { user } = setup();
 
     const nameFilter = screen.getByLabelText("Filter by name");
@@ -73,17 +79,18 @@ describe("Skills Component", () => {
   }, 5000);
 
   it("displays year from slider", () => {
+    expect.assertions(5);
     setup();
 
     // Get all elements with the year filter label
     const yearSliders = screen.getAllByLabelText("Active years");
 
     // Should have 2 elements (1 group + 1 range input)
-    expect(yearSliders.length).toBe(2);
+    expect(yearSliders).toHaveLength(2);
 
     // Filter to only range input elements
     const rangeInputs = yearSliders.filter((el) => el.getAttribute("type") === "range");
-    expect(rangeInputs.length).toBe(1);
+    expect(rangeInputs).toHaveLength(1);
 
     // Check that the range input has correct attributes
     expect(rangeInputs[0].getAttribute("type")).toBe("range");
@@ -91,10 +98,11 @@ describe("Skills Component", () => {
 
     // Check that there's one group element
     const groupElements = yearSliders.filter((el) => el.getAttribute("role") === "group");
-    expect(groupElements.length).toBe(1);
+    expect(groupElements).toHaveLength(1);
   }, 5000);
 
   it("skills have correct links", () => {
+    expect.assertions(2);
     setup();
 
     // Check that skills render as links with correct URLs
@@ -106,6 +114,7 @@ describe("Skills Component", () => {
   }, 5000);
 
   it("clear name filter works", async () => {
+    expect.assertions(5);
     const { user } = setup();
 
     const nameFilter = screen.getByLabelText("Filter by name");
@@ -126,6 +135,7 @@ describe("Skills Component", () => {
   }, 5000);
 
   it("no results message appears when no skills match filters", async () => {
+    expect.assertions(3);
     const { user } = setup();
 
     // Filter by a non-existent skill name
@@ -140,6 +150,7 @@ describe("Skills Component", () => {
   }, 5000);
 
   it("component renders successfully without hydration errors", () => {
+    expect.assertions(3);
     // Since we use useState with useEffect for randomization to avoid SSR issues,
     // the initial render should show skills in the original order,
     // then they get shuffled after mount.
@@ -157,6 +168,7 @@ describe("Skills Component", () => {
   }, 5000);
 
   it("skills from earliest year (2004) are shown at max slider value", async () => {
+    expect.assertions(3);
     const { user } = setup();
 
     // PHP and MySQL have usages in 2004 (the earliest year in the dataset).
@@ -166,11 +178,7 @@ describe("Skills Component", () => {
     // set fromYear = 2004 and `year > 2004` would wrongly exclude those skills.
     const rangeInput = screen
       .getAllByLabelText("Active years")
-      .find((el) => el.getAttribute("type") === "range");
-
-    if (!rangeInput) {
-      throw new Error("Slider range input not found");
-    }
+      .find((el) => el.getAttribute("type") === "range")!;
 
     // Set slider to its maximum value
     const max = Number(rangeInput.getAttribute("max"));

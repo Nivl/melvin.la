@@ -35,6 +35,7 @@ vi.mock(import("#trpc/client"), () => ({
 
 describe("useStats", () => {
   it("opts into request abortion on unmount", async () => {
+    expect.assertions(2);
     const { useStats } = await import("./use-stats");
 
     queryOptionsMock.mockReturnValue({

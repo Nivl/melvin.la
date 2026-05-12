@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { createEngine } from "#features/beatmaker/models/engine";
 import type { BeatmakerState } from "#features/beatmaker/models/types";
@@ -26,7 +26,7 @@ const mockResume = vi.fn<() => void>().mockImplementation(() => {});
 const mockClose = vi.fn<() => void>().mockImplementation(() => {});
 const mockAddEventListener = vi.fn<(event: string, ...args: unknown[]) => void>();
 
-beforeEach(() => {
+const setup = () => {
   mockAddEventListener.mockClear();
   const MockAudioContext = vi.fn<() => void>(function MockAudioContext(this: object) {
     Object.assign(this, {
@@ -52,37 +52,48 @@ beforeEach(() => {
       ok: true,
     }),
   );
-});
+};
 
-afterEach(() => {
+const teardown = () => {
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
   vi.useRealTimers();
-});
+};
 
 // ── Tests ──────────────────────────────────────────────────────────────────
 
 describe(createEngine, () => {
-  test("does not create AudioContext on construction", () => {
+  it("does not create AudioContext on construction", () => {
+    expect.assertions(1);
+    setup();
     createEngine();
     expect(vi.mocked(AudioContext)).not.toHaveBeenCalled();
+    teardown();
   }, 5000);
 
-  test("init() creates AudioContext and resumes it", async () => {
+  it("init() creates AudioContext and resumes it", async () => {
+    expect.assertions(2);
+    setup();
     const engine = createEngine();
     await engine.init();
     expect(vi.mocked(AudioContext)).toHaveBeenCalledTimes(1);
     expect(mockResume).toHaveBeenCalledTimes(1);
+    teardown();
   }, 5000);
 
-  test("init() called twice reuses the same context", async () => {
+  it("init() called twice reuses the same context", async () => {
+    expect.assertions(1);
+    setup();
     const engine = createEngine();
     await engine.init();
     await engine.init();
     expect(vi.mocked(AudioContext)).toHaveBeenCalledTimes(1);
+    teardown();
   }, 5000);
 
-  test("init() called twice adds only one statechange listener", async () => {
+  it("init() called twice adds only one statechange listener", async () => {
+    expect.assertions(1);
+    setup();
     const engine = createEngine();
     await engine.init();
     await engine.init();
@@ -91,22 +102,31 @@ describe(createEngine, () => {
       (args) => args[0] === "statechange",
     );
     expect(stateChangeCalls).toHaveLength(1);
+    teardown();
   }, 5000);
 
-  test("loadKit() fetches 6 samples", async () => {
+  it("loadKit() fetches 6 samples", async () => {
+    expect.assertions(1);
+    setup();
     const engine = createEngine();
     await engine.loadKit("808");
     expect(vi.mocked(fetch)).toHaveBeenCalledTimes(6);
+    teardown();
   }, 5000);
 
-  test("dispose() closes the AudioContext", async () => {
+  it("dispose() closes the AudioContext", async () => {
+    expect.assertions(1);
+    setup();
     const engine = createEngine();
     await engine.init();
     await engine.dispose();
     expect(mockClose).toHaveBeenCalledTimes(1);
+    teardown();
   }, 5000);
 
-  test("stop() immediately stops all active sources", async () => {
+  it("stop() immediately stops all active sources", async () => {
+    expect.assertions(2);
+    setup();
     vi.useFakeTimers();
     const engine = createEngine();
     await engine.init();
@@ -133,15 +153,17 @@ describe(createEngine, () => {
     // Advance timers so the scheduler interval fires and sources get created
     vi.advanceTimersByTime(25);
 
-    expect(mockStart).toHaveBeenCalled();
+    expect(mockStart).toHaveBeenCalledWith(expect.any(Number));
 
     engine.stop();
-    expect(mockStop).toHaveBeenCalled();
+    expect(mockStop).toHaveBeenCalledWith();
 
-    vi.useRealTimers();
+    teardown();
   }, 5000);
 
-  test("concurrent init calls do not report duplicate decode errors for the same pending kit buffers", async () => {
+  it("concurrent init calls do not report duplicate decode errors for the same pending kit buffers", async () => {
+    expect.assertions(1);
+    setup();
     const seenBuffers = new WeakSet<ArrayBuffer>();
     mockDecodeAudioData.mockImplementation(async (arrayBuffer: ArrayBuffer) => {
       if (seenBuffers.has(arrayBuffer)) {
@@ -155,6 +177,9 @@ describe(createEngine, () => {
     vi.stubGlobal(
       "fetch",
       vi.fn<() => Promise<object>>().mockResolvedValue({
+        // Each call must return a NEW ArrayBuffer so the test can distinguish buffers
+        // across the 6 sample fetches; mockReturnValue would alias them.
+        // eslint-disable-next-line jest/prefer-mock-return-shorthand
         arrayBuffer: vi.fn<() => ArrayBuffer>().mockImplementation(() => new ArrayBuffer(8)),
         ok: true,
       }),
@@ -167,5 +192,6 @@ describe(createEngine, () => {
     await Promise.all([engine.init(), engine.init()]);
 
     expect(onError).not.toHaveBeenCalled();
+    teardown();
   }, 5000);
 });

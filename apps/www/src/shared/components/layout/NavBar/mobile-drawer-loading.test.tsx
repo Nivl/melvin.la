@@ -7,6 +7,7 @@ import { MobileDrawerLoading } from "./mobile-drawer-loading";
 
 describe("mobile drawer loading", () => {
   it("does not expose the visual placeholder button to assistive technology", () => {
+    expect.assertions(1);
     render(<MobileDrawerLoading />, { wrapper });
 
     expect(screen.queryByRole("button", { name: "Open menu" })).toBeNull();

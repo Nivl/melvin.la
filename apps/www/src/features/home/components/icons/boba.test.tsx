@@ -1,5 +1,5 @@
 import { act, fireEvent, render } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import type { BobaCoordinate } from "#features/home/utils/boba";
 import { bobaMaxAnimationDuration, defaultBobaCoordinates } from "#features/home/utils/boba";
@@ -15,34 +15,26 @@ vi.mock(import("#features/home/utils/boba"), async (importOriginal) => {
   } as Awaited<typeof import("#features/home/utils/boba")>;
 });
 
+const stubBobaEnv = () => {
+  vi.useFakeTimers();
+  vi.stubGlobal("matchMedia", (query: string) => ({
+    addEventListener() {},
+    dispatchEvent() {
+      return true;
+    },
+    matches: query === "(prefers-reduced-motion: no-preference)",
+    media: query,
+    onchange: undefined,
+    removeEventListener() {},
+  }));
+};
+
 describe(Boba, () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-    vi.stubGlobal("matchMedia", (query: string) => ({
-      addEventListener() {},
-      dispatchEvent() {
-        return true;
-      },
-      matches: query === "(prefers-reduced-motion: no-preference)",
-      media: query,
-      onchange: undefined,
-      removeEventListener() {},
-    }));
-  });
-
-  afterEach(() => {
-    vi.useRealTimers();
-    vi.unstubAllGlobals();
-    vi.restoreAllMocks();
-  });
-
   it("starts and stops animating even when regenerated boba counts change", () => {
+    expect.assertions(5);
+    stubBobaEnv();
     const { container } = render(<Boba className="h-24 w-24" />);
-    const svg = container.querySelector("svg");
-
-    if (!svg) {
-      throw new Error("Boba svg not found");
-    }
+    const svg = container.querySelector("svg")!;
 
     expect(container.querySelectorAll("circle")).toHaveLength(defaultBobaCoordinates.length);
 
@@ -59,5 +51,6 @@ describe(Boba, () => {
 
     expect(container.querySelectorAll("circle")).toHaveLength(defaultBobaCoordinates.length);
     expect(svg.getAttribute("class")).not.toContain("animate-shake");
+    vi.useRealTimers();
   }, 5000);
 });

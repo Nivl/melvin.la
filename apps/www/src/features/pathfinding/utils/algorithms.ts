@@ -32,12 +32,12 @@ const reconstructPath = (cameFrom: Map<string, string>, endKey: string): Coords[
 class MinHeap {
   private readonly heap: [number, string][] = [];
 
-  push(priority: number, value: string): void {
+  public push(priority: number, value: string): void {
     this.heap.push([priority, value]);
     this.siftUp(this.heap.length - 1);
   }
 
-  pop(): [number, string] | undefined {
+  public pop(): [number, string] | undefined {
     const { heap } = this;
     if (heap.length === 0) {
       return undefined;
@@ -51,7 +51,7 @@ class MinHeap {
     return top;
   }
 
-  get size(): number {
+  public get size(): number {
     return this.heap.length;
   }
 

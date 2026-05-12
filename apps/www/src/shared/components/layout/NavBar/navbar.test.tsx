@@ -33,10 +33,12 @@ const setup = (pathname = "/") => {
 
 describe("navbar", () => {
   it("renders without crashing", () => {
+    expect.assertions(1);
     expect(() => setup()).not.toThrow();
   }, 5000);
 
   it("renders all nav items", () => {
+    expect.assertions(4);
     setup();
     expect(screen.getByRole("link", { name: "Home" })).toBeDefined();
     expect(screen.getByRole("link", { name: "Blog" })).toBeDefined();
@@ -45,6 +47,7 @@ describe("navbar", () => {
   }, 5000);
 
   it("shows nav indicator on home route", () => {
+    expect.assertions(1);
     setup("/");
     // The motion.span with layoutId="nav-indicator" renders as a plain span
     // We verify it appears only once (for the active home item)
@@ -54,36 +57,42 @@ describe("navbar", () => {
   }, 5000);
 
   it("shows nav indicator on blog route", () => {
+    expect.assertions(1);
     setup("/blog");
     const activeLink = screen.getByRole("link", { name: "Blog" });
     expect(activeLink.closest("span")?.querySelector("span")).not.toBeNull();
   }, 5000);
 
   it("shows nav indicator on games route", () => {
+    expect.assertions(1);
     setup("/games/conway");
     const gamesButton = screen.getByRole("button", { name: /Games/i });
     expect(gamesButton.closest("span")?.querySelector("span")).not.toBeNull();
   }, 5000);
 
   it("shows nav indicator on tools route", () => {
+    expect.assertions(1);
     setup("/tools/uuid");
     const toolsButton = screen.getByRole("button", { name: /Tools/i });
     expect(toolsButton.closest("span")?.querySelector("span")).not.toBeNull();
   }, 5000);
 
   it("games indicator absent on non-games route", () => {
+    expect.assertions(1);
     setup("/");
     const gamesButton = screen.getByRole("button", { name: /Games/i });
     expect(gamesButton.closest("span")?.querySelector("span")).toBeNull();
   }, 5000);
 
   it("tools indicator absent on non-tools route", () => {
+    expect.assertions(1);
     setup("/");
     const toolsButton = screen.getByRole("button", { name: /Tools/i });
     expect(toolsButton.closest("span")?.querySelector("span")).toBeNull();
   }, 5000);
 
   it("home link is active on / route", () => {
+    expect.assertions(2);
     setup("/");
     const homeLink = screen.getByRole("link", { name: "Home" });
     expect(homeLink).toBeDefined();
@@ -93,6 +102,7 @@ describe("navbar", () => {
   }, 5000);
 
   it("blog link is active on /blog route", () => {
+    expect.assertions(2);
     setup("/blog");
     const blogLink = screen.getByRole("link", { name: "Blog" });
     expect(blogLink).toBeDefined();
@@ -102,60 +112,70 @@ describe("navbar", () => {
   }, 5000);
 
   it("games button has bold style on /games route", () => {
+    expect.assertions(1);
     setup("/games/conway");
     const gamesButton = screen.getByRole("button", { name: /Games/i });
     expect(gamesButton.className).toContain("font-semibold");
   }, 5000);
 
   it("games button does not have bold style on non-games route", () => {
+    expect.assertions(1);
     setup("/");
     const gamesButton = screen.getByRole("button", { name: /Games/i });
     expect(gamesButton.className).not.toContain("font-semibold");
   }, 5000);
 
   it("tools button has bold style on /tools route", () => {
+    expect.assertions(1);
     setup("/tools/uuid");
     const toolsButton = screen.getByRole("button", { name: /Tools/i });
     expect(toolsButton.className).toContain("font-semibold");
   }, 5000);
 
   it("tools button does not have bold style on non-tools route", () => {
+    expect.assertions(1);
     setup("/");
     const toolsButton = screen.getByRole("button", { name: /Tools/i });
     expect(toolsButton.className).not.toContain("font-semibold");
   }, 5000);
 
   it("dropdown buttons use h-8 to fix button height", () => {
+    expect.assertions(1);
     setup();
     const gamesButton = screen.getByRole("button", { name: /Games/i });
     expect(gamesButton.className).toContain("h-8");
   }, 5000);
 
   it("home link points to /", () => {
+    expect.assertions(1);
     setup();
     const homeLink = screen.getByRole("link", { name: "Home" });
     expect(homeLink.getAttribute("href")).toBe("/");
   }, 5000);
 
   it("blog link points to /blog", () => {
+    expect.assertions(1);
     setup();
     const blogLink = screen.getByRole("link", { name: "Blog" });
     expect(blogLink.getAttribute("href")).toBe("/blog");
   }, 5000);
 
   it('hamburger toggle shows "Open menu" when menu is closed', async () => {
+    expect.assertions(1);
     setup();
-    expect(await screen.findByRole("button", { name: "Open menu" })).toBeDefined();
+    await expect(screen.findByRole("button", { name: "Open menu" })).resolves.toBeDefined();
   }, 5000);
 
   it("hamburger toggle updates accessible name when clicked", async () => {
+    expect.assertions(1);
     setup();
     const user = userEvent.setup();
     await user.click(await screen.findByRole("button", { name: "Open menu" }));
-    expect(await screen.findByRole("button", { name: "Close menu" })).toBeDefined();
+    await expect(screen.findByRole("button", { name: "Close menu" })).resolves.toBeDefined();
   }, 5000);
 
   it("clicking a mobile menu link closes the menu", async () => {
+    expect.assertions(1);
     setup();
     const user = userEvent.setup();
     await user.click(await screen.findByRole("button", { name: "Open menu" }));
@@ -163,6 +183,6 @@ describe("navbar", () => {
     const mobileMenu = await screen.findByTestId("navbar-mobile-menu");
     await user.click(within(mobileMenu).getByRole("link", { name: "Home" }));
     // Toggle should revert to "Open menu" label
-    expect(await screen.findByRole("button", { name: "Open menu" })).toBeDefined();
+    await expect(screen.findByRole("button", { name: "Open menu" })).resolves.toBeDefined();
   }, 5000);
 });

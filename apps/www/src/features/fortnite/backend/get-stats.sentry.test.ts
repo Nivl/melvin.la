@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { AccountTypes, TimeWindow } from "#features/fortnite/models";
 
@@ -133,23 +133,15 @@ const createCaller = async () => {
 };
 
 describe("fortniteGetStats sentry reporting", () => {
-  beforeEach(() => {
-    vi.stubEnv("API_FORTNITE_API_KEY", "test-key");
-  });
-
-  afterEach(() => {
-    resetScope();
-    vi.restoreAllMocks();
-    vi.unstubAllEnvs();
-    vi.unstubAllGlobals();
-  });
-
   it.each([
     { code: "FORBIDDEN", status: 403 },
     { code: "NOT_FOUND", status: 404 },
   ])(
     "does not report expected %s responses to Sentry",
     async ({ code, status }) => {
+      expect.assertions(3);
+      resetScope();
+      vi.stubEnv("API_FORTNITE_API_KEY", "test-key");
       vi.stubGlobal(
         "fetch",
         vi.fn<() => Promise<Response>>().mockResolvedValue(
@@ -171,6 +163,9 @@ describe("fortniteGetStats sentry reporting", () => {
   );
 
   it("still reports unexpected upstream failures to Sentry", async () => {
+    expect.assertions(3);
+    resetScope();
+    vi.stubEnv("API_FORTNITE_API_KEY", "test-key");
     vi.stubGlobal(
       "fetch",
       vi.fn<() => Promise<Response>>().mockResolvedValue(

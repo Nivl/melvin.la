@@ -4,6 +4,7 @@ import nextConfig from "./next.config";
 
 describe("next.config security headers", () => {
   it("applies the required security headers site-wide while keeping beatmaker caching", async () => {
+    expect.assertions(9);
     const rules = await nextConfig.headers?.();
 
     expect(rules).toBeDefined();

@@ -1,9 +1,9 @@
-import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import type { ReactElement, ReactNode } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
-import { afterEach, beforeEach, expect, test, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { buildDefaultState, encode } from "#features/beatmaker/models/index";
 import { testWrapper as wrapper } from "#shared/utils/tests";
@@ -36,16 +36,10 @@ vi.mock(import("#features/beatmaker/models"), async (importOriginal) => {
   >;
 });
 
-beforeEach(() => {
+const setup = () => {
   vi.clearAllMocks();
-  // Reset hash
   globalThis.location.hash = "";
-});
-afterEach(() => {
-  cleanup();
-  vi.useRealTimers();
-  vi.restoreAllMocks();
-});
+};
 
 const renderWithWrapper = (element: ReactNode) => {
   const Wrapper = wrapper;
@@ -75,140 +69,158 @@ const mockNavigator = ({
   });
 };
 
-test("renders the Play button on initial load", () => {
-  const { getByRole } = render(<Beatmaker />, { wrapper });
-  expect(getByRole("button", { name: "Play" })).toBeDefined();
-}, 5000);
+describe(Beatmaker, () => {
+  it("renders the Play button on initial load", () => {
+    expect.assertions(1);
+    setup();
+    const { getByRole } = render(<Beatmaker />, { wrapper });
+    expect(getByRole("button", { name: "Play" })).toBeDefined();
+  }, 5000);
 
-test("clicking Play initialises engine and starts playback", async () => {
-  const user = userEvent.setup();
-  const { getByRole } = render(<Beatmaker />, { wrapper });
-  await user.click(getByRole("button", { name: "Play" }));
-  expect(mockEngine.init).toHaveBeenCalledTimes(1);
-  expect(mockEngine.start).toHaveBeenCalledTimes(1);
-}, 5000);
+  it("clicking Play initialises engine and starts playback", async () => {
+    expect.assertions(2);
+    setup();
+    const user = userEvent.setup();
+    const { getByRole } = render(<Beatmaker />, { wrapper });
+    await user.click(getByRole("button", { name: "Play" }));
+    expect(mockEngine.init).toHaveBeenCalledTimes(1);
+    expect(mockEngine.start).toHaveBeenCalledTimes(1);
+  }, 5000);
 
-test("mount hydration does not overwrite an early Play interaction", async () => {
-  const user = userEvent.setup();
+  it("mount hydration does not overwrite an early Play interaction", async () => {
+    expect.assertions(4);
+    setup();
+    const user = userEvent.setup();
 
-  render(<Beatmaker />, { wrapper });
+    render(<Beatmaker />, { wrapper });
 
-  await user.click(screen.getByRole("button", { name: "Play" }));
+    await user.click(screen.getByRole("button", { name: "Play" }));
 
-  expect(mockEngine.init).toHaveBeenCalledTimes(1);
-  expect(mockEngine.start).toHaveBeenCalledTimes(1);
-  expect(screen.getByRole("button", { name: "Stop" })).toBeDefined();
-
-  await waitFor(() => {
+    expect(mockEngine.init).toHaveBeenCalledTimes(1);
+    expect(mockEngine.start).toHaveBeenCalledTimes(1);
     expect(screen.getByRole("button", { name: "Stop" })).toBeDefined();
-  });
-}, 5000);
 
-test("initial mount does not write a default share hash before interaction", () => {
-  vi.useFakeTimers();
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "Stop" })).toBeDefined();
+    });
+  }, 5000);
 
-  render(<Beatmaker />, { wrapper });
+  it("initial mount does not write a default share hash before interaction", () => {
+    expect.assertions(2);
+    setup();
+    vi.useFakeTimers();
 
-  expect(globalThis.location.hash).toBe("");
+    render(<Beatmaker />, { wrapper });
 
-  act(() => {
-    vi.advanceTimersByTime(350);
-  });
+    expect(globalThis.location.hash).toBe("");
 
-  expect(globalThis.location.hash).toBe("");
-}, 5000);
+    act(() => {
+      vi.advanceTimersByTime(350);
+    });
 
-test("clicking Stop stops playback", async () => {
-  const user = userEvent.setup();
-  const { getByRole } = render(<Beatmaker />, { wrapper });
-  await user.click(getByRole("button", { name: "Play" }));
-  await user.click(getByRole("button", { name: "Stop" }));
-  expect(mockEngine.stop).toHaveBeenCalledTimes(1);
-}, 5000);
+    expect(globalThis.location.hash).toBe("");
+    vi.useRealTimers();
+  }, 5000);
 
-test("clicking a step button toggles it", async () => {
-  const user = userEvent.setup();
-  const { getAllByRole } = render(<Beatmaker />, { wrapper });
-  const stepBtn = getAllByRole("button").find(
-    (btn) =>
-      btn.getAttribute("aria-pressed") !== null &&
-      (btn.getAttribute("aria-label") ?? "").includes(" step "),
-  );
-  if (!stepBtn) {
-    throw new Error("No step button found");
-  }
-  const wasPressed = stepBtn.getAttribute("aria-pressed") === "true";
-  await user.click(stepBtn);
-  expect(stepBtn.getAttribute("aria-pressed")).toBe(String(!wasPressed));
-}, 5000);
+  it("clicking Stop stops playback", async () => {
+    expect.assertions(1);
+    setup();
+    const user = userEvent.setup();
+    const { getByRole } = render(<Beatmaker />, { wrapper });
+    await user.click(getByRole("button", { name: "Play" }));
+    await user.click(getByRole("button", { name: "Stop" }));
+    expect(mockEngine.stop).toHaveBeenCalledTimes(1);
+  }, 5000);
 
-test("hydrates the UI from a shared hash on initial page load", async () => {
-  const sharedState = {
-    ...buildDefaultState(),
-    bpm: 173,
-    isPlaying: false,
-    kit: "lofi" as const,
-    stepCount: 32 as const,
-    tracks: {
-      ...buildDefaultState().tracks,
-      kick: {
-        ...buildDefaultState().tracks.kick,
-        steps: Array.from({ length: 32 }, (_, index) => index === 2),
+  it("clicking a step button toggles it", async () => {
+    expect.assertions(1);
+    setup();
+    const user = userEvent.setup();
+    const { getAllByRole } = render(<Beatmaker />, { wrapper });
+    const stepBtn = getAllByRole("button").find(
+      (btn) =>
+        btn.getAttribute("aria-pressed") !== null &&
+        (btn.getAttribute("aria-label") ?? "").includes(" step "),
+    )!;
+    const wasPressed = stepBtn.getAttribute("aria-pressed") === "true";
+    await user.click(stepBtn);
+    expect(stepBtn.getAttribute("aria-pressed")).toBe(String(!wasPressed));
+  }, 5000);
+
+  it("hydrates the UI from a shared hash on initial page load", async () => {
+    expect.assertions(2);
+    setup();
+    const sharedState = {
+      ...buildDefaultState(),
+      bpm: 173,
+      isPlaying: false,
+      kit: "lofi" as const,
+      stepCount: 32 as const,
+      tracks: {
+        ...buildDefaultState().tracks,
+        kick: {
+          ...buildDefaultState().tracks.kick,
+          steps: Array.from({ length: 32 }, (_, index) => index === 2),
+        },
       },
-    },
-  };
-  const hash = encode(sharedState);
+    };
+    const hash = encode(sharedState);
 
-  vi.stubGlobal("window", { matchMedia: globalThis.matchMedia });
-  const serverMarkup = renderToString(renderWithWrapper(<Beatmaker />));
-  vi.unstubAllGlobals();
+    vi.stubGlobal("window", { matchMedia: globalThis.matchMedia });
+    const serverMarkup = renderToString(renderWithWrapper(<Beatmaker />));
+    vi.unstubAllGlobals();
 
-  globalThis.location.hash = `#${hash}`;
-  const container = document.createElement("div");
-  container.innerHTML = serverMarkup;
-  document.body.append(container);
+    globalThis.location.hash = `#${hash}`;
+    const container = document.createElement("div");
+    container.innerHTML = serverMarkup;
+    document.body.append(container);
 
-  const root = hydrateRoot(container, renderWithWrapper(<Beatmaker />));
+    const root = hydrateRoot(container, renderWithWrapper(<Beatmaker />));
 
-  await waitFor(() => {
-    expect(screen.getByText("173")).toBeDefined();
-    expect(screen.getByRole("button", { name: "32" }).getAttribute("aria-pressed")).toBe("true");
-  });
+    await waitFor(() => {
+      expect(screen.getByText("173")).toBeDefined();
+      expect(screen.getByRole("button", { name: "32" }).getAttribute("aria-pressed")).toBe("true");
+    });
 
-  root.unmount();
-  container.remove();
-}, 5000);
+    root.unmount();
+    container.remove();
+  }, 5000);
 
-test("shows an iOS warning banner on iOS and lets the user dismiss it", async () => {
-  mockNavigator({
-    maxTouchPoints: 5,
-    platform: "iPhone",
-    userAgent:
-      "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
-  });
-  const user = userEvent.setup();
+  it("shows an iOS warning banner on iOS and lets the user dismiss it", async () => {
+    expect.assertions(2);
+    setup();
+    mockNavigator({
+      maxTouchPoints: 5,
+      platform: "iPhone",
+      userAgent:
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+    });
+    const user = userEvent.setup();
 
-  render(<Beatmaker />, { wrapper });
+    render(<Beatmaker />, { wrapper });
 
-  expect(await screen.findByText("No sounds?")).toBeDefined();
-  await user.click(screen.getByRole("button", { name: "Dismiss" }));
+    await expect(screen.findByText("No sounds?")).resolves.toBeDefined();
+    await user.click(screen.getByRole("button", { name: "Dismiss" }));
 
-  await waitFor(() => {
-    expect(screen.queryByText("No sounds?")).toBeNull();
-  });
-}, 5000);
+    await waitFor(() => {
+      expect(screen.queryByText("No sounds?")).toBeNull();
+    });
+  }, 5000);
 
-test("does not show the iOS warning banner on non-iOS devices", async () => {
-  mockNavigator({
-    maxTouchPoints: 0,
-    platform: "MacIntel",
-    userAgent:
-      "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
-  });
+  it("does not show the iOS warning banner on non-iOS devices", async () => {
+    expect.assertions(1);
+    setup();
+    mockNavigator({
+      maxTouchPoints: 0,
+      platform: "MacIntel",
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+    });
 
-  render(<Beatmaker />, { wrapper });
+    render(<Beatmaker />, { wrapper });
 
-  await waitFor(() => {
-    expect(screen.queryByText("No sounds?")).toBeNull();
-  });
-}, 5000);
+    await waitFor(() => {
+      expect(screen.queryByText("No sounds?")).toBeNull();
+    });
+  }, 5000);
+});

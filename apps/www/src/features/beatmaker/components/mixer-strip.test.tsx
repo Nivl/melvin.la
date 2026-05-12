@@ -1,15 +1,10 @@
-import { cleanup, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { afterEach, expect, test, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { testWrapper as wrapper } from "#shared/utils/tests";
 
 import { MixerStrip } from "./mixer-strip";
-
-afterEach(() => {
-  cleanup();
-  vi.restoreAllMocks();
-});
 
 const defaultProps = {
   muted: false,
@@ -21,31 +16,37 @@ const defaultProps = {
   volume: 0.8,
 };
 
-test("renders volume slider", () => {
-  const { getByRole } = render(<MixerStrip {...defaultProps} />, {
-    wrapper,
-  });
-  expect(getByRole("slider", { name: "Volume" })).toBeDefined();
-}, 5000);
+describe(MixerStrip, () => {
+  it("renders volume slider", () => {
+    expect.assertions(1);
+    const { getByRole } = render(<MixerStrip {...defaultProps} />, {
+      wrapper,
+    });
+    expect(getByRole("slider", { name: "Volume" })).toBeDefined();
+  }, 5000);
 
-test("renders pan number field", () => {
-  const { getByRole } = render(<MixerStrip {...defaultProps} />, {
-    wrapper,
-  });
-  expect(getByRole("textbox", { name: "Pan" })).toBeDefined();
-}, 5000);
+  it("renders pan number field", () => {
+    expect.assertions(1);
+    const { getByRole } = render(<MixerStrip {...defaultProps} />, {
+      wrapper,
+    });
+    expect(getByRole("textbox", { name: "Pan" })).toBeDefined();
+  }, 5000);
 
-test("renders mute button", () => {
-  const { getByRole } = render(<MixerStrip {...defaultProps} />, { wrapper });
-  expect(getByRole("button", { name: "Mute" })).toBeDefined();
-}, 5000);
+  it("renders mute button", () => {
+    expect.assertions(1);
+    const { getByRole } = render(<MixerStrip {...defaultProps} />, { wrapper });
+    expect(getByRole("button", { name: "Mute" })).toBeDefined();
+  }, 5000);
 
-test("calls onMuteToggle when mute button pressed", async () => {
-  const user = userEvent.setup();
-  const onMuteToggle = vi.fn<() => void>();
-  const { getByRole } = render(<MixerStrip {...defaultProps} onMuteToggle={onMuteToggle} />, {
-    wrapper,
-  });
-  await user.click(getByRole("button", { name: "Mute" }));
-  expect(onMuteToggle).toHaveBeenCalledTimes(1);
-}, 5000);
+  it("calls onMuteToggle when mute button pressed", async () => {
+    expect.assertions(1);
+    const user = userEvent.setup();
+    const onMuteToggle = vi.fn<() => void>();
+    const { getByRole } = render(<MixerStrip {...defaultProps} onMuteToggle={onMuteToggle} />, {
+      wrapper,
+    });
+    await user.click(getByRole("button", { name: "Mute" }));
+    expect(onMuteToggle).toHaveBeenCalledTimes(1);
+  }, 5000);
+});

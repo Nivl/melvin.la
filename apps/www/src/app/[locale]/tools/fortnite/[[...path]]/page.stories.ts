@@ -49,11 +49,11 @@ export const Profile: Story = {
   beforeEach() {
     const fortniteData: FortniteStatsData = validData.data;
 
-    useStats.mockImplementation(() => ({
+    useStats.mockReturnValue({
       data: fortniteData,
       error: null,
       isLoading: false,
-    }));
+    });
   },
   parameters: {
     nextjs: {
@@ -75,11 +75,11 @@ export const Loading: Story = {
     }),
   },
   beforeEach() {
-    useStats.mockImplementation(() => ({
+    useStats.mockReturnValue({
       data: undefined,
       error: null,
       isLoading: true,
-    }));
+    });
   },
   parameters: {
     nextjs: {
@@ -101,11 +101,11 @@ export const NoData: Story = {
     }),
   },
   beforeEach() {
-    useStats.mockImplementation(() => ({
+    useStats.mockReturnValue({
       data: validNoData.data,
       error: null,
       isLoading: false,
-    }));
+    });
   },
   parameters: {
     nextjs: {
@@ -127,7 +127,7 @@ export const ErrorInvalidAccount: Story = {
     }),
   },
   beforeEach() {
-    useStats.mockImplementation(() => ({
+    useStats.mockReturnValue({
       data: undefined,
       error: {
         data: {
@@ -145,7 +145,7 @@ export const ErrorInvalidAccount: Story = {
         },
       },
       isLoading: false,
-    }));
+    });
   },
   parameters: {
     nextjs: {
@@ -167,7 +167,7 @@ export const ErrorPrivateAccount: Story = {
     }),
   },
   beforeEach() {
-    useStats.mockImplementation(() => ({
+    useStats.mockReturnValue({
       data: undefined,
       error: {
         data: {
@@ -185,7 +185,7 @@ export const ErrorPrivateAccount: Story = {
         },
       },
       isLoading: false,
-    }));
+    });
   },
   parameters: {
     nextjs: {
@@ -207,7 +207,7 @@ export const ErrorInternalError: Story = {
     }),
   },
   beforeEach() {
-    useStats.mockImplementation(() => ({
+    useStats.mockReturnValue({
       data: undefined,
       error: {
         data: {
@@ -225,7 +225,7 @@ export const ErrorInternalError: Story = {
         },
       },
       isLoading: false,
-    }));
+    });
   },
   parameters: {
     nextjs: {

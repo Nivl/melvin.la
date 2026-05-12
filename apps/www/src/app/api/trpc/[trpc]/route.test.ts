@@ -1,17 +1,9 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
-describe("GET /api/trpc/fortniteGetStats", () => {
-  beforeEach(() => {
-    vi.stubEnv("API_FORTNITE_API_KEY", "test-key");
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
-    vi.unstubAllEnvs();
-    vi.unstubAllGlobals();
-  });
-
+describe("gET /api/trpc/fortniteGetStats", () => {
   it("returns a 499 tRPC error when the request aborts during the upstream fetch", async () => {
+    expect.assertions(4);
+    vi.stubEnv("API_FORTNITE_API_KEY", "test-key");
     const { GET } = await import("./route");
     const controller = new AbortController();
 

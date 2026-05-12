@@ -9,6 +9,6 @@ export type Logo = {
   url: string;
 };
 
-export type Tech = {
+type Tech = {
   logos: Logo[];
 };

@@ -2,8 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import { clearPII, PII_FIELDS } from "./sentry.default.config";
 
-describe("PII Fields", () => {
+describe("pII Fields", () => {
   it("should be lowercase", () => {
+    expect.hasAssertions();
     for (const field of PII_FIELDS) {
       expect(field).toBe(field.toLowerCase());
     }
@@ -12,6 +13,7 @@ describe("PII Fields", () => {
 
 describe(clearPII, () => {
   it("redacts known sensitive fields recursively", () => {
+    expect.assertions(1);
     const rpcInput = {
       apiToken: "token-value",
       email: "user@example.com",
@@ -31,7 +33,7 @@ describe(clearPII, () => {
 
     clearPII(rpcInput);
 
-    expect(rpcInput).toEqual({
+    expect(rpcInput).toStrictEqual({
       apiToken: "[REDACTED]",
       email: "[REDACTED]",
       emails: "[REDACTED]",
