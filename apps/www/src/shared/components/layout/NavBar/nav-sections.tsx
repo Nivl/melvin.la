@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-export type NavLink = {
+type NavLink = {
   type: "link";
   key: string;
   labelKey: string;
@@ -8,7 +8,7 @@ export type NavLink = {
   logo: ReactNode;
 };
 
-export type NavGroup = {
+type NavGroup = {
   type: "group";
   key: string;
   labelKey: string;

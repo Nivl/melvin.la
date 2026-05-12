@@ -55,38 +55,44 @@ const ALGORITHMS = [
 
 describe.each(ALGORITHMS)("$name", ({ fn }) => {
   it("finds a path in an open grid", () => {
+    expect.assertions(4);
     const { path } = fn(OPEN_5x5, START, END_5x5);
     expect(path.length).toBeGreaterThan(0);
-    expect(path[0]).toEqual(START);
-    expect(path.at(-1)).toEqual(END_5x5);
+    expect(path[0]).toStrictEqual(START);
+    expect(path.at(-1)).toStrictEqual(END_5x5);
     expect(isConnectedPath(path)).toBe(true);
   }, 5000);
 
   it("returns an empty path when destination is unreachable", () => {
+    expect.assertions(1);
     const grid: Grid = fromAscii(["S##", "###", "##E"]);
     const { path } = fn(grid, [0, 0], [2, 2]);
     expect(path).toHaveLength(0);
   }, 5000);
 
   it("returns a single-node path when start equals end", () => {
+    expect.assertions(1);
     const { path } = fn(OPEN_5x5, START, START);
-    expect(path).toEqual([START]);
+    expect(path).toStrictEqual([START]);
   }, 5000);
 
   it("visits at least the start node", () => {
+    expect.assertions(2);
     const { visitedNodes } = fn(OPEN_5x5, START, END_5x5);
     expect(visitedNodes.length).toBeGreaterThan(0);
-    expect(visitedNodes[0]).toEqual(START);
+    expect(visitedNodes[0]).toStrictEqual(START);
   }, 5000);
 
   it("finds a path along a single-row corridor", () => {
+    expect.assertions(2);
     const end: Coords = [0, 4];
     const { path } = fn(CORRIDOR, [0, 0], end);
-    expect(path[0]).toEqual([0, 0]);
-    expect(path.at(-1)).toEqual(end);
+    expect(path[0]).toStrictEqual([0, 0]);
+    expect(path.at(-1)).toStrictEqual(end);
   }, 5000);
 
   it("does not include wall cells in the path", () => {
+    expect.hasAssertions();
     const { path } = fn(MAZE, [0, 0], [2, 4]);
     for (const [row, col] of path) {
       expect(MAZE[row][col]).not.toBe("wall");
@@ -94,6 +100,7 @@ describe.each(ALGORITHMS)("$name", ({ fn }) => {
   }, 5000);
 
   it("path does not include walls even when destination is blocked", () => {
+    expect.hasAssertions();
     const grid: Grid = fromAscii(["....", ".##.", ".##.", "...."]);
     const { path } = fn(grid, [0, 0], [2, 3]);
     for (const [row, col] of path) {
@@ -110,17 +117,19 @@ describe.each([
   { fn: runAStar, name: "A*" },
 ] as const)("$name — shortest path", ({ fn }) => {
   it("returns a shortest path (Manhattan distance lower bound) in an open grid", () => {
+    expect.assertions(1);
     // Manhattan distance from [0,0] to [4,4] is 8 — shortest possible path length
     const { path } = fn(OPEN_5x5, START, END_5x5);
-    expect(path.length).toBe(9); // 8 moves = 9 nodes
+    expect(path).toHaveLength(9); // 8 moves = 9 nodes
   }, 5000);
 
   it("returns the shortest path in the maze fixture", () => {
+    expect.assertions(3);
     const end: Coords = [2, 4];
     const { path } = fn(MAZE, [0, 0], end);
     // Optimal path has length 7 (6 steps)
     expect(path.length).toBeLessThanOrEqual(7);
-    expect(path[0]).toEqual([0, 0]);
-    expect(path.at(-1)).toEqual(end);
+    expect(path[0]).toStrictEqual([0, 0]);
+    expect(path.at(-1)).toStrictEqual(end);
   }, 5000);
 });

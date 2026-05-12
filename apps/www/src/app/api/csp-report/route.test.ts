@@ -8,8 +8,9 @@ vi.mock(import("./report-csp-violation"), () => ({
   reportCspViolation,
 }));
 
-describe("POST /api/csp-report", () => {
+describe("pOST /api/csp-report", () => {
   it("forwards CSP violation payloads to the reporting helper and returns no content", async () => {
+    expect.assertions(2);
     const { POST } = await import("./route");
     const payload = {
       "csp-report": {

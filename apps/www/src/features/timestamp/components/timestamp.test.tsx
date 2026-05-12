@@ -1,14 +1,10 @@
-import { cleanup, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { afterEach, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { testWrapper as wrapper } from "#shared/utils/tests";
 
 import { Timestamp } from "./timestamp";
-
-afterEach(() => {
-  cleanup();
-});
 
 const setup = () => {
   const user = userEvent.setup();
@@ -28,205 +24,221 @@ const getTimestampInput = (getByLabelText: ReturnType<typeof setup>["getByLabelT
   return input;
 };
 
-test("All the elements are on the page", () => {
-  const { getByRole, getByLabelText } = setup();
+describe(Timestamp, () => {
+  it("all the elements are on the page", () => {
+    expect.assertions(2);
+    const { getByRole, getByLabelText } = setup();
 
-  expect(getByRole("heading", { level: 1, name: "Timestamp Lookup" })).toBeDefined();
+    expect(getByRole("heading", { level: 1, name: "Timestamp Lookup" })).toBeDefined();
 
-  expect(getByLabelText("Timestamp")).toBeDefined();
-}, 5000);
+    expect(getByLabelText("Timestamp")).toBeDefined();
+  }, 5000);
 
-test("Input accepts numeric characters", async () => {
-  const { user, getByLabelText } = setup();
+  it("input accepts numeric characters", async () => {
+    expect.assertions(1);
+    const { user, getByLabelText } = setup();
 
-  const input = getTimestampInput(getByLabelText);
+    const input = getTimestampInput(getByLabelText);
 
-  await user.type(input, "123456789");
-  expect(input.value).toBe("123456789");
-}, 5000);
+    await user.type(input, "123456789");
+    expect(input.value).toBe("123456789");
+  }, 5000);
 
-test("Inserting a timestamp add it to the timestamp list", async () => {
-  const { user, getByLabelText, findByText } = setup();
+  it("inserting a timestamp add it to the timestamp list", async () => {
+    expect.assertions(2);
+    const { user, getByLabelText, findByText } = setup();
 
-  const input = getByLabelText("Timestamp");
-  expect(input).toBeDefined();
+    const input = getByLabelText("Timestamp");
+    expect(input).toBeDefined();
 
-  await user.type(input, "1752974231");
-  await user.keyboard("{Enter}");
+    await user.type(input, "1752974231");
+    await user.keyboard("{Enter}");
 
-  expect(await findByText("2025/07/20 01:17:11 UTC")).toBeDefined();
-}, 5000);
+    await expect(findByText("2025/07/20 01:17:11 UTC")).resolves.toBeDefined();
+  }, 5000);
 
-test("Converts seconds timestamp (10 digits) to correct date", async () => {
-  const { user, getByLabelText, findByText } = setup();
+  it("converts seconds timestamp (10 digits) to correct date", async () => {
+    expect.assertions(1);
+    const { user, getByLabelText, findByText } = setup();
 
-  const input = getByLabelText("Timestamp");
+    const input = getByLabelText("Timestamp");
 
-  // Unix timestamp for 2024-01-01 00:00:00 UTC
-  await user.type(input, "1704067200");
-  await user.keyboard("{Enter}");
+    // Unix timestamp for 2024-01-01 00:00:00 UTC
+    await user.type(input, "1704067200");
+    await user.keyboard("{Enter}");
 
-  expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
-}, 5000);
+    await expect(findByText("2024/01/01 00:00:00 UTC")).resolves.toBeDefined();
+  }, 5000);
 
-test("Converts milliseconds timestamp (13 digits) to correct date", async () => {
-  const { user, getByLabelText, findByText } = setup();
+  it("converts milliseconds timestamp (13 digits) to correct date", async () => {
+    expect.assertions(1);
+    const { user, getByLabelText, findByText } = setup();
 
-  const input = getByLabelText("Timestamp");
+    const input = getByLabelText("Timestamp");
 
-  // Milliseconds timestamp for 2024-01-01 00:00:00 UTC
-  await user.type(input, "1704067200000");
-  await user.keyboard("{Enter}");
+    // Milliseconds timestamp for 2024-01-01 00:00:00 UTC
+    await user.type(input, "1704067200000");
+    await user.keyboard("{Enter}");
 
-  expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
-}, 5000);
+    await expect(findByText("2024/01/01 00:00:00 UTC")).resolves.toBeDefined();
+  }, 5000);
 
-test("Converts microseconds timestamp (16 digits) to correct date", async () => {
-  const { user, getByLabelText, findByText } = setup();
+  it("converts microseconds timestamp (16 digits) to correct date", async () => {
+    expect.assertions(1);
+    const { user, getByLabelText, findByText } = setup();
 
-  const input = getByLabelText("Timestamp");
+    const input = getByLabelText("Timestamp");
 
-  // Microseconds timestamp for 2024-01-01 00:00:00 UTC
-  await user.type(input, "1704067200000000");
-  await user.keyboard("{Enter}");
+    // Microseconds timestamp for 2024-01-01 00:00:00 UTC
+    await user.type(input, "1704067200000000");
+    await user.keyboard("{Enter}");
 
-  expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
-}, 5000);
+    await expect(findByText("2024/01/01 00:00:00 UTC")).resolves.toBeDefined();
+  }, 5000);
 
-test("Converts nanoseconds timestamp (19 digits) to correct date", async () => {
-  const { user, getByLabelText, findByText } = setup();
+  it("converts nanoseconds timestamp (19 digits) to correct date", async () => {
+    expect.assertions(1);
+    const { user, getByLabelText, findByText } = setup();
 
-  const input = getByLabelText("Timestamp");
+    const input = getByLabelText("Timestamp");
 
-  // Nanoseconds timestamp for 2024-01-01 00:00:00 UTC
-  await user.type(input, "1704067200000000000");
-  await user.keyboard("{Enter}");
+    // Nanoseconds timestamp for 2024-01-01 00:00:00 UTC
+    await user.type(input, "1704067200000000000");
+    await user.keyboard("{Enter}");
 
-  expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
-}, 5000);
+    await expect(findByText("2024/01/01 00:00:00 UTC")).resolves.toBeDefined();
+  }, 5000);
 
-test("Has delete button for timestamps", async () => {
-  const { user, getByLabelText, findByText, getByRole } = setup();
+  it("has delete button for timestamps", async () => {
+    expect.assertions(2);
+    const { user, getByLabelText, findByText, getByRole } = setup();
 
-  const input = getByLabelText("Timestamp");
+    const input = getByLabelText("Timestamp");
 
-  await user.type(input, "1704067200"); // 2024-01-01
-  await user.keyboard("{Enter}");
+    await user.type(input, "1704067200"); // 2024-01-01
+    await user.keyboard("{Enter}");
 
-  // Verify timestamp is added
-  expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
+    // Verify timestamp is added
+    await expect(findByText("2024/01/01 00:00:00 UTC")).resolves.toBeDefined();
 
-  // Verify delete button exists with correct aria-label
-  const deleteButton = getByRole("button", { name: /remove/i });
-  expect(deleteButton).toBeDefined();
-}, 5000);
+    // Verify delete button exists with correct aria-label
+    const deleteButton = getByRole("button", { name: /remove/i });
+    expect(deleteButton).toBeDefined();
+  }, 5000);
 
-test("Delete button removes timestamp from list", async () => {
-  const { user, getByLabelText, findByText, getByRole } = setup();
+  it("delete button removes timestamp from list", async () => {
+    expect.assertions(2);
+    const { user, getByLabelText, findByText, getByRole } = setup();
 
-  const input = getByLabelText("Timestamp");
+    const input = getByLabelText("Timestamp");
 
-  // Add a timestamp
-  await user.type(input, "1704067200"); // 2024-01-01
-  await user.keyboard("{Enter}");
+    // Add a timestamp
+    await user.type(input, "1704067200"); // 2024-01-01
+    await user.keyboard("{Enter}");
 
-  // Verify timestamp is added
-  const timestampElement = await findByText("2024/01/01 00:00:00 UTC");
-  expect(timestampElement).toBeDefined();
+    // Verify timestamp is added
+    const timestampElement = await findByText("2024/01/01 00:00:00 UTC");
+    expect(timestampElement).toBeDefined();
 
-  // Click the delete button
-  const deleteButton = getByRole("button", { name: /remove/i });
-  await user.click(deleteButton);
+    // Click the delete button
+    const deleteButton = getByRole("button", { name: /remove/i });
+    await user.click(deleteButton);
 
-  // Wait a bit for animations to complete
-  await new Promise<void>((resolve) => {
-    setTimeout(resolve, 600);
-  });
+    // Wait a bit for animations to complete
+    await new Promise<void>((resolve) => {
+      setTimeout(resolve, 600);
+    });
 
-  // Verify timestamp is no longer in the document
-  const { queryByText } = setup();
-  expect(queryByText("2024/01/01 00:00:00 UTC")).toBeNull();
-}, 5000);
+    // Verify timestamp is no longer in the document
+    const { queryByText } = setup();
+    expect(queryByText("2024/01/01 00:00:00 UTC")).toBeNull();
+  }, 5000);
 
-test("Can delete specific timestamp when multiple exist", async () => {
-  const { user, getByLabelText, findByText, getAllByRole } = setup();
+  it("can delete specific timestamp when multiple exist", async () => {
+    expect.assertions(4);
+    const { user, getByLabelText, findByText, getAllByRole } = setup();
 
-  const input = getByLabelText("Timestamp");
+    const input = getByLabelText("Timestamp");
 
-  // Add first timestamp
-  await user.type(input, "1704067200"); // 2024-01-01
-  await user.keyboard("{Enter}");
+    // Add first timestamp
+    await user.type(input, "1704067200"); // 2024-01-01
+    await user.keyboard("{Enter}");
 
-  // Add second timestamp
-  await user.type(input, "1704153600"); // 2024-01-02
-  await user.keyboard("{Enter}");
+    // Add second timestamp
+    await user.type(input, "1704153600"); // 2024-01-02
+    await user.keyboard("{Enter}");
 
-  // Verify both timestamps exist
-  expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
-  expect(await findByText("2024/01/02 00:00:00 UTC")).toBeDefined();
+    // Verify both timestamps exist
+    await expect(findByText("2024/01/01 00:00:00 UTC")).resolves.toBeDefined();
+    await expect(findByText("2024/01/02 00:00:00 UTC")).resolves.toBeDefined();
 
-  // Get all delete buttons and click the first one
-  const deleteButtons = getAllByRole("button", { name: /remove/i });
-  expect(deleteButtons.length).toBe(2);
+    // Get all delete buttons and click the first one
+    const deleteButtons = getAllByRole("button", { name: /remove/i });
+    expect(deleteButtons).toHaveLength(2);
 
-  await user.click(deleteButtons[0]);
+    await user.click(deleteButtons[0]);
 
-  // Wait for animation
-  await new Promise<void>((resolve) => {
-    setTimeout(resolve, 600);
-  });
+    // Wait for animation
+    await new Promise<void>((resolve) => {
+      setTimeout(resolve, 600);
+    });
 
-  // Check that we now have only one delete button remaining
-  const remainingDeleteButtons = getAllByRole("button", { name: /remove/i });
-  expect(remainingDeleteButtons.length).toBe(1);
-}, 5000);
+    // Check that we now have only one delete button remaining
+    const remainingDeleteButtons = getAllByRole("button", { name: /remove/i });
+    expect(remainingDeleteButtons).toHaveLength(1);
+  }, 5000);
 
-test("Clears input after successful timestamp conversion", async () => {
-  const { user, getByLabelText } = setup();
+  it("clears input after successful timestamp conversion", async () => {
+    expect.assertions(1);
+    const { user, getByLabelText } = setup();
 
-  const input = getTimestampInput(getByLabelText);
+    const input = getTimestampInput(getByLabelText);
 
-  await user.type(input, "1704067200");
-  await user.keyboard("{Enter}");
+    await user.type(input, "1704067200");
+    await user.keyboard("{Enter}");
 
-  // Input should be cleared after successful conversion
-  expect(input.value).toBe("");
-}, 5000);
+    // Input should be cleared after successful conversion
+    expect(input.value).toBe("");
+  }, 5000);
 
-test("Shows multiple timestamps in order", async () => {
-  const { user, getByLabelText, findByText } = setup();
+  it("shows multiple timestamps in order", async () => {
+    expect.assertions(2);
+    const { user, getByLabelText, findByText } = setup();
 
-  const input = getByLabelText("Timestamp");
+    const input = getByLabelText("Timestamp");
 
-  // Add first timestamp
-  await user.type(input, "1704067200"); // 2024-01-01
-  await user.keyboard("{Enter}");
+    // Add first timestamp
+    await user.type(input, "1704067200"); // 2024-01-01
+    await user.keyboard("{Enter}");
 
-  // Add second timestamp
-  await user.type(input, "1704153600"); // 2024-01-02
-  await user.keyboard("{Enter}");
+    // Add second timestamp
+    await user.type(input, "1704153600"); // 2024-01-02
+    await user.keyboard("{Enter}");
 
-  expect(await findByText("2024/01/01 00:00:00 UTC")).toBeDefined();
-  expect(await findByText("2024/01/02 00:00:00 UTC")).toBeDefined();
-}, 5000);
+    await expect(findByText("2024/01/01 00:00:00 UTC")).resolves.toBeDefined();
+    await expect(findByText("2024/01/02 00:00:00 UTC")).resolves.toBeDefined();
+  }, 5000);
 
-test("Shows description about automatic format detection", () => {
-  const { getByText } = setup();
+  it("shows description about automatic format detection", () => {
+    expect.assertions(1);
+    const { getByText } = setup();
 
-  expect(
-    getByText("Automatically detects milliseconds, microseconds, and nanoseconds"),
-  ).toBeDefined();
-}, 5000);
+    expect(
+      getByText("Automatically detects milliseconds, microseconds, and nanoseconds"),
+    ).toBeDefined();
+  }, 5000);
 
-test("Handles edge case timestamps correctly", async () => {
-  const { user, getByLabelText, findByText } = setup();
+  it("handles edge case timestamps correctly", async () => {
+    expect.assertions(1);
+    const { user, getByLabelText, findByText } = setup();
 
-  const input = getByLabelText("Timestamp");
+    const input = getByLabelText("Timestamp");
 
-  // Unix epoch (0)
-  await user.clear(input);
-  await user.type(input, "0");
-  await user.keyboard("{Enter}");
+    // Unix epoch (0)
+    await user.clear(input);
+    await user.type(input, "0");
+    await user.keyboard("{Enter}");
 
-  expect(await findByText("1970/01/01 00:00:00 UTC")).toBeDefined();
-}, 5000);
+    await expect(findByText("1970/01/01 00:00:00 UTC")).resolves.toBeDefined();
+  }, 5000);
+});

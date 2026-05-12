@@ -20,13 +20,13 @@ Object.defineProperty(globalThis, "matchMedia", {
   writable: true,
 });
 
+beforeAll(() => {
+  server.listen();
+});
+
 afterEach(() => {
   cleanup();
   server.resetHandlers();
-});
-
-beforeAll(() => {
-  server.listen();
 });
 
 afterAll(() => {

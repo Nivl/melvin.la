@@ -9,6 +9,7 @@ const END: Coords = [8, 18];
 
 describe(generateMaze, () => {
   it("returns a grid with the correct dimensions", () => {
+    expect.hasAssertions();
     const { grid } = generateMaze(10, 20, START, END);
     expect(grid).toHaveLength(10);
     for (const row of grid) {
@@ -17,6 +18,7 @@ describe(generateMaze, () => {
   }, 5000);
 
   it("marks start and end cells correctly", () => {
+    expect.assertions(2);
     const { grid } = generateMaze(10, 20, START, END);
     const [sr, sc] = START;
     const [er, ec] = END;
@@ -25,6 +27,7 @@ describe(generateMaze, () => {
   }, 5000);
 
   it("produces a solvable maze (start is reachable from end via BFS)", () => {
+    expect.hasAssertions();
     // Run several times to account for randomness
     for (let i = 0; i < 5; i += 1) {
       const { grid } = generateMaze(15, 21, START, [13, 19]);
@@ -40,6 +43,7 @@ describe(generateMaze, () => {
   }, 5000);
 
   it("start cell has at least one passable neighbour", () => {
+    expect.assertions(1);
     const { grid } = generateMaze(10, 20, START, END);
     const [sr, sc] = START;
     const adjacent: Coords[] = [
@@ -58,6 +62,7 @@ describe(generateMaze, () => {
   }, 5000);
 
   it("end cell has at least one passable neighbour", () => {
+    expect.assertions(1);
     const { grid } = generateMaze(10, 20, START, END);
     const [er, ec] = END;
     const adjacent: Coords[] = [
@@ -76,6 +81,7 @@ describe(generateMaze, () => {
   }, 5000);
 
   it("does not overflow the call stack on a large grid (40×70)", () => {
+    expect.assertions(1);
     expect(() => generateMaze(40, 70, [1, 1], [38, 68])).not.toThrow();
   }, 5000);
 });

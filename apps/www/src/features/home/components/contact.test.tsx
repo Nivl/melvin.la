@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { testWrapper as wrapper } from "#shared/utils/tests";
 
@@ -20,7 +20,7 @@ vi.mock(
     }) as unknown as Awaited<typeof import("./map")>,
 );
 
-beforeEach(() => {
+const stubIntersectionObserver = () => {
   vi.stubGlobal(
     "IntersectionObserver",
     class MockIntersectionObserver {
@@ -32,20 +32,20 @@ beforeEach(() => {
       public unobserve = vi.fn<() => void>();
     },
   );
-});
+};
 
-afterEach(() => {
-  vi.unstubAllGlobals();
-});
-
-describe("Contact component", () => {
+describe(Contact, () => {
   it("renders a placeholder when the map is not yet in view", () => {
+    expect.assertions(2);
+    stubIntersectionObserver();
     render(<Contact />, { wrapper });
     expect(screen.getByTestId("map-placeholder")).toBeDefined();
     expect(screen.queryByTestId("map-loaded")).toBeNull();
   }, 5000);
 
   it("still exposes the Email / LinkedIn / GitHub contact links", () => {
+    expect.assertions(3);
+    stubIntersectionObserver();
     render(<Contact />, { wrapper });
     expect(screen.getByText("jobs@melvin.la")).toBeDefined();
     expect(screen.getByText("in/melvinlaplanche")).toBeDefined();
@@ -53,6 +53,8 @@ describe("Contact component", () => {
   }, 5000);
 
   it("lazy-loads the LinkedIn modal only when the link is clicked", async () => {
+    expect.assertions(2);
+    stubIntersectionObserver();
     const user = userEvent.setup();
     render(<Contact />, { wrapper });
 
@@ -60,6 +62,6 @@ describe("Contact component", () => {
 
     await user.click(screen.getByText("in/melvinlaplanche"));
 
-    expect(await screen.findByRole("dialog")).toBeDefined();
+    await expect(screen.findByRole("dialog")).resolves.toBeDefined();
   }, 5000);
 });

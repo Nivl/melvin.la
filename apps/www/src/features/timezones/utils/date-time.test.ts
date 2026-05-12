@@ -1,5 +1,5 @@
 import { CalendarDateTime, parseZonedDateTime } from "@internationalized/date";
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { formatAbsoluteDateInTimeZone, getAbsoluteDateForWallClock } from "./date-time";
 
@@ -56,15 +56,17 @@ const conversionCases: ConversionCase[] = [
 ];
 
 describe(getAbsoluteDateForWallClock, () => {
-  test.each(conversionCases)(
+  it.each(conversionCases)(
     "$name",
     ({ baseTimeZone, dateTime, expectedIso }) => {
+      expect.assertions(1);
       expect(getAbsoluteDateForWallClock(dateTime, baseTimeZone).toISOString()).toBe(expectedIso);
     },
     5000,
   );
 
-  test("reinterprets ZonedDateTime wall-clock values in the selected base timezone", () => {
+  it("reinterprets ZonedDateTime wall-clock values in the selected base timezone", () => {
+    expect.assertions(3);
     const dateTime = parseZonedDateTime("1989-03-25T18:30:00-10:00[Pacific/Honolulu]");
     const absoluteDate = getAbsoluteDateForWallClock(dateTime, "Europe/Paris");
 
@@ -79,7 +81,8 @@ describe(getAbsoluteDateForWallClock, () => {
 });
 
 describe(formatAbsoluteDateInTimeZone, () => {
-  test("formats the Paris 1989 regression case in the target timezone", () => {
+  it("formats the Paris 1989 regression case in the target timezone", () => {
+    expect.assertions(1);
     const date = getAbsoluteDateForWallClock(
       new CalendarDateTime(1989, 3, 25, 17, 0, 0),
       "Europe/Paris",

@@ -48,6 +48,15 @@
     "import/group-exports": "off", // force grouping exports together. Too opinionated, doesn't prevent anything useful.
     "import/no-unassigned-import": "off", // Prevent side-effect imports. Needed for CSS and polyfill imports.
     "init-declarations": "off", // force initialization in variable declarations. Too many conflicts with other more useful rules.
+    "jest/max-expects": "off", // Companion of vitest/max-expects; oxlint's vitest plugin internally activates jest, so the duplicate fires here.
+    "jest/no-conditional-in-test": "off", // Fires on logical && / ?? inside callbacks like .find((x) => x.a !== null && y), which are not real conditionals.
+    "jest/prefer-ending-with-an-expect": "off", // Blocks legitimate post-assertion cleanup (root.unmount, vi.useRealTimers, etc.).
+    "jest/require-hook": "off", // Require setup to be in a hook. Directly conflicts with vitest/no-hooks; also false-positives on production code because oxlint's vitest plugin internally activates jest rules even when jest isn't in plugins.
+    "jest/valid-expect": "off", // Disallow expect(value, message). Vitest supports this pattern (see vitest/valid-expect fix in oxlint 1.62); the jest variant cannot tell this is a vitest project.
+    "jest/valid-title": "off", // "Title must be a string". Conflicts with vitest/prefer-describe-function-title — vitest supports describe(funcRef, ...) which this rule rejects.
+    "typescript/no-non-null-assertion": "off", // Forced off because no-conditional-in-test rejects `if (!x) throw` patterns, leaving `x!` as the only ergonomic way to satisfy both type narrowing and the test-style rules.
+    "vitest/no-conditional-in-test": "off", // See jest/no-conditional-in-test.
+    "vitest/valid-title": "off", // See jest/valid-title note. Vitest natively supports function references as describe titles.
     "max-dependencies": "off", // limit the amount of imports per file. Too opinionated, doesn't prevent anything useful.
     "max-depth": "off", // limit the nesting depth of blocks. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
     "max-lines": "off", // limit the size of a file. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
@@ -69,6 +78,7 @@
     "prefer-default-export": "off", // Prevent named exports. That's the exact opposite of what we want.
     "prefer-destructuring": "off", // Prevent accessing an array doing "array[0]". Good idea on paper, but leads to less readable code in some cases.
     "prefer-template": "off", // Force the use of template literals. Good idea, but in some cases, string concatenation is more readable.
+    "react/forbid-component-props": "off", // Forbid certain props on components. Too opinionated, and too spammy to keep as warning.
     "react/jsx-filename-extension": "off", // Restrict JSX to .jsx files only. We use .tsx.
     "react/jsx-max-depth": "off", // limit the nesting depth of jsx. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
     "react-perf/jsx-no-new-function-as-prop": "off", // Prevent passing inline functions as prop. Too opinionated, and too spammy to keep as warning.
@@ -81,6 +91,7 @@
     "typescript/prefer-readonly-parameter-types": "off", // Require readonly on function params. Too verbose and restrictive.
     "unicorn/no-nested-ternary": "off", // Prevents the use of nested ternary expressions. Great on paper, but useful with jsx.
     "unicorn/no-useless-undefined": "off", // Prevent redundant undefined in returns/assignments. Conflicts with consistent-return style.
+    "vitest/max-expects": "off", // Limit the number of expects in a test. Too opinionated, doesn't prevent anything useful.
     "vitest/no-importing-vitest-globals": "off", // Prevent explicit vitest imports. We don't use auto-imports.
     "vitest/prefer-called-once": "off", // Prefer toHaveBeenCalledOnce(). Conflicts with prefer-called-times.
     "vitest/prefer-importing-vitest-globals": "off", // Force importing vitest instead of using globals. Tons of false positives and conflicts.

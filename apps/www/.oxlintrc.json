@@ -100,6 +100,16 @@
         // off
         "import/export": "off" // Mock files re-export module members, triggering false positives.
       }
+    },
+    {
+      "files": ["vitest.setup.ts"],
+      "rules": {
+        // off
+        "jest/no-hooks": "off", // Global vitest setup file legitimately defines beforeAll/afterEach/afterAll for the whole suite.
+        "jest/require-top-level-describe": "off", // Global setup file is not a test file; hooks are correctly at module top level.
+        "vitest/no-hooks": "off", // Same as jest/no-hooks; see note above.
+        "vitest/require-top-level-describe": "off" // Same as jest/require-top-level-describe.
+      }
     }
   ]
 }
