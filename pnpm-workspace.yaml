@@ -39,7 +39,7 @@ catalog:
   eslint-plugin-simple-import-sort: 13.0.0
   gray-matter: 4.0.3
   jsdom: 29.1.1
-  knip: 6.9.0
+  knip: 6.10.0
   lucide-react: 1.14.0
   motion: 12.38.0
   msw: 2.14.2
