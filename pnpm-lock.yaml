@@ -115,8 +115,8 @@ catalogs:
       specifier: 29.1.1
       version: 29.1.1
     knip:
-      specifier: 6.9.0
-      version: 6.9.0
+      specifier: 6.10.0
+      version: 6.10.0
     lucide-react:
       specifier: 1.14.0
       version: 1.14.0
@@ -359,7 +359,7 @@ importers:
         version: 29.1.1
       knip:
         specifier: 'catalog:'
-        version: 6.9.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)
+        version: 6.10.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)
       msw:
         specifier: 'catalog:'
         version: 2.14.2(@types/node@24.12.2)(typescript@6.0.3)
@@ -5321,8 +5321,8 @@ packages:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
     engines: {node: '>=0.10.0'}
 
-  knip@6.9.0:
-    resolution: {integrity: sha512-2GLjxteBwmsSA3Z5sJZpPDaNPBIMnlm4/9Nx4CZadEK7YccJZ2/4kwKgPWhVYEqxhwhD0WO4txWXNGTO/Odkkg==}
+  knip@6.10.0:
+    resolution: {integrity: sha512-u9EaTj17MYkTw2aojWSwMoRQ6pI/ZtjDexuhqkQ8uQuvMFJXeeHu6MhKDdSppijGaiNGtDSMFYs+w5iZLrb2Cg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
@@ -12004,7 +12004,7 @@ snapshots:
 
   kind-of@6.0.3: {}
 
-  knip@6.9.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0):
+  knip@6.10.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0):
     dependencies:
       fdir: 6.5.0(picomatch@4.0.4)
       formatly: 0.3.0
