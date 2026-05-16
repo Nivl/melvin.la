@@ -1,6 +1,14 @@
 packages:
   - "apps/*"
   - "packages/*"
+allowBuilds:
+  "@parcel/watcher": false
+  "@sentry/cli": false
+  "@swc/core": false
+  core-js-pure: false
+  esbuild: false
+  msw: false
+  sharp: false
 blockExoticSubdeps: true
 catalog:
   "@chromatic-com/storybook": 5.1.2
