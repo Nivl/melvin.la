@@ -50,11 +50,12 @@ const securityHeaders = [
     key: "Content-Security-Policy-Report-Only",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://*.googleapis.com https://*.gstatic.com https://*.sentry.io https://*.vercel-scripts.com https://static.cloudflareinsights.com",
+      `script-src 'self' 'unsafe-inline' https://*.googleapis.com https://*.gstatic.com https://*.sentry.io https://*.vercel-scripts.com https://static.cloudflareinsights.com ${process.env.VERCEL_ENV === "preview" ? "https://vercel.live" : ""}`,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "img-src 'self' blob: data: https://*.googleapis.com https://*.gstatic.com https://*.googleusercontent.com https://static-cdn.jtvnw.net",
       "font-src 'self' data: https://fonts.gstatic.com",
       "connect-src 'self' https://*.googleapis.com https://*.sentry.io https://*.vercel-insights.com https://fortnite-api.com",
+      `frame-src 'self' ${process.env.VERCEL_ENV === "preview" ? "https://vercel.live;" : ""}`,
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
