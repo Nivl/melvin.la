@@ -12,8 +12,8 @@ allowBuilds:
 blockExoticSubdeps: true
 catalog:
   "@chromatic-com/storybook": 5.2.1
-  "@heroui/react": 3.0.3
-  "@heroui/styles": 3.0.3
+  "@heroui/react": 3.0.4
+  "@heroui/styles": 3.0.4
   "@internationalized/date": 3.12.1
   "@lingual/i18n-check": 0.9.5
   "@msw/playwright": 0.6.7
@@ -64,8 +64,8 @@ catalog:
   react-syntax-highlighter: 16.1.1
   server-only: 0.0.1
   storybook: 10.4.0
-  tailwind-merge: 3.5.0
-  tailwindcss: 4.2.4
+  tailwind-merge: 3.6.0
+  tailwindcss: 4.3.0
   tsx: 4.22.0
   turbo: 2.9.14
   typescript: 6.0.3
