@@ -4,7 +4,7 @@ test("Blog loads article list and navigates to them", async ({ page }) => {
   await page.goto("/blog");
 
   // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/blog/u);
+  await expect(page).toHaveTitle(/Blog/u);
 
   const articleTitle = "Engineering 101: Understanding Pointers";
 
