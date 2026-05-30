@@ -42,8 +42,8 @@ describe("navbar", () => {
     setup();
     expect(screen.getByRole("link", { name: "Home" })).toBeDefined();
     expect(screen.getByRole("link", { name: "Blog" })).toBeDefined();
-    expect(screen.getByRole("button", { name: /Games/i })).toBeDefined();
-    expect(screen.getByRole("button", { name: /Tools/i })).toBeDefined();
+    expect(screen.getByRole("button", { name: /Games/iv })).toBeDefined();
+    expect(screen.getByRole("button", { name: /Tools/iv })).toBeDefined();
   }, 5000);
 
   it("shows nav indicator on home route", () => {
@@ -66,28 +66,28 @@ describe("navbar", () => {
   it("shows nav indicator on games route", () => {
     expect.assertions(1);
     setup("/games/conway");
-    const gamesButton = screen.getByRole("button", { name: /Games/i });
+    const gamesButton = screen.getByRole("button", { name: /Games/iv });
     expect(gamesButton.closest("span")?.querySelector("span")).not.toBeNull();
   }, 5000);
 
   it("shows nav indicator on tools route", () => {
     expect.assertions(1);
     setup("/tools/uuid");
-    const toolsButton = screen.getByRole("button", { name: /Tools/i });
+    const toolsButton = screen.getByRole("button", { name: /Tools/iv });
     expect(toolsButton.closest("span")?.querySelector("span")).not.toBeNull();
   }, 5000);
 
   it("games indicator absent on non-games route", () => {
     expect.assertions(1);
     setup("/");
-    const gamesButton = screen.getByRole("button", { name: /Games/i });
+    const gamesButton = screen.getByRole("button", { name: /Games/iv });
     expect(gamesButton.closest("span")?.querySelector("span")).toBeNull();
   }, 5000);
 
   it("tools indicator absent on non-tools route", () => {
     expect.assertions(1);
     setup("/");
-    const toolsButton = screen.getByRole("button", { name: /Tools/i });
+    const toolsButton = screen.getByRole("button", { name: /Tools/iv });
     expect(toolsButton.closest("span")?.querySelector("span")).toBeNull();
   }, 5000);
 
@@ -114,35 +114,35 @@ describe("navbar", () => {
   it("games button has bold style on /games route", () => {
     expect.assertions(1);
     setup("/games/conway");
-    const gamesButton = screen.getByRole("button", { name: /Games/i });
+    const gamesButton = screen.getByRole("button", { name: /Games/iv });
     expect(gamesButton.className).toContain("font-semibold");
   }, 5000);
 
   it("games button does not have bold style on non-games route", () => {
     expect.assertions(1);
     setup("/");
-    const gamesButton = screen.getByRole("button", { name: /Games/i });
+    const gamesButton = screen.getByRole("button", { name: /Games/iv });
     expect(gamesButton.className).not.toContain("font-semibold");
   }, 5000);
 
   it("tools button has bold style on /tools route", () => {
     expect.assertions(1);
     setup("/tools/uuid");
-    const toolsButton = screen.getByRole("button", { name: /Tools/i });
+    const toolsButton = screen.getByRole("button", { name: /Tools/iv });
     expect(toolsButton.className).toContain("font-semibold");
   }, 5000);
 
   it("tools button does not have bold style on non-tools route", () => {
     expect.assertions(1);
     setup("/");
-    const toolsButton = screen.getByRole("button", { name: /Tools/i });
+    const toolsButton = screen.getByRole("button", { name: /Tools/iv });
     expect(toolsButton.className).not.toContain("font-semibold");
   }, 5000);
 
   it("dropdown buttons use h-8 to fix button height", () => {
     expect.assertions(1);
     setup();
-    const gamesButton = screen.getByRole("button", { name: /Games/i });
+    const gamesButton = screen.getByRole("button", { name: /Games/iv });
     expect(gamesButton.className).toContain("h-8");
   }, 5000);
 

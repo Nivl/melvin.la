@@ -4,13 +4,13 @@ test.describe("Fortnite Tool", () => {
   test("main page loads correctly", async ({ page }) => {
     await page.goto("/tools/fortnite");
 
-    await expect(page).toHaveTitle(/Fortnite Data/);
+    await expect(page).toHaveTitle(/Fortnite Data/u);
     await expect(
-      page.getByRole("heading", { name: /See how well you are doing in/i }),
+      page.getByRole("heading", { name: /See how well you are doing in/iu }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", {
-        name: /Or pick a famous content creator/i,
+        name: /Or pick a famous content creator/iu,
       }),
     ).toBeVisible();
   });
@@ -22,10 +22,10 @@ test.describe("Fortnite Tool", () => {
     await page.getByRole("button", { name: "Nikof" }).click();
 
     // Wait for URL to change
-    await expect(page).toHaveURL(/\/tools\/fortnite\/M8%20N%C3%AEkof\//);
+    await expect(page).toHaveURL(/\/tools\/fortnite\/M8%20N%C3%AEkof\//u);
 
     // Wait for content to load - this is the main indicator that data was fetched successfully
-    await expect(page.getByText(/That's how long you've spent in the game/i)).toBeVisible({
+    await expect(page.getByText(/That's how long you've spent in the game/iu)).toBeVisible({
       timeout: 15_000,
     });
   });
@@ -34,14 +34,14 @@ test.describe("Fortnite Tool", () => {
     await page.goto("/tools/fortnite");
 
     // Fill in the search form (debounced input, no submit button)
-    const input = page.getByPlaceholder(/Account Name/i);
+    const input = page.getByPlaceholder(/Account Name/iu);
     await input.fill("200");
 
     // Wait for debounce and URL update
-    await page.waitForURL(/.*200.*/, { waitUntil: "commit" });
+    await page.waitForURL(/.*200.*/u, { waitUntil: "commit" });
 
     // Wait for content to load - this is the main indicator that data was fetched successfully
-    await expect(page.getByText(/That's how long you've spent in the game/i)).toBeVisible({
+    await expect(page.getByText(/That's how long you've spent in the game/iu)).toBeVisible({
       timeout: 15_000,
     });
   });
@@ -50,14 +50,14 @@ test.describe("Fortnite Tool", () => {
     await page.goto("/tools/fortnite");
 
     // Fill in the search form (debounced input, no submit button)
-    const input = page.getByPlaceholder(/Account Name/i);
+    const input = page.getByPlaceholder(/Account Name/iu);
     await input.fill("400");
 
     // Wait for debounce and URL update
-    await page.waitForURL(/.*400.*/);
+    await page.waitForURL(/.*400.*/u);
 
     // Check for error message
-    await expect(page.getByText(/Looks like the data aren't available right now/i)).toBeVisible({
+    await expect(page.getByText(/Looks like the data aren't available right now/iu)).toBeVisible({
       timeout: 15_000,
     });
   });
@@ -66,14 +66,14 @@ test.describe("Fortnite Tool", () => {
     await page.goto("/tools/fortnite");
 
     // Fill in the search form (debounced input, no submit button)
-    const input = page.getByPlaceholder(/Account Name/i);
+    const input = page.getByPlaceholder(/Account Name/iu);
     await input.fill("403");
 
     // Wait for debounce and URL update
-    await page.waitForURL(/.*403.*/);
+    await page.waitForURL(/.*403.*/u);
 
     // Check for error message
-    await expect(page.getByText(/This gamer doesn't want you to see their data/i)).toBeVisible({
+    await expect(page.getByText(/This gamer doesn't want you to see their data/iu)).toBeVisible({
       timeout: 15_000,
     });
   });
@@ -82,14 +82,14 @@ test.describe("Fortnite Tool", () => {
     await page.goto("/tools/fortnite");
 
     // Fill in the search form (debounced input, no submit button)
-    const input = page.getByPlaceholder(/Account Name/i);
+    const input = page.getByPlaceholder(/Account Name/iu);
     await input.fill("404");
 
     // Wait for debounce and URL update
-    await page.waitForURL(/.*404.*/);
+    await page.waitForURL(/.*404.*/u);
 
     // Wait for error message
-    await expect(page.getByText(/Nobody goes by this name, on this platform/i)).toBeVisible({
+    await expect(page.getByText(/Nobody goes by this name, on this platform/iu)).toBeVisible({
       timeout: 15_000,
     });
   });
@@ -97,12 +97,12 @@ test.describe("Fortnite Tool", () => {
   test("input keeps focus after the debounce fires", async ({ page }) => {
     await page.goto("/tools/fortnite");
 
-    const input = page.getByPlaceholder(/Account Name/i);
+    const input = page.getByPlaceholder(/Account Name/iu);
     await input.click();
     await input.fill("200");
 
     // Wait for debounce (1000ms) + a small buffer, then verify focus is retained
-    await page.waitForURL(/.*200.*/, { waitUntil: "commit" });
+    await page.waitForURL(/.*200.*/u, { waitUntil: "commit" });
     await expect(input).toBeFocused();
   });
 
@@ -111,20 +111,20 @@ test.describe("Fortnite Tool", () => {
 
     // Pick the Mongraal preset for the first time
     await page.getByRole("button", { name: "Mongraal" }).click();
-    await expect(page.getByText(/That's how long you've spent in the game/i)).toBeVisible({
+    await expect(page.getByText(/That's how long you've spent in the game/iu)).toBeVisible({
       timeout: 15_000,
     });
 
     // Clear the input — the results section should disappear and presets reappear
-    await page.getByRole("button", { name: /clear/i }).click();
+    await page.getByRole("button", { name: /clear/iu }).click();
     await expect(
-      page.getByRole("heading", { name: /Or pick a famous content creator/i }),
+      page.getByRole("heading", { name: /Or pick a famous content creator/iu }),
     ).toBeVisible({ timeout: 5000 });
 
     // Pick Mongraal again — must trigger a fresh search even though the preset
     // values are identical to the previous selection
     await page.getByRole("button", { name: "Mongraal" }).click();
-    await expect(page.getByText(/That's how long you've spent in the game/i)).toBeVisible({
+    await expect(page.getByText(/That's how long you've spent in the game/iu)).toBeVisible({
       timeout: 15_000,
     });
   });

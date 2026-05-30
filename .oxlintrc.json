@@ -57,6 +57,7 @@
     "typescript/no-non-null-assertion": "off", // Forced off because no-conditional-in-test rejects `if (!x) throw` patterns, leaving `x!` as the only ergonomic way to satisfy both type narrowing and the test-style rules.
     "vitest/no-conditional-in-test": "off", // See jest/no-conditional-in-test.
     "vitest/valid-title": "off", // See jest/valid-title note. Vitest natively supports function references as describe titles.
+    "vitest/require-hook": "off", // Require setup to be in a hook. Directly conflicts with vitest/no-hooks; also false-positives on production code because oxlint's vitest plugin internally activates jest rules even when jest isn't in plugins.
     "max-dependencies": "off", // limit the amount of imports per file. Too opinionated, doesn't prevent anything useful.
     "max-depth": "off", // limit the nesting depth of blocks. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
     "max-lines": "off", // limit the size of a file. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.

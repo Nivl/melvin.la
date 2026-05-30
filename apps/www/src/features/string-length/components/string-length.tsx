@@ -20,7 +20,7 @@ export const StringLength = () => {
   const byteCount = new TextEncoder().encode(text).length;
 
   // Count words (split by whitespace and filter out empty strings)
-  const wordCount = text.trim().length === 0 ? 0 : text.trim().split(/\s+/).length;
+  const wordCount = text.trim().length === 0 ? 0 : text.trim().split(/\s+/v).length;
 
   return (
     <>

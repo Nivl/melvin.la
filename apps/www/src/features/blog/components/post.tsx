@@ -77,7 +77,7 @@ const htmlToJsx: MDXRemoteProps["components"] = {
     const childrenProps = children.props;
 
     const match =
-      "className" in childrenProps ? /language-(\w+)/.exec(childrenProps.className ?? "") : "";
+      "className" in childrenProps ? /language-(\w+)/v.exec(childrenProps.className ?? "") : "";
     const hasAMatch = match !== null && match.length > 0;
 
     if (

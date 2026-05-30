@@ -10,7 +10,7 @@ describe("serialise", () => {
   it('encode produces a string starting with "v1:"', () => {
     expect.assertions(1);
     const hash = encode(state);
-    expect(hash).toMatch(/^v1:/);
+    expect(hash).toMatch(/^v1:/v);
   }, 5000);
 
   it("encode excludes isPlaying", () => {

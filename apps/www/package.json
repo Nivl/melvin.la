@@ -113,7 +113,7 @@
   "engines": {
     "node": "24.15.0"
   },
-  "packageManager": "pnpm@11.0.3",
+  "packageManager": "pnpm@11.1.2",
   "msw": {
     "workerDirectory": [
       "./public"

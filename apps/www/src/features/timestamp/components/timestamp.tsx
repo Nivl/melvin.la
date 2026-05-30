@@ -112,7 +112,7 @@ export const Timestamp = () => {
               // Also when you reach 21 digits, you start having the ability to
               // input incorrect timestamps
               validate={(v) => {
-                const isValidInput = /^-?[0-9]{1,20}$/i.test(v) && toDate(v) !== undefined;
+                const isValidInput = /^-?[0-9]{1,20}$/iv.test(v) && toDate(v) !== undefined;
                 return isValidInput ? undefined : t("inputError");
               }}
             >
