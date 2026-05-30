@@ -18,46 +18,46 @@ describe(Pathfinding, () => {
     const { getByRole, queryByRole } = setup();
 
     // Visualize button
-    expect(getByRole("button", { name: /visualize/i })).toBeDefined();
+    expect(getByRole("button", { name: /visualize/iv })).toBeDefined();
     // Generate Maze button
-    expect(getByRole("button", { name: /generate maze/i })).toBeDefined();
+    expect(getByRole("button", { name: /generate maze/iv })).toBeDefined();
     // Clear All button
-    expect(getByRole("button", { name: /clear all/i })).toBeDefined();
+    expect(getByRole("button", { name: /clear all/iv })).toBeDefined();
     // Mode buttons
-    expect(getByRole("button", { name: /place walls/i })).toBeDefined();
-    expect(getByRole("button", { name: /place start/i })).toBeDefined();
-    expect(getByRole("button", { name: /place end/i })).toBeDefined();
+    expect(getByRole("button", { name: /place walls/iv })).toBeDefined();
+    expect(getByRole("button", { name: /place start/iv })).toBeDefined();
+    expect(getByRole("button", { name: /place end/iv })).toBeDefined();
     // Clear Path is hidden when grid has no visited/path cells
-    expect(queryByRole("button", { name: /clear path/i })).toBeNull();
+    expect(queryByRole("button", { name: /clear path/iv })).toBeNull();
   }, 5000);
 
   it("algorithm selector is present", () => {
     expect.assertions(1);
     const { getByRole } = setup();
     // The algorithm select should be in the DOM
-    expect(getByRole("button", { name: /algorithm/i })).toBeDefined();
+    expect(getByRole("button", { name: /algorithm/iv })).toBeDefined();
   }, 5000);
 
   it("grid is rendered", () => {
     expect.assertions(1);
     const { getByRole } = setup();
-    expect(getByRole("grid", { name: /pathfinding grid/i })).toBeDefined();
+    expect(getByRole("grid", { name: /pathfinding grid/iv })).toBeDefined();
   }, 5000);
 
   it("visualize button is disabled during animation", async () => {
     expect.assertions(1);
     const { getByRole, findByRole, user } = setup();
-    const visualizeBtn = getByRole("button", { name: /visualize/i });
+    const visualizeBtn = getByRole("button", { name: /visualize/iv });
     await user.click(visualizeBtn);
     // After click, the button should be replaced by Stop button
-    const stopBtn = await findByRole("button", { name: /stop/i });
+    const stopBtn = await findByRole("button", { name: /stop/iv });
     expect(stopBtn).toBeDefined();
   }, 5000);
 
   it('clicking "Place Start" toggles to place-start mode; clicking again is a no-op (mode stays)', async () => {
     expect.assertions(1);
     const { getByRole, user } = setup();
-    const placeStartBtn = getByRole("button", { name: /place start/i });
+    const placeStartBtn = getByRole("button", { name: /place start/iv });
 
     await user.click(placeStartBtn);
     // Clicking the active button again should not crash (no-op)
@@ -68,8 +68,8 @@ describe(Pathfinding, () => {
   it('activating "Place End" switches away from "Place Start"', async () => {
     expect.assertions(1);
     const { getByRole, user } = setup();
-    const placeStartBtn = getByRole("button", { name: /place start/i });
-    const placeEndBtn = getByRole("button", { name: /place end/i });
+    const placeStartBtn = getByRole("button", { name: /place start/iv });
+    const placeEndBtn = getByRole("button", { name: /place end/iv });
 
     await user.click(placeStartBtn);
     await user.click(placeEndBtn);
@@ -80,14 +80,14 @@ describe(Pathfinding, () => {
     expect.assertions(1);
     const { getByRole } = setup();
     // place walls button should be present from the start
-    expect(getByRole("button", { name: /place walls/i })).toBeDefined();
+    expect(getByRole("button", { name: /place walls/iv })).toBeDefined();
   }, 5000);
 
   it("start cell moves when clicking in place-start mode", async () => {
     expect.assertions(2);
     const { getByRole, user } = setup();
 
-    const grid = getByRole("grid", { name: /pathfinding grid/i });
+    const grid = getByRole("grid", { name: /pathfinding grid/iv });
     const cells = within(grid).getAllByRole("gridcell");
 
     // Verify start cell exists initially
@@ -95,10 +95,10 @@ describe(Pathfinding, () => {
     expect(initialStart).toBeDefined();
 
     // Activate place-start mode and click a cell — should not throw
-    await user.click(getByRole("button", { name: /place start/i }));
+    await user.click(getByRole("button", { name: /place start/iv }));
     const targetCell = cells.find((cell) => cell.getAttribute("aria-label") === "empty")!;
     await user.click(targetCell);
     // Grid remains rendered without errors
-    expect(getByRole("grid", { name: /pathfinding grid/i })).toBeDefined();
+    expect(getByRole("grid", { name: /pathfinding grid/iv })).toBeDefined();
   }, 5000);
 });

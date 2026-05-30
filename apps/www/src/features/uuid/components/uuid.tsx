@@ -222,7 +222,9 @@ export const Uuid = () => {
                 <TextField
                   validate={(value) => {
                     const isValidCustomNamespace =
-                      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
+                      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/iv.test(
+                        value,
+                      );
                     return isValidCustomNamespace ? undefined : t("customNamespaceError");
                   }}
                   isRequired

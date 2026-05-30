@@ -68,7 +68,7 @@ export const CodeBlock = ({
         },
       }}
     >
-      {children.replace(/\n$/, "")}
+      {children.replace(/\n$/v, "")}
     </SyntaxHighlighter>
   );
 };

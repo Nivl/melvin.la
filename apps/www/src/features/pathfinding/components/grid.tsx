@@ -250,6 +250,7 @@ export const PathfindingGrid = ({
 
   return (
     <div
+      tabIndex={-1}
       ref={containerRef}
       className="touch-none overflow-hidden rounded-lg border border-zinc-100/10 select-none dark:border-zinc-800"
       style={{
@@ -295,10 +296,12 @@ export const PathfindingGrid = ({
 
           return (
             <div
+              tabIndex={-1}
               // the grid is automatically generated on the spot, so we
               // don't have anything else to use as key than the coordinates.
               // eslint-disable-next-line react/no-array-index-key
               key={`${ri.toString()}-${ci.toString()}`}
+              // eslint-disable-next-line jsx-a11y/prefer-tag-over-role
               role="gridcell"
               aria-label={effectiveState}
               aria-selected={isFocused}

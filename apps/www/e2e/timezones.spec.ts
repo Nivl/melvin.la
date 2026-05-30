@@ -9,7 +9,7 @@ import { expect, expectToBeTruthy, test } from "./helpers";
 const selectCity = async (page: Page, testId: string, searchText: string, optionText: string) => {
   // Convert "City, Country (Timezone)" → "City Country" to match the ARIA accessible name
   const accessibleName = optionText
-    .replace(/ \([^)]+\)$/, "") // Remove " (timezone)" at end
+    .replace(/ \([^)]+\)$/u, "") // Remove " (timezone)" at end
     .replaceAll(",", ""); // Remove commas
   const trigger = page.getByTestId(testId);
   await trigger.click();
@@ -25,7 +25,7 @@ const TO_TESTID = "city-to";
 test.describe("Timezones Tool", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/tools/timezones");
-    await expect(page).toHaveTitle(/Timezone converter/);
+    await expect(page).toHaveTitle(/Timezone converter/v);
   });
 
   test("can set initial city and target city", async ({ page }) => {
@@ -42,7 +42,7 @@ test.describe("Timezones Tool", () => {
     await selectCity(page, TO_TESTID, "London", "London, United Kingdom (Europe/London)");
 
     // Verify target city appears as a pill
-    const londonPill = page.locator('div[class*="bg-"]').filter({ hasText: /In London/ });
+    const londonPill = page.locator('div[class*="bg-"]').filter({ hasText: /In London/v });
     await expect(londonPill).toBeVisible();
     await expect(londonPill).toContainText("London");
   });
@@ -65,9 +65,9 @@ test.describe("Timezones Tool", () => {
     await selectCity(page, TO_TESTID, "Sydney", "Sydney, Australia (Australia/Sydney)");
 
     // Verify all three cities appear as pills
-    const tokyoPill = page.locator('div[class*="bg-"]').filter({ hasText: /In Tokyo/ });
-    const newYorkPill = page.locator('div[class*="bg-"]').filter({ hasText: /In New York/ });
-    const sydneyPill = page.locator('div[class*="bg-"]').filter({ hasText: /In Sydney/ });
+    const tokyoPill = page.locator('div[class*="bg-"]').filter({ hasText: /In Tokyo/v });
+    const newYorkPill = page.locator('div[class*="bg-"]').filter({ hasText: /In New York/v });
+    const sydneyPill = page.locator('div[class*="bg-"]').filter({ hasText: /In Sydney/v });
 
     await expect(tokyoPill).toBeVisible();
     await expect(newYorkPill).toBeVisible();
@@ -79,9 +79,9 @@ test.describe("Timezones Tool", () => {
     const sydneyClass = await sydneyPill.getAttribute("class");
 
     // Extract background color classes
-    const tokyoColor = tokyoClass?.match(/bg-\w+-\d+/)?.[0];
-    const newYorkColor = newYorkClass?.match(/bg-\w+-\d+/)?.[0];
-    const sydneyColor = sydneyClass?.match(/bg-\w+-\d+/)?.[0];
+    const tokyoColor = tokyoClass?.match(/bg-\w+-\d+/v)?.[0];
+    const newYorkColor = newYorkClass?.match(/bg-\w+-\d+/v)?.[0];
+    const sydneyColor = sydneyClass?.match(/bg-\w+-\d+/v)?.[0];
 
     expect(tokyoColor).toBeDefined();
     expect(newYorkColor).toBeDefined();
@@ -101,9 +101,9 @@ test.describe("Timezones Tool", () => {
     expect(sydneyText).toContain("Sydney");
 
     // All should show time information but with different times
-    expect(tokyoText).toMatch(/\d{1,2}:\d{2}/); // Contains time
-    expect(newYorkText).toMatch(/\d{1,2}:\d{2}/); // Contains time
-    expect(sydneyText).toMatch(/\d{1,2}:\d{2}/); // Contains time
+    expect(tokyoText).toMatch(/\d{1,2}:\d{2}/v); // Contains time
+    expect(newYorkText).toMatch(/\d{1,2}:\d{2}/v); // Contains time
+    expect(sydneyText).toMatch(/\d{1,2}:\d{2}/v); // Contains time
   });
 
   test("can remove target cities", async ({ page }) => {
@@ -121,8 +121,8 @@ test.describe("Timezones Tool", () => {
     );
 
     // Verify both cities are visible
-    const tokyoPill = page.locator('div[class*="bg-"]').filter({ hasText: /In Tokyo/ });
-    const newYorkPill = page.locator('div[class*="bg-"]').filter({ hasText: /In New York/ });
+    const tokyoPill = page.locator('div[class*="bg-"]').filter({ hasText: /In Tokyo/v });
+    const newYorkPill = page.locator('div[class*="bg-"]').filter({ hasText: /In New York/v });
 
     await expect(tokyoPill).toBeVisible();
     await expect(newYorkPill).toBeVisible();
@@ -157,8 +157,8 @@ test.describe("Timezones Tool", () => {
     );
 
     // Get the time text from both pills
-    const tokyoPill = page.locator('div[class*="bg-"]').filter({ hasText: /In Tokyo/ });
-    const laPill = page.locator('div[class*="bg-"]').filter({ hasText: /In Los Angeles/ });
+    const tokyoPill = page.locator('div[class*="bg-"]').filter({ hasText: /In Tokyo/v });
+    const laPill = page.locator('div[class*="bg-"]').filter({ hasText: /In Los Angeles/v });
 
     await expect(tokyoPill).toBeVisible();
     await expect(laPill).toBeVisible();
@@ -167,13 +167,13 @@ test.describe("Timezones Tool", () => {
     const laText = await laPill.textContent();
 
     // Both should contain time information
-    expect(tokyoText).toMatch(/\d{1,2}:\d{2}/);
-    expect(laText).toMatch(/\d{1,2}:\d{2}/);
+    expect(tokyoText).toMatch(/\d{1,2}:\d{2}/v);
+    expect(laText).toMatch(/\d{1,2}:\d{2}/v);
 
     // Extract times for comparison - they should be different
     const tokyoTimeMatch: RegExpMatchArray | null | undefined =
-      tokyoText?.match(/(\d{1,2}):(\d{2})/);
-    const laTimeMatch: RegExpMatchArray | null | undefined = laText?.match(/(\d{1,2}):(\d{2})/);
+      tokyoText?.match(/(\d{1,2}):(\d{2})/v);
+    const laTimeMatch: RegExpMatchArray | null | undefined = laText?.match(/(\d{1,2}):(\d{2})/v);
 
     expectToBeTruthy(tokyoTimeMatch);
     expectToBeTruthy(laTimeMatch);

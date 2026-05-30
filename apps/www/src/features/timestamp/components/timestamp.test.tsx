@@ -122,7 +122,7 @@ describe(Timestamp, () => {
     await expect(findByText("2024/01/01 00:00:00 UTC")).resolves.toBeDefined();
 
     // Verify delete button exists with correct aria-label
-    const deleteButton = getByRole("button", { name: /remove/i });
+    const deleteButton = getByRole("button", { name: /remove/iv });
     expect(deleteButton).toBeDefined();
   }, 5000);
 
@@ -141,7 +141,7 @@ describe(Timestamp, () => {
     expect(timestampElement).toBeDefined();
 
     // Click the delete button
-    const deleteButton = getByRole("button", { name: /remove/i });
+    const deleteButton = getByRole("button", { name: /remove/iv });
     await user.click(deleteButton);
 
     // Wait a bit for animations to complete
@@ -173,7 +173,7 @@ describe(Timestamp, () => {
     await expect(findByText("2024/01/02 00:00:00 UTC")).resolves.toBeDefined();
 
     // Get all delete buttons and click the first one
-    const deleteButtons = getAllByRole("button", { name: /remove/i });
+    const deleteButtons = getAllByRole("button", { name: /remove/iv });
     expect(deleteButtons).toHaveLength(2);
 
     await user.click(deleteButtons[0]);
@@ -184,7 +184,7 @@ describe(Timestamp, () => {
     });
 
     // Check that we now have only one delete button remaining
-    const remainingDeleteButtons = getAllByRole("button", { name: /remove/i });
+    const remainingDeleteButtons = getAllByRole("button", { name: /remove/iv });
     expect(remainingDeleteButtons).toHaveLength(1);
   }, 5000);
 

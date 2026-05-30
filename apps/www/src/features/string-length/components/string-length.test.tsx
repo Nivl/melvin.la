@@ -58,7 +58,7 @@ describe("string-length", () => {
     await user.type(textarea, "test");
 
     // After typing, we should not see all zeros anymore
-    const allElements = screen.getAllByText(/\d+/);
+    const allElements = screen.getAllByText(/\d+/v);
     const hasNonZero = allElements.some((el) => el.textContent !== "0");
     expect(hasNonZero).toBe(true);
   }, 5000);

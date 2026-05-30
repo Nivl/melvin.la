@@ -74,7 +74,7 @@ const isIOSDevice = (): boolean => {
   }
 
   return (
-    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    /iPad|iPhone|iPod/v.test(navigator.userAgent) ||
     (navigator.userAgent.includes("Mac") && navigator.maxTouchPoints > 1)
   );
 };
