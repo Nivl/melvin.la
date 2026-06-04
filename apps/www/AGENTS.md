@@ -83,6 +83,7 @@ src/
 ### Key Dependencies
 
 - `next-mdx-remote`: MDX content rendering
+- `rehype-pretty-code` + `shiki`: build-time syntax highlighting for blog code blocks (no client-side highlighter)
 - `@tanstack/react-query`: Server state management
 - `@trpc/client` + `@trpc/server` + `@trpc/tanstack-react-query`: tRPC BFF layer
 - `zod`: Input validation for tRPC procedures
@@ -160,6 +161,8 @@ createdAt: "2025-07-03"
 updatedAt: "2025-07-03" # optional
 ---
 ```
+
+**Code Highlighting**: Fenced code blocks are highlighted at build time by Shiki via `rehype-pretty-code` (dual light/dark theme emitted as CSS variables and switched in `globals.css`; no highlighting JS ships to the browser). Use a ` ```hidden ` fence to keep diagram source in the MDX without rendering it — the `removeHiddenCode` remark plugin strips those fences before highlighting.
 
 **Dev Note**: Restart dev server after blog content changes.
 

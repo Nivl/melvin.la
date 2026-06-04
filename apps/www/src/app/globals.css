@@ -297,6 +297,59 @@
   @apply text-accent;
 }
 
+/*
+  Blog code blocks. Highlighted at build time by Shiki (via rehype-pretty-code),
+  so no syntax-highlighting JavaScript reaches the browser. Each token carries
+  both palettes as `--shiki-light` / `--shiki-dark` custom properties; the rules
+  below paint with the light palette by default and switch to the dark one when
+  an ancestor carries data-appearance="dark".
+*/
+figure[data-rehype-pretty-code-figure] {
+  @apply mb-8;
+}
+
+pre[data-theme] {
+  @apply overflow-x-auto rounded-lg py-4 text-base;
+  font-family: var(--font-monospace);
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+pre[data-theme] code {
+  @apply grid;
+  counter-reset: line;
+  font-family: var(--font-monospace);
+}
+
+/*
+  Deliberately broad and load-bearing, not a fallback: Shiki sets no concrete
+  color on the token spans (only their --shiki-light/--shiki-dark vars), so this
+  rule is what actually paints every token.
+*/
+pre[data-theme] span {
+  color: var(--shiki-light);
+}
+
+pre[data-theme] [data-line] {
+  @apply px-4;
+}
+
+/* Line numbers, always on (matches the previous highlighter). */
+pre[data-theme] code > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply mr-4 inline-block min-w-5 text-right text-foreground/40 select-none;
+}
+
+[data-appearance="dark"] pre[data-theme] {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+}
+
+[data-appearance="dark"] pre[data-theme] span {
+  color: var(--shiki-dark);
+}
+
 #home-page p {
   @apply mb-3;
   @apply lg:mb-8;

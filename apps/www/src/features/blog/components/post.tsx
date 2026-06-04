@@ -1,17 +1,32 @@
 import { Link } from "@heroui/react";
 import Image from "next/image";
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
-import type { ReactNode } from "react";
-import { isValidElement } from "react";
+import type { ComponentPropsWithoutRef } from "react";
+import type { Options as RehypePrettyCodeOptions } from "rehype-pretty-code";
+import rehypePrettyCodePlugin from "rehype-pretty-code";
 
 import { BlogHeading } from "#features/blog/components/blog-heading";
+import { removeHiddenCode } from "#features/blog/components/remove-hidden-code";
 import { BlogPost } from "#features/blog/models";
 import { Link as NextLink } from "#i18n/routing";
-import { CodeBlock } from "#shared/components/layout/code-block";
 import { Section } from "#shared/components/layout/section";
+
+const rehypePrettyCodeOptions: RehypePrettyCodeOptions = {
+  // Inline code stays a plain styled pill (see the `code` component), so leave
+  // it untouched instead of running it through Shiki.
+  bypassInlineCode: true,
+  defaultLang: "plaintext",
+  // Dual theme: Shiki emits both palettes as CSS variables and globals.css
+  // switches between them based on the active appearance — no client-side JS.
+  theme: { dark: "github-dark", light: "github-light" },
+};
 
 const mdxOptions: MDXRemoteProps["options"] = {
   blockJS: false,
+  mdxOptions: {
+    rehypePlugins: [[rehypePrettyCodePlugin, rehypePrettyCodeOptions]],
+    remarkPlugins: [removeHiddenCode],
+  },
 };
 
 const htmlToJsx: MDXRemoteProps["components"] = {
@@ -44,11 +59,20 @@ const htmlToJsx: MDXRemoteProps["components"] = {
   blockquote: ({ children }) => (
     <blockquote className="border-l-4 border-accent pl-4 italic">{children}</blockquote>
   ),
-  code: ({ children }) => (
-    <code className="inline-block h-fit rounded-lg bg-default/70 px-2 py-1 font-monospace text-sm font-normal whitespace-nowrap text-default-foreground">
-      {children}
-    </code>
-  ),
+  code: ({ children, ...props }: ComponentPropsWithoutRef<"code">) => {
+    // Fenced blocks are highlighted by rehype-pretty-code and carry
+    // `data-language`. Render those as a plain <code> wrapping Shiki's per-token
+    // spans (styled via the pre[data-theme] rules in globals.css); only inline
+    // code gets the pill styling.
+    if ("data-language" in props) {
+      return <code>{children}</code>;
+    }
+    return (
+      <code className="inline-block h-fit rounded-lg bg-default/70 px-2 py-1 font-monospace text-sm font-normal whitespace-nowrap text-default-foreground">
+        {children}
+      </code>
+    );
+  },
   em: ({ children }) => <em className="font-italic">{children}</em>,
   h1: ({ children }) => <BlogHeading level={1}>{children}</BlogHeading>,
   h2: ({ children }) => <BlogHeading level={2}>{children}</BlogHeading>,
@@ -60,45 +84,6 @@ const htmlToJsx: MDXRemoteProps["components"] = {
   ol: ({ children }) => <ol className="mb-3 ml-5 list-decimal lg:mb-8">{children}</ol>,
   // eslint-disable-next-line id-length
   p: ({ children }) => <p className="mb-3 lg:mb-8">{children}</p>,
-  pre: ({ children }: { children?: React.ReactNode }) => {
-    if (
-      children === undefined ||
-      !isValidElement<{ className?: string; children?: ReactNode }>(children)
-    ) {
-      return undefined;
-    }
-
-    const elementType = typeof children.type === "string" ? children.type : children.type.name;
-
-    if (elementType !== "code") {
-      return <pre>{children}</pre>;
-    }
-
-    const childrenProps = children.props;
-
-    const match =
-      "className" in childrenProps ? /language-(\w+)/v.exec(childrenProps.className ?? "") : "";
-    const hasAMatch = match !== null && match.length > 0;
-
-    if (
-      childrenProps.children === undefined ||
-      typeof childrenProps.children !== "string" ||
-      // we use "hidden" to keep track of the
-      // source code of the mermaid graphs
-      // We don't want to render it as a code block
-      (hasAMatch && match[1] === "hidden")
-    ) {
-      return undefined;
-    }
-
-    return (
-      <div className="mb-8">
-        <CodeBlock language={hasAMatch ? match[1] : undefined} showlinenumbers>
-          {childrenProps.children}
-        </CodeBlock>
-      </div>
-    );
-  },
   strong: ({ children }) => <strong className="font-bold">{children}</strong>,
   ul: ({ children }) => <ul className="mb-3 ml-5 list-disc lg:mb-8">{children}</ul>,
 };
