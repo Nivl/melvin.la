@@ -4,7 +4,7 @@
 
 ## ⚠️ MANDATORY: TASK COMPLETION CHECKLIST
 
-**Every task is incomplete until all of the following pass from `web/`**:
+**Every task is incomplete until all of the following pass from `apps/www/`**:
 
 ```bash
 pnpm run lint --fix        # must pass (auto-fixes where possible)
@@ -29,6 +29,7 @@ e2e/                      # Playwright end-to-end tests
 ├── blog.spec.ts          # Blog e2e tests
 ├── fortnite.spec.ts      # Fortnite e2e tests
 ├── home.spec.ts          # Home page e2e tests
+├── locale-detection.spec.ts # Locale detection/redirect e2e tests
 ├── timezones.spec.ts     # Timezones e2e tests
 └── uuid.spec.ts          # UUID e2e tests
 messages/                 # i18n files
@@ -216,6 +217,13 @@ vi.mock(import("next/dynamic"), () => dynamicMock);
 
 **Configuration**: `src/i18n/`
 **Messages**: `messages/`
+**Routing**: There is no next-intl middleware. Locale detection (`Accept-Language`
+header + `NEXT_LOCALE` cookie) and default-locale serving are implemented as
+static redirects/rewrites in `src/i18n/routing-rules.ts`, wired into
+`next.config.ts`. They compile into Vercel's edge routing config, so static
+pages are served from the CDN without invoking a function. The language
+switcher records explicit choices in the `NEXT_LOCALE` cookie via the Cookie
+Store API.
 
 ### Adding a New Locale
 
@@ -224,8 +232,11 @@ vi.mock(import("next/dynamic"), () => dynamicMock);
 2.  Create a new message file:
     - Create `messages/[locale].json` (e.g., `messages/es.json`).
     - Fill out the file based off `messages/en.d.json.ts`.
-3.  Write all the blog articles for that locale (`src/bundled_static/content/blog/*/[locale].mdx`)
-4.  Configure Font:
+3.  Add the language to the `languages` record in
+    `src/shared/components/layout/NavBar/language-switcher.tsx` (typed
+    `Record<Locales, ...>`, so the build fails until you do).
+4.  Write all the blog articles for that locale (`src/bundled_static/content/blog/*/[locale].mdx`)
+5.  Configure Font:
     - Check if the language requires a specific Noto font (e.g., Noto Sans JP).
     - If needed, import and configure it in `src/app/[locale]/layout.tsx`.
     - Add the variable to `src/app/globals.css`.
