@@ -1,12 +1,16 @@
 import { createNavigation } from "next-intl/navigation";
 import { defineRouting } from "next-intl/routing";
 
-import { locales } from "./locales";
+import { defaultLocale, locales } from "./locales";
 
 export const routing = defineRouting({
   // Used when no locale matches
-  defaultLocale: "en",
+  defaultLocale,
 
+  // There is no next-intl middleware anymore: locale detection and
+  // default-locale serving are handled by the redirects/rewrites defined in
+  // routing-rules.ts, so they run in Vercel's routing layer instead of a
+  // function. This config only drives the navigation APIs below.
   localeDetection: false,
 
   // Makes the default locale have no prefix.
