@@ -17,6 +17,12 @@ import { MainData } from "./main-data";
 import { TableDesktop } from "./table-desktop";
 import { TableMobile } from "./table-mobile";
 
+const renderFortniteTitleName = (chunks: React.ReactNode) => (
+  <span className="bg-linear-to-b from-[#1c78ff] to-[#4983f8] bg-clip-text font-fortnite-latin text-3xl leading-normal text-transparent uppercase sm:text-6xl">
+    {chunks}
+  </span>
+);
+
 export const Fortnite = ({
   providedName,
   providedType,
@@ -90,13 +96,7 @@ export const Fortnite = ({
       <Section>
         <header className="flex flex-col gap-10 sm:flex-row sm:gap-0">
           <h1 className="basis-full text-center text-2xl font-extrabold sm:text-start sm:text-5xl">
-            {t.rich("title", {
-              name: (chunks) => (
-                <span className="bg-linear-to-b from-[#1c78ff] to-[#4983f8] bg-clip-text font-fortnite-latin text-3xl leading-normal text-transparent uppercase sm:text-6xl">
-                  {chunks}
-                </span>
-              ),
-            })}
+            {t.rich("title", { name: renderFortniteTitleName })}
           </h1>
 
           <Form

@@ -218,7 +218,8 @@
     "inputLabel": "Timestamp",
     "inputError": "無效的 Timestamp",
     "inputDescription": "自動檢測毫秒、微秒和納秒",
-    "output": "{timestamp} 是 <date>{utcDate}</date>"
+    "output": "{timestamp} 是 <date>{utcDate}</date>",
+    "lookup": "查詢"
   },
   "uuid": {
     "metadata": {

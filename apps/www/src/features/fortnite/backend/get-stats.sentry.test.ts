@@ -35,6 +35,24 @@ const applyProcessors = async (
   );
 };
 
+/* eslint-disable func-style -- hoisted helper used by vi.hoisted; function declaration is required */
+type MockScope = {
+  addEventProcessor: (processor: EventProcessor) => void;
+  processors: EventProcessor[];
+  setContext: (name: string, value: unknown) => void;
+};
+
+function createScope(): MockScope {
+  return {
+    addEventProcessor(processor) {
+      this.processors.push(processor);
+    },
+    processors: [],
+    setContext: vi.fn<(name: string, value: unknown) => void>(),
+  };
+}
+/* eslint-enable func-style */
+
 const {
   captureExceptionMock,
   getCurrentScopeMock,
@@ -42,20 +60,6 @@ const {
   resetScope,
   trpcMiddlewareMock,
 } = vi.hoisted(() => {
-  type MockScope = {
-    addEventProcessor: (processor: EventProcessor) => void;
-    processors: EventProcessor[];
-    setContext: (name: string, value: unknown) => void;
-  };
-
-  const createScope = (): MockScope => ({
-    addEventProcessor(processor) {
-      this.processors.push(processor);
-    },
-    processors: [],
-    setContext: vi.fn<(name: string, value: unknown) => void>(),
-  });
-
   let currentScope = createScope();
   const reportedErrorsState: unknown[] = [];
 
