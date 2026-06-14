@@ -218,7 +218,8 @@
     "inputLabel": "タイムスタンプ",
     "inputError": "無効なタイムスタンプ",
     "inputDescription": "ミリ秒、マイクロ秒、ナノ秒を自動検出します",
-    "output": "{timestamp} は <date>{utcDate}</date> です"
+    "output": "{timestamp} は <date>{utcDate}</date> です",
+    "lookup": "検索"
   },
   "uuid": {
     "metadata": {

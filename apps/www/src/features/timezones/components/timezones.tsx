@@ -21,6 +21,32 @@ const getColor = (skip?: Color): Color => {
   return availableColors[Math.floor(Math.random() * availableColors.length)];
 };
 
+const renderCityWrapper = (chunk: React.ReactNode) => (
+  <div className="inline font-bold">
+    <span>{chunk}</span>
+  </div>
+);
+
+const searchCities = (value: string): City[] => {
+  if (!value) {
+    return [];
+  }
+
+  const lcValue = value.toLocaleLowerCase();
+
+  const cities: City[] = [];
+  for (const city of sortedCities) {
+    if (city.lcName.includes(lcValue)) {
+      cities.push(city);
+      if (cities.length >= 10) {
+        break;
+      }
+    }
+  }
+
+  return cities;
+};
+
 export const Timezones = () => {
   const t = useTranslations("timezones");
   const locale = useLocale();
@@ -38,25 +64,7 @@ export const Timezones = () => {
   const baseTimeZone = baseZone?.timezone ?? getLocalTimeZone();
   const date = dateTime ? getAbsoluteDateForWallClock(dateTime, baseTimeZone) : new Date();
 
-  const search = (value: string): City[] => {
-    if (!value) {
-      return [];
-    }
-
-    const lcValue = value.toLocaleLowerCase();
-
-    const cities = [];
-    for (const city of sortedCities) {
-      if (city.lcName.includes(lcValue)) {
-        cities.push(city);
-        if (cities.length >= 10) {
-          break;
-        }
-      }
-    }
-
-    return cities;
-  };
+  const search = searchCities;
 
   const searchBaseCity = (value: string) => {
     setBaseSearchValue(value);
@@ -199,11 +207,7 @@ export const Timezones = () => {
                       color: getColor(zones.at(-1)?.color),
                       content: t.rich("output", {
                         city: sortedCities[keyIndex].data.city,
-                        cityWrapper: (chunk) => (
-                          <div className="inline font-bold">
-                            <span>{chunk}</span>
-                          </div>
-                        ),
+                        cityWrapper: renderCityWrapper,
                         time: formatAbsoluteDateInTimeZone(
                           date,
                           locale,

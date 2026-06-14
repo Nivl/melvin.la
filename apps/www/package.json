@@ -115,9 +115,9 @@
     "vitest-canvas-mock": "catalog:"
   },
   "engines": {
-    "node": "24.15.0"
+    "node": "24.16.0"
   },
-  "packageManager": "pnpm@11.1.2",
+  "packageManager": "pnpm@11.5.0",
   "msw": {
     "workerDirectory": [
       "./public"
