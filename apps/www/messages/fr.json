@@ -218,7 +218,8 @@
     "inputLabel": "Timestamp",
     "inputError": "Timestamp invalide",
     "inputDescription": "Détecte automatiquement les millisecondes, microsecondes et nanosecondes",
-    "output": "{timestamp} est le <date>{utcDate}</date>"
+    "output": "{timestamp} est le <date>{utcDate}</date>",
+    "lookup": "Convertir"
   },
   "uuid": {
     "metadata": {

@@ -72,6 +72,7 @@ export const TrackRow = ({
         {hasCustomFile && <span className="text-[8px] opacity-60">{t("customBadge")}</span>}
       </button>
       <input
+        aria-label={t("customFile")}
         ref={fileInputRef}
         type="file"
         accept="audio/*"

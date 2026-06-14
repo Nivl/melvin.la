@@ -54,6 +54,8 @@ const toDate = (value: string): Date | undefined => {
   return Number.isNaN(date.getTime()) ? undefined : date;
 };
 
+const renderBold = (chunks: React.ReactNode) => <span className="font-bold">{chunks}</span>;
+
 export const Timestamp = () => {
   const t = useTranslations("timestamp");
 
@@ -77,7 +79,7 @@ export const Timestamp = () => {
         content: (
           <>
             {t.rich("output", {
-              date: (chunks) => <span className="font-bold">{chunks}</span>,
+              date: renderBold,
               timestamp: Math.floor(date.getTime() / 1000),
               utcDate: formatDate(date),
             })}
@@ -122,7 +124,7 @@ export const Timestamp = () => {
               <FieldError />
             </TextField>
             {/* Hidden submit button so Enter key submits the form */}
-            <button type="submit" className="sr-only" tabIndex={-1} />
+            <button type="submit" className="sr-only" tabIndex={-1} aria-label={t("lookup")} />
           </Form>
 
           <div className="mt-20 flex flex-col">

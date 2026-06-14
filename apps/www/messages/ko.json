@@ -218,7 +218,8 @@
     "inputLabel": "타임스탬프",
     "inputError": "잘못된 타임스탬프",
     "inputDescription": "밀리초, 마이크로초 및 나노초를 자동으로 감지합니다",
-    "output": "{timestamp}은(는) <date>{utcDate}</date>입니다"
+    "output": "{timestamp}은(는) <date>{utcDate}</date>입니다",
+    "lookup": "조회"
   },
   "uuid": {
     "metadata": {
