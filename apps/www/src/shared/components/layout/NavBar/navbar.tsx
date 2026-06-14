@@ -155,6 +155,7 @@ export const Navbar = () => {
                     <span key={section.key} className="inline-flex flex-col">
                       <NextLink
                         href={section.href}
+                        locale={locale}
                         className={`h-8 content-center px-3 text-sm motion-safe:transition ${active ? "font-semibold opacity-100" : "font-normal opacity-75 hover:opacity-100"} hover:text-primary`}
                       >
                         {label}
