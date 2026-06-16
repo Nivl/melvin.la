@@ -3,10 +3,6 @@ import type { NextConfig } from "next";
 import { defaultLocale, LOCALE_COOKIE, locales } from "./locales";
 
 type Redirect = Awaited<ReturnType<NonNullable<NextConfig["redirects"]>>>[number];
-type Rewrite = Extract<
-  Awaited<ReturnType<NonNullable<NextConfig["rewrites"]>>>,
-  readonly unknown[]
->[number];
 
 // Longest first so 'zh-tw' is evaluated before 'zh', both in the alternation
 // and in the Accept-Language rule order (first matching redirect wins).
@@ -38,19 +34,13 @@ const acceptLanguagePattern = (locale: string): string => {
   return `${locale}(?:[-,;].*)?`;
 };
 
-// Locale detection at the routing layer: these rules compile into Vercel's
-// edge routing config, so static pages keep being served from the CDN cache
-// without invoking any middleware function.
+// Locale routing at the routing layer instead of a middleware: these rules
+// compile into Vercel's edge routing config, so the prefixed locale pages
+// (every locale is prefixed under localePrefix "always") keep being served
+// from the CDN cache without invoking a function. Bare, unprefixed URLs have
+// no page of their own; they redirect to a prefixed route — by the explicit
+// cookie choice, else the detected browser language, else the default locale.
 export const localeRedirects = (): Redirect[] => [
-  // Canonical default-locale URLs have no prefix. Routing rules cannot set
-  // cookies while stripping the prefix, so a non-English visitor following
-  // an explicit /en/... link lands on the unprefixed URL and may then be
-  // forwarded by the detection rules below. Accepted trade-off: the
-  // canonical/hreflang URLs for 'en' are unprefixed (such links shouldn't
-  // circulate), and the language switcher's cookie is the way to pin English.
-  { destination: "/", permanent: false, source: `/${defaultLocale}` },
-  { destination: "/:path*", permanent: false, source: `/${defaultLocale}/:path*` },
-
   // An explicit choice made in the language switcher (cookie) always wins.
   ...orderedNonDefaultLocales.flatMap((locale): Redirect[] => [
     {
@@ -71,7 +61,7 @@ export const localeRedirects = (): Redirect[] => [
   // including 'en' — disables detection, since it records an explicit choice.
   // That also covers values outside the locale set (stale or foreign
   // cookies): per-rule `missing` can't express "not in the set", so such
-  // visitors stay on the default locale until the switcher resets the cookie.
+  // visitors fall through to the default locale below.
   ...orderedNonDefaultLocales.flatMap((locale): Redirect[] => [
     {
       destination: `/${locale}`,
@@ -88,11 +78,11 @@ export const localeRedirects = (): Redirect[] => [
       source: unprefixedSource,
     },
   ]),
-];
 
-// Serve the default locale for whatever is left unprefixed after the
-// detection redirects above ran.
-export const localeRewrites = (): Rewrite[] => [
-  { destination: `/${defaultLocale}`, source: "/" },
-  { destination: `/${defaultLocale}/:path`, source: unprefixedSource },
+  // No signal: serve the default locale's prefixed route. Unconditional, so it
+  // must stay last — the detection rules above would otherwise be shadowed.
+  // Temporary (not permanent) so a browser that later sets a cookie isn't
+  // pinned to a cached redirect; the canonical/hreflang tags handle SEO.
+  { destination: `/${defaultLocale}`, permanent: false, source: "/" },
+  { destination: `/${defaultLocale}/:path`, permanent: false, source: unprefixedSource },
 ];

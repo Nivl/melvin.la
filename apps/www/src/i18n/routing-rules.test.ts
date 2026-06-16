@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { localeRedirects, localeRewrites } from "./routing-rules";
+import { localeRedirects } from "./routing-rules";
 
 const nonDefaultLocales = ["fr", "es", "ko", "zh", "zh-tw", "ja"] as const;
 
@@ -18,23 +18,36 @@ const compileSource = (source: string | undefined): RegExp => {
 const compileHasValue = (value: string | undefined): RegExp =>
   new RegExp(`^(?:${value ?? ""})$`, "u");
 
-type Rule = { has?: readonly { type: string }[]; source: string };
+type Rule = {
+  has?: readonly { type: string }[];
+  missing?: readonly { type: string }[];
+  source: string;
+  destination: string;
+};
 
 const hasCookie = (rule: Rule) => rule.has?.some((cond) => cond.type === "cookie") ?? false;
 const hasHeader = (rule: Rule) => rule.has?.some((cond) => cond.type === "header") ?? false;
+const isUnconditional = (rule: Rule) => rule.has === undefined && rule.missing === undefined;
 const isDeepSource = (rule: Rule) => rule.source.startsWith("/:path(");
 
 describe(localeRedirects, () => {
   const redirects = localeRedirects();
 
-  it("strips the /en prefix with temporary redirects", () => {
+  it("redirects unprefixed default-locale paths to the prefixed route", () => {
     expect.assertions(2);
-    expect(redirects).toContainEqual({ destination: "/", permanent: false, source: "/en" });
-    expect(redirects).toContainEqual({
-      destination: "/:path*",
-      permanent: false,
-      source: "/en/:path*",
-    });
+    // Every locale is prefixed (localePrefix: "always"), so the bare root and
+    // any unprefixed deep path fall back to the default locale's prefix.
+    expect(redirects).toContainEqual({ destination: "/en", permanent: false, source: "/" });
+    const deepFallback = redirects.find(
+      (redirect) => isDeepSource(redirect) && isUnconditional(redirect),
+    );
+    expect(deepFallback?.destination).toBe("/en/:path");
+  }, 5000);
+
+  it("never strips the /en prefix (prefixed URLs are canonical now)", () => {
+    expect.assertions(1);
+    const stripRule = redirects.find((redirect) => redirect.source.startsWith("/en"));
+    expect(stripRule).toBeUndefined();
   }, 5000);
 
   it("redirects the root path based on the NEXT_LOCALE cookie", () => {
@@ -91,6 +104,17 @@ describe(localeRedirects, () => {
     const lastCookieIndex = redirects.findLastIndex((redirect) => hasCookie(redirect));
     expect(lastCookieIndex).toBeGreaterThanOrEqual(0);
     expect(lastCookieIndex).toBeLessThan(firstHeaderIndex);
+  }, 5000);
+
+  it("evaluates the default-locale fallback last", () => {
+    expect.assertions(1);
+    // The unconditional fallback must come after every cookie/header rule, or
+    // it would shadow detection.
+    const lastConditionalIndex = redirects.findLastIndex(
+      (redirect) => hasCookie(redirect) || hasHeader(redirect),
+    );
+    const firstFallbackIndex = redirects.findIndex((redirect) => isUnconditional(redirect));
+    expect(firstFallbackIndex).toBeGreaterThan(lastConditionalIndex);
   }, 5000);
 
   it("matches real browser Accept-Language headers", () => {
@@ -152,31 +176,5 @@ describe(localeRedirects, () => {
     expect(source.test("/assets/blog/foo/cover.avif")).toBe(false);
     expect(source.test("/fr")).toBe(false);
     expect(source.test("/zh-tw/blog")).toBe(false);
-  }, 5000);
-});
-
-describe(localeRewrites, () => {
-  const rewrites = localeRewrites();
-
-  it("serves the default locale for unprefixed paths", () => {
-    expect.assertions(2);
-    expect(rewrites).toContainEqual({ destination: "/en", source: "/" });
-    const deep = rewrites.find((rewrite) => isDeepSource(rewrite));
-    expect(deep?.destination).toBe("/en/:path");
-  }, 5000);
-
-  it("leaves internal, static, and localized paths untouched", () => {
-    expect.assertions(7);
-    const deep = rewrites.find((rewrite) => isDeepSource(rewrite));
-    const source = compileSource(deep?.source);
-
-    expect(source.test("/blog")).toBe(true);
-    expect(source.test("/tools/uuid")).toBe(true);
-
-    expect(source.test("/fr")).toBe(false);
-    expect(source.test("/fr/blog")).toBe(false);
-    expect(source.test("/api/trpc/hello")).toBe(false);
-    expect(source.test("/_next/static/chunk.js")).toBe(false);
-    expect(source.test("/robots.txt")).toBe(false);
   }, 5000);
 });

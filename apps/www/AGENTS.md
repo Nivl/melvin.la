@@ -217,13 +217,20 @@ vi.mock(import("next/dynamic"), () => dynamicMock);
 
 **Configuration**: `src/i18n/`
 **Messages**: `messages/`
-**Routing**: There is no next-intl middleware. Locale detection (`Accept-Language`
-header + `NEXT_LOCALE` cookie) and default-locale serving are implemented as
-static redirects/rewrites in `src/i18n/routing-rules.ts`, wired into
-`next.config.ts`. They compile into Vercel's edge routing config, so static
-pages are served from the CDN without invoking a function. The language
-switcher records explicit choices in the `NEXT_LOCALE` cookie via the Cookie
-Store API.
+**Routing**: There is no next-intl middleware. `localePrefix` is `"always"`, so
+every locale — including the default `en` — is served under a prefix
+(`/en/blog`, `/fr/blog`). Those prefixed routes are real (no rewrite), so
+client navigation and RSC prefetch work like any other route. Bare, unprefixed
+URLs (`/`, `/blog`) have no page; they **redirect** to a prefixed route via the
+static rules in `src/i18n/routing-rules.ts` (wired into `next.config.ts` as
+`redirects()`): the `NEXT_LOCALE` cookie wins, else the `Accept-Language`
+primary language, else the default locale. These compile into Vercel's edge
+routing config, so the prefixed pages are served from the CDN without invoking
+a function. Do NOT reintroduce a rewrite for an unprefixed default locale
+(`localePrefix: "as-needed"`): it forces a per-request middleware and breaks
+RSC/soft navigation. The language switcher records the explicit choice in the
+`NEXT_LOCALE` cookie (so bare-URL detection honors it) and `metadata.ts` emits
+prefixed canonical/hreflang URLs for every locale.
 
 ### Adding a New Locale
 

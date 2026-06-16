@@ -146,18 +146,19 @@ describe("navbar", () => {
     expect(gamesButton.className).toContain("h-8");
   }, 5000);
 
-  it("home link points to /", () => {
+  it("home link points to the locale-prefixed root", () => {
     expect.assertions(1);
     setup();
     const homeLink = screen.getByRole("link", { name: "Home" });
-    expect(homeLink.getAttribute("href")).toBe("/");
+    // localePrefix is "always", so next-intl prefixes even the default locale.
+    expect(homeLink.getAttribute("href")).toBe("/en");
   }, 5000);
 
-  it("blog link points to /blog", () => {
+  it("blog link points to the locale-prefixed blog", () => {
     expect.assertions(1);
     setup();
     const blogLink = screen.getByRole("link", { name: "Blog" });
-    expect(blogLink.getAttribute("href")).toBe("/blog");
+    expect(blogLink.getAttribute("href")).toBe("/en/blog");
   }, 5000);
 
   it('hamburger toggle shows "Open menu" when menu is closed', async () => {

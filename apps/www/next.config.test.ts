@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { localeRedirects, localeRewrites } from "#i18n/routing-rules";
+import { localeRedirects } from "#i18n/routing-rules";
 
 import nextConfig from "./next.config";
 
@@ -40,8 +40,8 @@ describe("next.config locale routing", () => {
     await expect(nextConfig.redirects?.()).resolves.toStrictEqual(localeRedirects());
   }, 5000);
 
-  it("registers the default-locale rewrites", async () => {
+  it("registers no rewrites (every locale is prefixed)", async () => {
     expect.assertions(1);
-    await expect(nextConfig.rewrites?.()).resolves.toStrictEqual(localeRewrites());
+    expect(nextConfig.rewrites).toBeUndefined();
   }, 5000);
 });

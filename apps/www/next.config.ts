@@ -7,7 +7,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 // Relative import (instead of the usual # subpath): Next loads this config
 // through its own transpiler, which can't resolve package.json imports.
-import { localeRedirects, localeRewrites } from "./src/i18n/routing-rules";
+import { localeRedirects } from "./src/i18n/routing-rules";
 
 const bundleAnalyzer = withBundleAnalyzer({ enabled: process.env.ANALYZE === "true" });
 
@@ -95,15 +95,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Locale detection and default-locale serving happen here, at the routing
-  // layer, instead of in a middleware: the rules compile into Vercel's edge
-  // routing config, so static pages are served straight from the CDN cache
-  // without invoking a function on every request.
+  // Locale detection and bare-URL routing happen here, at the routing layer,
+  // instead of in a middleware: the rules compile into Vercel's edge routing
+  // config, so the prefixed locale pages are served straight from the CDN
+  // cache without invoking a function on every request. Every locale is
+  // prefixed (localePrefix "always"), so there are no rewrites — bare URLs
+  // redirect to a real prefixed route.
   async redirects() {
     return await Promise.resolve(localeRedirects());
-  },
-  async rewrites() {
-    return await Promise.resolve(localeRewrites());
   },
   transpilePackages: ["next-mdx-remote", "@melvinla/next-themes"],
 };
