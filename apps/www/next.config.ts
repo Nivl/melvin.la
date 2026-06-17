@@ -5,6 +5,10 @@ import { SentryBuildOptions, withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+// Relative import (instead of the usual # subpath): Next loads this config
+// through its own transpiler, which can't resolve package.json imports.
+import { localeRedirects } from "./src/i18n/routing-rules";
+
 const bundleAnalyzer = withBundleAnalyzer({ enabled: process.env.ANALYZE === "true" });
 
 const withNextIntl = createNextIntlPlugin({
@@ -91,6 +95,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Locale detection and bare-URL routing happen here, at the routing layer,
+  // instead of in a middleware: the rules compile into Vercel's edge routing
+  // config, so the prefixed locale pages are served straight from the CDN
+  // cache without invoking a function on every request. Every locale is
+  // prefixed (localePrefix "always"), so there are no rewrites — bare URLs
+  // redirect to a real prefixed route.
+  async redirects() {
+    return await Promise.resolve(localeRedirects());
+  },
   transpilePackages: ["next-mdx-remote", "@melvinla/next-themes"],
 };
 
@@ -112,6 +125,9 @@ const sentryOption: SentryBuildOptions = {
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
   // Disabled: tunnelRoute adds a middleware match and cold-start overhead. Re-enable if
   // ad-blocker interference becomes a significant concern.
+  // WARNING: before re-enabling, exclude the tunnel path from unprefixedSource in
+  // src/i18n/routing-rules.ts — the locale redirects run before rewrites and would
+  // 307 the tunnel POSTs to /<locale>/monitoring, silently dropping error envelopes.
   // tunnelRoute: "/monitoring",
 
   webpack: {

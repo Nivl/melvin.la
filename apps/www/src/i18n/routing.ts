@@ -1,17 +1,24 @@
 import { createNavigation } from "next-intl/navigation";
 import { defineRouting } from "next-intl/routing";
 
-import { locales } from "./locales";
+import { defaultLocale, locales } from "./locales";
 
 export const routing = defineRouting({
   // Used when no locale matches
-  defaultLocale: "en",
+  defaultLocale,
 
+  // There is no next-intl middleware. Locale detection and bare-URL routing
+  // are handled by the redirects defined in routing-rules.ts, which run in
+  // Vercel's routing layer instead of a function. This flag only matters to
+  // the (absent) middleware, so it has no effect; detection lives in the
+  // redirects. This config otherwise just drives the navigation APIs below.
   localeDetection: false,
 
-  // Makes the default locale have no prefix.
-  // so 'en' is served at '/' instead of '/en'
-  localePrefix: "as-needed",
+  // Every locale is prefixed, including the default: 'en' is served at '/en',
+  // never at '/'. Prefixed routes are real (no rewrite), so client navigation
+  // and RSC prefetch work like any other route. Bare URLs redirect (see
+  // routing-rules.ts) — they are never rewritten.
+  localePrefix: "always",
 
   // A list of all locales that are supported
   locales,

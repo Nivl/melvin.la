@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import { localeRedirects } from "#i18n/routing-rules";
+
 import nextConfig from "./next.config";
 
 describe("next.config security headers", () => {
@@ -29,5 +31,17 @@ describe("next.config security headers", () => {
       key: "Cache-Control",
       value: "public, max-age=31536000, immutable",
     });
+  }, 5000);
+});
+
+describe("next.config locale routing", () => {
+  it("registers the locale detection redirects", async () => {
+    expect.assertions(1);
+    await expect(nextConfig.redirects?.()).resolves.toStrictEqual(localeRedirects());
+  }, 5000);
+
+  it("registers no rewrites (every locale is prefixed)", async () => {
+    expect.assertions(1);
+    expect(nextConfig.rewrites).toBeUndefined();
   }, 5000);
 });

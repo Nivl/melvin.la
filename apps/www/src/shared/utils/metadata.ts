@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { locales } from "#i18n/locales";
+import { defaultLocale, locales } from "#i18n/locales";
 
 export const getMetadata = async ({
   pageUrl = "",
@@ -26,15 +26,19 @@ export const getMetadata = async ({
 
   const images = [{ url: imageURL ?? "/assets/og.jpg" }];
   const domain = process.env.NEXT_PUBLIC_BASE_URL ?? "https://melvin.la";
-  const baseURL = locale === "en" ? domain : `${domain}/${locale}`;
-  const url = pageUrl ? baseURL + pageUrl : baseURL;
+  // Every locale is prefixed (localePrefix "always"), so the canonical URL is
+  // always under /<locale>. Bare URLs only redirect, so they must never be
+  // used as canonical/hreflang targets.
+  const url = `${domain}/${locale}${pageUrl}`;
 
-  // We list all languages for the alternate links, for SEO purposes
+  // We list all languages for the alternate links, for SEO purposes.
+  // x-default points at the default locale's prefixed page (a real 200), not
+  // the bare URL (which 307-redirects).
   const languages: Record<string, string> = {
-    "x-default": domain + pageUrl,
+    "x-default": `${domain}/${defaultLocale}${pageUrl}`,
   };
   for (const loc of locales) {
-    languages[loc] = loc === "en" ? domain + pageUrl : `${domain}/${loc}${pageUrl}`;
+    languages[loc] = `${domain}/${loc}${pageUrl}`;
   }
 
   return {
