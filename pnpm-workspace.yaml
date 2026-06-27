@@ -17,24 +17,24 @@ catalog:
   "@internationalized/date": 3.12.2
   "@lingual/i18n-check": 0.9.5
   "@msw/playwright": 0.6.7
-  "@next/bundle-analyzer": 16.2.6
+  "@next/bundle-analyzer": 16.2.9
   "@playwright/test": 1.60.0
-  "@radix-ui/react-toggle-group": 1.1.11
-  "@sentry/nextjs": 10.55.0
-  "@storybook/addon-docs": 10.4.1
-  "@storybook/addon-links": 10.4.1
-  "@storybook/addon-themes": 10.4.1
-  "@storybook/nextjs": 10.4.1
+  "@radix-ui/react-toggle-group": 1.1.12
+  "@sentry/nextjs": 10.57.0
+  "@storybook/addon-docs": 10.4.4
+  "@storybook/addon-links": 10.4.4
+  "@storybook/addon-themes": 10.4.4
+  "@storybook/nextjs": 10.4.4
   "@tailwindcss/postcss": 4.3.0
-  "@tanstack/react-query": 5.100.14
+  "@tanstack/react-query": 5.101.0
   "@testing-library/dom": 10.4.1
   "@testing-library/react": 16.3.2
   "@testing-library/user-event": 14.6.1
   "@trpc/client": 11.17.0
   "@trpc/server": 11.17.0
   "@trpc/tanstack-react-query": 11.17.0
-  "@types/node": 24.12.4
-  "@types/react": 19.2.15
+  "@types/node": 25.9.3
+  "@types/react": 19.2.17
   "@types/react-dom": 19.2.3
   "@vercel/analytics": 2.0.1
   "@vercel/speed-insights": 2.0.0
@@ -46,32 +46,32 @@ catalog:
   eslint-plugin-simple-import-sort: 13.0.0
   gray-matter: 4.0.3
   jsdom: 29.1.1
-  knip: 6.14.2
+  knip: 6.16.1
   lucide-react: 1.17.0
   motion: 12.40.0
   msw: 2.14.6
-  next: 16.2.6
+  next: 16.2.9
   next-intl: 4.13.0
   next-mdx-remote: 6.0.0
   oxfmt: 0.52.0
   oxlint: 1.67.0
   oxlint-tsgolint: 0.23.0
   postcss: 8.5.15
-  react: 19.2.6
-  react-dom: 19.2.6
+  react: 19.2.7
+  react-dom: 19.2.7
   react-icons: 5.6.0
   rehype-pretty-code: 0.14.3
   server-only: 0.0.1
-  shiki: 4.1.0
-  storybook: 10.4.1
+  shiki: 4.2.0
+  storybook: 10.4.4
   tailwind-merge: 3.6.0
   tailwindcss: 4.3.0
-  tsx: 4.22.3
-  turbo: 2.9.16
+  tsx: 4.22.4
+  turbo: 2.9.18
   typescript: 6.0.3
   use-debounce: 10.1.1
   uuid: 14.0.0
-  vitest: 4.1.7
+  vitest: 4.1.8
   vitest-canvas-mock: 1.1.4
   zod: 4.4.3
 
