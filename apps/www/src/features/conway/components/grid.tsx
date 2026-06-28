@@ -22,8 +22,8 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
   useEffect(() => {
     boardRef.current = board;
   }, [board]);
-  const [rowHover, setRowHover] = useState(-1);
-  const [colHover, setColHover] = useState(-1);
+  const [rowHovered, setRowHovered] = useState(-1);
+  const [colHovered, setColHovered] = useState(-1);
 
   const getCellCoordsFromMousePos = useCallback(
     (clientX: number, clientY: number): [number, number] | undefined => {
@@ -49,11 +49,16 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
     [boardSize],
   );
 
+  // Helper that gets the cell coordinates from a pointer event,
+  // and call getCellCoordsFromMousePos()
   const getCellFromPointerEvent = useCallback(
     (evt: PointerEvent<HTMLDivElement>) => getCellCoordsFromMousePos(evt.clientX, evt.clientY),
     [getCellCoordsFromMousePos],
   );
 
+  // On pointer down is used for multiple things:
+  // 1. Set the status of the cell that was clicked on.
+  // 2. Set the drag mode (set-alive or set-dead) based on the status of the cell that was clicked on.
   const handlePointerDown = useCallback(
     (evt: PointerEvent<HTMLDivElement>) => {
       if (isPlaying) {
@@ -66,9 +71,16 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
       }
       const [row, col] = coords;
       const isAlive = boardRef.current[row]?.[col] === 1;
+
       const mode: DragMode = isAlive ? "set-dead" : "set-alive";
       dragModeRef.current = mode;
+
       onSetCell(row, col, isAlive ? 0 : 1);
+      // This is needed to ensure that the pointer events are captured
+      // by the grid, even if the pointer moves outside of the grid while
+      // dragging.
+      // This allows for a smoother user experience when dragging to set
+      // multiple cells.
       if (evt.currentTarget instanceof HTMLElement) {
         evt.currentTarget.setPointerCapture(evt.pointerId);
       }
@@ -76,6 +88,8 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
     [isPlaying, getCellFromPointerEvent, onSetCell],
   );
 
+  // Use to set the status of the cell that is being hovered over
+  // while dragging.
   const handlePointerMove = useCallback(
     (evt: PointerEvent<HTMLDivElement>) => {
       if (!dragModeRef.current || isPlaying) {
@@ -85,6 +99,7 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
       if (!coords) {
         return;
       }
+
       const [row, col] = coords;
       const isAlive = boardRef.current[row]?.[col] === 1;
       if (dragModeRef.current === "set-alive" && !isAlive) {
@@ -96,6 +111,7 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
     [isPlaying, getCellFromPointerEvent, onSetCell],
   );
 
+  // Use to stop the dragging
   const handlePointerUp = useCallback(() => {
     dragModeRef.current = undefined;
   }, []);
@@ -107,26 +123,24 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
       }
       const coords = getCellCoordsFromMousePos(evt.clientX, evt.clientY);
       if (!coords) {
-        setRowHover(-1);
-        setColHover(-1);
+        setRowHovered(-1);
+        setColHovered(-1);
         return;
       }
-      setRowHover(coords[0]);
-      setColHover(coords[1]);
+      setRowHovered(coords[0]);
+      setColHovered(coords[1]);
     },
     [isPlaying, getCellCoordsFromMousePos],
   );
 
   const handleMouseLeave = useCallback(() => {
-    setRowHover(-1);
-    setColHover(-1);
+    setRowHovered(-1);
+    setColHovered(-1);
   }, []);
 
   return (
-    <div
+    <section
       ref={containerRef}
-      // eslint-disable-next-line jsx-a11y/prefer-tag-over-role
-      role="region"
       aria-label={ariaLabel}
       className="touch-none overflow-hidden rounded-lg border border-default select-none"
       style={{
@@ -155,10 +169,10 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
             // eslint-disable-next-line react/no-array-index-key
             key={`${ri.toString()}-${ci.toString()}`}
             alive={cell === 1}
-            isHovered={!isPlaying && rowHover === ri && colHover === ci}
+            isHovered={!isPlaying && rowHovered === ri && colHovered === ci}
           />
         )),
       )}
-    </div>
+    </section>
   );
 };

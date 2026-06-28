@@ -10,13 +10,14 @@ type CellProps = {
 export const Cell = memo(
   ({ alive, isHovered }: CellProps) => (
     <div
-      className={[
-        alive ? "bg-accent" : "bg-default-foreground/5 dark:bg-default-foreground/10",
-        "border-default-foreground/5 border transition-colors duration-75",
-        isHovered && !alive && "bg-default-foreground/15 dark:bg-default-foreground/20",
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={
+        (alive
+          ? "bg-accent "
+          : isHovered
+            ? "bg-default-foreground/15 dark:bg-default-foreground/20 "
+            : "bg-default-foreground/5 dark:bg-default-foreground/10 ") +
+        "border border-default-foreground/5 transition-colors duration-75"
+      }
     />
   ),
   (prev, next) => prev.alive === next.alive && prev.isHovered === next.isHovered,
