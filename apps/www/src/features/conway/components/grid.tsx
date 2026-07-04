@@ -2,8 +2,8 @@
 
 import { MouseEvent, PointerEvent, useCallback, useEffect, useRef, useState } from "react";
 
-import { Cell } from "#features/conway/components/cell";
 import type { Board, BoardValue } from "#features/conway/models";
+import { Cell } from "#shared/components/layout/InteractiveGrid/Cell";
 
 type DragMode = "set-alive" | "set-dead" | undefined;
 
@@ -168,7 +168,7 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
             // don't have anything else to use as key than the coordinates.
             // eslint-disable-next-line react/no-array-index-key
             key={`${ri.toString()}-${ci.toString()}`}
-            alive={cell === 1}
+            state={cell === 1 ? "on" : "off"}
             isHovered={!isPlaying && rowHovered === ri && colHovered === ci}
           />
         )),
