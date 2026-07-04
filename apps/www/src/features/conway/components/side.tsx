@@ -148,11 +148,12 @@ export const Side = ({
       </Slider>
 
       <Switch isSelected={toroidal} onChange={setToroidal} aria-label={t("wrapEdges")}>
-        <Switch.Control>
-          <Switch.Thumb />
-        </Switch.Control>
         <Switch.Content>
-          <Label className="text-sm">{t("wrapEdges")}</Label>
+          <Switch.Control>
+            <Switch.Thumb />
+          </Switch.Control>
+
+          {t("wrapEdges")}
         </Switch.Content>
       </Switch>
 

@@ -12,28 +12,28 @@ allowBuilds:
 blockExoticSubdeps: true
 catalog:
   "@chromatic-com/storybook": 5.2.1
-  "@heroui/react": 3.1.0
-  "@heroui/styles": 3.1.0
+  "@heroui/react": 3.2.1
+  "@heroui/styles": 3.2.1
   "@internationalized/date": 3.12.2
   "@lingual/i18n-check": 0.9.5
   "@msw/playwright": 0.6.7
   "@next/bundle-analyzer": 16.2.9
-  "@playwright/test": 1.60.0
-  "@radix-ui/react-toggle-group": 1.1.12
-  "@sentry/nextjs": 10.57.0
-  "@storybook/addon-docs": 10.4.4
-  "@storybook/addon-links": 10.4.4
-  "@storybook/addon-themes": 10.4.4
-  "@storybook/nextjs": 10.4.4
+  "@playwright/test": 1.61.0
+  "@radix-ui/react-toggle-group": 1.1.13
+  "@sentry/nextjs": 10.59.0
+  "@storybook/addon-docs": 10.4.6
+  "@storybook/addon-links": 10.4.6
+  "@storybook/addon-themes": 10.4.6
+  "@storybook/nextjs": 10.4.6
   "@tailwindcss/postcss": 4.3.1
   "@tanstack/react-query": 5.101.0
   "@testing-library/dom": 10.4.1
   "@testing-library/react": 16.3.2
   "@testing-library/user-event": 14.6.1
-  "@trpc/client": 11.17.0
-  "@trpc/server": 11.17.0
-  "@trpc/tanstack-react-query": 11.17.0
-  "@types/node": 25.9.3
+  "@trpc/client": 11.18.0
+  "@trpc/server": 11.18.0
+  "@trpc/tanstack-react-query": 11.18.0
+  "@types/node": 26.0.0
   "@types/react": 19.2.17
   "@types/react-dom": 19.2.3
   "@vercel/analytics": 2.0.1
@@ -46,8 +46,8 @@ catalog:
   eslint-plugin-simple-import-sort: 13.0.0
   gray-matter: 4.0.3
   jsdom: 29.1.1
-  knip: 6.16.1
-  lucide-react: 1.18.0
+  knip: 6.17.1
+  lucide-react: 1.21.0
   motion: 12.40.0
   msw: 2.14.6
   next: 16.2.9
@@ -63,7 +63,7 @@ catalog:
   rehype-pretty-code: 0.14.3
   server-only: 0.0.1
   shiki: 4.2.0
-  storybook: 10.4.4
+  storybook: 10.4.6
   tailwind-merge: 3.6.0
   tailwindcss: 4.3.1
   tsx: 4.22.4
@@ -71,7 +71,7 @@ catalog:
   typescript: 6.0.3
   use-debounce: 10.1.1
   uuid: 14.0.0
-  vitest: 4.1.8
+  vitest: 4.1.9
   vitest-canvas-mock: 1.1.4
   zod: 4.4.3
 

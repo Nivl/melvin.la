@@ -157,11 +157,12 @@ export const Form = ({
         }}
       >
         <Switch.Content>
-          <Label className="text-sm">{t("currentSeasonOnly")}</Label>
+          {t("currentSeasonOnly")}
+
+          <Switch.Control>
+            <Switch.Thumb />
+          </Switch.Control>
         </Switch.Content>
-        <Switch.Control>
-          <Switch.Thumb />
-        </Switch.Control>
       </Switch>
     </UiForm>
   );
