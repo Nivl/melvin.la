@@ -16,7 +16,8 @@ import { GiMaze as MazeIcon } from "react-icons/gi";
 import { MdClear as ClearIcon } from "react-icons/md";
 
 import type { Algorithm, PlacementMode } from "#features/pathfinding/utils/types";
-import { CELL_COLORS, SPEED_VALUES } from "#features/pathfinding/utils/types";
+import { SPEED_VALUES } from "#features/pathfinding/utils/types";
+import { CellColors } from "#shared/components/layout/InteractiveGrid/models";
 
 const GRID_SIZE_CONSTRAINTS = {
   MAX_COLS: 70,
@@ -113,15 +114,15 @@ export const Controls = ({
       </Select>
 
       {/* Speed slider
-      
+
         This is actually hacky because the speed works in a way that lower is
         faster, but the slider intuitively should work the other way around.
 
         So the minValue is still mapped to fast, and maxValue is still
         mapped to slow, but from a UI perspective, when the user moves the
-        slider to the right (toward maxValue, so slow), we actually do 
+        slider to the right (toward maxValue, so slow), we actually do
         some math to invert the value and make it faster.
-      
+
       */}
       <Slider
         minValue={SPEED_VALUES.fast}
@@ -289,11 +290,11 @@ export const Controls = ({
       <div className="flex flex-col gap-1.5">
         {(
           [
-            [CELL_COLORS.start, t("legend.start")],
-            [CELL_COLORS.end, t("legend.end")],
-            [CELL_COLORS.wall, t("legend.wall")],
-            [CELL_COLORS.visited, t("legend.visited")],
-            [CELL_COLORS.path, t("legend.path")],
+            [CellColors.state3, t("legend.start")],
+            [CellColors.state1, t("legend.end")],
+            [CellColors.state5, t("legend.wall")],
+            [CellColors.state4, t("legend.visited")],
+            [CellColors.state2, t("legend.path")],
           ] as [string, string][]
         ).map(([color, label]) => (
           <div key={label} className="flex items-center gap-2 text-xs">

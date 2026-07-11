@@ -12,7 +12,17 @@ import {
 } from "react";
 
 import type { Coords, Grid, PlacementMode } from "#features/pathfinding/utils/types";
-import { CELL_COLORS } from "#features/pathfinding/utils/types";
+import { Cell } from "#shared/components/layout/InteractiveGrid/Cell";
+import { CellState } from "#shared/components/layout/InteractiveGrid/models";
+
+const stateMatcher: Record<string, CellState> = {
+  empty: "off",
+  end: "state1",
+  path: "state2",
+  start: "state3",
+  visited: "state4",
+  wall: "state5",
+};
 
 type DragMode = "add-wall" | "remove-wall" | undefined;
 
@@ -295,32 +305,13 @@ export const PathfindingGrid = ({
             focusedCell !== undefined && focusedCell[0] === ri && focusedCell[1] === ci;
 
           return (
-            <div
-              tabIndex={-1}
-              // the grid is automatically generated on the spot, so we
-              // don't have anything else to use as key than the coordinates.
-              // eslint-disable-next-line react/no-array-index-key
+            <Cell
               key={`${ri.toString()}-${ci.toString()}`}
-              // eslint-disable-next-line jsx-a11y/prefer-tag-over-role
-              role="gridcell"
+              state={stateMatcher[effectiveState]}
+              isHovered={isHovered}
+              isFocused={isFocused}
               aria-label={effectiveState}
               aria-selected={isFocused}
-              className={[
-                CELL_COLORS[effectiveState],
-                `border border-zinc-200 transition-colors duration-75 dark:border-zinc-800/90`,
-                effectiveState === "visited" && "animate-pathfinding-visited",
-                effectiveState === "path" && "animate-pathfinding-path border-amber-500/70!",
-                effectiveState === "wall" && "border-foreground/30! dark:border-foreground/20!",
-                effectiveState === "visited" && "border-blue-500/70!",
-                effectiveState === "start" && "border-green-400!",
-                effectiveState === "end" && "border-pink-500!",
-                isHovered &&
-                  effectiveState === "empty" &&
-                  "bg-foreground/10! dark:bg-foreground/25! border-zinc-200/80",
-                isFocused && "ring-accent relative z-10 ring-2 ring-inset",
-              ]
-                .filter(Boolean)
-                .join(" ")}
               onMouseEnter={() => {
                 setRowHover(ri);
                 setColHover(ci);

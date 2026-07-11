@@ -4,15 +4,20 @@ import { memo } from "react";
 
 import { CellColors, CellState } from "./models";
 
+const emptyFunc = () => undefined;
+
 type CellProps = {
   state: CellState;
   isHovered: boolean;
   isFocused?: boolean;
+  onMouseEnter?: () => void;
 };
 
 export const Cell = memo(
-  ({ state, isHovered, isFocused = false }: CellProps) => (
+  ({ state, isHovered, isFocused = false, onMouseEnter = emptyFunc }: CellProps) => (
     <div
+      tabIndex={-1}
+      onMouseEnter={onMouseEnter}
       className={[
         CellColors[state],
         `border border-zinc-200 transition-colors duration-75 dark:border-zinc-800/90`,
