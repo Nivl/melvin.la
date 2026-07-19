@@ -23,14 +23,12 @@ vi.mock(import("@tanstack/react-query"), () => ({
 }));
 
 vi.mock(import("#trpc/client"), () => ({
-  useTRPC: (() =>
+  useTRPC: () =>
     ({
       fortniteGetStats: {
         queryOptions: queryOptionsMock,
       },
-    }) as unknown as ReturnType<
-      typeof import("#trpc/client").useTRPC
-    >) as typeof import("#trpc/client").useTRPC,
+    }) as unknown as ReturnType<typeof import("#trpc/client").useTRPC>,
 }));
 
 describe("useStats", () => {
