@@ -1,5 +1,6 @@
 import { DiDjango as Django, DiRuby as Ruby } from "react-icons/di";
 import { GrMysql as Mysql, GrStatusUnknown as Unknown } from "react-icons/gr";
+import { PiOpenAiLogo as OpenAI } from "react-icons/pi";
 import {
   SiAndroid as Android,
   SiAngular as Angular,
@@ -12,7 +13,6 @@ import {
   SiJavascript as Javascript,
   SiMongodb as MongoDb,
   SiNodedotjs as Nodejs,
-  SiOpenai as OpenAI,
   SiPhp as Php,
   SiPostgresql as Postgres,
   SiReact as React,

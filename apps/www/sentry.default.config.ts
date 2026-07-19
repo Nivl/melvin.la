@@ -83,10 +83,23 @@ export const defaultConfig: BrowserOptions | NodeOptions | EdgeOptions = {
     return log;
   },
 
+  dataCollection: {
+    cookies: false,
+    genAI: {
+      inputs: false,
+      outputs: false,
+    },
+    httpBodies: [],
+    httpHeaders: {
+      request: false,
+      response: false,
+    },
+    userInfo: false,
+  },
+
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 
   enableLogs: true,
 
-  sendDefaultPii: false,
   tracesSampleRate: process.env.NODE_ENV === "production" ? 0.01 : 1,
 };

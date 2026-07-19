@@ -12,7 +12,7 @@ vi.mock(import("#features/home/utils/boba"), async (importOriginal) => {
   return {
     ...actual,
     generateBalls: vi.fn<() => BobaCoordinate[]>(() => actual.defaultBobaCoordinates.slice(0, 3)),
-  } as Awaited<typeof import("#features/home/utils/boba")>;
+  };
 });
 
 const stubBobaEnv = () => {
