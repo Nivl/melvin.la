@@ -68,7 +68,7 @@ catalog:
   tailwindcss: 4.3.2
   tsx: 4.23.0
   turbo: 2.10.4
-  typescript: 7.0.2
+  typescript: 6.0.3
   use-debounce: 10.1.1
   uuid: 14.0.1
   vitest: 4.1.10
