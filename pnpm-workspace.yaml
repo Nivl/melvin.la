@@ -55,7 +55,7 @@ catalog:
   next-mdx-remote: 6.0.0
   oxfmt: 0.58.0
   oxlint: 1.67.0
-  oxlint-tsgolint: 0.24.0
+  oxlint-tsgolint: 7.0.2001
   postcss: 8.5.17
   react: 19.2.7
   react-dom: 19.2.7
