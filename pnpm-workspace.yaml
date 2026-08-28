@@ -12,8 +12,8 @@ allowBuilds:
 blockExoticSubdeps: true
 catalog:
   "@chromatic-com/storybook": 5.2.1
-  "@heroui/react": 3.2.3
-  "@heroui/styles": 3.2.3
+  "@heroui/react": 3.2.4
+  "@heroui/styles": 3.2.4
   "@internationalized/date": 3.12.3
   "@lingual/i18n-check": 0.9.5
   "@msw/playwright": 0.6.7
