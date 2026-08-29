@@ -28,6 +28,7 @@ const AppRouterContextProviderMock = ({
   const mockedRouter: AppRouterInstance = useMemo(
     () => ({
       back: vi.fn<AppRouterInstance["back"]>(),
+      bfcacheId: "",
       forward: vi.fn<AppRouterInstance["forward"]>(),
       prefetch: vi.fn<AppRouterInstance["prefetch"]>(),
       push: vi.fn<AppRouterInstance["push"]>(),

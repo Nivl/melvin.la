@@ -10,10 +10,6 @@
     },
     "#features/fortnite/backend/get-stats.mock": "./src/features/fortnite/backend/get-stats.mock.ts",
     "#features/fortnite/models": "./src/features/fortnite/models.ts",
-    "#next-intl-server": {
-      "storybook": "./.storybook/mocks/next-intl-server.mock.ts",
-      "default": "./.storybook/mocks/next-intl-server.ts"
-    },
     "#storybook/*": "./.storybook/*",
     "#messages/*": "./messages/*",
     "#*": [
