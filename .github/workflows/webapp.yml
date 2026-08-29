@@ -25,7 +25,7 @@ jobs:
     outputs:
       code-changed: ${{ steps.changes.outputs.src }}
     steps:
-      - uses: actions/checkout@v6.1.0
+      - uses: actions/checkout@v7.0.1
       - run: git config --global --add safe.directory /__w/melvin.la/melvin.la
       - name: Check for file changes
         uses: dorny/paths-filter@f3ceefdc7ef57bc2d8560787d4b6c33e44044cec
@@ -62,11 +62,11 @@ jobs:
     needs: [ prepare-env ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.1.0
+      - uses: actions/checkout@v7.0.1
       - name: Setup
         uses: "./.github/actions/node-setup"
 
-      - uses: actions/cache@v5.1.0
+      - uses: actions/cache@v6.1.0
         with:
           path: ${{ github.workspace }}/.turbo
           # Generate a new cache whenever packages or source files change.
@@ -80,7 +80,7 @@ jobs:
     needs: [ prepare-env ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.1.0
+      - uses: actions/checkout@v7.0.1
       - name: Setup
         uses: "./.github/actions/node-setup"
 
@@ -92,7 +92,7 @@ jobs:
     needs: [ prepare-env ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.1.0
+      - uses: actions/checkout@v7.0.1
       - name: Setup
         uses: "./.github/actions/node-setup"
       - run: pnpm run test:unit
@@ -105,7 +105,7 @@ jobs:
       version: ${{ steps['resolve-playwright-version'].outputs.version }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.1.0
+        uses: actions/checkout@v7.0.1
 
       - name: resolve-playwright-version
         id: resolve-playwright-version
@@ -123,7 +123,7 @@ jobs:
         needs['resolve-playwright-version'].outputs.version }}
       options: --user 1001
     steps:
-      - uses: actions/checkout@v6.1.0
+      - uses: actions/checkout@v7.0.1
       - name: Setup
         uses: "./.github/actions/node-setup"
       - run: pnpm run test:e2e
@@ -150,7 +150,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6.1.0
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
       - name: Setup
