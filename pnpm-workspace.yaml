@@ -11,29 +11,29 @@ allowBuilds:
   sharp: false
 blockExoticSubdeps: true
 catalog:
-  "@chromatic-com/storybook": 5.2.1
+  "@chromatic-com/storybook": 5.3.0
   "@heroui/react": 3.2.4
   "@heroui/styles": 3.2.4
   "@internationalized/date": 3.12.3
   "@lingual/i18n-check": 0.9.5
   "@msw/playwright": 0.6.7
-  "@next/bundle-analyzer": 16.2.12
+  "@next/bundle-analyzer": 16.3.1
   "@playwright/test": 1.62.1
   "@radix-ui/react-toggle-group": 1.1.19
-  "@sentry/nextjs": 10.69.0
-  "@storybook/addon-docs": 10.5.5
-  "@storybook/addon-links": 10.5.5
-  "@storybook/addon-themes": 10.5.5
-  "@storybook/nextjs": 10.5.5
+  "@sentry/nextjs": 10.70.0
+  "@storybook/addon-docs": 10.5.8
+  "@storybook/addon-links": 10.5.8
+  "@storybook/addon-themes": 10.5.8
+  "@storybook/nextjs": 10.5.8
   "@tailwindcss/postcss": 4.3.3
   "@tanstack/react-query": 5.101.4
   "@testing-library/dom": 10.4.1
   "@testing-library/react": 16.3.2
-  "@testing-library/user-event": 14.6.1
+  "@testing-library/user-event": 14.6.4
   "@trpc/client": 11.18.0
   "@trpc/server": 11.18.0
   "@trpc/tanstack-react-query": 11.18.0
-  "@types/node": 26.1.2
+  "@types/node": 26.2.0
   "@types/react": 19.2.18
   "@types/react-dom": 19.2.4
   "@vercel/analytics": 2.0.1
@@ -46,33 +46,33 @@ catalog:
   eslint-plugin-simple-import-sort: 14.0.0
   gray-matter: 4.0.3
   jsdom: 29.1.1
-  knip: 6.31.0
-  lucide-react: 1.28.0
+  knip: 6.32.2
+  lucide-react: 1.31.0
   motion: 12.43.0
   msw: 2.15.0
-  next: 16.2.12
-  next-intl: 4.13.4
+  next: 16.3.1
+  next-intl: 4.13.6
   next-mdx-remote: 6.0.0
   oxfmt: 0.58.0
   oxlint: 1.67.0
   oxlint-tsgolint: 7.0.2001
-  postcss: 8.5.25
+  postcss: 8.5.26
   react: 19.2.8
   react-dom: 19.2.8
   react-icons: 5.7.0
   rehype-pretty-code: 0.14.5
   server-only: 0.0.1
-  shiki: 4.4.1
-  storybook: 10.5.5
+  shiki: 4.4.3
+  storybook: 10.5.8
   tailwind-merge: 3.6.0
   tailwindcss: 4.3.3
-  tsx: 4.23.5
-  turbo: 2.10.8
+  tsx: 4.23.12
+  turbo: 2.10.10
   typescript: 6.0.3
   use-debounce: 10.1.1
   uuid: 14.0.1
   vitest: 4.1.10
-  vitest-canvas-mock: 1.1.4
+  vitest-canvas-mock: 1.1.5
   zod: 4.4.3
 
 # Catalog configuration
