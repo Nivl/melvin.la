@@ -55,9 +55,7 @@ export const buildGetMessageFallback =
     return paths.at(-1) ?? "???";
   };
 
-export default getRequestConfig(async ({ requestLocale }) => {
-  const locale = await requestLocale;
-
+export default getRequestConfig(async ({ locale }) => {
   const activeLocale: Locales = isLocale(locale) ? locale : routing.defaultLocale;
   const messages = await loadMessages(activeLocale);
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { use } from "react";
 
 import { List } from "#features/blog/components/list";
@@ -9,7 +9,6 @@ import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params);
-  setRequestLocale(locale);
 
   const posts = getLatestBlogPosts(locale);
   if (posts.length === 0) {
