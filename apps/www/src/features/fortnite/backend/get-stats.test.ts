@@ -82,7 +82,8 @@ describe("fortniteGetStats input validation", () => {
     stubFortniteEnv();
     const caller = appRouter.createCaller({});
 
-    await expect(caller.fortniteGetStats(buildInput("a".repeat(31)))).rejects.toMatchObject({
+    const longUsername = "a".repeat(31);
+    await expect(caller.fortniteGetStats(buildInput(longUsername))).rejects.toMatchObject({
       code: "BAD_REQUEST",
     });
   }, 5000);

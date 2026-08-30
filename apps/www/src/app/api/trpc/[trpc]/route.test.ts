@@ -28,24 +28,23 @@ describe("gET /api/trpc/fortniteGetStats", () => {
       ),
     );
 
-    const responsePromise = GET(
-      new Request(
-        "https://melvin.la/api/trpc/fortniteGetStats?batch=1&input=" +
-          encodeURIComponent(
-            JSON.stringify({
-              0: {
-                platform: "epic",
-                timeWindow: "lifetime",
-                username: "ninja",
-              },
-            }),
-          ),
-        {
-          method: "GET",
-          signal: controller.signal,
+    const serializedInput = encodeURIComponent(
+      JSON.stringify({
+        0: {
+          platform: "epic",
+          timeWindow: "lifetime",
+          username: "ninja",
         },
-      ),
+      }),
     );
+    const request = new Request(
+      `https://melvin.la/api/trpc/fortniteGetStats?batch=1&input=${serializedInput}`,
+      {
+        method: "GET",
+        signal: controller.signal,
+      },
+    );
+    const responsePromise = GET(request);
 
     controller.abort();
 

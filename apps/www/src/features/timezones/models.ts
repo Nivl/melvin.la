@@ -1,8 +1,9 @@
-import { CityData, cityMapping } from "city-timezones";
+import type { CityData } from "city-timezones";
+import { cityMapping } from "city-timezones";
 
 import { Color } from "#shared/components/layout/LargePill";
 
-export type { CityData };
+export type { CityData } from "city-timezones";
 
 export type City = {
   lcName: string;
