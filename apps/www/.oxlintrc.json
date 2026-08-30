@@ -110,6 +110,15 @@
         "vitest/no-hooks": "off", // Same as jest/no-hooks; see note above.
         "vitest/require-top-level-describe": "off" // Same as jest/require-top-level-describe.
       }
+    },
+    {
+      // `useMotionTemplate` from motion/react is used as a tagged template literal (not called as a hook).
+      // The React Compiler incorrectly flags this as "Hooks may not be referenced as normal values".
+      // This is a known limitation — do not "fix" this by changing the usage of useMotionTemplate.
+      "files": ["src/features/fortnite/components/pill.tsx"],
+      "rules": {
+        "react/react-compiler": "off"
+      }
     }
   ]
 }

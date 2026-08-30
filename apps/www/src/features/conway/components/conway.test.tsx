@@ -35,7 +35,7 @@ describe(Conway, () => {
     expect.assertions(2);
     const { getByRole } = setup();
     // Each cell is a div inside the grid container; the grid itself has role="region"
-    const grid = getByRole("region");
+    const grid = getByRole("grid");
     expect(grid).toBeDefined();
     // Derive expected cell count from the shared boardSizes constant to stay in sync with defaults
     const defaultSize = boardSizes[0];

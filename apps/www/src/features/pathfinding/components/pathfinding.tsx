@@ -2,7 +2,7 @@
 
 import { toast } from "@heroui/react";
 import { useTranslations } from "next-intl";
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useMemo, useRef, useState } from "react";
 
 import { runAStar, runBFS, runDFS, runDijkstra } from "#features/pathfinding/utils/algorithms";
 import { generateMaze } from "#features/pathfinding/utils/maze";
@@ -134,19 +134,35 @@ export function Pathfinding() {
     setIsAnimating(false);
   }, [cancelAll]);
 
-  // Reset grid size when rows/cols change
-  useEffect(() => {
-    stopAnimation();
-    const newStart = clampCoords(start, rows, cols);
-    const newEnd = clampCoords(end, rows, cols);
-    setStart(newStart);
-    setEnd(newEnd);
-    startUnderRef.current = "empty";
-    endUnderRef.current = "empty";
-    setGrid(makeEmptyGrid(rows, cols, newStart, newEnd));
-    // We *only* want to reset when rows/cols change.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rows, cols, stopAnimation]);
+  const handleRowsChange = useCallback(
+    (newRows: number) => {
+      stopAnimation();
+      setRows(newRows);
+      const newStart = clampCoords(start, newRows, cols);
+      const newEnd = clampCoords(end, newRows, cols);
+      setStart(newStart);
+      setEnd(newEnd);
+      startUnderRef.current = "empty";
+      endUnderRef.current = "empty";
+      setGrid(makeEmptyGrid(newRows, cols, newStart, newEnd));
+    },
+    [stopAnimation, start, cols, end],
+  );
+
+  const handleColsChange = useCallback(
+    (newCols: number) => {
+      stopAnimation();
+      setCols(newCols);
+      const newStart = clampCoords(start, rows, newCols);
+      const newEnd = clampCoords(end, rows, newCols);
+      setStart(newStart);
+      setEnd(newEnd);
+      startUnderRef.current = "empty";
+      endUnderRef.current = "empty";
+      setGrid(makeEmptyGrid(rows, newCols, newStart, newEnd));
+    },
+    [stopAnimation, start, rows, end],
+  );
 
   const softReset = useCallback(
     (inputGrid: Grid): Grid =>
@@ -234,9 +250,9 @@ export function Pathfinding() {
                 speed={speed}
                 onSpeedChange={setSpeed}
                 rows={rows}
-                onRowsChange={setRows}
+                onRowsChange={handleRowsChange}
                 cols={cols}
-                onColsChange={setCols}
+                onColsChange={handleColsChange}
                 isAnimating={isAnimating}
                 onStop={stopAnimation}
                 onVisualize={handleVisualize}

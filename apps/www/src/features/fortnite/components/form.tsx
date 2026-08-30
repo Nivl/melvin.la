@@ -50,10 +50,7 @@ export function Form({
     if (defaultAccountName) {
       onAccountNameChange(defaultAccountName);
     }
-    // Intentionally runs once on mount to notify parent of the initial/preset value.
-    // The Form is remounted via `key` when the preset changes, so this fires on each preset selection.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [defaultAccountName, onAccountNameChange]);
 
   useEffect(() => {
     onAccountTypeChange(accountType);

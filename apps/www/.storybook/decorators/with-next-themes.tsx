@@ -25,9 +25,7 @@ function ThemeSwitcher({ appearance, children }: ThemeSwitcherProps) {
     }
 
     setAppearance(appearance);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [appearance]);
+  }, [appearance, currentAppearance, resolvedAppearance, setAppearance]);
 
   return <div className="bg-background">{children}</div>;
 }
