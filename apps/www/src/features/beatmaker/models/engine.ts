@@ -7,14 +7,14 @@ const LOOKAHEAD_SECONDS = 0.1;
 
 export type Engine = {
   /** Must be called before any playback. Safe to call multiple times. */
-  init(): Promise<void>;
-  loadKit(kit: Kit): Promise<void>;
-  loadCustomFile(trackId: TrackId, file: File): Promise<void>;
+  init: () => Promise<void>;
+  loadKit: (kit: Kit) => Promise<void>;
+  loadCustomFile: (trackId: TrackId, file: File) => Promise<void>;
   /** Removes all custom-file buffers so the kit buffer is used again. */
-  clearCustomFiles(): void;
-  start(getState: () => BeatmakerState): Promise<void>;
-  stop(): void;
-  dispose(): Promise<void>;
+  clearCustomFiles: () => void;
+  start: (getState: () => BeatmakerState) => Promise<void>;
+  stop: () => void;
+  dispose: () => Promise<void>;
 };
 
 type EngineOptions = {
