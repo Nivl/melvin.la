@@ -171,16 +171,19 @@ test.describe("Timezones Tool", () => {
     expect(laText).toMatch(/\d{1,2}:\d{2}/u);
 
     // Extract times for comparison - they should be different
-    const tokyoTimeMatch: RegExpMatchArray | null | undefined =
-      tokyoText?.match(/(\d{1,2}):(\d{2})/u);
-    const laTimeMatch: RegExpMatchArray | null | undefined = laText?.match(/(\d{1,2}):(\d{2})/u);
+    const tokyoTimeMatch: RegExpMatchArray | null | undefined = tokyoText?.match(
+      /(?<hours>\d{1,2}):(?<minutes>\d{2})/u,
+    );
+    const laTimeMatch: RegExpMatchArray | null | undefined = laText?.match(
+      /(?<hours>\d{1,2}):(?<minutes>\d{2})/u,
+    );
 
     expectToBeTruthy(tokyoTimeMatch);
     expectToBeTruthy(laTimeMatch);
 
     // Extract hours for comparison - they should be different due to significant timezone difference
-    const tokyoHour = Number.parseInt(tokyoTimeMatch[1], 10);
-    const laHour = Number.parseInt(laTimeMatch[1], 10);
+    const tokyoHour = Math.trunc(Number(tokyoTimeMatch[1]));
+    const laHour = Math.trunc(Number(laTimeMatch[1]));
 
     // Tokyo is typically 17 hours ahead of LA, so they should definitely be different
     expect(tokyoHour).not.toBe(laHour);

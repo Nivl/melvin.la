@@ -548,7 +548,17 @@ const skillsData: SkillData[] = [
   },
 ];
 
-export const Skills = () => {
+const emptySubscribe = () => () => undefined;
+let cachedClientSkills: SkillData[] | undefined;
+function getClientSkills(): SkillData[] {
+  cachedClientSkills ??= shuffle(skillsData);
+  return cachedClientSkills;
+}
+function getServerSkills(): SkillData[] {
+  return skillsData;
+}
+
+export function Skills() {
   const t = useTranslations("home.skills");
 
   const currentYear = new Date().getFullYear();
@@ -558,11 +568,11 @@ export const Skills = () => {
   const fromYear = currentYear - yearsBack;
 
   // Randomize skills order on each page visit (client-side only to avoid SSR mismatch)
-  const [randomizedSkills, setRandomizedSkills] = React.useState(skillsData);
-
-  React.useEffect(() => {
-    setRandomizedSkills(shuffle(skillsData));
-  }, []);
+  const randomizedSkills = React.useSyncExternalStore(
+    emptySubscribe,
+    getClientSkills,
+    getServerSkills,
+  );
 
   // Filter skills based on name, and year range
   const filteredSkills = randomizedSkills.filter((skill) => {
@@ -669,4 +679,4 @@ export const Skills = () => {
       )}
     </>
   );
-};
+}

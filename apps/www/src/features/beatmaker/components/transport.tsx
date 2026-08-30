@@ -18,7 +18,7 @@ type TransportProps = {
   onCopy: () => void;
 };
 
-export const Transport = ({
+export function Transport({
   isPlaying,
   bpm,
   stepCount,
@@ -27,7 +27,7 @@ export const Transport = ({
   onBpmChange,
   onStepCountChange,
   onCopy,
-}: TransportProps) => {
+}: TransportProps) {
   const tTransport = useTranslations("beatmaker.transport");
   const tShare = useTranslations("beatmaker.share");
 
@@ -124,4 +124,4 @@ export const Transport = ({
       </Tooltip>
     </div>
   );
-};
+}

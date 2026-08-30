@@ -14,7 +14,10 @@ type Props = {
   onDelete: () => void;
 };
 
-export const LargePill = forwardRef(({ item, onDelete }: Props, ref: Ref<HTMLDivElement>) => {
+export const LargePill = forwardRef(function LargePill(
+  { item, onDelete }: Props,
+  ref: Ref<HTMLDivElement>,
+) {
   const [isBooped, setIsBooped] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
 

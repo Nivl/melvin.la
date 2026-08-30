@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-export const ThemeSwitcherIcon = ({
+export function ThemeSwitcherIcon({
   theme,
   width,
   height,
@@ -12,7 +12,7 @@ export const ThemeSwitcherIcon = ({
   width?: number;
   height?: number;
   isBooped?: boolean;
-}) => {
+}) {
   const maskId = useId();
 
   // Classes that applies to everything BUT the rays
@@ -117,4 +117,4 @@ export const ThemeSwitcherIcon = ({
       />
     </svg>
   );
-};
+}

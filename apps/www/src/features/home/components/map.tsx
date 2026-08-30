@@ -4,13 +4,13 @@ import { useTheme } from "@melvinla/next-themes";
 import { AdvancedMarker as Marker, APIProvider, Map as GoogleMap } from "@vis.gl/react-google-maps";
 import { memo } from "react";
 
-const MapContainer = ({
+function MapContainer({
   className,
   initialCenter,
 }: {
   className: string;
   initialCenter: { lat: number; lng: number };
-}) => {
+}) {
   const { resolvedAppearance } = useTheme();
 
   const mapId = resolvedAppearance === "dark" ? "cdfadb8c71aaba12" : "70614a0367adfbc3";
@@ -37,6 +37,6 @@ const MapContainer = ({
       </APIProvider>
     </div>
   );
-};
+}
 
 export const Map = memo(MapContainer);

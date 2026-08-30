@@ -45,13 +45,12 @@ const setup = () => {
     });
   });
   vi.stubGlobal("AudioContext", MockAudioContext);
-  vi.stubGlobal(
-    "fetch",
-    vi.fn<() => Promise<object>>().mockResolvedValue({
-      arrayBuffer: vi.fn<() => Promise<ArrayBuffer>>().mockResolvedValue(new ArrayBuffer(8)),
-      ok: true,
-    }),
-  );
+  const mockArrayBuffer = vi.fn<() => Promise<ArrayBuffer>>().mockResolvedValue(new ArrayBuffer(8));
+  const mockFetch = vi.fn<() => Promise<object>>().mockResolvedValue({
+    arrayBuffer: mockArrayBuffer,
+    ok: true,
+  });
+  vi.stubGlobal("fetch", mockFetch);
 };
 
 const teardown = () => {

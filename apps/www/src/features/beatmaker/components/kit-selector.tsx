@@ -10,7 +10,7 @@ type KitSelectorProps = {
   onKitChange: (kit: Kit) => void;
 };
 
-export const KitSelector = ({ activeKit, onKitChange }: KitSelectorProps) => {
+export function KitSelector({ activeKit, onKitChange }: KitSelectorProps) {
   const t = useTranslations("beatmaker.kits");
   return (
     <div className="flex gap-2">
@@ -28,4 +28,4 @@ export const KitSelector = ({ activeKit, onKitChange }: KitSelectorProps) => {
       ))}
     </div>
   );
-};
+}

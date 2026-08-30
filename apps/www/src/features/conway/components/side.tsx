@@ -40,7 +40,7 @@ const resizeBoard = (board: Board, newSize: number): Board => {
   return newBoard;
 };
 
-export const Side = ({
+export function Side({
   board,
   setBoard,
   speed,
@@ -62,7 +62,7 @@ export const Side = ({
   setBoardSize: (_: number) => void;
   toroidal: boolean;
   setToroidal: (_: boolean) => void;
-}) => {
+}) {
   const setPreset = (preset: Board) => {
     setBoard(resizeBoard(preset, boardSize));
   };
@@ -190,4 +190,4 @@ export const Side = ({
       </div>
     </>
   );
-};
+}

@@ -34,7 +34,7 @@ const getBobaStyle = (boba: BobaCoordinate): BobaStyle => ({
   "--boba-soft-shake-offset": `${boba.shakeOffset.toString()}px`,
 });
 
-export const Boba = ({ className }: { className: string }) => {
+export function Boba({ className }: { className: string }) {
   const [isAnimationStopping, setIsAnimationStopping] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [bobaCoordinates, setBobaCoordinates] = useState([...defaultBobaCoordinates]);
@@ -307,4 +307,4 @@ export const Boba = ({ className }: { className: string }) => {
       />
     </svg>
   );
-};
+}

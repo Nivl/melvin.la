@@ -3,7 +3,7 @@ import { Heading } from "#shared/components/layout/heading";
 
 import { Logo } from "./logo";
 
-export const Tech = ({
+export function Tech({
   title,
   logos,
   content,
@@ -13,33 +13,35 @@ export const Tech = ({
   logos: LogoInfo[];
   content: string[];
   inverted?: boolean;
-}) => (
-  <div
-    className={`flex items-center ${
-      inverted ? "flex-col-reverse md:flex-row-reverse" : "flex-col-reverse md:flex-row"
-    }`}
-  >
-    <div className="grid grid-cols-2 px-5 md:grid-cols-3 md:pr-10 md:pl-5">
-      {logos.map((logo) => (
-        <a
-          key={logo.name}
-          href={logo.url}
-          className={`group grid w-28 border-none pt-4 md:w-40 md:pt-8 ${
-            inverted ? "justify-center" : "justify-center md:justify-start lg:justify-center"
-          }`}
-        >
-          <Logo
-            className="cls-boop-animation h-16 w-16 fill-neutral-700 transition-transform group-hover:scale-125 dark:fill-foreground"
-            name={logo.img}
-          />
-        </a>
-      ))}
+}) {
+  return (
+    <div
+      className={`flex items-center ${
+        inverted ? "flex-col-reverse md:flex-row-reverse" : "flex-col-reverse md:flex-row"
+      }`}
+    >
+      <div className="grid grid-cols-2 px-5 md:grid-cols-3 md:pr-10 md:pl-5">
+        {logos.map((logo) => (
+          <a
+            key={logo.name}
+            href={logo.url}
+            className={`group grid w-28 border-none pt-4 md:w-40 md:pt-8 ${
+              inverted ? "justify-center" : "justify-center md:justify-start lg:justify-center"
+            }`}
+          >
+            <Logo
+              className="cls-boop-animation h-16 w-16 fill-neutral-700 transition-transform group-hover:scale-125 dark:fill-foreground"
+              name={logo.img}
+            />
+          </a>
+        ))}
+      </div>
+      <div className={`md:w-2/3 ${inverted ? "text-right" : "text-left"}`}>
+        <Heading level={2}>{title}</Heading>
+        {content.map((v) => (
+          <p key={v}>{v}</p>
+        ))}
+      </div>
     </div>
-    <div className={`md:w-2/3 ${inverted ? "text-right" : "text-left"}`}>
-      <Heading level={2}>{title}</Heading>
-      {content.map((v) => (
-        <p key={v}>{v}</p>
-      ))}
-    </div>
-  </div>
-);
+  );
+}

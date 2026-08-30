@@ -23,13 +23,13 @@ const renderFortniteTitleName = (chunks: React.ReactNode) => (
   </span>
 );
 
-export const Fortnite = ({
+export function Fortnite({
   providedName,
   providedType,
 }: {
   providedName?: string;
   providedType?: AccountTypes;
-}) => {
+}) {
   const providedTypeIsValid = providedType && Object.values(AccountTypes).includes(providedType);
 
   const [preset, setPreset] = useState({
@@ -174,4 +174,4 @@ export const Fortnite = ({
       )}
     </>
   );
-};
+}

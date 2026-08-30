@@ -56,7 +56,7 @@ const toDate = (value: string): Date | undefined => {
 
 const renderBold = (chunks: React.ReactNode) => <span className="font-bold">{chunks}</span>;
 
-export const Timestamp = () => {
+export function Timestamp() {
   const t = useTranslations("timestamp");
 
   const [timestamps, setTimestamps] = useState<Data[]>([]);
@@ -144,4 +144,4 @@ export const Timestamp = () => {
       </Section>
     </>
   );
-};
+}

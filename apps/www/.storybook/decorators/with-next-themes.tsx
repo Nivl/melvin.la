@@ -11,7 +11,7 @@ type ThemeSwitcherProps = PropsWithChildren<{
   appearance: string;
 }>;
 
-const ThemeSwitcher = ({ appearance, children }: ThemeSwitcherProps) => {
+function ThemeSwitcher({ appearance, children }: ThemeSwitcherProps) {
   const { setAppearance, resolvedAppearance, appearance: currentAppearance } = useTheme();
 
   useEffect(() => {
@@ -25,12 +25,10 @@ const ThemeSwitcher = ({ appearance, children }: ThemeSwitcherProps) => {
     }
 
     setAppearance(appearance);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [appearance]);
+  }, [appearance, currentAppearance, resolvedAppearance, setAppearance]);
 
   return <div className="bg-background">{children}</div>;
-};
+}
 
 type NextThemesDecorator = Omit<ThemeProviderProps, "themes"> & {
   themes: Record<string, string>;

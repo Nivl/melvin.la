@@ -17,7 +17,7 @@ type MixerStripProps = {
   onMuteToggle: () => void;
 };
 
-export const MixerStrip = ({
+export function MixerStrip({
   trackId,
   volume,
   pan,
@@ -25,7 +25,7 @@ export const MixerStrip = ({
   onVolumeChange,
   onPanChange,
   onMuteToggle,
-}: MixerStripProps) => {
+}: MixerStripProps) {
   const t = useTranslations("beatmaker.mixer");
   const tTracks = useTranslations("beatmaker.tracks");
   const color = TRACK_COLORS[trackId];
@@ -89,4 +89,4 @@ export const MixerStrip = ({
       </Button>
     </div>
   );
-};
+}

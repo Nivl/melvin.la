@@ -113,7 +113,7 @@ const navSections: NavSection[] = [
 
 const emptySubscribe = () => () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
 
-export const Navbar = () => {
+export function Navbar() {
   const pathname = usePathname();
   const t = useTranslations("navbar");
 
@@ -248,4 +248,4 @@ export const Navbar = () => {
       </nav>
     </Section>
   );
-};
+}

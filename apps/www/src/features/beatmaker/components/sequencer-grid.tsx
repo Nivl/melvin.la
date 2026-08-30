@@ -12,13 +12,13 @@ type SequencerGridProps = {
   activeStep: number | undefined;
 };
 
-export const SequencerGrid = ({
+export function SequencerGrid({
   tracks,
   onStepToggle,
   onFileLoad,
   decodeErrors,
   activeStep,
-}: SequencerGridProps) => {
+}: SequencerGridProps) {
   // Use first track to determine stepCount
   const stepCount = tracks.kick.steps.length;
   const groups = Array.from({ length: Math.ceil(stepCount / 4) }, (_, i) => i);
@@ -71,4 +71,4 @@ export const SequencerGrid = ({
       </div>
     </div>
   );
-};
+}

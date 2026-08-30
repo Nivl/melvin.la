@@ -35,7 +35,7 @@ const Map = dynamic(
   },
 );
 
-export const Contact = () => {
+export function Contact() {
   const overlayState = useOverlayState({ defaultOpen: false });
   const [modalContent, setModalContent] = useState("");
   const [modalTitle, setModalTitle] = useState("");
@@ -126,7 +126,7 @@ export const Contact = () => {
       </div>
       <div ref={mapSentinelRef}>
         {shouldLoadMap ? (
-          <Map className="h-200 w-full" initialCenter={{ lat: 34.021_859_3, lng: -118.498_265 }} />
+          <Map className="h-200 w-full" initialCenter={{ lat: 34.0218593, lng: -118.498265 }} />
         ) : (
           <div
             data-testid="map-placeholder"
@@ -137,4 +137,4 @@ export const Contact = () => {
       </div>
     </>
   );
-};
+}

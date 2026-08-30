@@ -7,7 +7,7 @@ import { useId, useState } from "react";
 
 import { Section } from "#shared/components/layout/section";
 
-export const StringLength = () => {
+export function StringLength() {
   const t = useTranslations("stringLength");
   const [text, setText] = useState("");
 
@@ -84,4 +84,4 @@ export const StringLength = () => {
       </Section>
     </>
   );
-};
+}

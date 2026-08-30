@@ -15,7 +15,7 @@ import {
   userNameMaxLength,
 } from "#features/fortnite/models";
 
-export const Form = ({
+export function Form({
   onAccountNameChange,
   onAccountTypeChange,
   onTimeWindowChange,
@@ -29,7 +29,7 @@ export const Form = ({
   defaultAccountName?: string;
   defaultAccountType: AccountTypes;
   defaultTimeWindow: TimeWindow;
-}) => {
+}) {
   // `inputValue` is the live, controlled value of the text field — updated on
   // every keystroke so the input never loses its value across re-renders.
   // `debouncedOnAccountNameChange` throttles the parent notification to 1000ms
@@ -50,10 +50,7 @@ export const Form = ({
     if (defaultAccountName) {
       onAccountNameChange(defaultAccountName);
     }
-    // Intentionally runs once on mount to notify parent of the initial/preset value.
-    // The Form is remounted via `key` when the preset changes, so this fires on each preset selection.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [defaultAccountName, onAccountNameChange]);
 
   useEffect(() => {
     onAccountTypeChange(accountType);
@@ -166,4 +163,4 @@ export const Form = ({
       </Switch>
     </UiForm>
   );
-};
+}

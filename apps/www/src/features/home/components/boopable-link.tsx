@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 
 import { usePrefersReducedMotion } from "#shared/hooks/use-prefers-reduced-motion";
 
-export const BoopableLink = ({
+export function BoopableLink({
   icon,
   label,
   link,
@@ -17,7 +17,7 @@ export const BoopableLink = ({
   link: string;
   className?: string;
   onClick?: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
-}) => {
+}) {
   const [isBooped, setIsBooped] = useState(false);
   const reduceMotion = usePrefersReducedMotion();
 
@@ -55,4 +55,4 @@ export const BoopableLink = ({
       {label}
     </a>
   );
-};
+}

@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-export const Python = ({ className }: { className: string }) => {
+export function Python({ className }: { className: string }) {
   const leftSnakeGradientId = useId();
   const leftSnakeColorId = useId();
   const rightSnakeGradientId = useId();
@@ -48,4 +48,4 @@ export const Python = ({ className }: { className: string }) => {
       />
     </svg>
   );
-};
+}

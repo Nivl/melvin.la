@@ -15,7 +15,7 @@ type TrackRowProps = {
   activeStep: number | undefined;
 };
 
-export const TrackRow = ({
+export function TrackRow({
   trackId,
   steps,
   onStepToggle,
@@ -23,7 +23,7 @@ export const TrackRow = ({
   hasCustomFile,
   decodeError,
   activeStep,
-}: TrackRowProps) => {
+}: TrackRowProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const t = useTranslations("beatmaker.track");
   const tTracks = useTranslations("beatmaker.tracks");
@@ -134,4 +134,4 @@ export const TrackRow = ({
       {decodeError !== undefined && <p className="ml-2 text-xs text-danger">{decodeError}</p>}
     </div>
   );
-};
+}

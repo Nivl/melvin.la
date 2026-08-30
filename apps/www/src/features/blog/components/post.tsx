@@ -88,24 +88,26 @@ const htmlToJsx: MDXRemoteProps["components"] = {
   ul: ({ children }) => <ul className="mb-3 ml-5 list-disc lg:mb-8">{children}</ul>,
 };
 
-export const Post = ({ post }: { post: BlogPost }) => (
-  <>
-    <Section>
-      <BlogHeading level={1} className="text-justify">
-        {post.title}
-      </BlogHeading>
+export function Post({ post }: { post: BlogPost }) {
+  return (
+    <>
+      <Section>
+        <BlogHeading level={1} className="text-justify">
+          {post.title}
+        </BlogHeading>
 
-      <Image
-        className="mt-4"
-        src={`/assets/blog/${post.slug}/${post.image}${post.imageHash ? `?v=${post.imageHash}` : ""}`}
-        priority
-        width={1200}
-        height={630}
-        alt={post.title}
-      />
-    </Section>
-    <Section className="text-justify">
-      <MDXRemote options={mdxOptions} source={post.content} components={htmlToJsx} />
-    </Section>
-  </>
-);
+        <Image
+          className="mt-4"
+          src={`/assets/blog/${post.slug}/${post.image}${post.imageHash ? `?v=${post.imageHash}` : ""}`}
+          priority
+          width={1200}
+          height={630}
+          alt={post.title}
+        />
+      </Section>
+      <Section className="text-justify">
+        <MDXRemote options={mdxOptions} source={post.content} components={htmlToJsx} />
+      </Section>
+    </>
+  );
+}

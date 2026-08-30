@@ -15,7 +15,7 @@ type GridProps = {
   onSetCell: (row: number, col: number, value: BoardValue) => void;
 };
 
-export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }: GridProps) => {
+export function ConwayGrid({ board, boardSize, isPlaying, ariaLabel, onSetCell }: GridProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dragModeRef = useRef<DragMode>(undefined);
   const boardRef = useRef(board);
@@ -125,8 +125,8 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
   return (
     <div
       ref={containerRef}
-      // eslint-disable-next-line jsx-a11y/prefer-tag-over-role
-      role="region"
+      role="grid"
+      tabIndex={0}
       aria-label={ariaLabel}
       className="touch-none overflow-hidden rounded-lg border border-default select-none"
       style={{
@@ -161,4 +161,4 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
       )}
     </div>
   );
-};
+}

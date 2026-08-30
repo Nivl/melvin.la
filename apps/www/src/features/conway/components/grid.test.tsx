@@ -56,20 +56,20 @@ describe(ConwayGrid, () => {
   it("renders the correct number of cells", () => {
     expect.assertions(1);
     const { getByRole } = setup({ board: makeBoard(4), boardSize: 4 });
-    const grid = getByRole("region");
+    const grid = getByRole("grid");
     expect(grid.children).toHaveLength(16);
   }, 5000);
 
   it("applies the aria-label prop", () => {
     expect.assertions(1);
     const { getByRole } = setup({ ariaLabel: "My game grid" });
-    expect(getByRole("region", { name: "My game grid" })).toBeDefined();
+    expect(getByRole("grid", { name: "My game grid" })).toBeDefined();
   }, 5000);
 
   it("calls onSetCell when pointer is pressed on a dead cell while not playing", () => {
     expect.assertions(1);
     const { getByRole, onSetCell } = setup({ board: makeBoard(3), boardSize: 3 });
-    const grid = getByRole("region");
+    const grid = getByRole("grid");
     stubGridRect(grid);
 
     // clientX=50, clientY=50 → col=floor((50/300)*3)=0, row=0 → dead cell → set alive
@@ -83,7 +83,7 @@ describe(ConwayGrid, () => {
     const board = makeBoard(3);
     board[1][1] = 1; // centre cell is alive
     const { getByRole, onSetCell } = setup({ board, boardSize: 3 });
-    const grid = getByRole("region");
+    const grid = getByRole("grid");
     stubGridRect(grid);
 
     // clientX=150, clientY=150 → col=floor((150/300)*3)=1, row=1 → alive cell → set dead
@@ -95,7 +95,7 @@ describe(ConwayGrid, () => {
   it("does not call onSetCell on pointer down while playing", () => {
     expect.assertions(1);
     const { getByRole, onSetCell } = setup({ isPlaying: true });
-    const grid = getByRole("region");
+    const grid = getByRole("grid");
     fireEvent.pointerDown(grid, { clientX: 50, clientY: 50, pointerId: 1 });
     expect(onSetCell).not.toHaveBeenCalled();
   }, 5000);

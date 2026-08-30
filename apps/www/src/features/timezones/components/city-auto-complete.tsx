@@ -14,7 +14,7 @@ import { twMerge } from "tailwind-merge";
 
 import { City } from "#features/timezones/models";
 
-export const CityAutoComplete = ({
+export function CityAutoComplete({
   label,
   onChange,
   inputValue,
@@ -32,7 +32,7 @@ export const CityAutoComplete = ({
   onChange: (value: Key | null) => void;
   onInputChange: (value: string) => void;
   items: City[];
-}) => {
+}) {
   const t = useTranslations("timezones");
 
   return (
@@ -83,4 +83,4 @@ export const CityAutoComplete = ({
       </Autocomplete.Popover>
     </Autocomplete>
   );
-};
+}

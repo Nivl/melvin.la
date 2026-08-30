@@ -5,7 +5,7 @@ import { createElement, useEffect, useState } from "react";
 
 export const dynamicMock = {
   default: (factory: () => Promise<ComponentType<Record<string, unknown>>>) => {
-    const Wrapper = (props: Record<string, unknown>) => {
+    function Wrapper(props: Record<string, unknown>) {
       const [comp, setComp] = useState<ComponentType<Record<string, unknown>> | undefined>(
         undefined,
       );
@@ -17,7 +17,7 @@ export const dynamicMock = {
           .catch(() => {}); // eslint-disable-line @typescript-eslint/no-empty-function
       }, []);
       return comp ? createElement(comp, props) : undefined;
-    };
+    }
     return Wrapper;
   },
 };

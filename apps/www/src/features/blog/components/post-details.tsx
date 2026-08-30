@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { BlogPost } from "#features/blog/models";
 import { Link } from "#i18n/routing";
 
-export const PostDetails = ({ post }: { post: BlogPost }) => {
+export function PostDetails({ post }: { post: BlogPost }) {
   const t = useTranslations("blog");
 
   return (
@@ -29,4 +29,4 @@ export const PostDetails = ({ post }: { post: BlogPost }) => {
       </Card>
     </Link>
   );
-};
+}

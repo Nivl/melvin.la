@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-export const EmacsLisp = ({ className }: { className: string }) => {
+export function EmacsLisp({ className }: { className: string }) {
   const aId = useId();
   const bId = useId();
   const cId = useId();
@@ -25,8 +25,8 @@ export const EmacsLisp = ({ className }: { className: string }) => {
         </linearGradient>
         <linearGradient id={aId}>
           <stop offset="0" style={{ stopColor: "#8381c5", stopOpacity: 1 }} />
-          <stop style={{ stopColor: "#7e55b3", stopOpacity: 0.996_078_43 }} offset=".566" />
-          <stop offset="1" style={{ stopColor: "#a52ecb", stopOpacity: 0.992_156_86 }} />
+          <stop style={{ stopColor: "#7e55b3", stopOpacity: 0.99607843 }} offset=".566" />
+          <stop offset="1" style={{ stopColor: "#a52ecb", stopOpacity: 0.99215686 }} />
         </linearGradient>
         <linearGradient
           y2="300.74"
@@ -63,14 +63,14 @@ export const EmacsLisp = ({ className }: { className: string }) => {
       <path
         style={{
           fill: "#211f46",
-          fillOpacity: 0.996_078_43,
+          fillOpacity: 0.99607843,
           filter: `url(#${cId})`,
-          opacity: 0.405_000_04,
+          opacity: 0.40500004,
           stroke: "#0a0b1b",
           strokeDasharray: "none",
           strokeMiterlimit: 4,
           strokeOpacity: 1,
-          strokeWidth: 8.533_333_78,
+          strokeWidth: 8.53333378,
         }}
         d="M491.67 257.76c0 131.794-105.76 238.634-236.222 238.634S19.226 389.554 19.226 257.759 124.986 19.124 255.448 19.124s236.221 106.84 236.221 238.635z"
         transform="translate(3.034 2.525)scale(.98685)"
@@ -85,7 +85,7 @@ export const EmacsLisp = ({ className }: { className: string }) => {
           strokeDasharray: "none",
           strokeMiterlimit: 4,
           strokeOpacity: 1,
-          strokeWidth: 13.338_168_14,
+          strokeWidth: 13.33816814,
         }}
       />
       <path
@@ -105,4 +105,4 @@ export const EmacsLisp = ({ className }: { className: string }) => {
       />
     </svg>
   );
-};
+}
