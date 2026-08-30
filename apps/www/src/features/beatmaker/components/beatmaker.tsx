@@ -127,7 +127,7 @@ const subscribeBeatmakerView = (onStoreChange: () => void): (() => void) => {
 const getBeatmakerServerSnapshot = (): ReturnType<typeof getInitialBeatmakerView> =>
   beatmakerServerSnapshot;
 
-export const Beatmaker = () => {
+export function Beatmaker() {
   const win = getWindow();
   const t = useTranslations("beatmaker");
   const tKits = useTranslations("beatmaker.kits");
@@ -571,4 +571,4 @@ export const Beatmaker = () => {
       </Section>
     </LandscapeGuard>
   );
-};
+}

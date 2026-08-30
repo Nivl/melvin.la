@@ -45,9 +45,7 @@ const setup = () => {
     });
   });
   vi.stubGlobal("AudioContext", MockAudioContext);
-  const mockArrayBuffer = vi
-    .fn<() => Promise<ArrayBuffer>>()
-    .mockResolvedValue(new ArrayBuffer(8));
+  const mockArrayBuffer = vi.fn<() => Promise<ArrayBuffer>>().mockResolvedValue(new ArrayBuffer(8));
   const mockFetch = vi.fn<() => Promise<object>>().mockResolvedValue({
     arrayBuffer: mockArrayBuffer,
     ok: true,

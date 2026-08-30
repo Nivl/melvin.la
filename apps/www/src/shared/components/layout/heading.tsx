@@ -1,7 +1,7 @@
 import { createElement } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const Heading = ({
+export function Heading({
   level,
   className,
   children,
@@ -9,7 +9,7 @@ export const Heading = ({
   level: number;
   className?: string;
   children?: React.ReactNode;
-}) => {
+}) {
   if (level < 1 || level > 6) {
     throw new Error("Invalid heading level");
   }
@@ -23,4 +23,4 @@ export const Heading = ({
     },
     children,
   );
-};
+}

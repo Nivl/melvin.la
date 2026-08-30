@@ -11,7 +11,7 @@ import { Section } from "#shared/components/layout/section";
 import { ConwayGrid } from "./grid";
 import { Side } from "./side";
 
-export const Conway = () => {
+export function Conway() {
   const [board, setBoard] = useState(defaultPresets);
   const [speed, setSpeed] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -120,4 +120,4 @@ export const Conway = () => {
       </Section>
     </>
   );
-};
+}

@@ -15,7 +15,7 @@ type GridProps = {
   onSetCell: (row: number, col: number, value: BoardValue) => void;
 };
 
-export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }: GridProps) => {
+export function ConwayGrid({ board, boardSize, isPlaying, ariaLabel, onSetCell }: GridProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dragModeRef = useRef<DragMode>(undefined);
   const boardRef = useRef(board);
@@ -161,4 +161,4 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
       )}
     </div>
   );
-};
+}

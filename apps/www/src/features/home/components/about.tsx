@@ -3,7 +3,7 @@ import { PiHandPeaceLight as PeaceIcon } from "react-icons/pi";
 
 import { Heading } from "#shared/components/layout/heading";
 
-export const About = () => {
+export function About() {
   const t = useTranslations("home.aboutme");
 
   return (
@@ -27,4 +27,4 @@ export const About = () => {
       </div>
     </div>
   );
-};
+}

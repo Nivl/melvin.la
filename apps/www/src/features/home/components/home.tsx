@@ -9,7 +9,7 @@ import { Sections } from "#features/home/models";
 import { Footer } from "#shared/components/layout/footer";
 import { Section } from "#shared/components/layout/section";
 
-export const Home = ({ sections }: { sections: Sections }) => {
+export function Home({ sections }: { sections: Sections }) {
   const t = useTranslations("home");
 
   return (
@@ -54,4 +54,4 @@ export const Home = ({ sections }: { sections: Sections }) => {
       </div>
     </div>
   );
-};
+}

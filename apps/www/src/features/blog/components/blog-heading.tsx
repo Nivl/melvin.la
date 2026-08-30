@@ -1,7 +1,7 @@
 import { createElement } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const BlogHeading = ({
+export function BlogHeading({
   level,
   className,
   children,
@@ -9,7 +9,7 @@ export const BlogHeading = ({
   level: number;
   className?: string;
   children?: React.ReactNode;
-}) => {
+}) {
   let classname =
     "pb-2 md:pb-4 xl:pb-5 leading-none font-bold bg-linear-to-b from-grad-from to-grad-to bg-clip-text text-transparent";
 
@@ -50,4 +50,4 @@ export const BlogHeading = ({
     },
     children,
   );
-};
+}

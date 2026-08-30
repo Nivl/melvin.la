@@ -3,7 +3,7 @@ import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 import { MouseEvent } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const Pill = ({
+export function Pill({
   icon,
   title,
   onPress,
@@ -18,7 +18,7 @@ export const Pill = ({
   className?: string;
   isSelected?: boolean;
   isLoading?: boolean;
-}) => {
+}) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -71,4 +71,4 @@ export const Pill = ({
       )}
     </Card>
   );
-};
+}

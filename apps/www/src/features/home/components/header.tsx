@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { Boba } from "#features/home/components/icons/boba";
 import { Heading } from "#shared/components/layout/heading";
 
-export const Header = () => {
+export function Header() {
   const t = useTranslations("home.header");
 
   return (
@@ -25,4 +25,4 @@ export const Header = () => {
       </div>
     </header>
   );
-};
+}

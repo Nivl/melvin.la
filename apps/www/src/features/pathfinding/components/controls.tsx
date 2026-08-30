@@ -45,7 +45,7 @@ type ControlsProps = {
   onGenerateMaze: () => void;
 };
 
-export const Controls = ({
+export function Controls({
   algorithm,
   onAlgorithmChange,
   speed,
@@ -63,7 +63,7 @@ export const Controls = ({
   onReset,
   onClearAll,
   onGenerateMaze,
-}: ControlsProps) => {
+}: ControlsProps) {
   const t = useTranslations("pathfinding");
 
   const algorithmOptions: { key: Algorithm; label: string }[] = [
@@ -304,4 +304,4 @@ export const Controls = ({
       </div>
     </div>
   );
-};
+}

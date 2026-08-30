@@ -27,7 +27,7 @@ type GridProps = {
   onEndChange: (coords: Coords) => void;
 };
 
-export const PathfindingGrid = ({
+export function PathfindingGrid({
   grid,
   isAnimating,
   onGridChange,
@@ -36,7 +36,7 @@ export const PathfindingGrid = ({
   placementMode,
   onStartChange,
   onEndChange,
-}: GridProps) => {
+}: GridProps) {
   const dragModeRef = useRef<DragMode>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -331,4 +331,4 @@ export const PathfindingGrid = ({
       )}
     </div>
   );
-};
+}

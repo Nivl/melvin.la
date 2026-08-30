@@ -27,7 +27,7 @@ const themesColors = [
 const isTheme = (value: string | undefined): value is (typeof themesColors)[number]["key"] =>
   value !== undefined && themesColors.some((theme) => theme.key === value);
 
-export const ThemeSwitcher = () => {
+export function ThemeSwitcher() {
   const t = useTranslations("navbar.themeSwitcher");
   const { resolvedAppearance, appearance, setAppearance, theme, setTheme } = useTheme();
   const [animationFocus, setAnimationFocus] = useState<"boop" | "themeChange">("boop");
@@ -131,4 +131,4 @@ export const ThemeSwitcher = () => {
       </Dropdown.Popover>
     </Dropdown>
   );
-};
+}

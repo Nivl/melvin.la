@@ -2,7 +2,7 @@ import { Card, CardRootProps, Chip, ProgressCircle, Skeleton } from "@heroui/rea
 import { useTranslations } from "next-intl";
 import { twMerge } from "tailwind-merge";
 
-export const StatCard = ({
+export function StatCard({
   isProgress = false,
   title,
   stat,
@@ -15,7 +15,7 @@ export const StatCard = ({
   stat: string | number;
   className?: string;
   isLoading?: boolean;
-}) => {
+}) {
   const t = useTranslations("fortnite");
 
   return (
@@ -64,4 +64,4 @@ export const StatCard = ({
       </Card.Footer>
     </Card>
   );
-};
+}

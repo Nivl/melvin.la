@@ -21,10 +21,10 @@ type AppRouterContextProviderMockProps = {
 
 const DEFAULT_ROUTER: Partial<AppRouterInstance> = {};
 
-const AppRouterContextProviderMock = ({
+function AppRouterContextProviderMock({
   router = DEFAULT_ROUTER,
   children,
-}: AppRouterContextProviderMockProps): React.ReactNode => {
+}: AppRouterContextProviderMockProps): React.ReactNode {
   const mockedRouter: AppRouterInstance = useMemo(
     () => ({
       back: vi.fn<AppRouterInstance["back"]>(),
@@ -39,7 +39,7 @@ const AppRouterContextProviderMock = ({
     [router],
   );
   return <AppRouterContext.Provider value={mockedRouter}>{children}</AppRouterContext.Provider>;
-};
+}
 
 export const testWrapper: React.JSXElementConstructor<{
   children: React.ReactNode;

@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-export const ObjectiveC = ({ className }: { className: string }) => {
+export function ObjectiveC({ className }: { className: string }) {
   const aId = useId();
 
   return (
@@ -30,4 +30,4 @@ export const ObjectiveC = ({ className }: { className: string }) => {
       </text>
     </svg>
   );
-};
+}

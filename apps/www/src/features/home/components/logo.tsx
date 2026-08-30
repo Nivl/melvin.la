@@ -37,7 +37,7 @@ import { ObjectiveC } from "#features/home/components/icons/objective-c";
 import { Python } from "#features/home/components/icons/python";
 import { Swift } from "#features/home/components/icons/swift";
 
-export const Logo = ({ name, className }: { name: string; className: string }) => {
+export function Logo({ name, className }: { name: string; className: string }) {
   // all the logos we support, ordered alphabetically by name
   switch (name) {
     case "amplitude": {
@@ -152,4 +152,4 @@ export const Logo = ({ name, className }: { name: string; className: string }) =
       return <Unknown className={className} />;
     }
   }
-};
+}

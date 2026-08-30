@@ -15,7 +15,7 @@ import {
   userNameMaxLength,
 } from "#features/fortnite/models";
 
-export const Form = ({
+export function Form({
   onAccountNameChange,
   onAccountTypeChange,
   onTimeWindowChange,
@@ -29,7 +29,7 @@ export const Form = ({
   defaultAccountName?: string;
   defaultAccountType: AccountTypes;
   defaultTimeWindow: TimeWindow;
-}) => {
+}) {
   // `inputValue` is the live, controlled value of the text field — updated on
   // every keystroke so the input never loses its value across re-renders.
   // `debouncedOnAccountNameChange` throttles the parent notification to 1000ms
@@ -166,4 +166,4 @@ export const Form = ({
       </Switch>
     </UiForm>
   );
-};
+}

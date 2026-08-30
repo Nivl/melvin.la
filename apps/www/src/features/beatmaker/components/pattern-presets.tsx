@@ -12,7 +12,7 @@ type PatternPresetsProps = {
   onPresetSelect: (presetId: string) => void;
 };
 
-export const PatternPresets = ({ onPresetSelect }: PatternPresetsProps) => {
+export function PatternPresets({ onPresetSelect }: PatternPresetsProps) {
   const t = useTranslations("beatmaker.presets");
 
   return (
@@ -32,4 +32,4 @@ export const PatternPresets = ({ onPresetSelect }: PatternPresetsProps) => {
       ))}
     </div>
   );
-};
+}

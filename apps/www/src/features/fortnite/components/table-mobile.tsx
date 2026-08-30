@@ -7,13 +7,7 @@ import { HiMiniUserGroup } from "react-icons/hi2";
 import { FortniteStatsData } from "#features/fortnite/models";
 import { humanizeDuration, rateStr } from "#features/fortnite/utils";
 
-export const TableMobile = ({
-  data,
-  isLoading,
-}: {
-  data?: FortniteStatsData;
-  isLoading: boolean;
-}) => {
+export function TableMobile({ data, isLoading }: { data?: FortniteStatsData; isLoading: boolean }) {
   const rootT = useTranslations();
   const t = useTranslations("fortnite.data");
 
@@ -329,4 +323,4 @@ export const TableMobile = ({
       )}
     </>
   );
-};
+}

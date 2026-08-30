@@ -31,13 +31,13 @@ type TableEntry = {
   tooltipInfo?: string;
 };
 
-export const TableDesktop = ({
+export function TableDesktop({
   data,
   isLoading,
 }: {
   data?: FortniteStatsData;
   isLoading: boolean;
-}) => {
+}) {
   const [category, setCategory] = useState<Category>("all");
   const rootT = useTranslations();
   const t = useTranslations("fortnite.data");
@@ -307,4 +307,4 @@ export const TableDesktop = ({
       </Table>
     </div>
   );
-};
+}

@@ -56,7 +56,7 @@ const presetLists: {
   },
 ];
 
-export const AccountPresets = ({ setPreset }: { setPreset: (p: Preset) => void }) => {
+export function AccountPresets({ setPreset }: { setPreset: (p: Preset) => void }) {
   const t = useTranslations("fortnite");
   const Presets = useMemo(
     () =>
@@ -89,4 +89,4 @@ export const AccountPresets = ({ setPreset }: { setPreset: (p: Preset) => void }
       <div className="flex flex-col items-center justify-center gap-10 sm:flex-row">{Presets}</div>
     </>
   );
-};
+}

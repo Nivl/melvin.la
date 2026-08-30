@@ -548,7 +548,7 @@ const skillsData: SkillData[] = [
   },
 ];
 
-export const Skills = () => {
+export function Skills() {
   const t = useTranslations("home.skills");
 
   const currentYear = new Date().getFullYear();
@@ -669,4 +669,4 @@ export const Skills = () => {
       )}
     </>
   );
-};
+}

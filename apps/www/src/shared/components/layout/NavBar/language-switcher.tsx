@@ -31,7 +31,7 @@ const languages: Record<Locales, Language> = {
   "zh-tw": { isAI: true, label: "中文 (繁體)" },
 };
 
-export const LanguageSwitcher = () => {
+export function LanguageSwitcher() {
   const t = useTranslations("navbar");
   const locale = useLocale();
   const router = useRouter();
@@ -114,4 +114,4 @@ export const LanguageSwitcher = () => {
       </Dropdown.Popover>
     </Dropdown>
   );
-};
+}

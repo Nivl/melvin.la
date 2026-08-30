@@ -102,7 +102,7 @@ const clampCoords = (coords: Coords, rows: number, cols: number): Coords => [
   Math.min(coords[1], cols - 1),
 ];
 
-export const Pathfinding = () => {
+export function Pathfinding() {
   const t = useTranslations("pathfinding");
 
   const [rows, setRows] = useState(DEFAULT_ROWS);
@@ -283,4 +283,4 @@ export const Pathfinding = () => {
       </div>
     </>
   );
-};
+}

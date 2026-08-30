@@ -171,10 +171,12 @@ test.describe("Timezones Tool", () => {
     expect(laText).toMatch(/\d{1,2}:\d{2}/u);
 
     // Extract times for comparison - they should be different
-    const tokyoTimeMatch: RegExpMatchArray | null | undefined =
-      tokyoText?.match(/(?<hours>\d{1,2}):(?<minutes>\d{2})/u);
-    const laTimeMatch: RegExpMatchArray | null | undefined =
-      laText?.match(/(?<hours>\d{1,2}):(?<minutes>\d{2})/u);
+    const tokyoTimeMatch: RegExpMatchArray | null | undefined = tokyoText?.match(
+      /(?<hours>\d{1,2}):(?<minutes>\d{2})/u,
+    );
+    const laTimeMatch: RegExpMatchArray | null | undefined = laText?.match(
+      /(?<hours>\d{1,2}):(?<minutes>\d{2})/u,
+    );
 
     expectToBeTruthy(tokyoTimeMatch);
     expectToBeTruthy(laTimeMatch);

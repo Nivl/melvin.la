@@ -5,7 +5,7 @@ import { rate } from "#features/fortnite/utils";
 
 import { StatCard } from "./stat-card";
 
-export const MainData = ({ data, isLoading }: { data?: FortniteStatsData; isLoading: boolean }) => {
+export function MainData({ data, isLoading }: { data?: FortniteStatsData; isLoading: boolean }) {
   const t = useTranslations("fortnite");
 
   return (
@@ -39,4 +39,4 @@ export const MainData = ({ data, isLoading }: { data?: FortniteStatsData; isLoad
       />
     </div>
   );
-};
+}

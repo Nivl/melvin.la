@@ -44,6 +44,7 @@
     "consistent-type-imports": "off", // Force the "type" keyword to be used consistently in imports. Conflicts with other rules.
     "eslint/complexity": "off", // Limit cyclomatic complexity. Too opinionated.
     "eslint/no-undefined": "off", // Prevent using undefined as an identifier. Too opinionated.
+    "func-style": "off", // Force function declarations vs expressions. Conflicts with react/function-component-definition.
     "import/exports-last": "off", // force exports at the end of file. Too opinionated, doesn't prevent anything useful.
     "import/group-exports": "off", // force grouping exports together. Too opinionated, doesn't prevent anything useful.
     "import/no-unassigned-import": "off", // Prevent side-effect imports. Needed for CSS and polyfill imports.
@@ -73,6 +74,8 @@
     "no-nested-ternary": "off", // Prevents the use of nested ternary expressions. Great on paper, but useful with jsx.
     "no-param-reassign": "off", // Prevent reassigning function parameters. Too restrictive for reducers and event handlers.
     "no-ternary": "off", // Prevents the use of ternary expressions. Too opinionated, doesn't prevent anything useful, especially with jsx.
+    "one-var": "off", // Prevent multiple variable declarations in a single statement. Too opinionated, doesn't prevent anything useful.
+    "prefer-arrow-callback": "off", // Prevent function expressions in callbacks. Conflicts with named component functions in memo/forwardRef.
     "oxc/no-async-await": "off", // Prevent using async/await.
     "oxc/no-optional-chaining": "off", // Prevent using optional chaining. Only useful if we want to support older browsers, which we don't.
     "oxc/no-rest-spread-properties": "off", // Prevent using rest/spread properties. Only useful if we want to support older browsers, which we don't.
@@ -82,6 +85,7 @@
     "react/forbid-component-props": "off", // Forbid certain props on components. Too opinionated, and too spammy to keep as warning.
     "react/jsx-filename-extension": "off", // Restrict JSX to .jsx files only. We use .tsx.
     "react/jsx-max-depth": "off", // limit the nesting depth of jsx. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
+    "react/jsx-no-literals": "off", // Prevent literal text in JSX. i18n is verified via i18n:check; literal brand names and numbers are allowed.
     "react-perf/jsx-no-new-function-as-prop": "off", // Prevent passing inline functions as prop. Too opinionated, and too spammy to keep as warning.
     "require-await": "off", // All async methods require an await. Doesn't solve anything useful.
     "sort-imports": "off", // Sort imports. Conflicts with eslint-plugin-simple-import-sort.

@@ -4,7 +4,7 @@ import { PostDetails } from "#features/blog/components/post-details";
 import { BlogPost } from "#features/blog/models";
 import { Section } from "#shared/components/layout/section";
 
-export const List = ({ posts }: { posts: BlogPost[] }) => {
+export function List({ posts }: { posts: BlogPost[] }) {
   const t = useTranslations("blog");
 
   return (
@@ -23,4 +23,4 @@ export const List = ({ posts }: { posts: BlogPost[] }) => {
       </Section>
     </>
   );
-};
+}

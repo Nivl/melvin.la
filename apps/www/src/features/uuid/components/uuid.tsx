@@ -108,7 +108,7 @@ for (const ns of availableUuidTypes) {
   uuidKeyToGenerate[ns.key] = ns.generate;
 }
 
-export const Uuid = () => {
+export function Uuid() {
   const t = useTranslations("uuid");
 
   const [uuids, setUuids] = useState<string[]>([]);
@@ -271,4 +271,4 @@ export const Uuid = () => {
       </Section>
     </>
   );
-};
+}

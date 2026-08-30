@@ -7,7 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { buildGetMessageFallback, MessagesType } from "#i18n/request";
 import { TRPCReactProvider } from "#trpc/provider";
 
-export const Providers = ({
+export function Providers({
   children,
   locale,
   messages,
@@ -15,21 +15,23 @@ export const Providers = ({
   children: React.ReactNode;
   locale: string;
   messages: MessagesType;
-}) => (
-  <TRPCReactProvider>
-    <NextIntlClientProvider
-      messages={messages}
-      locale={locale}
-      getMessageFallback={buildGetMessageFallback(locale)}
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      onError={() => {}}
-    >
-      <I18nProvider locale={locale}>
-        <NextThemesProvider defaultTheme="blue">
-          <Toast.Provider placement="bottom end" />
-          {children}
-        </NextThemesProvider>
-      </I18nProvider>
-    </NextIntlClientProvider>
-  </TRPCReactProvider>
-);
+}) {
+  return (
+    <TRPCReactProvider>
+      <NextIntlClientProvider
+        messages={messages}
+        locale={locale}
+        getMessageFallback={buildGetMessageFallback(locale)}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onError={() => {}}
+      >
+        <I18nProvider locale={locale}>
+          <NextThemesProvider defaultTheme="blue">
+            <Toast.Provider placement="bottom end" />
+            {children}
+          </NextThemesProvider>
+        </I18nProvider>
+      </NextIntlClientProvider>
+    </TRPCReactProvider>
+  );
+}

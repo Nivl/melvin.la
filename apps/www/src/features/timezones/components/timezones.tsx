@@ -47,7 +47,7 @@ const searchCities = (value: string): City[] => {
   return cities;
 };
 
-export const Timezones = () => {
+export function Timezones() {
   const t = useTranslations("timezones");
   const locale = useLocale();
 
@@ -228,4 +228,4 @@ export const Timezones = () => {
       </Section>
     </>
   );
-};
+}

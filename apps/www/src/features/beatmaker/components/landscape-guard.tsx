@@ -17,7 +17,7 @@ type LandscapeGuardProps = {
  * prompting the user to rotate their device. The overlay disappears
  * automatically once landscape orientation is detected.
  */
-export const LandscapeGuard = ({ children }: LandscapeGuardProps): React.JSX.Element => {
+export function LandscapeGuard({ children }: LandscapeGuardProps): React.JSX.Element {
   const t = useTranslations("beatmaker.rotate");
   const showOverlay = useMediaQuery(PORTRAIT_QUERY);
 
@@ -49,4 +49,4 @@ export const LandscapeGuard = ({ children }: LandscapeGuardProps): React.JSX.Ele
       )}
     </>
   );
-};
+}

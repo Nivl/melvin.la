@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { createElement } from "react";
 
 const makeEl = (tag: string) => {
-  const MotionComponent = ({
+  function MotionComponent({
     children,
     initial: _i,
     animate: _a,
@@ -13,7 +13,9 @@ const makeEl = (tag: string) => {
     layout: _l,
     layoutId: _li,
     ...props
-  }: Record<string, unknown> & { children?: ReactNode }) => createElement(tag, props, children);
+  }: Record<string, unknown> & { children?: ReactNode }) {
+    return createElement(tag, props, children);
+  }
   return MotionComponent;
 };
 
