@@ -125,8 +125,8 @@ export const ConwayGrid = ({ board, boardSize, isPlaying, ariaLabel, onSetCell }
   return (
     <div
       ref={containerRef}
-      // eslint-disable-next-line jsx-a11y/prefer-tag-over-role
-      role="region"
+      role="grid"
+      tabIndex={0}
       aria-label={ariaLabel}
       className="touch-none overflow-hidden rounded-lg border border-default select-none"
       style={{
