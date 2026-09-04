@@ -53,8 +53,8 @@ catalog:
   next: 16.3.2
   next-intl: 4.13.7
   next-mdx-remote: 6.0.0
-  oxfmt: 0.63.0
-  oxlint: 1.78.0
+  oxfmt: 0.64.0
+  oxlint: 1.79.0
   oxlint-tsgolint: 7.0.2001
   postcss: 8.5.26
   react: 19.2.8
