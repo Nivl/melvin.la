@@ -1,116 +1,115 @@
 ---
-title: "La manera correcta de dar prompts a los agentes de programación de IA"
-excerpt: "La mayoría de los desarrolladores dan prompts a los agentes de programación de IA como si enviaran un mensaje de texto. Esta es la técnica que realmente funciona, y por qué comienza preguntándole a la IA qué necesita."
+title: "La forma correcta de escribir prompts para agentes de código con IA"
+excerpt: "La mayoría de los desarrolladores le escriben a un agente de código con IA como si mandaran un mensaje de texto. La técnica que funciona empieza por preguntarle a la IA qué necesita."
 image: "cover.avif"
 ogImage: "cover.png"
 createdAt: "2026-02-26"
+UpdatedAt: "2027-09-07"
 ---
 
-Así es como la mayoría de los desarrolladores usan un agente de programación de IA: abren una ventana de chat y escriben algo como "agrega un botón de modo oscuro a la página de configuración". El agente produce algo. Más o menos funciona. Hay detalles por pulir. El desarrollador pasa los siguientes veinte minutos yendo y viniendo para arreglar las cosas.
+Así es como la mayoría de los desarrolladores usa un agente de código con IA. Abren la ventana de chat y escriben algo como "agrega un interruptor de modo oscuro a la página de configuración". El agente produce algo. Más o menos funciona. Quedan detalles por pulir. El desarrollador pasa los siguientes veinte minutos yendo y viniendo para remendar las cosas.
 
-Luego deciden que el modelo no es tan bueno.
+Luego decide que el modelo no es tan bueno.
 
-El modelo está bien. El prompt es el problema.
+El modelo es bueno. El problema es el prompt.
 
 ## La incómoda realidad de los prompts vagos
 
-Cada ambigüedad en tu prompt es una decisión que el modelo toma sin ti. ¿Debería la preferencia del modo oscuro persistir entre sesiones? ¿Debería respetar la configuración a nivel del sistema operativo? ¿Dónde se almacena la preferencia: localStorage, un perfil de usuario en la base de datos, una cookie? ¿Qué biblioteca de componentes se está utilizando y cómo funcionan los temas en ella?
+Cada ambigüedad en tu prompt es una decisión que el modelo toma sin ti. ¿La preferencia de modo oscuro debería mantenerse entre sesiones? ¿Tiene que respetar la configuración del sistema operativo? ¿Dónde se guarda la preferencia, en localStorage, en un perfil de usuario en la base de datos o en una cookie? ¿Qué biblioteca de componentes se usa y cómo funciona el tema dentro de ella?
 
-No lo dijiste. Así que el modelo adivina. A veces adivina bien. A menudo no, y ahora tienes código que funciona en un entorno y se rompe en otro, o un componente que ignora la preferencia existente del usuario, o un botón que realmente no alterna nada porque no está conectado al contexto adecuado.
+No lo dijiste. Entonces el modelo adivina. A veces acierta. Con frecuencia no. Y ahí tienes código que funciona en un entorno y se rompe en otro, o un componente que ignora la preferencia que el usuario ya había configurado.
 
-Esto no es un problema de calidad del modelo. Es un problema de información.
+Esto es un problema de información.
 
-## La técnica: Deja que el agente construya su propio prompt
+## La técnica: deja que el agente construya su propio prompt
 
-Esto es lo que realmente funciona, y lo que han descubierto los equipos que construyen flujos de trabajo serios de desarrollo asistido por IA: **el modelo sabe qué necesita para hacer bien una tarea mejor de lo que la mayoría de los desarrolladores saben cómo pedirlo.**
+Esto es lo que descubrieron los equipos serios que arman flujos de desarrollo asistido por IA. El modelo sabe qué necesita para hacer bien una tarea mejor de lo que la mayoría de los desarrolladores sabe cómo pedirlo.
 
-Ha procesado un volumen enorme de tareas de ingeniería bien especificadas. Sabe cómo se ve una solicitud de característica completa. Sabe qué información falta típicamente en un informe de error vago. El truco es hacer que te diga qué falta _antes_ de pedirle que haga algo.
+Ha procesado una cantidad enorme de tareas de ingeniería bien especificadas, así que sabe cómo se ve una solicitud de funcionalidad completa y qué suele faltar en un reporte de bug vago. El truco es hacer que te diga qué falta antes de pedirle que haga algo.
 
-El flujo es así:
+El flujo se ve así:
 
-1. **Describe tu objetivo de forma general**: lo suficiente para que el agente entienda el espacio del problema.
-2. **Pregunta qué necesitaría para hacerlo correctamente**: "¿Qué información necesitarías para completar bien esta tarea? ¿Qué ambigüedades debería aclarar? ¿Qué debería especificar que no haya hecho?"
-3. **Llena los vacíos**: responde a sus preguntas, proporciona el contexto que pidió.
-4. **Ahora asígnale la tarea**: ya sea incorporando sus preguntas a tu prompt, o pidiéndole que reescriba tu solicitud original en una especificación completa, y luego aprueba y ejecuta.
+1. **Describe tu objetivo a grandes rasgos:** lo justo para que el agente entienda el problema
+2. **Pregunta qué necesitaría para hacerlo bien:** "¿Qué información necesitarías para completar bien esta tarea? ¿Qué ambigüedades debería aclarar? ¿Qué debería especificar y no lo hice?"
+3. **Completa los vacíos:** responde sus preguntas, dale el contexto que pidió
+4. **Ahora dale la tarea:** incorpora sus preguntas a tu prompt, o pídele que reescriba tu solicitud original como una especificación completa, y luego aprueba y ejecuta
 
-Ese último paso es opcional pero poderoso. Puedes pedirle al agente: "Basándote en mis respuestas, reescribe mi solicitud original como una especificación de tarea completa". Lo que obtienes a cambio es un prompt que el modelo mismo considera lo suficientemente completo como para ejecutarlo bien. Luego envías ese prompt como la tarea real.
+Ese último paso es opcional pero vale la pena. Puedes pedirle al agente: "Con base en mis respuestas, reescribe mi solicitud original como una especificación completa de la tarea." Lo que recibes es un prompt que el propio modelo considera lo bastante completo para ejecutarlo bien. Entonces envías ese prompt como la tarea real.
 
-A esto es a lo que algunos han comenzado a llamar ingeniería de prompts inversa para la ejecución de tareas: no estás escribiendo el prompt perfecto desde cero, estás usando el modelo para sacar a la luz lo que contendría un prompt perfecto.
+Algunos ya llaman a esto ingeniería inversa de prompts para ejecutar tareas. El modelo muestra qué contendría un prompt perfecto, y tú trabajas a partir de eso.
 
-## Ejemplo 1: Construyendo una funcionalidad
+## Ejemplo 1: Construir una funcionalidad
 
-Digamos que quieres agregar un botón de modo oscuro a una página de configuración. Así es como se desarrollan los dos enfoques.
+Digamos que quieres agregar un interruptor de modo oscuro a una página de configuración. Así se ven los dos enfoques.
 
 **El enfoque ingenuo:**
 
-> "Agrega un botón de modo oscuro a la página de configuración".
+> "Agrega un interruptor de modo oscuro a la página de configuración."
 
-El agente produce un componente con un botón codificado (hardcoded), almacena la preferencia en el estado del componente (se pierde al actualizar), no lo conecta a ningún sistema de temas existente y usa estilos en línea en lugar de las variables CSS o tokens de diseño que ya estés usando.
+El agente produce un componente con un interruptor escrito a mano, guarda la preferencia en el estado del componente para que se reinicie al actualizar, ignora el sistema de temas existente y usa estilos en línea en lugar de tus variables de CSS o tokens de tema.
 
 Pasas la siguiente hora arreglándolo.
 
-**El enfoque del prompt inverso:**
+**El enfoque de prompt inverso:**
 
-Comienzas con la misma oración, luego preguntas: _"Antes de empezar, ¿qué necesitarías saber para implementar esto correctamente? ¿Qué debería aclarar?"_
+Empiezas con la misma frase y luego preguntas: _"Antes de empezar, ¿qué necesitarías saber para implementarlo bien? ¿Qué debería aclarar?"_
 
-El agente responde con algo como:
+El agente responde algo así:
 
 > - ¿Dónde debería persistir la preferencia (localStorage, base de datos, cookie)?
-> - ¿Existe un sistema de temas (next-themes, variables CSS, la variante dark: de Tailwind)?
-> - ¿Debería el botón respetar la preferencia de modo oscuro del sistema operativo del usuario por defecto?
-> - ¿En qué parte de la página de configuración debería ir? ¿Hay una sección de "Apariencia" existente?
-> - ¿Debería sincronizarse la preferencia entre sesiones si el usuario ha iniciado sesión?
+> - ¿Existe un sistema de temas (next-themes, variables de CSS, variante dark de Tailwind)?
+> - ¿El interruptor debería respetar el modo oscuro del sistema operativo como valor por defecto?
+> - ¿Dónde debería ir en la página de configuración? ¿Hay una sección "Apariencia"?
+> - ¿La preferencia debería sincronizarse entre sesiones si el usuario tiene la sesión iniciada?
 
-Respondes a estas preguntas. Le dices que la aplicación usa `next-themes`, las preferencias se almacenan en el perfil del usuario a través de un endpoint `PATCH /users/me` existente, y ya hay una sección de "Apariencia" en la página de configuración con otros botones que siguen un patrón de componentes específico.
+Respondes esas preguntas. Le dices que la app usa `next-themes`, que las preferencias se guardan en el perfil del usuario mediante un endpoint `PATCH /users/me` existente y que ya hay una sección "Apariencia" en la página de configuración con otros interruptores que siguen un patrón de componente específico.
 
-Ahora el agente tiene lo que necesita. La implementación que produce se conecta al proveedor de temas correcto, usa la API existente, coincide con el patrón de UI actual y maneja el caso de respaldo de la preferencia del sistema operativo. No necesitas arreglar nada.
+Ahora el agente tiene lo que necesita. La implementación que produce se conecta al proveedor de temas correcto, usa la API existente, respeta el patrón de interfaz actual y maneja el respaldo del modo oscuro del sistema. No tienes que arreglar nada.
 
-La diferencia en la calidad de salida no es sutil.
+## Ejemplo 2: Corregir un bug
 
-## Ejemplo 2: Arreglando un bug
+Los reportes de bugs son donde el prompt vago causa el mayor daño. Un modelo sin contexto produce código seguro de sí mismo pero equivocado.
 
-Los reportes de bugs son donde los prompts vagos causan el mayor daño, porque un modelo que no tiene suficiente contexto no solo produce código mediocre: produce código segurísimo, pero equivocado.
+Imagina que alguien reporta un bug: _"El botón de inicio de sesión a veces no funciona."_
 
-Imagina que alguien reporta un error: _"A veces, el botón de inicio de sesión no funciona"._
+**El enfoque ingenuo:** Pegas eso en tu agente. Empieza a revisar el código de autenticación, encuentra un patrón async/await sospechoso, decide que probablemente sea eso, reescribe la función y abre un PR. El bug sigue ahí. La función que cambió no tenía relación.
 
-**El enfoque ingenuo:** Pegas eso en tu agente. Empieza a escanear código de autenticación, detecta un patrón async/await sospechoso, decide que probablemente sea eso, reescribe la función y abre un PR. El error sigue ahí. La función que cambió no tenía relación.
+**El enfoque de prompt inverso:**
 
-**El enfoque del prompt inverso:**
-
-Le das al agente el reporte del error y le preguntas: _"¿Qué necesitarías saber para diagnosticar esto de manera efectiva? ¿Qué preguntas haría un ingeniero senior antes de tocar cualquier código?"_
+Le das al agente el reporte del bug y preguntas: _"¿Qué necesitarías saber para diagnosticar esto con eficacia? ¿Qué preguntas haría un ingeniero senior antes de tocar código?"_
 
 Responde:
 
-> - ¿Qué significa "no funciona"? ¿El botón no responde a los clics, el clic se dispara pero no pasa nada, o se muestra un error?
-> - ¿Es esto reproducible de manera confiable o intermitente? ¿Algún patrón (navegador específico, condiciones de red, estado del usuario)?
-> - ¿Hay algún error en la consola o solicitudes de red fallando cuando sucede esto?
+> - ¿Qué significa "no funciona"? ¿El botón no responde a los clics, el clic ocurre pero no pasa nada, o aparece un error?
+> - ¿Se reproduce siempre o es intermitente? ¿Hay algún patrón (navegador específico, condiciones de red, estado del usuario)?
+> - ¿Hay errores de consola o solicitudes de red que fallen cuando ocurre?
 > - ¿Qué componente maneja el clic del botón y qué servicio maneja la autenticación?
-> - ¿Siempre ha estado roto o es una regresión reciente? Si es una regresión, ¿qué cambió?
+> - ¿Siempre estuvo roto o se rompió hace poco? Si es una regresión, ¿qué cambió?
 
-Vuelves a la persona que reportó el error, obtienes las respuestas: es intermitente, solo ocurre cuando el usuario ha estado en la página por más de diez minutos, no hay errores en la consola, pero la solicitud de red nunca se dispara. Eso ahora es un error completamente diferente: probablemente un problema de expiración de token o un closure obsoleto (stale closure) en un manejador de eventos, no un problema de async/await.
+Vuelves con la persona que reportó el bug y consigues las respuestas. Es intermitente y solo aparece después de que el usuario lleva más de diez minutos en la página. No hay errores de consola, pero la solicitud de red nunca se dispara. Eso es un bug completamente distinto. La causa probable es un problema de expiración de token o un cierre léxico desactualizado en un manejador de eventos.
 
-Le das al agente esa información, y ahora va al lugar correcto. Encuentra un `useCallback` con una dependencia obsoleta que captura un token de autenticación del renderizado inicial. Una solución precisa, sin daño colateral.
+Le das esa información al agente, y ahora va al lugar correcto. Encuentra un `useCallback` con una dependencia desactualizada que captura un token de autenticación del render inicial. El arreglo es un solo cambio puntual.
 
-## Por qué funciona esto
+## Por qué funciona
 
-La razón por la que gran parte de la programación asistida por IA se siente como una negociación —donde vas y vienes refinando la salida durante varias rondas— es que el prompt inicial deja demasiadas decisiones al modelo. Cada ronda de revisión eres tú corrigiendo una suposición que el modelo hizo porque no lo especificaste.
+La razón por la que la mayor parte del desarrollo asistido por IA se siente como una negociación es que el prompt inicial deja demasiadas decisiones al modelo. Vas y vienes refinando el resultado durante varias rondas. Cada ronda de revisión es corregir una suposición que el modelo hizo porque no la especificaste.
 
-El prompting inverso colapsa la mayoría de esas rondas en una conversación inicial. Las preguntas del modelo te dicen exactamente qué decisiones habría tomado por su cuenta. Las tomas tú en su lugar. La salida sale bien a la primera porque tenía información completa.
+El prompt inverso condensa casi todas esas rondas en una sola conversación al inicio. Las preguntas del modelo te dicen exactamente qué decisiones habría tomado por su cuenta. Las tomas tú. El resultado sale bien a la primera porque tuvo información completa.
 
-También hay un beneficio secundario: las preguntas que hace el modelo son una lista de verificación. Si utilizas la misma técnica constantemente para tareas similares —agregar nuevas configuraciones, arreglar errores de autenticación, integrar una nueva API— las preguntas empiezan a parecerte familiares. Con el tiempo, aprendes a incluir esos detalles en tus prompts sin que te lo pidan, y la calidad base de tus prompts mejora.
+Hay además un beneficio secundario. Las preguntas que hace el modelo son una lista de control. Si usas la misma técnica de forma consistente para tareas similares, como agregar nuevas configuraciones o corregir bugs de autenticación, las preguntas empiezan a resultarte familiares. Con el tiempo aprendes a incluir esos detalles en tus prompts sin que te los pidan, y la calidad base de tus prompts mejora.
 
 ## Algunas notas prácticas
 
-Esta técnica funciona mejor con agentes que tienen uso de herramientas y acceso a archivos: herramientas como Cursor, GitHub Copilot en modo agente, Claude o similares. Un agente que pueda leer tu base de código hará preguntas mucho más específicas que uno trabajando a ciegas.
+Esta técnica funciona mejor con agentes que tienen acceso a herramientas y a archivos, como Cursor o GitHub Copilot en modo agente. Un agente que puede leer tu código hace preguntas mucho más específicas que uno que trabaja a ciegas.
 
-El flujo de dos turnos (qué necesitas → aquí tienes → ahora haz la tarea) añade un paso. Para tareas pequeñas y claramente definidas es excesivo. Pero para cualquier cosa que toque varios archivos, se integre con sistemas existentes o implique una decisión de diseño no obvia, consistentemente produce mejores resultados que ir directamente a la implementación.
+El flujo de dos pasos (qué necesitas -> aquí está -> ahora haz la tarea) agrega un paso. Para tareas pequeñas y bien definidas es excesivo. Pero para cualquier cosa que toque varios archivos o se integre con sistemas existentes, produce mejores resultados que ir directo a la implementación.
 
-Y vale la pena guardar la especificación generada a partir del paso 3. Es una plantilla reutilizable. La próxima vez que alguien necesite agregar una configuración que persista en el perfil del usuario, ya tienes un prompt bien especificado para ello.
+La especificación generada en el paso 3 vale la pena guardarla. Es una plantilla reutilizable. La próxima vez que alguien necesite agregar una configuración que se guarde en el perfil del usuario, ya tienes un prompt bien especificado.
 
-## El punto principal
+## El punto de fondo
 
-La forma en que la mayoría de los desarrolladores envían prompts a los agentes de programación está optimizada para la velocidad a expensas de la calidad. Una oración rápida de entrada, una salida mediocre, y luego diez minutos de limpieza, repetido docenas de veces al día.
+La forma en que la mayoría de los desarrolladores escribe prompts para agentes de código está optimizada para la velocidad a costa de la calidad. Una frase rápida de entrada, un resultado mediocre de salida y diez minutos de limpieza. Esto se repite decenas de veces al día.
 
-El enfoque del prompting inverso da la vuelta a ese intercambio. Pasas un poco más de tiempo inicialmente asegurándote de que el modelo tenga lo que necesita. A cambio, el resultado aterriza más cerca de lo que realmente querías, y pasas menos tiempo arreglándolo.
+El enfoque del prompt inverso invierte ese equilibrio. Inviertes un poco más de tiempo al inicio para asegurarte de que el modelo tiene lo que necesita. A cambio, el resultado se acerca más a lo que querías y pasas menos tiempo corrigiéndolo.
 
-El mejor prompt para una tarea no es el que escribes en treinta segundos. Es el que el modelo te dice que necesita.
+El mejor prompt para una tarea es el que el modelo te dice que necesita.
