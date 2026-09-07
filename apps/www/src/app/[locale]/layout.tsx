@@ -15,7 +15,9 @@ import {
 } from "next/font/google";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
-import { getMessages } from "next-intl/server";
+// The current alternative doesn't work well yet
+// eslint-disable-next-line no-deprecated
+import { getMessages, setRequestLocale } from "next-intl/server";
 
 import { isLocale, locales } from "#i18n/locales";
 import { Navbar } from "#shared/components/layout/NavBar/navbar";
@@ -150,6 +152,12 @@ export default async function RootLayout({
   if (!isLocale(locale)) {
     return notFound();
   }
+
+  // Enable static rendering
+  //
+  // The current alternative doesn't work well yet
+  // eslint-disable-next-line no-deprecated
+  setRequestLocale(locale);
 
   const msg = await getMessages();
   const { condensed, fonts, fortnite, sans } = getFontsForLocale(locale);
