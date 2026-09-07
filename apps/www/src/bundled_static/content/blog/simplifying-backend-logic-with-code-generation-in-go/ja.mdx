@@ -1,41 +1,41 @@
 ---
-title: "Go言語におけるコード生成によるバックエンドロジックの簡素化"
-excerpt: "コード生成ツールがGoでのバックエンド開発をどのように効率化できるかを発見しましょう。"
+title: "Goでコード生成を使ってバックエンドのロジックをシンプルにする"
+excerpt: "コード生成ツールを使えばGoのバックエンド開発のボイラープレートが減る。"
 image: "cover.avif"
 ogImage: "cover.png"
 createdAt: "2025-06-20"
-updatedAt: "2025-06-20"
+updatedAt: "2026-09-07"
 ---
 
-バックエンド開発では、特にデータベースクエリやAPIサーバーの実装を扱う際に、反復的なボイラープレートコードが多くなりがちです。このコードを手動で記述して維持することは、エラーが発生しやすく、時間がかかります。コード生成（codegen）ツールは、宣言的な仕様から型安全で効率的、かつ保守可能なコードを生成することで、これらのタスクを自動化するのに役立ちます。
+バックエンド開発には決まりきったコードがつきものだ。特にデータベースのクエリやAPIサーバーの周りで顕著になる。そうしたコードを手で書くのは時間がかかるし、間違いも起きやすい。コード生成ツール（codegen）なら、宣言的な仕様から型安全なGoコードを自動で作ってくれる。メンテナンスの手間も省ける。
 
-この記事では、2つの人気のあるcodegenツールを使用して、Goでのバックエンドロジックを簡素化する方法を探ります：
+この記事では2つのツールを紹介する。
 
-- **[sqlc](https://sqlc.dev/)**: SQLクエリからGoコードを生成
-- **[oapi-codegen](https://github.com/oapi-codegen/oapi-codegen)**: OpenAPI仕様からGoサーバーコードを生成
+- [sqlc](https://sqlc.dev/) はSQLクエリからGoコードを生成する。
+- [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen) はOpenAPIの仕様からGoのサーバーコードを生成する。
 
-## なぜコード生成を使うのか？
+## なぜコード生成を使うのか
 
-- **ボイラープレートを削減:** 反復的なコード記述を自動化します。
-- **型安全性の向上:** 強く型付けされたコードを生成することで、実行時エラーを回避します。
-- **保守性の向上:** SQLやAPI仕様の変更が自動的にコードに伝播します。
-- **生産性の向上:** 配管工事（plumbing）ではなくビジネスロジックに集中できます。
+- ボイラープレートが減る。退屈な部分はジェネレーターが一度書いてくれる。
+- 型安全性が上がる。生成されたコードは強い型付けがされていて、実行時ではなくコンパイル時にエラーが見つかる。
+- メンテナンスが楽になる。SQLやAPIの仕様を変えたら再生成するだけ。
+- 作業が速くなる。時間はビジネスロジックに使える。
 
-## sqlcによるSQLコード生成
+## sqlc でSQLコードを生成する
 
-### sqlcとは？
+### sqlc とは
 
-**sqlc**は、SQLクエリからGoコードを生成するツールです。`.sql`ファイルにSQLクエリを記述すると、sqlcはそれらのクエリを型安全なパラメータと結果で実行するGo関数を生成します。
+sqlc は `.sql` ファイルを読み込み、型付きのパラメータと結果でクエリを実行するGo関数を生成する。
 
-### sqlcの使い方
+### sqlc の使い方
 
-1. SQLスキーマとクエリを記述します。
-2. `sqlc.yaml`を設定して、入出力を指定します。
-3. `sqlc generate`を実行してGoコードを生成します。
+1. スキーマとクエリを書く。
+2. `sqlc.yaml` で入力と出力を設定する。
+3. `sqlc generate` を実行する。
 
 ### 例
 
-シンプルな`users`テーブルがあるとします：
+`users` テーブルがあるとしよう。
 
 ```sql
 -- schema.sql
@@ -46,7 +46,7 @@ CREATE TABLE users (
 );
 ```
 
-そして、メールアドレスでユーザーを取得するクエリ：
+メールアドレスでユーザーを引くクエリは次の通り。
 
 ```sql
 -- queries.sql
@@ -54,7 +54,7 @@ CREATE TABLE users (
 SELECT id, name, email FROM users WHERE email = $1;
 ```
 
-`sqlc.yaml`設定：
+`sqlc.yaml` の設定。
 
 ```yaml
 version: "1"
@@ -66,45 +66,45 @@ packages:
     engine: "postgresql"
 ```
 
-実行：
+実行する。
 
 ```bash
 sqlc generate
 ```
 
-これにより、次のようなメソッドを持つGoコードが生成されます：
+するとこういうメソッドが生成される。
 
 ```go
 func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error)
 ```
 
-バックエンドで次のように使用できます：
+バックエンドではこう使う。
 
 ```go
 user, err := dbQueries.GetUserByEmail(ctx, "alice@example.com")
 if err != nil {
-    // エラー処理
+    // handle error
 }
 fmt.Println("User:", user.Name)
 ```
 
-これにより、手動でのSQL文字列処理や行のスキャンが不要になり、コードがよりクリーンで安全になります。
+SQL文字列を手で組み立てたり行を走査したりする作業が消える。コードはよりきれいで安全になる。
 
-## oapi-codegenによるサーバーコード生成
+## oapi-codegen でサーバーコードを生成する
 
-### oapi-codegenとは？
+### oapi-codegen とは
 
-**oapi-codegen**は、OpenAPI (Swagger) 仕様からGoサーバー（およびクライアント）コードを生成します。インターフェースとリクエスト/レスポンス型を作成するため、ビジネスロジックの実装に集中できます。
+oapi-codegen は OpenAPI の仕様から Go のサーバーコードとクライアントコードを生成する。インターフェースとリクエスト・レスポンスの型を作ってくれる。残るのはビジネスロジックの実装だけ。
 
-### oapi-codegenの使い方
+### oapi-codegen の使い方
 
-1. OpenAPIのYAMLまたはJSONファイルでAPIを定義します。
-2. `oapi-codegen`を実行してGoサーバーコードを生成します。
-3. 生成されたインターフェースメソッドを実装します。
+1. OpenAPI の YAML か JSON で API を定義する。
+2. `oapi-codegen` を実行する。
+3. 生成されたインターフェースのメソッドを実装する。
 
 ### 例
 
-シンプルなOpenAPI仕様 `api.yaml` を考えてみましょう：
+小さな OpenAPI の仕様 `api.yaml` を用意する。
 
 ```yaml
 openapi: 3.0.0
@@ -143,22 +143,19 @@ components:
           type: string
 ```
 
-サーバーコードを生成：
+サーバーコードを生成する。
 
 ```bash
 oapi-codegen -generate types,server -package api -o api.gen.go api.yaml
 ```
 
-これにより以下が生成されます：
-
-- リクエスト/レスポンス用のGo型（`User`構造体）
-- 次のメソッドを持つインターフェース `ServerInterface`：
+これでリクエスト・レスポンスの型（`User` struct）と、メソッドを持つ `ServerInterface` が生成される。
 
 ```go
 GetUsersEmail(ctx context.Context, email string) (api.User, error)
 ```
 
-インターフェースを実装：
+インターフェースを実装する。
 
 ```go
 type ServerImpl struct {
@@ -178,20 +175,20 @@ func (s *ServerImpl) GetUsersEmail(ctx context.Context, email string) (api.User,
 }
 ```
 
-サーバーを接続：
+サーバーをつなぐ。
 
 ```go
 router := api.NewRouter(&ServerImpl{db: dbQueries})
 http.ListenAndServe(":8080", router)
 ```
 
-## sqlcとoapi-codegenを組み合わせるメリット
+## sqlc と oapi-codegen を組み合わせる利点
 
-- **エンドツーエンドの型安全性:** データベースからAPIレイヤーまで。
-- **明確な分離:** SQLクエリとAPI仕様は宣言的であり、ロジックから分離されています。
-- **開発の高速化:** 配管工事ではなく、ビジネスロジックの実装に集中できます。
-- **リファクタリングの容易さ:** SQLやAPI仕様を変更し、コードを再生成し、最小限のコードを修正するだけです。
+- 型安全性がデータベースから API 層まで一貫する。
+- SQL と API の仕様は宣言的なままで、ロジックから分離されている。
+- 開発が速くなる。ビジネスロジックに集中できる。
+- リファクタリングが楽になる。SQL や仕様を変えて再生成し、実際に変わった部分だけ直せばいい。
 
-## 結論
+## まとめ
 
-**sqlc**と**oapi-codegen**を併用することで、データベースアクセスとAPIサーバーコードの生成を自動化し、Goでのバックエンド開発を大幅に簡素化できます。このアプローチにより、ボイラープレートが削減され、安全性が向上し、開発が加速するため、最も重要なこと、つまりアプリケーションのコアロジックに集中できるようになります。
+sqlc と oapi-codegen を一緒に使えば、Go のバックエンドでデータベースアクセスと API サーバーのコードを自動化できる。書くボイラープレートが減り、実行時のエラーも減る。集中すべきはアプリケーションの中心となるロジックだ。
