@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+// The current alternative doesn't work well yet
+// eslint-disable-next-line no-deprecated
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 
 import { List } from "#features/blog/components/list";
@@ -9,6 +11,9 @@ import { getMetadata } from "#shared/utils/metadata";
 
 export default function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params);
+  // The current alternative doesn't work well yet
+  // eslint-disable-next-line no-deprecated
+  setRequestLocale(locale);
 
   const posts = getLatestBlogPosts(locale);
   if (posts.length === 0) {
