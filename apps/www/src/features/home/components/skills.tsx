@@ -66,7 +66,7 @@ const skillsData: SkillData[] = [
   },
   {
     logo: "python",
-    name: "python",
+    name: "Python",
     url: "https://www.python.org/",
     usages: [
       {
@@ -105,7 +105,7 @@ const skillsData: SkillData[] = [
   },
   {
     logo: "java",
-    name: "java",
+    name: "Java",
     url: "https://www.java.com/",
     usages: [
       {
@@ -248,7 +248,7 @@ const skillsData: SkillData[] = [
   },
   {
     logo: "c",
-    name: "c",
+    name: "C",
     url: "https://en.wikipedia.org/wiki/C_(programming_language)",
     usages: [
       {
@@ -271,7 +271,7 @@ const skillsData: SkillData[] = [
   {
     logo: "amplitude",
     logoColor: "fill-tech-amplitude",
-    name: "amplitude",
+    name: "Amplitude",
     url: "https://amplitude.com",
     usages: [
       {
@@ -304,7 +304,7 @@ const skillsData: SkillData[] = [
   },
   {
     logo: "swift",
-    name: "swift",
+    name: "Swift",
     url: "https://developer.apple.com/swift",
     usages: [
       {
@@ -362,7 +362,7 @@ const skillsData: SkillData[] = [
   },
   {
     logo: "clojure",
-    name: "clojure",
+    name: "Clojure",
     url: "https://clojure.org",
     usages: [
       {
@@ -453,7 +453,7 @@ const skillsData: SkillData[] = [
   },
   {
     logo: "electron",
-    name: "electron",
+    name: "Electron",
     url: "https://electronjs.org",
     usages: [
       {
