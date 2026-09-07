@@ -1,41 +1,41 @@
 ---
-title: "Go 코드 생성으로 백엔드 로직 단순화하기"
-excerpt: "코드 생성 도구가 어떻게 Go 백엔드 개발을 효율적으로 만들 수 있는지 알아보세요."
+title: "Go에서 코드 생성으로 백엔드 로직을 단순하게 만들기"
+excerpt: "코드 생성 도구는 Go 백엔드 개발의 보일러플레이트를 줄여 준다."
 image: "cover.avif"
 ogImage: "cover.png"
 createdAt: "2025-06-20"
-updatedAt: "2025-06-20"
+updatedAt: "2026-09-07"
 ---
 
-백엔드 개발은 데이터베이스 쿼리 및 API 서버 구현을 다룰 때 반복적인 상용구(boilerplate) 코드를 포함하는 경우가 많습니다. 이러한 코드를 수동으로 작성하고 유지 관리하는 것은 오류가 발생하기 쉽고 시간이 많이 소요될 수 있습니다. 코드 생성(codegen) 도구는 선언적 사양에서 타입 안전(type-safe)하고 효율적이며 유지 관리가 용이한 코드를 생성하여 이러한 작업을 자동화하는 데 도움을 줍니다.
+백엔드 개발에는 반복되는 코드가 늘 따라붙는다. 특히 데이터베이스 쿼리와 API 서버 주변이 그렇다. 그 코드를 손으로 쓰는 건 느리고 실수도 쉽다. 코드 생성 도구(codegen)는 선언적인 명세에서 타입 안전한 Go 코드를 자동으로 만들어 준다. 유지 보수할 코드도 줄어든다.
 
-이 글에서는 널리 사용되는 두 가지 코드 생성 도구를 사용하여 Go에서 백엔드 로직을 단순화하는 방법을 살펴보겠습니다:
+이 글에서는 두 가지 도구를 다룬다.
 
-- **[sqlc](https://sqlc.dev/)**: SQL 쿼리에서 Go 코드를 생성하기 위해
-- **[oapi-codegen](https://github.com/oapi-codegen/oapi-codegen)**: OpenAPI 사양에서 Go 서버 코드를 생성하기 위해
+- [sqlc](https://sqlc.dev/)는 SQL 쿼리에서 Go 코드를 생성한다.
+- [oapi-codegen](https://github.com/oapi-codegen/oapi-codegen)은 OpenAPI 명세에서 Go 서버 코드를 생성한다.
 
-## 왜 코드 생성을 사용해야 할까요?
+## 코드 생성을 쓰는 이유
 
-- **상용구 감소:** 반복적인 코드 작성을 자동화합니다.
-- **타입 안전성 향상:** 강력하게 타입화된 코드를 생성하여 런타임 오류를 방지합니다.
-- **유지 보수성 개선:** SQL 또는 API 사양의 변경 사항이 코드에 자동으로 전파됩니다.
-- **생산성 증대:** 배관 작업(plumbing)보다는 비즈니스 로직에 집중할 수 있습니다.
+- 보일러플레이트가 줄어든다. 지루한 부분은 생성기가 한 번에 써 준다.
+- 타입 안전성이 올라간다. 생성된 코드는 강한 타입을 갖고 있어서 실행할 때가 아니라 컴파일할 때 오류를 잡아 준다.
+- 유지 보수가 쉬워진다. SQL이나 API 명세를 바꾸고 다시 생성하면 된다.
+- 작업이 빨라진다. 시간을 비즈니스 로직에 쓸 수 있다.
 
-## sqlc를 사용한 SQL 코드 생성
+## sqlc로 SQL 코드 생성하기
 
-### sqlc란 무엇인가요?
+### sqlc란
 
-**sqlc**는 SQL 쿼리로부터 Go 코드를 생성하는 도구입니다. `.sql` 파일에 SQL 쿼리를 작성하면, sqlc는 타입 안전한 매개변수와 결과를 사용하여 해당 쿼리를 실행하는 Go 함수를 생성합니다.
+sqlc는 `.sql` 파일을 읽고, 타입이 있는 매개변수와 결과로 쿼리를 실행하는 Go 함수를 생성한다.
 
-### sqlc 사용 방법
+### sqlc 사용법
 
-1. SQL 스키마와 쿼리를 작성합니다.
-2. `sqlc.yaml`을 구성하여 입력/출력을 지정합니다.
-3. `sqlc generate`를 실행하여 Go 코드를 생성합니다.
+1. 스키마와 쿼리를 작성한다.
+2. `sqlc.yaml`에서 입력과 출력을 설정한다.
+3. `sqlc generate`를 실행한다.
 
-### 예제
+### 예시
 
-간단한 `users` 테이블이 있다고 가정해 봅시다:
+`users` 테이블이 있다고 하자.
 
 ```sql
 -- schema.sql
@@ -46,7 +46,7 @@ CREATE TABLE users (
 );
 ```
 
-그리고 이메일로 사용자를 조회하는 쿼리:
+이메일로 사용자를 찾는 쿼리는 다음과 같다.
 
 ```sql
 -- queries.sql
@@ -54,7 +54,7 @@ CREATE TABLE users (
 SELECT id, name, email FROM users WHERE email = $1;
 ```
 
-`sqlc.yaml` 설정:
+`sqlc.yaml` 설정.
 
 ```yaml
 version: "1"
@@ -72,39 +72,39 @@ packages:
 sqlc generate
 ```
 
-이것은 다음과 같은 메서드를 가진 Go 코드를 생성합니다:
+그러면 이런 메서드가 생성된다.
 
 ```go
 func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error)
 ```
 
-백엔드에서 다음과 같이 사용할 수 있습니다:
+백엔드에서는 이렇게 쓴다.
 
 ```go
 user, err := dbQueries.GetUserByEmail(ctx, "alice@example.com")
 if err != nil {
-    // 오류 처리
+    // handle error
 }
 fmt.Println("User:", user.Name)
 ```
 
-이것은 수동 SQL 문자열 처리 및 행 스캔을 제거하여 코드를 더 깨끗하고 안전하게 만듭니다.
+SQL 문자열을 손으로 다루고 행을 스캔하던 작업이 사라진다. 코드가 더 깔끔하고 안전해진다.
 
-## oapi-codegen을 사용한 서버 코드 생성
+## oapi-codegen으로 서버 코드 생성하기
 
-### oapi-codegen이란 무엇인가요?
+### oapi-codegen이란
 
-**oapi-codegen**은 OpenAPI(Swagger) 사양에서 Go 서버(및 클라이언트) 코드를 생성합니다. 인터페이스와 요청/응답 타입을 생성하므로 비즈니스 로직 구현에 집중할 수 있습니다.
+oapi-codegen은 OpenAPI 명세에서 Go 서버 코드와 클라이언트 코드를 생성한다. 인터페이스와 요청·응답 타입을 만들어 준다. 남는 일은 비즈니스 로직 구현뿐이다.
 
-### oapi-codegen 사용 방법
+### oapi-codegen 사용법
 
-1. OpenAPI YAML 또는 JSON 파일에 API를 정의합니다.
-2. `oapi-codegen`을 실행하여 Go 서버 코드를 생성합니다.
-3. 생성된 인터페이스 메서드를 구현합니다.
+1. OpenAPI YAML 또는 JSON 파일로 API를 정의한다.
+2. `oapi-codegen`을 실행한다.
+3. 생성된 인터페이스 메서드를 구현한다.
 
-### 예제
+### 예시
 
-간단한 OpenAPI 사양 `api.yaml`을 고려해 봅시다:
+작은 OpenAPI 명세 `api.yaml`을 준비한다.
 
 ```yaml
 openapi: 3.0.0
@@ -143,22 +143,19 @@ components:
           type: string
 ```
 
-서버 코드 생성:
+서버 코드를 생성한다.
 
 ```bash
 oapi-codegen -generate types,server -package api -o api.gen.go api.yaml
 ```
 
-이것은 다음을 생성합니다:
-
-- 요청/응답을 위한 Go 타입 (`User` 구조체)
-- 다음과 같은 메서드가 있는 `ServerInterface` 인터페이스:
+이러면 요청·응답 타입(`User` struct)과 메서드를 가진 `ServerInterface`가 만들어진다.
 
 ```go
 GetUsersEmail(ctx context.Context, email string) (api.User, error)
 ```
 
-인터페이스 구현:
+인터페이스를 구현한다.
 
 ```go
 type ServerImpl struct {
@@ -178,20 +175,20 @@ func (s *ServerImpl) GetUsersEmail(ctx context.Context, email string) (api.User,
 }
 ```
 
-서버 연결:
+서버를 연결한다.
 
 ```go
 router := api.NewRouter(&ServerImpl{db: dbQueries})
 http.ListenAndServe(":8080", router)
 ```
 
-## sqlc와 oapi-codegen 결합의 이점
+## sqlc와 oapi-codegen을 함께 쓰는 이점
 
-- **엔드투엔드 타입 안전성:** 데이터베이스에서 API 계층까지.
-- **명확한 분리:** SQL 쿼리와 API 사양은 선언적이며 로직과 분리됩니다.
-- **개발 속도 향상:** 배관 작업이 아닌 비즈니스 로직 구현에 집중합니다.
-- **리팩토링 용이:** SQL 또는 API 사양을 변경하고, 코드를 재생성한 다음, 최소한의 코드만 수정합니다.
+- 타입 안전성이 데이터베이스부터 API 계층까지 이어진다.
+- SQL과 API 명세는 선언적인 상태를 유지하며 로직과 분리되어 있다.
+- 개발이 빨라진다. 비즈니스 로직에 집중할 수 있다.
+- 리팩터링이 쉬워진다. SQL이나 명세를 바꾸고 다시 생성한 뒤, 실제로 바뀐 부분만 고치면 된다.
 
-## 결론
+## 마무리
 
-**sqlc**와 **oapi-codegen**을 함께 사용하면 데이터베이스 액세스 및 API 서버 코드 생성을 자동화하여 Go 백엔드 개발을 크게 단순화할 수 있습니다. 이 접근 방식은 상용구를 줄이고 안전성을 높이며 개발 속도를 가속화하여 애플리케이션의 핵심 로직인 가장 중요한 부분에 집중할 수 있게 해줍니다.
+sqlc와 oapi-codegen을 함께 쓰면 Go 백엔드에서 데이터베이스 접근과 API 서버 코드를 자동화할 수 있다. 써야 할 보일러플레이트가 줄고 실행 중 오류도 줄어든다. 집중할 곳은 애플리케이션의 핵심 로직이다.
