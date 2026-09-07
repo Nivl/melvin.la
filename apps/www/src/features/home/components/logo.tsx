@@ -5,6 +5,7 @@ import {
   SiAndroid as Android,
   SiAngular as Angular,
   SiApple as Apple,
+  SiClaude as Claude,
   SiDatadog as Datadog,
   SiDocker as Docker,
   SiElevenlabs as Elevenlabs,
@@ -54,6 +55,9 @@ export function Logo({ name, className }: { name: string; className: string }) {
     }
     case "c": {
       return <C className={className} />;
+    }
+    case "claude": {
+      return <Claude className={className} />;
     }
     case "clojure": {
       return <Clojure className={className} />;

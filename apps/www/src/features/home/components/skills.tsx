@@ -546,6 +546,22 @@ const skillsData: SkillData[] = [
       },
     ],
   },
+  {
+    logo: "claude",
+    logoColor: "fill-tech-claude",
+    name: "Claude",
+    url: "https://claude.ai",
+    usages: [
+      {
+        type: "professional",
+        years: [...range(2025, "now")],
+      },
+      {
+        type: "personal",
+        years: [...range(2004, 2016)],
+      },
+    ],
+  },
 ];
 
 const emptySubscribe = () => () => undefined;
