@@ -20,9 +20,7 @@ describe("next.config security headers", () => {
     expect(globalHeaders.get("X-Frame-Options")).toBe("DENY");
     expect(globalHeaders.get("Referrer-Policy")).toBe("strict-origin-when-cross-origin");
     expect(globalHeaders.get("Permissions-Policy")).toContain("camera=()");
-    expect(globalHeaders.get("Content-Security-Policy-Report-Only")).toContain(
-      "report-uri /api/csp-report",
-    );
+    expect(globalHeaders.get("Content-Security-Policy")).toContain("report-uri /api/csp-report");
 
     const assetRule = rules?.find(
       (rule) => rule.source === "/assets/games/beatmaker/samples/:version/:rest*",
