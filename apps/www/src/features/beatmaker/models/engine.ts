@@ -110,7 +110,8 @@ export const createEngine = (
     initPromise = (async () => {
       // Create the AudioContext here, inside the user gesture, so iOS Safari
       // allows it to play audio immediately without being permanently suspended.
-      const context = (ctx ??= new AudioContext());
+      ctx ??= new AudioContext();
+      const context = ctx;
 
       context.addEventListener("statechange", () => {
         onStateChange?.(context.state);
