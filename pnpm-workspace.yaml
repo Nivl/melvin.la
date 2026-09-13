@@ -93,6 +93,8 @@ ignoredBuiltDependencies:
 
 minimumReleaseAge: 20160
 optimisticRepeatInstall: true
+patchedDependencies:
+  '@sentry/server-utils': patches/@sentry__server-utils.patch
 saveExact: true
 strictDepBuilds: true
 
