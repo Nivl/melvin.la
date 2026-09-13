@@ -83,6 +83,7 @@
     "prefer-destructuring": "off", // Prevent accessing an array doing "array[0]". Good idea on paper, but leads to less readable code in some cases.
     "prefer-template": "off", // Force the use of template literals. Good idea, but in some cases, string concatenation is more readable.
     "react/forbid-component-props": "off", // Forbid certain props on components. Too opinionated, and too spammy to keep as warning.
+    "react-hooks/todo": "off", // too many false positives
     "react/jsx-filename-extension": "off", // Restrict JSX to .jsx files only. We use .tsx.
     "react/jsx-max-depth": "off", // limit the nesting depth of jsx. Too opinionated, doesn't prevent anything useful, and sometimes leads to worse code.
     "react/jsx-no-literals": "off", // Prevent literal text in JSX. i18n is verified via i18n:check; literal brand names and numbers are allowed.
