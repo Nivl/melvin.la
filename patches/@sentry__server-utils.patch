@@ -1,0 +1,16 @@
+diff --git a/build/cjs/vendored/@apm-js-collab/code-transformer-bundler-plugins/dist/esm/webpack.js b/build/cjs/vendored/@apm-js-collab/code-transformer-bundler-plugins/dist/esm/webpack.js
+index 62c7ced354d50d8effb7abcb19523e4e261e2151..743d0a553b1d739cb8a01bf4358e84bff21c916d 100644
+--- a/build/cjs/vendored/@apm-js-collab/code-transformer-bundler-plugins/dist/esm/webpack.js
++++ b/build/cjs/vendored/@apm-js-collab/code-transformer-bundler-plugins/dist/esm/webpack.js
+@@ -3,10 +3,8 @@ Object.defineProperties(exports, { __esModule: { value: true }, [Symbol.toString
+ const instrumentationSerdeCXxvJj = require('./instrumentation-serde-C-Xxv-jj.js');
+ const require$$0 = require('node:path');
+ const url = require('node:url');
+-
+-var _documentCurrentScript = typeof document !== 'undefined' ? document.currentScript : null;
+ //#region src/webpack.ts
+-var LOADER_PATH = require$$0.resolve(require$$0.dirname(url.fileURLToPath((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('vendored/@apm-js-collab/code-transformer-bundler-plugins/dist/esm/webpack.js', document.baseURI).href)))), "..", "cjs", "webpack-loader.cjs");
++var LOADER_PATH = require$$0.resolve(require$$0.dirname(__filename), "..", "cjs", "webpack-loader.js");
+ var DIAGNOSTICS_STATE_KEY = "__codeTransformerWebpackDiagnostics";
+ /**
+ * Asset names of the chunk holding each entry module. Deliberately not
