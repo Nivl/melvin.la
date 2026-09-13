@@ -49,9 +49,7 @@ const securityHeaders = [
     ].join(", "),
   },
   {
-    // Roll out in report-only mode first so we can observe legitimate violations
-    // before switching to an enforcing CSP.
-    key: "Content-Security-Policy-Report-Only",
+    key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
       `script-src 'self' 'unsafe-inline' https://*.googleapis.com https://*.gstatic.com https://*.sentry.io https://*.vercel-scripts.com https://static.cloudflareinsights.com ${process.env.VERCEL_ENV === "preview" ? "https://vercel.live" : ""}`,
