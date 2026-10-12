@@ -56,6 +56,38 @@ Object.defineProperty(globalThis, "matchMedia", {
   writable: true,
 });
 
+// jsdom only provides requestAnimationFrame when pretendToBeVisual is set,
+// but react-aria calls it unconditionally from a delayed text-selection
+// restore timer (runAfterTransition). Without this fallback the timer
+// callback throws an unhandled ReferenceError in whichever test file happens
+// to be running when it fires (e.g. after a press on an iOS navigator).
+if (typeof globalThis.requestAnimationFrame !== "function") {
+  const pendingFrames = new Map<number, ReturnType<typeof setTimeout>>();
+  let nextFrameHandle = 0;
+  Object.defineProperty(globalThis, "requestAnimationFrame", {
+    value: (callback: FrameRequestCallback): number => {
+      nextFrameHandle += 1;
+      const handle = nextFrameHandle;
+      pendingFrames.set(
+        handle,
+        setTimeout(() => {
+          pendingFrames.delete(handle);
+          callback(performance.now());
+        }, 0),
+      );
+      return handle;
+    },
+    writable: true,
+  });
+  Object.defineProperty(globalThis, "cancelAnimationFrame", {
+    value: (handle: number): void => {
+      clearTimeout(pendingFrames.get(handle));
+      pendingFrames.delete(handle);
+    },
+    writable: true,
+  });
+}
+
 beforeAll(() => {
   server.listen();
 });
