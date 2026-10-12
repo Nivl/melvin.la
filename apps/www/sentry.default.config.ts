@@ -99,7 +99,5 @@ export const defaultConfig: BrowserOptions | NodeOptions | EdgeOptions = {
 
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 
-  enableLogs: true,
-
   tracesSampleRate: process.env.NODE_ENV === "production" ? 0.01 : 1,
 };
