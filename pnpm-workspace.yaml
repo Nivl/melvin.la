@@ -12,8 +12,8 @@ allowBuilds:
 blockExoticSubdeps: true
 catalog:
   "@chromatic-com/storybook": 5.3.1
-  "@heroui/react": 3.2.6
-  "@heroui/styles": 3.2.6
+  "@heroui/react": 3.2.7
+  "@heroui/styles": 3.2.7
   "@internationalized/date": 3.12.4
   "@lingual/i18n-check": 0.9.5
   "@msw/playwright": 0.6.7
@@ -65,7 +65,7 @@ catalog:
   shiki: 4.4.3
   storybook: 10.6.0
   tailwind-merge: 3.7.0
-  tailwindcss: 4.3.3
+  tailwindcss: 4.3.5
   tsx: 4.23.15
   turbo: 2.11.4
   typescript: 7.0.2
